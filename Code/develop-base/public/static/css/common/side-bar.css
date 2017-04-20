@@ -1,0 +1,44 @@
+/* Elements----------------------------------------*/
+* {
+	margin: 0;
+	padding: 0;
+	outline: 0;
+}
+/*右侧悬浮icon*/
+.side-bar {
+	width: 50px;
+	position: fixed;
+	bottom: 200px;
+	right: 25px;
+	font-size: 0;
+	line-height: 0;
+	z-index: 100;
+}
+.side-bar a {
+	width: 50px;
+	height: 50px;
+	display: inline-block;
+	background-color: #dddddd;
+	margin-bottom: 2px;
+}
+.side-bar a:hover {
+	background-color: #669fdd;
+}
+.side-bar .icon-cfg {
+	background-image: url('../../images/config.png');
+	background-position: center;
+	background-repeat: no-repeat;
+}
+.side-bar .icon-top {
+	background-image: url('../../images/top.png');
+	background-position: center;
+	background-repeat: no-repeat;
+}
+.side-bar .icon-bottom {
+	background-image: url('../../images/bottom.png');
+	background-position: center;
+	background-repeat: no-repeat;
+}
+
+
+

@@ -1,0 +1,415 @@
+<div id="processDiv" class="row">
+    <div class="col-xs-12 col-md-12">
+        <div class="widget">
+            <div class="widget-body">
+                <div id="processLayout" class="easyui-layout" data-options="fit:true" style="width:600px;height:666px;">
+                    <div data-options="region:'west',title:'流程基本属性列表',border:true" style="width:60%;">
+                        <div id="toolbar1" class="row tbRow">
+                            <div class="col-xs-8 col-md-8">
+                                <div class="btn-group" role="group" aria-label="...">
+                                    <button type="button" class="btn btn-default" onclick="openPage('新增流程基本属性',null,doAddProcessBase)"><i class="fa fa-plus"></i>新增</button>
+                                    <button type="button" class="btn btn-default" onclick="toEdit()"><i class="fa fa-edit"></i>修改</button>
+                                    <button type="button" class="btn btn-default" onclick="changeStatus(1,1)"><i class="glyphicon glyphicon-ok"></i>启用</button>
+                                    <button type="button" class="btn btn-default" onclick="changeStatus(1,2)"><i class="glyphicon glyphicon-remove"></i>禁用</button>
+                                </div>
+                            </div>
+                            <div class="col-xs-4 col-md-4 text-right">
+                                <form class="form-inline">
+                                    <div class="form-group">
+                                        <div class="input-group">
+                                            <input type="input" id="filterParam1" class="form-control" style="width:130px;" placeholder="流程名称/编码"/>
+                                            <span class="input-group-btn">
+                                                <button class="btn btn-default" type="button" onclick="doSearch(1)"><i class="fa fa-search"></i>查询</button>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <table id="processBaseDataTable">
+
+                        </table>
+                    </div>
+                    <div data-options="region:'center',title:'流程版本信息列表'">
+                        <div id="toolbar2" class="row tbRow">
+                            <div class="col-xs-5 col-md-5">
+                                <div class="btn-group" role="group" aria-label="...">
+                                    <button type="button" class="btn btn-default" onclick="openProcessChart(1)"><i class="fa fa-plus"></i>新增</button>
+                                    <button type="button" class="btn btn-default" onclick="openProcessChart(2)"><i class="fa fa-edit"></i>修改</button>
+                                    <button type="button" class="btn btn-default" onclick="changeStatus(2,1)"><i class="glyphicon glyphicon-ok"></i>启用</button>
+                                    <button type="button" class="btn btn-default" onclick="changeStatus(2,2)"><i class="glyphicon glyphicon-remove"></i>禁用</button>
+                                </div>
+                            </div>
+                            <div class="col-xs-7 col-md-7 text-right">
+                                <form class="form-inline">
+                                    <div class="form-group">
+                                        <div class="input-group">
+                                            <input type="input" id="filterParam2" class="form-control" style="width:130px;" placeholder="流程编码"/>
+                                            <span class="input-group-btn">
+                                                <button class="btn btn-default" type="button" onclick="doSearch(2)"><i class="fa fa-search"></i>查询</button>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <table id="processDefineDataTable">
+
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- processBaseModal -->
+<div id="processBaseModal" class="mydialog">
+    <div class="row">
+        <div class="col-md-12">
+            <div>
+                <form id="processBaseForm" class="form-horizontal form-bordered" role="form">
+                    <div class="form-group">
+                        <label for="proc_code1" class="col-sm-2 control-label no-padding-right">流程编码</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="easyui-validatebox form-control" data-options="required:true" name="proc_code" id="proc_code1" placeholder="请输入流程编码" style="width:50%;height:31px;">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="proc_name1" class="col-sm-2 control-label no-padding-right">流程名称</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="easyui-validatebox form-control" data-options="required:true" name="proc_name" id="proc_name1" placeholder="请输入流程名" style="width:50%;height:31px;">
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- processDefineModal -->
+<div id="processDefineModal" class="mydialog">
+    <div class="widget">
+        <div class="widget-body">
+            <div>
+                <form id="processDefineForm" class="form-horizontal" role="form">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <input type="text" disabled="disabled" class="form-control" name="proc_code" id="proc_code2">
+                            <div class="horizontal-space"></div>
+                        </div>
+                        <div class="col-xs-4">
+                            <input type="text" disabled="disabled" class="form-control" name="proc_name" id="proc_name2">
+                            <div class="horizontal-space"></div>
+                        </div>
+                        <div class="col-md-4">
+                            <input type="text" class="easyui-validatebox form-control" data-options="required:true" name="proc_ver" id="proc_ver" placeholder="请输入流程版本号">
+                            <div class="horizontal-space"></div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div id="processDefineDiv"></div>
+        </div>
+    </div>
+</div>
+<script>
+    /**
+     * @author ZhaoJing
+     * 扩展javaScriptDate类型工具js
+     * 实现格式化日期功能
+     */
+    Date.prototype.format = function(format){
+        if(isNaN(this.getMonth())){
+            return '';
+        }
+        if(!format){
+            format = 'yyyy-MM-dd hh:mm:ss';
+        }
+        var o = {
+            //month
+            "M+" : this.getMonth() + 1,
+            //day
+            "d+" : this.getDate(),
+            //hour
+            "h+" : this.getHours(),
+            //minute
+            "m+" : this.getMinutes(),
+            //second
+            "s+" : this.getSeconds(),
+            //quarter
+            "q+" : Math.floor((this.getMonth() + 3) / 3),
+            //millisecond
+            "s" : this.getMilliseconds()
+        };
+        if(/(y+)/.test(format)){
+            format = format.replace(RegExp.$1,(this.getFullYear() + "").substr(4 - RegExp.$1.length));
+        }
+        for(var k in o){
+            if(new RegExp("(" + k + ")").test(format)){
+                format = format.replace(RegExp.$1,RegExp.$1.length == 1 ? o[k] : ("00" + o[k]).substr(("" + o[k]).length));
+            }
+        }
+        return format;
+    };
+
+    function loadProBaseDatagrid(){
+        // 加载流程基本属性列表
+        $('#processBaseDataTable').datagrid({
+            url:'{{projcfg.appurl}}/admin/api/common/bpm/process/procbase',
+            method:'get',
+            rownumbers:true,
+            striped:true,
+            fitColumns:true,
+            border:false,
+            fit:true,
+            toolbar: '#toolbar1',
+            singleSelect:true,
+            selectOnCheck:true,
+            checkOnSelect:true,
+            columns:[[
+                {"field":"_id",checkbox:true},
+                {"field": "proc_code","title":"流程编码","width":35},
+                {"field": "proc_name","title":"流程名称","width":30},
+                {"field": "proc_latest_ver","title":"流程最后版本号","width":20},
+                {"field": "proc_status","title":"状态","width":20,
+                    formatter:function(value,row,index){
+                        if(value == '1'){
+                            return "启用";
+                        }else{
+                            return "禁用";
+                        }
+                    }
+                },
+                {"field": "proc_create_time",hidden:true},
+                {"field": "proc_creator",hidden:true}
+            ]],
+            onClickRow:function(rowIndex, rowData){
+                $('#processDefineDataTable').datagrid({
+                    url:'{{projcfg.appurl}}/admin/api/common/bpm/process/procdefine',
+                    queryParams:{proc_id:rowData._id}
+                });
+            },
+            onLoadSuccess:function(json) {
+                if(!json.success) {
+                    msgError(json.msg + ',错误代码:' + json.code);
+                }
+            },
+            onLoadError:function() {
+                msgError('加载数据出现时发生错误,请稍候重试...');
+            },
+            pagination:true,
+            loadMsg:'正在加载...'
+        });
+    }
+
+    function loadProDefineDatagrid(){
+        // 加载流程实例列表
+        $('#processDefineDataTable').datagrid({
+            method:'get',
+            rownumbers:true,
+            striped:true,
+            fitColumns:true,
+            border:false,
+            fit:true,
+            toolbar: '#toolbar2',
+            singleSelect:true,
+            selectOnCheck:true,
+            checkOnSelect:true,
+            columns:[[
+                {"field":"_id",checkbox:true},
+                {"field": "proc_code",hidden:true},
+                {"field": "proc_name",hidden:true},
+                {"field": "proc_ver","title":"流程版本号","width":20},
+                {"field": "proc_status","title":"状态","width":20,
+                    formatter:function(value,row,index){
+                        if(value == '1'){
+                            return "启用";
+                        }else{
+                            return "禁用";
+                        }
+                    }
+                }
+            ]],
+            onLoadSuccess:function(json) {
+                if(!json.success) {
+                    msgError(json.msg + ',错误代码:' + json.code);
+                }
+            },
+            onLoadError:function() {
+                msgError('加载数据出现时发生错误,请稍候重试...');
+            },
+            pagination:true,
+            loadMsg:'正在加载...'
+        });
+    }
+
+    $(document).ready(function(){
+        loadProBaseDatagrid();
+        loadProDefineDatagrid();
+    });
+
+    function openProcessChart(flag){
+        if(flag == 1){
+            // 获得选择行
+            var rows = $('#processBaseDataTable').datagrid('getChecked');
+            if (rows.length != 1) {
+                msgError('提示,请先选择流程基本属性信息再进行新增流程实例操作');
+                return false;
+            }
+            window.open('{{projcfg.appurl}}/process_chart?flag=1&proc_code='+encodeURI(encodeURI(rows[0].proc_code))+'&proc_name='+encodeURI(encodeURI(rows[0].proc_name)));
+        }else if(flag == 2){
+            // 获得选择行
+            var rows = $('#processDefineDataTable').datagrid('getChecked');
+            if (rows.length != 1) {
+                msgError('提示,请选择一条数据再进行修改');
+                return false;
+            }
+            window.open('{{projcfg.appurl}}/process_chart?flag=2&id='+rows[0]._id);
+        }
+    }
+
+    function doSearch(flag) {
+        if(flag == 1){//查询流程基本属性信息
+            $('#processBaseDataTable').datagrid('reload',{
+                'filterParam1':$.trim($('#filterParam1').val())
+            });
+        }else if(flag == 2){//查询流程实例信息
+            $('#processDefineDataTable').datagrid('reload',{
+                'filterParam2':$.trim($('#filterParam2').val())
+            });
+        }
+    }
+
+    function changeStatus(flag,value){
+        var rows;
+        if(flag == 1){
+            // 获得选择行
+            rows = $('#processBaseDataTable').datagrid('getChecked');
+            if (rows.length != 1) {
+                msgError('提示,请选择一条数据再进行修改');
+                return false;
+            }
+        }else if(flag == 2){
+            // 获得选择行
+            rows = $('#processDefineDataTable').datagrid('getChecked');
+            if (rows.length != 1) {
+                msgError('提示,请选择一条数据再进行修改');
+                return false;
+            }
+        }
+        $.ajax({
+            url: '{{projcfg.appurl}}/admin/api/common/bpm/process/processChangeStatus/'+rows[0]._id,
+            type: 'put',
+            data: {
+                flag:flag,
+                proc_status:value
+            },
+            success: function (data) {
+                if(data.success) {
+                    msgSuccess(data.msg);
+                    doSearch(flag);
+                }
+                else {
+                    msgError(data.msg+',错误代码:'+data.code);
+                }
+            }
+        });
+    }
+
+    function doAddProcessBase() {
+        // 验证表单
+        var validate = $('#processBaseForm').form('validate');
+        if(!validate) {
+            return false;
+        }
+        $.ajax({
+            url: '{{projcfg.appurl}}/admin/api/common/bpm/process/procbase',
+            type: 'post',
+            data: $('#processBaseForm').serializeJson(),
+            success: function (data) {
+                if(data.success) {
+                    msgSuccess(data.msg);
+                    closeDialog();
+                    doSearch(1);
+                }
+                else {
+                    msgError(data.msg+',错误代码:'+data.code);
+                }
+            }
+        });
+    }
+
+    // 关闭窗口
+    function closeDialog() {
+        $('#processBaseModal').dialog('close');
+        clear();
+    }
+
+    function openPage(title, value, callback) {
+        $('#processBaseModal').show();
+        $('#processBaseModal').mydialog({
+            title:title,
+            width: 700,
+            height: 500,
+            top:150,
+            modal: true,
+            myButtons:[
+                {
+                    text:'确定',
+                    btnCls:'btn btn-blue',
+                    handler:function(){
+                        callback(value);
+                    }
+                },
+                {
+                    text:'关闭',
+                    btnCls:'btn btn-danger',
+                    handler:function(){
+                        closeDialog();
+                    }
+                }
+            ]
+        });
+    }
+
+    function toEdit() {
+        // 获得选择行
+        var rows = $('#processBaseDataTable').datagrid('getChecked');
+        if (rows.length != 1) {
+            msgError('提示,请选择一条数据再进行修改');
+            return false;
+        }
+        $('#processBaseForm').form('load',rows[0]);
+        openPage("修改流程基本属性",rows[0]._id, doEdit);
+    }
+
+    function doEdit(value) {
+        // 验证表单
+        var validate = $('#processBaseForm').form('validate');
+        if(!validate) {
+            return false;
+        }
+        $.ajax({
+            url: '{{projcfg.appurl}}/admin/api/common/bpm/process/procbase/'+value,
+            type: 'put',
+            data: $('#processBaseForm').serializeJson(),
+            success: function (data) {
+                if(data.success) {
+                    msgSuccess(data.msg);
+                    closeDialog();
+                    doSearch(1);
+                    clear();
+                }
+                else {
+                    msgError(data.msg+',错误代码:'+data.code);
+                }
+            }
+        });
+    }
+
+    // 清空新增表单数据
+    function clear() {
+        $("input[name='proc_code']").val('');
+        $("input[name='proc_name']").val('');
+    }
+
+</script>

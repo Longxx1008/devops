@@ -1,0 +1,299 @@
+<div class="row">
+    <div class="col-xs-12 col-md-12">
+        <div class="widget">
+            <div class="widget-body">
+                <table class="table table-striped table-bordered table-hover" id="simpledatatable">
+
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal -->
+<div id="myModal" style="display:none;">
+    <div class="row">
+        <div class="col-md-12">
+            <div>
+                <form class="form-horizontal form-bordered" role="form">
+                    <div class="form-group">
+                        <label for="inputParamname" class="col-sm-2 control-label no-padding-right">参数名</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" name="inputParamname" id="inputParamname" placeholder="请输入参数名">
+                            <input type="hidden" name="inputId" id="inputId">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputParamval" class="col-sm-2 control-label no-padding-right">参数值</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" name="inputParamval" id="inputParamval" placeholder="请输入参数值">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputParamdesc" class="col-sm-2 control-label no-padding-right">参数描述</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" name="inputParamdesc" id="inputParamdesc" placeholder="请输入参数描述">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputStatus" class="col-sm-2 control-label no-padding-right">状态</label>
+                        <div class="col-sm-10">
+                            <select  class="form-control" name="inputStatus" id="inputStatus" data-bv-field="inputStatus">
+                                <option value="100">启用</option>
+                                <option value="101">禁用</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputCatalogid" class="col-sm-2 control-label no-padding-right">分类</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" name="inputCatalogid" id="inputCatalogid" placeholder="请输入分类">
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<link href="/static/js/datatable/css/dataTables.bootstrap.css" rel="stylesheet" />
+<script src="/static/js/datatable/jquery.dataTables.min.js"></script>
+<script src="/static/js/datatable/ZeroClipboard.js"></script>
+<script src="/static/js/datatable/dataTables.tableTools.min.js"></script>
+<script src="/static/js/datatable/dataTables.bootstrap.min.js"></script>
+<!--<script src="/static/{{projcfg.theme}}js/datatable/datatables-init.js"></script>-->
+<script src="/static/js/bootbox/bootbox.js"></script>
+
+<script>
+
+
+    /*InitiateSimpleDataTable.init();*/
+    var table;
+    $(document).ready(function() {
+        table = $('#simpledatatable').dataTable({
+            "processing": true,
+            "serverSide": true,
+            "sServerMethod": "get",
+            "ajax": {
+                "url":"{{projcfg.appurl}}/admin/api/common/syscfg/sysparam",
+                "data": function (d) {
+                    console.log(d);
+                    //添加额外的参数传给服务器
+                    //d.name = 'cmcc'
+                }
+            },
+            "language": {
+                "url": "/static/js/datatable/zh_CN.js"
+            },
+            "sDom": "Tflt<'row DTTTFooter'<'col-sm-6'i><'col-sm-6'p>>",
+            "iDisplayLength": 10,
+            "oTableTools": {
+                /*"aButtons": [
+                    "copy", "csv", "xls", "pdf", "print"
+                ],*/
+                "aButtons":[
+                    {"sExtends":"ajax","sButtonText": "新增",
+                        "fnClick": function (nButton, oConfig, oFlash) {
+                            openPage("新增数据", '', doAdd);
+                        }
+                    },
+                    {
+                        "sExtends": "xls",
+                        "sButtonText": "导出"
+                    }
+                ],
+                "sSwfPath": "/static/js/swf/copy_csv_xls_pdf.swf"
+            },
+            "aoColumns": [
+                {"data": "_id","sTitle":"ID","bVisible":false},
+                {
+                    "data": "_id","sTitle":'<label><input type="checkbox"><span class="text"></span></label>',"bSortable": false,"sDefaultContent":'<label><input type="checkbox"><span class="text"></span></label>',
+                    "sWidth":'15px',
+                    "render":function (data, type, row ) {
+                        return '<label><input type="checkbox" value="'+data+'"><span class="text"></span></label>';
+                    }
+                },
+                {"data": "paramname","sTitle":"参数名","sWidth":'20%',"bSortable": false,"bSearchable": false},
+                {"data": "paramval","sTitle":"参数值","sWidth":'20%',"bSortable": false,"bSearchable": false},
+                {"data": "paramdesc","sTitle":"参数描述","sWidth":'20%',"bSortable": false,"bSearchable": false},
+                {"data": "status","sTitle":"状态","sWidth":'10%',"sClass": "mycss","bSortable": false,
+                    "render":function ( data, type, row ) {
+                        var sReturn = '启用';
+                        if(data==101){
+                            sReturn= '禁用';
+                        }
+                        return sReturn;
+                    }
+                },
+                {
+                    "data": "_id","sTitle":"操作","bSortable": false,
+                    "render":function (data, type, row ) {
+                        // 增加编辑和删除按钮
+                        var editBtn = '<a href="javascript:toEdit(\''+data+'\')" class="btn btn-info btn-xs edit"><i class="fa fa-edit"></i> 修改</a>';
+                        var delBtn = '<a href="javascript:doDel(\''+data+'\')" class="btn btn-danger btn-xs delete"><i class="fa fa-trash-o"></i> 删除</a>';
+                        return editBtn + '&nbsp;' + delBtn;
+                    }
+                }
+            ],
+            initComplete:initComplete
+        });
+    } );
+    function initComplete() {
+        //Check All Functionality
+        $('#simpledatatable thead th input[type=checkbox]').change(function() {
+            var set = $("#simpledatatable tbody tr input[type=checkbox]");
+            var checked = $(this).is(":checked");
+            $(set).each(function() {
+                if (checked) {
+                    $(this).prop("checked", true);
+                    $(this).parents('tr').addClass("active");
+                } else {
+                    $(this).prop("checked", false);
+                    $(this).parents('tr').removeClass("active");
+                }
+            });
+
+        });
+        $('#simpledatatable tbody tr input[type=checkbox]').change(function() {
+            $(this).parents('tr').toggleClass("active");
+        });
+    }
+    function doAdd(value) {
+        $.ajax({
+            url: '{{projcfg.appurl}}/admin/api/common/syscfg/sysparam',
+            type: 'post',
+            data: {
+                "paramname": $("input[name='inputParamname']").get(1).value,
+                "paramval": $("input[name='inputParamval']").get(1).value,
+                "paramdesc": $("input[name='inputParamdesc']").get(1).value,
+                "status": $("#inputStatus").val(),
+                "catalogid": $("input[name='inputCatalogid']").get(1).value
+            }, success: function (data) {
+                if(data.success) {
+                    bootbox.alert('新增记录成功！', function(result){
+                        $('#simpledatatable').dataTable()._fnAjaxUpdate();
+                        $("#myModal").modal("hide");
+                        clear();
+                    });
+                }
+                else {
+                    bootbox.alert('新增记录失败,错误代码:'+data.code, function(result){
+
+                    });
+                }
+            }
+        });
+    }
+
+    function openPage(title, value, callback) {
+        bootbox.dialog({
+            message: $("#myModal").html(),
+            title: title,
+            className: "modal-blue",
+            buttons: {
+                success: {
+                    label: "提交",
+                    className: "btn-blue",
+                    callback: function(){
+                        callback(value);
+                    }
+                },
+                "关闭": {
+                    className: "btn-danger",
+                    callback: function () {
+                        $("#myModal").modal('hide');
+                    }
+                }
+            }
+        });
+    }
+
+    function toEdit(id) {
+        openPage("修改数据", id, doEdit);
+
+        // 获取远程数据
+        $.ajax({
+            url: '{{projcfg.appurl}}/admin/api/common/syscfg/sysparam/'+id,
+            type: 'get',
+            data: {
+
+            }, success: function (data) {
+                if(data.success) {
+                    // 表单赋值
+                    $("input[name='inputId']").val(data.data[0]._id);
+                    $("input[name='inputParamname']").val(data.data[0].paramname);
+                    $("input[name='inputParamval']").val(data.data[0].paramval);
+                    $("input[name='inputParamdesc']").val(data.data[0].paramdesc);
+                    $("input[name='inputCatalogid']").val(data.data[0].catalogid);
+                    $("select[name='inputStatus']").val(data.data[0].status);
+                }
+                else {
+                    bootbox.alert('获取记录失败,错误代码:'+data.code, function(result){
+
+                    });
+                }
+            }
+        });
+    }
+    function doEdit(value) {
+        $.ajax({
+            url: '{{projcfg.appurl}}/admin/api/common/syscfg/sysparam/'+value,
+            type: 'put',
+            data: {
+                "paramname": $("input[name='inputParamname']").get(1).value,
+                "paramval": $("input[name='inputParamval']").get(1).value,
+                "paramdesc": $("input[name='inputParamdesc']").get(1).value,
+                "status":  $("select[name='inputStatus']").get(1).value,
+                "catalogid": $("input[name='inputCatalogid']").get(1).value
+
+            }, success: function (data) {
+                if(data.success) {
+                    bootbox.alert('更新记录成功！', function(result){
+                        $('#simpledatatable').dataTable()._fnAjaxUpdate();
+                        $("#myModal").modal("hide");
+                        clear();
+                    });
+                }
+                else {
+                    bootbox.alert('更新记录失败,错误代码:'+data.code, function(result){
+
+                    });
+                }
+            }
+        });
+    }
+    function doDel(id) {
+        bootbox.confirm('确定删除此条记录？',function (result){
+            if(result){
+                // 获取远程数据
+                $.ajax({
+                    url: '{{projcfg.appurl}}/admin/api/common/syscfg/sysparam/'+id,
+                    type: 'delete',
+                    data: {
+
+                    },
+                    success: function (data) {
+                        if(data.success) {
+                            bootbox.alert('删除记录成功', function(result){
+                                $('#simpledatatable').dataTable()._fnAjaxUpdate();
+                            });
+                        }
+                        else {
+                            bootbox.alert('删除记录失败,错误代码:'+data.code, function(result){
+
+                            });
+                        }
+                    }
+                });
+            }
+        });
+    }
+    // 清空新增表单数据
+    function clear() {
+        $("input[name='inputParamname']").val('');
+        $("input[name='inputParamval']").val('');
+        $("input[name='inputParamdesc']").val('');
+        $("input[name='inputCatalogid']").val('');
+        $("select[name='inputStatus']").val('');
+
+    }
+
+</script>

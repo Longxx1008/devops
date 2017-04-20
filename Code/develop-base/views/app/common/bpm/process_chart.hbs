@@ -1,0 +1,555 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>流程图DEMO</title>
+    <!--[if lt IE 9]>
+    <?import namespace="v" implementation="#default#VML" ?>
+    <![endif]-->
+    <link rel="stylesheet" type="text/css" href="{{projcfg.appurl}}/static/js/easyui/themes/default/easyui.css">
+    <link rel="stylesheet" type="text/css" href="{{projcfg.appurl}}/static/js/easyui/themes/icon.css">
+    <script src="{{projcfg.appurl}}/static/bpm/js/jquery.min.js"></script>
+    <script type="text/javascript" src="{{projcfg.appurl}}/static/js/easyui/jquery.easyui.min.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="{{projcfg.appurl}}/static/bpm/css/GooFlow.css"/>
+    <script type="text/javascript" src="{{projcfg.appurl}}/static/bpm/js/GooFunc.js"></script>
+    <script type="text/javascript" src="{{projcfg.appurl}}/static/bpm/js/json2.js"></script>
+    <link rel="stylesheet" type="text/css" href="{{projcfg.appurl}}/static/bpm/css/default.css"/>
+    <script type="text/javascript" src="{{projcfg.appurl}}/static/bpm/js/GooFlow.js"></script>
+    <script>
+
+        var lineNodeDatas = [];
+        var taskNodeDatas = [];
+        var processDefineDiv;
+        var selectNodeName;
+
+        function initPanel(){
+            $('#p1').panel({
+                fit:true,
+                border:false,
+                closed:true,
+                onBeforeOpen:function(){
+                    $('#p2').panel('close');
+                    $('#p1Form').form('clear');
+                    $('#p1_label').empty();
+                    $('#p1_label').append('当前选择的节点：'+selectNodeName);
+                }
+            });
+
+            $('#p2').panel({
+                fit:true,
+                border:false,
+                closed:true,
+                onBeforeOpen:function(){
+                    $('#p1').panel('close');
+                    $('#p2Form').form('clear');
+                    $('#p2_label').empty();
+                    $('#p2_label').append('当前选择的节点：'+selectNodeName);
+                }
+            });
+        }
+
+        function initWindow(){
+            $('#win1').window({
+                width:900,
+                height:500,
+                modal:true,
+                collapsible:false,
+                minimizable:false,
+                closed:true,
+                title:'选择参与人'
+            });
+            $('#win2').window({
+                width:900,
+                height:500,
+                modal:true,
+                collapsible:false,
+                minimizable:false,
+                closed:true,
+                title:'选择参与角色'
+            });
+            $('#win3').window({
+                width:235,
+                height:120,
+                modal:true,
+                collapsible:false,
+                minimizable:false,
+                closed:true,
+                title:'选择参照人节点',
+                onOpen:function(){
+                    var nodes = processDefineDiv.exportData();
+                    var selectNodeId = $('#p2_item_code').textbox('getValue');
+                    var taskNodes = [];
+                    if(nodes.nodes){
+                        $.each(nodes.nodes,function(i,n){
+                            if(n.type == "task" && i!=selectNodeId){
+                                var taskNode = {};
+                                taskNode.id = i;
+                                taskNode.text = n.name;
+                                taskNodes.push(taskNode);
+                            }
+                        });
+                        $('#win3_combobox').combobox({
+                            valueField:'id',
+                            textField:'text',
+                            editable:false,
+                            data:taskNodes
+                        });
+                    }
+                }
+            });
+        }
+
+        function initGooFlow(){
+            processDefineDiv = $.createGooFlow({
+                dom: $('#processDefineDiv'),
+                width: $('#layout').layout('panel','center').panel('options').width-10,
+                height: $('#layout').layout('panel','center').panel('options').height-70,
+                useOperStack: false,
+                onNodeFocus: function(e, type, id){
+                    if(type == 'line'){//连接线
+                        var obj = processDefineDiv.getItemInfo(id,'line');
+                        if(obj.name == ""){
+                            selectNodeName = "连接线";
+                        }else{
+                            selectNodeName = obj.name;
+                        }
+                        $('#p1').panel('open');
+                        $('#p1_item_code').textbox('setValue', id);
+                        $('#p1_item_type').textbox('setValue', obj.type);
+                        $.each(lineNodeDatas,function(i,n){
+                            if(n.item_code && n.item_code.indexOf(id) != -1){
+                                $('#item_el').textbox('setValue', n.item_el);
+                            }
+                        });
+                        $('#p1_line_id').val(id);
+                    }else if(type == 'ico_task'){//任务节点
+                        var obj = processDefineDiv.getItemInfo(id,'node');
+                        selectNodeName = obj.name;
+                        $('#p2').panel('open');
+                        $('#p2_item_code').textbox('setValue', id);
+                        $('#p2_item_type').textbox('setValue', obj.type);
+                        $("input[type=radio][name='smsType'][value='0']").attr("checked",true);
+                        $.each(taskNodeDatas,function(i,n){
+                            if(n.item_code && n.item_code.indexOf(id) != -1){
+                                var selectType = n.selectType;
+                                $("input[type=radio][name='checkType'][value='"+selectType+"']").attr("checked",true);
+                                $("input[type=radio][name='smsType'][value='"+n.item_sms_warn+"']").attr("checked",true);
+                                $('#p2_textArea').textbox('setValue', n.selectVal);
+                                if(selectType == 1){
+                                    $('#p2_task_val').val(n.item_assignee_user);
+                                }else if(selectType == 2){
+                                    $('#p2_task_val').val(n.item_assignee_role);
+                                }else if(selectType == 3){
+                                    $('#p2_task_val').val(n.item_assignee_ref_task);
+                                }
+                            }
+                        });
+                        $('#p2_task_id').val(id);
+                    }else if(type == 'ico_fork round'){//分支节点
+                        //
+                        return;
+                    }else if(type == 'ico_join round'){//聚合节点
+                        //
+                        return;
+                    }else if(type == 'ico_node'){//动作节点
+                        //
+                        return;
+                    }
+                }
+            });
+        }
+
+        function doChoose(flag,id){
+            if(flag == 1){
+                var datas = $('#'+id).datagrid('getSelections');
+                if(datas.length > 0){
+                    var ids = [];
+                    var names = [];
+                    $.each(datas,function(i,n){
+                        ids.push(n._id);
+                        names.push(n.user_name);
+                    });
+                    $('#p2_task_val').val(ids.join(";"));
+                    $('#p2_textArea').textbox('setValue',names.join(";"));
+                    $('#win1').window('close');
+                }else{
+                    $.messager.alert('提示','请至少选择一行数据','error');
+                }
+            }else if(flag == 2){
+                var datas = $('#'+id).datagrid('getSelections');
+                if(datas.length > 0){
+                    var ids = [];
+                    var names = [];
+                    $.each(datas,function(i,n){
+                        ids.push(n._id);
+                        names.push(n.role_name);
+                    });
+                    $('#p2_task_val').val(ids.join(";"));
+                    $('#p2_textArea').textbox('setValue',names.join(";"));
+                    $('#win2').window('close');
+                }else{
+                    $.messager.alert('提示','请至少选择一行数据','error');
+                }
+            }else if(flag == 3){
+                var info = $('#'+id).combobox('getValue');
+                if(info){
+                    $('#p2_task_val').val(info);
+                    $('#p2_textArea').textbox('setValue',$('#'+id).combobox('getText'));
+                    $('#win3').window('close');
+                }else{
+                    $.messager.alert('提示','请输入数据','error');
+                }
+            }
+        }
+
+        function saveNodeData(flag){
+            if(flag == 1){
+                var lineVal = $('#item_el').textbox('getValue');
+                if(!lineVal){
+                    $.messager.alert('提示','请输入表达式','error');
+                    return;
+                }
+                var id = $('#p1_line_id').val();
+                var obj = processDefineDiv.getItemInfo(id,'line');
+                var lineNode = {};
+                lineNode.item_code = id;
+                lineNode.item_type = obj.type;
+                lineNode.item_el = $('#item_el').textbox('getValue');
+                var tag = true;
+                $.each(lineNodeDatas,function(i,n){
+                    if(n.item_code && n.item_code.indexOf(id) != -1){
+                        tag = false;
+                        lineNodeDatas.splice(i,1,lineNode);
+                    }
+                });
+                if(tag){
+                    lineNodeDatas.push(lineNode);
+                }
+            }else if(flag == 2){
+                var itemType = $("input[name='checkType']:checked").val();
+                if(!itemType){
+                    $.messager.alert('提示','请选择参与类型','error');
+                    return;
+                }else{
+                    var itemText = $('#p2_textArea').textbox('getValue');
+                    if(!itemText){
+                        $.messager.alert('提示','参与类型选取的结果不能为空','error');
+                        return;
+                    }
+                    var id = $('#p2_task_id').val();
+                    var obj = processDefineDiv.getItemInfo(id,'node');
+                    var taskNode = {};
+                    taskNode.item_code = id;
+                    taskNode.item_type = obj.type;
+                    taskNode.item_sms_warn = $("input[name='smsType']:checked").val();
+                    taskNode.selectType = itemType;
+                    taskNode.selectVal = itemText;
+                    if(itemType == 1){//参与人
+                        taskNode.item_assignee_user = $('#p2_task_val').val();
+                    }else if(itemType == 2){//参与角色
+                        taskNode.item_assignee_role = $('#p2_task_val').val();
+                    }else if(itemType == 3){//参照人
+                        taskNode.item_assignee_ref_task = $('#p2_task_val').val();
+                    }
+                    var tag = true;
+                    $.each(taskNodeDatas,function(i,n){
+                        if(n.item_code && n.item_code.indexOf(id) != -1){
+                            tag = false;
+                            taskNodeDatas.splice(i,1,taskNode);
+                        }
+                    });
+                    if(tag){
+                        taskNodeDatas.push(taskNode);
+                    }
+                }
+            }
+            $.messager.show({
+                title:'提示',
+                msg:'节点保存成功',
+                timeout:3000,
+                showType:'slide'
+            });
+        }
+
+        function openWindow(flag){
+            if(flag == 1){//选择参与人
+                $('#win1').window('open');
+            }else if(flag == 2){//选择参与角色
+                $('#win2').window('open');
+            }else if(flag == 3){//选择参照人
+                $('#win3').window('open');
+            }
+        }
+
+        function GetQueryString(name) {
+            var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+            var r = window.location.search.substr(1).match(reg);
+            if(r!=null)return  unescape(r[2]); return null;
+        }
+
+        function saveProcessChart(){
+            $.messager.confirm('确认','确认保存吗？保存后会关闭当前窗口',function(r){
+                if(r){
+                    var flag = GetQueryString("flag");
+                    var url;
+                    var type;
+                    if(flag == 1){
+                        url = '{{projcfg.appurl}}/admin/api/common/bpm/process/procdefine';
+                        type = 'post';
+                    }else if(flag == 2){
+                        var id = $('#proc_defineId').val();
+                        url = '{{projcfg.appurl}}/admin/api/common/bpm/process/procdefine/'+id;
+                        type = 'put';
+                    }
+                    $.ajax({
+                        url: url,
+                        type: type,
+                        data: {
+                            proc_code:$('#proc_code').val(),
+                            proc_name:$('#proc_name').val(),
+                            proc_define:JSON.stringify(processDefineDiv.exportData()),
+                            lineNodeDatas:JSON.stringify(lineNodeDatas),
+                            taskNodeDatas:JSON.stringify(taskNodeDatas)
+                        },
+                        traditional:true,
+                        success: function (data) {
+                            if(data.success) {
+                                $.messager.alert("提示","保存信息成功","info",function(){
+                                    window.close();
+                                });
+                            }
+                            else {
+                                msgError(data.msg+',错误代码:'+data.code);
+                            }
+                        }
+                    });
+                }
+            });
+        }
+
+        function doSearch(id){
+            if(id == "win1"){
+                $('#win1_datagrid').datagrid('reload',{
+                    'filter_name': $('#win1_filter1').textbox('getValue'),
+                    'filter_tel' : $('#win1_filter2').textbox('getValue'),
+                    'filter_sys' : $('#win1_filter3').combobox('getValue')
+                });
+            }else if(id == "win2"){
+                $('#win2_datagrid').datagrid('reload',{
+                    'role_name': $('#win2_filter1').textbox('getValue'),
+                    'sys_id' : $('#win2_filter2').combobox('getValue')
+                });
+            }
+        }
+
+        $(function($){
+
+            initPanel();
+            initGooFlow();
+            initWindow();
+
+            var flag = GetQueryString("flag");
+            if(flag == 1){
+                $('#proc_code').textbox('setValue',decodeURI(GetQueryString("proc_code"),"UTF-8"));
+                $('#proc_name').textbox('setValue',decodeURI(GetQueryString("proc_name"),"UTF-8"));
+            }else if(flag == 2){
+                $.ajax({
+                    url: '{{projcfg.appurl}}/admin/api/common/bpm/process/procdefine',
+                    type: 'get',
+                    data: {
+                        id:GetQueryString("id")
+                    },
+                    success: function (data) {
+                        if(data.success) {
+                            if(data.items){
+                                if(data.items.length > 0){
+                                    $.each(data.items,function(i,n){
+                                        if(n.item_type == 'sl'){
+                                            var lineNode = {};
+                                            lineNode.item_code = n.item_code;
+                                            lineNode.item_type = n.item_type;
+                                            lineNode.item_el = n.item_el;
+                                            lineNodeDatas.push(lineNode);
+                                        }else if(n.item_type == 'task'){
+                                            var taskNode = {};
+                                            taskNode.item_code = n.item_code;
+                                            taskNode.item_type = n.item_type;
+                                            taskNode.item_sms_warn = n.item_sms_warn;
+                                            taskNode.selectVal = n.item_show_text;
+                                            if(n.item_assignee_user){
+                                                taskNode.selectType = 1;
+                                                taskNode.item_assignee_user = n.item_assignee_user;
+                                            }else if(n.item_assignee_role){
+                                                taskNode.selectType = 2;
+                                                taskNode.item_assignee_role = n.item_assignee_role;
+                                            }else if(n.item_assignee_ref_task){
+                                                taskNode.selectType = 3;
+                                                taskNode.item_assignee_ref_task = n.item_assignee_ref_task;
+                                            }
+                                            taskNodeDatas.push(taskNode);
+                                        }
+                                    });
+                                }
+                            }
+                            $('#proc_code').textbox('setValue',data.rows[0].proc_code);
+                            $('#proc_name').textbox('setValue',data.rows[0].proc_name);
+                            $('#proc_defineId').val(GetQueryString("id"));
+                            processDefineDiv.loadData(JSON.parse(data.rows[0].proc_define));
+                        }else {
+                            msgError(data.msg+',错误代码:'+data.code);
+                        }
+                    }
+                });
+            }
+        });
+
+    </script>
+</head>
+<body id="layout" class="easyui-layout" data-options="fit:true">
+    <div data-options="region:'center',title:'流程图定义'">
+        <div style="padding-left:5px;height:32px">
+            <div style="float:left;padding-top:2px;">
+                <label>流程编码:</label>
+                <input class="easyui-textbox" data-options="editable:false,disabled:true,readonly:true" name="proc_code" id="proc_code" style="width: 200px;">
+                <label>流程名称:</label>
+                <input class="easyui-textbox" data-options="editable:false,disabled:true,readonly:true" name="proc_name" id="proc_name" style="width: 200px;">
+                <input type="hidden" name="_id" id="proc_defineId">
+            </div>
+            <div style="text-align:right;padding-top:2px;padding-right:2px;">
+                <a id="btn" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-save'" onclick="saveProcessChart()">保存流程图定义信息</a>
+            </div>
+        </div>
+        <div>
+            <div id="processDefineDiv"></div>
+        </div>
+    </div>
+    <div data-options="region:'east',title:'节点配置',width:300,collapsible:false">
+        <div id="p1">
+            <form id="p1Form" style="padding: 5px;">
+                <div style="margin-bottom:10px;background-color:#eee;">
+                    <label style="color:red" id="p1_label"></label>
+                </div>
+                <div style="margin-bottom:10px;">
+                    <p style="margin-bottom:5px;color:#00a0e9">节点编码:</p>
+                    <input class="easyui-textbox" id="p1_item_code" style="width: 100%" data-options="editable:false,disabled:true,readonly:true">
+                </div>
+                <div style="margin-bottom:10px;">
+                    <p style="margin-bottom:5px;color:#00a0e9">节点类型:</p>
+                    <input class="easyui-textbox" id="p1_item_type" style="width: 100%" data-options="editable:false,disabled:true,readonly:true">
+                </div>
+                <hr style="border:1 dashed #987cb9" width="100%" color=#987cb9 size=2/>
+                <div style="margin-bottom:10px">
+                    <p style="margin-bottom:5px;color:#00a0e9">表达式:</p>
+                    <input class="easyui-textbox" name="item_el" id="item_el" style="width: 100%" data-options="prompt:'请输入节点表达式...'">
+                    <input type="hidden" id="p1_line_id"/>
+                </div>
+                <div style="text-align:right;margin-bottom:10px">
+                    <a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-save'" onclick="saveNodeData(1)">保存节点配置</a>
+                </div>
+            </form>
+        </div>
+        <div id="p2">
+            <form id="p2Form" style="padding: 5px;">
+                <div style="margin-bottom:10px">
+                    <label style="background-color:#eee;color:red" id="p2_label"></label>
+                </div>
+                <div style="margin-bottom:10px;">
+                    <p style="margin-bottom:5px;color:#00a0e9">节点编码:</p>
+                    <input class="easyui-textbox" id="p2_item_code" style="width: 100%" data-options="editable:false,disabled:true,readonly:true">
+                </div>
+                <div style="margin-bottom:10px;">
+                    <p style="margin-bottom:5px;color:#00a0e9">节点类型:</p>
+                    <input class="easyui-textbox" id="p2_item_type" style="width: 100%" data-options="editable:false,disabled:true,readonly:true">
+                </div>
+                <hr style="border:1 dashed #987cb9" width="100%" color=#987cb9 size=2/>
+                <div style="margin-bottom:10px">
+                    <p style="margin-bottom:5px;color:#00a0e9">参与类型:</p>
+                    <input type="radio" name="checkType" onclick="openWindow(1)" value="1"/>参与人
+                    <input type="radio" name="checkType" onclick="openWindow(2)" value="2"/>参与角色
+                    <input type="radio" name="checkType" onclick="openWindow(3)" value="3"/>参照人
+                </div>
+                <div style="margin-bottom:10px">
+                    <input id="p2_textArea" class="easyui-textbox" data-options="prompt:'参与类型选取的结果显示在此',editable:false,disabled:true,readonly:true" multiline="true" style="width:100%;height:120px">
+                    <input type="hidden" id="p2_task_id"/>
+                    <input type="hidden" id="p2_task_val"/>
+                </div>
+                <div style="margin-bottom:10px">
+                    <p style="margin-bottom:5px;color:#00a0e9">短信通知:</p>
+                    <input type="radio" name="smsType" value="1"/>是
+                    <input type="radio" name="smsType" value="0"/>否
+                </div>
+                <div style="text-align:right;margin-bottom:10px">
+                    <a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-save'" onclick="saveNodeData(2)">保存节点配置</a>
+                </div>
+            </form>
+        </div>
+    </div>
+    <!-- 弹出框 -->
+    <div id="win1">
+        <div class="easyui-layout" data-options="fit:true">
+            <div data-options="region:'center',border:false" style="padding:5px;">
+                <table id="win1_datagrid" class="easyui-datagrid" data-options="url:'{{projcfg.appurl}}/admin/api/common/uum/user',method:'get',fit:true,fitColumns:true,toolbar:'#win1_tb'">
+                    <thead>
+                    <tr>
+                        <th data-options="field:'user_no',width:100">用户编号</th>
+                        <th data-options="field:'user_name',width:100">用户姓名</th>
+                        <th data-options="field:'user_tel',width:100">手机号</th>
+                    </tr>
+                    </thead>
+                </table>
+                <div id="win1_tb" style="padding:2px 5px;">
+                    用户名: <input class="easyui-textbox" style="width:200px" id="win1_filter1"/>
+                    手机号: <input class="easyui-textbox" style="width:200px" id="win1_filter2"/>
+                    所属系统:
+                    <select class="easyui-combobox" panelHeight="auto" style="width:200px" id="win1_filter3"
+                            data-options="method:'get',url:'{{projcfg.appurl}}/public/sysData',valueField:'_id',textField:'sys_name',editable:false">
+                    </select>
+                    <a href="#" class="easyui-linkbutton" iconCls="icon-search" onclick="doSearch('win1')">查询</a>
+                </div>
+            </div>
+            <div data-options="region:'south',border:false" style="height:36px;">
+                <div id="win1_ft" style="text-align:right;padding:3px 0 0;">
+                    <a id="btn" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-ok'" onclick="doChoose(1,'win1_datagrid')">确定</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="win2">
+        <div class="easyui-layout" data-options="fit:true">
+            <div data-options="region:'center',border:false" style="padding:5px;">
+                <table id="win2_datagrid" class="easyui-datagrid" data-options="url:'{{projcfg.appurl}}/admin/api/common/uum/role',method:'get',fit:true,fitColumns:true,toolbar:'#win2_tb',footer:'#win2_ft'">
+                    <thead>
+                        <tr>
+                            <th data-options="field:'role_code',width:100">角色编码</th>
+                            <th data-options="field:'role_name',width:100">角色名称</th>
+                        </tr>
+                    </thead>
+                </table>
+                <div id="win2_tb" style="padding:2px 5px;">
+                    角色名: <input class="easyui-textbox" style="width:200px" id="win2_filter1"/>
+                    所属系统:
+                    <select class="easyui-combobox" panelHeight="auto" style="width:200px" id="win2_filter2"
+                            data-options="method:'get',url:'{{projcfg.appurl}}/public/sysData',valueField:'_id',textField:'sys_name',editable:false">
+                    </select>
+                    <a href="#" class="easyui-linkbutton" iconCls="icon-search" onclick="doSearch('win2')">查询</a>
+                </div>
+            </div>
+            <div data-options="region:'south',border:false" style="height:36px;">
+                <div id="win2_ft" style="text-align:right;padding:5px 0 0;">
+                    <a id="btn" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-ok'" onclick="doChoose(2,'win2_datagrid')">确定</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="win3">
+        <div>
+            参照节点:
+            <input id="win3_combobox"/>
+        </div>
+        <div style="text-align:right;padding:5px 0 0;">
+            <a id="btn" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-ok'" onclick="doChoose(3,'win3_combobox')">确定</a>
+        </div>
+    </div>
+</body>
+</html>

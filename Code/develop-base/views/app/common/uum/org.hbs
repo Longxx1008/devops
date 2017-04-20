@@ -1,0 +1,343 @@
+<div class="row">
+    <div class="col-xs-12 col-md-12">
+        <div class="widget">
+            <div class="widget-body">
+
+                <div id="cc" class="easyui-layout" data-options="fit:true,border:true" style="width: 800px; height: 627px" >
+
+                            <div data-options="region:'west',title:'组织机构',split:true,border:true" style="width:210px">
+                                <ul id="myTree"></ul>
+                            </div>
+                            <div data-options="region:'center',border:true" style="overflow-x:hidden;overflow-y:hidden">
+                                <div id="toolbar" class="row tbRow">
+                                    <div class="col-xs-6 col-md-6">
+                                        <div class="btn-group" role="group" aria-label="...">
+                                            <button type="button" class="btn btn-default" onclick="openPage('新增机构', '', doAdd)" data-title="新增">
+                                                <i class="fa fa-plus"></i> 新增
+                                            </button>
+                                            <button type="button" class="btn btn-default" onclick="toEdit()" data-title="修改">
+                                                <i class="fa fa-edit"></i> 修改
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-6 col-md-6 text-right">
+                                        <form id="searchFrom" class="form-inline">
+                                            <div class="form-group">
+                                                <div class="input-group">
+                                                    <input type="input" id="queryOrgName" name="queryOrgName" class="form-control" placeholder="机构编号/名称">
+                                                    <span class="input-group-btn">
+                                                        <button class="btn btn-default" type="button" onclick="doSearch()"><i class="fa fa-search"></i>查询</button>
+                                                        <!--<button class="btn btn-default" type="button" onclick="doClear()"><i class="fa fa-mail-reply"></i>清空</button>-->
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                                <table id="simpledatatable">
+
+                                </table>
+                            </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+<!-- Modal -->
+<div id="myModal" style="display:none;overflow:hidden;padding-top:15px;padding-bottom: 15px;">
+    <div class="row">
+        <div class="col-md-12">
+            <div>
+                <form class="form-horizontal form-bordered" id="orgForm" role="form">
+                    <div class="form-group">
+                        <label for="inputOrgPid" class="col-sm-2 control-label no-padding-right">上级机构</label>
+                        <div class="col-sm-10">
+                            <input class="easyui-combotree" id="inputOrgPid" data-options="required:true" name="org_pid" value="0"  style="width:300px;;height:31px;">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputOptCode" class="col-sm-2 control-label no-padding-right">机构编号</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="easyui-validatebox form-control" data-options="required:true" name="org_code" id="inputOrgCode" placeholder="请输入机构编号" style="width:60%">
+                            <input type="hidden" name="_id" id="inputId">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputOrgName" class="col-sm-2 control-label no-padding-right">机构名称</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="easyui-validatebox form-control" data-options="required:true" name="org_name" id="inputOrgName" placeholder="请输入机构名称" style="width:60%">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputOrgFullName" class="col-sm-2 control-label no-padding-right">机构全称</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="easyui-validatebox form-control" data-options="required:true" name="org_fullname" id="inputOrgFullName" placeholder="请输入机构全称">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputOrgType" class="col-sm-2 control-label no-padding-right">机构类别</label>
+                        <div class="col-sm-10">
+                            <input id="inputOrgType" name="org_type" style="width:300px;;height:31px;" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputOrgOrder" class="col-sm-2 control-label no-padding-right">排序号</label>
+                        <div class="col-sm-4">
+                            <input type="text" name="org_order" id="inputOrgOrder" class="easyui-numberspinner" data-options="required:true" style="width:70px;height:31px;" value="1"/>
+                        </div>
+
+                        <label for="inputOrgStatus" class="col-sm-2 control-label no-padding-right">状态</label>
+                        <div class="col-sm-4">
+                            <select class="easyui-combobox form-control" style="width: 70px;height:34px;" data-options="editable:false,panelHeight:75" name="org_status" id="inputOrgStatus" data-bv-field="inputOrgStatus">
+                                <option value="1">启用</option>
+                                <option value="0">禁用</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputOrgRemark" class="col-sm-2 control-label no-padding-right">备注</label>
+                        <div class="col-sm-10">
+                            <textarea class="form-control" name="org_remark" id="inputOrgRemark" placeholder="请输入备注" rows="3"></textarea>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style type="text/css">
+    .combo{
+        line-height:22px;
+    }
+</style>
+
+<script>
+
+    var common_org_type = {{{totree commonDictData.common_org_type}}};
+
+    function initTree(){
+        $('#myTree').tree({
+            method: 'get',
+            url: '{{projcfg.appurl}}/admin/api/common/uum/org/tree',
+            value:currentOrgId,
+            lines:true,
+            onClick: function(node){
+                tempOrgPid = node.id;
+                $('#simpledatatable').datagrid('reload',{'org_pid':tempOrgPid});
+            }
+        });
+    }
+
+    function InitComboTree() {
+        $('#inputOrgPid').combotree({
+            method: 'get',
+            required:true,
+            url: '{{projcfg.appurl}}/admin/api/common/uum/org/tree',
+            value:currentOrgId
+        });
+        $('#inputOrgType').combotree({
+            required:true,
+            loader:function(param,success,error){
+                success(common_org_type);
+            }
+        });
+    }
+
+    function loopJsonArray(arr,temp){
+        for(var i in arr){
+            if(arr[i].id == temp){
+                return arr[i].text;
+            }else{
+                if(arr[i].children){
+                    return(loopJsonArray(arr[i].children,temp));
+                }
+            }
+        }
+    }
+
+    /*InitiateSimpleDataTable.init();*/
+    var table;
+    var tempOrgPid;//菜单父ID
+    var currentOrgId = '{{currentUser.user_org._id}}';
+    $(document).ready(function() {
+        initTree();
+        $(function(){
+            $('#simpledatatable').datagrid({
+                //title:'项目配置列表',
+                url:'{{projcfg.appurl}}/admin/api/common/uum/org',
+                method:'get',
+                rownumbers:true,
+                //autoRowHeight:true,
+                //fit:true,
+                //toolbar:'#toolbar',
+                striped:true,
+                fitColumns:true,
+                toolbar: '#toolbar',
+                fit:true,
+                border:false,
+                singleSelect:true,
+                selectOnCheck:false,
+                columns:[[
+                    {field:'_id',checkbox:true},
+                    {"field": "org_code","title":"机构编号","width":50},
+                    {"field": "org_name","title":"机构名称","width":50},
+                    {"field": "org_fullname","title":"机构全称","width":70},
+                    {"field": "org_type","title":"机构类别","width":50,
+                        "formatter":function (data,rowData,rowIndex) {
+                            return loopJsonArray(common_org_type,data);
+                        }
+                    },
+                    {"field": "org_order","title":"排序号","width":50},
+                    {"field": "org_status","title":"状态","width":50,
+                        "formatter":function (data,rowData,rowIndex) {
+                            if(data == 1){
+                                return '<font style="color:blue">启用</font>';
+                            }else if(data == 0){
+                                return '<font style="color:red">禁用</font>';
+                            }
+                        }
+                    }
+                ]],
+                onDblClickRow:function(rowIndex, rowData){
+                    //doEdit(1,rowIndex,rowData);
+                },
+                onLoadSuccess:function(json) {
+                    if(!json.success) {
+                        msgError('提示,'+json.msg + ',错误代码:' + json.code);
+                    }
+                },
+                onLoadError:function() {
+                    msgError('提示,加载数据出现时发生错误,请稍候重试...');
+                },
+                pagination:true,
+                loadMsg:'正在加载...'
+            });
+        });
+    });
+
+    function doSearch() {
+        $('#simpledatatable').datagrid('reload',{'org_pid':tempOrgPid,'opt_name':$("#queryOrgName").val()});
+        initTree();
+    }
+    function doClear() {
+        $('#queryOrgName').val('');
+        doSearch();
+    }
+
+    // 关闭窗口
+    function closeDialog() {
+        $('#myModal').dialog('close');
+        clear();
+    }
+    // 打开页面
+    function openPage(title, value, callback) {
+        $('#myModal').show();
+        InitComboTree();
+        $('#myModal').mydialog({
+            title:title,
+            width: 700,
+            height: 550,
+            top:100,
+            modal: true,
+            myButtons:[
+                {
+                    text:'确定',
+                    btnCls:'btn btn-blue',
+                    handler:function(){
+                        callback(value);
+                    }
+                },
+                {
+                    text:'关闭',
+                    btnCls:'btn btn-danger',
+                    handler:function(){
+                        closeDialog();
+                    }
+                }
+            ]
+        });
+    }
+
+    // 新增数据
+    function doAdd(value) {//alert($('#studentForm').serializeJson());
+        var validate = $('#orgForm').form('validate');
+        if(!validate) {
+            return false;
+        }
+        $.ajax({
+            url: '{{projcfg.appurl}}/admin/api/common/uum/org',
+            type: 'post',
+            data: $('#orgForm').serializeJson(),
+            success: function (data) {
+                if(data.success) {
+                    msgSuccess(data.msg);
+                    closeDialog();
+                    doSearch();
+                }
+                else {
+                    msgError(data.msg+',错误代码:'+data.code);
+                }
+            }
+        });
+    }
+
+    // 打开修改页面
+    function toEdit() {
+
+        // 获得选择行
+        var rows = $('#simpledatatable').datagrid('getChecked');
+        if (rows.length != 1) {
+            msgError('提示,请选择一条数据再进行修改');
+            return ;
+        }
+        var id = rows[0]._id;
+        openPage("修改机构", id, doEdit);
+        // 获取远程数据
+        $.ajax({
+            url: '{{projcfg.appurl}}/admin/api/common/uum/org/'+id,
+            type: 'get',
+            data: {
+
+            }, success: function (data) {
+                if(data.success) {
+                    $('#orgForm').form('load',data.data[0]);
+                    $('#inputOrgType').combotree('setValue',data.data[0].org_type);
+                }
+                else {
+                    msgError(data.msg+',错误代码:'+data.code);
+                }
+            }
+        });
+    }
+    // 修改数据
+    function doEdit(value) {
+        var validate = $('#orgForm').form('validate');
+        if(!validate) {
+            return false;
+        }
+        $.ajax({
+            url: '{{projcfg.appurl}}/admin/api/common/uum/org/'+value,
+            type: 'put',
+            data: $('#orgForm').serializeJson(),
+            success: function (data) {
+                if(data.success) {
+                    msgSuccess(data.msg);
+                    closeDialog();
+                    doSearch();
+                    clear();
+                }
+                else {
+                    msgError(data.msg+',错误代码:'+data.code);
+                }
+            }
+        });
+    }
+    // 清空新增表单数据
+    function clear() {
+        $('#orgForm').form('clear');
+    }
+
+</script>

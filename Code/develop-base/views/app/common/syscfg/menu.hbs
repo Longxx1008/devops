@@ -1,0 +1,920 @@
+<div class="row">
+    <div class="col-xs-12 col-md-12">
+        <div class="widget">
+            <div class="widget-body">
+                <div id="cc" class="easyui-layout" data-options="fit:true,border:false" style="width: 800px; height: 666px" >
+                    <div data-options="region:'north',border:false" style="height:43px;padding:5px 0px 5px 0px;">
+                        所属系统：<input id="inputSysId" name="inputSysId" style="width: 180px;height:31px;">
+                    </div>
+                    <div data-options="region:'center',border:false">
+                        <div class="easyui-layout" data-options="fit:true">
+                            <div data-options="region:'west',title:'菜单树',split:true,border:true" style="width:210px">
+                                <ul id="menuTree"></ul>
+                            </div>
+                            <div data-options="region:'center',title:'菜单权限列表',border:true" style="overflow-x:hidden;overflow-y:hidden">
+                                <div id="toolbar" class="row tbRow">
+                                    <div class="col-xs-6 col-md-6">
+                                        <div class="btn-group" role="group" aria-label="...">
+                                            <button type="button" class="btn btn-default" onclick="openPage('新增菜单', '', doAdd)" data-title="新增">
+                                                <i class="fa fa-plus"></i> 新增
+                                            </button>
+                                            <button type="button" class="btn btn-default" onclick="toEdit()" data-title="修改">
+                                                <i class="fa fa-edit"></i> 修改
+                                            </button>
+                                            <button type="button" class="btn btn-default" onclick="openOptBatchPage('批量新增操作权限', '', doOptBatchAdd)">
+                                                <i class="fa fa-file-text-o"></i> 批量新增操作权限
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-6 col-md-6 text-right">
+                                        <form id="searchFrom" class="form-inline">
+                                            <div class="form-group">
+                                                <div class="input-group">
+                                                    <label for="filterParam3">状态：</label>
+                                                    <select id="filterParam3" class="easyui-combobox form-control" data-options="editable:false,panelHeight:75" style="width: 70px;height:34px;">
+                                                        <option value="-1">所有</option>
+                                                        <option value="1">正常</option>
+                                                        <option value="0">禁用</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="input-group">
+                                                    <input type="input" id="filterParam1" class="form-control" style="width:200px;" placeholder="菜单编码/名称">
+                                                    <span class="input-group-btn">
+                                                        <button class="btn btn-default" type="button" onclick="doSearch()"><i class="fa fa-search"></i>查询</button>
+                                                        <!--<button class="btn btn-default" type="button" onclick="doClear()"><i class="fa fa-mail-reply"></i>清空</button>-->
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                                <table id="menudatatable">
+                                </table>
+                            </div>
+                            <div data-options="region:'east',title:'操作权限列表',split:true,border:true,collapsed:true,hideCollapsedContent:false,collapsedContent: function(title){return title;}" style="width:520px;overflow-x:hidden;overflow-y:hidden">
+                                <div id="opttoolbar" class="row tbRow">
+                                    <div class="col-xs-6 col-md-6">
+                                        <div class="btn-group" role="group" aria-label="...">
+                                            <button type="button" class="btn btn-default" onclick="openOptPage('新增操作', '', doOptAdd)" data-title="新增">
+                                                <i class="fa fa-plus"></i> 新增
+                                            </button>
+                                            <button type="button" class="btn btn-default" onclick="toOptEdit()" data-title="修改">
+                                                <i class="fa fa-edit"></i> 修改
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <table id="menuoptdatatable">
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal -->
+<div id="menuModal" class="mydialog" style="padding-top:0px;">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="widget flat radius-bordered">
+                <div class="widget-body" style="background-color: #fff;">
+                    <div id="registration-form">
+                        <form id="menuForm" role="form">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label class="control-label">所属系统</label><br/>
+                                        <select id="menu_sysid" name="menu_sysid" class="form-control" style="width: 180px;height:34px;">
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label class="control-label">上级菜单</label><br/>
+                                        <select id="menu_pid" name="menu_pid" class="form-control" style="width: 265px;height:34px;">
+                                        </select>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label class="control-label">菜单编码</label>
+                                        <input type="text" name="menu_code" class="easyui-validatebox form-control" data-options="required:true" placeholder="菜单编码">
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label class="control-label">菜单名称</label>
+                                        <input type="text" id="menu_name" name="menu_name" class="easyui-validatebox form-control" data-options="required:true" placeholder="菜单名称">
+                                    </div>
+                                </div>
+                            </div>
+                            <!--<div class="form-group">
+                                <label class="control-label">菜单url</label><br/>
+                                <input type="text" name="menu_url" class="easyui-validatebox form-control" data-options="required:true" placeholder="菜单url">
+                            </div>-->
+                            <!--<div class="form-group">
+                                <label class="control-label">菜单导航</label><br/>
+                                <textarea type="text" id="menu_nav" name="menu_nav" class="easyui-validatebox form-control" data-options="required:true" placeholder="菜单导航"></textarea>
+                                <input type="hidden" id="menu_pnav" name="menu_pnav">
+                            </div>-->
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label class="control-label">菜单url</label><br/>
+                                        <textarea type="text" id="menu_url" name="menu_url" class="easyui-validatebox form-control" data-options="required:true" placeholder="菜单url"></textarea>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label class="control-label">菜单导航</label><br/>
+                                        <textarea type="text" id="menu_nav" name="menu_nav" class="easyui-validatebox form-control" data-options="required:true" placeholder="菜单导航"></textarea>
+                                        <input type="hidden" id="menu_pnav" name="menu_pnav">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">菜单图标样式</label><br/>
+                                <textarea type="text" id="menu_cls" name="menu_cls" rows="2" class="easyui-validatebox form-control" placeholder="菜单图标样式"></textarea>
+                            </div>
+                            <div class="row">
+                                <!--<div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label class="control-label">菜单图标样式</label><br/>
+                                        <textarea type="text" name="menu_cls" id="menu_cls" class="easyui-validatebox form-control"></textarea>
+                                    </div>
+                                </div>-->
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label class="control-label">菜单类型</label><br/>
+                                        <select  name="menu_type" id="menu_type" class="easyui-combobox" data-options="required:true,editable:false,panelHeight:75,value:2" style="width: 265px;height:34px;">
+                                            <option value="0">Portal页</option>
+                                            <option value="1">框架内置</option>
+                                            <option value="2">业务自有</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label class="control-label">菜单目标target</label><br/>
+                                        <input type="text" id="menu_target" name="menu_target" class="easyui-validatebox form-control" data-options="required:true" value="_self" placeholder="菜单目标target">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label class="control-label">是否在系统菜单中显示</label><br/>
+                                        <select  name="menu_hidden" id="menu_hidden" class="easyui-combobox" data-options="required:true,editable:false,panelHeight:50" style="width:70px;height:34px;">
+                                            <option value="0">显示</option>
+                                            <option value="1">隐藏</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label class="control-label">是否沿用系统布局</label><br/>
+                                        <select  name="menu_use_sys_layout" id="menu_use_sys_layout" class="easyui-combobox" data-options="required:true,editable:false,panelHeight:50" style="width:70px;height:34px;">
+                                            <option value="1">是</option>
+                                            <option value="0">否</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label class="control-label">排序号</label><br/>
+                                        <input type="text" name="menu_order" id="menu_order" class="easyui-numberspinner" data-options="required:true" style="width:70px;height:31px;" value="1"/>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label class="control-label">状态</label><br/>
+                                        <select  name="menu_status" id="menu_status" class="easyui-combobox" data-options="required:true,editable:false,panelHeight:50" style="width:70px;height:34px;">
+                                            <option value="1">正常</option>
+                                            <option value="0">禁用</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">备注</label>
+                                <textarea class="form-control" rows="3" name="menu_remark" id="menu_remark" placeholder="备注" ></textarea>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="menuOptModal" class="mydialog" style="padding-top:0px;">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="widget flat radius-bordered">
+                <div class="widget-body" style="background-color: #fff;">
+                    <div id="registration-form">
+                        <form id="menuOptForm" role="form">
+                            <div class="form-group">
+                                <label class="control-label">所属菜单</label>
+                                <input type="text" id="opt_menu" name="opt_menu" class="form-control" readonly="true">
+                                <input type="hidden" id="menu_id" name="menu_id" class="form-control" readonly="true">
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label class="control-label">操作编码</label>
+                                        <input type="text" name="opt_code" class="easyui-validatebox form-control" data-options="required:true" placeholder="操作编码">
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label class="control-label">操作名称</label>
+                                        <input type="text" id="opt_name" name="opt_name" class="easyui-validatebox form-control" data-options="required:true" placeholder="操作名称">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">操作url</label><br/>
+                                <select  name="opt_method" id="opt_method" class="easyui-combobox" data-options="required:true,editable:false,panelHeight:100" style="width:80px;height:34px;">
+                                    <option value="get">get</option>
+                                    <option value="post">post</option>
+                                    <option value="put">put</option>
+                                    <option value="delete">delete</option>
+                                </select>
+                                <input type="text" name="opt_url" class="easyui-validatebox form-control" data-options="required:true" placeholder="操作url" style="width:85%;display:inline;">
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label class="control-label">排序号</label><br/>
+                                        <input type="text" name="opt_order" id="opt_order" class="easyui-numberspinner" data-options="required:true" style="width:70px;height:31px;" value="1"/>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label class="control-label">状态</label><br/>
+                                        <select  name="opt_status" id="opt_status" class="easyui-combobox" data-options="required:true,editable:false,panelHeight:50" style="width:70px;height:34px;">
+                                            <option value="1">正常</option>
+                                            <option value="0">禁用</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">备注</label>
+                                <textarea class="form-control" rows="3" name="opt_remark" id="opt_remark" placeholder="备注" ></textarea>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="menuOptBatchModal" class="mydialog" style="padding-top:0px;overflow-y:auto;">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="widget flat radius-bordered">
+                <div class="widget-body" style="background-color: #fff;">
+                    <div id="registration-form">
+                        <form id="menuOptBatchForm" role="form">
+                            <div class="form-group">
+                                <label class="control-label">所属菜单</label>
+                                <input type="text" id="batch_opt_menu" name="batch_opt_menu" class="form-control" readonly="true">
+                                <input type="hidden" id="batch_menu_id" name="batch_menu_id" class="form-control" readonly="true">
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">操作url前缀</label>
+                                <input type="text" id="batch_opt_url_prefix" name="batch_opt_url_prefix" class="easyui-validatebox form-control" data-options="required:true" placeholder="前缀结尾不带/">
+                            </div>
+                            <div class="form-group">
+                                <table class="grid" width="100%" cellspacing='0' cellpadding='1' >
+                                    <thead>
+                                        <tr>
+                                            <th width="15%">编号</th>
+                                            <th width="15%">名称</th>
+                                            <th width="15%">方法</th>
+                                            <th>url</th>
+                                            <th width="10%">序号</th>
+                                            <th width="5%" style="text-align: center;"><a href="javascript:appendTr()"><i class="fa fa-plus"></i></a></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="batch_opt_tb">
+                                        <tr id="batch_opt_tr_0">
+                                            <td><input type="text" id="batch_opt_code" name="batch_opt_code" class="easyui-validatebox form-control" data-options="required:true" value="query"/></td>
+                                            <td><input type="text" id="batch_opt_name" name="batch_opt_name" class="easyui-validatebox form-control" data-options="required:true" value="查询"/></td>
+                                            <td>
+                                                <select  name="batch_opt_method" id="batch_opt_method" class="form-control" style="width:80px;height:34px;">
+                                                    <option value="get" selected>get</option>
+                                                    <option value="post">post</option>
+                                                    <option value="put">put</option>
+                                                    <option value="delete">delete</option>
+                                                </select>
+                                            </td>
+                                            <td><input type="text" id="batch_opt_url" name="batch_opt_url" class="easyui-validatebox form-control" data-options="required:false" value=""/></td>
+                                            <td><input type="text" id="batch_opt_order" name="batch_opt_order" class="easyui-validatebox form-control" data-options="required:true" value="1"/></td>
+                                            <td align="center"><a href="javascript:removeTr(0)"><i class="fa fa-remove"></i></a></td>
+                                        </tr>
+                                        <tr id="batch_opt_tr_1">
+                                            <td><input type="text" id="batch_opt_code" name="batch_opt_code" class="easyui-validatebox form-control" data-options="required:true" value="add"/></td>
+                                            <td><input type="text" id="batch_opt_name" name="batch_opt_name" class="easyui-validatebox form-control" data-options="required:true" value="新增"/></td>
+                                            <td>
+                                                <select  name="batch_opt_method" id="batch_opt_method" class="form-control" style="width:80px;height:34px;">
+                                                    <option value="get">get</option>
+                                                    <option value="post" selected>post</option>
+                                                    <option value="put">put</option>
+                                                    <option value="delete">delete</option>
+                                                </select>
+                                            </td>
+                                            <td><input type="text" id="batch_opt_url" name="batch_opt_url" class="easyui-validatebox form-control" data-options="required:false" value=""/></td>
+                                            <td><input type="text" id="batch_opt_order" name="batch_opt_order" class="easyui-validatebox form-control" data-options="required:true" value="2"/></td>
+                                            <td align="center"><a href="javascript:removeTr(1)"><i class="fa fa-remove"></i></a></td>
+                                        </tr>
+                                        <tr id="batch_opt_tr_2">
+                                            <td><input type="text" id="batch_opt_code" name="batch_opt_code" class="easyui-validatebox form-control" data-options="required:true" value="get"/></td>
+                                            <td><input type="text" id="batch_opt_name" name="batch_opt_name" class="easyui-validatebox form-control" data-options="required:true" value="详情"/></td>
+                                            <td>
+                                                <select  name="batch_opt_method" id="batch_opt_method" class="form-control" style="width:80px;height:34px;">
+                                                    <option value="get" selected>get</option>
+                                                    <option value="post">post</option>
+                                                    <option value="put">put</option>
+                                                    <option value="delete">delete</option>
+                                                </select>
+                                            </td>
+                                            <td><input type="text" id="batch_opt_url" name="batch_opt_url" class="easyui-validatebox form-control" data-options="required:false" value="/:id"/></td>
+                                            <td><input type="text" id="batch_opt_order" name="batch_opt_order" class="easyui-validatebox form-control" data-options="required:true" value="3"/></td>
+                                            <td align="center"><a href="javascript:removeTr(2)"><i class="fa fa-remove"></i></a></td>
+                                        </tr>
+                                        <tr id="batch_opt_tr_3">
+                                            <td><input type="text" id="batch_opt_code" name="batch_opt_code" class="easyui-validatebox form-control" data-options="required:true" value="update"/></td>
+                                            <td><input type="text" id="batch_opt_name" name="batch_opt_name" class="easyui-validatebox form-control" data-options="required:true" value="修改"/></td>
+                                            <td>
+                                                <select  name="batch_opt_method" id="batch_opt_method" class="form-control" style="width:80px;height:34px;">
+                                                    <option value="get">get</option>
+                                                    <option value="post">post</option>
+                                                    <option value="put" selected>put</option>
+                                                    <option value="delete">delete</option>
+                                                </select>
+                                            </td>
+                                            <td><input type="text" id="batch_opt_url" name="batch_opt_url" class="easyui-validatebox form-control" data-options="required:false" value="/:id"/></td>
+                                            <td><input type="text" id="batch_opt_order" name="batch_opt_order" class="easyui-validatebox form-control" data-options="required:true" value="4"/></td>
+                                            <td align="center"><a href="javascript:removeTr(3)"><i class="fa fa-remove"></i></a></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .panel-header-noborder {
+        /*border-width: 1px 0 1px 0;*/
+    }
+</style>
+<script>
+
+    function removeTr(id) {
+        $('#batch_opt_tr_'+id).remove();
+    }
+    var rownum = 4;
+    function appendTr() {
+        $('#batch_opt_tb').append(
+        '<tr id="batch_opt_tr_'+rownum+'">'+
+        '<td><input type="text" id="batch_opt_code" name="batch_opt_code" class="easyui-validatebox form-control" data-options="required:true" value=""/></td>'+
+        '<td><input type="text" id="batch_opt_name" name="batch_opt_name" class="easyui-validatebox form-control" data-options="required:true" value=""/></td>'+
+        '<td>'+
+        '<select  name="batch_opt_method" id="batch_opt_method" class="form-control" style="width:80px;height:34px;">'+
+        '<option value="get">get</option>'+
+        '<option value="post">post</option>'+
+        '<option value="put">put</option>'+
+        '<option value="delete">delete</option>'+
+        '</select>'+
+        '</td>'+
+        '<td><input type="text" id="batch_opt_url" name="batch_opt_url" class="easyui-validatebox form-control" data-options="required:false" value=""/></td>'+
+        '<td><input type="text" id="batch_opt_order" name="batch_opt_order" class="easyui-validatebox form-control" data-options="required:true" value=""/></td>'+
+        '<td align="center"><a href="javascript:removeTr('+rownum+')"><i class="fa fa-remove"></i></a></td>'+
+        '</tr>'
+        );
+        rownum++;
+        $.parser.parse();
+    }
+
+    // 关闭窗口
+    function closeDialog() {
+        $('#menuModal').dialog('close');
+        clear();
+    }
+    // 打开页面
+    function openPage(title, value, callback) {
+
+        $('#menu_sysid').combobox('setValue', currentSysId);
+        $('#menu_pid').combotree('setValue', currentMenupid ? currentMenupid : '0');
+        $('#menuModal').show();
+        $('#menuModal').mydialog({
+            title:title,
+            width: 600,
+            height: 710,
+            top:100,
+            modal: true,
+            myButtons:[
+                {
+                    text:'确定',
+                    btnCls:'btn btn-blue',
+                    handler:function(){
+                        callback(value);
+                    }
+                },
+                {
+                    text:'关闭',
+                    btnCls:'btn btn-danger',
+                    handler:function(){
+                        closeDialog();
+                    }
+                }
+            ]
+        });
+    }
+
+    function initLeftMenuTree(sysid) {
+        $('#menuTree').tree({
+            method:'get',
+            url:'{{projcfg.appurl}}/admin/api/common/syscfg/menu/tree/'+sysid,
+            lines:true,
+            onClick:function(node) {
+                var isLeaf = $('#menuTree').tree('isLeaf', node.target);
+                if(!isLeaf) {
+                    currentMenupid = node.id;
+                    $('#menudatatable').datagrid('load',{
+                        sys_id:currentSysId,
+                        menu_pid:currentMenupid
+                    });
+                }
+            }
+        });
+    }
+
+    function initFormMenuTree(sysid) {
+        $('#menu_pid').combotree({
+            method:'get',
+            url:'{{projcfg.appurl}}/admin/api/common/syscfg/menu/tree/'+sysid,
+            required: true,
+            panelHeight:300,
+            //value:currentMenupid ? currentMenupid : '0',
+            editable:false,
+            onSelect:function(rec) {
+                if(rec.attributes) {
+                    if(rec.attributes.nav) {
+                        $('#menu_pnav').val(rec.attributes.nav + ' > ');
+                        if($("#menu_nav").val()) {
+                            $("#menu_nav").val($('#menu_pnav').val() + $('#menu_name').val());
+                        }
+                    }
+                }
+            }
+        });
+    }
+
+    var currentSysId = '{{currentUser.user_sys._id}}';
+    var currentMenupid;
+    $(document).ready(function() {
+
+        $("#menu_name").bind("blur", function(){
+            $("#menu_nav").val($('#menu_pnav').val() + $('#menu_name').val());
+        });
+
+        $('#inputSysId').combobox({
+            method: 'get',
+            url: '{{projcfg.appurl}}/public/sysData',
+            valueField:'_id',
+            textField:'sys_name',
+            value:currentSysId,
+            editable:false,
+            onChange: function (newValue,oldValue) {
+                currentSysId = newValue;
+                // 加载角色菜单操作树
+                initLeftMenuTree(currentSysId);
+
+                $('#menudatatable').datagrid('load',{
+                    sys_id:currentSysId
+                });
+            }
+        });
+        initLeftMenuTree(currentSysId);
+
+        $('#menu_sysid').combobox({
+            method: 'get',
+            url: '{{projcfg.appurl}}/public/sysData',
+            valueField:'_id',
+            textField:'sys_name',
+            value:currentSysId,
+            editable:false,
+            required:true,
+            onChange: function (newValue,oldValue) {
+                // 加载角色菜单操作树
+                initFormMenuTree(newValue);
+                if(currentSysId == newValue) {
+                    $('#menu_pid').combotree('setValue', currentMenupid);
+                }
+                else {
+                    $('#menu_pid').combotree('setValue', '0');
+                }
+                currentSysId = newValue;
+                $('#inputSysId').combobox('setValue', currentSysId);
+            }
+        });
+
+        initFormMenuTree(currentSysId);
+
+        $('#menudatatable').datagrid({
+            url:'{{projcfg.appurl}}/admin/api/common/syscfg/menu',
+            queryParams:{sys_id:currentSysId},
+            method:'get',
+            rownumbers:true,
+            //autoRowHeight:true,
+            striped:true,
+            fitColumns:true,
+            toolbar: '#toolbar',
+            fit:true,
+            border:false,
+            singleSelect:true,
+            selectOnCheck:false,
+            //checkOnSelect:true,
+            columns:[[
+                {"field":'_id',checkbox:true},
+                {"field": "menu_code","title":"菜单编码","width":30},
+                {"field": "menu_name","title":"菜单名称","width":30},
+                {"field": "menu_url","title":"url","width":50},
+                {"field": "menu_order","title":"排序号","width":20},
+                {"field": "menu_status","title":"状态","width":15,
+                    "formatter":function (value, rowData,rowIndex) {
+                        if(value == 1){
+                            return '<span class="success">正常</span>';
+                        }else if(value == 0){
+                            return '<span class="danger">禁用</span>';
+                        }
+                    }
+                }
+            ]],
+            onLoadSuccess:function(json) {
+                if(!json.success) {
+                    msgError(json.msg + ',错误代码:' + json.code);
+                }
+            },
+            onLoadError:function() {
+                msgError('加载数据出现时发生错误,请稍候重试...');
+            },
+            onCheck:function(rowIndex,rowData){
+                // 加载右侧操作列表
+                $('#menuoptdatatable').datagrid({
+                    url:'{{projcfg.appurl}}/admin/api/common/syscfg/menu/opt',
+                    queryParams:{menu_id:rowData._id}
+                });
+            },
+            pagination:true,
+            loadMsg:'正在加载...'
+        });
+
+
+        $('#menuoptdatatable').datagrid({
+            method:'get',
+            rownumbers:true,
+            //autoRowHeight:true,
+            striped:true,
+            fitColumns:true,
+            toolbar: '#opttoolbar',
+            fit:true,
+            border:false,
+            singleSelect:true,
+            selectOnCheck:false,
+            //checkOnSelect:true,
+            columns:[[
+                {"field":'_id',checkbox:true},
+                //{"field": "opt_code","title":"编码","width":15},
+                {
+                    "field": "opt_name", "title": "名称", "width": 15,
+                    "formatter": function (value, rowData, rowIndex) {
+                        if (rowData.opt_status == 1) {
+                            return '<span class="success">'+value+'['+rowData.opt_code+']</span>';
+                        } else if (rowData.opt_status == 0) {
+                            return '<span class="danger">'+value+'['+rowData.opt_code+']</span>';
+                        }
+                    }
+                },
+                //{"field": "opt_method","title":"method","width":17},
+                {"field": "opt_url","title":"url","width":50,
+                    "formatter": function (value, rowData, rowIndex) {
+                        return rowData.opt_method + ':' + value;
+                    }
+                }
+            ]],
+            onLoadSuccess:function(json) {
+                if(!json.success) {
+                    msgError(json.msg + ',错误代码:' + json.code);
+                }
+            },
+            onLoadError:function() {
+                msgError('加载数据出现时发生错误,请稍候重试...');
+            },
+            onCheck:function(rowIndex,rowData){
+
+            },
+            pagination:false,
+            loadMsg:'正在加载...'
+        });
+    });
+
+    function doSearch() {
+        var sysId = $('#inputSysId').combobox('getValue');
+        if(sysId){
+            $('#menudatatable').datagrid('reload',{
+                'menu_code':$.trim($('#filterParam1').val()),
+                'menu_status':$('#filterParam3').combobox('getValue'),
+                'sys_id':sysId,
+                menu_pid:currentMenupid
+            });
+        }else{
+            msgError('请先选择所属系统');
+        }
+    }
+
+    // 新增数据
+    function doAdd(value) {
+
+        // 验证表单
+        var validate = $('#menuForm').form('validate');
+        if(!validate) {
+            return false;
+        }
+        $.ajax({
+            url: '{{projcfg.appurl}}/admin/api/common/syscfg/menu',
+            type: 'post',
+            data: $('#menuForm').serializeJson(),
+            success: function (data) {
+                if(data.success) {
+                    msgSuccess(data.msg);
+                    closeDialog();
+                    doSearch();
+                }
+                else {
+                    msgError(data.msg+',错误代码:'+data.code);
+                }
+            }
+        });
+    }
+
+    // 打开修改页面
+    function toEdit() {
+
+        // 获得选择行
+        var rows = $('#menudatatable').datagrid('getChecked');
+        if (rows.length != 1) {
+            msgError('提示,请选择一条数据再进行修改');
+            return false;
+        }
+        var id = rows[0]._id;
+        initFormMenuTree(rows[0].menu_sysid);
+        $('#menuForm').form('load',rows[0]);
+        if($('#menuTree').tree('find', rows[0].menu_pid).attributes) {
+            $('#menu_pnav').val($('#menuTree').tree('find', rows[0].menu_pid).attributes.nav + ' > ');
+        }
+        else {
+            $('#menu_pnav').val('');
+        }
+        openPage("修改菜单", id, doEdit);
+    }
+    // 修改数据
+    function doEdit(value) {
+
+        // 验证表单
+        var validate = $('#menuForm').form('validate');
+        if(!validate) {
+            return false;
+        }
+        $.ajax({
+            url: '{{projcfg.appurl}}/admin/api/common/syscfg/menu/'+value,
+            type: 'put',
+            data: $('#menuForm').serializeJson(),
+            success: function (data) {
+                if(data.success) {
+                    msgSuccess(data.msg);
+                    closeDialog();
+                    doSearch();
+                    clear();
+                }
+                else {
+                    msgError(data.msg+',错误代码:'+data.code);
+                }
+            }
+        });
+
+    }
+
+    // 清空新增表单数据
+    function clear() {
+        $('#menuForm').form('reset');
+    }
+
+    function openOptPage(title, value, callback) {
+
+        // 获得选择行
+        var rows = $('#menudatatable').datagrid('getChecked');
+        if (rows.length != 1) {
+            msgError('提示,请从列表中选择一条菜单数据');
+            return false;
+        }
+
+        $('#opt_menu').val(rows[0].menu_nav);
+        $('#menu_id').val(rows[0]._id);
+
+        $('#menuOptModal').show();
+        $('#menuOptModal').mydialog({
+            title:title,
+            width: 600,
+            height: 465,
+            top:100,
+            modal: true,
+            myButtons:[
+                {
+                    text:'确定',
+                    btnCls:'btn btn-blue',
+                    handler:function(){
+                        callback(value);
+                    }
+                },
+                {
+                    text:'关闭',
+                    btnCls:'btn btn-danger',
+                    handler:function(){
+                        closeOptDialog();
+                    }
+                }
+            ]
+        });
+    }
+
+    // 关闭窗口
+    function closeOptDialog() {
+        $('#menuOptModal').dialog('close');
+        clearOpt();
+    }
+    function clearOpt() {
+        $('#menuOptForm').form('reset');
+    }
+
+    function doOptSearch() {
+
+        // 获得选择行
+        var rows = $('#menudatatable').datagrid('getChecked');
+        if (rows.length != 1) {
+            msgError('提示,请从列表中选择一条菜单数据');
+            return false;
+        }
+        $('#menuoptdatatable').datagrid('reload',{
+            menu_id:rows[0]._id
+        });
+    }
+
+    function doOptAdd() {
+        // 验证表单
+        var validate = $('#menuOptForm').form('validate');
+        if(!validate) {
+            return false;
+        }
+        $.ajax({
+            url: '{{projcfg.appurl}}/admin/api/common/syscfg/menu/opt',
+            type: 'post',
+            data: $('#menuOptForm').serializeJson(),
+            success: function (data) {
+                if(data.success) {
+                    msgSuccess(data.msg);
+                    doOptSearch();
+                    closeOptDialog();
+                }
+                else {
+                    msgError(data.msg+',错误代码:'+data.code);
+                }
+            }
+        });
+    }
+
+    // 打开修改页面
+    function toOptEdit() {
+
+        // 获得选择行
+        var rows = $('#menuoptdatatable').datagrid('getChecked');
+        if (rows.length != 1) {
+            msgError('提示,请选择一条数据再进行修改');
+            return false;
+        }
+        var id = rows[0]._id;
+        $('#menuOptForm').form('load',rows[0]);
+        openOptPage("修改操作", id, doOptEdit);
+    }
+    // 修改数据
+    function doOptEdit(value) {
+        //alert(JSON.stringify($('#menuOptForm').serializeJson()));
+        // 验证表单
+        var validate = $('#menuOptForm').form('validate');
+        if(!validate) {
+            return false;
+        }
+        $.ajax({
+            url: '{{projcfg.appurl}}/admin/api/common/syscfg/menu/opt/'+value,
+            type: 'put',
+            data: $('#menuOptForm').serializeJson(),
+            success: function (data) {
+                if(data.success) {
+                    msgSuccess(data.msg);
+                    doOptSearch();
+                    closeOptDialog();
+                }
+                else {
+                    msgError(data.msg+',错误代码:'+data.code);
+                }
+            }
+        });
+    }
+
+    function openOptBatchPage(title, value, callback) {
+
+        // 获得选择行
+        var rows = $('#menudatatable').datagrid('getChecked');
+        if (rows.length != 1) {
+            msgError('提示,请从列表中选择一条菜单数据');
+            return false;
+        }
+
+        $('#batch_opt_menu').val(rows[0].menu_nav);
+        $('#batch_menu_id').val(rows[0]._id);
+
+        $('#menuOptBatchModal').show();
+        $('#menuOptBatchModal').mydialog({
+            title:title,
+            width: 700,
+            height: 490,
+            top:100,
+            modal: true,
+            myButtons:[
+                {
+                    text:'确定',
+                    btnCls:'btn btn-blue',
+                    handler:function(){
+                        callback(value);
+                    }
+                },
+                {
+                    text:'关闭',
+                    btnCls:'btn btn-danger',
+                    handler:function(){
+                        closeOptBatchDialog();
+                    }
+                }
+            ]
+        });
+    }
+    function closeOptBatchDialog() {
+        $('#menuOptBatchModal').dialog('close');
+        clearOptBatch();
+    }
+    function clearOptBatch() {
+        $('#menuOptBatchForm').form('reset');
+    }
+    function doOptBatchAdd() {
+        // 验证表单
+        var validate = $('#menuOptBatchForm').form('validate');
+        if(!validate) {
+            return false;
+        }
+        $.ajax({
+            url: '{{projcfg.appurl}}/admin/api/common/syscfg/menu/opt/batch',
+            type: 'post',
+            data: $('#menuOptBatchForm').serializeJson(),
+            success: function (data) {
+                if(data.success) {
+                    msgSuccess(data.msg);
+                    doOptSearch();
+                    closeOptBatchDialog();
+                }
+                else {
+                    msgError(data.msg+',错误代码:'+data.code);
+                }
+            }
+        });
+    }
+</script>

@@ -1,0 +1,550 @@
+<div class="row">
+    <div class="col-xs-12 col-md-12">
+        <div class="widget">
+            <div class="widget-body">
+                <div id="cc" class="easyui-layout" data-options="fit:true,border:false" style="width: 800px; height: 666px" >
+                    <div data-options="region:'north',border:false" style="height:43px;padding:5px 0px 5px 0px;">
+                        所属系统：<input id="inputSysId" name="inputSysId" style="width: 180px;height:31px;">
+                    </div>
+                    <div data-options="region:'center',border:false">
+                        <div class="easyui-layout" data-options="fit:true">
+                            <div data-options="region:'west',title:'参数类别',border:true" style="width:220px;overflow-x:hidden;overflow-y:hidden">
+                                <div id="toolbar" class="row tbRow">
+                                    <div class="col-xs-12 col-md-12">
+                                        <div class="btn-group" role="group" aria-label="...">
+                                            <button type="button" class="btn btn-default" onclick="openCatalogPage('新增类别', '', doAddCatalog)" data-title="新增">
+                                                <i class="fa fa-plus"></i> 新增
+                                            </button>
+                                            <button type="button" class="btn btn-default" onclick="toEditCatalog()" data-title="修改">
+                                                <i class="fa fa-edit"></i> 修改
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <ul id="catalogTree"></ul>
+                            </div>
+                            <div data-options="region:'center',title:'参数列表',split:true,border:true" style="overflow-x:hidden;overflow-y:hidden">
+                                <div id="toolbar" class="row tbRow">
+                                    <div class="col-xs-6 col-md-6">
+                                        <div class="btn-group" role="group" aria-label="...">
+                                            <button type="button" class="btn btn-default" onclick="openPage('新增参数', '', doAdd)" data-title="新增">
+                                                <i class="fa fa-plus"></i> 新增
+                                            </button>
+                                            <button type="button" class="btn btn-default" onclick="toEdit()" data-title="修改">
+                                                <i class="fa fa-edit"></i> 修改
+                                            </button>
+                                            <button type="button" class="btn btn-default" onclick="toSynCatalog()" data-title="同步">
+                                                <i class="fa fa-play"></i> 同步
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-6 col-md-6 text-right">
+                                        <form id="searchFrom" class="form-inline">
+                                            <div class="form-group">
+                                                <div class="input-group">
+                                                    <input type="input" class="form-control" id="filter_name" name="filter_name" placeholder="参数名称">
+                                            <span class="input-group-btn">
+                                                <button class="btn btn-default" type="button" onclick="doSearch()"><i class="fa fa-search"></i>查询</button>
+                                            </span>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                                <table id="paramdatatable">
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal -->
+<div id="catalogModal" class="mydialog" style="padding-top:0px;">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="widget flat radius-bordered">
+                <div class="widget-body" style="background-color: #fff;">
+                    <div id="registration-form">
+                        <form id="catalogForm" role="form">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label class="control-label">所属系统</label><br/>
+                                        <select id="catalog_sysid" name="catalog_sysid" class="form-control" style="width: 180px;height:34px;">
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label class="control-label">类别名称</label><br/>
+                                        <input type="text" id="catalog_name" name="catalog_name" class="easyui-validatebox form-control" data-options="required:true" placeholder="类别名称">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="control-label">备注</label>
+                                <textarea class="form-control" rows="4" name="catalog_remark" id="catalog_remark" placeholder="备注" ></textarea>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="paramModal" class="mydialog" style="padding-top:0px;">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="widget flat radius-bordered">
+                <div class="widget-body" style="background-color: #fff;">
+                    <div id="registration-form">
+                        <form id="paramForm" role="form">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label class="control-label">所属系统</label><br/>
+                                        <select id="param_sysid" name="param_sysid" class="form-control" style="width: 180px;height:34px;">
+                                        </select>
+                                       </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label class="control-label">类别</label><br/>
+                                        <select name="param_catalogid" id="param_catalogid" class="form-control" style="width: 180px;height:34px;">
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label class="control-label">参数名</label>
+                                        <input type="text" id="param_name" name="param_name" class="easyui-validatebox form-control" data-options="required:true" placeholder="参数名">
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label class="control-label">状态</label><br/>
+                                        <select  name="param_status" id="param_status" class="easyui-combobox" data-options="required:true,editable:false,panelHeight:50" style="width:180px;height:34px;">
+                                            <option value="1">正常</option>
+                                            <option value="0">禁用</option>
+                                        </select>
+                                     </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">参数值</label>
+                                <textarea  rows="3" id="param_val" name="param_val" class="easyui-validatebox form-control" data-options="required:true" placeholder="参数值" ></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">备注</label>
+                                <textarea class="form-control" rows="3" name="param_desc" id="param_desc" placeholder="备注" ></textarea>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<style>
+    .panel-header-noborder {
+        /*border-width: 1px 0 1px 0;*/
+    }
+</style>
+<script>
+
+    // 关闭窗口
+    function closeDialog() {
+        $('#paramModal').dialog('close');
+        clear();
+    }
+
+    function closeCatalogDialog() {
+        $('#catalogModal').dialog('close');
+        clearCatalogForm();
+    }
+
+    // 打开页面
+    function openPage(title, value, callback) {
+        initFormCatalogTree(currentSysId);
+        $('#param_sysid').combobox('setValue', currentSysId);
+        $('#param_catalogid').combotree('setValue', currentCatalogpid ? currentCatalogpid : '0');
+        $('#paramModal').show();
+        $('#paramModal').mydialog({
+            title:title,
+            width: 600,
+            height: 460,
+            top:100,
+            modal: true,
+            myButtons:[
+                {
+                    text:'确定',
+                    btnCls:'btn btn-blue',
+                    handler:function(){
+                        callback(value);
+                    }
+                },
+                {
+                    text:'关闭',
+                    btnCls:'btn btn-danger',
+                    handler:function(){
+                        closeDialog();
+                    }
+                }
+            ]
+        });
+    }
+
+    function initLeftCatalogTree(sysid) {
+        $('#catalogTree').tree({
+            method:'get',
+            url:'{{projcfg.appurl}}/admin/api/common/syscfg/param/tree/'+sysid,
+            onClick:function(node) {
+                var isLeaf = $('#catalogTree').tree('isLeaf', node.target);
+                if(isLeaf) {
+                    currentCatalogpid = node.id;
+                    $('#paramdatatable').datagrid('load',{
+                        sys_id:currentSysId,
+                        param_catalogid:currentCatalogpid
+                    });
+                }else{
+                    $('#paramdatatable').datagrid('load',{
+                        sys_id:currentSysId
+                    });
+                }
+            }
+        });
+    }
+
+    function initFormCatalogTree(sysid) {
+        $('#param_catalogid').combotree({
+            method:'get',
+            url:'{{projcfg.appurl}}/admin/api/common/syscfg/param/tree/'+sysid,
+            required: true,
+            panelHeight:300,
+            value:currentCatalogpid ? currentCatalogpid : '0',
+            editable:false
+        });
+    }
+
+    var currentSysId = '{{currentUser.user_sys._id}}';
+    var currentCatalogpid;
+    $(document).ready(function() {
+
+        $('#inputSysId').combobox({
+            method: 'get',
+            url: '{{projcfg.appurl}}/public/sysData',
+            valueField:'_id',
+            textField:'sys_name',
+            value:currentSysId,
+            editable:false,
+            onChange: function (newValue,oldValue) {
+                currentSysId = newValue;
+                // 加载角色菜单操作树
+                initLeftCatalogTree(currentSysId);
+
+                $('#paramdatatable').datagrid('load',{
+                    sys_id:currentSysId
+                });
+            }
+        });
+        initLeftCatalogTree(currentSysId);
+
+        $('#param_sysid').combobox({
+            method: 'get',
+            url: '{{projcfg.appurl}}/public/sysData',
+            valueField:'_id',
+            textField:'sys_name',
+            value:currentSysId,
+            editable:false,
+            required:true,
+            onChange: function (newValue,oldValue) {
+                // 加载角色菜单操作树
+                //initFormCatalogTree(newValue);
+                initFormCatalogTree(newValue);
+                if(currentSysId == newValue) {
+                    $('#param_catalogid').combotree('setValue', currentCatalogpid);
+                }
+                else {
+                    $('#param_catalogid').combotree('setValue', '0');
+                }
+                currentSysId = newValue;
+                $('#inputSysId').combobox('setValue', currentSysId);
+            }
+        });
+
+        $('#catalog_sysid').combobox({
+            method: 'get',
+            url: '{{projcfg.appurl}}/public/sysData',
+            valueField:'_id',
+            textField:'sys_name',
+            value:currentSysId,
+            editable:false,
+            required:true
+        });
+
+
+        initFormCatalogTree(currentSysId);
+
+        $('#paramdatatable').datagrid({
+            url:'{{projcfg.appurl}}/admin/api/common/syscfg/param',
+            queryParams:{sys_id:currentSysId},
+            method:'get',
+            rownumbers:true,
+            autoRowHeight:true,
+            striped:true,
+            fitColumns:true,
+            border:true,
+            singleSelect:true,
+            selectOnCheck:false,
+            //checkOnSelect:true,
+            columns:[[
+                {"field":'_id',checkbox:true},
+                {"field": "param_name","title":"参数名称","width":30},
+                {"field": "param_val","title":"参数值","width":30},
+                {"field": "param_desc","title":"备注","width":50},
+                {"field": "param_status","title":"状态","width":15,
+                    "formatter":function (value, rowData,rowIndex) {
+                        if(value == 1){
+                            return '<span class="success">正常</span>';
+                        }else if(value == 0){
+                            return '<span class="danger">禁用</span>';
+                        }
+                    }
+                }
+            ]],
+            onLoadSuccess:function(json) {
+                if(!json.success) {
+                    msgError(json.msg + ',错误代码:' + json.code);
+                }
+            },
+            onLoadError:function() {
+                msgError('加载数据出现时发生错误,请稍候重试...');
+            },
+            onCheck:function(rowIndex,rowData){
+                // 加载右侧操作列表
+            /*    $('#menuoptdatatable').datagrid({
+                    url:'{{projcfg.appurl}}/admin/api/common/syscfg/menu/opt',
+                    queryParams:{menu_id:rowData._id}
+                });*/
+            },
+            pagination:true,
+            loadMsg:'正在加载...'
+        });
+    });
+
+    function doSearch() {
+        var sysId = $('#inputSysId').combobox('getValue');
+        if(sysId){
+            $('#paramdatatable').datagrid('reload',{
+                'param_name':$.trim($('#filter_name').val()),
+                //'param_status':$('#filterParam3').combobox('getValue'),
+                'sys_id':sysId,
+                'param_catalogid':currentCatalogpid
+            });
+        }else{
+            msgError('请先选择所属系统');
+        }
+    }
+
+    // 新增数据
+    function doAdd(value) {
+
+        // 验证表单
+        var validate = $('#paramForm').form('validate');
+        if(!validate) {
+            return false;
+        }
+        $.ajax({
+            url: '{{projcfg.appurl}}/admin/api/common/syscfg/param',
+            type: 'post',
+            data: $('#paramForm').serializeJson(),
+            success: function (data) {
+                if(data.success) {
+                    msgSuccess(data.msg);
+                    closeDialog();
+                    doSearch();
+                }
+                else {
+                    msgError(data.msg+',错误代码:'+data.code);
+                }
+            }
+        });
+    }
+
+    // 打开修改页面
+    function toEdit() {
+
+        // 获得选择行
+        var rows = $('#paramdatatable').datagrid('getChecked');
+        if (rows.length != 1) {
+            msgError('提示,请选择一条数据再进行修改');
+            return false;
+        }
+        var id = rows[0]._id;
+        $('#paramForm').form('load',rows[0]);
+        openPage("修改参数", id, doEdit);
+    }
+    // 修改数据
+    function doEdit(value) {
+
+        // 验证表单
+        var validate = $('#paramForm').form('validate');
+        if(!validate) {
+            return false;
+        }
+        $.ajax({
+            url: '{{projcfg.appurl}}/admin/api/common/syscfg/param/'+value,
+            type: 'put',
+            data: $('#paramForm').serializeJson(),
+            success: function (data) {
+                if(data.success) {
+                    msgSuccess(data.msg);
+                    closeDialog();
+                    doSearch();
+                    clear();
+                }
+                else {
+                    msgError(data.msg+',错误代码:'+data.code);
+                }
+            }
+        });
+
+    }
+
+    // 打开修改类别页面
+    function toEditCatalog() {
+        var selectedNode = $('#catalogTree').tree('getSelected');
+        if (!selectedNode||selectedNode.id==0) {
+            msgError('提示,请选择一条数据再进行修改');
+            return false;
+        }
+        var id = selectedNode.id;
+        $.ajax({
+            url: '{{projcfg.appurl}}/admin/api/common/syscfg/param/catalog/'+id,
+            type: 'get',
+            success: function (data) {
+                if(data.success) {
+                    $('#catalogForm').form('load',data.data[0]);
+                }
+                else {
+                    msgError(data.msg+',错误代码:'+data.code);
+                }
+            }
+        });
+        openCatalogPage("修改类别", id, doEditCatalog);
+    }
+
+    // 同步数据
+    function toSynCatalog() {
+        $.ajax({
+            url: '{{projcfg.appurl}}/admin/api/common/syscfg/param/syn',
+            type: 'get',
+            success: function (data) {
+                if(data) {
+                    msgSuccess("同步系统参数成功");
+                }
+                else {
+                    msgError("同步系统参数失败");
+                }
+            }
+        });
+
+    }
+
+    // 修改数据
+    function doEditCatalog(value) {
+
+        // 验证表单
+        var validate = $('#catalogForm').form('validate');
+        if(!validate) {
+            return false;
+        }
+        $.ajax({
+            url: '{{projcfg.appurl}}/admin/api/common/syscfg/param/catalog/'+value,
+            type: 'put',
+            data: $('#catalogForm').serializeJson(),
+            success: function (data) {
+                if(data.success) {
+                    msgSuccess(data.msg);
+                    closeCatalogDialog();
+                    initLeftCatalogTree(currentSysId);
+                }
+                else {
+                    msgError(data.msg+',错误代码:'+data.code);
+                }
+            }
+        });
+
+    }
+
+    // 清空新增表单数据
+    function clear() {
+        $('#paramForm').form('reset');
+    }
+
+    // 清空新增表单数据
+    function clearCatalogForm() {
+        $('#catalogForm').form('reset');
+    }
+
+    function openCatalogPage(title, value, callback) {
+        $('#catalog_sysid').combobox('setValue', currentSysId);
+        $('#catalogModal').show();
+        $('#catalogModal').mydialog({
+            title:title,
+            width: 600,
+            height: 290,
+            top:100,
+            modal: true,
+            myButtons:[
+                {
+                    text:'确定',
+                    btnCls:'btn btn-blue',
+                    handler:function(){
+                        callback(value);
+                    }
+                },
+                {
+                    text:'关闭',
+                    btnCls:'btn btn-danger',
+                    handler:function(){
+                        closeCatalogDialog();
+                    }
+                }
+            ]
+        });
+    }
+
+    // 新增数据
+    function doAddCatalog(value) {
+
+        // 验证表单
+        var validate = $('#catalogForm').form('validate');
+        if(!validate) {
+            return false;
+        }
+        $.ajax({
+            url: '{{projcfg.appurl}}/admin/api/common/syscfg/param/catalog',
+            type: 'post',
+            data: $('#catalogForm').serializeJson(),
+            success: function (data) {
+                if(data.success) {
+                    msgSuccess(data.msg);
+                    closeCatalogDialog();
+                    initLeftCatalogTree(currentSysId);
+                }
+                else {
+                    msgError(data.msg+',错误代码:'+data.code);
+                }
+            }
+        });
+    }
+</script>

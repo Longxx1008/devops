@@ -1,0 +1,463 @@
+<div class="row">
+    <div class="col-xs-12 col-md-12">
+        <div class="widget">
+            <div class="widget-body">
+                <div class="easyui-layout" data-options="fit:true,border:false" style="width:800px;height:666px;">
+                    <div data-options="region:'center',title:'任务调度列表',border:false" style="overflow-x:hidden;overflow-y:hidden">
+                        <div id="toolbar" class="row tbRow">
+                            <div class="col-xs-5 col-md-5">
+                                <div class="btn-group" role="group" aria-label="...">
+                                    <button type="button" class="btn btn-default" onclick="addJob()"><i class="fa fa-plus"></i>新增</button>
+                                    <button type="button" class="btn btn-default" onclick="editJob()"><i class="fa fa-edit"></i>修改</button>
+                                    <button type="button" class="btn btn-default" onclick="startJob()"><i class="glyphicon glyphicon-play"></i>启动</button>
+                                    <button type="button" class="btn btn-default" onclick="stopJob()"><i class="glyphicon glyphicon-stop"></i>停止</button>
+                                    <button type="button" class="btn btn-default" onclick="lookJob()"><i class="glyphicon glyphicon-eye-open"></i>查看schedule库</button>
+                                </div>
+                            </div>
+                            <div class="col-xs-7 col-md-7 text-right">
+                                <form class="form-inline">
+                                    <div class="form-group">
+                                        <div class="input-group">
+                                            <label for="filterParam1">状态：</label>
+                                            <select id="filterParam1" class="easyui-combobox form-control" data-options="editable:false,panelHeight:80" style="width:95px;height:34px;">
+                                                <option value="-1">--请选择--</option>
+                                                <option value="1">启动</option>
+                                                <option value="0">停止</option>
+                                            </select>
+                                        </div>
+                                        <div class="input-group">
+                                            <input type="input" id="filterParam2" class="form-control" style="width:220px;" placeholder="任务名称/编码/方法名"/>
+                                            <span class="input-group-btn">
+                                                <button class="btn btn-default" type="button" onclick="doSearch()"><i class="fa fa-search"></i>查询</button>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <table id="scheduleDataTable">
+
+                        </table>
+                    </div>
+                    <div data-options="region:'south',title:'调度日志列表',split:true,border:false,collapsed:true" style="height:333px;overflow-x:hidden;overflow-y:hidden">
+                        <table id="scheduleLogDataTable">
+
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- scheduleModal -->
+<div id="scheduleModal" class="mydialog">
+    <div class="row">
+        <div class="col-md-12">
+            <div>
+                <form id="scheduleForm" class="form-horizontal form-bordered" role="form">
+                    <div class="form-group">
+                        <label for="schedule_name" class="col-sm-2 control-label no-padding-right">任务名</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="easyui-validatebox form-control" data-options="required:true" name="schedule_name" id="schedule_name" placeholder="请输入任务名" style="width:50%;height:31px;">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="schedule_code" class="col-sm-2 control-label no-padding-right">任务编码</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="easyui-validatebox form-control" data-options="required:true" name="schedule_code" id="schedule_code" placeholder="请输入任务编码" style="width:50%;height:31px;">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="schedule_cron" class="col-sm-2 control-label no-padding-right">任务表达式</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="easyui-validatebox form-control" data-options="required:true" name="schedule_cron" id="schedule_cron" placeholder="请输入任务表达式 cron格式" style="width:50%;height:31px;">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="schedule_date" class="col-sm-2 control-label no-padding-right">具体执行日期</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="easyui-textbox" data-options="multiline:true,prompt:'请输入具体执行日期(如：20170101)，英文分号(;)分隔'" name="schedule_date" id="schedule_date" style="width:50%;height:85px;">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="schedule_js_path" class="col-sm-2 control-label no-padding-right">文件路径</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="easyui-validatebox form-control" data-options="required:true" name="schedule_js_path" id="schedule_js_path" placeholder="请输入文件路径" style="width:50%;height:31px;">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="schedule_js_fun" class="col-sm-2 control-label no-padding-right">方法名</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="easyui-validatebox form-control" data-options="required:true" name="schedule_js_fun" id="schedule_js_fun" placeholder="请输入方法名" style="width:50%;height:31px;">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="schedule_ip" class="col-sm-2 control-label no-padding-right">运行服务器ip</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="easyui-validatebox form-control" data-options="required:true" name="schedule_ip" id="schedule_ip" placeholder="请输入服务器ip,多个ip用英文;分割" style="width:50%;height:31px;">
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+
+    /**
+     * @author ZhaoJing
+     * 扩展javaScriptDate类型工具js
+     * 实现格式化日期功能
+     */
+    Date.prototype.format = function(format){
+        if(isNaN(this.getMonth())){
+            return '';
+        }
+        if(!format){
+            format = 'yyyy-MM-dd hh:mm:ss';
+        }
+        var o = {
+            //month
+            "M+" : this.getMonth() + 1,
+            //day
+            "d+" : this.getDate(),
+            //hour
+            "h+" : this.getHours(),
+            //minute
+            "m+" : this.getMinutes(),
+            //second
+            "s+" : this.getSeconds(),
+            //quarter
+            "q+" : Math.floor((this.getMonth() + 3) / 3),
+            //millisecond
+            "s" : this.getMilliseconds()
+        };
+        if(/(y+)/.test(format)){
+            format = format.replace(RegExp.$1,(this.getFullYear() + "").substr(4 - RegExp.$1.length));
+        }
+        for(var k in o){
+            if(new RegExp("(" + k + ")").test(format)){
+                format = format.replace(RegExp.$1,RegExp.$1.length == 1 ? o[k] : ("00" + o[k]).substr(("" + o[k]).length));
+            }
+        }
+        return format;
+    };
+
+    //初始化datagrid
+    function loadScheduleDatagrid(){
+        // 加载流程监控信息列表
+        $('#scheduleDataTable').datagrid({
+            url:'{{projcfg.appurl}}/admin/api/common/job/schedule',
+            method:'get',
+            rownumbers:true,
+            striped:true,
+            fitColumns:true,
+            border:true,
+            fit:true,
+            toolbar: '#toolbar',
+            singleSelect:true,
+            selectOnCheck:true,
+            checkOnSelect:true,
+            columns:[[
+                {"field":"_id",checkbox:true},
+                {"field": "schedule_name","title":"任务名","width":30},
+                {"field": "schedule_code","title":"任务编码","width":20},
+                {"field": "schedule_cron","title":"任务表达式","width":15},
+                {"field": "schedule_date","title":"具体执行日期","width":30,
+                    formatter:function(value,row,index){
+                        return value.join(';');
+                    }
+                },
+                {"field": "schedule_js_path","title":"文件路径","width":45},
+                {"field": "schedule_js_fun","title":"方法名","width":15},
+                {"field": "schedule_ip","title":"运行服务器ip","width":30,
+                    formatter:function(value,row,index){
+                        return value.join(';');
+                    }
+                },
+                {"field": "schedule_status","title":"状态","width":15,
+                    formatter:function(value,row,index){
+                        if(value == 1){
+                            return '<span class="success">启动</span>';
+                        }else{
+                            return '<span class="danger">停止</span>';
+                        }
+                    }
+                }
+            ]],
+            onClickRow:function(rowIndex, rowData){
+                $('#scheduleLogDataTable').datagrid({
+                    url:'{{projcfg.appurl}}/admin/api/common/job/schedule/log',
+                    queryParams:{
+                        'schedule_id':rowData._id
+                    }
+                });
+            },
+            onLoadSuccess:function(json) {
+                if(!json.success) {
+                    msgError(json.msg + ',错误代码:' + json.code);
+                }
+            },
+            onLoadError:function() {
+                msgError('加载数据出现时发生错误,请稍候重试...');
+            },
+            pagination:true,
+            loadMsg:'正在加载...'
+        });
+    }
+
+    //初始化datagrid
+    function loadScheduleLogDatagrid(){
+        // 加载流程监控信息列表
+        $('#scheduleLogDataTable').datagrid({
+            method:'get',
+            rownumbers:true,
+            striped:true,
+            fitColumns:true,
+            border:true,
+            fit:true,
+            columns:[[
+                {"field":"_id",checkbox:true},
+                {"field": "schedule_ip","title":"运行服务器","width":30},
+                {"field": "schedule_start_time","title":"job启动时间","width":30,
+                    formatter:function(value,row,index){
+                        return new Date(value).format();
+                    }
+                },
+                {"field": "schedule_stop_time","title":"job停止时间","width":30,
+                    formatter:function(value,row,index){
+                        return new Date(value).format();
+                    }
+                },
+                {"field": "schedule_status","title":"当前状态","width":15,
+                    formatter:function(value,row,index){
+                        if(value == 1){
+                            return '<span class="success">启动中</span>';
+                        }else if(value == 0){
+                            return '<span class="danger">已停止</span>';
+                        }
+                    }
+                }
+            ]],
+            onLoadSuccess:function(json) {
+                if(!json.success) {
+                    msgError(json.msg + ',错误代码:' + json.code);
+                }
+            },
+            onLoadError:function() {
+                msgError('加载数据出现时发生错误,请稍候重试...');
+            },
+            pagination:true,
+            loadMsg:'正在加载...'
+        });
+    }
+
+    $(document).ready(function(){
+        loadScheduleDatagrid();
+        loadScheduleLogDatagrid();
+    });
+
+    //打开窗口
+    function openPage(title, value, callback) {
+        $('#scheduleModal').show();
+        $('#scheduleModal').mydialog({
+            title:title,
+            width: 700,
+            height: 600,
+            top:100,
+            modal: true,
+            myButtons:[
+                {
+                    text:'确定',
+                    btnCls:'btn btn-blue',
+                    handler:function(){
+                        callback(value);
+                    }
+                },
+                {
+                    text:'关闭',
+                    btnCls:'btn btn-danger',
+                    handler:function(){
+                        closeDialog();
+                    }
+                }
+            ]
+        });
+    }
+
+    // 关闭窗口
+    function closeDialog() {
+        $('#scheduleModal').dialog('close');
+        clear();
+    }
+
+    // 清空表单数据
+    function clear() {
+        $("input[name='schedule_name']").val('');
+        $("input[name='schedule_code']").val('');
+        $("input[name='schedule_cron']").val('');
+        $('#schedule_date').textbox('clear');
+        $("input[name='schedule_js_path']").val('');
+        $("input[name='schedule_js_fun']").val('');
+        $("input[name='schedule_ip']").val('');
+    }
+
+    //新增job
+    function addJob(){
+        openPage('新增任务',null,function(){
+            var validate = $('#scheduleForm').form('validate');
+            if(!validate) {
+                return false;
+            }
+            $.ajax({
+                url: '{{projcfg.appurl}}/admin/api/common/job/schedule',
+                type: 'post',
+                data: $('#scheduleForm').serializeJson(),
+                success: function (data) {
+                    if(data.success) {
+                        msgSuccess(data.msg);
+                        closeDialog();
+                        doSearch();
+                        clear();
+                    }
+                    else {
+                        msgError(data.msg+',错误代码:'+data.code);
+                    }
+                }
+            });
+        });
+    }
+
+    //修改job
+    function editJob(){
+        // 获得选择行
+        var rows = $('#scheduleDataTable').datagrid('getChecked');
+        if (rows.length != 1) {
+            msgError('提示,请选择一条数据再进行修改');
+            return false;
+        }
+        if(rows[0].schedule_status == 1){
+            msgError('提示,请先停止任务，再进行修改');
+            return false;
+        }
+        $('#scheduleForm').form('load',rows[0]);
+        var schedule_date = (rows[0].schedule_date).join(';');
+        $('#schedule_date').textbox('setValue',schedule_date);
+        var schedule_ip = (rows[0].schedule_ip).join(';');
+        $('#schedule_ip').val(schedule_ip);
+        openPage("修改任务",rows[0]._id, function(id){
+            // 验证表单
+            var validate = $('#scheduleForm').form('validate');
+            if(!validate) {
+                return false;
+            }
+            $.ajax({
+                url: '{{projcfg.appurl}}/admin/api/common/job/schedule/'+id,
+                type: 'put',
+                data: $('#scheduleForm').serializeJson(),
+                success: function (data) {
+                    if(data.success) {
+                        msgSuccess(data.msg);
+                        closeDialog();
+                        doSearch();
+                        clear();
+                    }
+                    else {
+                        msgError(data.msg+',错误代码:'+data.code);
+                    }
+                }
+            });
+        });
+    }
+
+    //启动job
+    function startJob(){
+        var rows = $('#scheduleDataTable').datagrid('getChecked');
+        if (rows.length != 1) {
+            msgError('提示,请选择一条任务再进行启动');
+            return false;
+        }
+        $.ajax({
+            url: '{{projcfg.appurl}}/admin/api/common/job/schedule/startOrStop/'+rows[0]._id,
+            type: 'put',
+            data: {
+                schedule_status:1,
+                jobInfo:JSON.stringify(rows[0])
+            },
+            success: function (data) {
+                if(data.success) {
+                    msgSuccess(data.msg);
+                    doSearch();
+                    $('#scheduleLogDataTable').datagrid({
+                        url:'{{projcfg.appurl}}/admin/api/common/job/schedule/log',
+                        queryParams:{
+                            'schedule_id':rows[0]._id
+                        }
+                    });
+                }
+                else {
+                    msgError(data.msg+',错误代码:'+data.code);
+                }
+            }
+        });
+    }
+
+    //停用job
+    function stopJob(){
+        var rows = $('#scheduleDataTable').datagrid('getChecked');
+        if (rows.length != 1) {
+            msgError('提示,请选择一条任务再进行停用');
+            return false;
+        }
+        $.ajax({
+            url: '{{projcfg.appurl}}/admin/api/common/job/schedule/startOrStop/'+rows[0]._id,
+            type: 'put',
+            data: {
+                schedule_status:0,
+                jobInfo:JSON.stringify(rows[0])
+            },
+            success: function (data) {
+                if(data.success) {
+                    msgSuccess(data.msg);
+                    doSearch();
+                    $('#scheduleLogDataTable').datagrid({
+                        url:'{{projcfg.appurl}}/admin/api/common/job/schedule/log',
+                        queryParams:{
+                            'schedule_id':rows[0]._id
+                        }
+                    });
+                }
+                else {
+                    msgError(data.msg+',错误代码:'+data.code);
+                }
+            }
+        });
+    }
+
+    function doSearch() {
+        var filterParam1 = $('#filterParam1').combobox('getValue');
+        if(filterParam1 == -1){
+            $('#scheduleDataTable').datagrid('reload',{
+                'filterParam2':$.trim($('#filterParam2').val())
+            });
+        }else{
+            $('#scheduleDataTable').datagrid('reload',{
+                'filterParam1':filterParam1,
+                'filterParam2':$.trim($('#filterParam2').val())
+            });
+        }
+    }
+
+    function lookJob(){
+        $.ajax({
+            url: '{{projcfg.appurl}}/admin/api/common/job/schedule/look',
+            type: 'get',
+            success: function (data) {
+                if(data){
+                    $.messager.alert('schedule库',JSON.stringify(data));
+                }
+            }
+        });
+    }
+
+</script>

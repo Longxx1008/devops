@@ -1,0 +1,192 @@
+{
+    "success": true,
+    "code": "0000",
+    "msg": "查询成功。",
+    "rows": [
+        {
+            "_id": "5781a9827177dd1843c69100",
+            "data_code": "Model_User_Trace_Resident",
+            "data_name": "用户常驻位置",
+            "data_status": "已审核",
+            "data_submit_time":"2015-12-06 13:20",
+            "data_auditing_time":"2015-12-07 10:20",
+            "data_columns":[
+                {"col_code":"msisdn","col_name":"电话号码"},
+                {"col_code":"type","col_name":"常驻类型（白天常驻）"},
+                {"col_code":"gridtype","col_name":"网格类型"},
+                {"col_code":"gridid","col_name":"网格ID"},
+                {"col_code":"timecalc","col_name":"驻留时长（秒）"},
+                {"col_code":"endh","col_name":"时间段尾"},
+                {"col_code":"starth","col_name":"时间段头"},
+                {"col_code":"daycount","col_name":"天数"},
+                {"col_code":"thredhold","col_name":"门限（%）"},
+                {"col_code":"judgevalue","col_name":"门限时长（秒）"},
+                {"col_code":"eci","col_name":"小区编号，23G为(lac-ci)4G为（eci）十进制"},
+                {"col_code":"basename","col_name":"小区名称"},
+                {"col_code":"x","col_name":"网格横坐标"},
+                {"col_code":"y","col_name":"网格纵坐标"},
+                {"col_code":"dwdt","col_name":"日期(yyyymmdd)"}
+            ],
+            "data_scripts":[
+                "create external table Model_User_Trace_Resident (msisdn string,type string,grid string,timecalc string,daycount  string) partitioned by (dwdt string) row format delimited fields terminated by '\t'stored as textfile;",
+                "alter table Model_User_Trace_Resident  add partition (dwdt='20$(date +%y --date='2 day ago')$(date +%m --date='2 day ago')$(date +%d --date='2 day ago')') location '/user/bdoc/gz_lljy/filebucket/lljy_root/OrgData/A/UserResident/20$(date +%y --date='2 day ago')/$(date +%m --date='2 day ago')/$(date +%d --date='2 day ago')/';"
+            ],
+            "data_relations":[
+                {"start":"5781a9827177dd1843c691a9","end":"5781a9827177dd1843c69100"},
+                {"start":"5781a9827177dd1843c691aa","end":"5781a9827177dd1843c69100"},
+                {"start":"5781a9827177dd1843c691ae","end":"5781a9827177dd1843c691aa"}
+            ]
+        },
+        {
+            "_id": "5781a9827177dd1843c69101",
+            "data_code": "Model_Roam_A",
+            "data_name": "基于D口数据的漫游模型",
+            "data_status": "已审核",
+            "data_submit_time":"2015-12-06 15:20",
+            "data_auditing_time":"2015-12-07 13:20",
+            "data_columns":[
+                {"col_code":"msisdn","col_name":"电话号码"},
+                {"col_code":"user_nation_code","col_name":"国家编码"},
+                {"col_code":"user_prov_code","col_name":"省编码"},
+                {"col_code":"user_region_code","col_name":"地市编码"},
+                {"col_code":"roam_region_code","col_name":"漫游地区"},
+                {"col_code":"dwdt","col_name":"日期(yyyymmdd)"}
+            ],
+            "data_scripts":[
+                "create external table Model_Roam_A (msisdn string,user_nation_code string,user_prov_code string,user_region_code string,roam_region_code string) partitioned by (dwdt string) row format delimited fields terminated by '\t' stored as textfile;",
+                "alter table Model_Roam_A  add partition (dwdt='20$(date +%y --date='1 day ago')$(date +%m --date='1 day ago')$(date +%d --date='1 day ago')') location '/user/bdoc/gz_lljy/filebucket/lljy_root/OrgData/A/roamdw/20$(date +%y --date='1 day ago')/$(date +%m --date='1 day ago')/$(date +%d --date='1 day ago')/';"
+            ]
+        },
+        {
+            "_id": "5781a9827177dd1843c69102",
+            "data_code": "Model_User_Trace_GSM_TD",
+            "data_name": "基于A口（23G位置）数据的用户轨迹",
+            "data_status": "已审核",
+            "data_submit_time":"2015-11-12 15:20",
+            "data_auditing_time":"2015-11-13 09:20",
+            "data_columns":[
+                {"col_code":"msisdn","col_name":"电话号码"},
+                {"col_code":"dayinfo","col_name":"日期(yyyymmdd)"},
+                {"col_code":"hour","col_name":"时(hh)"},
+                {"col_code":"minute","col_name":"分(mm)"},
+                {"col_code":"second","col_name":"秒(ss)"},
+                {"col_code":"basename","col_name":"基站名称"},
+                {"col_code":"eci","col_name":"小区编号，23G为(lac-ci)4G为（eci）十进制"},
+                {"col_code":"longt","col_name":"经度"},
+                {"col_code":"latt","col_name":"纬度"},
+                {"col_code":"basenameold","col_name":"上一基站名"},
+                {"col_code":"eciold","col_name":"上一小区编号，23G为(lac-ci)4G为（eci）十进制"},
+                {"col_code":"longtold","col_name":"上一经度"},
+                {"col_code":"lattold","col_name":"上一纬度"},
+                {"col_code":"timedelay","col_name":"上一区域停留时长"},
+                {"col_code":"distance","col_name":"上一位置和当前位置距离"},
+                {"col_code":"procedure_type","col_name":"事件类型"},
+                {"col_code":"dwdt","col_name":"日期(yyyymmdd)"}
+            ],
+            "data_scripts":[
+                "create external table Model_User_Trace_GSM_TD (MSISDN string,dayinfo string,hour string,minute string,second  string,baseName string,eci string,longt string,latt  string,baseNameOld string,eciOld string,longtOld string,lattOld string,timedelay string,distance string,Procedure_Type string) partitioned by (dwdt string) row format delimited fields terminated by '\t' stored as textfile;",
+                "alter table Model_User_Trace_GSM_TD  add partition (dwdt='20$(date +%y --date='1 day ago')$(date +%m --date='1 day ago')$(date +%d --date='1 day ago')') location '/user/bdoc/gz_lljy/filebucket/lljy_root/OrgData/A/GsmTdUserTrace/20$(date +%y --date='1 day ago')/$(date +%m --date='1 day ago')/$(date +%d --date='1 day ago')/';"
+            ]
+        },
+        {
+            "_id": "5781a9827177dd1843c69103",
+            "data_code": "Model_User_Trace_LTE",
+            "data_name": "基于S1ME口（4G位置）数据的用户轨迹",
+            "data_status": "已审核",
+            "data_submit_time":"2016-04-05 11:20",
+            "data_auditing_time":"2016-04-06 09:29",
+            "data_columns":[
+                {"col_code":"msisdn","col_name":"电话号码"},
+                {"col_code":"dayinfo","col_name":"日期(yyyymmdd)"},
+                {"col_code":"hour","col_name":"时(hh)"},
+                {"col_code":"minute","col_name":"分(mm)"},
+                {"col_code":"second","col_name":"秒(ss)"},
+                {"col_code":"basename","col_name":"基站名称"},
+                {"col_code":"eci","col_name":"小区编号，23G为(lac-ci)4G为（eci）十进制"},
+                {"col_code":"longt","col_name":"经度"},
+                {"col_code":"latt","col_name":"纬度"},
+                {"col_code":"basenameold","col_name":"上一基站名"},
+                {"col_code":"eciold","col_name":"上一小区编号，23G为(lac-ci)4G为（eci）十进制"},
+                {"col_code":"longtold","col_name":"上一经度"},
+                {"col_code":"lattold","col_name":"上一纬度"},
+                {"col_code":"timedelay","col_name":"上一区域停留时长"},
+                {"col_code":"distance","col_name":"上一位置和当前位置距离"},
+                {"col_code":"procedure_type","col_name":"事件类型"},
+                {"col_code":"dwdt","col_name":"日期(yyyymmdd)"}
+            ],
+            "data_scripts":[
+                "create external table Model_User_Trace_LTE (MSISDN string,dayinfo string,hour string,minute string,second  string,baseName string,eci string,longt string,latt  string,baseNameOld string,eciOld string,longtOld string,lattOld string,timedelay string,distance string,Procedure_Type string) partitioned by (dwdt string) row format delimited fields terminated by '\t' stored as textfile;",
+                "alter table Model_User_Trace_LTE  add partition (dwdt='20$(date +%y --date='1 day ago')$(date +%m --date='1 day ago')$(date +%d --date='1 day ago')') location '/user/bdoc/gz_lljy/filebucket/lljy_root/OrgData/A/hw4gUserTrace/20$(date +%y --date='1 day ago')/$(date +%m --date='1 day ago')/$(date +%d --date='1 day ago')/';"
+            ]
+        },
+        {
+            "_id": "5781a9827177dd1843c69105",
+            "data_code": "Model_User_Trace_GPRS",
+            "data_name": "基于话单（GPRS，包含2/3/4G）数据的用户轨迹",
+            "data_status": "已审核",
+            "data_submit_time":"2016-04-07 09:20",
+            "data_auditing_time":"2016-04-07 16:29",
+            "data_columns":[
+                {"col_code":"msisdn","col_name":"电话号码"},
+                {"col_code":"dayinfo","col_name":"日期(yyyymmdd)"},
+                {"col_code":"hour","col_name":"时(hh)"},
+                {"col_code":"minute","col_name":"分(mm)"},
+                {"col_code":"second","col_name":"秒(ss)"},
+                {"col_code":"basename","col_name":"基站名称"},
+                {"col_code":"eci","col_name":"小区编号，23G为(lac-ci)4G为（eci）十进制"},
+                {"col_code":"longt","col_name":"经度"},
+                {"col_code":"latt","col_name":"纬度"},
+                {"col_code":"basenameold","col_name":"上一基站名"},
+                {"col_code":"eciold","col_name":"上一小区编号，23G为(lac-ci)4G为（eci）十进制"},
+                {"col_code":"longtold","col_name":"上一经度"},
+                {"col_code":"lattold","col_name":"上一纬度"},
+                {"col_code":"timedelay","col_name":"上一区域停留时长"},
+                {"col_code":"distance","col_name":"上一位置和当前位置距离"},
+                {"col_code":"procedure_type","col_name":"事件类型"},
+                {"col_code":"dwdt","col_name":"日期(yyyymmdd)"}
+            ],
+            "data_scripts":[
+                "create external table Model_User_Trace_GPRS (MSISDN string,dayinfo string,hour string,minute string,second  string,baseName string,eci string,longt string,latt  string,baseNameOld string,eciOld string,longtOld string,lattOld string,timedelay string,distance string,mnstype string,x string,y string,xold string,yold string) partitioned by (dwdt string) row format delimited fields terminated by '\t' stored as textfile;",
+                "alter table Model_User_Trace_GPRS  add partition (dwdt='20$(date +%y --date='2 day ago')$(date +%m --date='2 day ago')$(date +%d --date='2 day ago')') location '/user/bdoc/gz_lljy/filebucket/lljy_root/OrgData/A/GprsUserTrace/20$(date +%y --date='2 day ago')/$(date +%m --date='2 day ago')/$(date +%d --date='2 day ago')/';"
+            ]
+        },
+        {
+            "_id": "5781a9827177dd1843c69106",
+            "data_code": "Model_User_Trace_Combine",
+            "data_name": "综合2/3/4G位置信令和话单的用户轨迹",
+            "data_status": "已审核",
+            "data_submit_time":"2016-04-15 11:20",
+            "data_auditing_time":"2016-04-16 13:29",
+            "data_columns":[
+                {"col_code":"msisdn","col_name":"电话号码"},
+                {"col_code":"dayinfo","col_name":"日期(yyyymmdd)"},
+                {"col_code":"hour","col_name":"时(hh)"},
+                {"col_code":"minute","col_name":"分(mm)"},
+                {"col_code":"second","col_name":"秒(ss)"},
+                {"col_code":"basename","col_name":"基站名称"},
+                {"col_code":"eci","col_name":"小区编号，23G为(lac-ci)4G为（eci）十进制"},
+                {"col_code":"longt","col_name":"经度"},
+                {"col_code":"latt","col_name":"纬度"},
+                {"col_code":"basenameold","col_name":"上一基站名"},
+                {"col_code":"eciold","col_name":"上一小区编号，23G为(lac-ci)4G为（eci）十进制"},
+                {"col_code":"longtold","col_name":"上一经度"},
+                {"col_code":"lattold","col_name":"上一纬度"},
+                {"col_code":"timedelay","col_name":"上一区域停留时长"},
+                {"col_code":"distance","col_name":"上一位置和当前位置距离"},
+                {"col_code":"procedure_type","col_name":"事件类型"},
+                {"col_code":"x","col_name":"网格横坐标"},
+                {"col_code":"y","col_name":"网格纵坐标"},
+                {"col_code":"xOld","col_name":"上一位置网格横坐标"},
+                {"col_code":"yOld","col_name":"上一位置网格纵坐标"},
+                {"col_code":"info_type","col_name":"轨迹类型(A:23G位置信令；SM1E:4G位置信令；GPRS：话单)"},
+                {"col_code":"dwdt","col_name":"日期(yyyymmdd)"}
+            ],
+            "data_scripts":[
+                "create external table Model_User_Trace_Combine (MSISDN string,dayinfo string,hour string,minute string,second  string,baseName string,eci string,longt string,latt  string,baseNameOld string,eciOld string,longtOld string,lattOld string,timedelay string,distance string,Procedure_Type string,x string,y string,xOld string,yOld string,info_type string) partitioned by (dwdt string) row format delimited fields terminated by '\t' stored as textfile;",
+                "alter table Model_User_Trace_Combine  add partition (dwdt='20$(date +%y --date='1 day ago')$(date +%m --date='1 day ago')$(date +%d --date='1 day ago')') location '/user/bdoc/gz_lljy/filebucket/lljy_root/OrgData/A/CombineUserTrace/20$(date +%y --date='1 day ago')/$(date +%m --date='1 day ago')/$(date +%d --date='1 day ago')/';"
+            ]
+        }
+
+    ],
+    "total": 6
+}

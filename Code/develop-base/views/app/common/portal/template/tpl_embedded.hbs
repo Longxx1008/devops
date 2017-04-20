@@ -1,0 +1,756 @@
+<script src="{{projcfg.appurl}}/static/js/echart/v3.1.3/echarts.min.js"></script>
+<div class="row">
+    <div class="col-xs-12 col-md-12">
+        <div class="widget">
+            <div class="widget-body">
+                <div class="row" >
+                    <div class="col-xs-12 col-md-12">
+                        <div class="row">
+                            <div class="col-xs-4 col-md-4">
+                                <div class="widget">
+                                    <div class="widget-header bordered-bottom bordered-themeprimary">
+                                        <i class="widget-icon fa fa-tags themeprimary"></i>
+                                        <span class="widget-caption themeprimary">系统公告</span>
+                                        <div class="widget-buttons">
+                                            <a href="#" onclick="openMoreSystemNoticeList()">
+                                                more
+                                            </a>
+                                        </div>
+                                    </div><!--Widget Header-->
+                                    <div class="widget-body">
+                                        <div style="height:230px;">
+                                            <table class="table table-hover">
+                                                <tbody id="systemNoticeTablelist">
+
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div  class="col-xs-8 col-md-8" >
+                                <div class="widget">
+                                    <div class="widget-header bordered-bottom bordered-themeprimary">
+                                        <i class="widget-icon fa fa-tags themeprimary"></i>
+                                        <span id="ring_title" class="widget-caption themeprimary">本月单业务酬金分布(万元）</span>
+                                        <div class="widget-buttons">
+
+                                        </div>
+                                    </div>
+
+                                    <div class="widget-body">
+                                        <div id="ringChart" style="width:100%;height:225px;"></div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="row" >
+                            <div  class="col-xs-4 col-md-4" >
+                                <div class="widget">
+                                    <div class="widget-header bordered-bottom bordered-themeprimary">
+                                        <i class="widget-icon fa fa-tags themeprimary"></i>
+                                        <span class="widget-caption themeprimary">快速导航</span>
+                                    </div><!--Widget Header-->
+
+                                    <div class="tabbable">
+                                        <ul class="nav nav-tabs" id="myTab3">
+                                            <li class="active tab-sky">
+                                                <a data-toggle="tab" href="#home3">
+                                                    办公系统
+                                                </a>
+                                            </li>
+
+                                            <li class="tab-sky">
+                                                <a data-toggle="tab" href="#profile3">
+                                                    资源系统
+                                                </a>
+                                            </li>
+
+                                            <li class="tab-sky">
+                                                <a data-toggle="tab" href="#dropdown13">
+                                                    家客系统
+                                                </a>
+                                            </li>
+                                        </ul>
+
+                                        <div class="tab-content">
+                                            <div id="home3" class="tab-pane in active" style="height: 240px;">
+                                                <table class="table table-hover">
+                                                    <tbody>
+                                                    <tr>
+                                                        <td>
+                                                            1、 <a href="#">贵州移动OA办公系统 <span class="badge badge-red">2</span></a>
+                                                        </td>
+                                                        <td>
+
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            2、<a href="#">贵州移动邮箱 <span class="badge badge-red">101</span></a>
+                                                        </td>
+                                                        <td>
+                                                        </td>
+                                                    </tr>
+                                                    </tbody>
+                                                </table>
+
+
+
+
+                                            </div>
+
+                                            <div id="profile3" class="tab-pane" style="height: 240px;">
+                                                <table class="table table-hover">
+                                                    <tbody>
+                                                    <tr>
+                                                        <td>
+                                                            1、 <a href="#">资源管理系统 <span class="badge badge-red">2</span></a>
+                                                        </td>
+                                                        <td>
+
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            2、 <a href="#">GPON运维管理系统 <span class="badge badge-red">2</span></a>
+                                                        </td>
+                                                        <td>
+
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            3、 <a href="#">工程物料管理系统 <span class="badge badge-red">2</span></a>
+                                                        </td>
+                                                        <td>
+
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            4、 <a href="#">综合资质管理系统 <span class="badge badge-red">2</span></a>
+                                                        </td>
+                                                        <td>
+
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            5、 <a href="#">电子运行维护系统 <span class="badge badge-red">2</span></a>
+                                                        </td>
+                                                        <td>
+
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            6、 <a href="#">集中故障管理 <span class="badge badge-red">2</span></a>
+                                                        </td>
+                                                        <td>
+
+                                                        </td>
+                                                    </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+
+                                            <div id="dropdown13" class="tab-pane" style="height: 240px;">
+
+                                                <table class="table table-hover">
+                                                    <tbody>
+                                                    <tr>
+                                                        <td>
+                                                            1、 <a href="#">家客预约平台 <span class="badge badge-red">2</span></a>
+                                                        </td>
+                                                        <td>
+
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            2、 <a href="#">家客感知提升 <span class="badge badge-red">2</span></a>
+                                                        </td>
+                                                        <td>
+
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            3、 <a href="#">代维管理系统 <span class="badge badge-red">2</span></a>
+                                                        </td>
+                                                        <td>
+
+                                                        </td>
+                                                    </tr>
+
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                </div>
+                            </div>
+                            <div  class="col-xs-8 col-md-8" >
+                                <div class="widget">
+                                    <div class="widget-header bordered-bottom bordered-themeprimary">
+                                        <i class="widget-icon fa fa-tags themeprimary"></i>
+                                        <span class="widget-caption themeprimary">待办工单</span>
+                                    </div><!--Widget Header-->
+                                    <div class="widget-body  no-padding">
+                                        <div class="tickets-container">
+                                            <ul class="tickets-list">
+                                                <li class="ticket-item">
+                                                    <div class="row">
+                                                        <div class="ticket-user col-lg-6 col-sm-12">
+                                                            <span class="user-name">1、设备故障处理</span>
+                                                            <span class="user-at">来自</span>
+                                                            <span class="user-company">集中故障</span>
+                                                        </div>
+                                                        <div class="ticket-time  col-lg-4 col-sm-6 col-xs-12">
+                                                            <div class="divider hidden-md hidden-sm hidden-xs"></div>
+                                                            <i class="fa fa-clock-o"></i>
+                                                            <span class="time">1 小时前</span>
+                                                        </div>
+                                                        <div class="ticket-type  col-lg-2 col-sm-6 col-xs-12">
+                                                            <span class="divider hidden-xs"></span>
+                                                            <span class="type">一般</span>
+                                                        </div>
+                                                        <div class="ticket-state bg-palegreen">
+                                                            <i class="fa fa-check"></i>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                                <li class="ticket-item">
+                                                    <div class="row">
+                                                        <div class="ticket-user col-lg-6 col-sm-12">
+                                                            <span class="user-name">2、资源录入</span>
+                                                            <span class="user-at">来自</span>
+                                                            <span class="user-company">端到端</span>
+                                                        </div>
+                                                        <div class="ticket-time  col-lg-4 col-sm-6 col-xs-12">
+                                                            <div class="divider hidden-md hidden-sm hidden-xs"></div>
+                                                            <i class="fa fa-clock-o"></i>
+                                                            <span class="time">3 小时前</span>
+                                                        </div>
+                                                        <div class="ticket-type  col-lg-2 col-sm-6 col-xs-12">
+                                                            <span class="divider hidden-xs"></span>
+                                                            <span class="type">一般</span>
+                                                        </div>
+                                                        <div class="ticket-state bg-palegreen">
+                                                            <i class="fa fa-check"></i>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                                <li class="ticket-item">
+                                                    <div class="row">
+                                                        <div class="ticket-user col-lg-6 col-sm-12">
+                                                            <span class="user-name">3、性能告警</span>
+                                                            <span class="user-at">来自</span>
+                                                            <span class="user-company">一体化支撑</span>
+                                                        </div>
+                                                        <div class="ticket-time  col-lg-4 col-sm-6 col-xs-12">
+                                                            <div class="divider hidden-md hidden-sm hidden-xs"></div>
+                                                            <i class="fa fa-clock-o"></i>
+                                                            <span class="time">4 小时前</span>
+                                                        </div>
+                                                        <div class="ticket-type  col-lg-2 col-sm-6 col-xs-12">
+                                                            <span class="divider hidden-xs"></span>
+                                                            <span class="type">非常紧急</span>
+                                                        </div>
+                                                        <div class="ticket-state bg-darkorange">
+                                                            <i class="fa fa-times"></i>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                                <li class="ticket-item">
+                                                    <div class="row">
+                                                        <div class="ticket-user col-lg-6 col-sm-12">
+                                                            <span class="user-name">5、投诉处理</span>
+                                                            <span class="user-at">来自</span>
+                                                            <span class="user-company">CRM</span>
+                                                        </div>
+                                                        <div class="ticket-time  col-lg-4 col-sm-6 col-xs-12">
+                                                            <div class="divider hidden-md hidden-sm hidden-xs"></div>
+                                                            <i class="fa fa-clock-o"></i>
+                                                            <span class="time">2 天前</span>
+                                                        </div>
+                                                        <div class="ticket-type  col-lg-2 col-sm-6 col-xs-12">
+                                                            <span class="divider hidden-xs"></span>
+                                                            <span class="type">紧急</span>
+                                                        </div>
+                                                        <div class="ticket-state bg-yellow">
+                                                            <i class="fa fa-info"></i>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <div  style="height: 33px;background-color: #f5f5f5"></div>
+                                        <!--<ul class="nav nav-tabs" id="myTab3">
+                                            <li class="tab-sky active">
+                                                <a data-toggle="tab" href="#home3" aria-expanded="true">
+                                                    办公系统
+                                                </a>
+                                            </li>
+                                        </ul>-->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal -->
+<div id="systemNotice_Modal" class="mydialog" style="padding-top:0px;">
+    <div class="easyui-layout" data-options="fit:true,border:false" >
+        <div data-options="region:'center',border:false,fit:true" style="overflow-x:scroll;overflow-y:hidden">
+            <table id="moreSystemNoticeTablelist">
+
+            </table>
+        </div>
+    </div>
+</div>
+<!-- 通知详情Modal -->
+<div id="systemNoticeDetails_Modal" style="display:none;overflow:hidden">
+    <div class="row">
+        <div class="col-md-12">
+            <table class="table table-hover">
+                <tbody id="systemNoticeDetailsTablelist">
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<!-- Modal -->
+<div id="test" style="display:none;overflow:hidden">
+    <div class="row">
+        <div class="col-md-12">
+            <table class="table table-hover">
+                <tbody>
+                <tr>
+                    <td>
+                        11111111111111
+                    </td>
+                    <td>
+                        6-12 12:14
+
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        2、地州数据上报的通知
+                        <span class="label label-azure" >
+                            限时
+                           </span>
+                    </td>
+                    <td>
+                        6-12 12:14
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        3、地州数据上报的通知
+
+                    </td>
+                    <td>
+                        6-12 12:14
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        4、地州数据上报的通知
+
+                    </td>
+                    <td>
+                        6-12 12:14
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        5、地州违规通报
+                        <span class="label label-warning" >
+                            通报
+                           </span>
+                    </td>
+                    <td>
+                        6-12 12:14
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        6、地州数据上报的通知
+                        <span class="label label-azure" >
+                            限时
+                           </span>
+                    </td>
+                    <td>
+                        6-12 12:14
+                    </td>
+                </tr>
+
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!--右下角弹窗  -->
+<div id="noticeDialog" class="easyui-dialog" title="公告" data-options="iconCls:'icon-tip',closed:true,resizable:true">
+    <table id="noticeTable"></table>
+</div>
+
+<script type="text/javascript">
+
+    var x_serviceName = new Array();
+    var x_current_month_reward = new Array();
+    var x_last_month_reward = new Array();
+    var x_chain_increase = new Array();
+    var x_proportion = new Array();
+    var myDate = new Date();
+    //获取当前年
+    var year = myDate.getFullYear();
+    //获取当前月
+    var month = myDate.getMonth()+1;
+
+    $(document).ready(function(){
+        initSystemNotice();
+        initView();
+        initChartData();
+    });
+
+    function initView() {
+        $("#ring_title").text(year+"年"+month+"月单业务酬金分布(万元）");
+    }
+
+    function initChartData() {
+        $.ajax({
+            url:'{{projcfg.appurl}}/api/remuneration/singlebusiness',
+            method:'get',
+            data: {
+                page: '1',
+                rows: '100',
+                year:year,
+                month:month
+            },
+            success:function(data){
+                if(data.success){
+                    var result = data.rows;
+
+                    for(var i =0;i<result.length;i++){
+                        x_serviceName[i]=result[i].service;
+                        x_current_month_reward[i] = result[i].monthMoney;
+                        x_last_month_reward[i] = result[i].lastMonthMoney;
+                        x_chain_increase[i] = result[i].monthMoneyChain;
+
+                        var data_ring_chart={};
+                        data_ring_chart.value=result[i].monthMoneyHold;
+                        data_ring_chart.name=result[i].service;
+                        x_proportion.push(data_ring_chart);
+                    }
+
+                    showRingChart();
+                }else{
+                    msgError('提示,'+data.msg + ',错误代码:' + data.code);
+                }
+            }
+        });
+    }
+
+    function showRingChart() {
+        var ringChart = echarts.init(document.getElementById('ringChart'));
+        ringoption = {
+            tooltip: {
+                trigger: 'item',
+                formatter: "{a} <br/>{b} : {c} %"
+            },
+            legend: {
+                orient: 'horizontal',//vertical
+                x: 'center',
+                data: x_serviceName
+            },
+            calculable: true,
+            series: [
+                {
+                    name: '',
+                    type: 'pie',
+                    radius: '55%',
+                    center: ['50%', '55%'],
+                    data: x_proportion
+                }
+            ]
+        };
+
+        ringChart.setOption(ringoption);
+    }
+
+
+    function openPage(id,title){
+        //获取页面滚动距离
+        var scrollTop = window.pageYOffset
+                || document.documentElement.scrollTop
+                || document.body.scrollTop
+                || 0;
+        var top = ($(window).height() - 500)/2+scrollTop;
+        $('#'+id).show();
+        $('#'+id).mydialog({
+            title:title,
+            width: 1000,
+            height: 500,
+            top:top,
+            modal: true,
+            myButtons:[
+                {
+                    text:'关闭',
+                    btnCls:'btn btn-danger',
+                    handler:function(){
+                        $('#'+id).dialog('close');
+                    }
+                }
+            ]
+        });
+    }
+    //更多公告列表
+    function openMoreSystemNoticeList(){
+        //初始化grid
+        $('#moreSystemNoticeTablelist').datagrid({
+            method:'get',
+            url: '{{projcfg.appurl}}/admin/api/common/syscfg/notice?notice_status=2',
+            rownumbers:true,
+            striped:true,
+            fitColumns:true,
+            fit:true,
+            border:false,
+            singleSelect:true,
+            selectOnCheck:true,
+            columns:[[
+                {"field": "notice_title","title":"公告标题","width":100},
+                {"field": "notice_type","title":"公告类型","width":50,
+                    formatter : function(value, rowData, rowIndex) {
+                        if(value == 1){
+                            return '<span class="label label-danger">重要</span>';
+                        }else if(value == 2){
+                            return '<span class="label label-azure">限时</span>';
+                        }else if(value == 3){
+                            return '<span class="label label-warning">通报</span>';
+                        }
+                    }
+                },
+                {"field": "notice_issuer","title":"发布人","width":40,
+                    formatter : function(value, rowData, rowIndex) {
+                        if(value){
+                            return value.user_name;
+                        }
+                    }
+                },
+                {"field": "notice_auditor","title":"审核人","width":40,
+                    formatter : function(value, rowData, rowIndex) {
+                        if(value){
+                            return value.user_name;
+                        }
+                    }
+                },
+                {"field": "notice_status","title":"状态","width":40,
+                    formatter : function(value, rowData, rowIndex) {
+                        if(value == 1){
+                            return '<span class="label label-primary">未审核</span>';
+                        }else if(value == 2){
+                            return '<span class="label label-success">已发布</span>';
+                        }else if(value == 3){
+                            return '<span class="label label-danger">作废</span>';
+                        }
+                    }
+                },
+                {"field": "notice_date","title":"创建日期","width":100,
+                    formatter : function(value, rowData, rowIndex) {
+                        return new Date(value).format();
+                    }
+                },
+                {
+                    "field": "opt", "title": "详情", "width": 50,
+                    "formatter": function (value, rowData, rowIndex) {
+                        return '<a href="javascript:openPageDetails()">查看详情</a>';
+                    }
+                }
+            ]],
+            onLoadSuccess:function(json) {
+                if(!json.success) {
+                    msgError('提示,'+json.msg + ',错误代码:' + json.code);
+                }
+            },
+            onLoadError:function() {
+                msgError('提示,加载数据出现时发生错误,请稍候重试...');
+            },
+            pagination:true,
+            loadMsg:'正在加载...'
+        });
+
+        openPage('systemNotice_Modal','系统公告');
+
+    }
+    function openPageDetails() {
+        //获取数据
+        var rows = $('#moreSystemNoticeTablelist').datagrid('getChecked');
+        if (rows.length != 1) {
+            msgError('提示,请选择一条数据再进行查看');
+            return ;
+        }
+
+        systemNoticeDetails(rows[0]._id)
+    }
+    //系统公告详情
+    function systemNoticeDetails(id){
+
+        $.ajax({
+            url: '{{projcfg.appurl}}/admin/api/common/syscfg/notice/'+id,
+            type: 'get',
+            data: {},
+            success: function (data) {
+
+                if(data.success) {
+                    var html = '';
+                    if(data.data!=''&&data.data!=null){
+                        var type;
+                        var noticeType = data.data[0].notice_type;
+                        if(noticeType == 1){
+                            type = '<span class="label label-danger">重要</span>';
+                        }else if(noticeType == 2){
+                            type = '<span class="label label-azure">限时</span>';
+                        }else if(noticeType == 3){
+                            type = '<span class="label label-warning">通报</span>';
+                        }
+                        var temp = '<tr>'
+                                + '<td align="center">'
+                                + data.data[0].notice_title+type
+                                +'<br>'
+                                + '</td>'
+                                +'</tr>'
+                                +'<tr>'
+                                +'<td>'
+                                +'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'
+                                + data.data[0].notice_content
+                                + '</td>'
+                                +'</tr>'
+                                +'<tr>'
+                                +'<td align="right" style="padding-right: 40px;">'
+                                +'<br>'
+                                +'发布时间：'+new Date(data.data[0].notice_date).format("yyyy-MM-dd hh:mm")
+                                + '</td>'
+                                +'</tr>';
+                        html += temp;
+
+                        openPage('systemNoticeDetails_Modal','系统公告详情');
+                    }else {
+                        msgError("获取公告详情失败！");
+                    }
+
+                    $('#systemNoticeDetailsTablelist').html(html);
+                }
+                else {
+                    msgError(data.msg+',错误代码:'+data.code);
+                }
+            }
+        });
+    }
+
+    function initSystemNotice(){
+        $.ajax({
+            url: '{{projcfg.appurl}}/admin/api/common/syscfg/notice/getNoticesByIndex',
+            type: 'get',
+            data: {},
+            success: function (data) {
+                if(data.success) {
+                    var html = '';
+                    $.each(data.data,function(i,n){
+                        var type;
+                        if(n.notice_type == 1){
+                            type = '<span class="label label-danger">重要</span>';
+                        }else if(n.notice_type == 2){
+                            type = '<span class="label label-azure">限时</span>';
+                        }else if(n.notice_type == 3){
+                            type = '<span class="label label-warning">通报</span>';
+                        }
+
+
+                        var temp = '<tr style="cursor:pointer;" onclick="systemNoticeDetails(\''
+                                + n._id
+                                + '\')">'
+                                + '<td>'
+                                + (i+1)+"、"+n.notice_title+type
+                                + '</td>'
+                                + '<td>'
+                                + new Date(n.notice_date).format()
+                                + '</td>'
+                        '</tr>';
+                        html += temp;
+                    });
+                    $('#systemNoticeTablelist').append(html);
+                }
+                else {
+                    msgError(data.msg+',错误代码:'+data.code);
+                }
+            }
+        });
+    }
+
+    $(window).scroll(function(){
+        var scrollTop = window.pageYOffset
+                || document.documentElement.scrollTop
+                || document.body.scrollTop
+                || 0;
+        var topPosition = $(window).height() - 150+scrollTop;
+        $('#noticeDialog').panel('resize',{
+            top:topPosition
+        });
+    });
+
+
+    /**
+     * 扩展javaScriptDate类型工具js
+     * 实现格式化日期功能
+     */
+    Date.prototype.format = function(format){
+        if(isNaN(this.getMonth())){
+            return '';
+        }
+        if(!format){
+            format = 'yyyy-MM-dd';
+        }
+        var o = {
+            //month
+            "M+" : this.getMonth() + 1,
+            //day
+            "d+" : this.getDate(),
+            //hour
+            "h+" : this.getHours(),
+            //minute
+            "m+" : this.getMinutes(),
+            //second
+            "s+" : this.getSeconds(),
+            //quarter
+            "q+" : Math.floor((this.getMonth() + 3) / 3),
+            //millisecond
+            "s" : this.getMilliseconds()
+        };
+        if(/(y+)/.test(format)){
+            format = format.replace(RegExp.$1,(this.getFullYear() + "").substr(4 - RegExp.$1.length));
+        }
+        for(var k in o){
+            if(new RegExp("(" + k + ")").test(format)){
+                format = format.replace(RegExp.$1,RegExp.$1.length == 1 ? o[k] : ("00" + o[k]).substr(("" + o[k]).length));
+            }
+        }
+        return format;
+    };
+
+</script>

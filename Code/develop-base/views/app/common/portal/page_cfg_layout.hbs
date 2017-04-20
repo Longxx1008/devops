@@ -1,0 +1,193 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>[{{layout_page.page_code}}]{{layout_page.page_name}}组件布局设置</title>
+        <link rel="stylesheet" type="text/css" href="{{projcfg.appurl}}/static/js/easyui/themes/bootstrap/easyui.css">
+        <link rel="stylesheet" type="text/css" href="{{projcfg.appurl}}/static/js/easyui/themes/icon.css">
+        <link rel="stylesheet" type="text/css" href="{{projcfg.appurl}}/static/themes/portal_eui/css/portal.css">
+        <link rel="stylesheet" type="text/css" href="{{projcfg.appurl}}/static/css/common/style.css">
+        <style type="text/css">
+        </style>
+        <script type="text/javascript" src="{{projcfg.appurl}}/static/js/easyui/jquery.min.js"></script>
+        <script type="text/javascript" src="{{projcfg.appurl}}/static/js/easyui/jquery.easyui.min.js"></script>
+        <script type="text/javascript" src="{{projcfg.appurl}}/static/js/easyui/locale/easyui-lang-zh_CN.js"></script>
+        <script type="text/javascript" src="{{projcfg.appurl}}/static/themes/portal_eui/js/jquery.portal.js"></script>
+    </head>
+    <body id="portal_layout" class="easyui-layout">
+        <div region="center" border="false" data-options="title:'[{{layout_page.page_code}}]{{layout_page.page_name}} 组件布局设置',fit:true,tools:'#tt'">
+            <div id="tt">
+                <a href="#" class="icon-add" onclick="javascript:openModuleDialog()"></a>
+            </div>
+            <div id="pp" style="position:relative;">
+                {{#each layout_cols}}
+                    <div style="width:{{this}}%;">
+                    </div>
+                {{/each}}
+            </div>
+        </div>
+<div id="module_list_dialog" class="easyui-layout" style="display:none;">
+    <div class="easyui-tabs" data-options="region:'center',fit:true,border:false,tabPosition:'left'">
+        {{#each layout_module_types}}
+            <div title="{{text}}">
+                    {{#each ../layout_all_modules}}
+                        {{#ifCond ../id module_type}}
+                            <dl class="module_list">
+                                <dt><img src="{{../../../projcfg.appurl}}/static/images/widget.png"></dt>
+                                <dd>
+                                    <div class="name">
+                                        <span class="title">{{module_title}}</span>
+                                        <span class="desc">{{module_remark}}</span>
+                                    </div>
+                                    <a href="javascript:addModule('{{_id}}','{{module_title}}','{{module_height}}', '{{module_cls}}')">添加</a>
+                                </dd>
+                            </dl>
+                        {{/ifCond}}
+                    {{/each}}
+            </div>
+        {{/each}}
+    </div>
+</div>
+</body>
+
+<link rel="stylesheet" type="text/css" href="{{projcfg.appurl}}/static/themes/portal_eui/css/portal.css">
+<script type="text/javascript" src="{{projcfg.appurl}}/static/themes/portal_eui/js/jquery.portal.js"></script>
+<script>
+
+    $(document).ready(function() {
+        $('#pp').portal({
+            border:false,
+            fit:true,
+            width:'100%',
+            onStateChange:function() {
+                saveLayout('{{layout_id}}');
+            }
+        });
+        $('#portal_layout').layout('panel', 'center').panel({
+            onResize:function() {
+                $('#pp').portal('resize');
+            }
+        });
+
+        {{#each layout_modules}}
+            var p = $('<div/>').appendTo('body');
+            p.panel({
+                id:'module_{{module_id._id}}',
+                title: '{{module_id.module_title}}',
+                href:'{{../projcfg.appurl}}/admin/api/common/portal/module/{{module_id._id}}',
+                bodyCls:'{{module_id.module_body_cls}}',
+                iconCls:'{{module_id.module_icon_cls}}',
+                cls:'{{module_id.module_cls}}',
+                height: {{module_id.module_height}},
+                closable: true,
+                {{#if module_id.module_tools}}
+                tools:[
+                    {{#each module_id.module_tools}}
+                        {
+                            iconCls:'{{icon_cls}}',
+                            handler:function(){
+                                {{icon_handler}}
+                            }
+                        }
+                    {{/each}}
+                ],
+                {{/if}}
+                collapsible: true,
+                onClose:function() {
+                    //$(this).panel("destroy");
+                    $('#pp').portal('remove',$(this));
+                    $('#pp').portal('resize');
+                    saveLayout('{{../layout_id}}');
+                }
+            });
+            $('#pp').portal('add', {
+                panel: p,
+                columnIndex:{{col_index}}
+            });
+        {{/each}}
+        $('#pp').portal('resize');
+    });
+
+    $(function(){
+
+    });
+        function openModuleDialog() {
+            var module_list_dialog = $('#module_list_dialog').show();
+            module_list_dialog.dialog({
+                title: '添加组件',
+                iconCls : 'icon-add',
+                width : 620,
+                height : 360,
+                top:200,
+                modal:true,
+                cache: false,
+                resizable : false,
+                minimizable : false,
+                maximizable : false,
+                collapsible : false
+            });
+            module_list_dialog.dialog('open');
+        }
+        function addModule(id, title, height, cls) {
+            // 检查模块是否已经存在
+            var mid = 'module_'+id;
+            if($('#'+mid).length == 0) {
+                var p = $('<div/>').appendTo('body');
+                p.panel({
+                    id: mid,
+                    title: title,
+                    href: '{{projcfg.appurl}}/admin/api/common/portal/module/' + id,
+                    height: height,
+                    cls:cls,
+                    closable: true,
+                    collapsible: true,
+                    onClose:function() {
+                        $('#pp').portal('remove',$(this));
+                        $('#pp').portal('resize');
+                        saveLayout('{{layout_id}}');
+                    }
+                });
+                $('#pp').portal('add', {
+                    panel: p,
+                    columnIndex: 0
+                });
+                $('#pp').portal('resize');
+                saveLayout('{{layout_id}}');
+            }
+            else {
+                alert('模块组件已添加');
+            }
+        }
+        function getLayout() {
+            // 获取当前页面模块
+            var portal = $('#pp').portal('getPanels');
+            var portalColumnTd = $('#pp').find('.portal-column-td');
+            var mids = new Array();
+            var t = 0;
+            for(var i = 0; i < portalColumnTd.length;i++){
+                var colomLength = $(portalColumnTd[i]).find('.portal-panel').length;
+                for(var j = 0; j < colomLength;j++){
+                    mids.push(i+':'+(portal[t].panel('options').id).replace('module_',''));
+                    t++;
+                }
+            }
+            return mids;
+        }
+        function saveLayout(layoutid) {
+            var mids = getLayout();
+            $.ajax({
+                url: '{{projcfg.appurl}}/admin/api/common/portal/page/cfg/'+layoutid,
+                type: 'put',
+                data: {'mids':mids.join(',')},
+                success: function (data) {
+                    if(data.success) {
+                        //alert(data.msg);
+                    }
+                    else {
+                        alert(data.msg+',错误代码:'+data.code);
+                    }
+                }
+            });
+        }
+</script>
+</html>

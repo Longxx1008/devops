@@ -1,0 +1,429 @@
+<div class="row">
+    <div class="col-xs-12 col-md-12">
+        <div class="widget">
+            <div class="widget-body">
+                <div class="tabbable">
+                    <ul class="nav nav-tabs tabs-flat" id="myTab11">
+                        <li class="active">
+                            <a data-toggle="tab" href="#api_mgr" aria-expanded="false">接口管理</a>
+                        </li>
+                        <!--<li>
+                            <a data-toggle="tab" href="#ver_mgr" aria-expanded="true">版本管理</a>
+                        </li>
+                        <li>
+                            <a data-toggle="tab" href="#ver_mgr" aria-expanded="true">启动页管理</a>
+                        </li>-->
+                    </ul>
+                    <div class="tab-content tabs-flat" style="padding: 1px 0px;">
+                        <div id="api_mgr" class="tab-pane active">
+                            <div id="cc" class="easyui-layout" data-options="fit:true,border:false" style="width: 800px; height:580px;background-color: #fbfbfb;">
+                                <div data-options="region:'west',title:'分类',split:true,border:true" style="width:210px">
+                                    <ul id="apiTypeTree"></ul>
+                                </div>
+                                <div data-options="region:'center',border:false" style="overflow-x:hidden;overflow-y:hidden">
+                                    <div id="apitoolbar" class="row tbRow" style="">
+                                        <div class="col-xs-6 col-md-6">
+                                            <div class="btn-group" role="group" aria-label="...">
+                                                <button type="button" class="btn btn-default" onclick="openApiPage('新增接口', '', doApiAdd)" data-title="新增">
+                                                    <i class="fa fa-plus"></i> 新增
+                                                </button>
+                                                <button type="button" class="btn btn-default" onclick="toApiEdit()" data-title="修改">
+                                                    <i class="fa fa-edit"></i> 修改
+                                                </button>
+                                                <button type="button" class="btn btn-default" onclick="toApiEdit()" data-title="修改">
+                                                    <i class="fa fa-bug"></i> 调试
+                                                </button>
+                                                <button type="button" class="btn btn-default" onclick="doApiSync()">
+                                                    <i class="fa fa-retweet"></i> 同步
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-6 col-md-6 text-right">
+                                            <form id="searchFrom" class="form-inline">
+                                                <div class="form-group">
+                                                    <div class="input-group">
+                                                        <input type="input" class="form-control" id="filter_name" name="filter_name" placeholder="接口名/描述/服务名/方法名" style="width:300px;">
+                                                        <span class="input-group-btn">
+                                                            <button class="btn btn-default" type="button" onclick="doApiSearch()"><i class="fa fa-search"></i>查询</button>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                    <table id="apiGrid"></table>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="ver_mgr" class="tab-pane">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="apiModal" class="mydialog" style="padding-top:0px;">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="widget flat radius-bordered">
+                <div class="widget-body" style="background-color: #fff;">
+                    <div id="registration-form">
+                        <form id="appApiForm" role="form">
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label class="control-label">分类</label>
+                                        <input class="easyui-combotree" id="inputApiType" data-options="required:true" name="api_type" style="width:100%;height:34px;">
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label class="control-label">接口名</label>
+                                        <input type="text" name="api_code" class="easyui-validatebox form-control" data-options="required:true" placeholder="接口名">
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label class="control-label">接口描述</label>
+                                        <input type="text" class="easyui-validatebox form-control" data-options="required:true" name="api_name" placeholder="接口描述" value="">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label class="control-label">服务名</label>
+                                        <input type="text" name="api_service_name" class="easyui-validatebox form-control" data-options="required:true" placeholder="服务名">
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label class="control-label">方法名</label>
+                                        <input type="text" name="api_service_method" class="easyui-validatebox form-control" data-options="required:true" placeholder="方法名">
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-2">
+                                    <div class="form-group">
+                                        <label class="control-label">模拟接口</label><br/>
+                                        <select  name="api_is_demo" id="api_is_demo" class="easyui-combobox" data-options="required:true,editable:false,panelHeight:50,onChange:function(newValue,oldValue){if(newValue == 0) {$('#api_demo_result').attr({readonly:true});$('#api_demo_result').validatebox({required:false});}else {$('#api_demo_result').attr({readonly:false});$('#api_demo_result').validatebox({required:true});}}" style="width:70px;height:34px;">
+                                            <option value="0">否</option>
+                                            <option value="1">是</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-sm-2">
+                                    <div class="form-group">
+                                        <label class="control-label">匿名调用</label><br/>
+                                        <select  name="api_auth_access" id="api_auth_access" class="easyui-combobox" data-options="required:true,editable:false,panelHeight:50" style="width:70px;height:34px;">
+                                            <option value="0">是</option>
+                                            <option value="1">否</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-sm-2">
+                                    <div class="form-group">
+                                        <label class="control-label">日志记录</label><br/>
+                                        <select  name="api_logging" id="api_logging" class="easyui-combobox" data-options="required:true,editable:false,panelHeight:50" style="width:70px;height:34px;">
+                                            <option value="0">关闭</option>
+                                            <option value="1">开启</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-sm-2">
+                                    <div class="form-group">
+                                        <label class="control-label">重复访问</label><br/>
+                                        <select  name="api_repeat_access" id="api_repeat_access" class="easyui-combobox" data-options="required:true,editable:false,panelHeight:50" style="width:70px;height:34px;">
+                                            <option value="1">是</option>
+                                            <option value="0">否</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-sm-2">
+                                    <div class="form-group">
+                                        <label class="control-label">状态</label><br/>
+                                        <select  name="api_status" id="api_status" class="easyui-combobox" data-options="required:true,editable:false,panelHeight:50" style="width:70px;height:34px;">
+                                            <option value="1">正常</option>
+                                            <option value="0">禁用</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <label class="control-label">模拟数据</label><br/>
+                                        <textarea id="api_demo_result" readonly="readonly" name="api_demo_result" class="easyui-validatebox form-control" rows="3"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label class="control-label">限期访问</label><br/>
+                                        <select  name="api_expdt_set" id="api_expdt_set" class="easyui-combobox form-control" data-options="required:true,editable:false,panelHeight:50,onChange:function(newValue,oldValue){if(newValue == 0) {$('#api_expdt_start').datebox({disabled:true});$('#api_expdt_end').datebox({disabled:true});}else {$('#api_expdt_start').datebox({disabled:false});$('#api_expdt_end').datebox({disabled:false});}}" style="width:150px;height:34px;">
+                                            <option value="0">否</option>
+                                            <option value="1">是</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label class="control-label">开始时间(包含)</label><br/>
+                                        <input type="text" id="api_expdt_start" name="api_expdt_start" data-options="disabled:true" class="easyui-datebox form-control" style="height:34px;width:80%">
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label class="control-label">结束时间(不包含)</label><br/>
+                                        <input type="text" class="easyui-datebox form-control" data-options="disabled:true" validType="gt['#api_expdt_start']" id="api_expdt_end" name="api_expdt_end" style="height:34px;width:80%" value="">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <label class="control-label">备注</label><br/>
+                                        <textarea name="api_remark" class="form-control" rows="3"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    function closeApiDialog() {
+        $('#apiModal').dialog('close');
+    }
+    function clearApi() {
+        $('#appApiForm').form('reset');
+        $('#api_demo_result').attr({readonly:true});
+        $('#api_demo_result').validatebox({required:false});
+        $('#api_expdt_start').datebox({disabled:true});
+        $('#api_expdt_end').datebox({disabled:true});
+    }
+    var tempApiTypeId = '';
+    function initApiTypeTree(){
+        $('#apiTypeTree').tree({
+            method: 'get',
+            url: '{{projcfg.appurl}}/public/dict/common_app_api_type',
+            lines:true,
+            loadFilter: function(data){
+                var root=[];
+                var node={id:'',text: '全部'};
+                node.children=data;
+                root.push(node);
+                return root;
+            },
+            onClick: function(node){
+                tempApiTypeId = node.id;
+                $('#apiGrid').datagrid('reload',{'filter_type':tempApiTypeId});
+            }
+        });
+    }
+
+    function initApiTypeComboTree() {
+        $('#inputApiType').combotree({
+            method: 'get',
+            required:true,
+            url: '{{projcfg.appurl}}/public/dict/common_app_api_type'
+        });
+    }
+
+    $(document).ready(function() {
+        initApiTypeTree();
+        $('#apiGrid').datagrid({
+            url:'{{projcfg.appurl}}/admin/api/common/app/app_api',
+            method:'get',
+            queryParams:{
+                //'filter_sys':$('#filter_sys').combobox('getValue'),
+                //'filter_org':$('#filter_org').combotree('getValue')
+            },
+            rownumbers:true,
+            //autoRowHeight:true,
+            striped:true,
+            fitColumns:true,
+            toolbar: '#apitoolbar',
+            fit:true,
+            border:true,
+            singleSelect:true,
+            selectOnCheck:false,
+            //checkOnSelect:true,
+            columns:[[
+                {field:'_id',checkbox:true},
+                {"field": "api_code","title":"接口名","width":30,
+                    "formatter":function (data,rowData,rowIndex) {
+                        var msg = '';
+                        if(rowData.api_status == 1){
+                            msg += '<span class="badge badge-success">正常</span>&nbsp;';
+                        }else {
+                            msg += '<span class="badge badge-danger">禁用</span>&nbsp;';
+                        }
+
+                        if(rowData.api_is_demo == 0) {
+                            msg += '<span class="badge badge-primary">正式</span>&nbsp;';
+                        }else {
+                            msg += '<span class="badge badge-warning">模拟</span>&nbsp;';
+                        }
+
+                        if(rowData.api_expdt_set == 1) {
+                            msg += '<span class="badge badge-blueberry">限时</span>&nbsp;';
+                        }
+                        else {
+                            msg += '<span class="badge badge-purple">永久</span>&nbsp;';
+                        }
+                        if(rowData.api_auth_access == 1) {
+                            msg += '<span class="badge badge-sky">登录</span>&nbsp;';
+                        }
+                        else {
+                            msg += '<span class="badge badge-pink">匿名</span>&nbsp;';
+                        }
+                        return msg + data;
+                    }
+                },
+                {"field": "api_name","title":"接口描述","width":15},
+                {"field": "api_service_name","title":"服务名","width":15},
+                {"field": "api_service_method","title":"方法名","width":15}
+            ]],
+            onDblClickRow:function(rowIndex, rowData){
+                //doEdit(1,rowIndex,rowData);
+            },
+            onLoadSuccess:function(json) {
+                if(!json.success) {
+                    msgError(json.msg + ',错误代码:' + json.code);
+                }
+            },
+            onLoadError:function() {
+                msgError('加载数据出现时发生错误,请稍候重试...');
+            },
+            pagination:true,
+            loadMsg:'正在加载...'
+        });
+    });
+
+    function doApiSearch() {
+        $('#apiGrid').datagrid('reload',{
+            'filter_name':$('#filter_name').val(),
+            'filter_type':tempApiTypeId
+        });
+    }
+    function openApiPage(title, value, callback) {
+        clearApi();
+        $('#apiModal').show();
+        $('#apiModal').mydialog({
+            title:title,
+            width: 850,
+            height: 600,
+            top:100,
+            modal: true,
+            myButtons:[
+                {
+                    text:'确定',
+                    btnCls:'btn btn-blue',
+                    handler:function(){
+                        callback(value);
+                    }
+                },
+                {
+                    text:'关闭',
+                    btnCls:'btn btn-danger',
+                    handler:function(){
+                        closeApiDialog();
+                    }
+                }
+            ]
+        });
+        initApiTypeComboTree();
+    }
+    function doApiAdd(value) {//alert(JSON.stringify($('#userForm').serializeJson()));
+
+        // 验证表单
+        var validate = $('#appApiForm').form('validate');
+        if(!validate) {
+            return false;
+        }
+        $.ajax({
+            url: '{{projcfg.appurl}}/admin/api/common/app/app_api',
+            type: 'post',
+            data: $('#appApiForm').serializeJson(),
+            success: function (data) {
+                if(data.success) {
+                    msgSuccess(data.msg);
+                    closeApiDialog();
+                    doApiSearch();
+                }
+                else {
+                    msgError(data.msg+',错误代码:'+data.code);
+                }
+            }
+        });
+    }
+
+    function toApiEdit() {
+
+        // 获得选择行
+        var rows = $('#apiGrid').datagrid('getChecked');
+        if (rows.length != 1) {
+            msgError('提示,请选择一条数据再进行修改');
+            return false;
+        }
+        var id = rows[0]._id;
+        openApiPage("修改接口定义", id, doApiEdit);
+        $('#appApiForm').form('load', rows[0]);
+
+        if(rows[0].api_is_demo == 0) {
+            $('#api_demo_result').attr({readonly: true});
+            $('#api_demo_result').validatebox({required: false});
+        }
+        else {
+            $('#api_demo_result').attr({readonly: false});
+            $('#api_demo_result').validatebox({required: true});
+        }
+        if(rows[0].api_expdt_set == 0) {
+            $('#api_expdt_start').datebox({disabled:true});
+            $('#api_expdt_end').datebox({disabled:true});
+        }
+        else {
+            $('#api_expdt_start').datebox({disabled:false,value:(rows[0].api_expdt_start ? rows[0].api_expdt_start.substring(0,10) : '')});
+            $('#api_expdt_end').datebox({disabled:false,value:(rows[0].api_expdt_end ? rows[0].api_expdt_end.substring(0,10) : '')});
+        }
+
+    }
+    // 修改数据
+    function doApiEdit(value) {
+
+        // 验证表单
+        var validate = $('#appApiForm').form('validate');
+        if(!validate) {
+            return false;
+        }
+        $.ajax({
+            url: '{{projcfg.appurl}}/admin/api/common/app/app_api/'+value,
+            type: 'put',
+            data: $('#appApiForm').serializeJson(),
+            success: function (data) {
+                if(data.success) {
+                    msgSuccess(data.msg);
+                    closeApiDialog();
+                    doApiSearch();
+                }
+                else {
+                    msgError(data.msg+',错误代码:'+data.code);
+                }
+            }
+        });
+
+    }
+</script>

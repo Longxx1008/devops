@@ -1,0 +1,451 @@
+<div class="row">
+    <div class="col-xs-12 col-md-12">
+        <div class="widget">
+            <div class="widget-body">
+                <div id="jkSystemNotice_toolbar" class="row tbRow">
+                    <div class="col-xs-6 col-md-6">
+                        <div class="btn-group" role="group" aria-label="...">
+                            <button type="button" class="btn btn-default" onclick="toAdd()">
+                                <i class="glyphicon glyphicon-plus"></i> 添加
+                            </button>
+                            <button type="button" class="btn btn-default" onclick="toEdit()">
+                                <i class="glyphicon glyphicon-pencil"></i> 修改
+                            </button>
+                            <button type="button" class="btn btn-default" onclick="toReview()">
+                                <i class="glyphicon glyphicon-cog"></i> 审核
+                            </button>
+                            <button type="button" class="btn btn-default" onclick="toUp()">
+                                <i class="glyphicon glyphicon-cog"></i> 置顶
+                            </button>
+                        </div>
+                    </div>
+                    <div class="col-xs-6 col-md-6 text-right">
+                        <form class="form-inline">
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <label for="inputJkSystemNoticeType">公告类型：</label>
+                                    <select class="easyui-combobox" id="inputJkSystemNoticeType" style="width:100px;height:34px;">
+                                        <option value="0">--请选择--</option>
+                                        <option value="1">重要</option>
+                                        <option value="2">限时</option>
+                                        <option value="3">通报</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <label for="inputJkSystemNoticeTitle">公告标题：</label>
+                                    <input id="inputJkSystemNoticeTitle" style="width:200px;height:34px;" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-default" type="button" onclick="doSearch()">
+                                            <i class="glyphicon glyphicon-search"></i> 查询
+                                        </button>
+                                    </span>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="easyui-layout" data-options="fit:true,border:false" style="width: 800px; height:650px;">
+                    <div data-options="region:'center',border:false,fit:true" style="overflow-x:hidden;overflow-y:hidden">
+                        <table id="jkSystemNotice_datatable">
+
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal -->
+<div id="jkSystemNotice_Modal" style="display:none;overflow:hidden;padding-top:15px;padding-bottom: 15px;">
+    <div class="row">
+        <div class="col-md-12">
+            <div>
+                <form class="form-horizontal form-bordered" id="jkSystemNotice_Form" role="form">
+                    <div class="form-group">
+                        <label for="inputNoticeTitle" class="col-sm-2 control-label no-padding-right">公告标题</label>
+                        <div class="col-sm-10">
+                            <input id="inputNoticeTitle" style="width:60%;height:31px;" type="text" name="inputNoticeTitle" class="easyui-validatebox form-control" data-options="required:true" placeholder="公告标题不超过16个字符">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputNoticeType" class="col-sm-2 control-label no-padding-right">公告类型</label>
+                        <div class="col-sm-10">
+                            <select class="easyui-combobox" id="inputNoticeType" style="width:60%;height:31px;">
+                                <option value="1">重要</option>
+                                <option value="2">限时</option>
+                                <option value="3">通报</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label no-padding-right">公告内容</label>
+                        <div class="col-sm-10">
+                            <!-- 加载编辑器的容器 -->
+                            <script id="container" type="text/plain"></script>
+                            <!-- 配置文件 -->
+                            <script type="text/javascript" src="{{projcfg.appurl}}/static/js/ueditor/ueditor.config.js"></script>
+                            <!-- 编辑器源码文件 -->
+                            <script type="text/javascript" src="{{projcfg.appurl}}/static/js/ueditor/ueditor.all.js"></script>
+                            <!-- 实例化编辑器 -->
+                            <script type="text/javascript">
+                                var ue = UE.getEditor('container',{
+                                    initialFrameWidth : 600,
+                                    initialFrameHeight: 400
+                                });
+                            </script>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+
+    var user_roles = [];
+        {{#each currentUser.user_roles}}
+        user_roles.push('{{_id}}');
+        {{/each}}
+
+    //初始化datagrid
+    function initTable(){
+        $('#jkSystemNotice_datatable').datagrid({
+            method:'get',
+            url: '{{projcfg.appurl}}/admin/api/common/syscfg/notice',
+            rownumbers:true,
+            striped:true,
+            fitColumns:true,
+            toolbar: '#jkSystemNotice_toolbar',
+            fit:true,
+            border:false,
+            singleSelect:true,
+            selectOnCheck:false,
+            columns:[[
+                {"field":'_id',checkbox:true},
+                {"field": "notice_title","title":"公告标题","width":100},
+                {"field": "notice_type","title":"公告类型","width":50,
+                    formatter : function(value, rowData, rowIndex) {
+                        if(value == 1){
+                            return '<span class="label label-danger">重要</span>';
+                        }else if(value == 2){
+                            return '<span class="label label-azure">限时</span>';
+                        }else if(value == 3){
+                            return '<span class="label label-warning">通报</span>';
+                        }
+                    }
+                },
+                {"field": "notice_issuer","title":"发布人","width":40,
+                    formatter : function(value, rowData, rowIndex) {
+                        if(value){
+                            return value.user_name;
+                        }
+                    }
+                },
+                {"field": "notice_auditor","title":"审核人","width":40,
+                    formatter : function(value, rowData, rowIndex) {
+                        if(value){
+                            return value.user_name;
+                        }
+                    }
+                },
+                {"field": "notice_status","title":"状态","width":40,
+                    formatter : function(value, rowData, rowIndex) {
+                        if(value == 1){
+                            return '<span class="label label-primary">未审核</span>';
+                        }else if(value == 2){
+                            return '<span class="label label-success">已发布</span>';
+                        }else if(value == 3){
+                            return '<span class="label label-danger">作废</span>';
+                        }
+                    }
+                },
+                {"field": "notice_date","title":"创建日期","width":100,
+                    formatter : function(value, rowData, rowIndex) {
+                        return new Date(value).format();
+                    }
+                }
+            ]],
+            onLoadSuccess:function(json) {
+                if(!json.success) {
+                    msgError('提示,'+json.msg + ',错误代码:' + json.code);
+                }
+            },
+            onLoadError:function() {
+                msgError('提示,加载数据出现时发生错误,请稍候重试...');
+            },
+            pagination:true,
+            loadMsg:'正在加载...'
+        });
+    };
+
+    $(document).ready(function(){
+        initTable();
+    });
+
+    //查询方法
+    function doSearch() {
+        var noticeType = $('#inputJkSystemNoticeType').combobox('getValue');
+        var noticeTitle = $('#inputJkSystemNoticeTitle').val();
+        if(noticeType == '0'){
+            noticeType = '';
+        }
+        $('#jkSystemNotice_datatable').datagrid('load',{
+            notice_title: noticeTitle,
+            notice_type: noticeType
+        });
+    }
+
+    //打开新增页面
+    function toAdd(){
+        openPage('添加系统公告', null, doAdd);
+    }
+
+    // 打开页面
+    function openPage(title, value, callback) {
+        $('#jkSystemNotice_Modal').show();
+        $('#jkSystemNotice_Modal').mydialog({
+            title:title,
+            width: 850,
+            height: 720,
+            top:80,
+            modal: true,
+            myButtons:[
+                {
+                    text:'确定',
+                    btnCls:'btn btn-blue',
+                    handler:function(){
+                        callback(value);
+                    }
+                },
+                {
+                    text:'关闭',
+                    btnCls:'btn btn-danger',
+                    handler:function(){
+                        closeDialog();
+                    }
+                }
+            ]
+        });
+    }
+
+    // 关闭窗口
+    function closeDialog() {
+        $('#jkSystemNotice_Modal').dialog('close');
+    }
+
+    // 清空表单数据
+    function clear() {
+        $('#inputNoticeTitle').val('');
+        ue.setContent('');
+    }
+
+    // 新增数据
+    function doAdd(value) {
+        var notice_title = $('#inputNoticeTitle').val();
+        if(notice_title == ''){
+            msgError('提示,公告标题不能为空');
+            return;
+        }
+
+        if(notice_title.length>16){
+            msgError('提示,公告标题不能超过16个字符');
+            return;
+        }
+
+        if(!ue.hasContents()){
+            msgError('提示,公告内容不能为空');
+            return;
+        }
+        $.ajax({
+            url: '{{projcfg.appurl}}/admin/api/common/syscfg/notice',
+            type: 'post',
+            data: {
+                notice_title:notice_title,
+                notice_type:$('#inputNoticeType').combobox('getValue'),
+                notice_content:ue.getContent()
+            },
+            success: function (data) {
+                if(data.success) {
+                    msgSuccess(data.msg);
+                    clear();
+                    closeDialog();
+                    $('#jkSystemNotice_datatable').datagrid('load',{});
+                }
+                else {
+                    msgError(data.msg+',错误代码:'+data.code);
+                }
+            }
+        });
+    }
+
+    // 打开修改页面
+    function toEdit() {
+        // 获得选择行
+        var rows = $('#jkSystemNotice_datatable').datagrid('getChecked');
+        if (rows.length != 1) {
+            msgError('提示,请选择一条数据再进行修改');
+            return;
+        }
+        openPage("修改系统公告", rows[0]._id, doEdit);
+        // 获取远程数据
+        $.ajax({
+            url: '{{projcfg.appurl}}/admin/api/common/syscfg/notice/'+rows[0]._id,
+            type: 'get',
+            data: {},
+            success: function (data) {
+                if(data.success) {
+                    $('#inputNoticeTitle').val(data.data[0].notice_title);
+                    $('#inputNoticeType').combobox('setValue',data.data[0].notice_type);
+                    ue.setContent(data.data[0].notice_content);
+                }else{
+                    msgError(data.msg+',错误代码:'+data.code);
+                }
+            }
+        });
+    }
+
+    // 修改数据
+    function doEdit(value) {
+        var notice_title = $('#inputNoticeTitle').val();
+        if(notice_title == ''){
+            msgError('提示,公告标题不能为空');
+            return;
+        }
+
+        if(notice_title.length>16){
+            msgError('提示,公告标题不能超过16个字符');
+            return;
+        }
+
+        if(!ue.hasContents()){
+            msgError('提示,公告内容不能为空');
+            return;
+        }
+        $.ajax({
+            url: '{{projcfg.appurl}}/admin/api/common/syscfg/notice/'+value,
+            type: 'put',
+            data: {
+                notice_title:notice_title,
+                notice_type:$('#inputNoticeType').combobox('getValue'),
+                notice_content:ue.getContent()
+            },
+            success: function (data) {
+                if (data.success) {
+                    msgSuccess(data.msg);
+                    clear();
+                    closeDialog();
+                    $('#jkSystemNotice_datatable').datagrid('load',{});
+                }
+                else {
+                    msgError(data.msg + ',错误代码:' + data.code);
+                }
+            }
+        });
+    }
+
+    //公告置顶
+    function toUp(){
+        var rows = $('#jkSystemNotice_datatable').datagrid('getChecked');
+        if (rows.length != 1) {
+            msgError('提示,请选择一条数据再进行置顶');
+            return;
+        }
+        if(rows[0].notice_status!=2){
+            msgError('提示,请先审核后再进行置顶');
+            return;
+        }
+        bootbox.confirm('确定将此条公告置顶？',function (result){
+            if(result){
+                $.ajax({
+                    url: '{{projcfg.appurl}}/admin/api/common/syscfg/notice/doUpNotice',
+                    type: 'put',
+                    data: {
+                        id:rows[0]._id
+                    },
+                    success: function (data) {
+                        if(data.success) {
+                            msgSuccess(data.msg);
+                            $('#jkSystemNotice_datatable').datagrid('load',{});
+                        }
+                        else {
+                            msgError(data.msg+',错误代码:'+data.code);
+                        }
+                    }
+                });
+            }
+        });
+    }
+
+    //审核数据
+    function toReview(){
+        var rows = $('#jkSystemNotice_datatable').datagrid('getChecked');
+        if (rows.length != 1) {
+            msgError('提示,请选择一条数据再进行审核');
+            return;
+        }
+        bootbox.confirm('确定公告审核通过？',function (result){
+            if(result){
+                $.ajax({
+                    url: '{{projcfg.appurl}}/admin/api/common/syscfg/notice',
+                    type: 'put',
+                    data: {
+                        id:rows[0]._id
+                    },
+                    success: function (data) {
+                        if(data.success) {
+                            msgSuccess(data.msg);
+                            $('#jkSystemNotice_datatable').datagrid('load',{});
+                        }
+                        else {
+                            msgError(data.msg+',错误代码:'+data.code);
+                        }
+                    }
+                });
+            }
+        });
+    }
+
+    /**
+     * 扩展javaScriptDate类型工具js
+     * 实现格式化日期功能
+     */
+    Date.prototype.format = function(format){
+        if(isNaN(this.getMonth())){
+            return '';
+        }
+        if(!format){
+            format = 'yyyy-MM-dd hh:mm:ss';
+        }
+        var o = {
+            //month
+            "M+" : this.getMonth() + 1,
+            //day
+            "d+" : this.getDate(),
+            //hour
+            "h+" : this.getHours(),
+            //minute
+            "m+" : this.getMinutes(),
+            //second
+            "s+" : this.getSeconds(),
+            //quarter
+            "q+" : Math.floor((this.getMonth() + 3) / 3),
+            //millisecond
+            "s" : this.getMilliseconds()
+        };
+        if(/(y+)/.test(format)){
+            format = format.replace(RegExp.$1,(this.getFullYear() + "").substr(4 - RegExp.$1.length));
+        }
+        for(var k in o){
+            if(new RegExp("(" + k + ")").test(format)){
+                format = format.replace(RegExp.$1,RegExp.$1.length == 1 ? o[k] : ("00" + o[k]).substr(("" + o[k]).length));
+            }
+        }
+        return format;
+    };
+</script>

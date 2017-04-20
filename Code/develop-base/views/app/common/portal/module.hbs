@@ -1,0 +1,463 @@
+<div class="row">
+    <div class="col-xs-12 col-md-12">
+        <div class="widget">
+            <div class="widget-body">
+
+                <div id="cc" class="easyui-layout" data-options="fit:true,border:true" style="width: 800px; height: 627px" >
+                    <div data-options="region:'north',border:false" style="height:43px;padding:5px 0px 5px 0px;">
+                        所属系统：<input id="inputSysId" name="inputSysId" style="width: 180px;height:31px;">
+                        所属角色：<input id="inputRoleId" name="inputRoleId" style="width: 180px;height:31px;">
+                    </div>
+                    <div data-options="region:'west',title:'组件类型',split:true,border:true" style="width:210px">
+                        <ul id="portalModuleTypeTree"></ul>
+                    </div>
+                    <div data-options="region:'center',border:true" style="overflow-x:hidden;overflow-y:hidden">
+                        <div id="toolbar" class="row tbRow">
+                            <div class="col-xs-6 col-md-6">
+                                <div class="btn-group" role="group" aria-label="...">
+                                    <button type="button" class="btn btn-default" onclick="openPage('新增组件', '', doAdd)" data-title="新增">
+                                        <i class="fa fa-plus"></i> 新增
+                                    </button>
+                                    <button type="button" class="btn btn-default" onclick="toEdit()" data-title="修改">
+                                        <i class="fa fa-edit"></i> 修改
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="col-xs-6 col-md-6 text-right">
+                                <form id="searchFrom" class="form-inline">
+                                    <div class="form-group">
+                                        <div class="input-group">
+                                            <input type="input" id="queryModuleName" name="queryModuleName" class="form-control" placeholder="组件编码/标题">
+                                                    <span class="input-group-btn">
+                                                        <button class="btn btn-default" type="button" onclick="doSearch()"><i class="fa fa-search"></i>查询</button>
+                                                        <!--<button class="btn btn-default" type="button" onclick="doClear()"><i class="fa fa-mail-reply"></i>清空</button>-->
+                                                    </span>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <table id="simpledatatable">
+
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+<!-- Modal -->
+<div id="myModal" style="display:none;overflow-x:hidden;padding-top:15px;padding-bottom: 15px;">
+    <div class="row">
+        <div class="col-md-12">
+            <div>
+                <form class="form-horizontal form-bordered" id="moduleForm" role="form">
+                    <div class="form-group">
+                        <label for="sys_id" class="col-sm-2 control-label no-padding-right">所属系统</label>
+                        <div class="col-sm-10">
+                            <input class="easyui-combotree" id="sys_id" data-options="required:true" name="sys_id" value="0"  style="width:300px;;height:31px;">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="module_type" class="col-sm-2 control-label no-padding-right">组件类型</label>
+                        <div class="col-sm-4">
+                            <input class="easyui-combotree" id="module_type" data-options="required:true" name="module_type"  style="width:150px;;height:31px;">
+                        </div>
+                        <label for="module_is_public" class="col-sm-2 control-label no-padding-right">公用组件</label>
+                        <div class="col-sm-4">
+                            <select class="easyui-combobox form-control" style="width: 150px;height:34px;" data-options="editable:false,panelHeight:75,onChange:function(newValue,oldValue){if(newValue == 1) {$('#role_ids').combobox({disabled:true});}else {$('#role_ids').combobox({disabled:false});}}" name="module_is_public" id="module_is_public" data-bv-field="module_is_public">
+                                <option value="1">是</option>
+                                <option value="0">否</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="sys_id" class="col-sm-2 control-label no-padding-right">所属角色</label>
+                        <div class="col-sm-10">
+                            <input id="role_ids" data-options="required:true" name="role_ids" style="height:31px;width:100%;">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="module_code" class="col-sm-2 control-label no-padding-right">组件编码</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="easyui-validatebox form-control" data-options="required:true" name="module_code" id="module_code" placeholder="请输入组件编码" style="width:60%">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="module_title" class="col-sm-2 control-label no-padding-right">组件标题</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="easyui-validatebox form-control" data-options="required:true" name="module_title" id="module_title" placeholder="请输入组件标题" style="width:60%">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="module_url" class="col-sm-2 control-label no-padding-right">组件URL</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="easyui-validatebox form-control" data-options="required:true" name="module_url" id="module_url" placeholder="请输入组件url">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="module_url" class="col-sm-2 control-label no-padding-right">组件参数</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="easyui-validatebox form-control" data-options="required:false" name="module_params" id="module_params" placeholder="请输入组件参数">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="module_icon_cls" class="col-sm-2 control-label no-padding-right">标题图标</label>
+                        <div class="col-sm-4">
+                            <input type="text" class="easyui-validatebox form-control" data-options="required:false" name="module_icon_cls" id="module_icon_cls" placeholder="请输入标题图标样式" style="width:200px;"/>
+                        </div>
+                        <label for="module_cls" class="col-sm-2 control-label no-padding-right">标题样式</label>
+                        <div class="col-sm-4">
+                            <select name="module_cls" id="module_cls" style="width:150px;height:34px;" class="easyui-combobox form-control" data-options="value:'blue',required:true,editable:false,panelHeight:150">
+                                <option value="blue">blue</option>
+                                <option value="red">red</option>
+                                <option value="green">green</option>
+                                <option value="yellow">yellow</option>
+                                <option value="black">black</option>
+                                <option value="white">white</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="module_body_cls" class="col-sm-2 control-label no-padding-right">组件边框</label>
+                        <div class="col-sm-4">
+                            <select name="module_body_cls" id="module_body_cls" style="width:150px;height:34px;" class="easyui-combobox form-control" data-options="value:'border',required:true,editable:false,panelHeight:80">
+                                <option value="border">有</option>
+                                <option value="noborder">无</option>
+                            </select>
+                        </div>
+                        <label for="module_height" class="col-sm-2 control-label no-padding-right">组件高度</label>
+                        <div class="col-sm-4">
+                            <input type="text" class="easyui-validatebox form-control" data-options="required:true" name="module_height" id="module_height" placeholder="请输入组件高度" style="width:150px;display: inline;"/> px
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="module_order" class="col-sm-2 control-label no-padding-right">排序号</label>
+                        <div class="col-sm-4">
+                            <input type="text" name="module_order" id="module_order" class="easyui-numberspinner" data-options="required:true" style="width:150px;height:31px;" value="1"/>
+                        </div>
+
+                        <label for="module_status" class="col-sm-2 control-label no-padding-right">状态</label>
+                        <div class="col-sm-4">
+                            <select class="easyui-combobox form-control" style="width: 150px;height:34px;" data-options="editable:false,panelHeight:75" name="module_status" id="module_status" data-bv-field="inputOrgStatus">
+                                <option value="1">启用</option>
+                                <option value="0">禁用</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="module_remark" class="col-sm-2 control-label no-padding-right">备注</label>
+                        <div class="col-sm-10">
+                            <textarea class="form-control" name="module_remark" id="module_remark" placeholder="请输入备注" rows="3"></textarea>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style type="text/css">
+    .combo{
+        line-height:22px;
+    }
+</style>
+
+<script>
+    function initTree(){
+        $('#portalModuleTypeTree').tree({
+            method: 'get',
+            lines:true,
+            url: '{{projcfg.appurl}}/public/dict/common_portal_module_type',
+            onClick: function(node){
+                tempTypeid = node.id;
+                $('#simpledatatable').datagrid('reload',{'module_type':tempTypeid,sys_id:currentSysId,
+                    role_id:$('#inputRoleId').combobox('getValue')});
+            },
+            loadFilter: function(data){
+                var root=[];
+                var node={id:'',text: '全部'};
+                node.children=data;
+                root.push(node);
+                return root;
+            }
+        });
+    }
+
+    function InitComboTree() {
+        $('#sys_id').combobox({
+            method: 'get',
+            url: '{{projcfg.appurl}}/public/sysData',
+            valueField:'_id',
+            textField:'sys_name',
+            value:currentSysId,
+            editable:false,
+            required:true,
+            onChange: function (newValue,oldValue) {
+                $('#role_ids').combobox('clear');
+                $('#role_ids').combobox('reload','{{projcfg.appurl}}/admin/api/common/uum/user/getRoleData/'+newValue);
+            }
+        });
+        $('#role_ids').combobox({
+            method: 'get',
+            url: '{{projcfg.appurl}}/admin/api/common/uum/user/getRoleData/'+currentSysId,
+            editable:false,
+            valueField:'_id',
+            textField:'role_name',
+            multiple:true,
+            disabled:true,
+            required:true
+        });
+        $('#module_type').combotree({
+            method: 'get',
+            url: '{{projcfg.appurl}}/public/dict/common_portal_module_type',
+            editable:false,
+            required:true
+        });
+    }
+
+    /*InitiateSimpleDataTable.init();*/
+    var table;
+    var tempTypeid;//菜单父ID
+    var currentSysId = '{{currentUser.user_sys._id}}';
+    var currentRoleId = '{{currentUserRole._id}}';
+    $(document).ready(function() {
+        initTree();
+        // 加载系统过滤
+        $('#inputSysId').combobox({
+            method: 'get',
+            url: '{{projcfg.appurl}}/public/sysData',
+            valueField:'_id',
+            textField:'sys_name',
+            value:currentSysId,
+            editable:false,
+            onChange: function (newValue,oldValue) {
+                $('#inputRoleId').combobox('reload','{{projcfg.appurl}}/admin/api/common/uum/user/getRoleData/'+newValue);
+                //$('#inputRoleId').combobox('clear');
+
+                currentSysId = newValue;
+                $('#simpledatatable').datagrid('load',{
+                    'module_type':tempTypeid,
+                    sys_id:currentSysId,
+                    role_id:$('#inputRoleId').combobox('getValue')
+                });
+            }
+        });
+        // 加载角色过滤
+        $('#inputRoleId').combobox({
+            method: 'get',
+            url: '{{projcfg.appurl}}/admin/api/common/uum/user/getRoleData/'+currentSysId,
+            editable:false,
+            valueField:'_id',
+            textField:'role_name',
+            value:currentRoleId,
+            onLoadSuccess:function() {
+                var roleData = $('#inputRoleId').combobox('getData');
+                if (roleData.length > 0) {
+                    currentRoleId = roleData[0]._id;
+                    $('#inputRoleId').combobox('setValue', roleData[0]._id);
+                }
+                else {
+                    currentRoleId = '';
+                    $('#inputRoleId').combobox('clear');
+                }
+            },
+            onChange: function (newValue,oldValue) {
+                currentRoleId = newValue;
+                $('#simpledatatable').datagrid('load',{
+                    'module_type':tempTypeid,
+                    sys_id:currentSysId,
+                    role_id:newValue
+                });
+            }
+        });
+
+        $(function(){
+            $('#simpledatatable').datagrid({
+                //title:'项目配置列表',
+                url:'{{projcfg.appurl}}/admin/api/common/portal/module',
+                queryParams: {
+                    'module_type':tempTypeid,
+                    'sys_id':currentSysId,
+                    'role_id':$('#inputRoleId').combobox('getValue')
+                },
+                method:'get',
+                rownumbers:true,
+                //autoRowHeight:true,
+                //fit:true,
+                //toolbar:'#toolbar',
+                striped:true,
+                fitColumns:true,
+                toolbar: '#toolbar',
+                fit:true,
+                border:false,
+                singleSelect:true,
+                selectOnCheck:false,
+                columns:[[
+                    {field:'_id',checkbox:true},
+                    {"field": "module_type","title":"组件类型","width":40,
+                        "formatter":function (data,rowData,rowIndex) {
+                            var node = $('#portalModuleTypeTree').tree('find', data);
+                            return node.text;
+                        }
+                    },
+                    {"field": "module_code","title":"组件编码","width":30},
+                    {"field": "module_title","title":"组件标题","width":70},
+                    {"field": "module_is_public","title":"公共组件","width":20,
+                        "formatter":function (data,rowData,rowIndex) {
+                            if(data == 1){
+                                return '<font style="color:blue">是</font>';
+                            }else if(data == 0){
+                                return '<font style="color:red">否</font>';
+                            }
+                        }
+                    },
+                    {"field": "module_cls","title":"组件样式","width":30},
+                    {"field": "module_height","title":"组件高度","width":30},
+                    {"field": "module_order","title":"排序号","width":20},
+                    {"field": "module_status","title":"状态","width":20,
+                        "formatter":function (data,rowData,rowIndex) {
+                            if(data == 1){
+                                return '<font style="color:blue">启用</font>';
+                            }else if(data == 0){
+                                return '<font style="color:red">禁用</font>';
+                            }
+                        }
+                    }
+                ]],
+                onDblClickRow:function(rowIndex, rowData){
+                    //doEdit(1,rowIndex,rowData);
+                },
+                onLoadSuccess:function(json) {
+                    if(!json.success) {
+                        msgError('提示,'+json.msg + ',错误代码:' + json.code);
+                    }
+                },
+                onLoadError:function() {
+                    msgError('提示,加载数据出现时发生错误,请稍候重试...');
+                },
+                pagination:true,
+                loadMsg:'正在加载...'
+            });
+        });
+    });
+
+    function doSearch() {
+        $('#simpledatatable').datagrid('reload',{
+            'module_type':tempTypeid,
+            'sys_id':currentSysId,
+            'role_id':$('#inputRoleId').combobox('getValue'),
+            'module_code':$("#queryModuleName").val()
+        });
+    }
+    function doClear() {
+        $('#queryModuleName').val('');
+        doSearch();
+    }
+
+    // 关闭窗口
+    function closeDialog() {
+        $('#myModal').dialog('close');
+        clear();
+    }
+    // 打开页面
+    function openPage(title, value, callback) {
+        $('#myModal').show();
+        InitComboTree();
+        $('#myModal').mydialog({
+            title:title,
+            width: 700,
+            height: 630,
+            top:100,
+            modal: true,
+            myButtons:[
+                {
+                    text:'确定',
+                    btnCls:'btn btn-blue',
+                    handler:function(){
+                        callback(value);
+                    }
+                },
+                {
+                    text:'关闭',
+                    btnCls:'btn btn-danger',
+                    handler:function(){
+                        closeDialog();
+                    }
+                }
+            ]
+        });
+    }
+
+    // 新增数据
+    function doAdd(value) {//alert($('#studentForm').serializeJson());
+        var validate = $('#moduleForm').form('validate');
+        if(!validate) {
+            return false;
+        }
+        $.ajax({
+            url: '{{projcfg.appurl}}/admin/api/common/portal/module',
+            type: 'post',
+            data: $('#moduleForm').serializeJson(),
+            success: function (data) {
+                if(data.success) {
+                    msgSuccess(data.msg);
+                    closeDialog();
+                    doSearch();
+                }
+                else {
+                    msgError(data.msg+',错误代码:'+data.code);
+                }
+            }
+        });
+    }
+
+    // 打开修改页面
+    function toEdit() {
+
+        // 获得选择行
+        var rows = $('#simpledatatable').datagrid('getChecked');
+        if (rows.length != 1) {
+            msgError('提示,请选择一条数据再进行修改');
+            return ;
+        }
+        var id = rows[0]._id;
+        openPage("修改组件", id, doEdit);
+
+        $('#moduleForm').form('load',rows[0]);
+        if(rows[0].module_is_public == 0) {
+            $('#role_ids').combobox({disabled:false});
+        }
+        $('#role_ids').combobox('setValues', rows[0].module_roles);
+    }
+    // 修改数据
+    function doEdit(value) {
+        var validate = $('#moduleForm').form('validate');
+        if(!validate) {
+            return false;
+        }//alert(JSON.stringify($('#moduleForm').serializeJson()));return false;
+        $.ajax({
+            url: '{{projcfg.appurl}}/admin/api/common/portal/module/'+value,
+            type: 'put',
+            data: $('#moduleForm').serializeJson(),
+            success: function (data) {
+                if(data.success) {
+                    msgSuccess(data.msg);
+                    closeDialog();
+                    doSearch();
+                    clear();
+                }
+                else {
+                    msgError(data.msg+',错误代码:'+data.code);
+                }
+            }
+        });
+    }
+    // 清空新增表单数据
+    function clear() {
+        $('#moduleForm').form('clear');
+    }
+
+</script>

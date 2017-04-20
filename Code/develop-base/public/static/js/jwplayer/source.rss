@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<jwplayer:rss xmlns:jwplayer="http://rss.jwpcdn.com/" version="2.0">
+	<channel>
+		<item>
+			<title>通道01</title>
+			<jwplayer:source file="rtmp://117.135.196.138:56707/vod/_definst_/mp4/sample.mp4"/>
+			<jwplayer:source file="http://117.135.196.138:56707/vod/_definst_/mp4/sample.mp4/playlist.m3u8" type="video/mp4"/>
+			<!--
+			<jwplayer:track file="captions/ch_1.srt" kind="captions" default="true"/>
+			-->
+		</item>
+		<item>
+			<title>通道02</title>
+			<jwplayer:source file="rtmp://117.135.196.138:56707/vod/_definst_/mp4/sample.mp4"/>
+			<jwplayer:source file="http://117.135.196.138:56707/vod/_definst_/mp4/sample.mp4/playlist.m3u8" type="video/mp4"/>
+		</item>
+		<item>
+			<title>通道03</title>
+			<jwplayer:source file="rtmp://117.135.196.138:56707/vod/_definst_/mp4/sample.mp4"/>
+			<jwplayer:source file="http://117.135.196.138:56707/vod/_definst_/mp4/sample.mp4/playlist.m3u8" type="video/mp4"/>
+		</item>
+		<item>
+			<title>通道04</title>
+			<jwplayer:source file="rtmp://117.135.196.138:56707/vod/_definst_/mp4/sample.mp4"/>
+			<jwplayer:source file="http://117.135.196.138:56707/vod/_definst_/mp4/sample.mp4/playlist.m3u8" type="video/mp4"/>
+		</item>
+		<item>
+			<title>通道05</title>
+			<jwplayer:source file="rtmp://117.135.196.138:56707/vod/_definst_/mp4/sample.mp4"/>
+			<jwplayer:source file="http://117.135.196.138:56707/vod/_definst_/mp4/sample.mp4/playlist.m3u8" type="video/mp4"/>
+		</item>
+		<item>
+			<title>通道06</title>
+			<jwplayer:source file="rtmp://117.135.196.138:56707/vod/_definst_/mp4/sample.mp4"/>
+			<jwplayer:source file="http://117.135.196.138:56707/vod/_definst_/mp4/sample.mp4/playlist.m3u8" type="video/mp4"/>
+		</item>
+		<item>
+			<title>通道07</title>
+			<jwplayer:source file="rtmp://117.135.196.138:56707/vod/_definst_/mp4/sample.mp4"/>
+			<jwplayer:source file="http://117.135.196.138:56707/vod/_definst_/mp4/sample.mp4/playlist.m3u8" type="video/mp4"/>
+		</item>
+		<item>
+			<title>通道08</title>
+			<jwplayer:source file="rtmp://117.135.196.138:56707/vod/_definst_/mp4/sample.mp4"/>
+			<jwplayer:source file="http://117.135.196.138:56707/vod/_definst_/mp4/sample.mp4/playlist.m3u8" type="video/mp4"/>
+		</item>
+	</channel>
+</jwplayer:rss>

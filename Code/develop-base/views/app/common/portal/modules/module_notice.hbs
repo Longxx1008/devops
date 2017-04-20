@@ -1,0 +1,12 @@
+<link href="{{projcfg.appurl}}/static/css/common/vscroller.css" rel="stylesheet" type="text/css" />
+<script src="{{projcfg.appurl}}/static/js/common/vscroller.js" type="text/javascript"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#vscroller').vscroller({ newsfeed: '{{projcfg.appurl}}/static/json/notice.xml' });
+    });
+</script>
+</head>
+<body>
+
+<div class="news-wrapper" id="vscroller">
+</div>

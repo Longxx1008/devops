@@ -1,0 +1,48 @@
+{
+  "appenders": [
+    {
+      "type":"console"
+    },
+    {
+      "type": "log4js-node-mongodb",
+      "connectionString": "10.201.253.111:27017/ywcj",
+      "collectionName": "request_log_info",
+      "layout": {
+        "type": "pattern",
+        "pattern": "[%h] - %m"
+      },
+      "category": "request_log"
+    },{
+      "type": "file",
+      "filename": "logs/request.log",
+      "maxLogSize": "1024*1024",
+      "backups":3,
+      "layout": {
+        "type": "pattern",
+        "pattern": "[%h] - %m"
+      },
+      "category": "request_log"
+    }, {
+      "type": "log4js-node-mongodb",
+      "connectionString": "10.201.253.111:27017/ywcj",
+      "collectionName": "service_log_info",
+      "category": "service_log",
+      "layout": {
+        "type": "pattern",
+        "pattern": "[%h] - %m"
+      }
+    },{
+      "type": "file",
+      "filename": "logs/service.log",
+      "maxLogSize": "1024*1024",
+      "backups":3,
+      "category": "service_log"
+    }
+  ],
+  "replaceConsole": true,
+  "levels":{
+    "request_log":"debug",
+    "service_log":"debug",
+    "console":"debug"
+  }
+}

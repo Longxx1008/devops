@@ -1,0 +1,531 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="7c7a194e-dc14-49fc-a266-b4f0c01a96e9" name="Default" comment="" />
+    <ignored path="ywcj.iws" />
+    <ignored path=".idea/workspace.xml" />
+    <ignored path="$PROJECT_DIR$/.tmp/" />
+    <ignored path="$PROJECT_DIR$/temp/" />
+    <ignored path="$PROJECT_DIR$/tmp/" />
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="TRACKING_ENABLED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ChangesViewManager" flattened_view="true" show_ignored="false" />
+  <component name="CreatePatchCommitExecutor">
+    <option name="PATCH_PATH" value="" />
+  </component>
+  <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
+  <component name="FavoritesManager">
+    <favorites_list name="ywcj" />
+  </component>
+  <component name="FileEditorManager">
+    <leaf />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="JavaScript File" />
+      </list>
+    </option>
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/app/project/remuneration/services/singlechannel_service.js" />
+        <option value="$PROJECT_DIR$/app/project/remuneration/services/singlenuml_service.js" />
+        <option value="$PROJECT_DIR$/views/app/project/remuneration/provincechannelafter.hbs" />
+        <option value="$PROJECT_DIR$/app/project/remuneration/services/singlenum_service.js" />
+        <option value="$PROJECT_DIR$/views/app/project/remuneration/singlenum.hbs" />
+        <option value="$PROJECT_DIR$/app/project/remuneration/routes/singlenum.js" />
+        <option value="$PROJECT_DIR$/app/project/remuneration/routes/singlechannel.js" />
+        <option value="$PROJECT_DIR$/views/app/project/remuneration/singlechannel.hbs" />
+        <option value="$PROJECT_DIR$/app/project/remuneration/services/provincechannel_service.js" />
+        <option value="$PROJECT_DIR$/app/project/remuneration/services/yearonyeargrowth_service.js" />
+        <option value="$PROJECT_DIR$/views/app/project/remuneration/singlebusiness.hbs" />
+        <option value="$PROJECT_DIR$/views/app/project/remuneration/ltmbusiness.hbs" />
+        <option value="$PROJECT_DIR$/views/app/project/sp/smsprovincechannelsp.hbs" />
+        <option value="$PROJECT_DIR$/app/project/refund/routes/refundmom.js" />
+        <option value="$PROJECT_DIR$/views/app/project/remuneration/chaingrowth.hbs" />
+        <option value="$PROJECT_DIR$/app/project/refund/routes/kinds.js" />
+        <option value="$PROJECT_DIR$/app/project/refund/services/kinds_service.js" />
+        <option value="$PROJECT_DIR$/app/project/refund/routes/kindsmom.js" />
+        <option value="$PROJECT_DIR$/views/app/project/refund/refundmom.hbs" />
+        <option value="$PROJECT_DIR$/views/app/project/sp/citysp.hbs" />
+        <option value="$PROJECT_DIR$/views/app/project/refund/kindsmom.hbs" />
+        <option value="$PROJECT_DIR$/app/project/refund/services/premom_service.js" />
+        <option value="$PROJECT_DIR$/app/project/refund/routes/premom.js" />
+        <option value="$PROJECT_DIR$/views/app/project/refund/premom.hbs" />
+        <option value="$PROJECT_DIR$/views/app/project/refund/doublerefund.hbs" />
+        <option value="$PROJECT_DIR$/app/project/refund/routes/doublemom.js" />
+        <option value="$PROJECT_DIR$/app/project/refund/services/doublemom_service.js" />
+        <option value="$PROJECT_DIR$/app/project/refund/routes/doublerefund.js" />
+        <option value="$PROJECT_DIR$/app/project/refund/services/doublerefund_service.js" />
+        <option value="$PROJECT_DIR$/views/app/project/refund/doublemom.hbs" />
+        <option value="$PROJECT_DIR$/app/project/refund/services/subclassmom_service.js" />
+        <option value="$PROJECT_DIR$/app/project/refund/routes/subclassmom.js" />
+        <option value="$PROJECT_DIR$/views/app/project/refund/subclassmom.hbs" />
+        <option value="$PROJECT_DIR$/app/project/refund/services/smallrefund_service.js" />
+        <option value="$PROJECT_DIR$/app/project/refund/routes/smallrefund.js" />
+        <option value="$PROJECT_DIR$/views/app/project/refund/smallrefund.hbs" />
+        <option value="$PROJECT_DIR$/app/project/refund/services/cashrefund_service.js" />
+        <option value="$PROJECT_DIR$/views/app/project/refund/cashrefund.hbs" />
+        <option value="$PROJECT_DIR$/app/project/refund/routes/cashrefund.js" />
+        <option value="$PROJECT_DIR$/app/project/refund/routes/refundratio.js" />
+        <option value="$PROJECT_DIR$/app/project/refund/services/refundratio_service.js" />
+        <option value="$PROJECT_DIR$/views/app/project/refund/refundratio.hbs" />
+        <option value="$PROJECT_DIR$/app/project/refund/services/refundmom_service.js" />
+        <option value="$PROJECT_DIR$/app/project/refund/services/kindsmom_service.js" />
+        <option value="$PROJECT_DIR$/bin/pass" />
+        <option value="$PROJECT_DIR$/bin/pass.js" />
+        <option value="$PROJECT_DIR$/app.js" />
+        <option value="$PROJECT_DIR$/bin/www" />
+        <option value="$PROJECT_DIR$/views/themes/beyond_rev/layout_login.hbs" />
+        <option value="$PROJECT_DIR$/app/common/core/services/core_service.js" />
+        <option value="$PROJECT_DIR$/config.js" />
+      </list>
+    </option>
+  </component>
+  <component name="JsBuildToolGruntFileManager" detection-done="true" />
+  <component name="JsBuildToolPackageJson" detection-done="true">
+    <package-json value="$PROJECT_DIR$/package.json" />
+  </component>
+  <component name="JsGulpfileManager">
+    <detection-done>true</detection-done>
+  </component>
+  <component name="NodeModulesDirectoryManager">
+    <handled-path value="$PROJECT_DIR$/node_modules" />
+  </component>
+  <component name="ProjectFrameBounds">
+    <option name="x" value="-8" />
+    <option name="y" value="-8" />
+    <option name="width" value="1382" />
+    <option name="height" value="744" />
+  </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="false">
+    <OptionsSetting value="true" id="Add" />
+    <OptionsSetting value="true" id="Remove" />
+    <OptionsSetting value="true" id="Checkout" />
+    <OptionsSetting value="true" id="Update" />
+    <OptionsSetting value="true" id="Status" />
+    <OptionsSetting value="true" id="Edit" />
+    <OptionsSetting value="true" id="添加" />
+    <OptionsSetting value="true" id="移除" />
+    <OptionsSetting value="true" id="签出" />
+    <OptionsSetting value="true" id="更新" />
+    <OptionsSetting value="true" id="状态" />
+    <OptionsSetting value="true" id="编辑" />
+    <ConfirmationsSetting value="0" id="Add" />
+    <ConfirmationsSetting value="0" id="Remove" />
+  </component>
+  <component name="ProjectView">
+    <navigator currentView="ProjectPane" proportions="" version="1">
+      <flattenPackages />
+      <showMembers />
+      <showModules />
+      <showLibraryContents />
+      <hideEmptyPackages />
+      <abbreviatePackageNames />
+      <autoscrollToSource />
+      <autoscrollFromSource />
+      <sortByType />
+      <manualOrder />
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="ProjectPane">
+        <subPane>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="web" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="web" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="web" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="web" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="web" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="web" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="web" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="common" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+      </pane>
+      <pane id="Scratches" />
+      <pane id="Scope" />
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="settings.editor.selected.configurable" value="configurable.group.appearance" />
+    <property name="nodejs_interpreter_path" value="D:/Program Files (x86)/nodejs/node" />
+    <property name="settings.editor.splitter.proportion" value="0.2" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../../../guiyang/物联通业务管理平台/innovate2" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="HbShouldOpenHtmlAsHb" value="" />
+    <property name="js-jscs-nodeInterpreter" value="D:\Program Files (x86)\nodejs\node.exe" />
+    <property name="SearchEverywhereHistoryKey" value="&#9;FILE&#9;file://E:/业务酬金稽核平台/ywcj-web/02 Code/ywcj/app/project/remuneration/services/remunerationdetails_service.js" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="E:\业务酬金稽核平台\ywcj-web\02 Code\ywcj\app\project\refund\services" />
+      <recent name="E:\业务酬金稽核平台\ywcj-web\02 Code\ywcj\app\project\refund\routes" />
+      <recent name="E:\业务酬金稽核平台\ywcj-web\02 Code\ywcj\views\app\project\refund" />
+      <recent name="E:\业务酬金稽核平台\ywcj-web\02 Code\ywcj\views\app\project\sp" />
+      <recent name="E:\业务酬金稽核平台\ywcj-web\02 Code\ywcj\app\project\remuneration\services" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Node.js.PaSSDocker">
+    <configuration default="true" type="DartCommandLineRunConfigurationType" factoryName="Dart Command Line Application">
+      <method />
+    </configuration>
+    <configuration default="true" type="DartTestRunConfigurationType" factoryName="Dart Test">
+      <method />
+    </configuration>
+    <configuration default="true" type="JavaScriptTestRunnerKarma" factoryName="Karma">
+      <config-file value="" />
+      <node-interpreter value="project" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="JavascriptDebugType" factoryName="JavaScript Debug">
+      <method />
+    </configuration>
+    <configuration default="true" type="NodeJSConfigurationType" factoryName="Node.js" path-to-node="project" path-to-js-file="bin/www" working-dir="$PROJECT_DIR$">
+      <method />
+    </configuration>
+    <configuration default="true" type="NodeJSRemoteDebug" factoryName="Node.js Remote Debug">
+      <node-js-remote-debug />
+      <method />
+    </configuration>
+    <configuration default="true" type="NodeunitConfigurationType" factoryName="Nodeunit">
+      <setting name="nodePath" value="project" />
+      <envs />
+      <setting name="nodeunitModuleDir" value="" />
+      <setting name="workingDirectory" value="" />
+      <setting name="testType" value="JS_FILE" />
+      <setting name="jsFile" value="" />
+      <method />
+    </configuration>
+    <configuration default="true" type="cucumber.js" factoryName="Cucumber.js">
+      <option name="cucumberJsArguments" value="" />
+      <option name="executablePath" />
+      <option name="filePath" />
+      <method />
+    </configuration>
+    <configuration default="true" type="js.build_tools.gulp" factoryName="Gulp.js">
+      <node-interpreter>project</node-interpreter>
+      <node-options />
+      <gulpfile />
+      <tasks />
+      <arguments />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="js.build_tools.npm" factoryName="npm">
+      <command value="run-script" />
+      <scripts />
+      <node-interpreter value="project" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="mocha-javascript-test-runner" factoryName="Mocha">
+      <node-interpreter>project</node-interpreter>
+      <node-options />
+      <working-directory />
+      <pass-parent-env>true</pass-parent-env>
+      <envs />
+      <ui />
+      <extra-mocha-options />
+      <test-kind>DIRECTORY</test-kind>
+      <test-directory />
+      <recursive>false</recursive>
+      <method />
+    </configuration>
+    <configuration default="false" name="PaSSDocker" type="NodeJSConfigurationType" factoryName="Node.js" path-to-node="C:/Program Files/nodejs/node" path-to-js-file="bin/www" working-dir="$PROJECT_DIR$">
+      <method />
+    </configuration>
+    <list size="1">
+      <item index="0" class="java.lang.String" itemvalue="Node.js.PaSSDocker" />
+    </list>
+  </component>
+  <component name="ShelveChangesManager" show_recycled="false">
+    <option name="remove_strategy" value="false" />
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="7c7a194e-dc14-49fc-a266-b4f0c01a96e9" name="Default" comment="" />
+      <created>1490345404106</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1490345404106</updated>
+      <workItem from="1490345407878" duration="3232000" />
+      <workItem from="1490579614462" duration="24295000" />
+      <workItem from="1490662726613" duration="27926000" />
+      <workItem from="1490749578275" duration="13752000" />
+      <workItem from="1490835733080" duration="30347000" />
+      <workItem from="1490922137343" duration="26202000" />
+      <workItem from="1491010046727" duration="24693000" />
+      <workItem from="1491356021140" duration="13042000" />
+      <workItem from="1491441897289" duration="9360000" />
+      <workItem from="1491527400418" duration="13347000" />
+      <workItem from="1491787396395" duration="12661000" />
+      <workItem from="1491874902018" duration="9617000" />
+      <workItem from="1491959889905" duration="20435000" />
+      <workItem from="1492045094330" duration="10816000" />
+      <workItem from="1492131569226" duration="8689000" />
+      <workItem from="1492391063635" duration="713000" />
+      <workItem from="1492501358232" duration="145000" />
+      <workItem from="1492501587148" duration="10099000" />
+      <workItem from="1492565661982" duration="375000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TimeTrackingManager">
+    <option name="totallyTimeSpent" value="259746000" />
+  </component>
+  <component name="TodoView">
+    <todo-panel id="selected-file">
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+    <todo-panel id="all">
+      <are-packages-shown value="true" />
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
+    <editor active="false" />
+    <layout>
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.23883928" sideWeight="0.4840909" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32850242" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25281805" sideWeight="0.5089286" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="npm" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24925596" sideWeight="0.5159091" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2111293" sideWeight="0.49107143" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3797054" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39770868" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+    </layout>
+    <layout-to-restore>
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32850242" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25281805" sideWeight="0.5089286" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="npm" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24925596" sideWeight="0.5159091" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2111293" sideWeight="0.49107143" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.23883928" sideWeight="0.4840909" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.23731588" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.39770868" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+    </layout-to-restore>
+  </component>
+  <component name="Vcs.Log.UiProperties">
+    <option name="RECENTLY_FILTERED_USER_GROUPS">
+      <collection />
+    </option>
+    <option name="RECENTLY_FILTERED_BRANCH_GROUPS">
+      <collection />
+    </option>
+  </component>
+  <component name="VcsContentAnnotationSettings">
+    <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <option name="time" value="14" />
+    </breakpoint-manager>
+    <watches-manager />
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/views/app/project/remuneration/yearonyeargrowth.hbs" />
+    <entry file="file://$PROJECT_DIR$/views/app/project/remuneration/singlebusiness.hbs" />
+    <entry file="file://$PROJECT_DIR$/views/app/project/remuneration/ltmbusiness.hbs" />
+    <entry file="file://$PROJECT_DIR$/views/app/project/sp/smsprovincechannelsp.hbs" />
+    <entry file="file://$PROJECT_DIR$/package.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="456">
+          <caret line="33" column="15" selection-start-line="33" selection-start-column="15" selection-end-line="33" selection-end-column="15" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/project/remuneration/routes/chaingrowth.js" />
+    <entry file="file://$PROJECT_DIR$/app/project/remuneration/services/chaingrowth_service.js" />
+    <entry file="file://$PROJECT_DIR$/views/app/project/remuneration/chaingrowth.hbs" />
+    <entry file="file://$PROJECT_DIR$/app/common/util/util.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="19">
+          <caret line="28" column="26" selection-start-line="28" selection-start-column="26" selection-end-line="28" selection-end-column="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/views/app/project/refund/refundmom.hbs" />
+    <entry file="jar://$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/lib/JavaScriptLanguage.jar!/com/intellij/lang/javascript/index/predefined/EcmaScript.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="149">
+          <caret line="638" column="0" selection-start-line="638" selection-start-column="0" selection-end-line="638" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/views/app/project/sp/citysp.hbs" />
+    <entry file="file://$PROJECT_DIR$/views/app/project/refund/kindsmom.hbs" />
+    <entry file="file://$PROJECT_DIR$/app/project/refund/routes/premom.js" />
+    <entry file="file://$PROJECT_DIR$/app/project/refund/services/premom_service.js" />
+    <entry file="file://$PROJECT_DIR$/views/app/project/refund/premom.hbs" />
+    <entry file="file://$PROJECT_DIR$/views/app/project/refund/doublerefund.hbs" />
+    <entry file="file://$PROJECT_DIR$/app/project/refund/services/doublemom_service.js" />
+    <entry file="file://$PROJECT_DIR$/app/project/refund/routes/doublemom.js" />
+    <entry file="file://$PROJECT_DIR$/app/project/refund/services/doublerefund_service.js" />
+    <entry file="file://$PROJECT_DIR$/app/project/refund/routes/doublerefund.js" />
+    <entry file="file://$PROJECT_DIR$/views/app/project/refund/doublemom.hbs" />
+    <entry file="file://$PROJECT_DIR$/views/app/project/refund/subclassmom.hbs" />
+    <entry file="file://$PROJECT_DIR$/app/project/refund/routes/subclassmom.js" />
+    <entry file="file://$PROJECT_DIR$/app/project/refund/services/subclassmom_service.js" />
+    <entry file="file://$PROJECT_DIR$/app/project/refund/routes/smallrefund.js" />
+    <entry file="file://$PROJECT_DIR$/app/project/refund/services/smallrefund_service.js" />
+    <entry file="file://$PROJECT_DIR$/views/app/project/refund/smallrefund.hbs" />
+    <entry file="file://$PROJECT_DIR$/app/project/refund/services/cashrefund_service.js" />
+    <entry file="file://$PROJECT_DIR$/app/project/refund/routes/cashrefund.js" />
+    <entry file="file://$PROJECT_DIR$/app/project/refund/services/refundratio_service.js" />
+    <entry file="file://$PROJECT_DIR$/app/project/refund/routes/refundratio.js" />
+    <entry file="file://$PROJECT_DIR$/views/app/project/refund/refundratio.hbs" />
+    <entry file="file://$PROJECT_DIR$/views/app/project/refund/cashrefund.hbs" />
+    <entry file="file://$PROJECT_DIR$/app/project/refund/routes/refundmom.js" />
+    <entry file="file://$PROJECT_DIR$/app/project/refund/services/refundmom_service.js" />
+    <entry file="file://$PROJECT_DIR$/app/project/refund/services/kindsmom_service.js" />
+    <entry file="file://$PROJECT_DIR$/app/project/refund/routes/kindsmom.js" />
+    <entry file="file://$PROJECT_DIR$/bin/pass.js" />
+    <entry file="file://$PROJECT_DIR$/bin/pass" />
+    <entry file="file://$PROJECT_DIR$/app.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="250">
+          <caret line="246" column="24" selection-start-line="246" selection-start-column="24" selection-end-line="246" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/bin/www">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="189">
+          <caret line="7" column="44" selection-start-line="7" selection-start-column="44" selection-end-line="7" selection-end-column="44" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/views/themes/beyond_rev/layout_login.hbs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="154">
+          <caret line="52" column="41" selection-start-line="52" selection-start-column="41" selection-end-line="52" selection-end-column="41" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/common/core/models/user_model.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="174">
+          <caret line="92" column="28" selection-start-line="92" selection-start-column="28" selection-end-line="92" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/common/core/services/core_service.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="194">
+          <caret line="378" column="28" selection-start-line="378" selection-start-column="28" selection-end-line="378" selection-end-column="32" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/static/js/ueditor/ueditor.all.min.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="116">
+          <caret line="8" column="17560" selection-start-line="8" selection-start-column="17560" selection-end-line="8" selection-end-column="17560" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/views/app/index.hbs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="54">
+          <caret line="79" column="28" selection-start-line="79" selection-start-column="28" selection-end-line="79" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/views/themes/beyond_rev/layout.hbs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="239">
+          <caret line="218" column="65" selection-start-line="218" selection-start-column="65" selection-end-line="218" selection-end-column="65" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/common/core/middlewares/auth_check.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-707">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/common/core/routes/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="97">
+          <caret line="46" column="36" selection-start-line="46" selection-start-column="36" selection-end-line="46" selection-end-column="36" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/config.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="231">
+          <caret line="83" column="32" selection-start-line="83" selection-start-column="32" selection-end-line="83" selection-end-column="32" />
+        </state>
+      </provider>
+    </entry>
+  </component>
+</project>

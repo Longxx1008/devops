@@ -1,0 +1,9 @@
+[{
+	"id":1,
+	"text":"详单数据采集",
+	"iconCls":"fa fa-table icon-null"
+},{
+	"id":2,
+	"text":"A口信令采集",
+	"iconCls":"fa fa-table icon-null"
+}]

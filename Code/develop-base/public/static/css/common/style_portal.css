@@ -1,0 +1,174 @@
+.page-header {
+    position: relative;
+    background: #f3f3f3;
+    min-height: 37.9948px;
+    line-height: 36.9948px;
+    padding: 0 0 0 22px;
+    display: block;
+    z-index: 1;
+    -webkit-box-shadow: 0 2px 4px 0 rgba(0,0,0,.15);
+    -moz-box-shadow: 0 2px 4px 0 rgba(0,0,0,.15);
+    box-shadow: 0 2px 4px 0 rgba(0,0,0,.15);
+    height: 37.9948px;
+}
+.page-header .header-buttons a {
+    height: 37.9948px;
+    padding: 4px 9px;
+}
+.panel-body {
+    font-size: 14px;
+}
+.pagination span {
+    font-size: 14px;
+}
+.datagrid-header-row, .datagrid-row {
+    height: 38px;
+}
+.datagrid-header .datagrid-cell span {
+    font-size: 14px;
+    font-weight: 600;
+}
+.datagrid-cell, .datagrid-cell-group, .datagrid-header-rownumber, .datagrid-cell-rownumber {
+    font-size: 14px;
+}
+.datagrid-row-selected {
+    background: #71E2FF;
+    color: #fff;
+}
+/*.datagrid-toolbar {
+    background: #fbfbfb;
+    height:42px;
+    !*padding-top: 3px;*!
+}*/
+.datagrid-header-check input, .datagrid-cell-check input {
+    margin: 0;
+    padding: 0;
+    width: 18px;
+    height: 18px;
+    opacity: 1;
+    position: relative;
+    left:0px;
+}
+.input-search{
+    height: 31px;
+    font-size: 12px;
+    line-height: 1.5;
+    color: #858585;
+    background-color: #fbfbfb;
+    border: 1px solid #d5d5d5;
+}
+/*.datagrid-view {
+    border-width: 0 1px 0 1px;
+    border-style: solid;
+    border-color: #e6e6e6;
+}
+.datagrid .datagrid-pager {
+    display: block;
+    margin: 0;
+    border-width: 0px 1px 1px 1px;
+    border-style: solid;
+    border-color: #e6e6e6;
+}*/
+/*input[type=checkbox], input[type=radio] {
+     opacity: 1;
+     position: relative;
+     left:0px;
+}*/
+.datagrid-mask {
+    background: #fbfbfb;
+}
+.pagination table {
+    float: left;
+    height: 48px;
+}
+.pagination-info {
+    float: right;
+    margin: 0 6px 0 0;
+    padding: 0;
+    height: 48px;
+    line-height: 48px;
+    font-size: 14px;
+}
+.tree-title {
+    font-size: 14px;
+}
+.panel-title {
+    font-size: 18px;
+    font-weight: bold;
+    color: #777;
+    height: 32px;
+    line-height:32px;
+}
+.messager-window .window-header .panel-title {
+    font-size: 18px;
+    font-weight: bold;
+    color: #777;
+    height: 25px;
+    line-height:25px;
+}
+#modalBtnSure{
+}
+#modalBtnClose{
+}
+.dialog-button button{
+    margin-right: 5px;
+}
+.mydialog {
+    display:none;
+    overflow:hidden;
+    padding-top:15px;
+}
+
+.icon-role-menu {
+    background: url(../../images/menu.png) left top no-repeat;
+}
+.icon-role-opt {
+    background: url(../../images/option.png) left top no-repeat;
+}
+.tbRow {
+    padding: 5px 5px 5px 5px;
+}
+.noPaddingLT {
+    padding-top: 0px;
+    padding-left: 0px;
+}
+
+.grid {
+    border: 1px #d5d5d5 solid;
+    border-collapse: collapse;
+}
+.grid th{
+    border: 1px #d5d5d5 solid;
+    height:40px;
+    padding-left: 2px;
+    background: #e6e6e6;
+}
+.grid td {
+    vertical-align: middle;
+    border: 1px #d5d5d5 solid;
+    border-bottom: 0px;
+    padding:2px;
+    height:40px;
+}
+/*
+html,body{
+    height: 100%;
+}*/
+.module_list{
+
+}
+body,dl,dt,dd{margin: 0;padding:0}
+dl{width:435px;overflow: hidden; border-bottom: 1px dashed #ddd}
+dt{width:60px;float:left;height:60px;overflow: hidden}
+dt img{width:50px; margin:5px}
+dd{float:left;width:375px;overflow: hidden}
+dd .name{float:left;overflow: hidden}
+dd .name .title{font-size:14px;color:#333;width:325px;overflow: hidden;  text-overflow: ellipsis;  display: -webkit-box;  -webkit-line-clamp: 1 ; -webkit-box-orient: vertical;-webkit-margin-before: 0.67em;
+    -webkit-margin-after: 0.67em;
+    -webkit-margin-start: 0px;
+    -webkit-margin-end: 0px;
+    font-weight: bold;}
+dd .name .desc{font-size:12px;font-style: normal;color:#888;width:325px;overflow: hidden;  text-overflow: ellipsis;  display: -webkit-box;  -webkit-line-clamp: 1 ; -webkit-box-orient: vertical;}
+dd a{float:left;width:50px;line-height:60px;color:#0a6aa1;font-size:12px;text-decoration:none;text-align: center}
+dd a:active{ background: #f1f1f5}
+
