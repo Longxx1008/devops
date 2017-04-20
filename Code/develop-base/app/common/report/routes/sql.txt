@@ -1,0 +1,11 @@
+Server=10.201.250.143; Database=jkyth; uid=root; password=yanfashi2016;
+
+
+参考文档：
+https://www.stimulsoft.com/en/documentation/online/programming-manual/index.html?using_js_connect_to_mysql_and_ms_sql_database.htm
+
+
+https://github.com/stimulsoft/Samples-JS/blob/master/Demo/demo.html
+
+
+StiDesignereditConnectionFormButtonOk  //按钮名称

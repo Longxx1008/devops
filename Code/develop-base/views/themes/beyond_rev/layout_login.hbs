@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <!-- Metadata -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{__ "txt_login"}}-{{projcfg.apptitle}}</title>
+    <meta name="keywords" content="{{projcfg.keywords}}">
+    <meta name="description" content="{{projcfg.appdescription}}">
+
+    <!--Basic Styles-->
+    <link href="{{projcfg.appurl}}/static/{{projcfg.theme}}css/bootstrap.min.css" rel="stylesheet" />
+    <link id="bootstrap-rtl-link" href="" rel="stylesheet" />
+    <link href="{{projcfg.appurl}}/static/{{projcfg.theme}}css/font-awesome.min.css" rel="stylesheet" />
+
+
+    <!--Fonts-->
+    <!--
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,400,600,700,300" rel="stylesheet" type="text/css">
+    -->
+    <!--Beyond styles-->
+
+    <link id="beyond-link" href="{{projcfg.appurl}}/static/{{projcfg.theme}}css/beyond.min.css" rel="stylesheet" type="text/css" />
+    <!--
+    <link href="{{projcfg.appurl}}/static/{{projcfg.theme}}css/demo.min.css" rel="stylesheet" />
+    <link href="{{projcfg.appurl}}/static/{{projcfg.theme}}css/typicons.min.css" rel="stylesheet" />
+    <link id="skin-link" href="" rel="stylesheet" type="text/css" />
+    -->
+    <!--Skin Script: Place this script in head to load scripts for skins and rtl support-->
+    <script src="{{projcfg.appurl}}/static/{{projcfg.theme}}js/skins.js"></script>
+    <style>
+        body:before {
+            background:url({{projcfg.appurl}}/static/images/login_bg.jpg);
+            background-size:100%;
+        }
+    </style>
+    <script>
+
+        function submitForm() {
+            var password_ = document.getElementById('password_').value;
+            document.getElementById('password').value = strEnc(hex_md5(password_), '{{key_1}}', '{{key_2}}', '{{key_3}}');
+            document.getElementById('password_').value = "";
+            return true;
+        }
+        function reloadCaptcha() {
+            document.getElementById('captchaImg').src = '{{projcfg.appurl}}/captcha?'+new Date();
+        }
+
+    </script>
+  <!-- gray-bg-->
+  <body class=" {{projcfg.skin}}" style="font-family:'Microsoft YaHei';" >
+  <div align="center"><img src="{{projcfg.appurl}}/static/{{projcfg.theme}}img/login-logo.png"></div>
+      <div class="login-container animated fadeInDown" style="margin-top:5%;">
+          <div class="loginbox bg-white">
+              <div class="loginbox-title" >登录</div>
+
+              <form class="m-t" role="form" action="{{projcfg.appurl}}/login" method="post" onsubmit="return submitForm();">
+                  <div class="loginbox-textbox">
+                      <input id="username" name='username'  value='' type="text" class="form-control" placeholder="{{{__ "tips_input_loginid"}}}" />
+                  </div>
+                  <div class="loginbox-textbox">
+                      <input id="password_" name='password_'  value='' type="password" class="form-control" placeholder="{{{__ "tips_input_password"}}}" />
+                      <input type="hidden" id="password" name="password"/>
+                  </div>
+                  {{#if projcfg.captcha_login_enable}}
+                  <div class="loginbox-textbox">
+                      <input id="captcha" name='captcha'  value='' type="text" class="form-control" style="width:127px;display: inline;" placeholder="{{{__ "tips_input_captcha"}}}" />
+                      <img id="captchaImg" style="display: inline;vertical-align: top;" src="{{projcfg.appurl}}/captcha" onclick="reloadCaptcha()"/>
+                  </div>
+                  {{/if}}
+                  <div class="loginbox-forgot">
+                      <a href="/forgotpassword">{{{__ "tips_forgotpassword"}}}</a>
+                  </div>
+                  <div class="loginbox-submit">
+                      <input type="submit" class="btn btn-primary btn-block" value="登录">
+                  </div>
+                  <div class="loginbox-textbox" style="color:red;">
+                      {{message}}
+                  </div>
+
+              </form>
+          </div>
+
+      </div>
+
+
+      <!--Basic Scripts-->
+      <script src="{{projcfg.appurl}}/static/{{projcfg.theme}}js/jquery.min.js"></script>
+      <script src="{{projcfg.appurl}}/static/{{projcfg.theme}}js/bootstrap.min.js"></script>
+      <script src="{{projcfg.appurl}}/static/{{projcfg.theme}}js/slimscroll/jquery.slimscroll.min.js"></script>
+
+      <!--Beyond Scripts-->
+      <script src="{{projcfg.appurl}}/static/{{projcfg.theme}}js/beyond.min.js"></script>
+      <script src="{{projcfg.appurl}}/static/js/common/md5.js"></script>
+      <script src="{{projcfg.appurl}}/static/js/common/security.mini.js"></script>
+
+
+  </body>
+</html>

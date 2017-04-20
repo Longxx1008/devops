@@ -1,0 +1,6 @@
+
+
+{"success":true,"code":"0000","msg":"查询成功","total":2,"rows":[
+  {"_id": "1", "name": "详单采集点1", "code": "loginfo-0001"},
+  {"_id": "2", "name": "A口信令日志采集", "code": "loginfo-0002"}
+]}

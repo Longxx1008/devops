@@ -1,0 +1,662 @@
+<div class="row">
+    <div class="col-xs-12 col-md-12">
+        <div class="widget">
+            <div class="widget-body">
+                <div id="dictLayout" class="easyui-layout" data-options="fit:true" style="width:600px;height:580px;">
+                    <div data-options="region:'west',title:'字典列表',split:true,border:true" style="width:42%;">
+                        <div id="toolbar1" class="row tbRow">
+                            <div class="col-xs-8 col-md-8">
+                                <div class="btn-group" role="group" aria-label="...">
+                                    <button type="button" class="btn btn-default" onclick="openPage('新增字典', 1, '', doAddDict)"><i class="fa fa-plus"></i>新增</button>
+                                    <button type="button" class="btn btn-default" onclick="toEdit(1)"><i class="fa fa-edit"></i>修改</button>
+                                    <button type="button" class="btn btn-default" onclick="openPage('批量新增字典及属性', 3, '', doAddDictAndAttr)"><i class="fa fa-file-text-o"></i>批量新增</button>
+                                    <button type="button" class="btn btn-default" onclick="updateNow()"><i class="fa fa-refresh"></i>同步</button>
+                                </div>
+                            </div>
+                            <div class="col-xs-4 col-md-4 text-right">
+                                <form class="form-inline">
+                                    <div class="form-group">
+                                        <div class="input-group">
+                                            <input type="input" id="filterParam2" class="form-control" style="width:130px;" placeholder="字典名称/编码"/>
+                                            <span class="input-group-btn"><button class="btn btn-default" type="button" onclick="doSearch(1)"><i class="fa fa-search"></i>查询</button></span>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <table id="dictDataTable">
+
+                        </table>
+                    </div>
+                    <div data-options="region:'center',title:'字典属性列表'" style="overflow-x:hidden;overflow-y:hidden">
+                        <div id="toolbar2" class="row tbRow">
+                            <div class="col-xs-6 col-md-6">
+                                <div class="btn-group" role="group" aria-label="...">
+                                    <button type="button" class="btn btn-default" onclick="openPage('新增字典属性', 2, '', doAddDictAttr)"><i class="fa fa-plus"></i>新增</button>
+                                    <button type="button" class="btn btn-default" onclick="toEdit(2)"><i class="fa fa-edit"></i>修改</button>
+                                </div>
+                            </div>
+                            <div class="col-xs-6 col-md-6 text-right">
+                                <form class="form-inline">
+                                    <div class="form-group">
+                                        <div class="input-group">
+                                            <input type="input" id="filterParam4" class="form-control" style="width:200px;" placeholder="字段名称/编码"/>
+                                            <span class="input-group-btn">
+                                                <button class="btn btn-default" type="button" onclick="doSearch(2)"><i class="fa fa-search"></i>查询</button>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <table id="dictAttrDataTable">
+
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- dictModal -->
+<div id="dictModal" class="mydialog">
+    <div class="row">
+        <div class="col-md-12">
+            <div>
+                <form id="dictForm" class="form-horizontal form-bordered" role="form">
+                    <div class="form-group">
+                        <label for="dict_code" class="col-sm-2 control-label no-padding-right">字典编码</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="easyui-validatebox form-control" data-options="required:true" name="dict_code" id="dict_code" placeholder="请输入字典编码" style="width:50%;height:31px;">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="dict_name" class="col-sm-2 control-label no-padding-right">字典名称</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="easyui-validatebox form-control" data-options="required:true" name="dict_name" id="dict_name" placeholder="请输入字典名" style="width:50%;height:31px;">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="dict_status" class="col-sm-2 control-label no-padding-right">字典状态</label>
+                        <div class="col-sm-10">
+                            <select name="dict_status" id="dict_status" class="easyui-combobox" data-options="editable:false,required:true,panelHeight:50" style="width:70px;height:31px;">
+                                <option value="1">正常</option>
+                                <option value="0">禁用</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="dict_remark" class="col-sm-2 control-label no-padding-right">字典描述</label>
+                        <div class="col-sm-10">
+                            <textarea class="form-control" rows="4" name="dict_remark" id="dict_remark" placeholder="请输入字典描述" style="width:70%;"></textarea>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- dictAttrModal -->
+<div id="dictAttrModal" class="mydialog" style="padding-top:0px;">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="widget flat radius-bordered">
+                <div class="widget-body" style="background-color: #fff;">
+                    <form id="dictAttrForm" role="form">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label for="dictName" class="control-label">所属字典</label>
+                                    <input type="text" id="dictName" class="form-control" disabled="disabled">
+                                    <input type="hidden" id="dictId" name="dict_id">
+                                </div>
+                            </div>
+                            <!--<div class="col-sm-6">
+                                <div class="form-group">
+                                    <label for="field_code" class="control-label">字段编码</label>
+                                    <input type="text" class="easyui-validatebox form-control" data-options="required:true" name="field_code" id="field_code" placeholder="请输入字段编码">
+                                </div>
+                            </div>-->
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label for="field_parent_value" class="control-label">上级属性</label>
+                                    <select name="field_parent_id" id="field_parent_id" class="easyui-combobox" data-options="editable:false" style="width: 315px;height:34px;">
+
+                                    </select>
+                                    <input type="hidden" id="field_parent_value" name="field_parent_value"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label for="field_name" class="control-label">属性名</label>
+                                    <input type="text" class="easyui-validatebox form-control" data-options="required:true" name="field_name" id="field_name" placeholder="请输入属性名">
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label for="field_value" class="control-label">属性值</label>
+                                    <input type="text" class="easyui-validatebox form-control" data-options="required:true" name="field_value" id="field_value" placeholder="请输入属性值">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label for="field_checked" class="control-label">默认选中</label><br/>
+                                    <select name="field_checked" id="field_checked" class="easyui-combobox" data-options="editable:false,required:true,panelHeight:75" style="width: 100px;height: 30px;">
+                                        <option value="0">否</option>
+                                        <option value="1">是</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label for="field_order" class="control-label">排序号</label><br/>
+                                    <input type="text" name="field_order" id="field_order" class="easyui-numberspinner" data-options="required:true" value="1" style="width: 100px;height: 34px;"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label for="field_status" class="control-label">状态</label><br/>
+                                    <select name="field_status" id="field_status" class="easyui-combobox form-control" data-options="editable:false,required:true,panelHeight:75" style="width: 100px;height: 34px;">
+                                        <option value="1">正常</option>
+                                        <option value="0">禁用</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label for="field_remark" class="control-label">属性描述</label>
+                                    <textarea class="form-control" rows="2" name="field_remark" id="field_remark" placeholder="请输入属性描述"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- dictAndAttrModal -->
+<div id="dictAndAttrModal" class="mydialog" style="padding-top:0px;overflow-y:auto;">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="widget flat radius-bordered">
+                <div class="widget-body" style="background-color: #fff;">
+                    <div>
+                        <form id="dictAndAttrForm" role="form">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label class="control-label">字典编码</label><br/>
+                                        <input type="text" class="easyui-validatebox form-control" data-options="required:true" name="dict_code" id="dict_code" placeholder="请输入字典编码" >
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label class="control-label">字典名称</label><br/>
+                                        <input type="text" class="easyui-validatebox form-control" data-options="required:true" name="dict_name" id="dict_name" placeholder="请输入字典名"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <table class="grid" width="100%" cellspacing='0' cellpadding='1' >
+                                    <thead>
+                                        <tr>
+                                            <th width="20%">字段名</th>
+                                            <th width="15%">字段值</th>
+                                            <th width="10%">排序号</th>
+                                            <th width="5%" style="text-align: center;"><a href="javascript:appendTr()"><i class="fa fa-plus"></i></a></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="dictAttr_tb">
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+
+    function loadDictAttrDatagrid(dictId){
+        $('#dictAttrDataTable').treegrid({
+            url:'{{projcfg.appurl}}/admin/api/common/syscfg/dict/dictAttr',
+            queryParams:{dict_id:dictId},
+            method:'get'
+        });
+    }
+
+    $(document).ready(function(){
+        // 加载角色列表
+        $('#dictDataTable').datagrid({
+            url:'{{projcfg.appurl}}/admin/api/common/syscfg/dict',
+            method:'get',
+            rownumbers:true,
+            //autoRowHeight:true,
+            striped:true,
+            fitColumns:true,
+            border:false,
+            fit:true,
+            toolbar: '#toolbar1',
+            singleSelect:true,
+            selectOnCheck:true,
+            checkOnSelect:true,
+            columns:[[
+                {"field":'_id',checkbox:true},
+                {"field": "dict_code","title":"字典编码","width":30},
+                {"field": "dict_name","title":"字典名称","width":20},
+                {"field": "dict_status","title":"状态","width":10,
+                    "formatter":function (value, rowData,rowIndex) {
+                        if(value == 1){
+                            return '<span class="success">正常</span>';
+                        }else if(value == 0){
+                            return '<span class="danger">禁用</span>';
+                        }
+                    }
+                }
+            ]],
+            onLoadSuccess:function(json) {
+                if(!json.success) {
+                    msgError(json.msg + ',错误代码:' + json.code);
+                }
+            },
+            onLoadError:function() {
+                msgError('加载数据出现时发生错误,请稍候重试...');
+            },
+            onCheck:function(rowIndex,rowData){
+                loadDictAttrDatagrid(rowData._id);
+                $('#field_parent_id').combotree({
+                    method:'get',
+                    url:'{{projcfg.appurl}}/admin/api/common/syscfg/dict/dictAttrByCombotree/'+rowData._id,
+                    editable:false,
+                    onSelect:function(node){
+                        $("input[name='field_parent_value']").val(node.field_value);
+                    }
+                });
+            },
+            pagination:true,
+            loadMsg:'正在加载...'
+        });
+
+        $('#dictAttrDataTable').treegrid({
+            rownumbers:true,
+            striped:true,
+            fitColumns:true,
+            border:false,
+            fit:true,
+            toolbar: '#toolbar2',
+            singleSelect:true,
+            selectOnCheck:true,
+            checkOnSelect:true,
+            idField:'_id',
+            treeField:'field_name',
+            //lines: true,
+            columns:[[
+                {"field":'_id',checkbox:true},
+                {"field": "field_name","title":"字段名","width":50},
+                {"field": "field_value","title":"字段值","width":30},
+                {"field": "field_parent_id",hidden:true},
+                {"field": "field_parent_value",hidden:true},
+                {"field": "field_checked","title":"默认选中","width":30,
+                    "formatter":function (value, rowData,rowIndex) {
+                        if (value == 1) {
+                            return '是';
+                        } else if (value == 0) {
+                            return '否';
+                        }
+                    }
+                },
+                {"field": "field_order","title":"排序号","width":30},
+                {"field": "field_status","title":"状态","width":30,
+                    "formatter":function (value, rowData,rowIndex) {
+                        if(value == 1){
+                            return '<span class="success">正常</span>';
+                        }else if(value == 0){
+                            return '<span class="danger">禁用</span>';
+                        }
+                    }
+                }
+            ]],
+            onLoadError:function() {
+                msgError('加载数据出现时发生错误,请稍候重试...');
+            },
+            pagination:false,
+            loadMsg:'正在加载...'
+        });
+    });
+
+    function doSearch(flag) {
+        if(flag == 1){//查询字典
+            $('#dictDataTable').datagrid('reload',{
+                'dict_name':$.trim($('#filterParam2').val())
+            });
+        }else if(flag == 2){//查询字典属性
+            var obj = $('#dictDataTable').datagrid('getSelected');
+            if(obj == null){
+                msgError('提示,请先在左侧字典列表选择一个字典');
+            }else{
+                var dictId = obj._id;
+                $('#dictAttrDataTable').treegrid('reload',{
+                    'field_name':$.trim($('#filterParam4').val()),
+                    'dict_id':dictId
+                });
+            }
+        }
+    }
+
+    function doAddDict(flag,value) {
+        // 验证表单
+        var validate = $('#dictForm').form('validate');
+        if(!validate) {
+            return false;
+        }
+        $.ajax({
+            url: '{{projcfg.appurl}}/admin/api/common/syscfg/dict',
+            type: 'post',
+            data: $('#dictForm').serializeJson(),
+            success: function (data) {
+                if(data.success) {
+                    msgSuccess(data.msg);
+                    closeDialog(1);
+                    doSearch(1);
+                }
+                else {
+                    msgError(data.msg+',错误代码:'+data.code);
+                }
+            }
+        });
+    }
+
+    function doAddDictAttr(flag,value) {
+        // 验证表单
+        var validate = $('#dictAttrForm').form('validate');
+        if(!validate) {
+            return false;
+        }
+        $.ajax({
+            url: '{{projcfg.appurl}}/admin/api/common/syscfg/dict/dictAttr',
+            type: 'post',
+            data: $('#dictAttrForm').serializeJson(),
+            success: function (data) {
+                if(data.success) {
+                    msgSuccess(data.msg);
+                    closeDialog(2);
+                    doSearch(2);
+                    $('#field_parent_id').combotree('reload');
+                    $("input[name='field_parent_value']").val('');
+                }
+                else {
+                    msgError(data.msg+',错误代码:'+data.code);
+                }
+            }
+        });
+    }
+
+    function doAddDictAndAttr(flag,value) {
+        // 验证表单
+        var validate = $('#dictAndAttrForm').form('validate');
+        if(!validate) {
+            return false;
+        }
+        $.ajax({
+            url: '{{projcfg.appurl}}/admin/api/common/syscfg/dict/dictAndAttr',
+            type: 'post',
+            data: $('#dictAndAttrForm').serializeJson(),
+            success: function (data) {
+                if(data.success) {
+                    msgSuccess(data.msg);
+                    closeDialog(3);
+                    doSearch(1);
+                }
+                else {
+                    msgError(data.msg+',错误代码:'+data.code);
+                }
+            }
+        });
+    }
+
+    // 关闭窗口
+    function closeDialog(flag) {
+        if(flag == 1){
+            $('#dictModal').dialog('close');
+            clear(1);
+        }else if(flag == 2){
+            $('#dictAttrModal').dialog('close');
+            clear(2);
+        }else if(flag == 3){
+            $('#dictAndAttrModal').dialog('close');
+            $('#dictAndAttrForm').form('reset');
+        }
+    }
+
+    function openPage(title, flag, value, callback, field_parent_id) {
+        if(flag == 1){//新增字典
+            $('#dictModal').show();
+            $('#dictModal').mydialog({
+                title:title,
+                width: 700,
+                height: 500,
+                top:150,
+                modal: true,
+                myButtons:[
+                    {
+                        text:'确定',
+                        btnCls:'btn btn-blue',
+                        handler:function(){
+                            callback(flag,value);
+                        }
+                    },
+                    {
+                        text:'关闭',
+                        btnCls:'btn btn-danger',
+                        handler:function(){
+                            closeDialog(1);
+                        }
+                    }
+                ]
+            });
+        }else if(flag == 2){//新增字典属性
+            var obj = $('#dictDataTable').datagrid('getSelected');
+            if(obj == null){
+                msgError('提示,请先在左侧字典列表选择一个字典');
+            }else{
+                $('#dictName').val(obj.dict_name);
+                $('#dictId').val(obj._id);
+                if(field_parent_id != "") {
+                    $('#field_parent_id').combotree('setValue', field_parent_id);
+                }
+                $('#dictAttrModal').show();
+                $('#dictAttrModal').mydialog({
+                    title:title,
+                    width: 700,
+                    height: 400,
+                    top:150,
+                    modal: true,
+                    myButtons:[
+                        {
+                            text:'确定',
+                            btnCls:'btn btn-blue',
+                            handler:function(){
+                                callback(flag,value);
+                            }
+                        },
+                        {
+                            text:'关闭',
+                            btnCls:'btn btn-danger',
+                            handler:function(){
+                                closeDialog(2);
+                            }
+                        }
+                    ]
+                });
+            }
+        }else if(flag == 3){//批量新增
+            $('#dictAndAttrModal').show();
+            $('#dictAndAttrModal').mydialog({
+                title:title,
+                width: 650,
+                height: 450,
+                top:150,
+                modal: true,
+                myButtons:[
+                    {
+                        text:'确定',
+                        btnCls:'btn btn-blue',
+                        handler:function(){
+                            callback(flag,value);
+                        }
+                    },
+                    {
+                        text:'关闭',
+                        btnCls:'btn btn-danger',
+                        handler:function(){
+                            closeDialog(3);
+                        }
+                    }
+                ]
+            });
+        }
+    }
+
+    var rownum = 0;
+    function appendTr() {
+        $('#dictAttr_tb').append(
+            '<tr id="dictAttr_tb_tr_'+rownum+'">'+
+                '<td>' +
+                    '<input type="text" class="easyui-validatebox form-control" data-options="required:true" name="field_name"/>' +
+                '</td>'+
+                '<td>'+
+                    '<input type="text" class="easyui-validatebox form-control" data-options="required:true" name="field_value"/>' +
+                '</td>'+
+                '<td>'+
+                    '<input type="text" name="field_order" id="field_order" class="easyui-numberspinner" data-options="required:true" style="width:70px;height:31px;" value="'+(rownum+1)+'"/>' +
+                '</td>'+
+                '<td align="center">' +
+                    '<a href="javascript:removeTr('+rownum+')"><i class="fa fa-remove"></i></a>' +
+                '</td>'+
+            '</tr>'
+        );
+        $.parser.parse('#dictAttr_tb_tr_'+rownum);
+        rownum++;
+    }
+
+    function removeTr(rownum) {
+        $('#dictAttr_tb_tr_'+rownum).remove();
+    }
+
+    function toEdit(flag) {
+        if(flag == 1){
+            // 获得选择行
+            var rows = $('#dictDataTable').datagrid('getChecked');
+            if (rows.length != 1) {
+                msgError('提示,请选择一条数据再进行修改');
+                return false;
+            }
+            $('#dictForm').form('load',rows[0]);
+            openPage("修改字典",1, rows[0]._id, doEdit);
+        }else if(flag == 2){
+            // 获得选择行
+            var obj = $('#dictDataTable').datagrid('getSelected');
+            if(obj == null){
+                msgError('提示,请先在左侧字典列表选择一个字典');
+            }else{
+                var rows = $('#dictAttrDataTable').treegrid('getChecked');
+                if (rows.length != 1) {
+                    msgError('提示,请选择一条数据再进行修改');
+                    return false;
+                }
+                $('#dictAttrForm').form('load',rows[0]);
+                openPage("修改字典属性",2, rows[0]._id, doEdit,rows[0].field_parent_id);
+            }
+        }
+    }
+
+    function doEdit(flag,value) {
+        if(flag == 1){
+            // 验证表单
+            var validate = $('#dictForm').form('validate');
+            if(!validate) {
+                return false;
+            }
+            $.ajax({
+                url: '{{projcfg.appurl}}/admin/api/common/syscfg/dict/'+value,
+                type: 'put',
+                data: $('#dictForm').serializeJson(),
+                success: function (data) {
+                    if(data.success) {
+                        msgSuccess(data.msg);
+                        closeDialog(1);
+                        doSearch(1);
+                        clear(1);
+                    }
+                    else {
+                        msgError(data.msg+',错误代码:'+data.code);
+                    }
+                }
+            });
+        }else if(flag == 2){
+            // 验证表单
+            var validate = $('#dictAttrForm').form('validate');
+            if(!validate) {
+                return false;
+            }
+            $.ajax({
+                url: '{{projcfg.appurl}}/admin/api/common/syscfg/dict/dictAttr/'+value,
+                type: 'put',
+                data: $('#dictAttrForm').serializeJson(),
+                success: function (data) {
+                    if(data.success) {
+                        msgSuccess(data.msg);
+                        closeDialog(2);
+                        doSearch(2);
+                        clear(2);
+                        $('#field_parent_id').combotree('reload');
+                        $("input[name='field_parent_value']").val('');
+                    }
+                    else {
+                        msgError(data.msg+',错误代码:'+data.code);
+                    }
+                }
+            });
+        }
+    }
+
+    // 清空新增表单数据
+    function clear(flag) {
+        if(flag == 1){
+            $("input[name='dict_name']").val('');
+            $("input[name='dict_code']").val('');
+            $("textarea[name='dict_remark']").val('');
+        }else if(flag == 2){
+            $("input[name='field_name']").val('');
+            $("input[name='field_code']").val('');
+            $("input[name='field_value']").val('');
+            $("textarea[name='field_remark']").val('');
+        }
+    }
+
+    //同步字典
+    function updateNow(){
+        $.ajax({
+            url: '{{projcfg.appurl}}/admin/api/common/syscfg/dict/updateNow',
+            type: 'get',
+            success: function (data) {
+                if(data) {
+                    msgSuccess("同步成功");
+                }else {
+                    msgError("同步失败");
+                }
+            }
+        });
+    }
+
+</script>

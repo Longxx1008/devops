@@ -1,0 +1,244 @@
+<div class="row">
+    <div class="col-xs-12 col-md-12">
+        <div class="widget">
+            <div class="widget-body">
+                <div id="cc" class="easyui-layout" data-options="fit:true,border:false" style="width: 800px; height:575px;background-color: #fbfbfb;">
+                    <div data-options="region:'center',border:false" style="overflow-x:hidden;overflow-y:hidden">
+                        <div id="toolbar" class="row tbRow" style="">
+                            <div class="col-xs-6 col-md-6">
+                                <div class="btn-group" role="group" aria-label="...">
+                                    <button type="button" class="btn btn-default" onclick="openPage('新增系统', '', doAdd)" data-title="新增">
+                                        <i class="fa fa-plus"></i> 新增
+                                    </button>
+                                    <button type="button" class="btn btn-default" onclick="toEdit()" data-title="修改">
+                                        <i class="fa fa-edit"></i> 修改
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="col-xs-6 col-md-6 text-right">
+                                <form id="searchFrom" class="form-inline">
+                                    <div class="form-group">
+                                        <div class="input-group">
+                                            <input type="input" class="form-control" id="filter_name" name="filter_name" placeholder="系统编码/名称">
+                                            <span class="input-group-btn">
+                                                <button class="btn btn-default" type="button" onclick="doSearch()"><i class="fa fa-search"></i>查询</button>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+
+                        <table id="systemDataTable">
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal -->
+<div id="myModal" class="mydialog">
+    <div class="row">
+        <div class="col-md-12">
+            <div>
+                <form id="systemForm" class="form-horizontal form-bordered" role="form">
+                    <div class="form-group">
+                        <label for="inputSystemCode" class="col-sm-2 control-label no-padding-right">系统编码</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="easyui-validatebox form-control" data-options="required:true" name="sys_code" id="sys_code" placeholder="请输入系统编码" style="width:60%">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputSystemName" class="col-sm-2 control-label no-padding-right">系统名称</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="easyui-validatebox form-control" data-options="required:true" name="sys_name" id="sys_name" placeholder="请输入系统名称" style="width:60%">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputSystemUrl" class="col-sm-2 control-label no-padding-right">访问路径</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="easyui-validatebox form-control" data-options="required:true" name="sys_url" id="sys_url" placeholder="请输入系统访问路径,例如http://localhost:3000/project/home">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputSystemMainUrl" class="col-sm-2 control-label no-padding-right">主页路径</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="easyui-validatebox form-control" data-options="required:true" name="sys_main_url" id="sys_main_url" placeholder="请输入系统主页访问路径,例如/project/home">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="module_order" class="col-sm-2 control-label no-padding-right">主题样式</label>
+                        <div class="col-sm-4">
+                            <!--<select  class="easyui-combobox" data-options="required:true,editable:false,panelHeight:50" style="width:120px;height:34px;" name="sys_theme_layout" id="sys_theme_layout">
+                                <option value="themes/beyond/layout">beyond</option>
+                                <option value="themes/portal_eui/layout">portal</option>
+                            </select>-->
+                            <select  class="easyui-combobox" data-options="url:'{{projcfg.appurl}}/public/dict/common_sys_themes',method:'get',valueField:'id',textField:'text',required:true,editable:false,panelHeight:80" style="width:200px;height:34px;" name="sys_theme_layout" id="sys_theme_layout">
+                            </select>
+                        </div>
+                        <label for="module_status" class="col-sm-2 control-label no-padding-right">状态</label>
+                        <div class="col-sm-4">
+                            <select  class="easyui-combobox" data-options="required:true,editable:false,panelHeight:50" style="width:70px;height:34px;" name="sys_status" id="sys_status" value="1">
+                                <option value="1">正常</option>
+                                <option value="0">禁用</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputSystemRemark" class="col-sm-2 control-label no-padding-right">系统备注</label>
+                        <div class="col-sm-10">
+                            <textarea class="form-control" rows="3" name="sys_remark" id="sys_remark" placeholder="请输入系统备注"></textarea>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(function(){
+        $('#systemDataTable').datagrid({
+            url:'{{projcfg.appurl}}/admin/api/common/syscfg/system',
+            method:'get',
+            rownumbers:true,
+            //autoRowHeight:true,
+            striped:true,
+            fitColumns:true,
+            toolbar: '#toolbar',
+            fit:true,
+            border:true,
+            singleSelect:true,
+            selectOnCheck:false,
+            columns:[[
+                {field:'_id',checkbox:true},
+                {"field": "sys_code","title":"系统编码","width":30},
+                {"field": "sys_name","title":"系统名","width":50},
+                {"field": "sys_url","title":"系统访问路径","width":70},
+                {"field": "sys_main_url","title":"系统主页访问路径","width":70},
+                {"field": "sys_status","title":"系统状态","width":30,
+                    "formatter":function (value, rowData,rowIndex) {
+                        if(value == 1){
+                            return '<font style="color:blue">正常</font>';
+                        }else{
+                            return '<font style="color:red">禁用</font>';
+                        }
+                    }
+                }
+            ]],
+            onLoadSuccess:function(json) {
+                if(!json.success) {
+                    msgError(json.msg + ',错误代码:' + json.code);
+                }
+            },
+            onLoadError:function() {
+                msgError('加载数据出现时发生错误,请稍候重试...');
+            },
+            pagination:true,
+            loadMsg:'正在加载...'
+        });
+    });
+    function doSearch() {
+        $('#systemDataTable').datagrid('reload',{
+            'filter_name':$.trim($('#filter_name').val()),
+        });
+    }
+    function doClear() {
+        $('#filter_name').val('');
+        doSearch();
+    }
+    function doAdd(value) {
+        var validate = $('#systemForm').form('validate');
+        if(!validate) {
+            return false;
+        }
+        $.ajax({
+            url: '{{projcfg.appurl}}/admin/api/common/syscfg/system',
+            type: 'post',
+            data: $('#systemForm').serializeJson(),
+            success: function (data) {
+                if(data.success) {
+                    msgSuccess(data.msg);
+                    closeDialog();
+                    doSearch();
+                }
+                else {
+                    msgError(data.msg+',错误代码:'+data.code);
+                }
+            }
+        });
+    }
+
+    // 打开页面
+    function openPage(title, value, callback) {
+        $('#myModal').show();
+        $('#myModal').mydialog({
+            title:title,
+            width: 700,
+            height: 485,
+            top:100,
+            modal: true,
+            myButtons:[
+                {
+                    text:'确定',
+                    btnCls:'btn btn-blue',
+                    handler:function(){
+                        callback(value);
+                    }
+                },
+                {
+                    text:'关闭',
+                    btnCls:'btn btn-danger',
+                    handler:function(){
+                        closeDialog();
+                    }
+                }
+            ]
+        });
+    }
+
+    function toEdit(id) {
+        // 获得选择行
+        var rows = $('#systemDataTable').datagrid('getChecked');
+        if (rows.length != 1) {
+            msgError('提示,请选择一条数据再进行修改');
+            return ;
+        }
+        var id = rows[0]._id;
+        $('#systemForm').form('load',rows[0]);
+        openPage("修改系统", id, doEdit);
+    }
+    function doEdit(value) {
+        var validate = $('#systemForm').form('validate');
+        if(!validate) {
+            return false;
+        }
+        $.ajax({
+            url: '{{projcfg.appurl}}/admin/api/common/syscfg/system/'+value,
+            type: 'put',
+            data: $('#systemForm').serializeJson(),
+            success: function (data) {
+                if(data.success) {
+                    msgSuccess(data.msg);
+                    closeDialog();
+                    doSearch();
+                    clear();
+                }
+                else {
+                    msgError(data.msg+',错误代码:'+data.code);
+                }
+            }
+        });
+    }
+    // 清空新增表单数据
+    function clear() {
+        $('#systemForm').form('clear');
+    }
+
+    // 关闭窗口
+    function closeDialog() {
+        $('#myModal').dialog('close');
+        clear();
+    }
+
+</script>

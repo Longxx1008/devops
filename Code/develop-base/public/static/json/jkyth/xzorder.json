@@ -1,0 +1,7 @@
+{"total":28,"rows":[
+  {"id":"1","ordernum":"GZ-813-132131","ssxq":"花果园A区","username":"小花","userno":"13800010001","dk":"10M","startdt":"2014-05-01","enddt":"2014-05-02","status":"已归档"},
+  {"id":"1","ordernum":"GZ-813-132132","ssxq":"花果园C区","username":"王小平","userno":"13800010002","dk":"20M","startdt":"2016-05-06","enddt":"2016-05-08","status":"已归档"},
+  {"id":"1","ordernum":"GZ-813-132139","ssxq":"花果园S区","username":"张翠芳","userno":"13800010003","dk":"100M","startdt":"2015-04-01","enddt":"2015-04-12","status":"已归档"},
+  {"id":"1","ordernum":"GZ-813-132151","ssxq":"花果园R区","username":"李晓红","userno":"13800010004","dk":"50M","startdt":"2016-06-01","enddt":"","status":"未归档"},
+  {"id":"1","ordernum":"GZ-813-132191","ssxq":"花果园D区","username":"程小兵","userno":"13800010005","dk":"10M","startdt":"2016-06-01","enddt":"2016-06-02","status":"已归档"}
+  ]}

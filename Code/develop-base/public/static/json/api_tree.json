@@ -1,0 +1,20 @@
+[{
+	"id":1,
+	"text":"数据能力",
+	"iconCls":"fa fa-table icon-null",
+	"children":[{
+		"id":11,
+		"text":"用户数据",
+		"iconCls":"fa fa-table icon-null",
+		"children":[{
+			"id":111,
+			"text":"用户基本数据"
+		},{
+			"id":112,
+			"text":"用户位置数据"
+		},{
+			"id":113,
+			"text":"用户消费数据"
+		}]
+	}]
+}]

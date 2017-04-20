@@ -1,0 +1,163 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>流程图DEMO</title>
+    <!--[if lt IE 9]>
+    <?import namespace="v" implementation="#default#VML" ?>
+    <![endif]-->
+    <link rel="stylesheet" type="text/css" href="{{projcfg.appurl}}/static/js/easyui/themes/default/easyui.css">
+    <link rel="stylesheet" type="text/css" href="{{projcfg.appurl}}/static/js/easyui/themes/icon.css">
+    <script src="{{projcfg.appurl}}/static/bpm/js/jquery.min.js"></script>
+    <script type="text/javascript" src="{{projcfg.appurl}}/static/js/easyui/jquery.easyui.min.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="{{projcfg.appurl}}/static/bpm/css/GooFlow.css"/>
+    <script type="text/javascript" src="{{projcfg.appurl}}/static/bpm/js/GooFunc.js"></script>
+    <script type="text/javascript" src="{{projcfg.appurl}}/static/bpm/js/json2.js"></script>
+    <link rel="stylesheet" type="text/css" href="{{projcfg.appurl}}/static/bpm/css/default.css"/>
+    <script type="text/javascript" src="{{projcfg.appurl}}/static/bpm/js/GooFlow.js"></script>
+    <script>
+        /**
+         * @author ZhaoJing
+         * 扩展javaScriptDate类型工具js
+         * 实现格式化日期功能
+         */
+        Date.prototype.format = function(format){
+            if(isNaN(this.getMonth())){
+                return '';
+            }
+            if(!format){
+                format = 'yyyy-MM-dd hh:mm';
+            }
+            var o = {
+                //month
+                "M+" : this.getMonth() + 1,
+                //day
+                "d+" : this.getDate(),
+                //hour
+                "h+" : this.getHours(),
+                //minute
+                "m+" : this.getMinutes(),
+                //second
+                "s+" : this.getSeconds(),
+                //quarter
+                "q+" : Math.floor((this.getMonth() + 3) / 3),
+                //millisecond
+                "s" : this.getMilliseconds()
+            };
+            if(/(y+)/.test(format)){
+                format = format.replace(RegExp.$1,(this.getFullYear() + "").substr(4 - RegExp.$1.length));
+            }
+            for(var k in o){
+                if(new RegExp("(" + k + ")").test(format)){
+                    format = format.replace(RegExp.$1,RegExp.$1.length == 1 ? o[k] : ("00" + o[k]).substr(("" + o[k]).length));
+                }
+            }
+            return format;
+        };
+
+        var procInstTaskRemarks = [];
+        var processDefineDiv;
+
+        function initGooFlow(){
+            processDefineDiv = $.createGooFlow({
+                dom: $('#processDefineDiv'),
+                width: $('#layout').layout('panel','center').panel('options').width-10,
+                height: $('#layout').layout('panel','center').panel('options').height-10,
+                useOperStack: false,
+                haveTool:false
+            });
+        }
+
+        function GetQueryString(name) {
+            var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+            var r = window.location.search.substr(1).match(reg);
+            if(r!=null)return  unescape(r[2]); return null;
+        }
+
+        $(function($){
+
+            initGooFlow();
+
+            $.ajax({
+                url: '{{projcfg.appurl}}/admin/api/common/bpm/process_monitor/getProcessInfo',
+                type: 'get',
+                async:false,
+                data: {
+                    proc_inst_id:GetQueryString("id")
+                },
+                success: function (data) {
+                    if(data.success) {
+                        var processChart = data.result.processChart;
+                        var processInstTasks = data.result.processInstTasks;
+                        var processInstInfo = data.result.processInstInfo;
+                        processDefineDiv.loadData(JSON.parse(processChart));
+                        processDefineDiv.$editable = false;
+                        for(var i=0;i<processInstTasks.length;i++){
+                            if(processInstTasks[i].proc_inst_task_type == "task"){
+                                var temp = {}
+                                temp.code = processInstTasks[i].proc_inst_task_code;//节点编码
+                                temp.arrive_time = processInstTasks[i].proc_inst_task_arrive_time;//到达时间
+                                temp.complete_time = processInstTasks[i].proc_inst_task_complete_time;//完成时间
+                                temp.status = processInstTasks[i].proc_inst_task_status;//状态
+                                temp.assignee_name = processInstTasks[i].proc_inst_task_assignee_name;//处理人
+                                temp.task_remark = processInstTasks[i].proc_inst_task_remark;// 流程处理意见
+                                procInstTaskRemarks.push(temp);
+                            }
+                        }
+                        var taskNodes = processDefineDiv.$nodeData;
+                        for(var k in taskNodes){
+                            for(var j=0;j<procInstTaskRemarks.length;j++){
+                                if(k == procInstTaskRemarks[j].code){
+                                    var status;
+                                    if(procInstTaskRemarks[j].status == 1){
+                                        status = "<span style=\'color: red\'>待处理</span>";
+                                    }else{
+                                        status = "<span style=\'color: green\'>处理完成</span>";
+                                    }
+                                    var content = '<div style="width: 300px;">' +
+                                                        '<p>' +
+                                                            '<label style="color: blue">到达时间：</label>' +
+                                                            new Date(procInstTaskRemarks[j].arrive_time).format() +
+                                                        '</p>' +
+                                                        '<p>' +
+                                                            '<label style="color: blue">完成时间：</label>' +
+                                                            new Date(procInstTaskRemarks[j].complete_time?procInstTaskRemarks[j].complete_time:'').format() +
+                                                        '</p>' +
+                                                        '<p>' +
+                                                            '<label style="color: blue">处理人：</label>' +
+                                                            procInstTaskRemarks[j].assignee_name +
+                                                        '</p>' +
+                                                            '<label style="color: blue">处理意见：</label></br>' +
+                                                            '<div style="text-indent: 2em">' +
+                                                                procInstTaskRemarks[j].task_remark +
+                                                            '</div>' +
+                                                        '</p>' +
+                                                        '<p>' +
+                                                            '<label style="color: blue">状态：</label>' +
+                                                            status +
+                                                        '</p>' +
+                                                  '</div>';
+                                    $('#'+k).tooltip({
+                                        position: 'right',
+                                        content: content
+                                    });
+                                }
+                            }
+                        }
+                        processDefineDiv.markItem(processInstInfo.proc_cur_task,"node",true);
+                    }else {
+                        msgError(data.msg+',错误代码:'+data.code);
+                    }
+                }
+            });
+        });
+
+    </script>
+</head>
+<body id="layout" class="easyui-layout" data-options="fit:true">
+    <div data-options="region:'center'">
+        <div id="processDefineDiv"></div>
+    </div>
+</body>
+</html>

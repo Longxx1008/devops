@@ -1,0 +1,655 @@
+<div class="row">
+    <div class="col-xs-12 col-md-12">
+        <div class="widget">
+            <div class="widget-body">
+                <div id="cc" class="easyui-layout" data-options="fit:true,border:false" style="width: 800px; height:575px;background-color: #fbfbfb;">
+                    <div data-options="region:'north',border:false" style="height:43px;padding:5px 0px 5px 0px;">
+                        所属系统：<input id="inputSysId" name="inputSysId" style="width: 180px;height:31px;">
+                    </div>
+                    <div data-options="region:'center',border:false">
+                        <div class="easyui-layout" data-options="fit:true">
+                            <div data-options="region:'west',title:'报表类别',border:true" style="width:180px;overflow-x:hidden;overflow-y:hidden">
+                                <div id="toolbar1" class="row tbRow">
+                                    <div class="col-xs-12 col-md-12">
+                                        <div class="btn-group" role="group" aria-label="...">
+                                            <button type="button" class="btn btn-default" onclick="openCatalogPage('新增类别', '', doAddCatalog)" data-title="新增">
+                                                <i class="fa fa-plus"></i> 新增
+                                            </button>
+                                            <button type="button" class="btn btn-default" onclick="toEditCatalog()" data-title="修改">
+                                                <i class="fa fa-edit"></i> 修改
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <ul id="catalogTree"></ul>
+                            </div>
+                            <div data-options="region:'center',title:'报表列表',split:true,border:true" style="overflow-x:hidden;overflow-y:hidden">
+                                <div id="toolbar" class="row tbRow" style="">
+                                    <div class="col-xs-6 col-md-6">
+                                        <div class="btn-group" role="group" aria-label="...">
+                                            <button type="button" class="btn btn-default" onclick="openPage('新增报表', '', doAdd)" data-title="新增">
+                                                <i class="fa fa-plus"></i> 新增
+                                            </button>
+                                            <button type="button" class="btn btn-default" onclick="toEdit()" data-title="修改">
+                                                <i class="fa fa-edit"></i> 修改
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-6 col-md-6 text-right">
+                                        <form id="searchFrom" class="form-inline">
+                                            <div class="form-group">
+                                                <div class="input-group">
+                                                    <input type="input" class="form-control" id="filter_name" name="filter_name" placeholder="报表名称">
+                                                    <span class="input-group-btn">
+                                                        <button class="btn btn-default" type="button" onclick="doSearch()"><i class="fa fa-search"></i>查询</button>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+
+                                <table id="reportDataTable">
+                                </table>
+                            </div>
+
+                            <div data-options="region:'east',title:'所属角色',border:true" style="width:200px;overflow-x:hidden;overflow-y:hidden">
+                                <div id="toolbarright" class="row tbRow">
+                                    <div class="col-xs-12 col-md-12">
+                                        <div class="btn-group" role="group" aria-label="...">
+                                            <button type="button" class="btn btn-default" onclick="doSetPermission()">
+                                                <i class="fa fa-sitemap"></i> 设置权限
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <table id="roleDataTable">
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div id="catalogModal" class="mydialog" style="padding-top:0px;">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="widget flat radius-bordered">
+                <div class="widget-body" style="background-color: #fff;">
+                    <div id="registration-form">
+                        <form id="catalogForm" role="form">
+                             <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label class="control-label">所属系统</label><br/>
+                                        <select id="catalog_sysid" name="catalog_sysid" class="form-control" style="width: 180px;height:34px;">
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label class="control-label">类别名称</label><br/>
+                                        <input type="text" id="catalog_name" name="catalog_name" class="easyui-validatebox form-control" data-options="required:true" placeholder="类别名称">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="control-label">备注</label>
+                                <textarea class="form-control" rows="4" name="catalog_remark" id="catalog_remark" placeholder="备注" ></textarea>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal -->
+<div id="myModal" class="mydialog">
+    <div class="row">
+        <div class="col-md-12">
+            <div>
+                <form id="reportForm" class="form-horizontal form-bordered" role="form">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label no-padding-right">所属系统</label>
+                            <div class="col-sm-10">
+                                <select id="report_sysid" name="report_sysid" class="form-control" style="width: 180px;height:34px;">
+                                </select>
+                            </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label no-padding-right">类别</label>
+                            <div class="col-sm-10">
+                                <select name="report_catalogid" id="report_catalogid" class="form-control" style="width: 180px;height:34px;">
+                                </select>
+                            </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputReportName" class="col-sm-2 control-label no-padding-right">报表名称</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="easyui-validatebox form-control" data-options="required:true" name="report_name" id="inputReportName" placeholder="请输入报表名称" style="width:60%">
+                            <input type="hidden" name="creator" value="{{currentUser.user_name}}">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label no-padding-right">连接数据库</label>
+                        <div class="col-sm-10">
+                            <select class="easyui-combobox" name="report_db" id="selReportDb" style="width: 180px;height:34px;">
+                                {{#each commonDictData.common_db_connect_info}}
+                                    <option value={{text}}>{{text}}</option>
+                                {{/each}}
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="inputReportDesc" class="col-sm-2 control-label no-padding-right">报表描述</label>
+                        <div class="col-sm-10">
+                            <textarea class="form-control" rows="3" name="report_desc" id="inputReportDesc" placeholder="请输入报表描述"></textarea>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+
+    Date.prototype.format = function(format){
+        if(isNaN(this.getMonth())){
+            return '';
+        }
+        if(!format){
+            format = 'yyyy-MM-dd hh:mm:ss';
+        }
+        var o = {
+            //month
+            "M+" : this.getMonth() + 1,
+            //day
+            "d+" : this.getDate(),
+            //hour
+            "h+" : this.getHours(),
+            //minute
+            "m+" : this.getMinutes(),
+            //second
+            "s+" : this.getSeconds(),
+            //quarter
+            "q+" : Math.floor((this.getMonth() + 3) / 3),
+            //millisecond
+            "s" : this.getMilliseconds()
+        };
+        if(/(y+)/.test(format)){
+            format = format.replace(RegExp.$1,(this.getFullYear() + "").substr(4 - RegExp.$1.length));
+        }
+        for(var k in o){
+            if(new RegExp("(" + k + ")").test(format)){
+                format = format.replace(RegExp.$1,RegExp.$1.length == 1 ? o[k] : ("00" + o[k]).substr(("" + o[k]).length));
+            }
+        }
+        return format;
+    };
+
+    var currentCatalogpid;
+    var currentSysId = '{{currentUser.user_sys._id}}';
+    $(function(){
+        $('#inputSysId').combobox({
+            method: 'get',
+            url: '{{projcfg.appurl}}/public/sysData',
+            valueField:'_id',
+            textField:'sys_name',
+            value:currentSysId,
+            editable:false,
+            onChange: function (newValue,oldValue) {
+                currentSysId = newValue;
+                // 加载角色菜单操作树
+                initLeftCatalogTree(currentSysId);
+
+                $('#reportDataTable').datagrid('load',{
+                    sys_id:currentSysId
+                });
+
+                $('#roleDataTable').datagrid('load',{
+                    sys_id:currentSysId
+                });
+            }
+        });
+
+        $('#catalog_sysid').combobox({
+            method: 'get',
+            url: '{{projcfg.appurl}}/public/sysData',
+            valueField:'_id',
+            textField:'sys_name',
+            value:currentSysId,
+            editable:false,
+            required:true
+        });
+
+        $('#report_sysid').combobox({
+            method: 'get',
+            url: '{{projcfg.appurl}}/public/sysData',
+            valueField:'_id',
+            textField:'sys_name',
+            value:currentSysId,
+            editable:false,
+            required:true,
+            onChange: function (newValue,oldValue) {
+                // 加载角色菜单操作树
+                //initFormCatalogTree(newValue);
+                initFormCatalogTree(newValue);
+                if(currentSysId == newValue) {
+                    $('#report_catalogid').combotree('setValue', currentCatalogpid);
+                }
+                else {
+                    $('#report_catalogid').combotree('setValue', '0');
+                }
+                currentSysId = newValue;
+                $('#inputSysId').combobox('setValue', currentSysId);
+            }
+        });
+
+        initLeftCatalogTree(currentSysId);
+
+        initFormCatalogTree(currentSysId);
+
+        $('#reportDataTable').datagrid('load',{
+            sys_id:currentSysId
+        });
+
+        $('#roleDataTable').datagrid('load',{
+            sys_id:currentSysId
+        });
+    });
+
+    $('#roleDataTable').datagrid({
+        url: '{{projcfg.appurl}}/admin/api/common/uum/role',
+        method:'get',
+        //data:{sys_id:currentSysId},
+        rownumbers:true,
+        striped:true,
+        fitColumns:true,
+        fit:true,
+        border:true,
+        singleSelect:true,
+        selectOnCheck:false,
+        columns:[[
+            {field:'_id',checkbox:true},
+            {"field": "role_name","title":"角色名称","width":120}
+        ]],
+        onLoadSuccess:function(json) {
+            if(!json.success) {
+                msgError(json.msg + ',错误代码:' + json.code);
+            }
+        },
+        onLoadError:function() {
+            msgError('加载数据出现时发生错误,请稍候重试...');
+        },
+        pagination:true,
+        loadMsg:'正在加载...'
+    });
+
+    $('#reportDataTable').datagrid({
+        url:'{{projcfg.appurl}}/admin/api/common/report/report',
+        method:'get',
+        rownumbers:true,
+        //autoRowHeight:true,
+        striped:true,
+        fitColumns:true,
+        toolbar: '#toolbar',
+        fit:true,
+        border:true,
+        singleSelect:true,
+        columns:[[
+            {field:'_id',checkbox:true},
+            {"field": "report_name","title":"报表名称","width":80},
+            {"field": "report_db","title":"连接数据库名","width":90},
+            {"field": "report_desc","title":"报表描述","width":150},
+            {"field": "creator","title":"创建人","width":70},
+            {"field": "createDt","title":"创建时间","width":100,
+                formatter : function(value, rowData, rowIndex) {
+                    return new Date(value).format();
+                }
+            },
+            {"field": "opt","title":"操作","width":60,
+                "formatter":function (value, rowData,rowIndex) {
+                    return '<a href="report_design?'+rowData.report_name+'" target="_blank"><font style="color:blue">设计</font></a> |<a href="report_view?'+rowData.report_name+'"  target="_blank"> <font style="color:red">预览</font></a>';
+                }
+            }
+        ]],
+        onLoadSuccess:function(json) {
+            if(!json.success) {
+                msgError(json.msg + ',错误代码:' + json.code);
+            }
+        },
+        onLoadError:function() {
+            msgError('加载数据出现时发生错误,请稍候重试...');
+        },
+        onClickRow:function(rowIndex, rowData){
+            getCheckRole(rowData._id);
+        },
+        pagination:true,
+        loadMsg:'正在加载...'
+    });
+
+    function doSearch() {
+        $('#reportDataTable').datagrid('reload',{
+            'filter_name':$.trim($('#filter_name').val()),
+        });
+    }
+    function doClear() {
+        $('#filter_name').val('');
+        doSearch();
+    }
+    function doAdd(value) {
+        var validate = $('#reportForm').form('validate');
+        if(!validate) {
+            return false;
+        }
+        $.ajax({
+            url: '{{projcfg.appurl}}/admin/api/common/report/report',
+            type: 'post',
+            data: $('#reportForm').serializeJson(),
+            success: function (data) {
+                if(data.success) {
+                    msgSuccess(data.msg);
+                    closeDialog();
+                    doSearch();
+                }
+                else {
+                    msgError(data.msg+',错误代码:'+data.code);
+                }
+            }
+        });
+    }
+
+    // 打开页面
+    function openPage(title, value, callback) {
+        $('#report_sysid').combobox('setValue', currentSysId);
+        initFormCatalogTree(currentSysId);
+        $('#report_catalogid').combotree('setValue', currentCatalogpid ? currentCatalogpid : '0');
+        $('#myModal').show();
+        $('#myModal').mydialog({
+            title:title,
+            width: 700,
+            height: 425,
+            top:100,
+            modal: true,
+            myButtons:[
+                {
+                    text:'确定',
+                    btnCls:'btn btn-blue',
+                    handler:function(){
+                        callback(value);
+                    }
+                },
+                {
+                    text:'关闭',
+                    btnCls:'btn btn-danger',
+                    handler:function(){
+                        closeDialog();
+                    }
+                }
+            ]
+        });
+    }
+
+    function toEdit(id) {
+        // 获得选择行
+        var rows = $('#reportDataTable').datagrid('getChecked');
+        if (rows.length != 1) {
+            msgError('提示,请选择一条数据再进行修改');
+            return ;
+        }
+        var id = rows[0]._id;
+        $('#reportForm').form('load',rows[0]);
+        openPage("修改报表", id, doEdit);
+    }
+    function doEdit(value) {
+        var validate = $('#reportForm').form('validate');
+        if(!validate) {
+            return false;
+        }
+        $.ajax({
+            url: '{{projcfg.appurl}}/admin/api/common/report/report/'+value,
+            type: 'put',
+            data: $('#reportForm').serializeJson(),
+            success: function (data) {
+                if(data.success) {
+                    msgSuccess(data.msg);
+                    closeDialog();
+                    doSearch();
+                    clear();
+                }
+                else {
+                    msgError(data.msg+',错误代码:'+data.code);
+                }
+            }
+        });
+    }
+    // 清空新增表单数据
+    function clear() {
+        $('#reportForm').form('clear');
+    }
+
+    // 关闭窗口
+    function closeDialog() {
+        $('#myModal').dialog('close');
+        clear();
+    }
+
+
+    // 清空新增表单数据
+    function clearCatalogForm() {
+        $('#catalogForm').form('reset');
+    }
+
+    function openCatalogPage(title, value, callback) {
+        $('#catalogModal').show();
+        $('#catalogModal').mydialog({
+            title:title,
+            width: 600,
+            height: 290,
+            top:100,
+            modal: true,
+            myButtons:[
+                {
+                    text:'确定',
+                    btnCls:'btn btn-blue',
+                    handler:function(){
+                        callback(value);
+                    }
+                },
+                {
+                    text:'关闭',
+                    btnCls:'btn btn-danger',
+                    handler:function(){
+                        closeCatalogDialog();
+                    }
+                }
+            ]
+        });
+    }
+
+    // 新增数据
+    function doAddCatalog(value) {
+
+        // 验证表单
+        var validate = $('#catalogForm').form('validate');
+        if(!validate) {
+            return false;
+        }
+        $.ajax({
+            url: '{{projcfg.appurl}}/admin/api/common/report/report/catalog',
+            type: 'post',
+            data: $('#catalogForm').serializeJson(),
+            success: function (data) {
+                if(data.success) {
+                    msgSuccess(data.msg);
+                    closeCatalogDialog();
+                    initLeftCatalogTree();
+                }
+                else {
+                    msgError(data.msg+',错误代码:'+data.code);
+                }
+            }
+        });
+    }
+
+    // 打开修改类别页面
+    function toEditCatalog() {
+        var selectedNode = $('#catalogTree').tree('getSelected');
+        if (!selectedNode||selectedNode.id==0) {
+            msgError('提示,请选择一条数据再进行修改');
+            return false;
+        }
+        var id = selectedNode.id;
+        $.ajax({
+            url: '{{projcfg.appurl}}/admin/api/common/report/report/catalog/'+id,
+            type: 'get',
+            success: function (data) {
+                if(data.success) {
+                    $('#catalogForm').form('load',data.data[0]);
+                }
+                else {
+                    msgError(data.msg+',错误代码:'+data.code);
+                }
+            }
+        });
+        openCatalogPage("修改类别", id, doEditCatalog);
+    }
+
+    // 修改数据
+    function doEditCatalog(value) {
+
+        // 验证表单
+        var validate = $('#catalogForm').form('validate');
+        if(!validate) {
+            return false;
+        }
+        $.ajax({
+            url: '{{projcfg.appurl}}/admin/api/common/report/report/catalog/'+value,
+            type: 'put',
+            data: $('#catalogForm').serializeJson(),
+            success: function (data) {
+                if(data.success) {
+                    msgSuccess(data.msg);
+                    closeCatalogDialog();
+                    initLeftCatalogTree();
+                }
+                else {
+                    msgError(data.msg+',错误代码:'+data.code);
+                }
+            }
+        });
+
+    }
+
+    function initLeftCatalogTree(sysid) {
+        $('#catalogTree').tree({
+            method:'get',
+            url:'{{projcfg.appurl}}/admin/api/common/report/report/tree/'+sysid,
+            onClick:function(node) {
+                var isLeaf = $('#catalogTree').tree('isLeaf', node.target);
+                if(isLeaf) {
+                    currentCatalogpid = node.id;
+                    $('#reportDataTable').datagrid('load',{
+                        report_catalogid:currentCatalogpid
+                    });
+                }else{
+                    $('#reportDataTable').datagrid('load',{
+                    });
+                }
+            }
+        });
+    }
+
+    function closeCatalogDialog() {
+        $('#catalogModal').dialog('close');
+        clearCatalogForm();
+    }
+
+
+    function initFormCatalogTree(sysid) {
+        $('#report_catalogid').combotree({
+            method:'get',
+            url:'{{projcfg.appurl}}/admin/api/common/report/report/tree/'+sysid,
+            required: true,
+            panelHeight:300,
+            value:currentCatalogpid ? currentCatalogpid : '0',
+            editable:false
+        });
+    }
+
+
+
+    //设置权限
+    function doSetPermission(){
+        var reportData = $("#reportDataTable").datagrid('getChecked');
+        if(reportData.length==0){
+            msgError('提示,请选择一条报表数据');
+            return;
+        }
+
+        var roleDatas = $("#roleDataTable").datagrid('getChecked');
+        if(roleDatas.length==0){
+            msgError('提示,请选择角色数据');
+            return;
+        }
+        //var datas = new Array();
+        var reRoles ="";
+        for(var i =0;i<roleDatas.length;i++){
+            reRoles +=roleDatas[i]._id;
+            if(i<roleDatas.length-1){
+                reRoles +=",";
+            }
+        }
+        console.log("reRoles:"+reRoles);
+
+        $.ajax({
+            url:"{{projcfg.appurl}}/admin/api/common/report/report/role",
+            data:{
+                report_id:reportData[0]._id,
+                datas:reRoles
+                },
+            method:'post',
+            success: function (data) {
+                if(data.success) {
+                    msgSuccess(data.msg);
+                }
+                else {
+                    msgError(data.msg+',错误代码:'+data.code);
+                }
+            }
+        });
+    }
+
+    //勾选已分配的角色
+    function getCheckRole(id){
+        $.ajax({
+            url:"{{projcfg.appurl}}/admin/api/common/report/report/role/"+id,
+            method:'get',
+            success: function (data) {
+                if(data.success){
+                    var arrDatas = data.data;
+                    var gridRows = $('#roleDataTable').datagrid('getRows');
+                    $('#roleDataTable').datagrid('unselectAll');//取消全选
+                    for(var i=0;i<arrDatas.length;i++){
+                        var tempRoleId = arrDatas[i].role_id;
+                        for(var j=0;j<gridRows.length;j++){
+                            if(tempRoleId==gridRows[j]._id){
+                                console.log("选中第"+j+"行")
+                                $('#roleDataTable').datagrid("checkRow",j);
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    }
+
+</script>

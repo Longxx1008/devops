@@ -1,0 +1,385 @@
+<div class="row">
+    <div class="col-xs-12 col-md-12">
+        <div class="widget">
+            <div class="widget-body">
+                <div id="roleLayout" class="easyui-layout" data-options="fit:true" style="width:600px;height:580px;">
+                    <div data-options="region:'north'" style="height:43px;padding:5px 0px 5px 0px;">
+                        所属系统：<input id="inputSysId" name="inputSysId" style="width: 180px;height:31px;">
+                    </div>
+                    <div data-options="region:'center',border:false">
+                        <div class="easyui-layout" data-options="fit:true">
+                            <div data-options="region:'west',title:'菜单及操作权限',split:true" style="width:220px;">
+                                <ul id="roleMenuOptTree"></ul>
+                            </div>
+                            <div data-options="region:'center',title:'系统角色'" style="overflow-x:hidden;overflow-y:hidden">
+                                <div id="toolbar" class="row tbRow">
+                                    <div class="col-xs-6 col-md-6">
+                                        <div class="btn-group" role="group" aria-label="...">
+                                            <button type="button" class="btn btn-default" onclick="openPage('新增角色', '', doAdd)" data-title="新增">
+                                                <i class="fa fa-plus"></i> 新增
+                                            </button>
+                                            <button type="button" class="btn btn-default" onclick="toEdit()" data-title="修改">
+                                                <i class="fa fa-edit"></i> 修改
+                                            </button>
+                                            <button type="button" class="btn btn-default" onclick="doSetPermission()">
+                                                <i class="fa fa-sitemap"></i> 设置权限
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-6 col-md-6 text-right">
+                                        <form id="searchFrom" class="form-inline">
+                                            <div class="form-group">
+                                                <div class="input-group">
+                                                    <label for="filterParam3">状态：</label>
+                                                    <select id="filterParam3" class="easyui-combobox form-control" data-options="editable:false,panelHeight:75" style="width: 70px;height:34px;">
+                                                        <option value="-1">所有</option>
+                                                        <option value="1">正常</option>
+                                                        <option value="0">禁用</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="input-group">
+                                                    <input type="input" id="filterParam1" class="form-control" style="width:200px;" placeholder="角色编码/名称">
+                                                    <span class="input-group-btn">
+                                                        <button class="btn btn-default" type="button" onclick="doSearch()"><i class="fa fa-search"></i>查询</button>
+                                                        <!--<button class="btn btn-default" type="button" onclick="doClear()"><i class="fa fa-mail-reply"></i>清空</button>-->
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                                <table id="roleDataTable">
+
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal -->
+<div id="roleModal" class="mydialog">
+    <div class="row">
+        <div class="col-md-12">
+            <div>
+                <form id="roleForm" class="form-horizontal form-bordered" role="form">
+                    <div class="form-group">
+                        <label for="role_code" class="col-sm-2 control-label no-padding-right">角色编码</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="easyui-validatebox form-control" data-options="required:true" name="role_code" id="role_code" placeholder="请输入角色编码" style="width:50%;height:31px;">
+                            <!--<input type="hidden" name="_id" id="_id">-->
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="role_name" class="col-sm-2 control-label no-padding-right">角色名</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="easyui-validatebox form-control" data-options="required:true" name="role_name" id="role_name" placeholder="请输入角色名" style="width:50%;height:31px;">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputFormSysId" class="col-sm-2 control-label no-padding-right">所属系统</label>
+                        <div class="col-sm-10">
+                            <select id="inputFormSysId" name="sys_id" class="form-control" style="width: 180px;height:31px;">
+
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputRoleStatus" class="col-sm-2 control-label no-padding-right">角色状态</label>
+                        <div class="col-sm-10">
+                            <select  name="role_status" id="role_status" class="easyui-combobox" data-options="editable:false,required:true,panelHeight:50" style="width:70px;height:31px;">
+                                <option value="1">正常</option>
+                                <option value="0">禁用</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="role_order" class="col-sm-2 control-label no-padding-right">排序号</label>
+                        <div class="col-sm-10">
+                            <div class="spinbox">
+                                <input type="text" id="role_order" name="role_order" class="easyui-numberspinner" data-options="required:true" style="width:70px;height:31px;" value="1"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="role_remark" class="col-sm-2 control-label no-padding-right">角色备注</label>
+                        <div class="col-sm-10">
+                            <textarea class="form-control" rows="4" name="role_remark" id="role_remark" placeholder="请输入角色备注" style="width:70%;"></textarea>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+
+    function  loadRoleMenuOptTree(sysid) {
+        $('#roleMenuOptTree').tree({
+            method:'get',
+            checkbox:true,
+            lines:true,
+            //cascadeCheck:false,
+            url:'{{projcfg.appurl}}/admin/api/common/uum/role/roleMenuOptTree/0/'+sysid
+        });
+    }
+
+    function cascadeCheckTree(cascadeCheck) {
+        $('#roleMenuOptTree').tree({
+            cascadeCheck: cascadeCheck
+        });
+    }
+
+    var currentSysId = '{{currentUser.user_sys._id}}';
+    $(document).ready(function(){
+        $('#inputSysId').combobox({
+            method: 'get',
+            url: '{{projcfg.appurl}}/public/sysData',
+            valueField:'_id',
+            textField:'sys_name',
+            value:currentSysId,
+            editable:false,
+            onSelect: function (rec) {
+                currentSysId = rec._id;
+                // 加载角色菜单操作树
+                loadRoleMenuOptTree(currentSysId);
+
+                // 加载角色列表
+                $('#roleDataTable').datagrid('load',{
+                    sys_id:currentSysId
+                });
+            }
+        });
+
+        // 加载角色菜单操作树
+        loadRoleMenuOptTree(currentSysId);
+        // 加载角色列表
+        $('#roleDataTable').datagrid({
+            url:'{{projcfg.appurl}}/admin/api/common/uum/role',
+            queryParams:{sys_id:currentSysId},
+            method:'get',
+            rownumbers:true,
+            //autoRowHeight:true,
+            striped:true,
+            fitColumns:true,
+            toolbar: '#toolbar',
+            fit:true,
+            border:false,
+            singleSelect:true,
+            selectOnCheck:false,
+            //checkOnSelect:true,
+            columns:[[
+                {"field":'_id',checkbox:true},
+                {"field": "role_code","title":"角色编码","width":30},
+                {"field": "role_name","title":"角色名称","width":50},
+                {"field": "role_order","title":"排序号","width":20},
+                {"field": "role_status","title":"状态","width":30,
+                    "formatter":function (value, rowData,rowIndex) {
+                        if(value == 1){
+                            return '<span class="success">正常</span>';
+                        }else if(value == 0){
+                            return '<span class="danger">禁用</span>';
+                        }
+                    }
+                }
+            ]],
+            onLoadSuccess:function(json) {
+                if(!json.success) {
+                    msgError(json.msg + ',错误代码:' + json.code);
+                }
+            },
+            onLoadError:function() {
+                msgError('加载数据出现时发生错误,请稍候重试...');
+            },
+            onCheck:function(rowIndex,rowData){
+                var nodes = $('#roleMenuOptTree').tree('getChecked');
+                for(var i = 0; i < nodes.length; i++){
+                    $('#roleMenuOptTree').tree('uncheck', nodes[i].target);
+                }
+                $.ajax({
+                    url: '{{projcfg.appurl}}/admin/api/common/uum/role/roleMenuOptTree/'+rowData._id+'/'+currentSysId,
+                    type: 'get',
+                    data: {},
+                    success: function (data) {
+                        for(var i = 0; i < data.length; i++){
+                            var node = $('#roleMenuOptTree').tree('find', data[i]);
+                            if(node != null && $('#roleMenuOptTree').tree('isLeaf', node.target)) {
+                                $('#roleMenuOptTree').tree('check', node.target);
+                            }
+                        }
+                    }
+                });
+            },
+            pagination:true,
+            loadMsg:'正在加载...'
+        });
+    });
+
+    function doSearch() {
+        var sysId = $('#inputSysId').combobox('getValue');
+        if(sysId){
+            $('#roleDataTable').datagrid('reload',{
+                'role_code':$.trim($('#filterParam1').val()),
+                'role_status':$('#filterParam3').combobox('getValue'),
+                'sys_id':sysId
+            });
+        }else{
+            msgError('请先选择所属系统');
+        }
+    }
+
+    function doClear() {
+        $('#filterParam1').val('');
+        $('#filterParam3').val('');
+        doSearch();
+    }
+
+    function doAdd(value) {
+
+        // 验证表单
+        var validate = $('#roleForm').form('validate');
+        if(!validate) {
+            return false;
+        }
+
+        $.ajax({
+            url: '{{projcfg.appurl}}/admin/api/common/uum/role',
+            type: 'post',
+            data: $('#roleForm').serializeJson(),
+            success: function (data) {
+                if(data.success) {
+                    msgSuccess(data.msg);
+                    closeDialog();
+                    doSearch();
+                }
+                else {
+                    msgError(data.msg+',错误代码:'+data.code);
+                }
+            }
+        });
+    }
+
+    // 关闭窗口
+    function closeDialog() {
+        $('#roleModal').dialog('close');
+        clear();
+    }
+
+    function openPage(title, value, callback) {
+
+        $('#inputFormSysId').combobox({
+            method: 'get',
+            url: '{{projcfg.appurl}}/public/sysData',
+            valueField:'_id',
+            textField:'sys_name',
+            editable:false,
+            required:true,
+            value:currentSysId
+        });
+
+        $('#roleModal').show();
+        $('#roleModal').mydialog({
+            title:title,
+            width: 700,
+            height: 500,
+            top:100,
+            modal: true,
+            myButtons:[
+                {
+                    text:'确定',
+                    btnCls:'btn btn-blue',
+                    handler:function(){
+                        callback(value);
+                    }
+                },
+                {
+                    text:'关闭',
+                    btnCls:'btn btn-danger',
+                    handler:function(){
+                        closeDialog();
+                    }
+                }
+            ]
+        });
+    }
+
+    function toEdit() {
+
+        // 获得选择行
+        var rows = $('#roleDataTable').datagrid('getChecked');
+        if (rows.length != 1) {
+            msgError('提示,请选择一条数据再进行修改');
+            return false;
+        }
+        $('#roleForm').form('load',rows[0]);
+        openPage("修改角色", rows[0]._id, doEdit);
+    }
+
+    function doEdit(value) {
+        // 验证表单
+        var validate = $('#roleForm').form('validate');
+        if(!validate) {
+            return false;
+        }
+        $.ajax({
+            url: '{{projcfg.appurl}}/admin/api/common/uum/role/'+value,
+            type: 'put',
+            data: $('#roleForm').serializeJson(),
+            success: function (data) {
+                if(data.success) {
+                    msgSuccess(data.msg);
+                    closeDialog();
+                    doSearch();
+                    clear();
+                }
+                else {
+                    msgError(data.msg+',错误代码:'+data.code);
+                }
+            }
+        });
+    }
+
+    function doSetPermission() {
+        // 获得选择行
+        var rows = $('#roleDataTable').datagrid('getChecked');
+        if (rows.length != 1) {
+            msgError('提示,请选择一条数据再进行设置');
+            return false;
+        }
+        var nodes = $('#roleMenuOptTree').tree('getChecked', ['checked','indeterminate']);
+
+        var menusArray = new Array();
+        for(var i = 0; i < nodes.length; i++){
+            var node = nodes[i];
+            //console.log(node.id+'/'+node.text+'/'+node.attributes.pid);
+            menusArray.push({'id':node.id,'pid':node.attributes.pid,'type':node.attributes.type});
+        }
+
+        $.ajax({
+            url: '{{projcfg.appurl}}/admin/api/common/uum/role/setPermission/'+rows[0]._id,
+            type: 'post',
+            data: {menus:JSON.stringify(menusArray)},
+            success: function (data) {
+                if(data.success) {
+                    msgSuccess(data.msg);
+                }
+                else {
+                    msgError(data.msg+',错误代码:'+data.code);
+                }
+            }
+        });
+
+
+    }
+    // 清空新增表单数据
+    function clear() {
+        $("input[name='inputRoleCode']").val('');
+        $("input[name='inputRoleName']").val('');
+        $("textarea[name='inputRoleRemark']").val('');
+    }
+
+</script>

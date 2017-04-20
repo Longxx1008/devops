@@ -1,0 +1,75 @@
+{
+
+    "link_login":           "/login",
+    "link_logout":          "/logout",
+    "link_home":            "/",
+    "link_forgetpassword":  "/forgetpassword",
+    "link_help":            "/help",
+    "link_profile":         "/profile",
+    "link_setting":         "/setting",
+    "link_about":           "/about",
+    "link_api":             "/api",
+
+    "btn_close":    "关闭",
+    "btn_cancel":   "取消",
+    "btn_submit":   "提交",
+    "btn_test":     "测试",
+    "btn_check":    "验证",
+
+    "btn_add":      "新增",
+    "btn_delete":   "删除",
+    "btn_edit":     "修改",
+    "btn_advance":  "高级",
+
+    "btn_search":   "搜索",
+    "btn_export":   "导出",
+    "btn_profile":  "个人信息",
+    "btn_setting":  "设置",
+
+    "btn_back":     "返回",
+    "btn_next":     "下一步",
+    "btn_finish":   "完成",
+
+    "btn_login":    "登录",
+    "btn_logout":   "退出",
+
+    "txt_title":"标题",
+    "txt_userid":"用户ID",
+    "txt_user":"用户",
+    "txt_name":"姓名",
+    "txt_password":"密码",
+    "txt_id":"编号",
+    "txt_sex":"性别",
+    "txt_tel":"电话",
+    "txt_cell":"手机",
+    "txt_address":"地址",
+    "txt_email":"电子邮件",
+    "txt_website":"网站",
+    "txt_login":"登录",
+
+    "txt_desc":"描述",
+    "txt_age":"年龄",
+
+    "tips_input_loginid":"请输入用户名",
+    "tips_input_password":"请输入密码",
+    "tips_input_captcha":"请输入验证码",
+    "tips_input_keyword":"输入关键字",
+    "tips_input_Notifications":"通知",
+    "tips_input_Navigation":"导航",
+    "tips_help":"帮助&提示",
+    "tips_forgotpassword":"忘记密码?",
+    "tips_needlogin":"需要登录鉴权后才可以访问!",
+    "tips_logoutsuccess":"您已成功退出系统!",
+    "tips_fixed_navbar":"固定导航条",
+    "tips_fixed_sideBar":"固定侧边栏",
+    "tips_fixed_breadcrumbs":"固定导航栏",
+    "tips_fixed_header":"固定顶端",
+    "tips_setting":"设置",
+
+
+    "msg_success":"成功",
+    "msg_error_nofoud":"未找到",
+    "msg_error_other":"其他错误",
+
+    "app_test":"测试"
+}

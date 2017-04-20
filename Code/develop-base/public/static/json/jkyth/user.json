@@ -1,0 +1,6 @@
+{"total":28,"rows":[
+  {"id":"1","ssxq":"花果园A区","username":"小花","userno":"13800010001","dk":"10M","opendt":"2014-05-01","status":"正常"},
+  {"id":"2","ssxq":"花果园B区","username":"张三","userno":"13800010002","dk":"20M","opendt":"2015-05-01","status":"正常"},
+  {"id":"3","ssxq":"花果园C区","username":"李四","userno":"13800010003","dk":"50M","opendt":"2015-05-08","status":"欠费"},
+  {"id":"4","ssxq":"花果园D区","username":"王五","userno":"13800010004","dk":"100M","opendt":"2016-02-01","status":"正常"}
+  ]}

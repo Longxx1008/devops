@@ -1,0 +1,162 @@
+<div class="row">
+    <div class="col-xs-12 col-md-12">
+        <div class="widget">
+            <div class="widget-body">
+                <div class="easyui-layout" data-options="fit:true,border:false" style="width:800px;height:666px;">
+                    <div data-options="region:'center',border:false" style="overflow-x:hidden;overflow-y:hidden">
+                        <div id="toolbar" class="row tbRow">
+                            <div class="col-xs-5 col-md-5">
+                                <div class="btn-group" role="group" aria-label="...">
+                                    <button type="button" class="btn btn-default" onclick="getProcessInfo()"><i class="fa fa-search"></i>查看详情</button>
+                                </div>
+                            </div>
+                            <div class="col-xs-7 col-md-7 text-right">
+                                <form class="form-inline">
+                                    <div class="form-group">
+                                        <div class="input-group">
+                                            <label for="filterParam1">状态：</label>
+                                            <select id="filterParam1" class="easyui-combobox form-control" data-options="editable:false,panelHeight:75" style="width:90px;height:34px;">
+                                                <option value="1">流转中</option>
+                                                <option value="0">流程结束</option>
+                                            </select>
+                                        </div>
+                                        <div class="input-group">
+                                            <input type="input" id="filterParam2" class="form-control" style="width:200px;" placeholder="流程标题/流程编码/流程名称"/>
+                                            <span class="input-group-btn">
+                                                <button class="btn btn-default" type="button" onclick="doSearch()"><i class="fa fa-search"></i>查询</button>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <table id="processMonitorDataTable">
+
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+
+    /**
+     * @author ZhaoJing
+     * 扩展javaScriptDate类型工具js
+     * 实现格式化日期功能
+     */
+    Date.prototype.format = function(format){
+        if(isNaN(this.getMonth())){
+            return '';
+        }
+        if(!format){
+            format = 'yyyy-MM-dd hh:mm';
+        }
+        var o = {
+            //month
+            "M+" : this.getMonth() + 1,
+            //day
+            "d+" : this.getDate(),
+            //hour
+            "h+" : this.getHours(),
+            //minute
+            "m+" : this.getMinutes(),
+            //second
+            "s+" : this.getSeconds(),
+            //quarter
+            "q+" : Math.floor((this.getMonth() + 3) / 3),
+            //millisecond
+            "s" : this.getMilliseconds()
+        };
+        if(/(y+)/.test(format)){
+            format = format.replace(RegExp.$1,(this.getFullYear() + "").substr(4 - RegExp.$1.length));
+        }
+        for(var k in o){
+            if(new RegExp("(" + k + ")").test(format)){
+                format = format.replace(RegExp.$1,RegExp.$1.length == 1 ? o[k] : ("00" + o[k]).substr(("" + o[k]).length));
+            }
+        }
+        return format;
+    };
+
+    function loadProMonitorDatagrid(){
+        // 加载流程监控信息列表
+        $('#processMonitorDataTable').datagrid({
+            url:'{{projcfg.appurl}}/admin/api/common/bpm/process_monitor',
+            method:'get',
+            rownumbers:true,
+            striped:true,
+            fitColumns:true,
+            border:true,
+            fit:true,
+            toolbar: '#toolbar',
+            singleSelect:true,
+            selectOnCheck:true,
+            checkOnSelect:true,
+            columns:[[
+                {"field":"_id",checkbox:true},
+                {"field": "proc_title","title":"流程标题","width":30},
+                {"field": "proc_code","title":"流程编码","width":30},
+                {"field": "proc_name","title":"流程名称","width":30},
+                {"field": "proc_ver","title":"版本号","width":15},
+                {"field": "proc_cur_task",hidden:true},
+                {"field": "proc_cur_task_name","title":"流程当前节点名称","width":30},
+                {"field": "proc_cur_user",hidden:true},
+                {"field": "proc_cur_user_name","title":"流程当前处理人","width":30},
+                {"field": "proc_cur_arrive_time","title":"流程到达时间","width":30,
+                    formatter:function(value,row,index){
+                        return new Date(value).format();
+                    }
+                },
+                {"field": "proc_start_user",hidden:true},
+                {"field": "proc_start_user_name","title":"流程发起人","width":20},
+                {"field": "proc_start_time","title":"流程发起时间","width":30,
+                    formatter:function(value,row,index){
+                        return new Date(value).format();
+                    }
+                },
+                {"field": "proc_inst_status","title":"状态","width":15,
+                    formatter:function(value,row,index){
+                        if(value == 1){
+                            return '<span class="success">流转中</span>';
+                        }else{
+                            return '<span class="danger">流程结束</span>';
+                        }
+                    }
+                }
+            ]],
+            onLoadSuccess:function(json) {
+                if(!json.success) {
+                    msgError(json.msg + ',错误代码:' + json.code);
+                }
+            },
+            onLoadError:function() {
+                msgError('加载数据出现时发生错误,请稍候重试...');
+            },
+            pagination:true,
+            loadMsg:'正在加载...'
+        });
+    }
+
+    $(document).ready(function(){
+        loadProMonitorDatagrid();
+    });
+
+    function getProcessInfo(){
+        var rows = $('#processMonitorDataTable').datagrid('getChecked');
+        if (rows.length != 1) {
+            msgError('提示,请选择一条数据再进行修改');
+            return false;
+        }
+        window.open('{{projcfg.appurl}}/process_chart2?id='+rows[0]._id);
+    }
+
+    function doSearch() {
+        $('#processMonitorDataTable').datagrid('reload',{
+            'filterParam1':$('#filterParam1').combobox('getValue'),
+            'filterParam2':$.trim($('#filterParam2').val())
+        });
+    }
+
+</script>

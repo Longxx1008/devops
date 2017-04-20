@@ -1,0 +1,335 @@
+<div class="row">
+    <div class="col-xs-12 col-md-12">
+        <div class="widget">
+            <div class="widget-body">
+                <div id="cc" class="easyui-layout" data-options="fit:true,border:false" style="width: 800px; height:580px;background-color: #fbfbfb;">
+                    <div data-options="region:'center',border:false" style="overflow-x:hidden;overflow-y:hidden">
+                        <div id="toolbar" class="row tbRow" style="">
+                            <div class="col-xs-6 col-md-6">
+                                <div class="btn-group" role="group" aria-label="...">
+                                    <button type="button" class="btn btn-default" onclick="openPage('新增页面', '', doAdd)" data-title="新增">
+                                        <i class="fa fa-plus"></i> 新增
+                                    </button>
+                                    <button type="button" class="btn btn-default" onclick="toEdit()" data-title="修改">
+                                        <i class="fa fa-edit"></i> 修改
+                                    </button>
+                                    <button type="button" class="btn btn-default" onclick="doLayout()">
+                                        <i class="fa fa-table"></i> 设置页面组件
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="col-xs-6 col-md-6 text-right">
+                                <form id="searchFrom" class="form-inline">
+                                    <div class="form-group">
+                                        <div class="input-group">
+                                            <label for="filter_sys">归属系统：</label>
+                                            <select id="filter_sys" name="filter_sys" class="form-control" style="width: 180px;height:31px;">
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="input-group">
+                                            <input type="input" class="form-control" id="filter_name" name="filter_name" placeholder="编号/名称">
+                                            <span class="input-group-btn">
+                                                <button class="btn btn-default" type="button" onclick="doSearch()"><i class="fa fa-search"></i>查询</button>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <table id="pagedatatable">
+
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal -->
+<div id="pageModal" class="mydialog" style="padding-top:0px;">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="widget flat radius-bordered">
+                <div class="widget-body" style="background-color: #fff;">
+                    <div id="registration-form">
+                        <form id="pageForm" role="form">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label class="control-label">归属系统</label><br/>
+                                        <select id="sys_id" name="sys_id" class="form-control" style="width: 180px;height:34px;">
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label class="control-label">用户自定义</label><br/>
+                                        <select  name="page_is_customize" id="page_is_customize" class="easyui-combobox" data-options="required:true,editable:false,panelHeight:50" style="width:70px;height:34px;">
+                                            <option value="1">是</option>
+                                            <option value="0" selected>否</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label class="control-label">页面编号</label>
+                                        <input type="text" name="page_code" class="easyui-validatebox form-control" data-options="required:true" placeholder="页面编号">
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label class="control-label">页面名称</label>
+                                        <input type="text" name="page_name" class="easyui-validatebox form-control" data-options="required:true" placeholder="页面名称">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label class="control-label">页面布局比例</label><br/>
+                                        <input type="text" name="page_layout_col_type" class="easyui-validatebox form-control" data-options="required:true" placeholder="页面布局比例 如:(1:2:1)">
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label class="control-label">状态</label><br/>
+                                        <select  name="page_status" id="page_status" class="easyui-combobox" data-options="required:true,editable:false,panelHeight:50" style="width:70px;height:34px;">
+                                            <option value="1">正常</option>
+                                            <option value="0">禁用</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <label class="control-label">备注</label>
+                                        <textarea class="form-control" name="page_remark" id="page_remark" placeholder="备注" rows="3"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+<script>
+    // 关闭窗口
+    function closeDialog() {
+        $('#pageModal').dialog('close');
+        clear();
+    }
+    // 打开页面
+    function openPage(title, value, callback) {
+
+        $('#pageModal').show();
+        $('#pageModal').mydialog({
+            title:title,
+            width: 600,
+            height: 420,
+            top:100,
+            modal: true,
+            myButtons:[
+                {
+                    text:'确定',
+                    btnCls:'btn btn-blue',
+                    handler:function(){
+                        callback(value);
+                    }
+                },
+                {
+                    text:'关闭',
+                    btnCls:'btn btn-danger',
+                    handler:function(){
+                        closeDialog();
+                    }
+                }
+            ]
+        });
+    }
+    var currentSysId = '{{currentUser.user_sys._id}}';
+    var currentOrgId = '{{currentUser.user_org._id}}';
+    $(document).ready(function() {
+        $('#filter_sys').combobox({
+            method: 'get',
+            url: '{{projcfg.appurl}}/public/sysData',
+            valueField:'_id',
+            textField:'sys_name',
+            editable:false,
+            value:currentSysId
+        });
+        // 表单控件
+        $('#sys_id').combobox({
+            method: 'get',
+            url: '{{projcfg.appurl}}/public/sysData',
+            editable:false,
+            valueField:'_id',
+            textField:'sys_name',
+            required:true,
+            value:currentSysId
+        });
+        $('#pagedatatable').datagrid({
+            url:'{{projcfg.appurl}}/admin/api/common/portal/page',
+            method:'get',
+            queryParams:{
+                'sys_id':$('#filter_sys').combobox('getValue')
+            },
+            rownumbers:true,
+            //autoRowHeight:true,
+            striped:true,
+            fitColumns:true,
+            toolbar: '#toolbar',
+            fit:true,
+            border:true,
+            singleSelect:true,
+            selectOnCheck:false,
+            //checkOnSelect:true,
+            columns:[[
+                {field:'_id',checkbox:true},
+                {"field": "sys_id","title":"归属系统","width":10,
+                    "formatter":function (data,rowData,rowIndex) {
+                        return $('#filter_sys').combobox('getText');
+                    }
+                },
+                {"field": "page_code","title":"页面编号","width":10},
+                {"field": "page_name","title":"页面名称","width":15},
+                {"field": "page_layout_col_type","title":"布局比例","width":7},
+                {"field": "page_is_customize","title":"用户自定义","width":7,
+                    "formatter":function (data,rowData,rowIndex) {
+                        if(data == 1){
+                            return '<span class="success">是</span>';
+                        }else if(data == 0){
+                            return '<span class="danger">否</span>';
+                        }
+                    }
+                },
+                {"field": "page_status","title":"状态","width":7,
+                    "formatter":function (data,rowData,rowIndex) {
+                        if(data == 1){
+                            return '<span class="success">正常</span>';
+                        }else if(data == 0){
+                            return '<span class="danger">禁用</span>';
+                        }
+                    }
+                },
+                {"field": "page_remark","title":"备注","width":15}
+            ]],
+            onDblClickRow:function(rowIndex, rowData){
+                //doEdit(1,rowIndex,rowData);
+            },
+            onLoadSuccess:function(json) {
+                if(!json.success) {
+                    msgError(json.msg + ',错误代码:' + json.code);
+                }
+            },
+            onLoadError:function() {
+                msgError('加载数据出现时发生错误,请稍候重试...');
+            },
+            pagination:true,
+            loadMsg:'正在加载...'
+        });
+    });
+    function doSearch() {
+        $('#pagedatatable').datagrid('reload',{
+            'page_code':$('#filter_name').val(),
+            'sys_id':$('#filter_sys').combobox('getValue')
+        });
+    }
+    function doClear() {
+        $('#filter_name').val('');
+        $('#filter_sys').combobox('setValue',currentSysId)
+        doSearch();
+    }
+    // 新增数据
+    function doAdd(value) {//alert(JSON.stringify($('#pageForm').serializeJson()));
+
+        // 验证表单
+        var validate = $('#pageForm').form('validate');
+        if(!validate) {
+            return false;
+        }
+        $.ajax({
+            url: '{{projcfg.appurl}}/admin/api/common/portal/page',
+            type: 'post',
+            data: $('#pageForm').serializeJson(),
+            success: function (data) {
+                if(data.success) {
+                    msgSuccess(data.msg);
+                    closeDialog();
+                    doSearch();
+                }
+                else {
+                    msgError(data.msg+',错误代码:'+data.code);
+                }
+            }
+        });
+    }
+
+    // 打开修改页面
+    function toEdit() {
+
+        // 获得选择行
+        var rows = $('#pagedatatable').datagrid('getChecked');
+        if (rows.length != 1) {
+            msgError('提示,请选择一条数据再进行修改');
+            return false;
+        }
+        var id = rows[0]._id;
+        openPage("修改页面", id, doEdit);
+        $('#pageForm').form('load',rows[0]);
+    }
+    // 修改数据
+    function doEdit(value) {
+
+        // 验证表单
+        var validate = $('#pageForm').form('validate');
+        if(!validate) {
+            return false;
+        }
+        $.ajax({
+            url: '{{projcfg.appurl}}/admin/api/common/portal/page/'+value,
+            type: 'put',
+            data: $('#pageForm').serializeJson(),
+            success: function (data) {
+                if(data.success) {
+                    msgSuccess(data.msg);
+                    closeDialog();
+                    doSearch();
+                    clear();
+                }
+                else {
+                    msgError(data.msg+',错误代码:'+data.code);
+                }
+            }
+        });
+
+    }
+    function doLayout() {
+
+        // 获得选择行
+        var rows = $('#pagedatatable').datagrid('getChecked');
+        if (rows.length != 1) {
+            msgError('提示,请选择一条数据再进行设置');
+            return false;
+        }
+        var id = rows[0]._id;
+
+        var tmp=window.open("about:blank","","fullscreen=1");
+        tmp.moveTo(0,0);
+        tmp.resizeTo(screen.width+20,screen.height);
+        tmp.focus();
+        tmp.location='{{projcfg.appurl}}/admin/api/common/portal/page/cfg/'+id;
+    }
+    // 清空新增表单数据
+    function clear() {
+        $('#pageForm').form('reset');
+    }
+
+</script>

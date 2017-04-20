@@ -1,0 +1,259 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>{{currentUser.user_sys.sys_name}}</title>
+        <link rel="stylesheet" type="text/css" href="{{projcfg.appurl}}/static/js/easyui/themes/bootstrap/easyui.css">
+        <link rel="stylesheet" type="text/css" href="{{projcfg.appurl}}/static/js/easyui/themes/icon.css">
+        <link rel="stylesheet" type="text/css" href="{{projcfg.appurl}}/static/themes/portal_eui/css/portal.css">
+        <link rel="stylesheet" type="text/css" href="{{projcfg.appurl}}/static/css/common/style_portal.css">
+        <link rel="stylesheet" type="text/css" href="{{projcfg.appurl}}/static/css/common/side-bar.css">
+        <style type="text/css">
+            html *{
+                padding:0;
+                margin:0;
+                font-family: Arial, Verdana, Helvetica, sans-serif;
+            }
+            .nav *{
+                text-decoration:none;
+                font-size:9pt;
+
+            }
+            .nav>li>a:hover{
+                /*border-top:#0dc891 solid 3px;*/
+                background-color:#1d83c3;/* 鼠标经过时的红色背景，可自定义 */
+                height:38px;
+                line-height:38px;
+            }
+            .nav>li>ul>li>a:hover{
+                background-color:#1d83c3;
+            }
+            .navmenu{
+                list-style:none;
+                height:40px;
+                width:100%;
+                background-color:#2695da;
+                margin-top:0px;
+                z-index:20;
+                position: absolute;
+                left:0;
+            }
+            .systemName{
+                width:300px;
+                color: #FFF;
+                font-family:"微软雅黑", Verdana, Helvetica, sans-serif;
+                line-height:40px;
+                height:40px;
+                padding:0 10px;
+                font-size:20px;
+                font-weight: bold;
+                position: absolute;
+                left:0;
+                top:0;
+                z-index: 1;
+                overflow: hidden;
+            }
+            .systemName img{
+                float:left
+            }
+            .currentUser{
+                text-align: right;
+                position: absolute;
+                right:115px;
+                top:0;
+                z-index:3;
+                margin:0;
+                padding: 0;
+                height: 40px;
+                line-height: 40px;
+                /*padding-top: 24px;*/
+                color:white;
+            }
+            .systemSetting{
+                width:100px;
+                position: absolute;
+                right:10px;
+                top:0;
+                z-index:3;
+                margin:0;
+                padding: 0;
+            }
+            .systemSetting a{
+                padding:0 5px;
+                float:left;
+                width:40px;
+                height:40px;
+                line-height:16px;
+                font-size: 10px;
+                color:#FFF;
+                overflow: hidden;
+                text-align: center;
+                display: block;
+                text-decoration: none;
+            }
+            .systemSetting a:hover{
+                background:#1d83c3 ;
+            }
+            .systemSetting i{
+                display: block;
+                width:24px;
+                height:24px;
+                margin-left: 8px;
+            }
+            .systemSetting i.set{
+                background: url("static/images/set.png") no-repeat 100%;
+            }
+            .systemSetting i.out{
+                background: url("static/images/out.png") no-repeat 100%;
+            }
+            .nav{
+                list-style:none;
+                height:40px;
+                width:700px;
+                position: absolute;
+                left:50%;
+                margin-left: -350px;
+                z-index:2;
+                background-color:#2695da;
+                padding-left:10px;
+            }
+            .nav li{
+                float:left;
+                position:relative;
+            }
+            .nav li>a{
+                color:#fff;
+                height:38px;
+                line-height:38px;
+                font-weight:bold;
+                padding:0 20px;
+                blr:expression(this.onFocus=this.close());
+                blr:expression(this.onFocus=this.blur());
+                display:inline-block;
+                border-left:1px solid #339fe8;
+                border-right:1px solid #1d8fd6;
+                border-top:1px solid #339fe8;
+                border-bottom:1px solid #1d8fd6;
+            }
+            .nav li a:focus{
+                -moz-outline-style: none;
+            }
+            .nav li a.select{
+                border-top:#0dc891 solid 3px;
+                border-left:none;
+                border-right:none;
+                border-bottom:none;
+                height:35px;
+                line-height:35px;
+                background-color:#1d83c3;
+            }
+            .nav li a.select_child{
+                border-left:#0dc891 solid 3px;
+                border-top:none;
+                border-right:none;
+                border-bottom:none;
+                height:35px;
+                line-height:35px;
+                background-color:#1d83c3;
+            }
+            .nav li .sub-nav{
+                position:absolute;
+                top:39px;
+                left:1px;
+                list-style:none;
+                background-color:#2695da;
+                display:none;
+            }
+            .nav li .sub-nav li{
+                text-align:center;
+                clear:left;
+                width:140px;
+                height:35px;
+                line-height:35px;
+                position:relative;
+            }
+            .nav li .sub-nav li a{
+                height:34px;
+                line-height:34px;
+                width:138px;
+                padding:0;
+                display:inline-block;
+            }
+            .layout-panel{
+                position: static
+            }
+            .page-footer{
+                position: fixed;
+                height: 40px;
+                line-height:40px;
+                color:#777;
+                background: #eee;
+                text-align: center;
+                z-index: 99;
+                bottom: 0;
+                width:100%;
+                font-size:12px;
+                border-top:1px solid #ddd;
+            }
+        </style>
+        <script type="text/javascript" src="{{projcfg.appurl}}/static/js/easyui/jquery.min.js"></script>
+        <script type="text/javascript" src="{{projcfg.appurl}}/static/js/easyui/jquery.easyui.min.js"></script>
+        <script type="text/javascript" src="{{projcfg.appurl}}/static/js/easyui/locale/easyui-lang-zh_CN.js"></script>
+        <script type="text/javascript" src="{{projcfg.appurl}}/static/themes/portal_eui/js/jquery.portal.js"></script>
+        <script src="{{projcfg.appurl}}/static/js/common/sys-init-portal.js"></script>
+        <script>
+            $(function(){
+
+                $(".nav>li").hover(function(){
+                    $(this).children('ul').stop(true,true).show(300);
+                },function(){
+                    $(this).children('ul').stop(true,true).hide(300);
+                })
+            });
+        </script>
+    </head>
+    <body id="portal_layout" class="easyui-layout">
+        <div region="north" border="false" style="height:40px;">
+            <div class="navmenu">
+                <div class="systemName"><img src="static/images/logo.png" alt="{{currentUser.user_sys.sys_name}}">{{currentUser.user_sys.sys_name}}</div>
+                <ul class="nav">
+                    {{#each sysmenus}}
+                        {{#ifCond @key ../currentUserRole.sys_id}}
+                        {{#each this}}
+                            {{#containKey ../../../currentUserRoleMenus menu_code ../../../currentUser.login_account}}
+                    <li>
+                        {{#if children}}
+                        <a id="{{_id}}" href="#">{{menu_name}}</a>
+                        <ul class="sub-nav">
+                            {{#each children}}
+                            {{#containKey ../../../../../../currentUserRoleMenus menu_code ../../../../../../currentUser.login_account}}
+                            <li>
+                                <a target="{{menu_target}}" href="{{../../../../../../../projcfg.appurl}}/{{menu_code}}" {{#ifCond _id ../../../../../../../menu._id}}class="select_child"{{/ifCond}}>{{menu_name}}</a>
+                                {{#ifCond _id ../../../../../../../menu._id}}<script type="text/javascript">$("#{{menu_pid}}").addClass('select');</script>{{/ifCond}}
+                            </li>
+                            {{/containKey}}
+                            {{/each}}
+                        </ul>
+                        {{else}}
+                        <a target="{{menu_target}}" href="{{../../../../../projcfg.appurl}}/{{menu_code}}" {{#ifCond _id ../../../../../menu._id}}class="select"{{/ifCond}}>{{menu_name}}</a>
+                        {{/if}}
+                    </li>
+                            {{/containKey}}
+                    {{/each}}
+                    {{/ifCond}}
+                    {{/each}}
+                </ul>
+                <div class="currentUser">
+                    {{currentUser.user_org.org_fullname}} {{currentUser.user_name}}
+                </div>
+                <div class="systemSetting">
+                    <a href="#"><i class="set"></i>设置</a>
+                    <a href="javascript:InitSys.logout('{{projcfg.appurl}}')"><i class="out"></i>注销</a>
+                </div>
+            </div>
+        </div>
+        <div class="portal-body" region="center" border="false"  style="padding:2px;">
+            {{{body}}}
+        </div>
+    </body>
+</html>

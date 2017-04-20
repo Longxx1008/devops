@@ -1,0 +1,934 @@
+{
+    "5781a9827177dd1843c69100": {
+        "_id": "5781a9827177dd1843c69100",
+        "data_code": "Model_User_Trace_Resident",
+        "data_name": "用户常驻位置",
+        "data_status": "已审核",
+        "data_level": "模型层",
+        "data_submit_time": "2015-12-06 13:20",
+        "data_auditing_time": "2015-12-07 10:20",
+        "data_columns": [
+            {
+                "col_code": "msisdn",
+                "col_name": "电话号码"
+            },
+            {
+                "col_code": "type",
+                "col_name": "常驻类型（白天常驻）"
+            },
+            {
+                "col_code": "gridtype",
+                "col_name": "网格类型"
+            },
+            {
+                "col_code": "gridid",
+                "col_name": "网格ID"
+            },
+            {
+                "col_code": "timecalc",
+                "col_name": "驻留时长（秒）"
+            },
+            {
+                "col_code": "endh",
+                "col_name": "时间段尾"
+            },
+            {
+                "col_code": "starth",
+                "col_name": "时间段头"
+            },
+            {
+                "col_code": "daycount",
+                "col_name": "天数"
+            },
+            {
+                "col_code": "thredhold",
+                "col_name": "门限（%）"
+            },
+            {
+                "col_code": "judgevalue",
+                "col_name": "门限时长（秒）"
+            },
+            {
+                "col_code": "eci",
+                "col_name": "小区编号，23G为(lac-ci)4G为（eci）十进制"
+            },
+            {
+                "col_code": "basename",
+                "col_name": "小区名称"
+            },
+            {
+                "col_code": "x",
+                "col_name": "网格横坐标"
+            },
+            {
+                "col_code": "y",
+                "col_name": "网格纵坐标"
+            },
+            {
+                "col_code": "dwdt",
+                "col_name": "日期(yyyymmdd)"
+            }
+        ],
+        "data_scripts": [
+            "create external table Model_User_Trace_Resident (msisdn string,type string,grid string,timecalc string,daycount  string) partitioned by (dwdt string) row format delimited fields terminated by '\t'stored as textfile;",
+            "alter table Model_User_Trace_Resident  add partition (dwdt='20$(date +%y --date='2 day ago')$(date +%m --date='2 day ago')$(date +%d --date='2 day ago')') location '/user/bdoc/gz_lljy/filebucket/lljy_root/OrgData/A/UserResident/20$(date +%y --date='2 day ago')/$(date +%m --date='2 day ago')/$(date +%d --date='2 day ago')/';"
+        ],
+        "data_relations": [
+            {
+                "start": "5781a9827177dd1843c691a9",
+                "end": "5781a9827177dd1843c69100",
+                "sx":20,
+                "sy":300,
+                "ex":350,
+                "ey":20
+            },
+            {
+                "start": "5781a9827177dd1843c691aa",
+                "end": "5781a9827177dd1843c69100",
+                "sx":850,
+                "sy":300,
+                "ex":350,
+                "ey":20
+            },
+            {
+                "start": "5781a9827177dd1843c691ae",
+                "end": "5781a9827177dd1843c691aa",
+                "ex":850,
+                "ey":300,
+                "sx":1300,
+                "sy":300
+            }
+        ]
+    },
+    "5781a9827177dd1843c69101": {
+        "_id": "5781a9827177dd1843c69101",
+        "data_code": "Model_Roam_A",
+        "data_name": "基于D口数据的漫游模型",
+        "data_status": "已审核",
+        "data_level": "模型层",
+        "data_submit_time": "2015-12-06 15:20",
+        "data_auditing_time": "2015-12-07 13:20",
+        "data_columns": [
+            {
+                "col_code": "msisdn",
+                "col_name": "电话号码"
+            },
+            {
+                "col_code": "user_nation_code",
+                "col_name": "国家编码"
+            },
+            {
+                "col_code": "user_prov_code",
+                "col_name": "省编码"
+            },
+            {
+                "col_code": "user_region_code",
+                "col_name": "地市编码"
+            },
+            {
+                "col_code": "roam_region_code",
+                "col_name": "漫游地区"
+            },
+            {
+                "col_code": "dwdt",
+                "col_name": "日期(yyyymmdd)"
+            }
+        ],
+        "data_scripts": [
+            "create external table Model_Roam_A (msisdn string,user_nation_code string,user_prov_code string,user_region_code string,roam_region_code string) partitioned by (dwdt string) row format delimited fields terminated by '\t' stored as textfile;",
+            "alter table Model_Roam_A  add partition (dwdt='20$(date +%y --date='1 day ago')$(date +%m --date='1 day ago')$(date +%d --date='1 day ago')') location '/user/bdoc/gz_lljy/filebucket/lljy_root/OrgData/A/roamdw/20$(date +%y --date='1 day ago')/$(date +%m --date='1 day ago')/$(date +%d --date='1 day ago')/';"
+        ]
+    },
+    "5781a9827177dd1843c69102": {
+        "_id": "5781a9827177dd1843c69102",
+        "data_code": "Model_User_Trace_GSM_TD",
+        "data_name": "基于A口（23G位置）数据的用户轨迹",
+        "data_status": "已审核",
+        "data_level": "模型层",
+        "data_submit_time": "2015-11-12 15:20",
+        "data_auditing_time": "2015-11-13 09:20",
+        "data_columns": [
+            {
+                "col_code": "msisdn",
+                "col_name": "电话号码"
+            },
+            {
+                "col_code": "dayinfo",
+                "col_name": "日期(yyyymmdd)"
+            },
+            {
+                "col_code": "hour",
+                "col_name": "时(hh)"
+            },
+            {
+                "col_code": "minute",
+                "col_name": "分(mm)"
+            },
+            {
+                "col_code": "second",
+                "col_name": "秒(ss)"
+            },
+            {
+                "col_code": "basename",
+                "col_name": "基站名称"
+            },
+            {
+                "col_code": "eci",
+                "col_name": "小区编号，23G为(lac-ci)4G为（eci）十进制"
+            },
+            {
+                "col_code": "longt",
+                "col_name": "经度"
+            },
+            {
+                "col_code": "latt",
+                "col_name": "纬度"
+            },
+            {
+                "col_code": "basenameold",
+                "col_name": "上一基站名"
+            },
+            {
+                "col_code": "eciold",
+                "col_name": "上一小区编号，23G为(lac-ci)4G为（eci）十进制"
+            },
+            {
+                "col_code": "longtold",
+                "col_name": "上一经度"
+            },
+            {
+                "col_code": "lattold",
+                "col_name": "上一纬度"
+            },
+            {
+                "col_code": "timedelay",
+                "col_name": "上一区域停留时长"
+            },
+            {
+                "col_code": "distance",
+                "col_name": "上一位置和当前位置距离"
+            },
+            {
+                "col_code": "procedure_type",
+                "col_name": "事件类型"
+            },
+            {
+                "col_code": "dwdt",
+                "col_name": "日期(yyyymmdd)"
+            }
+        ],
+        "data_scripts": [
+            "create external table Model_User_Trace_GSM_TD (MSISDN string,dayinfo string,hour string,minute string,second  string,baseName string,eci string,longt string,latt  string,baseNameOld string,eciOld string,longtOld string,lattOld string,timedelay string,distance string,Procedure_Type string) partitioned by (dwdt string) row format delimited fields terminated by '\t' stored as textfile;",
+            "alter table Model_User_Trace_GSM_TD  add partition (dwdt='20$(date +%y --date='1 day ago')$(date +%m --date='1 day ago')$(date +%d --date='1 day ago')') location '/user/bdoc/gz_lljy/filebucket/lljy_root/OrgData/A/GsmTdUserTrace/20$(date +%y --date='1 day ago')/$(date +%m --date='1 day ago')/$(date +%d --date='1 day ago')/';"
+        ]
+    },
+    "5781a9827177dd1843c69103": {
+        "_id": "5781a9827177dd1843c69103",
+        "data_code": "Model_User_Trace_LTE",
+        "data_name": "基于S1ME口（4G位置）数据的用户轨迹",
+        "data_status": "已审核",
+        "data_level": "模型层",
+        "data_submit_time": "2016-04-05 11:20",
+        "data_auditing_time": "2016-04-06 09:29",
+        "data_columns": [
+            {
+                "col_code": "msisdn",
+                "col_name": "电话号码"
+            },
+            {
+                "col_code": "dayinfo",
+                "col_name": "日期(yyyymmdd)"
+            },
+            {
+                "col_code": "hour",
+                "col_name": "时(hh)"
+            },
+            {
+                "col_code": "minute",
+                "col_name": "分(mm)"
+            },
+            {
+                "col_code": "second",
+                "col_name": "秒(ss)"
+            },
+            {
+                "col_code": "basename",
+                "col_name": "基站名称"
+            },
+            {
+                "col_code": "eci",
+                "col_name": "小区编号，23G为(lac-ci)4G为（eci）十进制"
+            },
+            {
+                "col_code": "longt",
+                "col_name": "经度"
+            },
+            {
+                "col_code": "latt",
+                "col_name": "纬度"
+            },
+            {
+                "col_code": "basenameold",
+                "col_name": "上一基站名"
+            },
+            {
+                "col_code": "eciold",
+                "col_name": "上一小区编号，23G为(lac-ci)4G为（eci）十进制"
+            },
+            {
+                "col_code": "longtold",
+                "col_name": "上一经度"
+            },
+            {
+                "col_code": "lattold",
+                "col_name": "上一纬度"
+            },
+            {
+                "col_code": "timedelay",
+                "col_name": "上一区域停留时长"
+            },
+            {
+                "col_code": "distance",
+                "col_name": "上一位置和当前位置距离"
+            },
+            {
+                "col_code": "procedure_type",
+                "col_name": "事件类型"
+            },
+            {
+                "col_code": "dwdt",
+                "col_name": "日期(yyyymmdd)"
+            }
+        ],
+        "data_scripts": [
+            "create external table Model_User_Trace_LTE (MSISDN string,dayinfo string,hour string,minute string,second  string,baseName string,eci string,longt string,latt  string,baseNameOld string,eciOld string,longtOld string,lattOld string,timedelay string,distance string,Procedure_Type string) partitioned by (dwdt string) row format delimited fields terminated by '\t' stored as textfile;",
+            "alter table Model_User_Trace_LTE  add partition (dwdt='20$(date +%y --date='1 day ago')$(date +%m --date='1 day ago')$(date +%d --date='1 day ago')') location '/user/bdoc/gz_lljy/filebucket/lljy_root/OrgData/A/hw4gUserTrace/20$(date +%y --date='1 day ago')/$(date +%m --date='1 day ago')/$(date +%d --date='1 day ago')/';"
+        ]
+    },
+    "5781a9827177dd1843c69105": {
+        "_id": "5781a9827177dd1843c69105",
+        "data_code": "Model_User_Trace_GPRS",
+        "data_name": "基于话单（GPRS，包含2/3/4G）数据的用户轨迹",
+        "data_status": "已审核",
+        "data_level": "模型层",
+        "data_submit_time": "2016-04-07 09:20",
+        "data_auditing_time": "2016-04-07 16:29",
+        "data_columns": [
+            {
+                "col_code": "msisdn",
+                "col_name": "电话号码"
+            },
+            {
+                "col_code": "dayinfo",
+                "col_name": "日期(yyyymmdd)"
+            },
+            {
+                "col_code": "hour",
+                "col_name": "时(hh)"
+            },
+            {
+                "col_code": "minute",
+                "col_name": "分(mm)"
+            },
+            {
+                "col_code": "second",
+                "col_name": "秒(ss)"
+            },
+            {
+                "col_code": "basename",
+                "col_name": "基站名称"
+            },
+            {
+                "col_code": "eci",
+                "col_name": "小区编号，23G为(lac-ci)4G为（eci）十进制"
+            },
+            {
+                "col_code": "longt",
+                "col_name": "经度"
+            },
+            {
+                "col_code": "latt",
+                "col_name": "纬度"
+            },
+            {
+                "col_code": "basenameold",
+                "col_name": "上一基站名"
+            },
+            {
+                "col_code": "eciold",
+                "col_name": "上一小区编号，23G为(lac-ci)4G为（eci）十进制"
+            },
+            {
+                "col_code": "longtold",
+                "col_name": "上一经度"
+            },
+            {
+                "col_code": "lattold",
+                "col_name": "上一纬度"
+            },
+            {
+                "col_code": "timedelay",
+                "col_name": "上一区域停留时长"
+            },
+            {
+                "col_code": "distance",
+                "col_name": "上一位置和当前位置距离"
+            },
+            {
+                "col_code": "procedure_type",
+                "col_name": "事件类型"
+            },
+            {
+                "col_code": "dwdt",
+                "col_name": "日期(yyyymmdd)"
+            }
+        ],
+        "data_scripts": [
+            "create external table Model_User_Trace_GPRS (MSISDN string,dayinfo string,hour string,minute string,second  string,baseName string,eci string,longt string,latt  string,baseNameOld string,eciOld string,longtOld string,lattOld string,timedelay string,distance string,mnstype string,x string,y string,xold string,yold string) partitioned by (dwdt string) row format delimited fields terminated by '\t' stored as textfile;",
+            "alter table Model_User_Trace_GPRS  add partition (dwdt='20$(date +%y --date='2 day ago')$(date +%m --date='2 day ago')$(date +%d --date='2 day ago')') location '/user/bdoc/gz_lljy/filebucket/lljy_root/OrgData/A/GprsUserTrace/20$(date +%y --date='2 day ago')/$(date +%m --date='2 day ago')/$(date +%d --date='2 day ago')/';"
+        ]
+    },
+    "5781a9827177dd1843c69106": {
+        "_id": "5781a9827177dd1843c69106",
+        "data_code": "Model_User_Trace_Combine",
+        "data_name": "综合2/3/4G位置信令和话单的用户轨迹",
+        "data_status": "已审核",
+        "data_level": "模型层",
+        "data_submit_time": "2016-04-15 11:20",
+        "data_auditing_time": "2016-04-16 13:29",
+        "data_columns": [
+            {
+                "col_code": "msisdn",
+                "col_name": "电话号码"
+            },
+            {
+                "col_code": "dayinfo",
+                "col_name": "日期(yyyymmdd)"
+            },
+            {
+                "col_code": "hour",
+                "col_name": "时(hh)"
+            },
+            {
+                "col_code": "minute",
+                "col_name": "分(mm)"
+            },
+            {
+                "col_code": "second",
+                "col_name": "秒(ss)"
+            },
+            {
+                "col_code": "basename",
+                "col_name": "基站名称"
+            },
+            {
+                "col_code": "eci",
+                "col_name": "小区编号，23G为(lac-ci)4G为（eci）十进制"
+            },
+            {
+                "col_code": "longt",
+                "col_name": "经度"
+            },
+            {
+                "col_code": "latt",
+                "col_name": "纬度"
+            },
+            {
+                "col_code": "basenameold",
+                "col_name": "上一基站名"
+            },
+            {
+                "col_code": "eciold",
+                "col_name": "上一小区编号，23G为(lac-ci)4G为（eci）十进制"
+            },
+            {
+                "col_code": "longtold",
+                "col_name": "上一经度"
+            },
+            {
+                "col_code": "lattold",
+                "col_name": "上一纬度"
+            },
+            {
+                "col_code": "timedelay",
+                "col_name": "上一区域停留时长"
+            },
+            {
+                "col_code": "distance",
+                "col_name": "上一位置和当前位置距离"
+            },
+            {
+                "col_code": "procedure_type",
+                "col_name": "事件类型"
+            },
+            {
+                "col_code": "x",
+                "col_name": "网格横坐标"
+            },
+            {
+                "col_code": "y",
+                "col_name": "网格纵坐标"
+            },
+            {
+                "col_code": "xOld",
+                "col_name": "上一位置网格横坐标"
+            },
+            {
+                "col_code": "yOld",
+                "col_name": "上一位置网格纵坐标"
+            },
+            {
+                "col_code": "info_type",
+                "col_name": "轨迹类型(A:23G位置信令；SM1E:4G位置信令；GPRS：话单)"
+            },
+            {
+                "col_code": "dwdt",
+                "col_name": "日期(yyyymmdd)"
+            }
+        ],
+        "data_scripts": [
+            "create external table Model_User_Trace_Combine (MSISDN string,dayinfo string,hour string,minute string,second  string,baseName string,eci string,longt string,latt  string,baseNameOld string,eciOld string,longtOld string,lattOld string,timedelay string,distance string,Procedure_Type string,x string,y string,xOld string,yOld string,info_type string) partitioned by (dwdt string) row format delimited fields terminated by '\t' stored as textfile;",
+            "alter table Model_User_Trace_Combine  add partition (dwdt='20$(date +%y --date='1 day ago')$(date +%m --date='1 day ago')$(date +%d --date='1 day ago')') location '/user/bdoc/gz_lljy/filebucket/lljy_root/OrgData/A/CombineUserTrace/20$(date +%y --date='1 day ago')/$(date +%m --date='1 day ago')/$(date +%d --date='1 day ago')/';"
+        ]
+    },
+    "5781a9827177dd1843c691a9": {
+        "_id": "5781a9827177dd1843c691a9",
+        "data_code": "InterLayer_Bass_Call",
+        "data_name": "InterLayer_Bass_Call",
+        "data_level": "中间层",
+        "data_columns": [
+            {
+                "col_code": "msisdn",
+                "col_name": "电话号码"
+            },
+            {
+                "col_code": "userid",
+                "col_name": "用户编号"
+            },
+            {
+                "col_code": "timeday",
+                "col_name": "日期（yyyymmdd）"
+            },
+            {
+                "col_code": "timehour",
+                "col_name": "时段(0~23)"
+            },
+            {
+                "col_code": "imei",
+                "col_name": "手机串号"
+            },
+            {
+                "col_code": "call_tpye",
+                "col_name": "呼叫类型"
+            },
+            {
+                "col_code": "calltime",
+                "col_name": "通话时长"
+            },
+            {
+                "col_code": "lac",
+                "col_name": "小区lac"
+            },
+            {
+                "col_code": "ci",
+                "col_name": "小区ci"
+            },
+            {
+                "col_code": "count",
+                "col_name": "通话次数"
+            },
+            {
+                "col_code": "opposite_no",
+                "col_name": "对端号码"
+            },
+            {
+                "col_code": "roamtype_id",
+                "col_name": "漫游类型"
+            },
+            {
+                "col_code": "fee",
+                "col_name": "资费"
+            },
+            {
+                "col_code": "dwdt",
+                "col_name": "日期（yyyymmdd）"
+            }
+        ]
+    },
+    "5781a9827177dd1843c691aa": {
+        "_id": "5781a9827177dd1843c691aa",
+        "data_code": "InterLayer_Loaction_4G",
+        "data_name": "InterLayer_Loaction_4G",
+        "data_level": "中间层",
+        "data_columns": [
+            {
+                "col_code": "msisdn",
+                "col_name": "电话号码"
+            },
+            {
+                "col_code": "dwday",
+                "col_name": "日期（yyyymmdd）"
+            },
+            {
+                "col_code": "dwhour",
+                "col_name": "时段(0~23)"
+            },
+            {
+                "col_code": "callingimei",
+                "col_name": "手机串号"
+            },
+            {
+                "col_code": "eventid",
+                "col_name": "事件类型"
+            },
+            {
+                "col_code": "eci",
+                "col_name": "小区编号"
+            },
+            {
+                "col_code": "visitcount",
+                "col_name": "访问次数"
+            },
+            {
+                "col_code": "dwdt",
+                "col_name": "日期（yyyymmdd）"
+            }
+        ]
+    },
+    "5781a9827177dd1843c691ab": {
+        "_id": "5781a9827177dd1843c691ab",
+        "data_code": "InterLayer_HTTP_4G",
+        "data_name": "InterLayer_HTTP_4G",
+        "data_level": "中间层",
+        "data_columns": [
+            {
+                "col_code": "msisdn",
+                "col_name": "电话号码"
+            },
+            {
+                "col_code": "dayinfo",
+                "col_name": "日期（yyyymmdd）"
+            },
+            {
+                "col_code": "hour",
+                "col_name": "时段(0~23)"
+            },
+            {
+                "col_code": "imei",
+                "col_name": "手机串号"
+            },
+            {
+                "col_code": "app_type",
+                "col_name": "app类型"
+            },
+            {
+                "col_code": "app_sub_type",
+                "col_name": "app子类"
+            },
+            {
+                "col_code": "app_content",
+                "col_name": "app"
+            },
+            {
+                "col_code": "loadcount",
+                "col_name": "流量"
+            },
+            {
+                "col_code": "count",
+                "col_name": "次数"
+            },
+            {
+                "col_code": "timecount",
+                "col_name": "时长"
+            },
+            {
+                "col_code": "eci",
+                "col_name": "小区"
+            },
+            {
+                "col_code": "dwdt",
+                "col_name": "日期（yyyymmdd）"
+            }
+        ]
+    },
+    "5781a9827177dd1843c691ac": {
+        "_id": "5781a9827177dd1843c691ac",
+        "data_code": "InterLayer_Bass_GPRS",
+        "data_name": "InterLayer_Bass_GPRS",
+        "data_level": "中间层",
+        "data_columns": [
+            {
+                "col_code": "msisdn",
+                "col_name": "电话号码"
+            },
+            {
+                "col_code": "userid",
+                "col_name": "用户编号"
+            },
+            {
+                "col_code": "timeday",
+                "col_name": "日期（yyyymmdd）"
+            },
+            {
+                "col_code": "timehour",
+                "col_name": "时段(0~23)"
+            },
+            {
+                "col_code": "imei",
+                "col_name": "手机串号"
+            },
+            {
+                "col_code": "net_tpye",
+                "col_name": "网络类型"
+            },
+            {
+                "col_code": "flowcount",
+                "col_name": "流量"
+            },
+            {
+                "col_code": "lac",
+                "col_name": "小区lac"
+            },
+            {
+                "col_code": "ci",
+                "col_name": "小区ci"
+            },
+            {
+                "col_code": "count",
+                "col_name": "业务次数"
+            },
+            {
+                "col_code": "timecount",
+                "col_name": "业务时长"
+            },
+            {
+                "col_code": "dwdt",
+                "col_name": "日期（yyyymmdd）"
+            }
+        ]
+    },
+    "5781a9827177dd1843c691ad": {
+        "_id": "5781a9827177dd1843c691ad",
+        "data_code": "Crm_Base_Info_4G",
+        "data_name": "Crm_Base_Info_4G",
+        "data_level": "CRM层",
+        "data_columns": [
+            {
+                "col_code": "base_name",
+                "col_name": ""
+            },
+            {
+                "col_code": "cell_name",
+                "col_name": ""
+            },
+            {
+                "col_code": "base_type",
+                "col_name": ""
+            },
+            {
+                "col_code": "remote_flg",
+                "col_name": ""
+            },
+            {
+                "col_code": "ECI_hex",
+                "col_name": ""
+            },
+            {
+                "col_code": "TAC",
+                "col_name": ""
+            },
+            {
+                "col_code": "bandW",
+                "col_name": ""
+            },
+            {
+                "col_code": "servIP",
+                "col_name": ""
+            },
+            {
+                "col_code": "maintIP",
+                "col_name": ""
+            },
+            {
+                "col_code": "FreqNo",
+                "col_name": ""
+            },
+            {
+                "col_code": "band",
+                "col_name": ""
+            },
+            {
+                "col_code": "longt",
+                "col_name": ""
+            },
+            {
+                "col_code": "latt",
+                "col_name": ""
+            },
+            {
+                "col_code": "ECI",
+                "col_name": ""
+            }
+        ]
+    },
+    "5781a9827177dd1843c691ae": {
+        "_id": "5781a9827177dd1843c691ae",
+        "data_code": "OrgData_Loction_3G",
+        "data_name": "OrgData_Loction_3G",
+        "data_level": "底层",
+        "data_columns": [
+            {
+                "col_code": "eventid",
+                "col_name": ""
+            },
+            {
+                "col_code": "btime",
+                "col_name": ""
+            },
+            {
+                "col_code": "etime",
+                "col_name": ""
+            },
+            {
+                "col_code": "lac",
+                "col_name": ""
+            },
+            {
+                "col_code": "ci",
+                "col_name": ""
+            },
+            {
+                "col_code": "start_lac",
+                "col_name": ""
+            },
+            {
+                "col_code": "start_ci",
+                "col_name": ""
+            },
+            {
+                "col_code": "end_lac",
+                "col_name": ""
+            },
+            {
+                "col_code": "end_ci",
+                "col_name": ""
+            },
+            {
+                "col_code": "call_msisdn",
+                "col_name": ""
+            },
+            {
+                "col_code": "call_imsi",
+                "col_name": ""
+            },
+            {
+                "col_code": "call_imei",
+                "col_name": ""
+            },
+            {
+                "col_code": "answer_msisdn",
+                "col_name": ""
+            },
+            {
+                "col_code": "answer_imsi",
+                "col_name": ""
+            },
+            {
+                "col_code": "answer_imei",
+                "col_name": ""
+            },
+            {
+                "col_code": "eventcause",
+                "col_name": ""
+            },
+            {
+                "col_code": "eventcausetype",
+                "col_name": ""
+            },
+            {
+                "col_code": "eventresult",
+                "col_name": ""
+            },
+            {
+                "col_code": "dwdt",
+                "col_name": ""
+            }
+        ]
+    },
+    "5781a9827177dd1843c691af": {
+        "_id": "5781a9827177dd1843c691af",
+        "data_code": "OrgData_Loction_4G",
+        "data_name": "OrgData_Loction_4G",
+        "data_level": "底层",
+        "data_columns": [
+            {
+                "col_code": "imsi",
+                "col_name": ""
+            },
+            {
+                "col_code": "imei",
+                "col_name": ""
+            },
+            {
+                "col_code": "msisdn",
+                "col_name": ""
+            },
+            {
+                "col_code": "procedure_type",
+                "col_name": ""
+            },
+            {
+                "col_code": "procedure_start_time",
+                "col_name": ""
+            },
+            {
+                "col_code": "procedure_end_time",
+                "col_name": ""
+            },
+            {
+                "col_code": "tac",
+                "col_name": ""
+            },
+            {
+                "col_code": "cell_id",
+                "col_name": ""
+            },
+            {
+                "col_code": "tac2",
+                "col_name": ""
+            },
+            {
+                "col_code": "dwdt",
+                "col_name": ""
+            }
+        ]
+    },
+    "5781a9827177dd1843c691ag": {
+        "_id": "5781a9827177dd1843c691ag",
+        "data_code": "Crm_Number_Segment",
+        "data_name": "Crm_Number_Segment",
+        "data_level": "CRM层",
+        "data_columns": [
+            {
+                "col_code": "segment",
+                "col_name": ""
+            },
+            {
+                "col_code": "city_id",
+                "col_name": ""
+            },
+            {
+                "col_code": "city_name",
+                "col_name": ""
+            },
+            {
+                "col_code": "prov_id",
+                "col_name": ""
+            },
+            {
+                "col_code": "prov_name",
+                "col_name": ""
+            }
+        ]
+    }
+}

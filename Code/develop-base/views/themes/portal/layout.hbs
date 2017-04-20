@@ -1,0 +1,184 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>Portal</title>
+
+    <link rel="stylesheet" type="text/css" href="/static/js/easyui/themes/bootstrap/easyui.css">
+    <link rel="stylesheet" type="text/css" href="/static/js/easyui/themes/icon.css">
+
+    <link rel="stylesheet" type="text/css" href="/static/css/common/style.css">
+
+    <link rel="stylesheet" href="/static/themes/portal/css/screen.css" type="text/css" media="screen"/>
+    <link rel="stylesheet" type="text/css" href="/static/themes/portal/css/jquery.gritter.css"/>
+    <link rel="stylesheet" type="text/css" href="/static/themes/portal/css/jqModal.css"/>
+    <link rel="alternate stylesheet" title="classic" href="/static/themes/portal/css/style0.css" type="text/css" media="screen"/>
+    <link rel="alternate stylesheet" title="silver" href="/static/themes/portal/css/style.css" type="text/css" media="screen"/>
+    <link rel="stylesheet" title="modern" href="/static/themes/portal/css/style1.css" type="text/css" media="screen"/>
+    <!-- Sample jQuery UI Theme CSS file from http://jqueryui.com/themeroller/ -->
+    <link rel="stylesheet" type="text/css" href="/static/themes/portal/css/start/jquery-ui-1.7.2.custom.css" media="screen"/>
+    <!--[if IE]>
+    <link rel="stylesheet" href="/static/themes/portal/css/ie.css" type="text/css" media="screen"/>
+    <![endif]-->
+</head>
+<body class='normal'>
+<div id="header">
+    <div id="logo"></div>
+    <div id="title">A Lightweight Portal Framework based on jQuery</div>
+    <ul id="main_nav">
+        <li id="t1"><b class="hover">About V2</b>About V2</li>
+        <li id="t2"><b class="hover">Layout</b><span>Layout</span><dl><dd id="t21">Same content, another layout</dd></dl></li>
+        <li id="t3"><b class="hover">Module</b>Module</li>
+        <li id="t4"><b class="hover">Controls</b><span>Controls</span><dl><dd id="t41">Tabs &amp; Accordion</dd><dd id="t42">jQuery UI with Theme</dd></dl></li>
+        <li id="t5"><b class="hover">Customize</b>Customize</li>
+        <li id="t6"><b class="hover">XDO</b><span>XDO</span><dl><dd id="t61">Programming Model</dd></dl></li>
+        <li id="t8"><b class="hover">Download</b>Download</li>
+    </ul>
+    <div id="info_bar">
+        <b id="loading"></b><b id="menu_btn"></b><i class="left hint">Module menu</i>
+        <i class="right">
+            <b id="maxAll" title="Expand All Modules"></b>
+            <b id="minAll" title="Collapse All Modules"></b>
+        </i>
+        <i class="hint right">Adjust module appearance</i>
+    </div>
+</div>
+
+{{{body}}}
+
+<div id="footer">
+    <div id="footer_bar"><!--<a href="http://trilancer.wordpress.com/">Trilancer Blog</a> | <a href="http://www.jquery.com">About jQuery</a> | <a href="http://www.netvibes.com">About Netvibes</a>--></div>
+    Copyright 2009 (C) Trilancer.com
+</div>
+
+<!-- A series of hidden module templates carried within the page, which can be modified easily -->
+<div class="module_template"><!-- A default template is required here without an ID -->
+    <div class="moduleFrame">
+        <div class='moduleHeader'>
+            <div class='moduleTitle'></div>
+            <div class='moduleActions'>
+                <b title="Refresh" class="actionRefresh"></b>
+                <b title="Collapse" class="actionMin"></b>
+                <b title="Expand" class="actionMax"></b>
+                <b title="Close" class="actionClose"></b>
+            </div>
+        </div>
+        <div class='moduleContent'>
+            <img src="/static/themes/portal/img/loading.gif" alt="Loading..."/> Loading...
+        </div>
+    </div>
+</div>
+<div class="module_template" id="B"><!-- The ID 'B' will be used as the index to match all module layout definition with mt:'B' -->
+    <div class="moduleFrame" style="border:6px groove red">
+        <div class='moduleContent' style="background:#ffc">
+            <img src="/static/themes/portal/img/loading.gif" alt="Loading..."/> Loading...
+        </div>
+        <div class='moduleHeader'>
+            <div class='moduleTitle'></div>
+            <div class='moduleActions'>
+                <b title="Collapse" class="actionMin"></b>
+                <b title="Expand" class="actionMax"></b>
+                <b title="Close" class="actionClose"></b>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="module_template" id="C"><!-- The ID 'C' will be used as the index to match all module layout definition with mt:'C' -->
+    <div class="moduleFrame" style="border:6px double green">
+        <div class='moduleContent' style="background:#cff">
+            <img src="/static/themes/portal/img/loading.gif" alt="Loading..."/> Loading...
+        </div>
+        <div class='moduleHeader'>
+            <div class='moduleTitle'></div>
+            <div class='moduleActions'>
+                <b title="Collapse" class="actionMin"></b>
+                <b title="Expand" class="actionMax"></b>
+                <b title="Close" class="actionClose"></b>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript" src="/static/themes/portal/js/jquery.js"></script>
+<script type="text/javascript" src="/static/themes/portal/js/jquery.cookie.js"></script>
+<script type="text/javascript" src="/static/themes/portal/js/jquery-ui-1.7.2.custom.min.js"></script>
+<!--<script type="text/javascript" src="/static/themes/portal/js/modules.js"></script>-->
+<script type="text/javascript">
+
+    var _modules={
+        m101:{url:"/static/themes/portal/modules/m101.html",	t:"Motivation"},
+        m102:{url:"/static/themes/portal/modules/m102.html",	t:"Philisophy"},
+        m103:{url:"/static/themes/portal/modules/m103.html",	t:"Buzz"},
+        m200:{url:"/static/themes/portal/modules/m200.html",	t:"blue"}
+    };
+
+    var _moduleLayout={
+        t1:["m101:c1:red", "m102:c2:yellow", "m103:c3:green", "m200:c5:blue"]
+    };
+
+    var _columnLayout = {
+        _default: { bg:'normal',
+            c1:'span-8',
+            c2:'span-8',
+            c3:'span-8 last',
+            c4:'span-24',
+            c5:'span-16',
+            c6:'span-8 last'
+        },
+        t2:{ bg:'darker',
+            c1:'span-24 last',
+            c2:'span-8',
+            c3:'span-8',
+            c4:'span-8 last'
+        },
+        t21:{ bg:'darker',
+            c1:'span-4',
+            c2:'span-20 last'
+        },
+        t3:{ bg:'dark',
+            c1:'span-24',
+            c2:'span-12',
+            c3:'span-12 last'
+        },
+        t4:{ bg:'lighter',
+            c1:'span-6',
+            c2:'span-18 last',
+            c3:'hide'
+        },
+        t41:{ c1:'span-12',
+            c2:'span-12 last'
+        },
+        t42:{ c1:'span-24 last'
+        },
+        t5:{ c1:'span-6',
+            c2:'span-18 last',
+            c3:'hide'
+        },
+        t6:{ c1:'span-6',
+            c2:'span-18 last',
+            c3:'hide'
+        },
+        t61:{ c1:'span-24 last'
+        },
+        t7:{ c1:'span-24 last'
+        },
+        t8:{ c1:'span-24',
+            c2:'span-8',
+            c3:'span-8 last'
+        }
+    };
+
+</script>
+<script type="text/javascript" src="/static/themes/portal/js/jquery.gritter.js"></script>
+<script type="text/javascript" src="/static/themes/portal/js/chain-0.2.pack.js"></script>
+<script type="text/javascript" src="/static/themes/portal/js/jquery.kwicks-1.5.1.pack.js"></script>
+<script type="text/javascript" src="/static/themes/portal/js/jquery.lavalamp.1.3.2-min.js"></script>
+<script type="text/javascript" src="/static/themes/portal/js/jqModal.js"></script>
+<script type="text/javascript" src="/static/themes/portal/js/jpolite.core.js"></script>
+<script type="text/javascript" src="/static/themes/portal/js/xdo.core.js"></script>
+<script type="text/javascript" src="/static/themes/portal/js/xdo.data.js"></script>
+<script type="text/javascript" src="/static/themes/portal/js/jpolite.ext.js"></script>
+<script type="text/javascript" src="/static/js/easyui/jquery.easyui.min.js"></script>
+<script type="text/javascript" src="/static/js/easyui/locale/easyui-lang-zh_CN.js"></script>
+</body>
+</html>

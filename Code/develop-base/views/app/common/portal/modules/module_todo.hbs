@@ -1,0 +1,35 @@
+<table id="myToDoGrid">
+</table>
+
+<script>
+    $(document).ready(function() {
+
+        $(function(){
+            $('#myToDoGrid').datagrid({
+                url:'{{projcfg.appurl}}/static/json/todo.json',
+                method:'get',
+                rownumbers:true,
+                //autoRowHeight:true,
+                striped:true,
+                fitColumns:true,
+                //toolbar: '#toolbar',
+                fit:true,
+                border:false,
+                singleSelect:true,
+                selectOnCheck:false,
+                //checkOnSelect:true,
+                columns:[[
+                    {field:'wo_id',checkbox:true},
+                    {"field": "wo_os","title":"所属系统","width":10},
+                    {"field": "wo_no","title":"工单流水号","width":15},
+                    {"field": "wo_title","title":"工单主题","width":20},
+                    {"field": "wo_send_time","title":"派单时间","width":10},
+                    {"field": "wo_over_time","title":"完成时限","width":10}
+                ]],
+                pagination:true,
+                loadMsg:'正在加载...'
+            });
+        });
+    });
+
+</script>

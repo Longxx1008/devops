@@ -1,0 +1,65 @@
+[{
+	"id":1,
+	"text":"2016-3-10",
+	"iconCls":"fa fa-server icon-null",
+	"children":[{
+		"id":11,
+		"text":"201603101400.mp4",
+		"iconCls":"fa fa-caret-square-o-right icon-null"
+
+		},{
+		"id":11,
+		"text":"201603101500.mp4",
+		"iconCls":"fa fa-caret-square-o-right icon-null"
+
+	},{
+		"id":11,
+		"text":"201603101600.mp4",
+		"iconCls":"fa fa-caret-square-o-right icon-null"
+
+	}
+	]
+	},{
+		"id":12,
+		"text":"2016-3-11",
+		"iconCls":"fa fa-server icon-null",
+	"children":[{
+		"id":11,
+		"text":"201603111400.mp4",
+		"iconCls":"fa fa-caret-square-o-right icon-null"
+
+	},{
+		"id":11,
+		"text":"201603111500.mp4",
+		"iconCls":"fa fa-caret-square-o-right icon-null"
+
+	},{
+		"id":11,
+		"text":"201603111600.mp4",
+		"iconCls":"fa fa-caret-square-o-right icon-null"
+
+	}
+	]
+	},{
+		"id":13,
+		"text":"2016-3-12",
+		"iconCls":"fa fa-server icon-null",
+	"children":[{
+		"id":11,
+		"text":"201603121400.mp4",
+		"iconCls":"fa fa-caret-square-o-right icon-null"
+
+	},{
+		"id":11,
+		"text":"201603121500.mp4",
+		"iconCls":"fa fa-caret-square-o-right icon-null"
+
+	},{
+		"id":11,
+		"text":"201603121600.mp4",
+		"iconCls":"fa fa-caret-square-o-right icon-null"
+
+	}
+	]
+	}
+]

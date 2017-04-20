@@ -1,0 +1,88 @@
+[{
+	"id":1,
+	"text":"贵州中移",
+	"iconCls":"fa fa-sitemap icon-null",
+	"children":[{
+		"id":11,
+		"text":"项目研发室",
+		"iconCls":"fa fa-building-o icon-null",
+		"children":[{
+			"id":111,
+			"text":"会议室",
+			"iconCls":"fa fa-cube icon-null",
+			"children":[{
+				"id":111,
+				"text":"摄像头1-1",
+				"iconCls":"glyphicon glyphicon-facetime-video icon-null"
+			},{
+				"id":112,
+				"text":"摄像头1-2",
+				"iconCls":"glyphicon glyphicon-facetime-video icon-null"
+			},{
+				"id":113,
+				"text":"摄像头1-3",
+				"iconCls":"glyphicon glyphicon-facetime-video icon-null"
+			}]
+		},{
+			"id":112,
+			"text":"办公室",
+			"iconCls":"fa fa-cube icon-null",
+			"children":[{
+				"id":111,
+				"text":"摄像头2-1",
+				"iconCls":"glyphicon glyphicon-facetime-video icon-null"
+			},{
+				"id":112,
+				"text":"摄像头2-2",
+				"iconCls":"glyphicon glyphicon-facetime-video icon-null"
+			},{
+				"id":113,
+				"text":"摄像头2-3",
+				"iconCls":"glyphicon glyphicon-facetime-video icon-null"
+			}]
+		},{
+			"id":113,
+			"text":"电梯",
+			"iconCls":"fa fa-cube icon-null",
+			"children":[{
+				"id":111,
+				"text":"摄像头3-1",
+				"iconCls":"glyphicon glyphicon-facetime-video icon-null"
+			},{
+				"id":112,
+				"text":"摄像头3-2",
+				"iconCls":"glyphicon glyphicon-facetime-video icon-null"
+			},{
+				"id":113,
+				"text":"摄像头3-3",
+				"iconCls":"glyphicon glyphicon-facetime-video icon-null"
+			}]
+		}]
+	},{
+		"id":12,
+		"text":"综合业务部",
+		"iconCls":"fa fa-building-o icon-null",
+		"children":[{
+			"id":121,
+			"text":"会议室",
+			"iconCls":"fa fa-cube icon-null"
+		},{
+			"id":122,
+			"text":"办公室",
+			"iconCls":"fa fa-cube icon-null"
+		}]
+	},{
+		"id":13,
+		"text":"财务部",
+		"iconCls":"fa fa-building-o icon-null",
+		"children":[{
+			"id":121,
+			"text":"会议室",
+			"iconCls":"fa fa-cube icon-null"
+		},{
+			"id":122,
+			"text":"办公室",
+			"iconCls":"fa fa-diamond icon-null"
+		}]
+	}]
+}]
