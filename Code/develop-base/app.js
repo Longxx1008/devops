@@ -19,22 +19,19 @@ var mqtt_init = require('./app/common/job/utils/mqtt_init');
 var app = express();
 
 var auth_check = require('./app/common/core/middlewares/auth_check');
-
 // 路由自动挂载
 var mount = require('./app/common/core/utils/mount_routes.js');
 var tree_utils = require('./app/common/core/utils/tree_utils');
-
+var param_filter = require('./app/common/core/filter/param_filter');
 
 /*var logHelper = require('./app/common/log/utils/log_util.js');
  var seqHelper = require('./app/common/log/utils/sequence_util.js');
-
 
  //装载日志请求
  logHelper.use(app);
 
  //装载流水号中间件
  app.use(seqHelper.seqCreate);*/
-
 
 //将全局配置信息传入locals
 app.locals.projcfg = config.project;
@@ -50,7 +47,6 @@ app.locals.projcfg = config.project;
  }
  });*/
 
-
 i18n.configure({
     locales: ['zh_CN'],  // setup some i18n - other i18n default to en_US silently
     defaultLocale: 'zh_CN',
@@ -62,10 +58,8 @@ i18n.configure({
 
 // 加载系统参数和数据字典
 coreService.init();
-
 // 初始化加载的内容
 app_init.$(app);
-
 // view engine setup
 app.set('views', path.join(__dirname, 'views/'));
 
@@ -132,7 +126,6 @@ hbs.registerHelper('ifContain', function (v1, v2, options) {
     }
     return options.inverse(this);
 });
-
 /**
  * json object转换为string
  */
@@ -140,7 +133,6 @@ hbs.registerHelper('tostring', function (v1, options) {
 
     return JSON.stringify(v1);
 });
-
 /**
  * json object转换为tree结构
  */
@@ -155,9 +147,7 @@ app.use(favicon(path.join(__dirname, 'public', 'static/images/favicon.ico')));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(cookieParser());
-
 //Mongo-Session
-
 var MongoStore = require('connect-mongo')(session);
 app.use(session({
     secret: config.session.secret,//'gmdp_client_secret',
@@ -174,6 +164,8 @@ app.use(session({
     })
 }));
 
+//参数过滤防止xss攻击
+app.use(param_filter);
 app.use(config.project.appurl, express.static(path.join(__dirname, 'public')));
 
 //国际化支持
@@ -254,7 +246,6 @@ if (app.get('env') === 'development') {
         });
     });
 }
-
 // production error handler
 // no stacktraces leaked to user
 app.use(function (err, req, res, next) {
