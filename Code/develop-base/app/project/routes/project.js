@@ -9,6 +9,7 @@ var utils = require('../../common/core/utils/app_utils');
 
 router.route('/').get(function(req,res){
     // 分页条件
+	
     var name = req.query.name;
     var deptId = req.query.deptId;
     var status = req.query.status;
