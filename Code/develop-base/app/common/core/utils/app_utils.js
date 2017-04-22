@@ -6,6 +6,7 @@ var PATTERN_LINE_END = "$";
 var META_CHARACTERS = ['$', '^', '[', ']', '(', ')', '{', '}', '|', '+', '.', '\\'];
 
 var crypto = require('crypto');
+var mysqlPool = require('../../../project/utils/mysql_pool');
 
 /**
  * sha1加密
@@ -46,6 +47,34 @@ exports.formatTime = function(format) {
         }
     }
     return format;
+}
+
+/**
+ * easyui分页查询 mysql
+ */
+exports.pagingQuery4Eui_mysql = function(select_sql,order_sql, page, size, conditions, cb) {
+
+    if(page < 1) {
+        page = 1;
+    }
+    var sql = select_sql + order_sql + " limit " + ((page-1)*size)+","+size;
+    console.log("utils--sql----"+sql);
+    console.log("utils--conditions----"+conditions);
+    mysqlPool.query(sql,conditions,function(err,result) {
+        if(err) {
+            cb({'rows':{},'total': 0});
+        } else {
+
+            var count_sql = " select count(1) as sum from ("+select_sql+") aa";
+            mysqlPool.query(count_sql,conditions,function(err,results) {
+                if(err) {
+                    cb({'rows':{},'total': 0});
+                } else {
+                    cb({'rows':result,'total': results[0].sum});
+                }
+            });
+        }
+    });
 }
 
 exports.decryptData = function(data,firstKey,secondKey,thirdKey){

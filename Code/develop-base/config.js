@@ -54,6 +54,7 @@ var config = {
             '/common/portal/routes/': project_url_prefix + '/admin/api/common/portal/',//portal路由匹配路径
             '/common/report/routes/': project_url_prefix + '/admin/api/common/report/',//report路由匹配路径
             '/common/app/routes/': project_url_prefix + '/admin/api/common/app/',//portal路由匹配路径
+            '/project/routes/': project_url_prefix + '/api/project/'//project路由匹配路径
         },
         welcome_path:project_url_prefix + '/home',
         // 不做权限检查url（支持通配符*，尽量少用）
@@ -64,7 +65,8 @@ var config = {
             project_url_prefix + '/switchRole/*',
             project_url_prefix + '/logout',
             project_url_prefix + '/portal',
-            project_url_prefix + '/api/demo/*'
+            project_url_prefix + '/api/demo/*',
+            project_url_prefix + '/api/project/*'
         ]
     },
     mongdb:{
