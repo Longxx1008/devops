@@ -40,4 +40,8 @@ router.route('/:id').delete(function(req,res) {
     });
 });
 
+router.route('/doc/{id}/{type}').get(function(req,res){
+
+});
+
 module.exports = router;
