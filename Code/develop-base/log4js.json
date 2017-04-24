@@ -5,7 +5,7 @@
     },
     {
       "type": "log4js-node-mongodb",
-      "connectionString": "10.201.253.111:27017/ywcj",
+      "connectionString": "10.201.253.111:27017/pass",
       "collectionName": "request_log_info",
       "layout": {
         "type": "pattern",
@@ -24,7 +24,7 @@
       "category": "request_log"
     }, {
       "type": "log4js-node-mongodb",
-      "connectionString": "10.201.253.111:27017/ywcj",
+      "connectionString": "10.201.253.111:27017/pass",
       "collectionName": "service_log_info",
       "category": "service_log",
       "layout": {
