@@ -54,11 +54,11 @@ var config = {
             '/common/portal/routes/': project_url_prefix + '/admin/api/common/portal/',//portal路由匹配路径
             '/common/report/routes/': project_url_prefix + '/admin/api/common/report/',//report路由匹配路径
             '/common/app/routes/': project_url_prefix + '/admin/api/common/app/',//portal路由匹配路径
-            '/project/routes/': project_url_prefix + '/api/project/'//project路由匹配路径
+            '/project/dpm/routes/': project_url_prefix + '/api/project/dpm/'//project路由匹配路径
         },
         welcome_path:project_url_prefix + '/home',
         // 不做权限检查url（支持通配符*，尽量少用）
-        exclude_auth_check_urls:[project_url_prefix + '/login',project_url_prefix + '/captcha',project_url_prefix + '/test/*', project_url_prefix +'/static/*'],
+        exclude_auth_check_urls:[project_url_prefix + '/login',project_url_prefix + '/captcha',project_url_prefix + '/test/*', project_url_prefix +'/static/*', project_url_prefix +'/app/project/*', project_url_prefix +'/api/project/*'],
         // 登录后就能访问的url（无需授权）（支持通配符*，尽量少用）,如：修改个人信息、注销等操作
         logged_can_access_urls:[
             project_url_prefix + '/public/*',
@@ -66,6 +66,7 @@ var config = {
             project_url_prefix + '/logout',
             project_url_prefix + '/portal',
             project_url_prefix + '/api/demo/*',
+            project_url_prefix + '/app/project/*',
             project_url_prefix + '/api/project/*'
         ]
     },

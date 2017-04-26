@@ -17,10 +17,10 @@
                                         <i class="fa fa-edit"></i> 应用详情
                                     </button>
                                     <button type="button" class="btn btn-default" onclick="toEdit()" data-title="项目成员">
-                                        <i class="fa fa-edit"></i> 项目成员
+                                        <i class="fa fa-list"></i> 项目成员
                                     </button>
-                                    <button type="button" class="btn btn-default" onclick="toEdit()" data-title="容器列表">
-                                        <i class="fa fa-edit"></i> 容器列表
+                                    <button type="button" class="btn btn-default" onclick="toContainerListing()" data-title="容器列表">
+                                        <i class="fa fa-list"></i> 容器列表
                                     </button>
                                     <button type="button" class="btn btn-default" onclick="toEdit()" data-title="一键部署">
                                         <i class="fa fa-edit"></i> 一键部署
@@ -47,6 +47,7 @@
                         <table id="projectDataTable">
                         </table>
                     </div>
+                    <iframe id="pageIframe" ></iframe>
                 </div>
             </div>
         </div>
@@ -84,7 +85,7 @@
 <script  type="text/javascript">
     $(function(){
         $('#projectDataTable').datagrid({
-            url:'{{projcfg.appurl}}/api/project/project/develop/pm/pageList',
+            url:'{{projcfg.appurl}}/api/project/dpm/project/develop/pm/pageList',
             method:'get',
             rownumbers:false,
             //autoRowHeight:true,
@@ -101,7 +102,7 @@
                 {"field": "projectName","title":"应用名称","width":100,align:"center"},
                 {"field": "proVersions","title":"版本","width":130,align:"center",
                     "formatter":function (value, rowData,rowIndex) {
-                        return '<select id="cc" class="easyui-combobox" name="dept" style="width:130px;">'+
+                        return '<select id="vers" class="easyui-combobox" name="vers" style="width:130px;">'+
                                 '<option value="v2.0.1">v2.0.1(停止)</option>'+
                                 '<option>v1.9.1(停止)</option>'+
                                 '<option>v1.8.1(运行中)</option>'+
@@ -129,6 +130,15 @@
         });
     });
 
+    /**
+     * 容器列表
+     */
+    function toContainerListing(){
+        window.location.href = "{{projcfg.appurl}}/containerlisting";
+    }
+
+
+
     function doSearch() {
         $('#projectDataTable').datagrid('reload');
     }
@@ -141,7 +151,7 @@
             return false;
         }
         $.ajax({
-            url: '{{projcfg.appurl}}/api/project/project/develop/pm/add',
+            url: '{{projcfg.appurl}}/api/project/dpm/project/develop/pm/add',
             type: 'post',
             data: $('#projectForm').serializeJson(),
             success: function (data) {
