@@ -1,5 +1,5 @@
-var utils = require('../../common/core/utils/app_utils');
-var mysqlPool = require('../utils/mysql_pool');
+var utils = require('../../../common/core/utils/app_utils');
+var mysqlPool = require('../../utils/mysql_pool');
 
 /**
  * 获取项目的分页数据

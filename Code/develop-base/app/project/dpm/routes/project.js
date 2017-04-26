@@ -5,7 +5,7 @@ var express = require('express');
 var router = express.Router();
 
 var projectService = require('../services/projectService');
-var utils = require('../../common/core/utils/app_utils');
+var utils = require('../../../common/core/utils/app_utils');
 
 router.route('/develop/pm/pageList').get(function(req,res){
     // 分页条件
