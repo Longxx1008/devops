@@ -1,4 +1,4 @@
-FROM readytalk/nodejs
+FROM daocloud.io/library/node
 ADD . /code
 WORKDIR /code/Code/develop-base
 RUN npm install
