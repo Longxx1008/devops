@@ -1,3 +1,6 @@
+image:readytalk/nodejs
+
+
 # 定义 stages
 stages:
   - build
