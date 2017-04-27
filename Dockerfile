@@ -1,4 +1,4 @@
 FROM readytalk/nodejs
 ADD . /code
-WORKDIR /code
-RUN ls -al
+WORKDIR /code/Code/develop-base
+RUN node bin/www
