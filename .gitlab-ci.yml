@@ -2,17 +2,25 @@
 stages:
   - build
   - test
+  - deploy
 
-# 定义 job
-job1:
+# 定义编译阶段
+build_stages:
+  stage: build
+  script:
+    - npm install 
+    - echo "npm sucess~!!!"
+
+# 定义测试阶段
+test_stages:
   stage: test
   script:
     - echo "I am job1"
     - echo "I am in test stage"
 
-# 定义 job
-job2:
-  stage: build
+# 定义部署阶段
+deploy_stages:
+  stage: deploy
   script:
     - echo "I am job2"
     - echo "I am in build stage"
