@@ -1,5 +1,4 @@
-FROM daocloud.io/library/node
+FROM node
 ADD . /code
 WORKDIR /code/Code/develop-base
 RUN npm install
-RUN node bin/www
