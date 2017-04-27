@@ -2,17 +2,9 @@
   "appenders": [
     {
       "type":"console"
-    },
-    {
-      "type": "log4js-node-mongodb",
-      "connectionString": "10.201.253.111:27017/pass",
-      "collectionName": "request_log_info",
-      "layout": {
-        "type": "pattern",
-        "pattern": "[%h] - %m"
-      },
-      "category": "request_log"
-    },{
+    }
+
+  ,{
       "type": "file",
       "filename": "logs/request.log",
       "maxLogSize": "1024*1024",
@@ -22,16 +14,9 @@
         "pattern": "[%h] - %m"
       },
       "category": "request_log"
-    }, {
-      "type": "log4js-node-mongodb",
-      "connectionString": "10.201.253.111:27017/pass",
-      "collectionName": "service_log_info",
-      "category": "service_log",
-      "layout": {
-        "type": "pattern",
-        "pattern": "[%h] - %m"
-      }
-    },{
+    }
+
+  ,{
       "type": "file",
       "filename": "logs/service.log",
       "maxLogSize": "1024*1024",
