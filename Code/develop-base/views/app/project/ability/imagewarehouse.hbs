@@ -1,0 +1,347 @@
+<script src="{{projcfg.appurl}}/static/js/containerlistingdata.js" type="text/javascript"></script>
+<style>
+    .div-bor{
+        position: relative;width: 100%;height: 35px;
+        border-bottom: 1px solid #ccc;
+        margin-bottom: 1rem;
+    }
+    .icon-serach{
+        position: absolute;left: 0;z-index:5;
+        background-image: url('{{projcfg.appurl}}/static/images/search.png'); /*引入图片图片*/
+        background-repeat: no-repeat; /*设置图片不重复*/
+        background-position: 1px 0px; /*图片显示的位置*/
+        width: 20px; /*设置图片显示的宽*/
+        height: 20px; /*图片显示的高*/
+        top: 5px;
+        left: 3px;
+        cursor:pointer;
+    }
+    .serach{
+        padding-left: 22px;
+    }
+    input[type=radio] {
+         opacity: 1;
+         position: relative;
+         left: 2px;
+         z-index: 12;
+         width: 13px;
+         height: 13px;
+         cursor: pointer;
+         margin: 1rem;
+    }
+
+</style>
+<div class="row">
+    <div class="col-xs-12 col-md-12">
+        <div class="widget">
+            <div class="widget-body">
+                <div id="toolbar" class="row tbRow" style="margin-bottom: 1.1rem;border-bottom: 1px solid #ccc;">
+                    <div class="col-xs-6 col-md-6" style="width:100%">
+                        <font size="3.5rem" style="margin-left: 1.2rem;margin-right: 2.5rem"> <b>镜像仓库</b></font>
+                        <div class="btn-group" role="group" aria-label="...">
+                            <button type="button" class="btn btn-default" onclick="do_page('myimage')" data-title="我的镜像">
+                                <i class="fa fa-edit"></i> 我的镜像
+                            </button>
+                            <button type="button" class="btn btn-default" onclick="do_page('favorites')" data-title="收藏夹">
+                                <i class="fa fa-edit"></i> 收藏夹
+                            </button>
+                            <button type="button" class="btn btn-default" onclick="do_page('privateimage')" data-title="私有镜像">
+                                <i class="fa fa-edit"></i> 私有镜像
+                            </button>
+                        </div>
+
+                    </div>
+                </div>
+                <div id="cc" class="easyui-layout" data-options="fit:true,border:false" style="width: 800px; height:575px;background-color: #fbfbfb;">
+                    <div id="images" data-options="region:'center',border:false" style="overflow-x:hidden;overflow-y:hidden">
+                        <div id="datagridPanel" style="width:100%;height: 100%;">
+                            <table id="myImageDataTable">
+                            </table>
+                        </div>
+                        <div id="privatediv" style="width:100%;height: 100%;display:none;">
+                            <div style="border-right:1px solid #ccc;width:15%;height:100%;float:left;">
+                                <div class="div-bor">
+                                    <i class="icon-serach"></i>
+                                    <input type="text" class="serach" placeholder="搜索镜像"/>
+                                </div>
+                                <div style="margin: 1rem;">
+                                    <ul>
+                                        <li>分类 <div style="float: right;cursor: pointer;" onclick="cleanRadioValue();">清空</div></li>
+                                        <li><input name="types" type="radio" value="db" />数据库</li>
+                                        <li><input name="types" type="radio" value="tool" />运维工具</li>
+                                        <li><input name="types" type="radio" value="nq" />消息队列</li>
+                                        <li><input name="types" type="radio" value="pl" />编程语言</li>
+                                        <li><input name="types" type="radio" value="service" />服务器</li>
+                                        <li><input name="types" type="radio" value="web" />web框架</li>
+                                        <li><input name="types" type="radio" value="sys" />操作系统</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div style="width:84%;height:100%;float:right;background-color: #DDDDDD; ">
+                                <div id="nginx" style="border:1px solid #ccc;width:30%;height:260px;float:left;margin:6px;background-color: #FFFFFF;">
+                                    <div style="float: left;margin:1.1rem;"><img src="{{projcfg.appurl}}/static/images/nginx.jpg" alt="" height="60px" width="60px"/></div>
+                                    <div style="float: left;margin:1.1rem;"><b>Nginx</b> <br/> <font size="1">Docker Offical</font></div>
+                                    <div style="float: left;margin-left:1.1rem;margin-right:1.1rem;">Nginx此镜像从Docker Hub同步并由DaoCloud提供中文文档支持，用来帮助国内开发者更方便的使用Docker镜像。该镜像源维护...</div>
+                                    <div style="float: left;margin-left:1.1rem;margin-right:1.1rem;margin-top:0.8rem;">服务器</div>
+                                    <div style="float: right;margin-top:3rem;width:50%">
+                                        <div style="float:left;width:18px;height:20px;background: url('{{projcfg.appurl}}/static/images/wujiaoxin.png') no-repeat left top;background-size: 35px 20px;"></div>
+                                        <div style="float: left;margin-left:0.6rem;margin-right: 1.3rem;">158</div>
+                                        <div style="float:left;width:15px;height:25px;background: url('{{projcfg.appurl}}/static/images/bottom.png') no-repeat center top;background-size: 25px 25px;"></div>
+                                       <div style="float: left;margin-left:0.6rem;">8230</div>
+                                    </div>
+                                </div>
+                                <div id="mysql" style="border:1px solid #ccc;width:30%;height:260px;float:left;margin:6px;background-color: #FFFFFF;">
+                                    <div style="float: left;margin:1.1rem;"><img src="{{projcfg.appurl}}/static/images/mysql.png" alt="" height="60px" width="60px"/></div>
+                                    <div style="float: left;margin:1.1rem;"><b>Mysql</b> <br/> <font size="1">Docker Offical</font></div>
+                                    <div style="float: left;margin-left:1.1rem;margin-right:1.1rem;">MySQL由于其性能高、成本低、可靠性好，已经成为全球最流行的开源数据库软件，被广泛的应用在Internet上的中小型网站中，本镜像...</div>
+                                    <div style="float: left;margin-left:1.1rem;margin-right:1.1rem;margin-top:0.8rem;">数据库</div>
+                                    <div style="float: right;margin-top:3rem;width:50%">
+                                        <div style="float:left;width:18px;height:20px;background: url('{{projcfg.appurl}}/static/images/wujiaoxin.png') no-repeat left top;background-size: 35px 20px;"></div>
+                                        <div style="float: left;margin-left:0.6rem;margin-right: 1.3rem;">150</div>
+                                        <div style="float:left;width:15px;height:25px;background: url('{{projcfg.appurl}}/static/images/bottom.png') no-repeat center top;background-size: 25px 25px;"></div>
+                                        <div style="float: left;margin-left:0.6rem;">7779</div>
+                                    </div>
+                                </div>
+                                <div id="mongodb" style="border:1px solid #ccc;width:30%;height:260px;float:left;margin:6px;background-color: #FFFFFF;">
+                                    <div style="float: left;margin:1.1rem;"><img src="{{projcfg.appurl}}/static/images/mongodb.png" alt="" height="60px" width="60px"/></div>
+                                    <div style="float: left;margin:1.1rem;"><b>MongoDB</b> <br/> <font size="1">Docker Offical</font></div>
+                                    <div style="float: left;margin-left:1.1rem;margin-right:1.1rem;">MongoDB是一个面向文档的垮平台数据库，此镜像从Docker Hub同步并由DaoCloud提供中文文档支持，用来帮助国内开发者更方便的...</div>
+                                    <div style="float: left;margin-left:1.1rem;margin-right:1.1rem;margin-top:0.8rem;">数据库</div>
+                                    <div style="float: right;margin-top:3rem;width:50%">
+                                        <div style="float:left;width:18px;height:20px;background: url('{{projcfg.appurl}}/static/images/wujiaoxin.png') no-repeat left top;background-size: 35px 20px;"></div>
+                                        <div style="float: left;margin-left:0.6rem;margin-right: 1.3rem;">58</div>
+                                        <div style="float:left;width:15px;height:25px;background: url('{{projcfg.appurl}}/static/images/bottom.png') no-repeat center top;background-size: 25px 25px;"></div>
+                                        <div style="float: left;margin-left:0.6rem;">3261</div>
+                                    </div>
+                                </div>
+                                <div id="java" style="border:1px solid #ccc;width:30%;height:260px;float:left;margin:6px;background-color: #FFFFFF;">
+                                    <div style="float: left;margin:1.1rem;"><img src="{{projcfg.appurl}}/static/images/java.png" alt="" height="60px" width="60px"/></div>
+                                    <div style="float: left;margin:1.1rem;"><b>Java</b> <br/> <font size="1">Docker Offical</font></div>
+                                    <div style="float: left;margin-left:1.1rem;margin-right:1.1rem;">Java是由Sun Microsystems公司推出的Java语言和Java平台的总称，此镜像从Docker Hub同步并由DaoCloud提供中文文档支持，...</div>
+                                    <div style="float: left;margin-left:1.1rem;margin-right:1.1rem;margin-top:0.8rem;">编程语言</div>
+                                    <div style="float: right;margin-top:3rem;width:50%">
+                                        <div style="float:left;width:18px;height:20px;background: url('{{projcfg.appurl}}/static/images/wujiaoxin.png') no-repeat left top;background-size: 35px 20px;"></div>
+                                        <div style="float: left;margin-left:0.6rem;margin-right: 1.3rem;">17</div>
+                                        <div style="float:left;width:15px;height:25px;background: url('{{projcfg.appurl}}/static/images/bottom.png') no-repeat center top;background-size: 25px 25px;"></div>
+                                        <div style="float: left;margin-left:0.6rem;">864</div>
+                                    </div>
+                                </div>
+                                <div id="node" style="border:1px solid #ccc;width:30%;height:260px;float:left;margin:6px;background-color: #FFFFFF;">
+                                    <div style="float: left;margin:1.1rem;"><img src="{{projcfg.appurl}}/static/images/node.png" alt="" height="60px" width="60px"/></div>
+                                    <div style="float: left;margin:1.1rem;"><b>node</b> <br/> <font size="1">Docker Offical</font></div>
+                                    <div style="float: left;margin-left:1.1rem;margin-right:1.1rem;">Node.js是一个基于Chrome JavaScript运行时建立的平台，用于方便搭建响应速度快、易于扩展的网络应用。Node.js使用事件驱动...</div>
+                                    <div style="float: left;margin-left:1.1rem;margin-right:1.1rem;margin-top:0.8rem;">编程语言</div>
+                                    <div style="float: right;margin-top:3rem;width:50%">
+                                        <div style="float:left;width:18px;height:20px;background: url('{{projcfg.appurl}}/static/images/wujiaoxin.png') no-repeat left top;background-size: 35px 20px;"></div>
+                                        <div style="float: left;margin-left:0.6rem;margin-right: 1.3rem;">45</div>
+                                        <div style="float:left;width:15px;height:25px;background: url('{{projcfg.appurl}}/static/images/bottom.png') no-repeat center top;background-size: 25px 25px;"></div>
+                                        <div style="float: left;margin-left:0.6rem;">2927</div>
+                                    </div>
+                                </div>
+                                <div id="ubuntu" style="border:1px solid #ccc;width:30%;height:260px;float:left;margin:6px;background-color: #FFFFFF;">
+                                    <div style="float: left;margin:1.1rem;"><img src="{{projcfg.appurl}}/static/images/ubuntu.png" alt="" height="60px" width="60px"/></div>
+                                    <div style="float: left;margin:1.1rem;"><b>Ubuntu</b> <br/> <font size="1">Docker Offical</font></div>
+                                    <div style="float: left;margin-left:1.1rem;margin-right:1.1rem;">Ubuntu是一个自由、开源、基于Debian的Linux发行版，发行周期为6个月，由Canonical公司和自由社区软件开发。本镜像从Docker Hub...</div>
+                                    <div style="float: left;margin-left:1.1rem;margin-right:1.1rem;margin-top:0.8rem;">操作系统</div>
+                                    <div style="float: right;margin-top:3rem;width:50%">
+                                        <div style="float:left;width:18px;height:20px;background: url('{{projcfg.appurl}}/static/images/wujiaoxin.png') no-repeat left top;background-size: 35px 20px;"></div>
+                                        <div style="float: left;margin-left:0.6rem;margin-right: 1.3rem;">91</div>
+                                        <div style="float:left;width:15px;height:25px;background: url('{{projcfg.appurl}}/static/images/bottom.png') no-repeat center top;background-size: 25px 25px;"></div>
+                                        <div style="float: left;margin-left:0.6rem;">1818</div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<div>
+
+</div>
+
+<script  type="text/javascript">
+    $(function(){
+        $(":radio").click(function(){
+            if($(this).val()=="db"){
+                $("#mysql").show();
+                $("#mongodb").show();
+                $("#nginx").hide();
+                $("#java").hide();
+                $("#node").hide();
+                $("#ubuntu").hide();
+            }else if($(this).val()=="tool"){
+                $("#mysql").hide();
+                $("#mongodb").hide();
+                $("#nginx").hide();
+                $("#java").hide();
+                $("#node").hide();
+                $("#ubuntu").hide();
+            }else if($(this).val()=="nq"){
+                $("#mysql").hide();
+                $("#mongodb").hide();
+                $("#nginx").hide();
+                $("#java").hide();
+                $("#node").hide();
+                $("#ubuntu").hide();
+            }else if($(this).val()=="pl"){
+                $("#mysql").hide();
+                $("#mongodb").hide();
+                $("#nginx").hide();
+                $("#java").show();
+                $("#node").show();
+                $("#ubuntu").hide();
+            }else if($(this).val()=="service"){
+                $("#mysql").hide();
+                $("#mongodb").hide();
+                $("#nginx").show();
+                $("#java").hide();
+                $("#node").hide();
+                $("#ubuntu").hide();
+            }else if($(this).val()=="web"){
+                $("#mysql").hide();
+                $("#mongodb").hide();
+                $("#nginx").hide();
+                $("#java").hide();
+                $("#node").hide();
+                $("#ubuntu").hide();
+            }else if($(this).val()=="sys"){
+                $("#mysql").hide();
+                $("#mongodb").hide();
+                $("#nginx").hide();
+                $("#java").hide();
+                $("#node").hide();
+                $("#ubuntu").show();
+            }
+        });
+        $('#myImageDataTable').datagrid({
+            rownumbers:false,
+            striped:true,
+            fitColumns:true,
+            //toolbar: '#toolbar',
+            fit:true,
+            border:true,
+            singleSelect:true,
+            selectOnCheck:false,
+            columns:myimagecols,
+            onLoadSuccess:function(json) {
+
+            },
+            onLoadError:function() {
+                msgError('加载数据出现时发生错误,请稍候重试...');
+            },
+            pagination:false,
+            loadMsg:'正在加载...'
+        });
+//        $("#myImageDataTable").datagrid({columns:myimagecols});
+        $('#myImageDataTable').datagrid('loadData',mydockerdata);
+    });
+
+    function cleanRadioValue(){
+        $('input:radio[name=types]').attr('checked',false);
+        $("#mysql").show();
+        $("#mongodb").show();
+        $("#nginx").show();
+        $("#java").show();
+        $("#node").show();
+        $("#ubuntu").show();
+    }
+
+    function do_page(flag){
+        if(flag && flag == "myimage"){
+            $("#privatediv").hide();
+            $("#datagridPanel").show();
+            $("#myImageDataTable").datagrid({columns:myimagecols});
+            $('#myImageDataTable').datagrid('loadData',mydockerdata);
+        }else if(flag && flag == "favorites"){
+            $("#privatediv").hide();
+            $("#datagridPanel").show();
+            $("#myImageDataTable").datagrid({columns:myfavoritescols});
+            $('#myImageDataTable').datagrid('loadData',favoritesdata);
+        }else if(flag && flag == "privateimage"){
+            $("#datagridPanel").hide();
+            $("#privatediv").show();
+        }
+    }
+    /**
+     * 容器列表
+     */
+    function toContainerListing(){
+        window.location.href = "{{projcfg.appurl}}/containerlisting";
+    }
+
+
+
+    function doSearch() {
+        $('#projectDataTable').datagrid('reload');
+    }
+    function doClear() {
+        doSearch();
+    }
+    function doAdd(value) {
+        var validate = $('#projectForm').form('validate');
+        if(!validate) {
+            return false;
+        }
+        $.ajax({
+            url: '{{projcfg.appurl}}/api/project/dpm/project/develop/pm/add',
+            type: 'post',
+            data: $('#projectForm').serializeJson(),
+            success: function (data) {
+                if(data.success) {
+                    msgSuccess(data.msg);
+                    closeDialog();
+                    doSearch();
+                }
+                else {
+                    msgError(data.msg+',错误代码:'+data.code);
+                }
+            }
+        });
+    }
+
+    // 打开页面
+    function openPage(title, value, callback) {
+        $('#myModal').show();
+        $('#myModal').mydialog({
+            title:title,
+            width: 700,
+            height: 485,
+            top:100,
+            modal: true,
+            myButtons:[
+                {
+                    text:'确定',
+                    btnCls:'btn btn-blue',
+                    handler:function(){
+                        callback(value);
+                    }
+                },
+                {
+                    text:'关闭',
+                    btnCls:'btn btn-danger',
+                    handler:function(){
+                        closeDialog();
+                    }
+                }
+            ]
+        });
+    }
+
+    // 清空新增表单数据
+    function clear() {
+        $('#projectForm').form('clear');
+    }
+
+    // 关闭窗口
+    function closeDialog() {
+        $('#myModal').dialog('close');
+        clear();
+    }
+
+</script>
