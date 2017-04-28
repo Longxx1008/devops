@@ -1,0 +1,120 @@
+<script src="{{projcfg.appurl}}/static/js/containerlistingdata.js" type="text/javascript"></script>
+<div class="row">
+    <div class="col-xs-12 col-md-12">
+        <div class="widget">
+            <div class="widget-body">
+                <div id="toolbar" class="row tbRow" style="border-right: 1px solid #ccc;border-bottom:1px solid #ccc;">
+                    <div class="col-xs-6 col-md-6" style="width:100%">
+                        <font size="3.5rem" style="margin-left: 1.2rem;margin-right: 2.5rem"> <b>服务管理</b></font>
+                        <div class="btn-group" role="group" aria-label="...">
+                            <button type="button" class="btn btn-default" onclick="doAdd()" data-title="新增">
+                                <i class="fa fa-plus"></i> 新增
+                            </button>
+                            <button type="button" class="btn btn-default" onclick="toEdit()" data-title="修改">
+                                <i class="fa fa-edit"></i> 修改
+                            </button>
+                            <button type="button" class="btn btn-default" onclick="toEdit()" data-title="删除">
+                                <i class="fa fa-edit"></i> 删除
+                            </button>
+                        </div>
+                    </div>
+                    <!--<div class="col-xs-6 col-md-6 text-right">
+                        <form id="searchFrom" class="form-inline">
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <input type="input" class="form-control" id="filter_name" name="filter_name" placeholder="系统编码/名称">
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-default" type="button" onclick="doSearch()"><i class="fa fa-search"></i>查询</button>
+                                    </span>
+                                </div>
+                            </div>
+                        </form>
+                    </div>-->
+                </div>
+                <div style="margin-top: 2rem;margin-left: 1.3rem;margin-bottom: 1rem;"><h3><b>数据</b></h3></div>
+                <div id="cc" class="easyui-layout" data-options="fit:true,border:false" style="width: 800px; height:30px;background-color: #fbfbfb;">
+                    <div data-options="region:'center',border:false" style="overflow-x:hidden;overflow-y:hidden">
+                        <table id="servcieDataTable">
+                        </table>
+                    </div>
+                </div>
+                <div style="margin-top: 3rem;margin-left: 1.3rem;margin-bottom: 1rem;"><h3><b>能力</b></h3></div>
+                <div id="cc2" class="easyui-layout" data-options="fit:true,border:false" style="width: 800px; height:30px;background-color: #fbfbfb;">
+                    <div data-options="region:'center',border:false" style="overflow-x:hidden;overflow-y:hidden">
+                        <table id="servcieAbilityTable">
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script  type="text/javascript">
+    $(function(){
+
+        $('#servcieDataTable').datagrid({
+            rownumbers:false,
+            //autoRowHeight:true,
+            striped:true,
+            fitColumns:true,
+//            toolbar: '#toolbar',
+            fit:true,
+            border:true,
+            singleSelect:true,
+            selectOnCheck:false,
+            columns:servicesMCols,
+            onLoadSuccess:function(json) {
+
+            },
+            onLoadError:function() {
+                msgError('加载数据出现时发生错误,请稍候重试...');
+            },
+//            pagination:true,
+            loadMsg:'正在加载...'
+        });
+
+        $('#servcieAbilityTable').datagrid({
+            rownumbers:false,
+            //autoRowHeight:true,
+            striped:true,
+            fitColumns:true,
+            fit:true,
+            border:true,
+            singleSelect:true,
+            selectOnCheck:false,
+            columns:servicesMCols,
+            onLoadSuccess:function(json) {
+
+            },
+            onLoadError:function() {
+                msgError('加载数据出现时发生错误,请稍候重试...');
+            },
+//            pagination:true,
+            loadMsg:'正在加载...'
+        });
+        $('#servcieDataTable').datagrid('loadData',servciesdata);
+        $('#servcieAbilityTable').datagrid('loadData',servciesAbilitydata);
+    });
+
+    /**
+     * 容器列表
+     */
+    function toContainerListing(){
+        window.location.href = "{{projcfg.appurl}}/containerlisting";
+    }
+
+
+
+    function doSearch() {
+        $('#servcieDataTable').datagrid('reload');
+    }
+    function doClear() {
+        doSearch();
+    }
+    function doAdd(value) {
+        window.location.href = "{{projcfg.appurl}}/servicewarehouse";
+    }
+
+
+
+</script>
