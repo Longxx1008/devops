@@ -4,12 +4,17 @@ stages:
   - test
   - deploy
 
+variables:
+  LS_CMD: 'ls $FLAGS $$TMP_DIR'
+  FLAGS: '-al'
+  
 # 定义编译阶段
 build_stages:
   stage: build
   script:
 #    - docker build -t developer/developer-base:1.01 . 
-    - echo $CI_BUILD_TAG
+#    - echo $CI_BUILD_TAG
+    - 'eval $LS_CMD'  
 
 # 定义测试阶段
 test_stages:
