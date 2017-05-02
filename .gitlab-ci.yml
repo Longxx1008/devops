@@ -9,7 +9,7 @@ build_stages:
   stage: build
   script:
 #    - docker build -t developer/developer-base:1.01 . 
-    - echo $CI_COMMIT_REF_NAME "build  successfully~!!!"
+    - echo "build $CI_BUILD_TAG successfully~!!!"
 
 # 定义测试阶段
 test_stages:
