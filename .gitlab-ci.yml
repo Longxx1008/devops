@@ -15,6 +15,7 @@ build_stages:
 #    - docker build -t developer/developer-base:1.01 . 
 #    - echo $CI_BUILD_TAG
     - 'eval $LS_CMD'  
+    - echo $CI_job_ID
 
 # 定义测试阶段
 test_stages:
