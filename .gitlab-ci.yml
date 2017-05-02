@@ -8,8 +8,8 @@ stages:
 build_stages:
   stage: build
   script:
-    - docker build -t devloper/devloper-base:1.01 . 
-    - echo "npm sucess~!!!"
+#    - docker build -t developer/developer-base:1.01 . 
+    - echo "build $CI_COMMIT_REF_NAME successfully~!!!"
 
 # 定义测试阶段
 test_stages:
