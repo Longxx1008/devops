@@ -4,53 +4,43 @@
 var express = require('express');
 var router = express.Router();
 
-var projectService = require('../services/projectService');
+var imageService = require('../services/imageManagerService');
 var utils = require('../../../common/core/utils/app_utils');
 
-//分页查询项目数据列表
-router.route('/develop/pm/pageList').get(function(req,res){
-    // 分页条件
-    var projectCode = req.query.projectCode;
-    var projectName = req.query.projectName;
+//pageList分页查询的Controller
+router.route('/develop/im/pageList').get(function(req,res){
+    // // 分页条件
+    // var imageCode = req.query.imageCode;
+    // var imageName = req.query.projectName;
     // 分页参数
     var page = req.query.page;
     var length = req.query.rows;
     var conditionMap = {};
-    if(projectCode){
-        conditionMap.projectCode = projectCode;
-    }
-    if(projectName) {
-        conditionMap.projectName = projectName;
-    }
+    // if(imageCode){
+    //     conditionMap.projectCode = imageCode;
+    // }
+    // if(imageName) {
+    //     conditionMap.projectName = imageName;
+    // }
     // 调用分页
-    projectService.pageList(page, length, conditionMap,function(result){
+    imageService.pageList(page, length, conditionMap,function(result){
+        console.log("------result------");
+        console.log(result)
+
         utils.respJsonData(res, result);
     });
 });
 
-/**
- * 查询项目版本数据
- */
-router.route('/develop/pm/verList').get(function(req,res){
-    // 分页条件
-    var projectId = req.query.projectId;
-    var conditionMap = {};
-    if(projectId){
-        conditionMap.projectId = projectId;
-    }
-    // 调用分页
-    projectService.versionList(conditionMap,function(result){
-        utils.respJsonData(res, result);
-    });
-});
+//修改起止位置 2017-05-03 黄浩浩
 
 /**
  * 创建项目
  */
-router.route('/develop/pm/add').post(function(req,res) {
+router.route('/develop/im/add').post(function(req,res) {
     // 获取提交信息
     var data=[];
-    var gitaddress = req.body.gitAddress;
+    var channels = req.body.channels;
+    var 
     //暂时截取git地址最后的名字作为编号,如：git@code.dev.gz.cmcc:develop-base/develop-base.git，develop-base就是编号
     var pcode = gitaddress.substring(gitaddress.lastIndexOf('/')+1,gitaddress.lastIndexOf('.'));
     data.push(pcode);
@@ -61,7 +51,6 @@ router.route('/develop/pm/add').post(function(req,res) {
     data.push(req.body.remark);
     var currentUser = utils.getCurrentUser(req);
     data.push(currentUser.login_account);
-    data.push(req.body.projectType);
     projectService.add(data, function(result) {
         utils.respJsonData(res, result);
     });
@@ -81,7 +70,6 @@ router.route('/develop/pm/update').put(function(req,res) {
     data.push(req.body.healthCondition);
     data.push(req.body.resourceUse);
     data.push(req.body.remark);
-    data.push(req.body.projectType);
     projectService.update(data, function(result) {
         utils.respJsonData(res, result);
     });

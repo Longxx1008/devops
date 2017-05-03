@@ -1,0 +1,236 @@
+<!--<script src="{{projcfg.appurl}}/static/js/containerlistingdata.js" type="text/javascript"></script>-->
+<style>
+    .div-bor{
+        position: relative;width: 100%;height: 35px;
+        border-bottom: 1px solid #ccc;
+        margin-bottom: 1rem;
+    }
+    .icon-serach{
+        position: absolute;left: 0;z-index:5;
+        background-image: url('{{projcfg.appurl}}/static/images/search.png'); /*引入图片图片*/
+        background-repeat: no-repeat; /*设置图片不重复*/
+        background-position: 1px 0px; /*图片显示的位置*/
+        width: 20px; /*设置图片显示的宽*/
+        height: 20px; /*图片显示的高*/
+        top: 5px;
+        left: 3px;
+        cursor:pointer;
+    }
+    .serach{
+        padding-left: 22px;
+    }
+    input[type=radio] {
+         opacity: 1;
+         position: relative;
+         left: 2px;
+         z-index: 12;
+         width: 13px;
+         height: 13px;
+         cursor: pointer;
+         margin: 1rem;
+    }
+
+</style>
+<div class="row">
+    <div class="col-xs-12 col-md-12">
+        <div class="widget">
+            <div class="widget-body">
+                <div id="toolbar" class="row tbRow" style="margin-bottom: 1.1rem;border-bottom: 1px solid #ccc;">
+                    <div class="col-xs-6 col-md-6" style="width:100%">
+                        <font size="3.5rem" style="margin-left: 1.2rem;margin-right: 2.5rem"> <b>镜像管理</b></font>
+                        <div class="btn-group" role="group" aria-label="...">
+                            <button type="button" class="btn btn-default" onclick="openPage('addimage','新增镜像','',doAdd)" data-title="新增镜像">
+                                <i class="fa fa-edit"></i> 新增镜像
+                            </button>
+                            <button type="button" class="btn btn-default" onclick="do_page('modifyimage')" data-title="修改镜像">
+                                <i class="fa fa-edit"></i> 修改镜像
+                            </button>
+                            <button type="button" class="btn btn-default" onclick="do_page('deleteimage')" data-title="删除镜像">
+                                <i class="fa fa-edit"></i> 删除镜像
+                            </button>
+                        </div>
+
+                    </div>
+                </div>
+                <div id="cc" class="easyui-layout" data-options="fit:true,border:false" style="width: 800px; height:575px;background-color: #fbfbfb;">
+                    <div id="images" data-options="region:'center',border:false" style="overflow-x:hidden;overflow-y:hidden">
+                        <div id="datagridPanel" style="width:100%;height: 100%;">
+                            <table id="myImageDataTable">
+                            </table>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<div>
+
+</div>
+
+<div id="addimage" class="mydialog"  data-options="iconCls:'icon-save'">
+    <div class="row">
+        <div class="col-md-12">
+            <div>
+                <form id="imageForm" class="form-horizontal form-bordered" role="form">
+                    <div class="form-group">
+                        <label for="inputProjectName" class="col-sm-2 control-label no-padding-right">渠道:</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="easyui-validatebox form-control" data-options="required:true" name="channels" id="channels" placeholder="请输入渠道" style="width:60%">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputGitAddress" class="col-sm-2 control-label no-padding-right">类型:</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="easyui-validatebox form-control" data-options="required:true" name="catagory" id="catagory" placeholder="请输入类型" style="width:60%">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputProjectRemark" class="col-sm-2 control-label no-padding-right">简介:</label>
+                        <div class="col-sm-10">
+                            <textarea class="form-control" rows="3" name="simpleIntroduction" id="simpleIntroduction" placeholder="请输入简介"></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <table style="margin:20px;height:100px;">
+                            <tr>
+                                <td>请选择文件</td>
+                                <td width="5px;"></td>
+                                <td><input type="file" class="easyui-filebox" id="picture" name="picture" style="width:260px;height:25px;"></td>
+                                <td></td></tr>
+                            <tr>
+                                <td colspan="4"><label id="fileName" /></td>
+                            </tr>
+                            <tr>
+                                <td colspan="4">
+                                    <label id="uploadInfo" />
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </form>
+            </div>
+
+                </form>
+            </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script  type="text/javascript">
+
+    $(function(){
+        $('#myImageDataTable').datagrid({
+            url:'{{projcfg.appurl}}/api/project/ability/imagemanage/develop/im/pageList',
+            method:'get',
+            rownumbers:false,
+            striped:true,
+            fitColumns:true,
+            fit:true,
+            border:true,
+            singleSelect:true,
+            selectOnCheck:false,
+            columns:[[
+                {"field": "idcode", checkbox:true},
+                {"field": "imageCode","title":" 镜像编号","width":80,align:"center"},
+                {"field": "channels","title":"渠道","width":100,align:"center"},
+                {"field": "picture","title":"图片","width":100,align:"center","formatter":function(value,rowDate,rowIndex){
+                    console.info(rowDate.picture.toString());
+                    return '<img src="'+rowDate.picture.toString()+'"  style="height:25px;width:25px">';
+                }},
+                {"field":"imageVersion","title":"","width":100,align:"center"},
+                {"field": "simpleIntroduction","title":"简介","width":150,align:"center"},
+                {"field": "catagory","title":"类型","width":50,align:"center"},
+                {"field": "collectionNumber","title":"收藏数","width":50,align:"center"},
+                {"field": "downloadNumber","title":"下载数","width":50,align:"center"},
+                {"field":"createDate","title":"创建时间","width":80,align:"center"}
+
+            ]],
+            onLoadSuccess:function(json) {
+
+            },
+            onLoadError:function() {
+                msgError('加载数据出现时发生错误,请稍候重试...');
+            },
+            pagination:true,
+            loadMsg:'正在加载...'
+        });
+
+    });
+
+
+    function openPage(id,title, value, callback) {
+        $('#'+id).show();
+        $('#'+id).mydialog({
+            title:title,
+            width: 450,
+            height: 400,
+            top:100,
+            modal: true,
+            myButtons:[
+                {
+                    text:'确定',
+                    btnCls:'btn btn-blue',
+                    handler:function(){
+                        console.log("aaaaaaaaaaaaaaa")
+//                        callback(value);
+                    }
+                },
+                {
+                    text:'关闭',
+                    btnCls:'btn btn-danger',
+                    handler:function(){
+                        console.log("bbbbbbbbbbbbbbbb")
+//                        closeDialog();
+                    }
+                }
+            ]
+        });
+    }
+
+    function doSearch() {
+        $('#myImageDataTable').datagrid('reload');
+    }
+    function doClear() {
+        doSearch();
+    }
+    function doAdd(value) {
+        var validate = $('#imageForm').form('validate');
+        if(!validate) {
+            return false;
+        }
+        $.ajax({
+            url: '{{projcfg.appurl}}/api/project/ability/imagemanage/develop/im/add',
+            type: 'post',
+            data: $('#imageForm').serializeJson(),
+            success: function (data) {
+                if(data.success) {
+                    msgSuccess(data.msg);
+                    closeDialog();
+                    doSearch();
+                }
+                else {
+                    msgError(data.msg+',错误代码:'+data.code);
+                }
+            }
+        });
+    }
+
+    // 打开页面
+
+
+    // 清空新增表单数据
+    function clear() {
+        $('#addimage').form('clear');
+    }
+
+    // 关闭窗口
+    function closeDialog() {
+       $('#addimage').dialog('close');
+        clear();
+    }
+
+</script>
