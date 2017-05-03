@@ -7,15 +7,14 @@ stages:
 variables:
   LS_CMD: 'ls $FLAGS $$TMP_DIR'
   FLAGS: '-al'
-  FLAGST: 'echo $CI_RUNNER_ID'
+  FLAGST: 'echo $CI_BUILD_TAG'
   
 # 定义编译阶段
 build_stages:
   stage: build
   script:
 #    - docker build -t developer/developer-base:1.01 . 
-     - echo $CI_BUILD_TAG   
-#    - 'eval $FLAGST'
+    - 'eval $FLAGST'
 
 # 定义测试阶段
 test_stages:
