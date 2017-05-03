@@ -1,0 +1,35 @@
+version: '2.0'
+
+services:
+   el:
+      image: elasticsearch:5.2.2-alpine     
+      restart: always
+      environment:
+        - transport.host=0.0.0.0
+      ports:
+        - "9200:9200"
+      volumes:
+        - ./vol/elasticsearch/data:/usr/share/elasticsearch/data 
+   kibana:
+      image: kibana:5.2.1
+      restart: always
+      links:
+        - el
+      environment:
+        - ELASTICSEARCH_URL=http://el:9200
+      ports:
+        - 80:5601
+
+   logstash:
+      build: ./logstash
+      restart: always
+      volumes:
+        - ./logstash.conf:/config-dir/logstash.conf
+        - ./vol/logstash:/data
+      ports:
+#        - "5004:5000"
+#        - "5005:5001"
+        - "18087:5000/udp"
+      links:
+        - el
+
