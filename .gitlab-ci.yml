@@ -17,6 +17,7 @@ build_stages:
     - echo $CI_RUNNER_ID
     - echo $CI_BUILD_TAG
     - echo $RELEASE_IMAGE
+    - export
 
 # 定义测试阶段
 test_stages:
