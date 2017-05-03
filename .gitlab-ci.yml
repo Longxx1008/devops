@@ -16,6 +16,7 @@ build_stages:
 #    - docker build -t developer/developer-base:1.01 . 
     - echo $CI_RUNNER_ID
     - echo $CI_BUILD_TAG
+    - echo $RELEASE_IMAGE
 
 # 定义测试阶段
 test_stages:
