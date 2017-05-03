@@ -1,0 +1,148 @@
+<script src="{{projcfg.appurl}}/static/js/containerlistingdata.js" type="text/javascript"></script>
+<div class="row">
+    <div class="col-xs-12 col-md-12">
+        <div class="widget">
+            <div class="widget-body">
+                <div id="cc" class="easyui-layout" data-options="fit:true,border:false" style="width: 800px; height:575px;background-color: #fbfbfb;">
+                    <div data-options="region:'center',border:false" style="overflow-x:hidden;overflow-y:hidden">
+                        <div id="toolbar" class="row tbRow" style="">
+                            <div class="col-xs-6 col-md-6" style="width:100%">
+                               <b>负载均衡</b>
+                                <div class="btn-group" role="group" aria-label="..." style="margin-left: 3rem;">
+                                    <button type="button" class="btn btn-default" onclick="doAdd()" data-title="新增">
+                                        <i class="fa fa-plus"></i> 新增
+                                    </button>
+                                    <button type="button" class="btn btn-default" onclick="toEdit()" data-title="修改">
+                                        <i class="fa fa-edit"></i> 修改
+                                    </button>
+                                    <button type="button" class="btn btn-default" onclick="toEdit()" data-title="删除">
+                                        <i class="fa fa-edit"></i> 删除
+                                    </button>
+                                </div>
+                            </div>
+                            <!--<div class="col-xs-6 col-md-6 text-right">
+                                <form id="searchFrom" class="form-inline">
+                                    <div class="form-group">
+                                        <div class="input-group">
+                                            <input type="input" class="form-control" id="filter_name" name="filter_name" placeholder="系统编码/名称">
+                                            <span class="input-group-btn">
+                                                <button class="btn btn-default" type="button" onclick="doSearch()"><i class="fa fa-search"></i>查询</button>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>-->
+                        </div>
+
+                        <table id="loadlevelingDataTable">
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script  type="text/javascript">
+    $(function(){
+        $('#loadlevelingDataTable').datagrid({
+            //url:'{{projcfg.appurl}}/api/project/containerlisting/develop/pm/cl/pageList',
+            //method:'get',
+            rownumbers:false,
+            striped:true,
+            fitColumns:true,
+            toolbar: '#toolbar',
+            fit:true,
+            border:true,
+            singleSelect:true,
+            selectOnCheck:false,
+            columns:[[
+                {"field": "ll_code", checkbox:true},
+                {"field": "jjj","title":"编号","width":80,align:"center","formatter":function (value, rowData,rowIndex) {
+                    return rowData.ll_code;
+                }},
+                {"field": "public_ip","title":"公网IP","width":200,align:"center"},
+                {"field": "ser_address","title":"服务地址","width":200,align:"center"},
+                {"field": "status","title":"状态","width":80,align:"center","formatter":function (value, rowData,rowIndex) {
+                    if(value == '正常'){
+                        return '<img src="{{projcfg.appurl}}/static/images/status1.png"  alt="" height="20px" width="20px" style="margin-right:1rem;">'+value;
+                    }else{
+                        return '<img src="{{projcfg.appurl}}/static/images/status2.png"  alt="" height="20px" width="20px" style="margin-right:1rem;">'+value;
+                    }
+
+                }},
+                {"field": "remark","title":"备注","width":200,align:"center"},
+                {"field": "options","title":"操作","width":200,align:"center","formatter":function (value, rowData,rowIndex) {
+                    return '健康检查 | 日志';
+                }}
+            ]],
+            onLoadSuccess:function(json) {
+
+            },
+            onLoadError:function() {
+                msgError('加载数据出现时发生错误,请稍候重试...');
+            },
+            pagination:false,
+            loadMsg:'正在加载...'
+        });
+        $('#loadlevelingDataTable').datagrid('loadData',loadlevelingdata);
+    });
+
+    function back_project(){
+        history.go(-1);
+    }
+
+    function doAdd(){
+
+    }
+
+    function toEdit(){
+
+    }
+
+    function doSearch() {
+        $('#loadlevelingDataTable').datagrid('reload');
+    }
+    function doClear() {
+        doSearch();
+    }
+
+    // 打开页面
+    function openPage(title, value, callback) {
+        $('#myModal').show();
+        $('#myModal').mydialog({
+            title:title,
+            width: 700,
+            height: 485,
+            top:100,
+            modal: true,
+            myButtons:[
+                {
+                    text:'确定',
+                    btnCls:'btn btn-blue',
+                    handler:function(){
+                        callback(value);
+                    }
+                },
+                {
+                    text:'关闭',
+                    btnCls:'btn btn-danger',
+                    handler:function(){
+                        closeDialog();
+                    }
+                }
+            ]
+        });
+    }
+
+    // 清空新增表单数据
+    function clear() {
+        $('#projectForm').form('clear');
+    }
+
+    // 关闭窗口
+    function closeDialog() {
+        $('#myModal').dialog('close');
+        clear();
+    }
+
+</script>

@@ -7,6 +7,7 @@ var router = express.Router();
 var projectService = require('../services/projectService');
 var utils = require('../../../common/core/utils/app_utils');
 
+//分页查询项目数据列表
 router.route('/develop/pm/pageList').get(function(req,res){
     // 分页条件
     var projectCode = req.query.projectCode;
@@ -26,6 +27,23 @@ router.route('/develop/pm/pageList').get(function(req,res){
         utils.respJsonData(res, result);
     });
 });
+
+/**
+ * 查询项目版本数据
+ */
+router.route('/develop/pm/verList').get(function(req,res){
+    // 分页条件
+    var projectId = req.query.projectId;
+    var conditionMap = {};
+    if(projectId){
+        conditionMap.projectId = projectId;
+    }
+    // 调用分页
+    projectService.versionList(conditionMap,function(result){
+        utils.respJsonData(res, result);
+    });
+});
+
 /**
  * 创建项目
  */
@@ -43,6 +61,7 @@ router.route('/develop/pm/add').post(function(req,res) {
     data.push(req.body.remark);
     var currentUser = utils.getCurrentUser(req);
     data.push(currentUser.login_account);
+    data.push(req.body.projectType);
     projectService.add(data, function(result) {
         utils.respJsonData(res, result);
     });
@@ -62,6 +81,7 @@ router.route('/develop/pm/update').put(function(req,res) {
     data.push(req.body.healthCondition);
     data.push(req.body.resourceUse);
     data.push(req.body.remark);
+    data.push(req.body.projectType);
     projectService.update(data, function(result) {
         utils.respJsonData(res, result);
     });

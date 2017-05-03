@@ -13,7 +13,7 @@
                                     <button type="button" class="btn btn-default" onclick="toEdit()" data-title="编辑">
                                         <i class="fa fa-edit"></i> 项目编辑
                                     </button>
-                                    <button type="button" class="btn btn-default" onclick="toEdit()" data-title="应用详情">
+                                    <button type="button" class="btn btn-default" onclick="to_detail()" data-title="应用详情">
                                         <i class="fa fa-edit"></i> 应用详情
                                     </button>
                                     <button type="button" class="btn btn-default" onclick="toEdit()" data-title="项目成员">
@@ -25,7 +25,7 @@
                                     <button type="button" class="btn btn-default" onclick="toEdit()" data-title="一键部署">
                                         <i class="fa fa-edit"></i> 一键部署
                                     </button>
-                                    <button type="button" class="btn btn-default" onclick="toEdit()" data-title="发布到仓库">
+                                    <button type="button" class="btn btn-default" onclick="to_servicewarehouse()" data-title="发布到仓库">
                                         <i class="fa fa-edit"></i> 发布到仓库
                                     </button>
                                 </div>
@@ -72,6 +72,15 @@
                         </div>
                     </div>
                     <div class="form-group">
+                        <label for="selectProjectType" class="col-sm-2 control-label no-padding-right">类型:</label>
+                        <div class="col-sm-10">
+                            <select id="projectType" name="projectType" style="width: 60%">
+                                <option value="0">数据</option>
+                                <option value="1">服务</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
                         <label for="inputProjectRemark" class="col-sm-2 control-label no-padding-right">备注:</label>
                         <div class="col-sm-10">
                             <textarea class="form-control" rows="3" name="remark" id="remark" placeholder="请输入备注"></textarea>
@@ -102,11 +111,10 @@
                 {"field": "projectName","title":"应用名称","width":100,align:"center"},
                 {"field": "proVersions","title":"版本","width":130,align:"center",
                     "formatter":function (value, rowData,rowIndex) {
-                        return '<select id="vers" class="easyui-combobox" name="vers" style="width:130px;">'+
-                                '<option value="v2.0.1">v2.0.1(停止)</option>'+
-                                '<option>v1.9.1(停止)</option>'+
-                                '<option>v1.8.1(运行中)</option>'+
-                                '</select>';
+                        var label;
+
+                        label = getVerData(rowData.id,rowIndex);
+                        return label;
                     }},
                 {"field": "gitAddress","title":"版本库","width":200,align:"center"},
                 {"field": "healthCondition","title":"健康状况","width":80,align:"center",
@@ -134,10 +142,33 @@
      * 容器列表
      */
     function toContainerListing(){
-        window.location.href = "{{projcfg.appurl}}/containerlisting";
+        window.location.href = "{{projcfg.appurl}}/containermanage";
     }
 
-
+    function getVerData(projectid,rowIndex){
+        var select = '<select id="vers"+rowIndex class="easyui-combobox" name="vers"+rowIndex style="width:130px;">';
+        if(projectid){
+            $.ajax({
+                url: '{{projcfg.appurl}}/api/project/dpm/project/develop/pm/verList',
+                type: 'get',
+                async:false,
+                data: {'projectId':projectid},
+                success: function (data) {
+                    console.log(data);
+                    if(data.success) {
+                        for(var i=0;i<data.data.length;i++){
+                            select += "<option value='"+data.data[i].vNo+"'>"+data.data[i].vNo+"("+data.data[i].vStatus+")</option>";
+                        }
+                    }
+                    else {
+                        msgError(data.msg+',错误代码:'+data.code);
+                    }
+                }
+            });
+        }
+      select +=  '</select>';
+        return select;
+    }
 
     function doSearch() {
         $('#projectDataTable').datagrid('reload');
@@ -204,6 +235,36 @@
     function closeDialog() {
         $('#myModal').dialog('close');
         clear();
+    }
+
+    function to_detail(){
+        window.location.href = "{{projcfg.appurl}}/servicedetail";
+    }
+    function to_servicewarehouse(){
+        var rowdata = $('#projectDataTable').datagrid("getSelections");
+        if(rowdata){
+            for (var i=0; i<rowdata.length;i++){
+                $.ajax({
+                    url: '{{projcfg.appurl}}/api/project/dpm/project/develop/pm/add',
+                    type: 'post',
+                    async:false,
+                    data: $('#projectForm').serializeJson(),
+                    success: function (data) {
+                        if(data.success) {
+                            msgSuccess(data.msg);
+                            closeDialog();
+                            doSearch();
+                        }
+                        else {
+                            msgError(data.msg+',错误代码:'+data.code);
+                        }
+                    }
+                });
+            }
+        }else{
+            $.messager.alert("请选择一条数据进行发布到仓库！")
+        }
+        window.location.href = "{{projcfg.appurl}}/servicewarehouse";
     }
 
 </script>
