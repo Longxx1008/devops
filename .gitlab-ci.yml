@@ -17,7 +17,7 @@ build_stages:
 #    - docker build -t developer/developer-base:1.01 . 
     - echo $CI_RUNNER_ID
     - echo $CI_BUILD_TAG
-    - echo $RELEASE_IMAGE
+    - echo $MY_CI_REGISTRY_IMAGE
     - export
     - if [ "$CI_BUILD_TAG" ]; then docker build -t $MY_CI_REGISTRY_IMAGE .;fi
  
