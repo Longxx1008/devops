@@ -29,8 +29,10 @@ test_stages:
     - echo "I am in test stage"
 
 # 定义部署阶段
-deploy_stages:
+release_image:
   stage: deploy
+  before_script:
+    - $DOCKER_LOGIN
   script:
-    - echo "I am job2"
-    - echo "I am in build stage"
+    - if [ "$CI_BUILD_TAG" ]; then docker push $MY_CI_REGISTRY_IMAGE ;fi
+    - $DOCKER_LOGOUT
