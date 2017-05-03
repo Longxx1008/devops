@@ -7,7 +7,7 @@ stages:
 variables:
   LS_CMD: 'ls $FLAGS $$TMP_DIR'
   FLAGS: '-al'
-  FLAGST: 'echo $CI_BUILD_TAG'
+  FLAGST: 'echo $CI_RUNNER_ID'
   
 # 定义编译阶段
 build_stages:
