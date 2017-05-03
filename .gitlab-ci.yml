@@ -14,7 +14,7 @@ build_stages:
   stage: build
   script:
 #    - docker build -t developer/developer-base:1.01 . 
-    - 'echo $CI_BUILD_TAG'  
+     - echo $CI_BUILD_TAG   
 #    - 'eval $FLAGST'
 
 # 定义测试阶段
