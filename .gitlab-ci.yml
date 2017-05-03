@@ -14,8 +14,7 @@ build_stages:
   stage: build
   script:
 #    - docker build -t developer/developer-base:1.01 . 
-    - 'eval $FLAGST'
-    - "echo $CI_RUNNER_ID"
+    - echo $CI_RUNNER_ID
 
 # 定义测试阶段
 test_stages:
