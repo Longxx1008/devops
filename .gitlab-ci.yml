@@ -19,9 +19,7 @@ build_stages:
     - echo $CI_BUILD_TAG
     - echo $RELEASE_IMAGE
     - export
-    - if [ "$CI_BUILD_TAG" ]; then
-        docker build -t $MY_CI_REGISTRY_IMAGE .;
-      fi
+    - if [ "$CI_BUILD_TAG" ]; then docker build -t $MY_CI_REGISTRY_IMAGE .;fi
  
 # 定义测试阶段
 test_stages:
