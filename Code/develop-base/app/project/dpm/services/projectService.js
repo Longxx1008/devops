@@ -50,7 +50,7 @@ exports.versionList = function(conditionMap, cb) {
  * @param cb
  */
 exports.add = function(data, cb) {
-    var sql = "insert into pass_develop_project_resources(projectCode,projectName,gitAddress,healthCondition,resourceUse,remark,createTime,createUser,projectType) values(?,?,?,?,?,?,now(),?,?)";
+    var sql = "insert into pass_develop_project_resources(projectCode,projectName,gitAddress,healthCondition,resourceUse,remark,createTime,createUser,projectType,gitlabProjectId) values(?,?,?,?,?,?,now(),?,?,?)";
     mysqlPool.query(sql,data,function(err,results) {
         if(err) {
             cb(utils.returnMsg(false, '1000', '创建项目信息异常', null, err));

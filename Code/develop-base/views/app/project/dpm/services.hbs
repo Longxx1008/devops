@@ -10,12 +10,12 @@
                             <button type="button" class="btn btn-default" onclick="doAdd()" data-title="新增">
                                 <i class="fa fa-plus"></i> 新增
                             </button>
-                            <button type="button" class="btn btn-default" onclick="toEdit()" data-title="修改">
-                                <i class="fa fa-edit"></i> 修改
-                            </button>
-                            <button type="button" class="btn btn-default" onclick="toEdit()" data-title="删除">
-                                <i class="fa fa-edit"></i> 删除
-                            </button>
+                            <!--<button type="button" class="btn btn-default" onclick="toEdit()" data-title="修改">-->
+                                <!--<i class="fa fa-edit"></i> 修改-->
+                            <!--</button>-->
+                            <!--<button type="button" class="btn btn-default" onclick="toEdit()" data-title="删除">-->
+                                <!--<i class="fa fa-edit"></i> 删除-->
+                            <!--</button>-->
                         </div>
                     </div>
                     <!--<div class="col-xs-6 col-md-6 text-right">
@@ -31,14 +31,14 @@
                         </form>
                     </div>-->
                 </div>
-                <div style="margin-top: 2rem;margin-left: 1.3rem;margin-bottom: 1rem;"><h3><b>数据</b></h3></div>
-                <div id="cc" class="easyui-layout" data-options="fit:true,border:false" style="width: 800px; height:30px;background-color: #fbfbfb;">
+                <div style="margin-top: 1rem;margin-left: 1.3rem;margin-bottom: 1rem;"><h3><b>数据</b></h3></div>
+                <div id="cc" class="easyui-layout" data-options="fit:true,border:false" style="width: 800px; height:100px;background-color: #fbfbfb;">
                     <div data-options="region:'center',border:false" style="overflow-x:hidden;overflow-y:hidden">
                         <table id="servcieDataTable">
                         </table>
                     </div>
                 </div>
-                <div style="margin-top: 3rem;margin-left: 1.3rem;margin-bottom: 1rem;"><h3><b>能力</b></h3></div>
+                <div style="margin-top: 1.5rem;margin-left: 1.3rem;margin-bottom: 1rem;"><h3><b>能力</b></h3></div>
                 <div id="cc2" class="easyui-layout" data-options="fit:true,border:false" style="width: 800px; height:30px;background-color: #fbfbfb;">
                     <div data-options="region:'center',border:false" style="overflow-x:hidden;overflow-y:hidden">
                         <table id="servcieAbilityTable">
@@ -53,6 +53,8 @@
     $(function(){
 
         $('#servcieDataTable').datagrid({
+            url:'{{projcfg.appurl}}/api/project/ability/services/develop/sm/smPageList?type=0',
+            method:'get',
             rownumbers:false,
             //autoRowHeight:true,
             striped:true,
@@ -62,18 +64,30 @@
             border:true,
             singleSelect:true,
             selectOnCheck:false,
-            columns:servicesMCols,
+            columns:[[
+                {"field": "serviceId", checkbox:true},
+                {"field": "projectId", hidden:true},
+                {"field": "service_name","title":"服务名称","width":150,align:"center"},
+                {"field": "createTime","title":"开通时间","width":100,align:"center"},
+                {"field": "status","title":"状态","width":100,align:"center"},
+                {"field": "remark","title":"备注","width":200,align:"center"},
+                {"field": "options","title":"操作","width":150,align:"center","formatter":function (value, rowData,rowIndex) {
+                    return "<span style='cursor: pointer;' onclick='to_detail();'> 详情 </span>";
+                }},
+            ]],
             onLoadSuccess:function(json) {
 
             },
             onLoadError:function() {
                 msgError('加载数据出现时发生错误,请稍候重试...');
             },
-//            pagination:true,
+            pagination:true,
             loadMsg:'正在加载...'
         });
 
         $('#servcieAbilityTable').datagrid({
+            url:'{{projcfg.appurl}}/api/project/ability/services/develop/sm/smPageList?type=1',
+            method:'get',
             rownumbers:false,
             //autoRowHeight:true,
             striped:true,
@@ -82,25 +96,33 @@
             border:true,
             singleSelect:true,
             selectOnCheck:false,
-            columns:servicesMCols,
+            columns:[[
+                 {"field": "serviceId", checkbox:true},
+                 {"field": "projectId", hidden:true},
+                {"field": "service_name","title":"服务名称","width":150,align:"center"},
+                {"field": "createTime","title":"开通时间","width":100,align:"center"},
+                {"field": "status","title":"状态","width":100,align:"center"},
+                {"field": "remark","title":"备注","width":200,align:"center"},
+                {"field": "options","title":"操作","width":150,align:"center","formatter":function (value, rowData,rowIndex) {
+                    return "<span style='cursor: pointer;' onclick='to_detail();'> 详情 </span>";
+                }},
+            ]],
             onLoadSuccess:function(json) {
 
             },
             onLoadError:function() {
                 msgError('加载数据出现时发生错误,请稍候重试...');
             },
-//            pagination:true,
+            pagination:true,
             loadMsg:'正在加载...'
         });
-        $('#servcieDataTable').datagrid('loadData',servciesdata);
-        $('#servcieAbilityTable').datagrid('loadData',servciesAbilitydata);
+//        $('#servcieDataTable').datagrid('loadData',servciesdata);
+//        $('#servcieAbilityTable').datagrid('loadData',servciesAbilitydata);
     });
 
-    /**
-     * 容器列表
-     */
-    function toContainerListing(){
-        window.location.href = "{{projcfg.appurl}}/containerlisting";
+    //项目详情
+    function to_detail(){
+        window.location.href = "{{projcfg.appurl}}/servicedetail";
     }
 
 

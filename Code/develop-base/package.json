@@ -37,7 +37,8 @@
 	"ueditor":"1.1.4",
 	"xss":"0.3.3",
 	"request-payload":"1.0.1",
-	"nodemailer":"2.6.0"
+	"nodemailer":"2.6.0",
+    "gitlab":"1.7.1"
 	
   }
 }

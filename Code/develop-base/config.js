@@ -102,6 +102,19 @@ var config = {
             key_3_prefix:'cmcc_gz_'
         },
         password_daily_err_count:10// 密码每日允许错误次数
+    },
+    platform:{
+        gitlabIp:'code.dev.gz.cmcc',
+        gitlabPort:80,
+        gitlabUrl: 'https://code.dev.gz.cmcc',
+        private_token:'yJFsQXvox3xGHUPxyDsE',
+        dockerIp: '10.201.253.165',
+        dockerPort:2375,
+        defaultImage: "ubuntu_base:0.2",
+        superRolesId:"56d7e358a6fbe05a1394ad6e",
+        userRoot:'/mnt/dockerts/',
+        LableKey:'index',
+        lableValue:'create'
     }
 }
 module.exports = config;

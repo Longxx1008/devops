@@ -76,8 +76,14 @@
                         <div class="col-sm-10">
                             <select id="projectType" name="projectType" style="width: 60%">
                                 <option value="0">数据</option>
-                                <option value="1">服务</option>
+                                <option value="1">能力</option>
                             </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputGitProjectID" class="col-sm-2 control-label no-padding-right">git项目ID:</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="easyui-validatebox form-control" data-options="required:true" name="gitProjectID" id="gitProjectID" placeholder="请输入git项目ID" style="width:60%">
                         </div>
                     </div>
                     <div class="form-group">
@@ -143,14 +149,15 @@
             singleSelect:true,
             selectOnCheck:false,
             columns:[[
-                {"field":'id',checkbox:true,checked:true},
+                {"field":'id',checkbox:true},
+                {"field":'gitlabProjectId',hidden:true},
                 {"field": "projectCode","title":"编号","width":80,align:"center"},
                 {"field": "projectName","title":"应用名称","width":100,align:"center"},
                 {"field": "proVersions","title":"版本","width":130,align:"center",
                     "formatter":function (value, rowData,rowIndex) {
                         var label;
 
-                        label = getVerData(rowData.id,rowIndex);
+                        label = getVerData(rowData.id,rowData.gitlabProjectId,rowIndex);
                         return label;
                     }},
                 {"field": "gitAddress","title":"版本库","width":200,align:"center"},
@@ -182,19 +189,22 @@
         window.location.href = "{{projcfg.appurl}}/containermanage";
     }
 
-    function getVerData(projectid,rowIndex){
-        var select = '<select id="vers"+rowIndex class="easyui-combobox" name="vers"+rowIndex style="width:130px;">';
-        if(projectid){
+    function getVerData(projectId,gitProjectId,rowIndex){
+        var flag = "vers"+rowIndex;
+        var select = "<select id=\""+flag+"\" class=\"easyui-combobox\" name=\""+flag+"\" style=\"width:130px;\">";
+        if(projectId){
             $.ajax({
                 url: '{{projcfg.appurl}}/api/project/dpm/project/develop/pm/verList',
                 type: 'get',
                 async:false,
-                data: {'projectId':projectid},
+                data: {'projectId':projectId,'gitProjectId':gitProjectId},
                 success: function (data) {
                     console.log(data);
                     if(data.success) {
-                        for(var i=0;i<data.data.length;i++){
-                            select += "<option value='"+data.data[i].vNo+"'>"+data.data[i].vNo+"("+data.data[i].vStatus+")</option>";
+                        var verdata = verAarry(data.data);
+                        console.log("==",verdata);
+                        for(var i=0;i<verdata.length;i++){
+                            select += "<option value='"+verdata[i]+"'>"+verdata[i]+"</option>";
                         }
                     }
                     else {
@@ -205,6 +215,14 @@
         }
       select +=  '</select>';
         return select;
+    }
+
+    function verAarry(data){
+        var arr = [];
+        for(var i=0;i<data.length;i++){
+            arr.push((data[i].vNo).replace('v',''));
+        }
+        return arr.reverse();
     }
 
     function doSearch() {
@@ -294,20 +312,23 @@
     function to_detail(){
         window.location.href = "{{projcfg.appurl}}/servicedetail";
     }
+    /**
+     * 发布到仓库
+     */
     function to_servicewarehouse(){
         var rowdata = $('#projectDataTable').datagrid("getSelections");
-        if(rowdata){
+        if(rowdata.length > 0){
             for (var i=0; i<rowdata.length;i++){
+                var rowindex = $('#projectDataTable').datagrid("getRowIndex",rowdata[i]);
                 $.ajax({
-                    url: '{{projcfg.appurl}}/api/project/dpm/project/develop/pm/add',
+                    url: '{{projcfg.appurl}}/api/project/ability/services/develop/sm/add',
                     type: 'post',
                     async:false,
-                    data: $('#projectForm').serializeJson(),
+                    data: {'projectId':rowdata[i].id,'proVersion':$("#vers"+rowindex).val(),'gitAddress':rowdata[i].gitAddress},
                     success: function (data) {
                         if(data.success) {
                             msgSuccess(data.msg);
-                            closeDialog();
-                            doSearch();
+                            window.location.href = "{{projcfg.appurl}}/servicewarehouse";
                         }
                         else {
                             msgError(data.msg+',错误代码:'+data.code);
@@ -316,9 +337,18 @@
                 });
             }
         }else{
-            $.messager.alert("请选择一条数据进行发布到仓库！")
+            $.messager.alert("提示","请选择一条数据进行发布到仓库！","warning");
         }
-        window.location.href = "{{projcfg.appurl}}/servicewarehouse";
+
+    }
+    function load(content) {
+        $("<div class=\"datagrid-mask\"></div>").css({ display: "block", width: "100%", height: $(window).height() }).appendTo("body");
+        $("<div class=\"datagrid-mask-msg\"></div>").html(content+", 请稍候。。。").appendTo("body").css({ display: "block", left: ($(document.body).outerWidth(true) - 190) / 2, top: ($(window).height() - 45) / 2 });
+    }
+    //取消加载层
+    function disLoad() {
+        $(".datagrid-mask").remove();
+        $(".datagrid-mask-msg").remove();
     }
 
 </script>

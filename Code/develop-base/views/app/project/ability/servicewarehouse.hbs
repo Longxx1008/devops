@@ -3,94 +3,64 @@
     <div class="col-xs-12 col-md-12">
         <div class="widget">
             <div class="widget-body">
-                <div id="toolbar" class="row tbRow" style="margin-bottom: 1.1rem;border-bottom: 1px solid #ccc;">
+                <div id="toolbar" class="row tbRow" style="border-right: 1px solid #ccc;border-bottom:1px solid #ccc;">
                     <div class="col-xs-6 col-md-6" style="width:100%">
                         <font size="3.5rem" style="margin-left: 1.2rem;margin-right: 2.5rem"> <b>服务仓库</b></font>
-
+                        <!--<div class="btn-group" role="group" aria-label="...">-->
+                            <!--<button type="button" class="btn btn-default" onclick="doAdd()" data-title="新增">-->
+                                <!--<i class="fa fa-plus"></i> 新增-->
+                            <!--</button>-->
+                            <!--<button type="button" class="btn btn-default" onclick="toEdit()" data-title="修改">-->
+                                <!--<i class="fa fa-edit"></i> 修改-->
+                            <!--</button>-->
+                            <!--<button type="button" class="btn btn-default" onclick="toEdit()" data-title="删除">-->
+                                <!--<i class="fa fa-edit"></i> 删除-->
+                            <!--</button>-->
+                        <!--</div>-->
+                    </div>
+                    <!--<div class="col-xs-6 col-md-6 text-right">
+                        <form id="searchFrom" class="form-inline">
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <input type="input" class="form-control" id="filter_name" name="filter_name" placeholder="系统编码/名称">
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-default" type="button" onclick="doSearch()"><i class="fa fa-search"></i>查询</button>
+                                    </span>
+                                </div>
+                            </div>
+                        </form>
+                    </div>-->
+                </div>
+                <div style="margin-top: 1rem;margin-left: 1.3rem;margin-bottom: 1rem;"><h3><b>数据</b></h3></div>
+                <div id="cc" class="easyui-layout" data-options="fit:true,border:false" style="width: 800px; height:100px;background-color: #fbfbfb;">
+                    <div data-options="region:'center',border:false" style="overflow-x:hidden;overflow-y:hidden">
+                        <table id="servcieDataTable">
+                        </table>
                     </div>
                 </div>
-                <div id="cc" class="easyui-layout" data-options="fit:true,border:false" style="width: 800px; height:575px;background-color: #fbfbfb;">
-                    <!--<div id="images" data-options="region:'center',border:false" style="overflow-x:hidden;overflow-y:hidden">-->
-                        <div id="privatediv" style="width:100%;height: 100%;">
-                            <div style="width:100%;height:50%;border-bottom: 1px solid #ccc; ">
-                                <div style="margin-left: 1.5rem;"><h4><b>数据</b></h4></div>
-                                <div id="shoujin" style="border:1px solid #ccc;width:160px;height:210px;float:left;margin:1.5rem;background-color: #DDDDDD;">
-                                    <div style="margin:1.8rem;text-align: center;"><img src="{{projcfg.appurl}}/static/images/choujin.png" alt="" height="50px" width="50px"/></div>
-                                    <div style="margin-left:1.1rem;margin-right:1.1rem;text-align: center;"><h2><b>酬金数据</b></h2></div>
-                                    <div style="margin-left:1.1rem;margin-right:1.1rem;margin-top:0.8rem;text-align: center;"><font size="2">v5.5.0</font></div>
-                                    <div style="margin-top:1.8rem;width:100%">
-                                        <div style="float: left;margin-left:0.6rem;width:45%;height:40px;"><input type="button" value="创建" onclick="openPage('创建酬金数据', '酬金数据', doAdd)" style="width: 80%;height:30px;"/></div>
-                                        <div style="float: right;margin-right:0.6rem;width:45%;height:40px;text-align: right;"><input type="button" value="说明" onclick="to_detail();" style="width: 80%;height:30px;"/></div>
-                                    </div>
-                                </div>
-                                <div id="jinfen" style="border:1px solid #ccc;width:160px;height:210px;float:left;margin:1.5rem;background-color: #DDDDDD;">
-                                    <div style="margin:1.8rem;text-align: center;"><img src="{{projcfg.appurl}}/static/images/jingfen.png" alt="" height="50px" width="50px"/></div>
-                                    <div style="margin-left:1.1rem;margin-right:1.1rem;text-align: center;"><h2><b>经分数据</b></h2></div>
-                                    <div style="margin-left:1.1rem;margin-right:1.1rem;margin-top:0.8rem;text-align: center;"><font size="2">v5.5.0</font></div>
-                                    <div style="margin-top:1.8rem;width:100%">
-                                        <div style="float: left;margin-left:0.6rem;width:45%;height:40px;"><input type="button" value="创建" onclick="openPage('创建经分数据', '经分数据', doAdd)" style="width: 80%;height:30px;"/></div>
-                                        <div style="float: right;margin-right:0.6rem;width:45%;height:40px;text-align: right;"><input type="button" value="说明" onclick="to_detail();" style="width: 80%;height:30px;"/></div>
-                                    </div>
-                                </div>
-                                <div id="crmdata" style="border:1px solid #ccc;width:160px;height:210px;float:left;margin:1.5rem;background-color: #DDDDDD;">
-                                    <div style="margin:1.8rem;text-align: center;"><img src="{{projcfg.appurl}}/static/images/crm.png" alt="" height="50px" width="50px"/></div>
-                                    <div style="margin-left:1.1rem;margin-right:1.1rem;text-align: center;"><h2><b>CRM数据</b></h2></div>
-                                    <div style="margin-left:1.1rem;margin-right:1.1rem;margin-top:0.8rem;text-align: center;"><font size="2">v5.5.0</font></div>
-                                    <div style="margin-top:1.8rem;width:100%">
-                                        <div style="float: left;margin-left:0.6rem;width:45%;height:40px;"><input type="button" value="创建" onclick="openPage('创建CRM数据', 'CRM数据', doAdd)" style="width: 80%;height:30px;"/></div>
-                                        <div style="float: right;margin-right:0.6rem;width:45%;height:40px;text-align: right;"><input type="button" value="说明" onclick="to_detail();" style="width: 80%;height:30px;"/></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div style="width:100%;height:50%;">
-                                <div style="margin-left: 1.5rem;margin-top: 1.3rem;"><h4><b>能力</b></h4></div>
-                                <div id="msg" style="border:1px solid #ccc;width:160px;height:210px;float:left;margin:1.5rem;background-color: #DDDDDD;">
-                                    <div style="margin:1.8rem;text-align: center;"><img src="{{projcfg.appurl}}/static/images/msg.png" alt="" height="50px" width="50px"/></div>
-                                    <div style="margin-left:1.1rem;margin-right:1.1rem;text-align: center;"><h2><b>短信</b></h2></div>
-                                    <div style="margin-left:1.1rem;margin-right:1.1rem;margin-top:0.8rem;text-align: center;"><font size="2">v5.5.0</font></div>
-                                    <div style="margin-top:1.8rem;width:100%">
-                                        <div style="float: left;margin-left:0.6rem;width:45%;height:40px;"><input type="button" value="创建" onclick="openPage('创建短信能力', '短信能力', doAdd)" style="width: 80%;height:30px;"/></div>
-                                        <div style="float: right;margin-right:0.6rem;width:45%;height:40px;text-align: right;"><input type="button" value="说明" onclick="to_detail();" style="width: 80%;height:30px;"/></div>
-                                    </div>
-                                </div>
-                                <div id="vedio" style="border:1px solid #ccc;width:160px;height:210px;float:left;margin:1.5rem;background-color: #DDDDDD;">
-                                    <div style="margin:1.8rem;text-align: center;"><img src="{{projcfg.appurl}}/static/images/shiping.png" alt="" height="50px" width="50px"/></div>
-                                    <div style="margin-left:1.1rem;margin-right:1.1rem;text-align: center;"><h2><b>视频</b></h2></div>
-                                    <div style="margin-left:1.1rem;margin-right:1.1rem;margin-top:0.8rem;text-align: center;"><font size="2">v5.5.0</font></div>
-                                    <div style="margin-top:1.8rem;width:100%">
-                                        <div style="float: left;margin-left:0.6rem;width:45%;height:40px;"><input type="button" value="创建" onclick="openPage('创建视频能力', '视频能力', doAdd)" style="width: 80%;height:30px;"/></div>
-                                        <div style="float: right;margin-right:0.6rem;width:45%;height:40px;text-align: right;"><input type="button" value="说明" onclick="to_detail();" style="width: 80%;height:30px;"/></div>
-                                    </div>
-                                </div>
-                                <div id="mulvedio" style="border:1px solid #ccc;width:160px;height:210px;float:left;margin:1.5rem;background-color: #DDDDDD;">
-                                    <div style="margin:1.8rem;text-align: center;"><img src="{{projcfg.appurl}}/static/images/duofang.png" alt="" height="50px" width="50px"/></div>
-                                    <div style="margin-left:1.1rem;margin-right:1.1rem;text-align: center;"><h2><b>多方通话</b></h2></div>
-                                    <div style="margin-left:1.1rem;margin-right:1.1rem;margin-top:0.8rem;text-align: center;"><font size="2">v5.5.0</font></div>
-                                    <div style="margin-top:1.8rem;width:100%">
-                                        <div style="float: left;margin-left:0.6rem;width:45%;height:40px;"><input type="button" value="创建" onclick="openPage('创建多方通话能力', '多方通话能力', doAdd)" style="width: 80%;height:30px;"/></div>
-                                        <div style="float: right;margin-right:0.6rem;width:45%;height:40px;text-align: right;"><input type="button" value="说明" onclick="to_detail();" style="width: 80%;height:30px;"/></div>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-                    <!--</div>-->
-
+                <div style="margin-top: 1.5rem;margin-left: 1.3rem;margin-bottom: 1rem;"><h3><b>能力</b></h3></div>
+                <div id="cc2" class="easyui-layout" data-options="fit:true,border:false" style="width: 800px; height:100px;background-color: #fbfbfb;">
+                    <div data-options="region:'center',border:false" style="overflow-x:hidden;overflow-y:hidden">
+                        <table id="servcieAbilityTable">
+                        </table>
+                    </div>
                 </div>
-
             </div>
         </div>
     </div>
 </div>
+
 <!-- Modal -->
 <div id="myModal" class="mydialog">
     <div class="row">
         <div class="col-md-12">
             <div>
                 <form id="serviceForm" class="form-horizontal form-bordered" role="form">
+                    <input type="hidden" id="serviceId" name="serviceId"/>
+                    <input type="hidden" id="projectType" name="projectType"/>
                     <div class="form-group">
                         <label for="inputProjectName" class="col-sm-2 control-label no-padding-right">名称:</label>
-                        <div id="serviceName" class="col-sm-10">
+                        <div id="serviceName" class="col-sm-10" style="margin-top: 0.5rem;">
 
                         </div>
                     </div>
@@ -109,10 +79,16 @@
                             <input type="text" class="easyui-validatebox form-control" data-options="required:true" name="serVersion" id="serVersion" placeholder="请输入版本号" style="width:60%">
                         </div>
                     </div>
+                    <!--<div class="form-group">-->
+                        <!--<label for="inputGitAddress" class="col-sm-2 control-label no-padding-right">存储空间:</label>-->
+                        <!--<div class="col-sm-10" style="white-space:nowrap;vertical-align:middle;">-->
+                            <!--<input type="text" class="easyui-validatebox form-control" data-options="required:true" name="storageSpace" id="storageSpace" placeholder="请输入数字" style="width:40%;float:left;"> <div style="float:left;margin-left: 1rem;margin-top:0.6rem;"><b>GB</b></div>-->
+                        <!--</div>-->
+                    <!--</div>-->
                     <div class="form-group">
-                        <label for="inputGitAddress" class="col-sm-2 control-label no-padding-right">存储空间:</label>
+                        <label for="inputGitAddress" class="col-sm-2 control-label no-padding-right">备注:</label>
                         <div class="col-sm-10" style="white-space:nowrap;vertical-align:middle;">
-                            <input type="text" class="easyui-validatebox form-control" data-options="required:true" name="storageSpace" id="storageSpace" placeholder="请输入数字" style="width:40%;float:left;"> <div style="float:left;margin-left: 1rem;margin-top:0.6rem;"><b>GB</b></div>
+                            <textarea class="form-control" rows="3" name="remark" id="remark" placeholder="请输入备注"></textarea>
                         </div>
                     </div>
                 </form>
@@ -122,27 +98,148 @@
 </div>
 
 <script  type="text/javascript">
+    $(function(){
+
+        $('#servcieDataTable').datagrid({
+            url:'{{projcfg.appurl}}/api/project/ability/services/develop/sm/pageList?type=0',
+            method:'get',
+            rownumbers:false,
+            //autoRowHeight:true,
+            striped:true,
+            fitColumns:true,
+//            toolbar: '#toolbar',
+            fit:true,
+            border:true,
+            singleSelect:true,
+            selectOnCheck:false,
+            columns:[[
+                {"field": "id", checkbox:true},
+                {"field": "projectId", hidden:true},
+                {"field": "projectType", hidden:true},
+//                {"field": "jjj","title":"编号","width":80,align:"center","formatter":function (value, rowData,rowIndex) {
+//                    return rowData.service_code;
+//                }},
+                {"field": "service_name","title":"服务名称","width":150,align:"center"},
+                {"field": "ser_version","title":"版本","width":100,align:"center","formatter":function (value, rowData,rowIndex) {
+                    return getVerData(rowData.projectId);
+                }},
+                {"field": "options","title":"操作","width":150,align:"center","formatter":function (value, rowData,rowIndex) {
+                    return " <span style='cursor: pointer;' onclick='openPage(\"" + "创建"+rowData.service_name+"\",\""+rowData.service_name+"\",\""+rowData.id+"\",\""+rowData.projectType+"\", doAdd)'>创建</span> | "+
+                            "<span style='cursor: pointer;' onclick='to_detail();'>说明</span> ";
+                }},
+            ]],
+            onLoadSuccess:function(json) {
+
+            },
+            onLoadError:function() {
+                msgError('加载数据出现时发生错误,请稍候重试...');
+            },
+            pagination:true,
+            loadMsg:'正在加载...'
+        });
+
+        $('#servcieAbilityTable').datagrid({
+            url:'{{projcfg.appurl}}/api/project/ability/services/develop/sm/pageList?type=1',
+            method:'get',
+            rownumbers:false,
+            //autoRowHeight:true,
+            striped:true,
+            fitColumns:true,
+            fit:true,
+            border:true,
+            singleSelect:true,
+            selectOnCheck:false,
+            columns:[[
+                {"field": "id", checkbox:true},
+                {"field": "projectId", hidden:true},
+//                {"field": "jjj","title":"编号","width":80,align:"center","formatter":function (value, rowData,rowIndex) {
+//                    return rowData.service_code;
+//                }},
+                {"field": "service_name","title":"服务名称","width":150,align:"center"},
+                {"field": "ser_version","title":"版本","width":100,align:"center","formatter":function (value, rowData,rowIndex) {
+                    return getVerData(rowData.projectId);
+                }},
+                {"field": "options","title":"操作","width":150,align:"center","formatter":function (value, rowData,rowIndex) {
+                    return " <span style='cursor: pointer;' onclick='openPage(\"" + "创建"+rowData.service_name+"\",\""+rowData.service_name+"\",\""+rowData.id+"\",\""+rowData.projectType+"\", doAdd)'>创建</span> | "+
+                            "<span style='cursor: pointer;' onclick='to_detail();'>说明</span> ";
+                }},
+            ]],
+            onLoadSuccess:function(json) {
+
+            },
+            onLoadError:function() {
+                msgError('加载能力数据出现时发生错误,请稍候重试...');
+            },
+            pagination:true,
+            loadMsg:'正在加载...'
+        });
+//        $('#servcieDataTable').datagrid('loadData',servciesdata);
+//        $('#servcieAbilityTable').datagrid('loadData',servciesAbilitydata);
+    });
+
+    function getVerData(projectid){
+        var value = '';
+        if(projectid){
+            $.ajax({
+                url: '{{projcfg.appurl}}/api/project/dpm/project/develop/pm/verList',
+                type: 'get',
+                async:false,
+                data: {'projectId':projectid},
+                success: function (data) {
+                    console.log(data);
+                    if(data.success) {
+                        value = data.data[0].vNo;
+                    }
+                    else {
+                        msgError(data.msg+',错误代码:'+data.code);
+                    }
+                }
+            });
+        }
+        return value;
+    }
+
+    //项目详情
+    function to_detail(){
+        window.location.href = "{{projcfg.appurl}}/servicedetail";
+    }
 
 
 
-
-
-
+    function doSearch() {
+        $('#servcieDataTable').datagrid('reload');
+    }
+    function doClear() {
+        doSearch();
+    }
     function doAdd(value) {
         var validate = $('#serviceForm').form('validate');
         if(!validate) {
             return false;
         }
-        closeDialog();
-        window.location.href = "{{projcfg.appurl}}/servicem";
-    }
-    function to_detail(){
-        window.location.href = "{{projcfg.appurl}}/servicedetail";
-    }
+        $.ajax({
+            url: '{{projcfg.appurl}}/api/project/ability/services/develop/sm/update',
+            type: 'put',
+            data: $('#serviceForm').serializeJson(),
+            success: function (data) {
+                if(data.success) {
+                    msgSuccess(data.msg);
+                    closeDialog();
+//                    doSearch();
+                    window.location.href = "{{projcfg.appurl}}/servicem";
+                }
+                else {
+                    msgError(data.msg+',错误代码:'+data.code);
+                }
+            }
+        });
 
+    }
     // 打开页面
-    function openPage(title, value, callback) {
+    function openPage(title, value,serviceId,projecttype, callback) {
         $("#serviceName").html(value);
+        $("#serviceId").val(serviceId);
+        $("#projectType").val(projecttype);
         value = '';
         $('#myModal').show();
         $('#myModal').mydialog({
@@ -180,5 +277,6 @@
         $('#myModal').dialog('close');
         clear();
     }
+
 
 </script>
