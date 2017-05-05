@@ -16,9 +16,7 @@ build_stages:
   stage: build
   script:
 #    - docker build -t developer/developer-base:1.01 . 
-    
     - echo $CI_BUILD_TAG
-   
     - echo $MY_CI_REGISTRY_IMAGE
     - export
     - if [ "$CI_BUILD_TAG" ]; then docker build -t $MY_CI_REGISTRY_IMAGE .;fi
@@ -34,8 +32,6 @@ test_stages:
 # 定义部署阶段
 release_image:
   stage: deploy
-  before_script:
-    - 
   script:
     - if [ "$CI_BUILD_TAG" ]; then docker push $MY_CI_REGISTRY_IMAGE ;fi
 #    - if [ -n "${PUSH_TO_REGISTRY}" ]; then docker push $MY_CI_REGISTRY_IMAGE ;fi
