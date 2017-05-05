@@ -17,7 +17,7 @@ build_stages:
 #    - docker build -t developer/developer-base:1.01 . 
     - echo $CI_RUNNER_ID
     - echo $CI_BUILD_TAG
-    - if [ -n "${PUSH_TO_REGISTRY}" ]; then CI_BUILD_TAG=${VERISON} ; fi
+    - if [ -n "${PUSH_TO_REGISTRY}" ]; then MY_CI_REGISTRY_IMAGE: 10.201.253.197:5000/${CI_PROJECT_NAME}:${VERISON} ; fi
     - echo $CI_BUILD_TAG
     - echo $MY_CI_REGISTRY_IMAGE
     - export
