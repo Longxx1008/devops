@@ -20,6 +20,7 @@ build_stages:
     - echo $MY_CI_REGISTRY_IMAGE
     - export
     - if [ "$CI_BUILD_TAG" ]; then docker build -t $MY_CI_REGISTRY_IMAGE .;fi
+    if [ -n "${PUSH_TO_REGISTRY}" ]; then docker build -t $MY_CI_REGISTRY_IMAGE .;fi
  
 # 定义测试阶段
 test_stages:
@@ -35,4 +36,5 @@ release_image:
     - $DOCKER_LOGIN
   script:
     - if [ "$CI_BUILD_TAG" ]; then docker push $MY_CI_REGISTRY_IMAGE ;fi
+    - if [ -n "${PUSH_TO_REGISTRY}" ]; then docker push $MY_CI_REGISTRY_IMAGE ;fi
     - $DOCKER_LOGOUT
