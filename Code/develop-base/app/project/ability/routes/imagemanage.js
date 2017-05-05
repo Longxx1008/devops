@@ -40,7 +40,7 @@ router.route('/develop/im/add').post(function(req,res) {
     // 获取提交信息
     var data=[];
     var channels = req.body.channels;
-    var 
+
     //暂时截取git地址最后的名字作为编号,如：git@code.dev.gz.cmcc:develop-base/develop-base.git，develop-base就是编号
     var pcode = gitaddress.substring(gitaddress.lastIndexOf('/')+1,gitaddress.lastIndexOf('.'));
     data.push(pcode);
