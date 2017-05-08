@@ -59,16 +59,14 @@ var config = {
         },
         welcome_path:project_url_prefix + '/home',
         // 不做权限检查url（支持通配符*，尽量少用）
-        exclude_auth_check_urls:[project_url_prefix + '/login',project_url_prefix + '/captcha',project_url_prefix + '/test/*', project_url_prefix +'/static/*', project_url_prefix +'/app/project/*', project_url_prefix +'/api/project/*'],
+        exclude_auth_check_urls:[project_url_prefix + '/login',project_url_prefix + '/captcha',project_url_prefix + '/test/*', project_url_prefix +'/static/*'],
         // 登录后就能访问的url（无需授权）（支持通配符*，尽量少用）,如：修改个人信息、注销等操作
         logged_can_access_urls:[
             project_url_prefix + '/public/*',
             project_url_prefix + '/switchRole/*',
             project_url_prefix + '/logout',
             project_url_prefix + '/portal',
-            project_url_prefix + '/api/demo/*',
-            project_url_prefix + '/app/project/*',
-            project_url_prefix + '/api/project/*'
+            project_url_prefix + '/api/demo/*'
         ]
     },
     mongdb:{
@@ -105,8 +103,9 @@ var config = {
     },
     platform:{
         gitlabIp:'code.dev.gz.cmcc',
-        gitlabPort:80,
+        gitlabPort:443,
         gitlabUrl: 'https://code.dev.gz.cmcc',
+        // private_token:'qay26GUyLfwvCv2zszBz',
         private_token:'yJFsQXvox3xGHUPxyDsE',
         dockerIp: '10.201.253.165',
         dockerPort:2375,

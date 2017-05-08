@@ -81,12 +81,6 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="inputGitProjectID" class="col-sm-2 control-label no-padding-right">git项目ID:</label>
-                        <div class="col-sm-10">
-                            <input type="text" class="easyui-validatebox form-control" data-options="required:true" name="gitProjectID" id="gitProjectID" placeholder="请输入git项目ID" style="width:60%">
-                        </div>
-                    </div>
-                    <div class="form-group">
                         <label for="inputProjectRemark" class="col-sm-2 control-label no-padding-right">备注:</label>
                         <div class="col-sm-10">
                             <textarea class="form-control" rows="3" name="remark" id="remark" placeholder="请输入备注"></textarea>
@@ -161,15 +155,15 @@
                         return label;
                     }},
                 {"field": "gitAddress","title":"版本库","width":200,align:"center"},
-                {"field": "healthCondition","title":"健康状况","width":80,align:"center",
+                {"field": "healthCondition","title":"部署情况","width":80,align:"center",
                     "formatter":function (value, rowData,rowIndex) {
                         return '正常';
                     }},
                 {"field": "resourceUse","title":"资源使用","width":120,align:"center",
                     "formatter":function (value, rowData,rowIndex) {
                         return 'cpu:3.0<br/>内存：4GB<br/>硬盘：500GB';
-                    }},
-                {"field": "remark","title":"备注","width":200,align:"center"}
+                    }}
+//                {"field": "remark","title":"备注","width":200,align:"center"}
             ]],
             onLoadSuccess:function(json) {
 
@@ -220,9 +214,22 @@
     function verAarry(data){
         var arr = [];
         for(var i=0;i<data.length;i++){
-            arr.push((data[i].vNo).replace('v',''));
+            arr.push(data[i].vNo);
         }
-        return arr.reverse();
+        //进行倒序排序
+        arr.sort(function(o1,o2){
+            var a1 = o1.replace('v','').split('.');
+            var a2 = o2.replace('v','').split('.');
+            var length = Math.max(a1.length,a2.length);
+            for(var i = 0; i < length; i++){
+                var n1 = parseInt(a1[i] || 0);
+                var n2 = parseInt(a2[i] || 0);
+                if(n1 - n2 != 0){
+                    return n2 - n1;
+                }
+            }
+        });
+        return arr;
     }
 
     function doSearch() {
@@ -231,7 +238,11 @@
     function doClear() {
         doSearch();
     }
+    var num=1;
     function doAdd(value) {
+        if(num > 2){
+            return false;
+        }
         var validate = $('#projectForm').form('validate');
         if(!validate) {
             return false;
@@ -249,6 +260,7 @@
                 else {
                     msgError(data.msg+',错误代码:'+data.code);
                 }
+                num =1;
             }
         });
     }
@@ -284,6 +296,7 @@
                     text:'确定',
                     btnCls:'btn btn-blue',
                     handler:function(){
+                        num += 1;
                         callback(value);
                     }
                 },
@@ -291,6 +304,7 @@
                     text:'关闭',
                     btnCls:'btn btn-danger',
                     handler:function(){
+                        num = 1;
                         closeDialog();
                     }
                 }
@@ -308,7 +322,7 @@
         $('#myModal').dialog('close');
         clear();
     }
-
+   console.log("================", $(":button").slice(7,8));
     function to_detail(){
         window.location.href = "{{projcfg.appurl}}/servicedetail";
     }

@@ -46,27 +46,12 @@ router.route('/develop/pm/verList').get(function(req,res){
         conditionMap.projectId = projectId;
     }
     if(gitProjectId){
-        var results = [];
-        gitlab.projects.repository.listTags(gitProjectId, function(tags) {
-            console.log;
-            console.log("======",tags);
-            if(tags){
-                var obj;
-                for(var i=0;i<tags.length;i++){
-                    obj = {'vNo':tags[i].name,'projectId':projectId};
-                    results.push(obj);
-                }
-            }
-            utils.respJsonData(res, utils.returnMsg(true, '0000', '获取版本信息成功', results, null));
-            return console.log(tags);
-        });
-
-    }else{
-        // 调用分页
-        projectService.versionList(conditionMap,function(result){
-            utils.respJsonData(res, result);
-        });
+        conditionMap.gitProjectId = gitProjectId;
     }
+    // 调用查询
+    projectService.versionList(conditionMap,function(result){
+        utils.respJsonData(res, result);
+    });
 
 
 });
@@ -75,24 +60,54 @@ router.route('/develop/pm/verList').get(function(req,res){
  * 创建项目
  */
 router.route('/develop/pm/add').post(function(req,res) {
-    // 获取提交信息
     var data=[];
+    var results = [];
     var gitaddress = req.body.gitAddress;
     //暂时截取git地址最后的名字作为编号,如：git@code.dev.gz.cmcc:develop-base/develop-base.git，develop-base就是编号
     var pcode = gitaddress.substring(gitaddress.lastIndexOf('/')+1,gitaddress.lastIndexOf('.'));
-    data.push(pcode);
-    data.push(req.body.projectName);
-    data.push(gitaddress);
-    data.push(req.body.healthCondition);
-    data.push(req.body.resourceUse);
-    data.push(req.body.remark);
-    var currentUser = utils.getCurrentUser(req);
-    data.push(currentUser.login_account);
-    data.push(req.body.projectType);
-    data.push(req.body.gitProjectID);
-    projectService.add(data, function(result) {
-        utils.respJsonData(res, result);
+    var conditionMap = {};
+    conditionMap.projectCode = pcode;
+    // 调用查询
+    projectService.getProject(conditionMap,function(result){//根据projectcode查询项目是否存在
+        if(result.success){
+            // 获取提交信息
+            data.push(pcode);
+            data.push(req.body.projectName);
+            data.push(gitaddress);
+            data.push(req.body.healthCondition);
+            data.push(req.body.resourceUse);
+            data.push(req.body.remark);
+            var currentUser = utils.getCurrentUser(req);
+            data.push(currentUser.login_account);
+            data.push(req.body.projectType);
+            //判断是否从gitlab获取项目集合成功
+            if(result.data && result.data.length>0){
+                var flag = true;
+                for(var i=0;i<result.data.length;i++){
+                    if(pcode == result.data[i].projectName){
+                        data.push(result.data[i].projectId);
+                        flag = true
+                        break;
+                    }else{
+                        flag = false;
+                    }
+                }
+                if(!flag){//如果没有匹配的项目编号(名称)，设空值
+                    data.push(null);
+                }
+            }else{
+                data.push(null);
+            }
+            projectService.add(data, function(results) {
+                utils.respJsonData(res, results);
+            });
+        }else{
+            utils.respJsonData(res, result);
+        }
     });
+
+
+
 });
 /**
  * 修改项目
@@ -110,7 +125,6 @@ router.route('/develop/pm/update').put(function(req,res) {
     data.push(req.body.resourceUse);
     data.push(req.body.remark);
     data.push(req.body.projectType);
-    data.push(req.body.gitProjectID);
     projectService.update(data, function(result) {
         utils.respJsonData(res, result);
     });
