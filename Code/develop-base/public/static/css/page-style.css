@@ -1,0 +1,479 @@
+html, body, div, span, h1, h2, h3, h4, h5, h6, p, pre, a, code, em, img, small, strong, sub, sup, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    outline: 0;
+    font-size: 12px;
+    vertical-align: baseline;
+    background: transparent;
+    font-weight: normal;
+}
+
+a {
+    text-decoration: none;
+    outline: none
+}
+
+a:hover {
+    text-decoration: none
+}
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0
+}
+
+img {
+    border: none;
+    outline: none
+}
+
+ul, li {
+    padding: 0;
+    margin: 0;
+    list-style: none
+}
+
+input[type=button], input[type=text], input[type=password], button {
+    -webkit-appearance: none;
+    outline: none
+}
+
+.page-right{
+    overflow: hidden;
+    padding:20px 0 20px 20px;
+    background: #f1f2f7;
+}
+.panel-box{
+    overflow: hidden;
+    margin-bottom: 10px;
+}
+.box-list{
+    float: left;
+    width:33.33%;
+    overflow: hidden;
+    box-sizing: border-box;
+    padding-right:20px;
+    height: 262px;
+}
+.box-list-main{
+    overflow: hidden;
+    border:1px solid #ddd;
+    -webkit-border-radius:6px;
+    -moz-border-radius:6px;
+    border-radius:6px;
+    box-sizing: border-box;
+}
+
+.box-list-title{
+    overflow: hidden;
+    background: #f6f8fb;
+    color:#90928f;
+    padding:10px;
+    font-weight: bold;
+    height: 20px;
+    line-height:20px;
+}
+.box-list-content{
+    overflow: hidden;
+    background: #FFF;
+}
+.box-list-content ul.safe{
+    overflow: hidden;
+    padding:20px 0 20px 20px;
+}
+.box-list-content ul.safe li{
+    float: left;
+    width:33.33%;
+    overflow: hidden;
+    box-sizing: border-box;
+    padding-right:20px;
+}
+.box-list-content ul.safe li .safe-list{
+    overflow: hidden;
+    -webkit-border-radius:6px;
+    -moz-border-radius:6px;
+    border-radius:6px;
+}
+.box-list-content ul.safe li .safe-list .safe-list-title {
+    overflow: hidden;
+    padding: 10px 0;
+    /*height: 30px;*/
+}
+.box-list-content ul.safe li .safe-list .event{
+    background:#ff6b5c;
+}
+.box-list-content ul.safe li .safe-list .loophole{
+    background:#00a0e9;
+}
+.box-list-content ul.safe li .safe-list .attack{
+    background:#f3b100;
+}
+.box-list-content ul.safe li .safe-list i{
+    display: block;
+    overflow: hidden;
+    width:30px;
+    height:30px;
+    margin:0 auto;
+}
+.box-list-content ul.safe li .safe-list .event i{
+    background: url("../images/img/icon.png") no-repeat 0 5px;
+}
+.box-list-content ul.safe li .safe-list .loophole i{
+    background: url("../images/img/icon.png") no-repeat 0 -50px;
+}
+.box-list-content ul.safe li .safe-list .attack i{
+    background: url("../images/img/icon.png") no-repeat 0 -100px;
+}
+.safe-list-content{
+    overflow: hidden;
+    background: #f6f8fb;
+    padding:20px 0;
+}
+.safe-list-content h1{
+    font-size:36px;
+    line-height:60px;
+    text-align: center;
+}
+.safe-list-content h1.red{
+    color: #ff6b5c;
+}
+.safe-list-content h1.blue{
+    color: #00a0e9;
+}
+.safe-list-content h1.yellow{
+    color: #f3b100;
+}
+.safe-list-content h2{
+    font-size:14px;
+    line-height:30px;
+    text-align: center;
+    color: #999;
+}
+
+
+.box-list-content ul.ul-list{
+    overflow: hidden;
+}
+.box-list-content ul.ul-list li{
+    overflow: hidden;
+    float: left;
+    width:100%;
+    line-height:36px;
+    height:36px;
+    color: #949494;
+    text-overflow:ellipsis;
+    white-space: nowrap;
+    padding:0 20px;
+    box-sizing: border-box;
+}
+.box-list-content ul.ul-list li:nth-child(1){
+    line-height:40px;
+    height: 40px;
+}
+.box-list-content ul.ul-list li:nth-child(even){
+    background-color: #f6f8fb;
+}
+.box-list-content ul.ul-list li:nth-child(odd){
+    background-color: #fff;
+}
+.box-list-content ul.ul-list li a{
+    float: left;
+    color: #949494;
+}
+.box-list-content ul.ul-list li a:hover{
+    color: #555;
+}
+.box-list-content ul.ul-list li span{
+    float: right;
+}
+
+.product-box{
+    overflow: hidden;
+    border:1px solid #ddd;
+    -webkit-border-radius:6px;
+    -moz-border-radius:6px;
+    border-radius:6px;
+    margin-right: 20px;
+}
+.product-title{
+    overflow: hidden;
+    background: #f6f8fb;
+    color:#90928f;
+    padding:10px;
+    font-weight: bold;
+    /*height:20px;*/
+    line-height:20px;
+    position: relative;
+}
+.product-box ul.pro-ul{
+    padding:15px 0 15px 15px;
+    overflow: hidden;
+    background: #FFF;
+}
+.product-box ul.pro-ul li{
+    float: left;
+    width:20%;
+    box-sizing: border-box;
+    padding-right: 30px;
+}
+.product-box ul.pro-ul li .product-list{
+    border:1px solid #e7eaee;
+    background: #f6f8fb;
+    padding:10px;
+    overflow: hidden;
+    position: relative;
+    /*height: 50px;*/
+}
+.product-box ul.pro-ul li .product-list i{
+    width:50px;
+    height:50px;
+    display: block;
+    position: absolute;
+    z-index:1;
+    -webkit-border-radius:50px;
+    -moz-border-radius:50px;
+    border-radius:50px;
+    left:10px;
+    top:10px;
+}
+.product-box ul.pro-ul li .product-list i.cloud{
+    background: url("../images/img/icon.png") no-repeat 10px -140px #a1a7be;
+}
+.product-box ul.pro-ul li .product-list i.disk{
+    background: url("../images/img/icon.png") no-repeat 12px -190px #a1a7be;
+}
+.product-box ul.pro-ul li .product-list i.pro{
+    background: url("../images/img/icon.png") no-repeat 10px -235px #a1a7be;
+}
+.product-box ul.pro-ul li .product-list i.container{
+    background: url("../images/img/icon.png") no-repeat 10px -283px #a1a7be;
+}
+.product-box ul.pro-ul li .product-list i.load{
+    background: url("../images/img/icon.png") no-repeat 12px -337px #a1a7be;
+}
+.product-box ul.pro-ul li .product-list h1{
+    padding-left: 55px;
+}
+.product-box ul.pro-ul li .product-list h1 span{
+    color: #949494;
+    font-size:12px;
+    line-height:20px;
+    float: left;
+    display: block;
+    width:100%;
+}
+.product-box ul.pro-ul li .product-list h1 em{
+    color: #949494;
+    font-size:16px;
+    line-height:30px;
+    font-style: normal;
+    display: block;
+    float: left;
+    width:100%;
+}
+.product-box ul.pro-ul li .product-list strong.arrow{
+    position: absolute;
+    z-index:1;
+    right:10px;
+    top:30px;
+    background: url("../images/img/icon.png") no-repeat 0 -490px;
+    display: block;
+    width:10px;
+    height: 10px;
+}
+.product-box ul.resource-ul{
+    overflow: hidden;
+    padding:15px;
+    background: #FFF;
+}
+.product-box ul.resource-ul li{
+    width:25%;
+    overflow: hidden;
+    float: left;
+    text-align: center;
+}
+.product-box ul.resource-ul li .chart{
+    overflow: hidden;
+}
+.product-box ul.resource-ul li h1{
+    line-height:30px;
+    font-size:20px;
+    color:#949494;
+}
+.product-box ul.resource-ul li h2{
+    line-height:30px;
+    font-size:12px;
+    color:#949494;
+}
+
+.sort{
+    position: absolute;
+    right:10px;
+    top:1px;
+    height: 30px;
+    line-height:20px;
+}
+.sort-select {
+    border: solid 1px #e7eaee;
+    appearance:none;
+    -moz-appearance:none;
+    -webkit-appearance:none;
+    background: url("../images/img/arrow.png") no-repeat scroll right center #FFF;
+    padding:0px 20px;
+    color: #949494;
+    height:25px;
+    margin-top: 0.3rem;
+    margin-right: 2.5rem;
+}
+.sort-select::-ms-expand { display: none; }
+
+.depot-ul{
+    overflow: hidden;
+    padding:10px;
+    background: #FFF;
+}
+.depot-ul li{
+    padding:10px;
+    box-sizing: border-box;
+    width:25%;
+    float: left;
+}
+.depot-list{
+    border:1px solid #e9eaf0;
+    padding:10px;
+    overflow: hidden;
+}
+.depot-top{
+    overflow: hidden;
+    position: relative;
+}
+.depot-top .img{
+    width:80px;
+    height: 50px;
+    position: absolute;
+    z-index:1;
+    left:0;
+    top:0;
+}
+.depot-top .depot-title{
+    margin-left:90px;
+    overflow: hidden;
+    height:50px;
+}
+.depot-top .depot-title h1{
+    color: #777;
+    font-size:14px;
+    font-weight:bold;
+    overflow: hidden;
+    text-overflow:ellipsis;
+    white-space: nowrap;
+    line-height:20px;
+}
+.depot-top .depot-title h2{
+    color: #bbb;
+    font-size:12px;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+    line-height:15px;
+}
+
+.depot-content{
+    color: #828282;
+    line-height:20px;
+    height:80px;
+    overflow: hidden;
+    margin:10px 0;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 4;
+}
+.depot-bottom{
+    overflow: hidden;
+    height: 20px;
+    position: relative;
+}
+.depot-bottom i{
+    display: block;
+    float: left;
+    width:60px;
+    padding-left: 20px;
+    height: 20px;
+    color: #bbb;
+    font-style:normal;
+    position: absolute;
+    z-index:1;
+    top:0;
+}
+.depot-bottom i.collect{
+    background: url("../images/img/icon.png") no-repeat 0 -395px;
+    right:90px;
+}
+.depot-bottom i.collect.select{
+    background: url("../images/img/icon.png") no-repeat 0 -424px;
+}
+.depot-bottom i.download{
+    background: url("../images/img/icon.png") no-repeat 0 -452px;
+    right:0;
+}
+
+.data-ul{
+    overflow: hidden;
+    background: #FFF;
+    padding:10px 20px;
+}
+
+.data-ul li{
+    overflow: hidden;
+    border-bottom: 1px solid #eee;
+    padding:10px 0;
+    position: relative;
+    width:100%;
+    float: left;
+    height:110px;
+}
+.data-ul li:last-child{
+    border-bottom:none;
+}
+.data-ul li .left-img{
+    position: absolute;
+    left:0;
+    top:10px;
+    width:150px;
+    height: 100px;
+    z-index:1;
+    overflow: hidden;
+}
+.data-ul li .data-content{
+    margin-left:160px;
+    overflow: hidden;
+}
+.data-ul li .data-content h1{
+    font-size:14px;
+    font-weight:bold;
+    color: #777;
+    overflow: hidden;
+    text-overflow:ellipsis;
+    white-space: nowrap;
+    height:20px;
+    line-height:20px;
+}
+.data-ul li .data-content h2{
+    color: #888;
+    font-size:12px;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    overflow: hidden;
+    line-height:20px;
+    height:60px;
+}
+.data-ul li .data-content a{
+    color: #777;
+    font-weight: bold;
+    background: url("../images/img/icon.png") no-repeat 50px -487px;
+    padding-right: 10px;
+    font-size:12px;
+}

@@ -1,4 +1,5 @@
 <script src="{{projcfg.appurl}}/static/js/echart/v3.1.3/echarts.min.js"></script>
+<link type="text/css" rel="stylesheet" href="{{projcfg.appurl}}/static/css/page-style.css">
 <div class="row">
     <div class="col-xs-12 col-md-12">
         <div class="widget">
@@ -6,6 +7,79 @@
                 <div class="row" >
                     <div class="col-xs-12 col-md-12">
                         <div class="row">
+                            <div class="col-xs-4 col-md-4">
+                                <div class="widget">
+                                    <div class="widget-header bordered-bottom bordered-themeprimary">
+                                        <i class="widget-icon fa fa-tags themeprimary"></i>
+                                        <span class="widget-caption themeprimary">安全预警</span>
+                                    </div><!--Widget Header-->
+                                    <div class="widget-body">
+                                        <div style="height:230px;">
+                                            <div class="box-list-content">
+                                                <ul class="safe">
+                                                    <li>
+                                                        <div class="safe-list">
+                                                            <div class="safe-list-title event">
+                                                                <i></i>
+                                                            </div>
+                                                            <div class="safe-list-content">
+                                                                <h1 class="red">15</h1>
+                                                                <h2>紧急事件</h2>
+                                                            </div>
+                                                        </div>
+                                                    </li>
+                                                    <li>
+                                                        <div class="safe-list">
+                                                            <div class="safe-list-title loophole">
+                                                                <i></i>
+                                                            </div>
+                                                            <div class="safe-list-content">
+                                                                <h1 class="blue">15</h1>
+                                                                <h2>漏洞</h2>
+                                                            </div>
+                                                        </div>
+                                                    </li>
+                                                    <li>
+                                                        <div class="safe-list">
+                                                            <div class="safe-list-title attack">
+                                                                <i></i>
+                                                            </div>
+                                                            <div class="safe-list-content">
+                                                                <h1 class="yellow">15</h1>
+                                                                <h2>攻击</h2>
+                                                            </div>
+                                                        </div>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-xs-4 col-md-4">
+                                <div class="widget">
+                                    <div class="widget-header bordered-bottom bordered-themeprimary">
+                                        <i class="widget-icon fa fa-tags themeprimary"></i>
+                                        <span class="widget-caption themeprimary">待办事项</span>
+                                    </div><!--Widget Header-->
+                                    <div class="widget-body">
+                                        <div style="height:230px;">
+                                            <div class="box-list-content">
+                                                <ul class="ul-list">
+                                                    <li>1月运维巡检</li>
+                                                    <li>2月运维巡检</li>
+                                                    <li>3月运维巡检</li>
+                                                    <li>4月运维巡检</li>
+                                                    <li>5月运维巡检</li>
+                                                    <li>6月运维巡检</li>
+                                                </ul>
+                                            </div>
+                                            </div>
+                                    </div>
+                                </div>
+                            </div>
+
                             <div class="col-xs-4 col-md-4">
                                 <div class="widget">
                                     <div class="widget-header bordered-bottom bordered-themeprimary">
@@ -20,294 +94,383 @@
                                     <div class="widget-body">
                                         <div style="height:230px;">
                                             <table class="table table-hover">
-                                                <tbody id="systemNoticeTablelist">
+                                            <tbody id="systemNoticeTablelist">
 
-                                                </tbody>
+                                            </tbody>
                                             </table>
+
                                         </div>
                                     </div>
                                 </div>
                             </div>
 
-                            <div  class="col-xs-8 col-md-8" >
+                        </div>
+
+                        <div class="row">
+                            <div class="col-xs-8 col-md-8" style="width:100%">
                                 <div class="widget">
                                     <div class="widget-header bordered-bottom bordered-themeprimary">
                                         <i class="widget-icon fa fa-tags themeprimary"></i>
-                                        <span id="ring_title" class="widget-caption themeprimary">本月单业务酬金分布(万元）</span>
-                                        <div class="widget-buttons">
-
-                                        </div>
-                                    </div>
-
+                                        <span class="widget-caption themeprimary">使用中的产品</span>
+                                    </div><!--Widget Header-->
                                     <div class="widget-body">
-                                        <div id="ringChart" style="width:100%;height:225px;"></div>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-
-                        <div class="row" >
-                            <div  class="col-xs-4 col-md-4" >
-                                <div class="widget">
-                                    <div class="widget-header bordered-bottom bordered-themeprimary">
-                                        <i class="widget-icon fa fa-tags themeprimary"></i>
-                                        <span class="widget-caption themeprimary">快速导航</span>
-                                    </div><!--Widget Header-->
-
-                                    <div class="tabbable">
-                                        <ul class="nav nav-tabs" id="myTab3">
-                                            <li class="active tab-sky">
-                                                <a data-toggle="tab" href="#home3">
-                                                    办公系统
-                                                </a>
-                                            </li>
-
-                                            <li class="tab-sky">
-                                                <a data-toggle="tab" href="#profile3">
-                                                    资源系统
-                                                </a>
-                                            </li>
-
-                                            <li class="tab-sky">
-                                                <a data-toggle="tab" href="#dropdown13">
-                                                    家客系统
-                                                </a>
-                                            </li>
-                                        </ul>
-
-                                        <div class="tab-content">
-                                            <div id="home3" class="tab-pane in active" style="height: 240px;">
-                                                <table class="table table-hover">
-                                                    <tbody>
-                                                    <tr>
-                                                        <td>
-                                                            1、 <a href="#">贵州移动OA办公系统 <span class="badge badge-red">2</span></a>
-                                                        </td>
-                                                        <td>
-
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            2、<a href="#">贵州移动邮箱 <span class="badge badge-red">101</span></a>
-                                                        </td>
-                                                        <td>
-                                                        </td>
-                                                    </tr>
-                                                    </tbody>
-                                                </table>
-
-
-
-
-                                            </div>
-
-                                            <div id="profile3" class="tab-pane" style="height: 240px;">
-                                                <table class="table table-hover">
-                                                    <tbody>
-                                                    <tr>
-                                                        <td>
-                                                            1、 <a href="#">资源管理系统 <span class="badge badge-red">2</span></a>
-                                                        </td>
-                                                        <td>
-
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            2、 <a href="#">GPON运维管理系统 <span class="badge badge-red">2</span></a>
-                                                        </td>
-                                                        <td>
-
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            3、 <a href="#">工程物料管理系统 <span class="badge badge-red">2</span></a>
-                                                        </td>
-                                                        <td>
-
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            4、 <a href="#">综合资质管理系统 <span class="badge badge-red">2</span></a>
-                                                        </td>
-                                                        <td>
-
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            5、 <a href="#">电子运行维护系统 <span class="badge badge-red">2</span></a>
-                                                        </td>
-                                                        <td>
-
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            6、 <a href="#">集中故障管理 <span class="badge badge-red">2</span></a>
-                                                        </td>
-                                                        <td>
-
-                                                        </td>
-                                                    </tr>
-                                                    </tbody>
-                                                </table>
-                                            </div>
-
-                                            <div id="dropdown13" class="tab-pane" style="height: 240px;">
-
-                                                <table class="table table-hover">
-                                                    <tbody>
-                                                    <tr>
-                                                        <td>
-                                                            1、 <a href="#">家客预约平台 <span class="badge badge-red">2</span></a>
-                                                        </td>
-                                                        <td>
-
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            2、 <a href="#">家客感知提升 <span class="badge badge-red">2</span></a>
-                                                        </td>
-                                                        <td>
-
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            3、 <a href="#">代维管理系统 <span class="badge badge-red">2</span></a>
-                                                        </td>
-                                                        <td>
-
-                                                        </td>
-                                                    </tr>
-
-                                                    </tbody>
-                                                </table>
+                                        <div style="">
+                                            <div class="box-list-content">
+                                                <div class="panel-box">
+                                                    <div class="product-box">
+                                                        <ul class="pro-ul">
+                                                            <li>
+                                                                <div class="product-list">
+                                                                    <i class="cloud"></i>
+                                                                    <h1>
+                                                                        <span>云集群</span>
+                                                                        <em>3个</em>
+                                                                    </h1>
+                                                                    <strong class="arrow"></strong>
+                                                                </div>
+                                                            </li>
+                                                            <li>
+                                                                <div class="product-list">
+                                                                    <i class="disk"></i>
+                                                                    <h1>
+                                                                        <span>磁盘</span>
+                                                                        <em>3个</em>
+                                                                    </h1>
+                                                                    <strong class="arrow"></strong>
+                                                                </div>
+                                                            </li>
+                                                            <li>
+                                                                <div class="product-list">
+                                                                    <i class="pro"></i>
+                                                                    <h1>
+                                                                        <span>项目</span>
+                                                                        <em>3个</em>
+                                                                    </h1>
+                                                                    <strong class="arrow"></strong>
+                                                                </div>
+                                                            </li>
+                                                            <li>
+                                                                <div class="product-list">
+                                                                    <i class="container"></i>
+                                                                    <h1>
+                                                                        <span>容器</span>
+                                                                        <em>3个</em>
+                                                                    </h1>
+                                                                    <strong class="arrow"></strong>
+                                                                </div>
+                                                            </li>
+                                                            <li>
+                                                                <div class="product-list">
+                                                                    <i class="load"></i>
+                                                                    <h1>
+                                                                        <span>负载均衡</span>
+                                                                        <em>3个</em>
+                                                                    </h1>
+                                                                    <strong class="arrow"></strong>
+                                                                </div>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-
-
                                 </div>
                             </div>
-                            <div  class="col-xs-8 col-md-8" >
+
+                        </div>
+
+                        <div class="row">
+                            <div class="col-xs-8 col-md-8" style="width:100%">
                                 <div class="widget">
                                     <div class="widget-header bordered-bottom bordered-themeprimary">
                                         <i class="widget-icon fa fa-tags themeprimary"></i>
-                                        <span class="widget-caption themeprimary">待办工单</span>
+                                        <span class="widget-caption themeprimary">资源占用情况</span>
                                     </div><!--Widget Header-->
-                                    <div class="widget-body  no-padding">
-                                        <div class="tickets-container">
-                                            <ul class="tickets-list">
-                                                <li class="ticket-item">
-                                                    <div class="row">
-                                                        <div class="ticket-user col-lg-6 col-sm-12">
-                                                            <span class="user-name">1、设备故障处理</span>
-                                                            <span class="user-at">来自</span>
-                                                            <span class="user-company">集中故障</span>
-                                                        </div>
-                                                        <div class="ticket-time  col-lg-4 col-sm-6 col-xs-12">
-                                                            <div class="divider hidden-md hidden-sm hidden-xs"></div>
-                                                            <i class="fa fa-clock-o"></i>
-                                                            <span class="time">1 小时前</span>
-                                                        </div>
-                                                        <div class="ticket-type  col-lg-2 col-sm-6 col-xs-12">
-                                                            <span class="divider hidden-xs"></span>
-                                                            <span class="type">一般</span>
-                                                        </div>
-                                                        <div class="ticket-state bg-palegreen">
-                                                            <i class="fa fa-check"></i>
-                                                        </div>
-                                                    </div>
-                                                </li>
-                                                <li class="ticket-item">
-                                                    <div class="row">
-                                                        <div class="ticket-user col-lg-6 col-sm-12">
-                                                            <span class="user-name">2、资源录入</span>
-                                                            <span class="user-at">来自</span>
-                                                            <span class="user-company">端到端</span>
-                                                        </div>
-                                                        <div class="ticket-time  col-lg-4 col-sm-6 col-xs-12">
-                                                            <div class="divider hidden-md hidden-sm hidden-xs"></div>
-                                                            <i class="fa fa-clock-o"></i>
-                                                            <span class="time">3 小时前</span>
-                                                        </div>
-                                                        <div class="ticket-type  col-lg-2 col-sm-6 col-xs-12">
-                                                            <span class="divider hidden-xs"></span>
-                                                            <span class="type">一般</span>
-                                                        </div>
-                                                        <div class="ticket-state bg-palegreen">
-                                                            <i class="fa fa-check"></i>
-                                                        </div>
-                                                    </div>
-                                                </li>
-                                                <li class="ticket-item">
-                                                    <div class="row">
-                                                        <div class="ticket-user col-lg-6 col-sm-12">
-                                                            <span class="user-name">3、性能告警</span>
-                                                            <span class="user-at">来自</span>
-                                                            <span class="user-company">一体化支撑</span>
-                                                        </div>
-                                                        <div class="ticket-time  col-lg-4 col-sm-6 col-xs-12">
-                                                            <div class="divider hidden-md hidden-sm hidden-xs"></div>
-                                                            <i class="fa fa-clock-o"></i>
-                                                            <span class="time">4 小时前</span>
-                                                        </div>
-                                                        <div class="ticket-type  col-lg-2 col-sm-6 col-xs-12">
-                                                            <span class="divider hidden-xs"></span>
-                                                            <span class="type">非常紧急</span>
-                                                        </div>
-                                                        <div class="ticket-state bg-darkorange">
-                                                            <i class="fa fa-times"></i>
-                                                        </div>
-                                                    </div>
-                                                </li>
-                                                <li class="ticket-item">
-                                                    <div class="row">
-                                                        <div class="ticket-user col-lg-6 col-sm-12">
-                                                            <span class="user-name">5、投诉处理</span>
-                                                            <span class="user-at">来自</span>
-                                                            <span class="user-company">CRM</span>
-                                                        </div>
-                                                        <div class="ticket-time  col-lg-4 col-sm-6 col-xs-12">
-                                                            <div class="divider hidden-md hidden-sm hidden-xs"></div>
-                                                            <i class="fa fa-clock-o"></i>
-                                                            <span class="time">2 天前</span>
-                                                        </div>
-                                                        <div class="ticket-type  col-lg-2 col-sm-6 col-xs-12">
-                                                            <span class="divider hidden-xs"></span>
-                                                            <span class="type">紧急</span>
-                                                        </div>
-                                                        <div class="ticket-state bg-yellow">
-                                                            <i class="fa fa-info"></i>
-                                                        </div>
-                                                    </div>
-                                                </li>
-                                            </ul>
+                                    <div class="widget-body">
+                                        <div style="">
+                                            <div class="box-list-content">
+                                                <!--<div class="panel-box">-->
+                                                    <div class="product-box">
+                                                        <ul class="resource-ul">
+                                                            <li>
+                                                                <div class="chart" style="height:160px;"><img src="static/images/img/chart.png"></div>
+                                                                <h1>CPU</h1>
+                                                                <h2>共计10,已使用3</h2>
+                                                            </li>
+                                                            <li>
+                                                                <div class="chart" style="height:160px;"><img src="static/images/img/chart.png"></div>
+                                                                <h1>内存</h1>
+                                                                <h2>共计10,已使用3</h2>
+                                                            </li>
+                                                            <li>
+                                                                <div class="chart" style="height:160px;"><img src="static/images/img/chart.png"></div>
+                                                                <h1>硬盘</h1>
+                                                                <h2>共计10,已使用3</h2>
+                                                            </li>
+                                                            <li>
+                                                                <div class="chart" style="height:160px;"><img src="static/images/img/chart.png"></div>
+                                                                <h1>带宽</h1>
+                                                                <h2>共计10,已使用3</h2>
+                                                            </li>
+                                                        </ul>
+                                                </div>
+                                                </div>
+                                            <!--</div>-->
                                         </div>
-                                        <div  style="height: 33px;background-color: #f5f5f5"></div>
-                                        <!--<ul class="nav nav-tabs" id="myTab3">
-                                            <li class="tab-sky active">
-                                                <a data-toggle="tab" href="#home3" aria-expanded="true">
-                                                    办公系统
-                                                </a>
-                                            </li>
-                                        </ul>-->
                                     </div>
                                 </div>
                             </div>
+
                         </div>
+
+                        <div class="row">
+                            <div class="col-xs-8 col-md-8" style="width:100%">
+                                <div class="widget">
+                                    <div class="widget-header bordered-bottom bordered-themeprimary">
+                                        <i class="widget-icon fa fa-tags themeprimary"></i>
+                                        <span class="widget-caption themeprimary">镜像仓库</span>
+                                        <div class="sort">
+                                            排序
+                                            <select class="sort-select">
+                                                <option>更新时间</option>
+                                                <option>收藏次数</option>
+                                                <option>下载次数</option>
+                                            </select>
+                                        </div>
+                                    </div><!--Widget Header-->
+                                    <div class="widget-body">
+                                        <div style="">
+                                            <div class="box-list-content">
+                                                <!--<div class="panel-box">-->
+                                                    <div class="product-box">
+                                                        <ul class="depot-ul">
+                                                            <li>
+                                                                <div class="depot-list">
+                                                                    <div class="depot-top">
+                                                                        <div class="img"><img src="static/images/img/img.png"></div>
+                                                                        <div class="depot-title">
+                                                                            <h1>标题</h1>
+                                                                            <h2>渠道</h2>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="depot-content">
+                                                                        通过第三方大数据系统对贵阳各大商圈人流量及消费能消费通过第三方大数据系统对贵阳各大商圈人流量及消费能消费系统对贵阳各大商圈人流量及消费能消费能
+                                                                    </div>
+                                                                    <div class="depot-bottom">
+                                                                        <i class="collect select">44324</i>
+                                                                        <i class="download">15645</i>
+                                                                    </div>
+                                                                </div>
+                                                            </li>
+                                                            <li>
+                                                                <div class="depot-list">
+                                                                    <div class="depot-top">
+                                                                        <div class="img"><img src="static/images/img/img.png"></div>
+                                                                        <div class="depot-title">
+                                                                            <h1>标题</h1>
+                                                                            <h2>渠道</h2>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="depot-content">
+                                                                        通过第三方大数据系统对贵阳各大商圈人流量及消费能消费通过第三方大数据系统对贵阳各大商圈人流量及消费能消费系统对贵阳各大商圈人流量及消费能消费能
+                                                                    </div>
+                                                                    <div class="depot-bottom">
+                                                                        <i class="collect">44324</i>
+                                                                        <i class="download">15645</i>
+                                                                    </div>
+                                                                </div>
+                                                            </li>
+                                                            <li>
+                                                                <div class="depot-list">
+                                                                    <div class="depot-top">
+                                                                        <div class="img"><img src="static/images/img/img.png"></div>
+                                                                        <div class="depot-title">
+                                                                            <h1>标题</h1>
+                                                                            <h2>渠道</h2>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="depot-content">
+                                                                        通过第三方大数据系统对贵阳各大商圈人流量及消费能消费通过第三方大数据系统对贵阳各大商圈人流量及消费能消费系统对贵阳各大商圈人流量及消费能消费能
+                                                                    </div>
+                                                                    <div class="depot-bottom">
+                                                                        <i class="collect select">44324</i>
+                                                                        <i class="download">15645</i>
+                                                                    </div>
+                                                                </div>
+                                                            </li>
+                                                            <li>
+                                                                <div class="depot-list">
+                                                                    <div class="depot-top">
+                                                                        <div class="img"><img src="static/images/img/img.png"></div>
+                                                                        <div class="depot-title">
+                                                                            <h1>标题</h1>
+                                                                            <h2>渠道</h2>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="depot-content">
+                                                                        通过第三方大数据系统对贵阳各大商圈人流量及消费能消费通过第三方大数据系统对贵阳各大商圈人流量及消费能消费系统对贵阳各大商圈人流量及消费能消费能
+                                                                    </div>
+                                                                    <div class="depot-bottom">
+                                                                        <i class="collect">44324</i>
+                                                                        <i class="download">15645</i>
+                                                                    </div>
+                                                                </div>
+                                                            </li>
+                                                            <li>
+                                                                <div class="depot-list">
+                                                                    <div class="depot-top">
+                                                                        <div class="img"><img src="static/images/img/img.png"></div>
+                                                                        <div class="depot-title">
+                                                                            <h1>标题</h1>
+                                                                            <h2>渠道</h2>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="depot-content">
+                                                                        通过第三方大数据系统对贵阳各大商圈人流量及消费能消费通过第三方大数据系统对贵阳各大商圈人流量及消费能消费系统对贵阳各大商圈人流量及消费能消费能
+                                                                    </div>
+                                                                    <div class="depot-bottom">
+                                                                        <i class="collect">44324</i>
+                                                                        <i class="download">15645</i>
+                                                                    </div>
+                                                                </div>
+                                                            </li>
+                                                            <li>
+                                                                <div class="depot-list">
+                                                                    <div class="depot-top">
+                                                                        <div class="img"><img src="static/images/img/img.png"></div>
+                                                                        <div class="depot-title">
+                                                                            <h1>标题</h1>
+                                                                            <h2>渠道</h2>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="depot-content">
+                                                                        通过第三方大数据系统对贵阳各大商圈人流量及消费能消费通过第三方大数据系统对贵阳各大商圈人流量及消费能消费系统对贵阳各大商圈人流量及消费能消费能
+                                                                    </div>
+                                                                    <div class="depot-bottom">
+                                                                        <i class="collect">44324</i>
+                                                                        <i class="download">15645</i>
+                                                                    </div>
+                                                                </div>
+                                                            </li>
+                                                            <li>
+                                                                <div class="depot-list">
+                                                                    <div class="depot-top">
+                                                                        <div class="img"><img src="static/images/img/img.png"></div>
+                                                                        <div class="depot-title">
+                                                                            <h1>标题</h1>
+                                                                            <h2>渠道</h2>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="depot-content">
+                                                                        通过第三方大数据系统对贵阳各大商圈人流量及消费能消费通过第三方大数据系统对贵阳各大商圈人流量及消费能消费系统对贵阳各大商圈人流量及消费能消费能
+                                                                    </div>
+                                                                    <div class="depot-bottom">
+                                                                        <i class="collect">44324</i>
+                                                                        <i class="download">15645</i>
+                                                                    </div>
+                                                                </div>
+                                                            </li>
+                                                            <li>
+                                                                <div class="depot-list">
+                                                                    <div class="depot-top">
+                                                                        <div class="img"><img src="static/images/img/img.png"></div>
+                                                                        <div class="depot-title">
+                                                                            <h1>标题</h1>
+                                                                            <h2>渠道</h2>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="depot-content">
+                                                                        通过第三方大数据系统对贵阳各大商圈人流量及消费能消费通过第三方大数据系统对贵阳各大商圈人流量及消费能消费系统对贵阳各大商圈人流量及消费能消费能
+                                                                    </div>
+                                                                    <div class="depot-bottom">
+                                                                        <i class="collect">44324</i>
+                                                                        <i class="download">15645</i>
+                                                                    </div>
+                                                                </div>
+                                                            </li>
+                                                        </ul>
+                                                </div>
+                                                </div>
+                                            <!--</div>-->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="row">
+                            <div class="col-xs-8 col-md-8" style="width:100%">
+                                <div class="widget">
+                                    <div class="widget-header bordered-bottom bordered-themeprimary">
+                                        <i class="widget-icon fa fa-tags themeprimary"></i>
+                                        <span class="widget-caption themeprimary">资料文库</span>
+                                    </div><!--Widget Header-->
+                                    <div class="widget-body">
+                                        <div style="">
+                                            <div class="box-list-content">
+                                                <!--<div class="panel-box">-->
+                                                    <div class="product-box">
+                                                        <ul class="data-ul">
+                                                            <li>
+                                                                <div class="left-img">
+                                                                    <img src="static/images/img/img1.png">
+                                                                </div>
+                                                                <div class="data-content">
+                                                                    <h1>京东商城架构参考</h1>
+                                                                    <h2>通过第三方大数据系统对贵阳各大商圈人流量及消费能消费通过第三方大数据系统对贵阳各大商圈人流量及消费量及消费能消费通过第三方大数据系统对贵阳各大商圈人流量及消费量及消费能消费通过第三方大数据系统对贵阳各大商圈人流量及消费量及消费能消费通过第三方大数据系统对贵阳各大商圈人流量及消费量及消费能消费通过第三方大数据系统对贵阳各大商圈人流量及消费能消费系统对贵阳各大商圈人流量及消费能消费能=能...</h2>
+                                                                    <a href="javascript:;">查看详情</a>
+                                                                </div>
+                                                            </li>
+                                                            <li>
+                                                                <div class="left-img">
+                                                                    <img src="static/images/img/img1.png">
+                                                                </div>
+                                                                <div class="data-content">
+                                                                    <h1>京东商城架构参考</h1>
+                                                                    <h2>通过第三方大数据系统对贵阳各大商圈人流量及消费能消费通过第三方大数据系统对贵阳各大商圈人流量及消费量及消费能消费通过第三方大数据系统对贵阳各大商圈人流量及消费量及消费能消费通过第三方大数据系统对贵阳各大商圈人流量及消费量及消费能消费通过第三方大数据系统对贵阳各大商圈人流量及消费量及消费能消费通过第三方大数据系统对贵阳各大商圈人流量及消费能消费系统对贵阳各大商圈人流量及消费能消费能=能...</h2>
+                                                                    <a href="javascript:;">查看详情</a>
+                                                                </div>
+                                                            </li>
+                                                            <li>
+                                                                <div class="left-img">
+                                                                    <img src="static/images/img/img1.png">
+                                                                </div>
+                                                                <div class="data-content">
+                                                                    <h1>京东商城架构参考</h1>
+                                                                    <h2>通过第三方大数据系统对贵阳各大商圈人流量及消费能消费通过第三方大数据系统对贵阳各大商圈人流量及消费量及消费能消费通过第三方大数据系统对贵阳各大商圈人流量及消费量及消费能消费通过第三方大数据系统对贵阳各大商圈人流量及消费量及消费能消费通过第三方大数据系统对贵阳各大商圈人流量及消费量及消费能消费通过第三方大数据系统对贵阳各大商圈人流量及消费能消费系统对贵阳各大商圈人流量及消费能消费能=能...</h2>
+                                                                    <a href="javascript:;">查看详情</a>
+                                                                </div>
+                                                            </li>
+                                                            <li>
+                                                                <div class="left-img">
+                                                                    <img src="static/images/img/img1.png">
+                                                                </div>
+                                                                <div class="data-content">
+                                                                    <h1>京东商城架构参考</h1>
+                                                                    <h2>通过第三方大数据系统对贵阳各大商圈人流量及消费能消费通过第三方大数据系统对贵阳各大商圈人流量及消费量及消费能消费通过第三方大数据系统对贵阳各大商圈人流量及消费量及消费能消费通过第三方大数据系统对贵阳各大商圈人流量及消费量及消费能消费通过第三方大数据系统对贵阳各大商圈人流量及消费量及消费能消费通过第三方大数据系统对贵阳各大商圈人流量及消费能消费系统对贵阳各大商圈人流量及消费能消费能=能...</h2>
+                                                                    <a href="javascript:;">查看详情</a>
+                                                                </div>
+                                                            </li>
+                                                        </ul>
+                                                </div>
+                                                </div>
+                                            <!--</div>-->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
+
 </div>
 <!-- Modal -->
 <div id="systemNotice_Modal" class="mydialog" style="padding-top:0px;">
@@ -332,78 +495,78 @@
     </div>
 </div>
 <!-- Modal -->
-<div id="test" style="display:none;overflow:hidden">
-    <div class="row">
-        <div class="col-md-12">
-            <table class="table table-hover">
-                <tbody>
-                <tr>
-                    <td>
-                        11111111111111
-                    </td>
-                    <td>
-                        6-12 12:14
+<!--<div id="test" style="display:none;overflow:hidden">-->
+    <!--<div class="row">-->
+        <!--<div class="col-md-12">-->
+            <!--<table class="table table-hover">-->
+                <!--<tbody>-->
+                <!--<tr>-->
+                    <!--<td>-->
+                        <!--11111111111111-->
+                    <!--</td>-->
+                    <!--<td>-->
+                        <!--6-12 12:14-->
 
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        2、地州数据上报的通知
-                        <span class="label label-azure" >
-                            限时
-                           </span>
-                    </td>
-                    <td>
-                        6-12 12:14
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        3、地州数据上报的通知
+                    <!--</td>-->
+                <!--</tr>-->
+                <!--<tr>-->
+                    <!--<td>-->
+                        <!--2、地州数据上报的通知-->
+                        <!--<span class="label label-azure" >-->
+                            <!--限时-->
+                           <!--</span>-->
+                    <!--</td>-->
+                    <!--<td>-->
+                        <!--6-12 12:14-->
+                    <!--</td>-->
+                <!--</tr>-->
+                <!--<tr>-->
+                    <!--<td>-->
+                        <!--3、地州数据上报的通知-->
 
-                    </td>
-                    <td>
-                        6-12 12:14
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        4、地州数据上报的通知
+                    <!--</td>-->
+                    <!--<td>-->
+                        <!--6-12 12:14-->
+                    <!--</td>-->
+                <!--</tr>-->
+                <!--<tr>-->
+                    <!--<td>-->
+                        <!--4、地州数据上报的通知-->
 
-                    </td>
-                    <td>
-                        6-12 12:14
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        5、地州违规通报
-                        <span class="label label-warning" >
-                            通报
-                           </span>
-                    </td>
-                    <td>
-                        6-12 12:14
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        6、地州数据上报的通知
-                        <span class="label label-azure" >
-                            限时
-                           </span>
-                    </td>
-                    <td>
-                        6-12 12:14
-                    </td>
-                </tr>
+                    <!--</td>-->
+                    <!--<td>-->
+                        <!--6-12 12:14-->
+                    <!--</td>-->
+                <!--</tr>-->
+                <!--<tr>-->
+                    <!--<td>-->
+                        <!--5、地州违规通报-->
+                        <!--<span class="label label-warning" >-->
+                            <!--通报-->
+                           <!--</span>-->
+                    <!--</td>-->
+                    <!--<td>-->
+                        <!--6-12 12:14-->
+                    <!--</td>-->
+                <!--</tr>-->
+                <!--<tr>-->
+                    <!--<td>-->
+                        <!--6、地州数据上报的通知-->
+                        <!--<span class="label label-azure" >-->
+                            <!--限时-->
+                           <!--</span>-->
+                    <!--</td>-->
+                    <!--<td>-->
+                        <!--6-12 12:14-->
+                    <!--</td>-->
+                <!--</tr>-->
 
 
-                </tbody>
-            </table>
-        </div>
-    </div>
-</div>
+                <!--</tbody>-->
+            <!--</table>-->
+        <!--</div>-->
+    <!--</div>-->
+<!--</div>-->
 
 <!--右下角弹窗  -->
 <div id="noticeDialog" class="easyui-dialog" title="公告" data-options="iconCls:'icon-tip',closed:true,resizable:true">
@@ -425,8 +588,8 @@
 
     $(document).ready(function(){
         initSystemNotice();
-        initView();
-        initChartData();
+//        initView();
+//        initChartData();
     });
 
     function initView() {
@@ -709,9 +872,9 @@
                 || document.body.scrollTop
                 || 0;
         var topPosition = $(window).height() - 150+scrollTop;
-        $('#noticeDialog').panel('resize',{
-            top:topPosition
-        });
+//        $('#noticeDialog').panel('resize',{
+//            top:topPosition
+//        });
     });
 
 
