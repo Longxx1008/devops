@@ -5,10 +5,20 @@
 
 ## 版本v1.0.12
 
-####  开发进度 
-![QQ20170505-135808](/uploads/870e98e51fc37a1261440bb6b9fe2271/QQ20170505-135808.png)
+####  项目简介
 
-Reference-style:
-![alt text1][logo]
 
-[logo]: Code/develop-base/public/static/images/nginx.jpg
+详细说明
+
+
+
+### 代码规范
+#### docker 命名规范：
+
+docker_registry:端口/项目组（对应gitlab中group）/项目名称
+
+示例：
+
+10.201.253.197:5000/group1/develop-base    
+
+ 
