@@ -11,20 +11,9 @@ var utils = require('../../../common/core/utils/app_utils');
 
 //pageList分页查询的Controller
 router.route('/develop/im/pageList').get(function(req,res){
-    // // 分页条件
-    // var imageCode = req.query.imageCode;
-    // var imageName = req.query.projectName;
-    // 分页参数
     var page = req.query.page;
     var length = req.query.rows;
     var conditionMap = {};
-    // if(imageCode){
-    //     conditionMap.projectCode = imageCode;
-    // }
-    // if(imageName) {
-    //     conditionMap.projectName = imageName;
-    // }
-    // 调用分页
     imageService.pageList(page, length, conditionMap,function(result){
         utils.respJsonData(res, result);
     });
@@ -76,6 +65,7 @@ router.route('/develop/im/add').post(function(req,res) {
             channels = fields.channels;
             simpleIntroduction = fields.simpleIntroduction;
             catagory = fields.catagory;
+
             if (imageCode) {
                 //更新 用imageCode判断是否需要更新
                 if (pictureName) {
