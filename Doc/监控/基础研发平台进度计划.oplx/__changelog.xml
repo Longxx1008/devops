@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<changelog xmlns="http://www.omnigroup.com/namespace/OmniPlan/v2">
+  <version>2.1</version>
+  <task-change-set user="文安国" date="2017-05-04T02:07:54.962Z" timestamp="2017-05-04T02:07:54.962Z">
+    <change idref="t2" to="t-1" to-position="1" resolved="yes">
+      <change idref="t2" attribute="title" type="string" to="流程测试"/>
+    </change>
+    <change idref="t1" attribute="title" type="string" from="任务 1" to="项目研发" resolved="yes"/>
+  </task-change-set>
+  <task-change-set user="文安国" date="2017-05-04T02:11:09.739Z" timestamp="2017-05-04T02:11:09.739Z">
+    <change idref="t3" to="t-1" to-position="1" resolved="yes">
+      <change idref="t3" attribute="internalAssignments" type="string" from="" to="1"/>
+      <change idref="t3" attribute="title" type="string" to="任务 1"/>
+    </change>
+    <change idref="t1" attribute="title" type="string" from="项目研发" to="编码" resolved="yes"/>
+    <change idref="t2" attribute="title" type="string" from="流程测试" to="测试" resolved="yes"/>
+  </task-change-set>
+  <task-change-set user="文安国" date="2017-05-04T02:18:58.936Z" timestamp="2017-05-04T02:18:58.936Z">
+    <change idref="t1" attribute="isGroup" type="real" from="0" to="1" resolved="yes"/>
+    <change idref="t1" attribute="multiResourceWorkType" type="real" from="0" resolved="yes"/>
+    <change idref="t1" attribute="isSplittableTask" type="real" from="1" resolved="yes"/>
+    <change idref="t1" attribute="taskType" type="real" from="0" to="2" resolved="yes"/>
+    <change idref="t1" attribute="resourceAssignmentType" type="real" from="0" resolved="yes"/>
+    <change idref="t1" attribute="staticCost" type="real" from="0" resolved="yes"/>
+    <change idref="t1" attribute="effort" type="real" from="28800" resolved="yes"/>
+    <change idref="t1" attribute="isSplitChunk" type="real" from="0" resolved="yes"/>
+    <change idref="t1" attribute="scheduleType" type="real" from="0" resolved="yes"/>
+    <change idref="t1" attribute="internalAssignments" type="string" from="" resolved="yes"/>
+    <change idref="t1" attribute="isSplitTask" type="real" from="0" resolved="yes"/>
+    <change idref="t1" attribute="internalEffortDone" type="real" from="0" resolved="yes"/>
+    <change idref="t3" from="t-1" from-position="1" to="t1" to-position="0" resolved="yes"/>
+    <change idref="t4" to="t1" to-position="1" resolved="yes">
+      <change idref="t4" attribute="title" type="string" to="阶段二：CI/CD整体流程开发"/>
+    </change>
+    <change idref="t5" to="t1" to-position="2" resolved="yes">
+      <change idref="t5" attribute="title" type="string" to="阶段三：项目管理开发"/>
+    </change>
+    <change idref="t3" attribute="title" type="string" from="任务 1" to="阶段一:开放能力开发" resolved="yes"/>
+  </task-change-set>
+  <task-change-set user="文安国" date="2017-05-04T02:19:02.817Z" timestamp="2017-05-04T02:19:02.817Z">
+    <change idref="t3" attribute="title" type="string" from="阶段一:开放能力开发" to="阶段一：开放能力开发" resolved="yes"/>
+  </task-change-set>
+  <task-change-set user="文安国" date="2017-05-04T02:25:13.286Z" timestamp="2017-05-04T02:25:13.286Z">
+    <change idref="t3" attribute="isGroup" type="real" from="0" to="1" resolved="yes"/>
+    <change idref="t3" attribute="multiResourceWorkType" type="real" from="0" resolved="yes"/>
+    <change idref="t3" attribute="isSplittableTask" type="real" from="1" resolved="yes"/>
+    <change idref="t3" attribute="taskType" type="real" from="0" to="2" resolved="yes"/>
+    <change idref="t3" attribute="resourceAssignmentType" type="real" from="0" resolved="yes"/>
+    <change idref="t3" attribute="staticCost" type="real" from="0" resolved="yes"/>
+    <change idref="t3" attribute="effort" type="real" from="28800" resolved="yes"/>
+    <change idref="t3" attribute="isSplitChunk" type="real" from="0" resolved="yes"/>
+    <change idref="t3" attribute="scheduleType" type="real" from="0" resolved="yes"/>
+    <change idref="t3" attribute="internalAssignments" type="string" from="1" resolved="yes"/>
+    <change idref="t3" attribute="isSplitTask" type="real" from="0" resolved="yes"/>
+    <change idref="t3" attribute="internalEffortDone" type="real" from="0" resolved="yes"/>
+    <change idref="t6" to="t3" to-position="0" resolved="yes">
+      <change idref="t6" attribute="title" type="string" to="镜像管理"/>
+    </change>
+    <change idref="t7" to="t3" to-position="1" resolved="yes">
+      <change idref="t7" attribute="title" type="string" to="服务管理"/>
+    </change>
+  </task-change-set>
+  <task-change-set user="文安国" date="2017-05-04T02:38:48.765Z" timestamp="2017-05-04T02:38:48.765Z">
+    <change idref="t8" to="t3" to-position="1" resolved="yes">
+      <change idref="t8" attribute="notesAllowingNil" type="textdata" to="e1xydGYxXGFuc2lcYW5zaWNwZzkzNlxjb2NvYXJ0ZjE1MDRcY29jb2FzdWJydGY4MjAKe1xmb250dGJsXGYwXGZuaWxcZmNoYXJzZXQxMzQgUGluZ0ZhbmdTQy1SZWd1bGFyO30Ke1xjb2xvcnRibDtccmVkMjU1XGdyZWVuMjU1XGJsdWUyNTU7XHJlZDg1XGdyZWVuODVcYmx1ZTg1O30Ke1wqXGV4cGFuZGVkY29sb3J0Ymw7O1xjc2dyYXlcYzQwOTIyO30KXHBhcmRcdHg1NjBcdHgxMTIwXHR4MTY4MFx0eDIyNDBcdHgyODAwXHR4MzM2MFx0eDM5MjBcdHg0NDgwXHR4NTA0MFx0eDU2MDBcdHg2MTYwXHR4NjcyMFxwYXJkaXJuYXR1cmFsXHBhcnRpZ2h0ZW5mYWN0b3IwCgpcZjBcZnMyNCBcY2YyIFwnYjBcJ2ZjXCdjMFwnYThcJ2JlXCdiNVwnY2ZcJ2YxXCdiNVwnYzRcJ2I0XCdmMlwnY2RcJ2M2XCdjYlwnY2RcJ2I1XCdiZFwnYjJcJ2Q2XCdiZlwnZTJcJ2EzXCdhY1wnYzlcJ2JlXCdiM1wnZmRcJ2EzXCdhY1wnY2ZcJ2MyXCdkNFwnZDhcJ2NhXCdiOVwnZDNcJ2MzXCdiNVwnYzhcJ2MxXCdmN1wnYjNcJ2NjfQ=="/>
+      <change idref="t8" attribute="title" type="string" to="镜像操作流程测试"/>
+    </change>
+    <change idref="t4" attribute="isGroup" type="real" from="0" to="1" resolved="yes"/>
+    <change idref="t4" attribute="multiResourceWorkType" type="real" from="0" resolved="yes"/>
+    <change idref="t4" attribute="isSplittableTask" type="real" from="1" resolved="yes"/>
+    <change idref="t4" attribute="taskType" type="real" from="0" to="2" resolved="yes"/>
+    <change idref="t4" attribute="resourceAssignmentType" type="real" from="0" resolved="yes"/>
+    <change idref="t4" attribute="staticCost" type="real" from="0" resolved="yes"/>
+    <change idref="t4" attribute="effort" type="real" from="28800" resolved="yes"/>
+    <change idref="t4" attribute="isSplitChunk" type="real" from="0" resolved="yes"/>
+    <change idref="t4" attribute="scheduleType" type="real" from="0" resolved="yes"/>
+    <change idref="t4" attribute="internalAssignments" type="string" from="" resolved="yes"/>
+    <change idref="t4" attribute="isSplitTask" type="real" from="0" resolved="yes"/>
+    <change idref="t4" attribute="internalEffortDone" type="real" from="0" resolved="yes"/>
+    <change idref="t10" to="t4" to-position="0" resolved="yes">
+      <change idref="t10" attribute="notesAllowingNil" type="textdata" to="e1xydGYxXGFuc2lcYW5zaWNwZzkzNlxjb2NvYXJ0ZjE1MDRcY29jb2FzdWJydGY4MjAKe1xmb250dGJsXGYwXGZuaWxcZmNoYXJzZXQxMzQgUGluZ0ZhbmdTQy1SZWd1bGFyO30Ke1xjb2xvcnRibDtccmVkMjU1XGdyZWVuMjU1XGJsdWUyNTU7XHJlZDg1XGdyZWVuODVcYmx1ZTg1O30Ke1wqXGV4cGFuZGVkY29sb3J0Ymw7O1xjc2dyYXlcYzQwOTIyO30KXHBhcmRcdHg1NjBcdHgxMTIwXHR4MTY4MFx0eDIyNDBcdHgyODAwXHR4MzM2MFx0eDM5MjBcdHg0NDgwXHR4NTA0MFx0eDU2MDBcdHg2MTYwXHR4NjcyMFxwYXJkaXJuYXR1cmFsXHBhcnRpZ2h0ZW5mYWN0b3IwCgpcZjBcZnMyNCBcY2YyIFwnYjBcJ2ZjXCdjMFwnYThcJ2NmXCdlZVwnYzRcJ2JmXCdiNVwnYzRcJ2JmXCdhYVwnYjdcJ2EyXCdhM1wnYWNcJ2I0XCdmYVwnYzJcJ2ViXCdjY1wnZTFcJ2JkXCdiYlwnYTNcJ2FjXCdiNVwnYTVcJ2Q0XCdhYVwnYjJcJ2UyXCdjYVwnZDRcJ2EzXCdhY1wnYmVcJ2I1XCdjZlwnZjFcJ2I0XCdmMlwnYjBcJ2ZjfQ=="/>
+      <change idref="t10" attribute="title" type="string" to="CI/CD持续集成"/>
+    </change>
+    <change idref="t6" attribute="notesAllowingNil" type="textdata" to="e1xydGYxXGFuc2lcYW5zaWNwZzkzNlxjb2NvYXJ0ZjE1MDRcY29jb2FzdWJydGY4MjAKe1xmb250dGJsXGYwXGZuaWxcZmNoYXJzZXQxMzQgUGluZ0ZhbmdTQy1SZWd1bGFyO30Ke1xjb2xvcnRibDtccmVkMjU1XGdyZWVuMjU1XGJsdWUyNTU7XHJlZDg1XGdyZWVuODVcYmx1ZTg1O30Ke1wqXGV4cGFuZGVkY29sb3J0Ymw7O1xjc2dyYXlcYzQwOTIyO30KXHBhcmRcdHg1NjBcdHgxMTIwXHR4MTY4MFx0eDIyNDBcdHgyODAwXHR4MzM2MFx0eDM5MjBcdHg0NDgwXHR4NTA0MFx0eDU2MDBcdHg2MTYwXHR4NjcyMFxwYXJkaXJuYXR1cmFsXHBhcnRpZ2h0ZW5mYWN0b3IwCgpcZjBcZnMyNCBcY2YyIFwnYjBcJ2ZjXCdjMFwnYThcJ2JlXCdiNVwnY2ZcJ2YxXCdiNVwnYzRcJ2Q1XCdiOVwnY2ZcJ2Q2XCdhM1wnYWNcJ2QwXCdjNVwnY2ZcJ2EyXCdiMVwnZTBcJ2JjXCdhZFwnYjVcJ2M4fQ==" resolved="yes"/>
+    <change idref="t7" attribute="notesAllowingNil" type="textdata" to="e1xydGYxXGFuc2lcYW5zaWNwZzkzNlxjb2NvYXJ0ZjE1MDRcY29jb2FzdWJydGY4MjAKe1xmb250dGJsXGYwXGZuaWxcZmNoYXJzZXQxMzQgUGluZ0ZhbmdTQy1SZWd1bGFyO30Ke1xjb2xvcnRibDtccmVkMjU1XGdyZWVuMjU1XGJsdWUyNTU7XHJlZDg1XGdyZWVuODVcYmx1ZTg1O30Ke1wqXGV4cGFuZGVkY29sb3J0Ymw7O1xjc2dyYXlcYzQwOTIyO30KXHBhcmRcdHg1NjBcdHgxMTIwXHR4MTY4MFx0eDIyNDBcdHgyODAwXHR4MzM2MFx0eDM5MjBcdHg0NDgwXHR4NTA0MFx0eDU2MDBcdHg2MTYwXHR4NjcyMFxwYXJkaXJuYXR1cmFsXHBhcnRpZ2h0ZW5mYWN0b3IwCgpcZjBcZnMyNCBcY2YyIFwnYjdcJ2ZlXCdjZVwnZjFcJ2I1XCdjNFwnZDVcJ2I5XCdjZlwnZDZcJ2EzXCdhY1wnYjdcJ2ZlXCdjZVwnZjFcJ2NmXCdlYVwnYzdcJ2U5XCdiNVwnYzRcJ2IxXCdlMFwnYmNcJ2FkfQ==" resolved="yes"/>
+  </task-change-set>
+  <task-change-set user="文安国" date="2017-05-04T02:47:19.250Z" timestamp="2017-05-04T02:47:19.250Z">
+    <change idref="t6" attribute="internalAssignments" type="string" from="" to="4" resolved="yes"/>
+    <change idref="t6" attribute="noEarlierThanConstraintDate" type="date" to="2017-05-03T01:00:00.000Z" resolved="yes"/>
+    <change idref="t7" attribute="effort" type="real" from="28800" to="54000" resolved="yes"/>
+    <change idref="t8" attribute="internalAssignments" type="string" from="" to="1" resolved="yes"/>
+    <change idref="t8" attribute="noEarlierThanConstraintDate" type="date" to="2017-05-03T01:00:00.000Z" resolved="yes"/>
+  </task-change-set>
+  <task-change-set user="文安国" date="2017-05-04T03:29:24.953Z" timestamp="2017-05-04T03:29:24.953Z">
+    <change idref="t4" attribute="title" type="string" from="阶段二：CI/CD整体流程开发" to="阶段二：整体流程开发" resolved="yes"/>
+    <change idref="t11" to="t4" to-position="1" resolved="yes">
+      <change idref="t11" attribute="effort" type="real" from="28800" to="57600"/>
+      <change idref="t11" attribute="internalAssignments" type="string" from="" to="2"/>
+      <change idref="t11" attribute="noEarlierThanConstraintDate" type="date" to="2017-05-04T00:00:00.000Z"/>
+      <change idref="t11" attribute="title" type="string" to="mesos+marathon部署测试"/>
+    </change>
+    <change idref="t12" to="t4" to-position="2" resolved="yes">
+      <change idref="t12" attribute="effort" type="real" from="28800" to="57600"/>
+      <change idref="t12" attribute="internalAssignments" type="string" from="" to="1"/>
+      <change idref="t12" attribute="internalPrerequisitesString" type="string" to="10FS"/>
+      <change idref="t12" attribute="noEarlierThanConstraintDate" type="date" to="2017-05-04T00:00:00.000Z"/>
+      <change idref="t12" attribute="title" type="string" to="日志收集流程测试"/>
+    </change>
+    <change idref="t13" to="t4" to-position="3" resolved="yes">
+      <change idref="t13" attribute="effort" type="real" from="28800" to="57600"/>
+      <change idref="t13" attribute="internalAssignments" type="string" from="" to="1"/>
+      <change idref="t13" attribute="internalPrerequisitesString" type="string" to="12FS"/>
+      <change idref="t13" attribute="noEarlierThanConstraintDate" type="date" to="2017-05-04T00:00:00.000Z"/>
+      <change idref="t13" attribute="title" type="string" to="性能监控流程测试"/>
+    </change>
+    <change idref="t7" attribute="effort" type="real" from="54000" to="57600" resolved="yes"/>
+    <change idref="t7" attribute="internalAssignments" type="string" from="" to="4" resolved="yes"/>
+    <change idref="t7" attribute="noEarlierThanConstraintDate" type="date" to="2017-05-04T00:00:00.000Z" resolved="yes"/>
+    <change idref="t10" attribute="effort" type="real" from="28800" to="57600" resolved="yes"/>
+    <change idref="t10" attribute="internalAssignments" type="string" from="" to="1" resolved="yes"/>
+    <change idref="t10" attribute="noEarlierThanConstraintDate" type="date" to="2017-05-02T00:00:00.000Z" resolved="yes"/>
+  </task-change-set>
+  <task-change-set user="文安国" date="2017-05-05T05:46:28.344Z" timestamp="2017-05-05T05:46:28.344Z">
+    <change idref="t4" attribute="title" type="string" from="阶段二：整体流程开发" to="阶段二：整体流程测试" resolved="yes"/>
+  </task-change-set>
+  <task-change-set user="文安国" date="2017-05-05T06:03:09.933Z" timestamp="2017-05-05T06:03:09.933Z">
+    <change idref="t14" to="t1" to-position="3" resolved="yes">
+      <change idref="t14" attribute="noEarlierThanConstraintDate" type="date" to="2017-05-05T00:00:00.000Z"/>
+      <change idref="t14" attribute="title" type="string" to="阶段四：mesos应用部署"/>
+    </change>
+    <change idref="t15" to="t1" to-position="4" resolved="yes">
+      <change idref="t15" attribute="noEarlierThanConstraintDate" type="date" to="2017-05-05T00:00:00.000Z"/>
+      <change idref="t15" attribute="title" type="string" to="阶段五：整体集成测试"/>
+    </change>
+  </task-change-set>
+  <task-change-set user="文安国" date="2017-05-05T06:03:20.482Z" timestamp="2017-05-05T06:03:20.482Z">
+    <change idref="t15" attribute="title" type="string" from="阶段五：整体集成测试" to="阶段五：整体集成" resolved="yes"/>
+  </task-change-set>
+  <task-change-set user="文安国" date="2017-05-05T08:43:13.975Z" timestamp="2017-05-05T08:43:13.975Z">
+    <change idref="t6" attribute="notesAllowingNil" type="textdata" from="e1xydGYxXGFuc2lcYW5zaWNwZzkzNlxjb2NvYXJ0ZjE1MDRcY29jb2FzdWJydGY4MjAKe1xmb250dGJsXGYwXGZuaWxcZmNoYXJzZXQxMzQgUGluZ0ZhbmdTQy1SZWd1bGFyO30Ke1xjb2xvcnRibDtccmVkMjU1XGdyZWVuMjU1XGJsdWUyNTU7XHJlZDg1XGdyZWVuODVcYmx1ZTg1O30Ke1wqXGV4cGFuZGVkY29sb3J0Ymw7O1xjc2dyYXlcYzQwOTIyO30KXHBhcmRcdHg1NjBcdHgxMTIwXHR4MTY4MFx0eDIyNDBcdHgyODAwXHR4MzM2MFx0eDM5MjBcdHg0NDgwXHR4NTA0MFx0eDU2MDBcdHg2MTYwXHR4NjcyMFxwYXJkaXJuYXR1cmFsXHBhcnRpZ2h0ZW5mYWN0b3IwCgpcZjBcZnMyNCBcY2YyIFx1cDAgXG5vc3VwZXJzdWIgXHVsbm9uZSBcb2JsaXF1ZW5lc3MwIFxleHBhbnNpb24wIFwnYjBcJ2ZjXCdjMFwnYThcJ2JlXCdiNVwnY2ZcJ2YxXCdiNVwnYzRcJ2Q1XCdiOVwnY2ZcJ2Q2XCdhM1wnYWNcJ2QwXCdjNVwnY2ZcJ2EyXCdiMVwnZTBcJ2JjXCdhZFwnYjVcJ2M4fQ==" to="e1xydGYxXGFuc2lcYW5zaWNwZzkzNlxjb2NvYXJ0ZjE1MDRcY29jb2FzdWJydGY4MjAKe1xmb250dGJsXGYwXGZuaWxcZmNoYXJzZXQxMzQgUGluZ0ZhbmdTQy1SZWd1bGFyO1xmMVxmbmlsXGZjaGFyc2V0MCBIZWx2ZXRpY2FOZXVlO30Ke1xjb2xvcnRibDtccmVkMjU1XGdyZWVuMjU1XGJsdWUyNTU7XHJlZDg1XGdyZWVuODVcYmx1ZTg1O30Ke1wqXGV4cGFuZGVkY29sb3J0Ymw7O1xjc2dyYXlcYzQwOTIyO30KXHBhcmRcdHg1NjBcdHgxMTIwXHR4MTY4MFx0eDIyNDBcdHgyODAwXHR4MzM2MFx0eDM5MjBcdHg0NDgwXHR4NTA0MFx0eDU2MDBcdHg2MTYwXHR4NjcyMFxwYXJkaXJuYXR1cmFsXHBhcnRpZ2h0ZW5mYWN0b3IwCgpcZjBcZnMyNCBcY2YyIFx1cDAgXG5vc3VwZXJzdWIgXHVsbm9uZSBcb2JsaXF1ZW5lc3MwIFxleHBhbnNpb24wIFwnYjBcJ2ZjXCdjMFwnYThcJ2JlXCdiNVwnY2ZcJ2YxXCdiNVwnYzRcJ2Q1XCdiOVwnY2ZcJ2Q2XCdhM1wnYWNcJ2QwXCdjNVwnY2ZcJ2EyXCdiMVwnZTBcJ2JjXCdhZFwnYjVcJ2M4ClxmMSBcCgpcZjAgXCdkNlwnZGNcJ2QyXCdiYlwnY2RcJ2VhXCdiM1wnYzlcJ2EzXCdhY1wnYmVcJ2I1XCdjZlwnZjFcJ2Q1XCdiOVwnY2ZcJ2Q2XCdhM1wnYWNcJ2I3XCdmZVwnY2VcJ2YxXCdkNVwnYjlcJ2NmXCdkNlwnYTNcJ2FjXCdjYVwnZDdcJ2QyXCdiM1wnYTNcJ2FjXCdjZlwnZWVcJ2M0XCdiZlwnYjRcJ2I0XCdiZFwnYThcJ2EzXCdhY1wnYjJcJ2JmXCdjYVwnZjBcJ2I1XCdjOH0="/>
+  </task-change-set>
+  <resource-change-set user="文安国" date="2017-05-04T02:11:09.739Z" timestamp="2017-05-04T02:11:09.739Z">
+    <change idref="r2" to="r-1" to-position="1" resolved="yes">
+      <change idref="r2" attribute="name" type="string" to="罗亚东"/>
+    </change>
+    <change idref="r3" to="r-1" to-position="2" resolved="yes">
+      <change idref="r3" attribute="name" type="string" to="黄浩浩"/>
+    </change>
+    <change idref="r4" to="r-1" to-position="3" resolved="yes">
+      <change idref="r4" attribute="name" type="string" to="向勇"/>
+    </change>
+    <change idref="r1" attribute="name" type="string" from="资源 1" to="文安国" resolved="yes"/>
+  </resource-change-set>
+  <metadata-change-set user="文安国" date="2017-05-04T02:07:54.961Z" timestamp="2017-05-04T02:07:54.961Z">
+    <change idref="m1" attribute="fixedDate" type="date" from="2007-01-01T20:00:00.000Z" to="2017-05-04T00:00:00.000Z" resolved="yes"/>
+  </metadata-change-set>
+  <metadata-change-set user="文安国" date="2017-05-04T02:47:19.250Z" timestamp="2017-05-04T02:47:19.250Z">
+    <change idref="m1" attribute="fixedDate" type="date" from="2017-05-04T00:00:00.000Z" to="2017-04-20T00:00:00.000Z" resolved="yes"/>
+  </metadata-change-set>
+</changelog>
