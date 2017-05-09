@@ -32,18 +32,25 @@ exports.pageList = function(page, size, conditionMap, cb) {
 exports.add = function(data,data_map,cb) {
     var sql = "insert into pass_develop_image_info(imageResource,imageName,channels,pictureName,pictureType,picture,simpleIntroduction,catagory) values(?,?,?,?,?,?,?,?)";
     var sql_map="insert into pass_develop_image_mapping(userCode,imageCode) values(?,?)"
+    var sql_version="insert into pass_develop_image_version(imageCode,imageVersion) values(?,'V 1.0.0')"
+    var data_version=[];
     mysqlPool.query(sql,data,function(err,results) {
         if(err) {
             cb(utils.returnMsg(false, '1000', '新增镜像异常', null, err));
         } else {
-            console.info(results.insertId);
             data_map.push(results.insertId);
-            console.info(data_map);
-            mysqlPool.query(sql_map,data_map,function(error,results){
+            mysqlPool.query(sql_map,data_map,function(error,results_ONE){
                 if(error){
                     cb(utils.returnMsg(false, '1000', '新增镜像异常', null, error));
                 } else{
-                    cb(utils.returnMsg(true, '0000', '新增镜像成功', null, null));
+                    data_version.push(results.insertId);
+                    mysqlPool.query(sql_version,data_version,function(errors,results_two){
+                        if(errors){
+                            cb(utils.returnMsg(false, '1000', '新增镜像异常', null, errors));
+                        }else{
+                            cb(utils.returnMsg(true, '0000', '新增镜像成功', null, null));
+                        }
+                    });
                 }
             });
 
