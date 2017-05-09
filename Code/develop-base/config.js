@@ -86,6 +86,19 @@ var config = {
         password: 'repLcmc0613',
         database: 'pass'
     },
+    //系统日志采集配置
+    logger:{
+        app_group : 'dw',
+        app_id : 'proxy',
+        logstashEnable: true,
+        logType: "applog",
+        //logstashHost:"10.201.253.67",
+        logstashHost:"117.135.196.139",
+        logstashPort : 18087 ,
+        logstashLevel:"DEBUG",
+        consoleLevel :"DEBUG",
+        path : 'logs'
+    },
     auth:{
         auth_type:'local',// local：本地认证；cas：单点登录认证
         //cas_server_url             : 'http://117.135.196.139:65080/cas',

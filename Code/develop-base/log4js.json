@@ -22,6 +22,23 @@
       "maxLogSize": "1024*1024",
       "backups":3,
       "category": "service_log"
+    },
+    {
+      "category": "logstash",
+      "host": "127.0.0.1",
+      "port": 18087,
+      "type": "logstashUDP",
+      "logType": "applog",
+      "fields": {
+        "appgroup": "dw",
+        "appid": "proxy",
+        "host": "127.0.0.1",
+        "pid": "1"
+      },
+      "layout": {
+        "type": "pattern",
+        "pattern": "%m"
+      }
     }
   ],
   "replaceConsole": true,

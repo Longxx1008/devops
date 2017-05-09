@@ -24,14 +24,14 @@ var mount = require('./app/common/core/utils/mount_routes.js');
 var tree_utils = require('./app/common/core/utils/tree_utils');
 var param_filter = require('./app/common/core/filter/param_filter');
 
-/*var logHelper = require('./app/common/log/utils/log_util.js');
- var seqHelper = require('./app/common/log/utils/sequence_util.js');
+var logHelper = require('./app/common/log/utils/log_util.js');
+/*var seqHelper = require('./app/common/log/utils/sequence_util.js');*/
 
  //装载日志请求
  logHelper.use(app);
 
  //装载流水号中间件
- app.use(seqHelper.seqCreate);*/
+ // app.use(seqHelper.seqCreate);
 
 //将全局配置信息传入locals
 app.locals.projcfg = config.project;

@@ -31,7 +31,7 @@ exports.projectVersionJobRun = function(){
                     }
                 }
                 connection.release();
-                console.log(DateUtils.format(new Date(),'yyyy-MM-dd hh:mm:ss') + ' 获取gitlab相关项目版本任务结束');
+                // console.log(DateUtils.format(new Date(),'yyyy-MM-dd hh:mm:ss') + ' 获取gitlab相关项目版本任务结束');
             });
         }
     });
@@ -87,7 +87,7 @@ function httpsGetVersion(gitProjectId,projectId){
             } else {
                 console.log(DateUtils.format(new Date(),'yyyy-MM-dd hh:mm:ss') + ' 获取gitlab相关项目版本信息异常');
             }
-
+            console.log(DateUtils.format(new Date(),'yyyy-MM-dd hh:mm:ss') + ' 获取gitlab相关项目版本任务结束');
         });
     });
     req.on('error', function (err) {

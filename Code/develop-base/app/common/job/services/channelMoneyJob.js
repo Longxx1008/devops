@@ -2,7 +2,6 @@
  * Created by liping on 2017-4-1.
  * 全省单渠道酬金表数据统计定时任务
  */
-
 var mysql = require('mysql');
 var config = require('../../../../config');
 var $util = require('../../../common/util/util');
