@@ -20,7 +20,7 @@ module.exports={
         //页面请求日志, level用auto时,默认级别是WARN
 
         //logger.setLevel('INFO');
-        var logger = log4js.getLogger('request_log');
+        var logger = log4js.getLogger('logstash');
 
         //  格式说明
         //*   - `:req[header]` ex: `:req[Accept]`
