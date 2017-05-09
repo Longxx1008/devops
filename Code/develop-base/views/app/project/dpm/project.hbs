@@ -16,7 +16,7 @@
                                     <button type="button" class="btn btn-default" onclick="to_detail()" data-title="应用详情">
                                         <i class="fa fa-edit"></i> 应用详情
                                     </button>
-                                    <button type="button" class="btn btn-default" onclick="toEdit()" data-title="项目成员">
+                                    <button type="button" class="btn btn-default" onclick="showProjectMembers()" data-title="项目成员">
                                         <i class="fa fa-list"></i> 项目成员
                                     </button>
                                     <button type="button" class="btn btn-default" onclick="toContainerListing()" data-title="容器列表">
@@ -47,7 +47,6 @@
                         <table id="projectDataTable">
                         </table>
                     </div>
-                    <iframe id="pageIframe" ></iframe>
                 </div>
             </div>
         </div>
@@ -126,6 +125,20 @@
             </div>
         </div>
     </div>
+</div>
+<div id="myModal_project_members" class="mydialog">
+    <!--<div class="row">-->
+        <!--<div class="col-md-12">-->
+            <!--<div>-->
+    <div id="cc3" class="easyui-layout" data-options="fit:true,border:false" style="width: 800px; height:575px;background-color: #fbfbfb;">
+            <div data-options="region:'center',border:false" style="overflow-x:hidden;overflow-y:hidden">
+                <table id="projectMemberDataTable">
+                </table>
+            </div>
+        </div>
+            <!--</div>-->
+        <!--</div>-->
+    <!--</div>-->
 </div>
 
 <script  type="text/javascript">
@@ -273,6 +286,60 @@
         }
         window.location.href = "{{projcfg.appurl}}/containerlisting";
     }
+
+    function showProjectMembers(){
+        var rowdata = $('#projectDataTable').datagrid("getSelections");
+        if(rowdata.length !=1){
+            msgError("请选择一条项目数据！");
+            return false;
+        }
+        var projectid = rowdata[0].gitlabProjectId;
+        var pn = rowdata[0].projectName;
+
+        $('#projectMemberDataTable').datagrid({
+            url:'{{projcfg.appurl}}/api/project/dpm/project/develop/pm/proUserList',
+            method:'get',
+            queryParams:{'projectId':projectid},
+            rownumbers:false,
+            //autoRowHeight:true,
+            striped:true,
+            fitColumns:true,
+            fit:true,
+            border:true,
+            singleSelect:true,
+            selectOnCheck:false,
+            columns:[[
+                {"field": "aaa","title":"所属项目","width":100,align:"center",
+                    "formatter":function (value, rowData,rowIndex) {
+                    return pn;
+                }},
+                {"field": "userName","title":"成员姓名","width":130,align:"center"}
+            ]],
+            onLoadError:function() {
+                msgError('加载数据出现时发生错误,请稍候重试...');
+            },
+            loadMsg:'正在加载...'
+        });
+
+        $('#myModal_project_members').show();
+        $('#myModal_project_members').mydialog({
+            title:'项目成员列表',
+            width: 700,
+            height: 485,
+            top:100,
+            modal: true,
+            myButtons:[
+                {
+                    text:'关闭',
+                    btnCls:'btn btn-danger',
+                    handler:function(){
+                        $('#myModal_project_members').dialog('close');
+                        clear();
+                    }
+                }
+            ]
+        });
+    }
 //    function (value){
 //
 //
@@ -322,7 +389,6 @@
         $('#myModal').dialog('close');
         clear();
     }
-   console.log("================", $(":button").slice(7,8));
     function to_detail(){
         window.location.href = "{{projcfg.appurl}}/servicedetail";
     }

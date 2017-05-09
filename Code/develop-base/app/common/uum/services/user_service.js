@@ -86,6 +86,26 @@ exports.getUser = function(userid, cb){
         }
     });
 };
+/**
+ * 获取所有用户
+ * @param orgid
+ * @param cb
+ */
+exports.getUserDatas = function(orgid, cb){
+    model.$.find({userid:orgid}, function(error, results) {
+        if(error) {
+            cb(utils.returnMsg(false, '1000', '获取所有用户信息时出现异常', null, error));
+        }
+        else {
+            if(results.length == 0) {
+                cb(utils.returnMsg(false, '1001', '未能获取所有用户信息', null, null));
+            }
+            else {
+                cb(utils.returnMsg(true, '0000', '获取所有用户信息成功', results, null));
+            }
+        }
+    });
+};
 
 /**
  * 修改用户信息
