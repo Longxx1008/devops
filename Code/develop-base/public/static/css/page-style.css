@@ -288,7 +288,7 @@ input[type=button], input[type=text], input[type=password], button {
     background: #FFF;
 }
 .product-box ul.resource-ul li{
-    width:25%;
+    width:33%;
     overflow: hidden;
     float: left;
     text-align: center;

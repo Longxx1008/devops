@@ -190,3 +190,25 @@ exports.delete = function(id, cb) {
         }
     });
 }
+
+exports.getUserList = function(conditionMap,cb){
+    var sql = " select t.* from pass_develop_project_members t where 1=1 ";
+    var condition = [];
+    var page = 1;
+    var size = 50;
+    if(conditionMap) {
+        if(conditionMap.projectId) {//gitlab项目Id
+            sql += " and t.projectId=?";
+            condition.push(conditionMap.projectId);
+        }
+    }
+   var orderBy = 'order by t.id desc';
+    utils.pagingQuery4Eui_mysql(sql,orderBy, page, size, condition, cb);
+    // mysqlPool.query(sql,condition,function(err,results) {
+    //     if(err) {
+    //         cb(utils.returnMsg(false, '1000', '获取项目成员信息异常', null, err));
+    //     } else {
+    //         cb(utils.returnMsg(true, '0000', '获取项目成员信息成功', results, null));
+    //     }
+    // });
+}

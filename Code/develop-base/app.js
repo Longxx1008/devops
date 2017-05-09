@@ -256,4 +256,9 @@ app.use(function (err, req, res, next) {
     });
 });
 
+if(config.mqtt.is_use){
+    // 初始化mqtt
+    mqtt_init.init();
+}
+
 module.exports = app;

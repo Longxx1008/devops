@@ -75,7 +75,7 @@
                                                     <li>6月运维巡检</li>
                                                 </ul>
                                             </div>
-                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -94,9 +94,9 @@
                                     <div class="widget-body">
                                         <div style="height:230px;">
                                             <table class="table table-hover">
-                                            <tbody id="systemNoticeTablelist">
+                                                <tbody id="systemNoticeTablelist">
 
-                                            </tbody>
+                                                </tbody>
                                             </table>
 
                                         </div>
@@ -191,31 +191,31 @@
                                         <div style="">
                                             <div class="box-list-content">
                                                 <!--<div class="panel-box">-->
-                                                    <div class="product-box">
-                                                        <ul class="resource-ul">
-                                                            <li>
-                                                                <div class="chart" style="height:160px;"><img src="static/images/img/chart.png"></div>
-                                                                <h1>CPU</h1>
-                                                                <h2>共计10,已使用3</h2>
-                                                            </li>
-                                                            <li>
-                                                                <div class="chart" style="height:160px;"><img src="static/images/img/chart.png"></div>
-                                                                <h1>内存</h1>
-                                                                <h2>共计10,已使用3</h2>
-                                                            </li>
-                                                            <li>
-                                                                <div class="chart" style="height:160px;"><img src="static/images/img/chart.png"></div>
-                                                                <h1>硬盘</h1>
-                                                                <h2>共计10,已使用3</h2>
-                                                            </li>
-                                                            <li>
-                                                                <div class="chart" style="height:160px;"><img src="static/images/img/chart.png"></div>
-                                                                <h1>带宽</h1>
-                                                                <h2>共计10,已使用3</h2>
-                                                            </li>
-                                                        </ul>
+                                                <div class="product-box">
+                                                    <ul class="resource-ul">
+                                                        <li>
+                                                            <div id="cpuChart" class="chart" style="height:160px;"></div>
+                                                            <h1>CPU</h1>
+                                                            <h2><span id="cpudesc"></span></h2>
+                                                        </li>
+                                                        <li>
+                                                            <div id="memoryChart"  class="chart" style="height:160px;"></div>
+                                                            <h1>内存</h1>
+                                                            <h2><span id="memorydesc"></span></h2>
+                                                        </li>
+                                                        <li>
+                                                            <div id="diskChart"  class="chart" style="height:160px;"></div>
+                                                            <h1>硬盘</h1>
+                                                            <h2><span id="diskdesc"></span></h2>
+                                                        </li>
+                                                        <!--<li>-->
+                                                        <!--<div class="chart" style="height:160px;"><img src="static/images/img/chart.png"></div>-->
+                                                        <!--<h1>带宽</h1>-->
+                                                        <!--<h2>共计10,已使用3</h2>-->
+                                                        <!--</li>-->
+                                                    </ul>
                                                 </div>
-                                                </div>
+                                            </div>
                                             <!--</div>-->
                                         </div>
                                     </div>
@@ -243,155 +243,155 @@
                                         <div style="">
                                             <div class="box-list-content">
                                                 <!--<div class="panel-box">-->
-                                                    <div class="product-box">
-                                                        <ul class="depot-ul">
-                                                            <li>
-                                                                <div class="depot-list">
-                                                                    <div class="depot-top">
-                                                                        <div class="img"><img src="static/images/img/img.png"></div>
-                                                                        <div class="depot-title">
-                                                                            <h1>标题</h1>
-                                                                            <h2>渠道</h2>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="depot-content">
-                                                                        通过第三方大数据系统对贵阳各大商圈人流量及消费能消费通过第三方大数据系统对贵阳各大商圈人流量及消费能消费系统对贵阳各大商圈人流量及消费能消费能
-                                                                    </div>
-                                                                    <div class="depot-bottom">
-                                                                        <i class="collect select">44324</i>
-                                                                        <i class="download">15645</i>
+                                                <div class="product-box">
+                                                    <ul class="depot-ul">
+                                                        <li>
+                                                            <div class="depot-list">
+                                                                <div class="depot-top">
+                                                                    <div class="img"><img src="static/images/img/img.png"></div>
+                                                                    <div class="depot-title">
+                                                                        <h1>标题</h1>
+                                                                        <h2>渠道</h2>
                                                                     </div>
                                                                 </div>
-                                                            </li>
-                                                            <li>
-                                                                <div class="depot-list">
-                                                                    <div class="depot-top">
-                                                                        <div class="img"><img src="static/images/img/img.png"></div>
-                                                                        <div class="depot-title">
-                                                                            <h1>标题</h1>
-                                                                            <h2>渠道</h2>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="depot-content">
-                                                                        通过第三方大数据系统对贵阳各大商圈人流量及消费能消费通过第三方大数据系统对贵阳各大商圈人流量及消费能消费系统对贵阳各大商圈人流量及消费能消费能
-                                                                    </div>
-                                                                    <div class="depot-bottom">
-                                                                        <i class="collect">44324</i>
-                                                                        <i class="download">15645</i>
+                                                                <div class="depot-content">
+                                                                    通过第三方大数据系统对贵阳各大商圈人流量及消费能消费通过第三方大数据系统对贵阳各大商圈人流量及消费能消费系统对贵阳各大商圈人流量及消费能消费能
+                                                                </div>
+                                                                <div class="depot-bottom">
+                                                                    <i class="collect select">44324</i>
+                                                                    <i class="download">15645</i>
+                                                                </div>
+                                                            </div>
+                                                        </li>
+                                                        <li>
+                                                            <div class="depot-list">
+                                                                <div class="depot-top">
+                                                                    <div class="img"><img src="static/images/img/img.png"></div>
+                                                                    <div class="depot-title">
+                                                                        <h1>标题</h1>
+                                                                        <h2>渠道</h2>
                                                                     </div>
                                                                 </div>
-                                                            </li>
-                                                            <li>
-                                                                <div class="depot-list">
-                                                                    <div class="depot-top">
-                                                                        <div class="img"><img src="static/images/img/img.png"></div>
-                                                                        <div class="depot-title">
-                                                                            <h1>标题</h1>
-                                                                            <h2>渠道</h2>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="depot-content">
-                                                                        通过第三方大数据系统对贵阳各大商圈人流量及消费能消费通过第三方大数据系统对贵阳各大商圈人流量及消费能消费系统对贵阳各大商圈人流量及消费能消费能
-                                                                    </div>
-                                                                    <div class="depot-bottom">
-                                                                        <i class="collect select">44324</i>
-                                                                        <i class="download">15645</i>
+                                                                <div class="depot-content">
+                                                                    通过第三方大数据系统对贵阳各大商圈人流量及消费能消费通过第三方大数据系统对贵阳各大商圈人流量及消费能消费系统对贵阳各大商圈人流量及消费能消费能
+                                                                </div>
+                                                                <div class="depot-bottom">
+                                                                    <i class="collect">44324</i>
+                                                                    <i class="download">15645</i>
+                                                                </div>
+                                                            </div>
+                                                        </li>
+                                                        <li>
+                                                            <div class="depot-list">
+                                                                <div class="depot-top">
+                                                                    <div class="img"><img src="static/images/img/img.png"></div>
+                                                                    <div class="depot-title">
+                                                                        <h1>标题</h1>
+                                                                        <h2>渠道</h2>
                                                                     </div>
                                                                 </div>
-                                                            </li>
-                                                            <li>
-                                                                <div class="depot-list">
-                                                                    <div class="depot-top">
-                                                                        <div class="img"><img src="static/images/img/img.png"></div>
-                                                                        <div class="depot-title">
-                                                                            <h1>标题</h1>
-                                                                            <h2>渠道</h2>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="depot-content">
-                                                                        通过第三方大数据系统对贵阳各大商圈人流量及消费能消费通过第三方大数据系统对贵阳各大商圈人流量及消费能消费系统对贵阳各大商圈人流量及消费能消费能
-                                                                    </div>
-                                                                    <div class="depot-bottom">
-                                                                        <i class="collect">44324</i>
-                                                                        <i class="download">15645</i>
+                                                                <div class="depot-content">
+                                                                    通过第三方大数据系统对贵阳各大商圈人流量及消费能消费通过第三方大数据系统对贵阳各大商圈人流量及消费能消费系统对贵阳各大商圈人流量及消费能消费能
+                                                                </div>
+                                                                <div class="depot-bottom">
+                                                                    <i class="collect select">44324</i>
+                                                                    <i class="download">15645</i>
+                                                                </div>
+                                                            </div>
+                                                        </li>
+                                                        <li>
+                                                            <div class="depot-list">
+                                                                <div class="depot-top">
+                                                                    <div class="img"><img src="static/images/img/img.png"></div>
+                                                                    <div class="depot-title">
+                                                                        <h1>标题</h1>
+                                                                        <h2>渠道</h2>
                                                                     </div>
                                                                 </div>
-                                                            </li>
-                                                            <li>
-                                                                <div class="depot-list">
-                                                                    <div class="depot-top">
-                                                                        <div class="img"><img src="static/images/img/img.png"></div>
-                                                                        <div class="depot-title">
-                                                                            <h1>标题</h1>
-                                                                            <h2>渠道</h2>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="depot-content">
-                                                                        通过第三方大数据系统对贵阳各大商圈人流量及消费能消费通过第三方大数据系统对贵阳各大商圈人流量及消费能消费系统对贵阳各大商圈人流量及消费能消费能
-                                                                    </div>
-                                                                    <div class="depot-bottom">
-                                                                        <i class="collect">44324</i>
-                                                                        <i class="download">15645</i>
+                                                                <div class="depot-content">
+                                                                    通过第三方大数据系统对贵阳各大商圈人流量及消费能消费通过第三方大数据系统对贵阳各大商圈人流量及消费能消费系统对贵阳各大商圈人流量及消费能消费能
+                                                                </div>
+                                                                <div class="depot-bottom">
+                                                                    <i class="collect">44324</i>
+                                                                    <i class="download">15645</i>
+                                                                </div>
+                                                            </div>
+                                                        </li>
+                                                        <li>
+                                                            <div class="depot-list">
+                                                                <div class="depot-top">
+                                                                    <div class="img"><img src="static/images/img/img.png"></div>
+                                                                    <div class="depot-title">
+                                                                        <h1>标题</h1>
+                                                                        <h2>渠道</h2>
                                                                     </div>
                                                                 </div>
-                                                            </li>
-                                                            <li>
-                                                                <div class="depot-list">
-                                                                    <div class="depot-top">
-                                                                        <div class="img"><img src="static/images/img/img.png"></div>
-                                                                        <div class="depot-title">
-                                                                            <h1>标题</h1>
-                                                                            <h2>渠道</h2>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="depot-content">
-                                                                        通过第三方大数据系统对贵阳各大商圈人流量及消费能消费通过第三方大数据系统对贵阳各大商圈人流量及消费能消费系统对贵阳各大商圈人流量及消费能消费能
-                                                                    </div>
-                                                                    <div class="depot-bottom">
-                                                                        <i class="collect">44324</i>
-                                                                        <i class="download">15645</i>
+                                                                <div class="depot-content">
+                                                                    通过第三方大数据系统对贵阳各大商圈人流量及消费能消费通过第三方大数据系统对贵阳各大商圈人流量及消费能消费系统对贵阳各大商圈人流量及消费能消费能
+                                                                </div>
+                                                                <div class="depot-bottom">
+                                                                    <i class="collect">44324</i>
+                                                                    <i class="download">15645</i>
+                                                                </div>
+                                                            </div>
+                                                        </li>
+                                                        <li>
+                                                            <div class="depot-list">
+                                                                <div class="depot-top">
+                                                                    <div class="img"><img src="static/images/img/img.png"></div>
+                                                                    <div class="depot-title">
+                                                                        <h1>标题</h1>
+                                                                        <h2>渠道</h2>
                                                                     </div>
                                                                 </div>
-                                                            </li>
-                                                            <li>
-                                                                <div class="depot-list">
-                                                                    <div class="depot-top">
-                                                                        <div class="img"><img src="static/images/img/img.png"></div>
-                                                                        <div class="depot-title">
-                                                                            <h1>标题</h1>
-                                                                            <h2>渠道</h2>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="depot-content">
-                                                                        通过第三方大数据系统对贵阳各大商圈人流量及消费能消费通过第三方大数据系统对贵阳各大商圈人流量及消费能消费系统对贵阳各大商圈人流量及消费能消费能
-                                                                    </div>
-                                                                    <div class="depot-bottom">
-                                                                        <i class="collect">44324</i>
-                                                                        <i class="download">15645</i>
+                                                                <div class="depot-content">
+                                                                    通过第三方大数据系统对贵阳各大商圈人流量及消费能消费通过第三方大数据系统对贵阳各大商圈人流量及消费能消费系统对贵阳各大商圈人流量及消费能消费能
+                                                                </div>
+                                                                <div class="depot-bottom">
+                                                                    <i class="collect">44324</i>
+                                                                    <i class="download">15645</i>
+                                                                </div>
+                                                            </div>
+                                                        </li>
+                                                        <li>
+                                                            <div class="depot-list">
+                                                                <div class="depot-top">
+                                                                    <div class="img"><img src="static/images/img/img.png"></div>
+                                                                    <div class="depot-title">
+                                                                        <h1>标题</h1>
+                                                                        <h2>渠道</h2>
                                                                     </div>
                                                                 </div>
-                                                            </li>
-                                                            <li>
-                                                                <div class="depot-list">
-                                                                    <div class="depot-top">
-                                                                        <div class="img"><img src="static/images/img/img.png"></div>
-                                                                        <div class="depot-title">
-                                                                            <h1>标题</h1>
-                                                                            <h2>渠道</h2>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="depot-content">
-                                                                        通过第三方大数据系统对贵阳各大商圈人流量及消费能消费通过第三方大数据系统对贵阳各大商圈人流量及消费能消费系统对贵阳各大商圈人流量及消费能消费能
-                                                                    </div>
-                                                                    <div class="depot-bottom">
-                                                                        <i class="collect">44324</i>
-                                                                        <i class="download">15645</i>
+                                                                <div class="depot-content">
+                                                                    通过第三方大数据系统对贵阳各大商圈人流量及消费能消费通过第三方大数据系统对贵阳各大商圈人流量及消费能消费系统对贵阳各大商圈人流量及消费能消费能
+                                                                </div>
+                                                                <div class="depot-bottom">
+                                                                    <i class="collect">44324</i>
+                                                                    <i class="download">15645</i>
+                                                                </div>
+                                                            </div>
+                                                        </li>
+                                                        <li>
+                                                            <div class="depot-list">
+                                                                <div class="depot-top">
+                                                                    <div class="img"><img src="static/images/img/img.png"></div>
+                                                                    <div class="depot-title">
+                                                                        <h1>标题</h1>
+                                                                        <h2>渠道</h2>
                                                                     </div>
                                                                 </div>
-                                                            </li>
-                                                        </ul>
+                                                                <div class="depot-content">
+                                                                    通过第三方大数据系统对贵阳各大商圈人流量及消费能消费通过第三方大数据系统对贵阳各大商圈人流量及消费能消费系统对贵阳各大商圈人流量及消费能消费能
+                                                                </div>
+                                                                <div class="depot-bottom">
+                                                                    <i class="collect">44324</i>
+                                                                    <i class="download">15645</i>
+                                                                </div>
+                                                            </div>
+                                                        </li>
+                                                    </ul>
                                                 </div>
-                                                </div>
+                                            </div>
                                             <!--</div>-->
                                         </div>
                                     </div>
@@ -411,51 +411,51 @@
                                         <div style="">
                                             <div class="box-list-content">
                                                 <!--<div class="panel-box">-->
-                                                    <div class="product-box">
-                                                        <ul class="data-ul">
-                                                            <li>
-                                                                <div class="left-img">
-                                                                    <img src="static/images/img/img1.png">
-                                                                </div>
-                                                                <div class="data-content">
-                                                                    <h1>京东商城架构参考</h1>
-                                                                    <h2>通过第三方大数据系统对贵阳各大商圈人流量及消费能消费通过第三方大数据系统对贵阳各大商圈人流量及消费量及消费能消费通过第三方大数据系统对贵阳各大商圈人流量及消费量及消费能消费通过第三方大数据系统对贵阳各大商圈人流量及消费量及消费能消费通过第三方大数据系统对贵阳各大商圈人流量及消费量及消费能消费通过第三方大数据系统对贵阳各大商圈人流量及消费能消费系统对贵阳各大商圈人流量及消费能消费能=能...</h2>
-                                                                    <a href="javascript:;">查看详情</a>
-                                                                </div>
-                                                            </li>
-                                                            <li>
-                                                                <div class="left-img">
-                                                                    <img src="static/images/img/img1.png">
-                                                                </div>
-                                                                <div class="data-content">
-                                                                    <h1>京东商城架构参考</h1>
-                                                                    <h2>通过第三方大数据系统对贵阳各大商圈人流量及消费能消费通过第三方大数据系统对贵阳各大商圈人流量及消费量及消费能消费通过第三方大数据系统对贵阳各大商圈人流量及消费量及消费能消费通过第三方大数据系统对贵阳各大商圈人流量及消费量及消费能消费通过第三方大数据系统对贵阳各大商圈人流量及消费量及消费能消费通过第三方大数据系统对贵阳各大商圈人流量及消费能消费系统对贵阳各大商圈人流量及消费能消费能=能...</h2>
-                                                                    <a href="javascript:;">查看详情</a>
-                                                                </div>
-                                                            </li>
-                                                            <li>
-                                                                <div class="left-img">
-                                                                    <img src="static/images/img/img1.png">
-                                                                </div>
-                                                                <div class="data-content">
-                                                                    <h1>京东商城架构参考</h1>
-                                                                    <h2>通过第三方大数据系统对贵阳各大商圈人流量及消费能消费通过第三方大数据系统对贵阳各大商圈人流量及消费量及消费能消费通过第三方大数据系统对贵阳各大商圈人流量及消费量及消费能消费通过第三方大数据系统对贵阳各大商圈人流量及消费量及消费能消费通过第三方大数据系统对贵阳各大商圈人流量及消费量及消费能消费通过第三方大数据系统对贵阳各大商圈人流量及消费能消费系统对贵阳各大商圈人流量及消费能消费能=能...</h2>
-                                                                    <a href="javascript:;">查看详情</a>
-                                                                </div>
-                                                            </li>
-                                                            <li>
-                                                                <div class="left-img">
-                                                                    <img src="static/images/img/img1.png">
-                                                                </div>
-                                                                <div class="data-content">
-                                                                    <h1>京东商城架构参考</h1>
-                                                                    <h2>通过第三方大数据系统对贵阳各大商圈人流量及消费能消费通过第三方大数据系统对贵阳各大商圈人流量及消费量及消费能消费通过第三方大数据系统对贵阳各大商圈人流量及消费量及消费能消费通过第三方大数据系统对贵阳各大商圈人流量及消费量及消费能消费通过第三方大数据系统对贵阳各大商圈人流量及消费量及消费能消费通过第三方大数据系统对贵阳各大商圈人流量及消费能消费系统对贵阳各大商圈人流量及消费能消费能=能...</h2>
-                                                                    <a href="javascript:;">查看详情</a>
-                                                                </div>
-                                                            </li>
-                                                        </ul>
+                                                <div class="product-box">
+                                                    <ul class="data-ul">
+                                                        <li>
+                                                            <div class="left-img">
+                                                                <img src="static/images/img/img1.png">
+                                                            </div>
+                                                            <div class="data-content">
+                                                                <h1>京东商城架构参考</h1>
+                                                                <h2>通过第三方大数据系统对贵阳各大商圈人流量及消费能消费通过第三方大数据系统对贵阳各大商圈人流量及消费量及消费能消费通过第三方大数据系统对贵阳各大商圈人流量及消费量及消费能消费通过第三方大数据系统对贵阳各大商圈人流量及消费量及消费能消费通过第三方大数据系统对贵阳各大商圈人流量及消费量及消费能消费通过第三方大数据系统对贵阳各大商圈人流量及消费能消费系统对贵阳各大商圈人流量及消费能消费能=能...</h2>
+                                                                <a href="javascript:;">查看详情</a>
+                                                            </div>
+                                                        </li>
+                                                        <li>
+                                                            <div class="left-img">
+                                                                <img src="static/images/img/img1.png">
+                                                            </div>
+                                                            <div class="data-content">
+                                                                <h1>京东商城架构参考</h1>
+                                                                <h2>通过第三方大数据系统对贵阳各大商圈人流量及消费能消费通过第三方大数据系统对贵阳各大商圈人流量及消费量及消费能消费通过第三方大数据系统对贵阳各大商圈人流量及消费量及消费能消费通过第三方大数据系统对贵阳各大商圈人流量及消费量及消费能消费通过第三方大数据系统对贵阳各大商圈人流量及消费量及消费能消费通过第三方大数据系统对贵阳各大商圈人流量及消费能消费系统对贵阳各大商圈人流量及消费能消费能=能...</h2>
+                                                                <a href="javascript:;">查看详情</a>
+                                                            </div>
+                                                        </li>
+                                                        <li>
+                                                            <div class="left-img">
+                                                                <img src="static/images/img/img1.png">
+                                                            </div>
+                                                            <div class="data-content">
+                                                                <h1>京东商城架构参考</h1>
+                                                                <h2>通过第三方大数据系统对贵阳各大商圈人流量及消费能消费通过第三方大数据系统对贵阳各大商圈人流量及消费量及消费能消费通过第三方大数据系统对贵阳各大商圈人流量及消费量及消费能消费通过第三方大数据系统对贵阳各大商圈人流量及消费量及消费能消费通过第三方大数据系统对贵阳各大商圈人流量及消费量及消费能消费通过第三方大数据系统对贵阳各大商圈人流量及消费能消费系统对贵阳各大商圈人流量及消费能消费能=能...</h2>
+                                                                <a href="javascript:;">查看详情</a>
+                                                            </div>
+                                                        </li>
+                                                        <li>
+                                                            <div class="left-img">
+                                                                <img src="static/images/img/img1.png">
+                                                            </div>
+                                                            <div class="data-content">
+                                                                <h1>京东商城架构参考</h1>
+                                                                <h2>通过第三方大数据系统对贵阳各大商圈人流量及消费能消费通过第三方大数据系统对贵阳各大商圈人流量及消费量及消费能消费通过第三方大数据系统对贵阳各大商圈人流量及消费量及消费能消费通过第三方大数据系统对贵阳各大商圈人流量及消费量及消费能消费通过第三方大数据系统对贵阳各大商圈人流量及消费量及消费能消费通过第三方大数据系统对贵阳各大商圈人流量及消费能消费系统对贵阳各大商圈人流量及消费能消费能=能...</h2>
+                                                                <a href="javascript:;">查看详情</a>
+                                                            </div>
+                                                        </li>
+                                                    </ul>
                                                 </div>
-                                                </div>
+                                            </div>
                                             <!--</div>-->
                                         </div>
                                     </div>
@@ -496,76 +496,76 @@
 </div>
 <!-- Modal -->
 <!--<div id="test" style="display:none;overflow:hidden">-->
-    <!--<div class="row">-->
-        <!--<div class="col-md-12">-->
-            <!--<table class="table table-hover">-->
-                <!--<tbody>-->
-                <!--<tr>-->
-                    <!--<td>-->
-                        <!--11111111111111-->
-                    <!--</td>-->
-                    <!--<td>-->
-                        <!--6-12 12:14-->
+<!--<div class="row">-->
+<!--<div class="col-md-12">-->
+<!--<table class="table table-hover">-->
+<!--<tbody>-->
+<!--<tr>-->
+<!--<td>-->
+<!--11111111111111-->
+<!--</td>-->
+<!--<td>-->
+<!--6-12 12:14-->
 
-                    <!--</td>-->
-                <!--</tr>-->
-                <!--<tr>-->
-                    <!--<td>-->
-                        <!--2、地州数据上报的通知-->
-                        <!--<span class="label label-azure" >-->
-                            <!--限时-->
-                           <!--</span>-->
-                    <!--</td>-->
-                    <!--<td>-->
-                        <!--6-12 12:14-->
-                    <!--</td>-->
-                <!--</tr>-->
-                <!--<tr>-->
-                    <!--<td>-->
-                        <!--3、地州数据上报的通知-->
+<!--</td>-->
+<!--</tr>-->
+<!--<tr>-->
+<!--<td>-->
+<!--2、地州数据上报的通知-->
+<!--<span class="label label-azure" >-->
+<!--限时-->
+<!--</span>-->
+<!--</td>-->
+<!--<td>-->
+<!--6-12 12:14-->
+<!--</td>-->
+<!--</tr>-->
+<!--<tr>-->
+<!--<td>-->
+<!--3、地州数据上报的通知-->
 
-                    <!--</td>-->
-                    <!--<td>-->
-                        <!--6-12 12:14-->
-                    <!--</td>-->
-                <!--</tr>-->
-                <!--<tr>-->
-                    <!--<td>-->
-                        <!--4、地州数据上报的通知-->
+<!--</td>-->
+<!--<td>-->
+<!--6-12 12:14-->
+<!--</td>-->
+<!--</tr>-->
+<!--<tr>-->
+<!--<td>-->
+<!--4、地州数据上报的通知-->
 
-                    <!--</td>-->
-                    <!--<td>-->
-                        <!--6-12 12:14-->
-                    <!--</td>-->
-                <!--</tr>-->
-                <!--<tr>-->
-                    <!--<td>-->
-                        <!--5、地州违规通报-->
-                        <!--<span class="label label-warning" >-->
-                            <!--通报-->
-                           <!--</span>-->
-                    <!--</td>-->
-                    <!--<td>-->
-                        <!--6-12 12:14-->
-                    <!--</td>-->
-                <!--</tr>-->
-                <!--<tr>-->
-                    <!--<td>-->
-                        <!--6、地州数据上报的通知-->
-                        <!--<span class="label label-azure" >-->
-                            <!--限时-->
-                           <!--</span>-->
-                    <!--</td>-->
-                    <!--<td>-->
-                        <!--6-12 12:14-->
-                    <!--</td>-->
-                <!--</tr>-->
+<!--</td>-->
+<!--<td>-->
+<!--6-12 12:14-->
+<!--</td>-->
+<!--</tr>-->
+<!--<tr>-->
+<!--<td>-->
+<!--5、地州违规通报-->
+<!--<span class="label label-warning" >-->
+<!--通报-->
+<!--</span>-->
+<!--</td>-->
+<!--<td>-->
+<!--6-12 12:14-->
+<!--</td>-->
+<!--</tr>-->
+<!--<tr>-->
+<!--<td>-->
+<!--6、地州数据上报的通知-->
+<!--<span class="label label-azure" >-->
+<!--限时-->
+<!--</span>-->
+<!--</td>-->
+<!--<td>-->
+<!--6-12 12:14-->
+<!--</td>-->
+<!--</tr>-->
 
 
-                <!--</tbody>-->
-            <!--</table>-->
-        <!--</div>-->
-    <!--</div>-->
+<!--</tbody>-->
+<!--</table>-->
+<!--</div>-->
+<!--</div>-->
 <!--</div>-->
 
 <!--右下角弹窗  -->
@@ -588,6 +588,9 @@
 
     $(document).ready(function(){
         initSystemNotice();
+        showCpuChart();
+        showMemoryChart();
+        showDiskChart();
 //        initView();
 //        initChartData();
     });
@@ -628,6 +631,69 @@
                 }
             }
         });
+    }
+
+    //显示cpu饼图
+    function showCpuChart(){
+        var cpuChart = echarts.init(document.getElementById('cpuChart'));
+        cpuoption = {
+            series: [
+                {
+                    name: '',
+                    type: 'pie',
+                    radius: '85%',
+                    center: ['50%', '55%'],
+                    data: [
+                        {value:4, name:'已使用'},
+                        {value:12, name:'未使用'}
+                    ]
+                }
+            ]
+        };
+        cpuChart.setOption(cpuoption);
+        $('#cpudesc').html("共计"+16+",已使用"+4);
+    }
+
+    //显示Memory饼图
+    function showMemoryChart(){
+        var memoryChart = echarts.init(document.getElementById('memoryChart'));
+        memoryoption = {
+            series: [
+                {
+                    name: '',
+                    type: 'pie',
+                    radius: '85%',
+                    center: ['50%', '55%'],
+                    data: [
+                        {value:20, name:'已使用'},
+                        {value:20, name:'未使用'}
+                    ]
+                }
+            ]
+        };
+        memoryChart.setOption(memoryoption);
+        $('#memorydesc').html("共计"+20+"G,已使用"+20+"G");
+    }
+
+    //显示Disk饼图
+    function showDiskChart(){
+        var diskChart = echarts.init(document.getElementById('diskChart'));
+        diskoption = {
+            series: [
+                {
+                    name: '',
+                    type: 'pie',
+                    radius: '85%',
+                    center: ['50%', '55%'],
+                    data: [
+                        {value:240, name:'已使用'},
+                        {value:200, name:'未使用'}
+                    ]
+                }
+            ]
+        };
+        diskChart.setOption(diskoption);
+        $('#diskdesc').html("共计"+440+"G,已使用"+240+"G");
     }
 
     function showRingChart() {

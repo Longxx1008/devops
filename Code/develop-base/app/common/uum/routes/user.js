@@ -99,6 +99,22 @@ router.route('/')
     });
 
 /**
+ * 获取所有用户数据
+ */
+router.route('/getUserDatas/:orgid')
+    .get(function(req,res){
+        var orgid = req.params.orgid;
+        if(orgid) {
+            userService.getUserDatas(orgid, function(results){
+                utils.respJsonData(res, results);
+            });
+        }
+        else {
+            utils.respJsonData(res, new Array());
+        }
+    });
+
+/**
  * 获取角色数据
  */
 router.route('/getRoleData/:sysid')

@@ -52,8 +52,6 @@ router.route('/develop/pm/verList').get(function(req,res){
     projectService.versionList(conditionMap,function(result){
         utils.respJsonData(res, result);
     });
-
-
 });
 
 /**
@@ -139,6 +137,25 @@ router.route('/develop/pm/:id').delete(function(req,res) {
 
 router.route('/doc/{id}/{type}').get(function(req,res){
 
+});
+
+/**
+ * 查询项目成员数据
+ */
+router.route('/develop/pm/proUserList').get(function(req,res){
+    // 条件
+    var projectId = req.query.projectId;
+
+    var conditionMap = {};
+    if(projectId){
+        conditionMap.projectId = projectId;
+    }else{
+        return false;
+    }
+    // 调用查询
+    projectService.getUserList(conditionMap,function(result){
+        utils.respJsonData(res, result);
+    });
 });
 
 module.exports = router;

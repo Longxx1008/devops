@@ -101,6 +101,31 @@ var config = {
         },
         password_daily_err_count:10// 密码每日允许错误次数
     },
+    mqtt:{
+        is_use:true,// 是否使用mqtt
+        server:{// mqtt服务器端配置
+            is_load:true,// 是否需要加载mqtt服务器模块，若为false，则不启用mqtt服务器
+            host:'127.0.0.1',// mqtt服务器地址
+            port:1883,// mqtt服务器端口
+            is_persistence:false,// 是否需要持久化mqtt消息,持久化会将消息保存在mongodb中
+            mongo_settings:{// 如果需要持久化mqtt消息，则此配置有效
+                url:'mongodb://127.0.0.1:27017/mqtt',
+                collection:'pubsub'
+            }
+        },
+        pub_client:{
+            is_load:true,// 是否需要加载mqtt发布客户端模块，若为false，则不启用mqtt发布客户端
+            server_host:'127.0.0.1',// mqtt服务器的host
+            server_port:1883,// mqtt服务器的port
+            client_ip:'127.0.0.1'// mqtt发布客户端的ip
+        },
+        sub_client:{// mqtt订阅客户端配置
+            is_load:true,// 是否需要加载mqtt订阅客户端模块，若为false，则不启用mqtt订阅客户端
+            server_host:'127.0.0.1',// mqtt服务器的host
+            server_port:1883,// mqtt服务器的port
+            client_ip:'127.0.0.1'// mqtt订阅客户端的ip
+        }
+    },
     platform:{
         gitlabIp:'code.dev.gz.cmcc',
         gitlabPort:443,
