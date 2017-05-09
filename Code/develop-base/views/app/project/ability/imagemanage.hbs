@@ -133,6 +133,7 @@
     });
 
     $(function(){
+        console.info("执行加载")
         $('#myImageDataTable').datagrid({
             url:'{{projcfg.appurl}}/api/project/ability/imagemanage/develop/im/pageList',
             method:'get',
@@ -148,7 +149,7 @@
                 {"field": "imageName","title":" 镜像名称","width":80,align:"center"},
                 {"field": "channels","title":"渠道","width":100,align:"center"},
                 {"field": "picture","title":"图片","width":100,align:"center","formatter":function(value,rowDate,rowIndex){
-                    return '<img src="data:'+rowDate.pictureType+";base64 ,"+rowDate.picture.toString()+'"  style="height:35px;width:35px">';
+                    return '<img src="data:'+rowDate.pictureType+";base64 ,"+rowDate.picture+'"  style="height:35px;width:35px">';
                 }},
                 {"field":"imageVersion","title":"版本","width":100,align:"center"},
                 {"field": "simpleIntroduction","title":"简介","width":150,align:"center"},
@@ -212,7 +213,7 @@
         var imageCode=rows[0].imageCode;
         $('#addimage').form("clear");
         var modal=$('#addimage');
-        $("#showimg").show().html('<label for="picture" class="col-sm-2 control-label no-padding-right">原图:</label><div class="col-sm-10"><img src="data:'+rows[0].pictureType+";base64 ,"+rows[0].picture.toString()+'"  style="height:35px;width:35px"></div>');
+        $("#showimg").show().html('<label for="picture" class="col-sm-2 control-label no-padding-right">原图:</label><div class="col-sm-10"><img src="data:'+rows[0].pictureType+";base64 ,"+rows[0].picture+'"  style="height:35px;width:35px"></div>');
         delete rows[0].picture;
         delete rows[0].pictureName;
         delete rows[0].pictureType;
@@ -220,7 +221,12 @@
         console.info(rows[0]);
         console.log(typeof rows[0]);
         var ue1=UE.getEditor('simpleIntroduction');
-        ue1.setContent(rows[0].simpleIntroduction);
+        if(rows[0].simpleIntroduction){
+            ue1.setContent(rows[0].simpleIntroduction);
+        }else{
+            ue1.setContent("");
+        }
+
         modal.form('load',rows[0]);
         $("#picture").filebox({
             buttonText:'选择图片',
