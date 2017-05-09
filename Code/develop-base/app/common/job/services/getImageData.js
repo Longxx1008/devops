@@ -35,13 +35,13 @@ function getdata() {
             catagorys = catagoryJson.repositories;
             console.log(catagorys);
             console.log(catagorys.length);
-            getVersion(catagorys,insertDataBase);
+            getVersion(catagorys, insertDataBase, insertMapData);
         });
     });
 }
 
 //获取Version数据
-function getVersion(catagorys, callback) {
+function getVersion(catagorys, callback,insertMapData) {
 
     var url = 'http://10.201.253.197:5000/v2/';
     for (var i = 0; i < catagorys.length; i++) {
@@ -55,7 +55,7 @@ function getVersion(catagorys, callback) {
 
             req.on("end", function () {
              version_data=[JSON.parse(versionStr)];
-             callback(version_data);
+             callback(version_data, insertMapData);
             });
         });
     }
@@ -64,7 +64,7 @@ function getVersion(catagorys, callback) {
 }
 
 //插入数据;
-function insertDataBase(version_data) {
+function insertDataBase(version_data, insertMapData) {
     pool.getConnection(function (err, conn) {
         for (var i= 0; i < version_data.length; i++) {
             var imageName = version_data[i].name;
@@ -87,7 +87,7 @@ function insertDataBase(version_data) {
                             } else {                                                                       
                                 var imageCode = result.insertId;
                                 console.log(result.insertId);
-                                console
+                         
                                 for (var j = 0; j < tags.length; j++) {
                                     var version_temp = tags[j];
                                     var sql_temp_version = new String(sql_version);
@@ -101,6 +101,9 @@ function insertDataBase(version_data) {
                                         }
                                     });
                                 }
+
+                                // 插入到MAP 表格
+                              insertMapData(version_data, imageCode);
                             }
                         });
                     }
@@ -112,3 +115,60 @@ function insertDataBase(version_data) {
     });
 }
 
+function insertMapData(version_data ,imageCode) {
+    pool.getConnection(function (err, conn) {
+        for (var i = 0; i < version_data.length; i++) {
+            var sql = new String('SELECT t.gitlabProjectId from pass_develop_project_resources t where t.projectCode= ');
+            var sql_member = new String("select * from pass_develop_project_members where projectId=");
+            var sql_map = new String("insert into pass_develop_image_mapping (imageCode,userCode) values(");
+            var imageName = version_data[i].name
+            if (imageName.lastIndexOf != -1) {
+               imageName= imageName.substring(imageName.lastIndexOf("/")+1);
+            }
+            sql += "'"+imageName+"'";
+            console.log(sql);
+            conn.query(sql, function (err, result) {
+                if (err) {
+                    console.log(err);
+                } else {
+                    if (result.length > 0) {
+                        var GroupID = JSON.parse(JSON.stringify(result[0])).gitlabProjectId;
+                        console.log(GroupID);
+                        sql_member += GroupID;
+                        conn.query(sql_member, function (err,ret) {
+                            if (err) {
+                                console.log(err);
+                            } else {
+                                console.log(ret);
+                                for (var k = 0; k < ret.length; k++) {
+                                    var userCode = new String(JSON.parse(JSON.stringify(ret[k])).userId);
+                                    sql_temp_map = new String(sql_map);
+                                    sql_temp_map += imageCode + ",'" + userCode + "')";
+                                    conn.query(sql_temp_map, function (error, result) {
+                                        if (error) {
+                                            console.log(error);
+                                        } else {
+                                            console.log(result);
+                                        }
+
+                                    });
+
+                                }
+                               
+                            }
+                        });
+                        
+
+                    } else {
+                        console.error("查询不到数据");
+                    }
+
+                }
+            });
+
+
+        }
+        conn.release();
+    });
+    
+}
