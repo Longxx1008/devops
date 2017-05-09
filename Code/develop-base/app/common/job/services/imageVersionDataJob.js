@@ -8,6 +8,7 @@ var fs = require("fs");
 var http=require('http');
 var config = require('../../../../config');
 var $util = require('../../../common/util/util');
+var DateUtils = require('../../../common/core/utils/DateUtils');
 // 使用连接池，提升性能
 var pool = mysql.createPool($util.extend({}, config.mysql));
 /**
@@ -20,7 +21,12 @@ var versionJson = '';
 var sql_info = "insert into pass_develop_image_info(imageName) values(";
 var sql_version = "insert into pass_develop_image_version(imageCode,imageVersion) values(";
 //启动
-getdata();
+
+exports.queryImageVersionJobRun = function(){
+    console.log(DateUtils.format(new Date(),'yyyy-MM-dd hh:mm:ss') + ' 获取镜像与相关镜像版本数据任务开始');
+    getdata();
+    console.log(DateUtils.format(new Date(),'yyyy-MM-dd hh:mm:ss') + ' 获取镜像与相关镜像版本数据任务结束');
+};
 
 
 //获取Json 数据

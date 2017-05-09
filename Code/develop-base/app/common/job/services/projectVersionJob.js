@@ -19,9 +19,7 @@ exports.projectVersionJobRun = function(){
         if (err != null) {
             console.log(err.message);
         } else {
-
             var sql = "select * from pass_develop_project_resources where gitlabProjectId is not null";
-
             console.log("======sql======" + sql);
             connection.query(sql, function (err, results) {
                 console.log(err+":"+results);
