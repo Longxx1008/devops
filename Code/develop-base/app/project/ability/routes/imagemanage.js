@@ -20,6 +20,23 @@ router.route('/develop/im/pageList').get(function(req,res){
 });
 
 
+/**
+ * 查询项目版本数据
+ */
+router.route('/develop/im/verList').get(function(req,res){
+    // 分页条件
+    var imageCode = req.query.imageCode;
+
+    var conditionMap = {};
+    if(imageCode){
+        conditionMap.imageCode = imageCode;
+    }
+    // 调用查询
+    imageService.versionList(conditionMap,function(results){
+        utils.respJsonData(res, results);
+    });
+});
+
 
 /**
  * 创建项目 更新项目都是用此接口

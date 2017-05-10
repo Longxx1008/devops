@@ -9,7 +9,7 @@ var mysqlPool = require('../../utils/mysql_pool');
  * @param cb
  */
 exports.pageList = function(page, size, conditionMap, cb) {
-    var sql = " SELECT t.*,t1.imageVersion from pass_develop_image_info t  LEFT JOIN pass_develop_image_version t1 ON t.imageCode=t1.imageCode where 1=1" ;
+    var sql = " SELECT t.* from pass_develop_image_info t where 1=1";// LEFT JOIN pass_develop_image_version t1 ON t.imageCode=t1.imageCode where 1=1" ;
     var conditions = [];
     // if(conditionMap) {
     //     if(conditionMap.image) {
@@ -23,6 +23,27 @@ exports.pageList = function(page, size, conditionMap, cb) {
     console.log("查询用户信息sql ====",sql);
     utils.pagingQuery4Eui_mysql(sql,orderBy, page, size, conditions, cb);
 };
+
+//获取镜像版本数据
+exports.versionList = function(conditionMap, cb) {
+    var sql = " select t.* from pass_develop_image_version t where 1=1 ";
+    var condition = [];
+    if(conditionMap) {
+        if(conditionMap.imageCode) {
+            sql += " and t.imageCode=?";
+            condition.push(conditionMap.imageCode);
+        }
+    }
+    sql += " order by t.imageCode desc";
+    // 查询数据库默认版本数据
+    mysqlPool.query(sql,condition,function(err,results) {
+        if(err) {
+            cb(utils.returnMsg(false, '1000', '获取版本信息异常', null, err));
+        } else {
+            cb(utils.returnMsg(true, '0000', '获取版本信息成功', results, null));
+        }
+    });
+}
 
 /**
  * 创建项目信息

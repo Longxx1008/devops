@@ -38,7 +38,7 @@ exports.versionList = function(conditionMap, cb) {
     }
     sql += " order by t.id desc";
     //判断gitlab项目ID是否为空
-    if(conditionMap.gitProjectId){
+    // if(conditionMap.gitProjectId){
         //获取pipelines的Tags--status为success的版本数据
         // var options = {
         //     hostname: config.platform.gitlabIp,
@@ -76,7 +76,7 @@ exports.versionList = function(conditionMap, cb) {
         //     cb(utils.returnMsg(false, '404', err.message, null, null));
         // });
 
-    }else{
+    // }else{
         // 查询数据库默认版本数据
         mysqlPool.query(sql,condition,function(err,results) {
             if(err) {
@@ -85,7 +85,7 @@ exports.versionList = function(conditionMap, cb) {
                 cb(utils.returnMsg(true, '0000', '获取版本信息成功', results, null));
             }
         });
-    }
+    // }
    
 }
 

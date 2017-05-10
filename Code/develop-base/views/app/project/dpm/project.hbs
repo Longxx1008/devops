@@ -162,10 +162,7 @@
                 {"field": "projectName","title":"应用名称","width":100,align:"center"},
                 {"field": "proVersions","title":"版本","width":130,align:"center",
                     "formatter":function (value, rowData,rowIndex) {
-                        var label;
-
-                        label = getVerData(rowData.id,rowData.gitlabProjectId,rowIndex);
-                        return label;
+                        return getVerData(rowData.id,rowData.gitlabProjectId,rowIndex);
                     }},
                 {"field": "gitAddress","title":"版本库","width":200,align:"center"},
                 {"field": "healthCondition","title":"部署情况","width":80,align:"center",

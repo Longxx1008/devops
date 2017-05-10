@@ -151,7 +151,9 @@
                 {"field": "picture","title":"图片","width":100,align:"center","formatter":function(value,rowDate,rowIndex){
                     return '<img src="data:'+rowDate.pictureType+";base64 ,"+rowDate.picture+'"  style="height:35px;width:35px">';
                 }},
-                {"field":"imageVersion","title":"版本","width":100,align:"center"},
+                {"field":"imageVersion","title":"版本","width":100,align:"center","formatter":function(value,rowData,rowIndex){
+                    return getVerData(rowData.imageCode,rowIndex);
+                }},
                 {"field": "simpleIntroduction","title":"简介","width":150,align:"center"},
                 {"field": "catagory","title":"类型","width":50,align:"center"},
                 {"field": "collectionNumber","title":"收藏数","width":50,align:"center"},
@@ -171,6 +173,54 @@
 
     });
 
+    function getVerData(imageCode,rowIndex){
+        var flag = "vers"+rowIndex;
+        var select = "<select id=\""+flag+"\" class=\"easyui-combobox\" name=\""+flag+"\" style=\"width:130px;\">";
+        if(imageCode){
+            $.ajax({
+                url: '{{projcfg.appurl}}/api/project/ability/imagemanage/develop/im/verList',
+                type: 'get',
+                async:false,
+                data: {'imageCode':imageCode},
+                success: function (data) {
+                    console.log(data);
+                    if(data.success) {
+                        var verdata = verAarry(data.data);
+                        console.log("==",verdata);
+                        for(var i=0;i<verdata.length;i++){
+                            select += "<option value='"+verdata[i]+"'>"+verdata[i]+"</option>";
+                        }
+                    }
+                    else {
+                        msgError(data.msg+',错误代码:'+data.code);
+                    }
+                }
+            });
+        }
+        select +=  '</select>';
+        return select;
+    }
+
+    function verAarry(data){
+        var arr = [];
+        for(var i=0;i<data.length;i++){
+            arr.push(data[i].imageVersion);
+        }
+        //进行倒序排序
+        arr.sort(function(o1,o2){
+            var a1 = o1.replace('v','').split('.');
+            var a2 = o2.replace('v','').split('.');
+            var length = Math.max(a1.length,a2.length);
+            for(var i = 0; i < length; i++){
+                var n1 = parseInt(a1[i] || 0);
+                var n2 = parseInt(a2[i] || 0);
+                if(n1 - n2 != 0){
+                    return n2 - n1;
+                }
+            }
+        });
+        return arr;
+    }
 
     function openPage(id,title, value, callback) {
         $('#'+id).show();
