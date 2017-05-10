@@ -19,7 +19,7 @@
 >
 docker_registry:端口/项目组（对应gitlab中group）/项目名称
 
-
+xx
 示例：
 
 > 10.201.253.197:5000/group1/develop-base    
