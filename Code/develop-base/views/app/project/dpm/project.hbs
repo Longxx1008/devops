@@ -19,14 +19,17 @@
                                     <button type="button" class="btn btn-default" onclick="showProjectMembers()" data-title="项目成员">
                                         <i class="fa fa-list"></i> 项目成员
                                     </button>
-                                    <button type="button" class="btn btn-default" onclick="toContainerListing()" data-title="容器列表">
-                                        <i class="fa fa-list"></i> 容器列表
-                                    </button>
+                                    <!--<button type="button" class="btn btn-default" onclick="toContainerListing()" data-title="容器列表">-->
+                                        <!--<i class="fa fa-list"></i> 容器列表-->
+                                    <!--</button>-->
                                     <button type="button" class="btn btn-default" onclick=openPage('myModal_project_deploy','一键部署','',doDeploy)  data-title="一键部署">
                                         <i class="fa fa-edit"></i> 一键部署
                                     </button>
                                     <button type="button" class="btn btn-default" onclick="to_servicewarehouse()" data-title="发布到仓库">
-                                        <i class="fa fa-edit"></i> 发布到仓库
+                                        <i class="fa fa-edit"></i> 发布到服务仓库
+                                    </button>
+                                    <button type="button" class="btn btn-default" onclick="" data-title="项目部署管理">
+                                        <i class="fa fa-list"></i> 项目部署管理
                                     </button>
                                 </div>
                             </div>
@@ -127,18 +130,12 @@
     </div>
 </div>
 <div id="myModal_project_members" class="mydialog">
-    <!--<div class="row">-->
-        <!--<div class="col-md-12">-->
-            <!--<div>-->
     <div id="cc3" class="easyui-layout" data-options="fit:true,border:false" style="width: 800px; height:575px;background-color: #fbfbfb;">
             <div data-options="region:'center',border:false" style="overflow-x:hidden;overflow-y:hidden">
                 <table id="projectMemberDataTable">
                 </table>
             </div>
         </div>
-            <!--</div>-->
-        <!--</div>-->
-    <!--</div>-->
 </div>
 
 <script  type="text/javascript">
@@ -147,7 +144,6 @@
             url:'{{projcfg.appurl}}/api/project/dpm/project/develop/pm/pageList',
             method:'get',
             rownumbers:false,
-            //autoRowHeight:true,
             striped:true,
             fitColumns:true,
             toolbar: '#toolbar',
@@ -165,15 +161,25 @@
                         return getVerData(rowData.id,rowData.gitlabProjectId,rowIndex);
                     }},
                 {"field": "gitAddress","title":"版本库","width":200,align:"center"},
-                {"field": "healthCondition","title":"部署情况","width":80,align:"center",
-                    "formatter":function (value, rowData,rowIndex) {
-                        return '正常';
-                    }},
+//                {"field": "healthCondition","title":"部署情况","width":80,align:"center",
+//                    "formatter":function (value, rowData,rowIndex) {
+//                        return '正常';
+//                    }},
                 {"field": "resourceUse","title":"资源使用","width":120,align:"center",
                     "formatter":function (value, rowData,rowIndex) {
                         return 'cpu:3.0<br/>内存：4GB<br/>硬盘：500GB';
+                    }},
+                {"field": "aaa","title":"已部署版本","width":120,align:"center",
+                    "formatter":function (value, rowData,rowIndex) {
+                        return 'v1.0.2';
                     }}
-//                {"field": "remark","title":"备注","width":200,align:"center"}
+//                {"field": "visitUrl","title":"操作","width":150,align:"center",
+//                    "formatter":function (value, rowData,rowIndex) {
+//                        if(value){
+//                            return "<button type=\"button\" class=\"btn btn-default\" onclick=\"showVisitPage(\""+value+"\")\" data-title="访问">访问</button>";
+//                        }
+//                        return 'cpu:3.0<br/>内存：4GB<br/>硬盘：500GB';
+//                    }}
             ]],
             onLoadSuccess:function(json) {
 
