@@ -1,19 +1,43 @@
 {
-  "id":"nginxt2",
-  "labels": {
-     "HAPROXY_GROUP":"external",
-     "HAPROXY_0_VHOST":"nginx.marathon.mesos"
-  },
-  "cpus":0.2,
-  "mem":20.0,
-  "instances": 2,
-  "healthChecks": [{ "path": "/" }],
+  "id": "/tomcat6",
+  "cpus": 0.5,
+  "mem": 128,
+  "disk": 0,
+  "instances": 1,
+  "acceptedResourceRoles": [
+    "*"
+  ],
   "container": {
-    "type":"DOCKER",
+    "type": "DOCKER",
     "docker": {
-     "image": "nginx",
-     "network": "BRIDGE",
-     "portMappings":[{"containerPort":80,"hostPort":0,"servicePort":80,"protocol":"tcp"}]
+      "image": "tomcat:6",
+      "network": "BRIDGE",
+      "portMappings": [
+        {
+          "containerPort": 8080,
+          "hostPort": 0,
+          "servicePort": 80,
+          "protocol": "tcp",
+          "name": "tomcat6",
+          "labels": {}
+        }
+      ]
     }
+  },
+   "healthChecks": [
+    {
+      "gracePeriodSeconds": 300,
+      "intervalSeconds": 60,
+      "timeoutSeconds": 20,
+      "maxConsecutiveFailures": 3,
+      "portIndex": 0,
+      "path": "/",
+      "protocol": "HTTP",
+      "ignoreHttp1xx": false
+    }
+  ],
+  "labels": {
+    "HAPROXY_GROUP": "external",
+    "HAPROXY_1_VHOST":"tomcat.marathon.mesos"
   }
 }
