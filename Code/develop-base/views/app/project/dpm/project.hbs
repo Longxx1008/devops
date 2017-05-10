@@ -22,7 +22,7 @@
                                     <button type="button" class="btn btn-default" onclick="toContainerListing()" data-title="容器列表">
                                         <i class="fa fa-list"></i> 容器列表
                                     </button>
-                                    <button type="button" class="btn btn-default" onclick=openPage('myModal_project_deploy','一键部署','',doDeploy)  data-title="一键部署">
+                                    <button type="button" class="btn btn-default" onclick=toDeploy('deployDialog','一键部署','',doDeploy)  data-title="一键部署">
                                         <i class="fa fa-edit"></i> 一键部署
                                     </button>
                                     <button type="button" class="btn btn-default" onclick="to_servicewarehouse()" data-title="发布到仓库">
@@ -92,35 +92,33 @@
 </div>
 
 <!-- Modal -->
-<div id="myModal_project_deploy" class="mydialog">
+<div id="deployDialog" class="mydialog">
     <div class="row">
         <div class="col-md-12">
             <div>
                 <form id="deployForm" class="form-horizontal form-bordered" role="form">
+                    <input type="hidden" id="deployProjectId" value=""/>
                     <div class="form-group">
-                        <label for="inputProjectName" class="col-sm-2 control-label no-padding-right" style="font-style: 黑体;font-size: 16px">项目名称:</label>
+                        <label class="col-sm-2 control-label no-padding-right" style="font-style: 黑体;font-size: 16px">项目名称:</label>
                         <div class="col-sm-10">
-                            <p align="left" style="font-style: 黑体;font-size: 16px">测试业务</p>
+                            <p id="deployProjectName" align="left" style="font-style: 黑体;font-size: 16px"></p>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="inputComputeUnite" class="col-sm-2 control-label no-padding-right" style="font-size: 16px ; font-style: 黑体">部署集群:</label>
+                        <label for="deployProjectVersion" class="col-sm-2 control-label " style="font-style: 黑体;font-size: 16px">部署版本:</label>
                         <div class="col-sm-10">
-                            <select class="easyui-validatebox form-control" data-options="required:true" style="width:60%">
-                                <option value ="test集群1" style="font-size: 16px ; " >测试集群</option>
-                                <option value ="test集群2" style="font-size: 16px ; ">生产集群</option>
-
+                            <select id="deployProjectVersion"　class="easyui-validatebox form-control" data-options="required:true" style="width:60%">
                             </select>
                         </div>
                     </div>
-
                     <div class="form-group">
-                        <label for="inputProjectVersion" class="col-sm-2 control-label " style="font-style: 黑体;font-size: 16px">版本号:</label>
+                        <label for="deployCluster" class="col-sm-2 control-label no-padding-right" style="font-size: 16px ; font-style: 黑体">部署集群:</label>
                         <div class="col-sm-10">
-                            <p align="left" style="font-style: 黑体;font-size: 16px">V2.0.1</p>
+                            <select id="deployClusterId"　class="easyui-validatebox form-control" data-options="required:true" style="width:60%">
+                                <option value="1" style="font-size: 16px ;" >测试集群</option>
+                            </select>
                         </div>
                     </div>
-
                 </form>
             </div>
         </div>
@@ -275,13 +273,51 @@
         });
     }
 
-
+    function toDeploy(){
+        var rowData = $('#projectDataTable').datagrid("getSelections");
+        if(rowData.length != 1){
+            msgError("请选择要不是的应用！");
+            return false;
+        }
+        var id = rowData[0].id;
+        var projectName = rowData[0].projectName;
+        $("#deployProjectId").val(id);
+        $("#deployProjectName").html(projectName);
+        $('#deployProjectVersion').combobox({
+            method: 'get',
+            url: '{{projcfg.appurl}}/api/project/dpm/project/develop/pm/verList?projectId=' + projectId,
+            valueField:'vNo',
+            textField:'vNo',
+            editable:false,
+            required:true
+        });
+        openPage('deployDialog','应用部署', '', doDeploy);
+    }
     function doDeploy(value) {
         var validate = $('#deployForm').form('validate');
         if(!validate) {
             return false;
         }
-        window.location.href = "{{projcfg.appurl}}/containerlisting";
+        var projectName = $("#deployProjectName").html();
+        var clusterName = $("#deployClusterId").combobox('getText');
+        msgConfirm('确定要部署当前【 ' + projectName + '】部署到集群【' + clusterName + '】么？',function(result) {
+            if(result){
+                $.ajax({
+                    url: '{{projcfg.appurl}}/api/project/dpm/project/develop/pm/deploy',
+                    type: 'post',
+                    data: $('#deployForm').serializeJson(),
+                    success: function (data) {
+                        if(data.success) {
+                            msgSuccess(data.msg);
+                            doSearch();
+                            $('#deployDialog').dialog('close');
+                        }else{
+                            msgError(data.msg + ',错误代码:' + data.code);
+                        }
+                    }
+                });
+            }
+        });
     }
 
     function showProjectMembers(){
