@@ -4,6 +4,8 @@ stages:
   - test
   - deploy
   - apibuild
+   tags:
+    - dev
 
 variables:
   LS_CMD: 'ls $FLAGS $$TMP_DIR'
