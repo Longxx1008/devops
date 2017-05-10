@@ -25,29 +25,32 @@ build_stages:
     - dev
 # 定义测试阶段
 test_stages:
+  tags:
+    - dev
   stage: test
   script:
     - echo "TEST"
     - echo "test stage"
-  tags:
-    - dev
+
 # 定义部署阶段
 release_image:
+  tags:
+    - dev
   stage: deploy
   script:
     - if [ "$CI_BUILD_TAG" ]; then docker push $MY_CI_REGISTRY_IMAGE ;fi
 #    - if [ -n "${PUSH_TO_REGISTRY}" ]; then docker push $MY_CI_REGISTRY_IMAGE ;fi
-  tags:
-    - dev    
+    
     
 #
 # 定义部署阶段
 api_build:
+  tags:
+    - dev
   stage: apibuild
   before_script:
     - if [ -n "${API_BUILD}" ]; then MY_CI_REGISTRY_IMAGE=10.201.253.197:5000/${CI_PROJECT_NAME}:${VERISON} ; fi
   script:
     - if [ -n "${API_BUILD}" ]; then docker build -t $MY_CI_REGISTRY_IMAGE .;fi
     - if [ -n "${API_BUILD}" ]; then docker push $MY_CI_REGISTRY_IMAGE ;fi
-  tags:
-    - dev    
+    
