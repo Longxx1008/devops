@@ -68,15 +68,27 @@ function httpsGetVersion(gitProjectId,projectId){
                         console.log(DateUtils.format(new Date(),'yyyy-MM-dd hh:mm:ss') + ' 删除原有gitlab相关项目版本信息成功，准备插入现有版本信息...');
                         for(var i=0;i<info.length;i++){
                             if(info[i].status == 'success'){
-                                var results=[];
-                                var sql = "insert into pass_develop_project_versions(vNo,projectId,createTime) values(?,?,now())";
-                                results.push(info[i].ref);
-                                results.push(projectId);
-                                mysqlPool.query(sql,results,function(err,results) {
+                                //根据projectId和版本号查询项目对应版本是否存在
+                                var sersql = "select id from pass_develop_project_versions where versionNo='"+info[i].ref+"' and projectId="+projectId;
+                                mysqlPool.query(sersql,function(err,serresult) {
                                     if(err) {
-                                        console.log(DateUtils.format(new Date(),'yyyy-MM-dd hh:mm:ss') + ' 插入gitlab相关项目版本信息异常');
+                                        console.log(DateUtils.format(new Date(),'yyyy-MM-dd hh:mm:ss') + ' 查询相关项目版本信息异常');
                                     } else {
-                                        console.log(DateUtils.format(new Date(),'yyyy-MM-dd hh:mm:ss') + ' 插入gitlab相关项目版本信息成功');
+                                        if(serresult && serresult.length == 0){//如果项目版本不存在，就插入该版本信息
+                                            var results=[];
+                                            var sql = "insert into pass_develop_project_versions(versionNo,projectId,createTime) values(?,?,now())";
+                                            results.push(info[i].ref);
+                                            results.push(projectId);
+                                            mysqlPool.query(sql,results,function(err,results) {
+                                                if(err) {
+                                                    console.log(DateUtils.format(new Date(),'yyyy-MM-dd hh:mm:ss') + ' 插入gitlab相关项目版本信息异常...');
+                                                } else {
+                                                    console.log(DateUtils.format(new Date(),'yyyy-MM-dd hh:mm:ss') + ' 插入gitlab相关项目版本信息成功...');
+                                                }
+                                            });
+                                        }else{
+                                            console.log(DateUtils.format(new Date(),'yyyy-MM-dd hh:mm:ss') + ' 项目版本信息已存在...');
+                                        }
                                     }
                                 });
                             }
