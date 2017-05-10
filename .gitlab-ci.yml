@@ -4,8 +4,6 @@ stages:
   - test
   - deploy
   - apibuild
-   tags:
-    - dev
 
 variables:
   LS_CMD: 'ls $FLAGS $$TMP_DIR'
@@ -23,7 +21,8 @@ build_stages:
     - export
     - if [ "$CI_BUILD_TAG" ]; then docker build -t $MY_CI_REGISTRY_IMAGE .;fi
 #    - if [ -n "${PUSH_TO_REGISTRY}" ]; then docker build -t $MY_CI_REGISTRY_IMAGE .;fi
- 
+  tags:
+    - dev
 # 定义测试阶段
 test_stages:
   stage: test
