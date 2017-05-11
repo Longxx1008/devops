@@ -184,7 +184,7 @@
                                         <li><input name="types" type="radio" value="pl" />编程语言</li>
                                         <li><input name="types" type="radio" value="service" />服务器</li>
                                         <li><input name="types" type="radio" value="web" />web框架</li>
-                                        <li><input name="types" type="radio" value="sys" />操作系统</li>
+                                        <li><input name="types" type="radio" value="sys" />系统平台</li>
                                     </ul>
                                 </div>
                             </div>
@@ -254,8 +254,8 @@
             success: function (data) {
                 var html_div='';
                 var rows=data.rows;
+                $("#privateImageDiv").empty();
                 if(data.total > 0 ) {
-                    $("#privateImageDiv").empty();
                     for(var i=0;i<rows.length;i++){
                         html_div+='<div  class="box">' +
                                 '<div class="name-box clearfix">'+
@@ -272,7 +272,7 @@
                     $("#privateImageDiv").append(html_div);
                 }
                 else {
-                    msgError(data.msg+',错误代码:'+data.code);
+                    msgError('该类别无镜像数据');
                 }
             }
         });

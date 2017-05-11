@@ -1,0 +1,19 @@
+{
+  "id":"tomcat11",
+  "labels": {
+     "HAPROXY_GROUP":"external",
+     "HAPROXY_0_VHOST":"tomcat.marathon.mesos"
+  },
+  "cpus":0.2,
+  "mem":20.0,
+  "instances": 2,
+  "healthChecks": [{ "path": "/" }],
+  "container": {
+    "type":"DOCKER",
+    "docker": {
+     "image": "tomcat:6",
+     "network": "BRIDGE",
+     "portMappings":[{"containerPort":80,"hostPort":0,"servicePort":80,"protocol":"tcp"}]
+    }
+  }
+}

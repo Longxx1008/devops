@@ -1,0 +1,19 @@
+{
+  "id":"docker_registry",
+  "labels": {
+     "HAPROXY_GROUP":"external",
+     "HAPROXY_0_VHOST":"tomcat.marathon.mesos"
+  },
+  "cpus":0.5,
+  "mem":20.0,
+  "instances": 1,
+  "healthChecks": [{ "path": "/" }],
+  "container": {
+    "type":"DOCKER",
+    "docker": {
+     "image": "registry",
+     "network": "BRIDGE",
+     "portMappings":[{"containerPort":80,"hostPort":0,"servicePort":80,"protocol":"tcp"}]
+    }
+  }
+}
