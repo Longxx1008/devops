@@ -58,6 +58,7 @@
                 <form id="serviceForm" class="form-horizontal form-bordered" role="form">
                     <input type="hidden" id="serviceId" name="serviceId"/>
                     <input type="hidden" id="projectType" name="projectType"/>
+                    <input type="hidden" id="serVersion" name="serVersion"/>
                     <div class="form-group">
                         <label for="inputProjectName" class="col-sm-2 control-label no-padding-right">名称:</label>
                         <div id="serviceName" class="col-sm-10" style="margin-top: 0.5rem;">
@@ -76,7 +77,7 @@
                     <div class="form-group">
                         <label for="inputGitAddress" class="col-sm-2 control-label no-padding-right">版本:</label>
                         <div class="col-sm-10">
-                            <input type="text" class="easyui-validatebox form-control" data-options="required:true" name="serVersion" id="serVersion" placeholder="请输入版本号" style="width:60%">
+                            <span id="verValue"></span>
                         </div>
                     </div>
                     <!--<div class="form-group">-->
@@ -120,11 +121,9 @@
 //                    return rowData.service_code;
 //                }},
                 {"field": "service_name","title":"服务名称","width":150,align:"center"},
-                {"field": "ser_version","title":"版本","width":100,align:"center","formatter":function (value, rowData,rowIndex) {
-                    return getVerData(rowData.projectId);
-                }},
+                {"field": "ser_version","title":"版本","width":100,align:"center"},
                 {"field": "options","title":"操作","width":150,align:"center","formatter":function (value, rowData,rowIndex) {
-                    return " <span style='cursor: pointer;' onclick='openPage(\"" + "创建"+rowData.service_name+"\",\""+rowData.service_name+"\",\""+rowData.id+"\",\""+rowData.projectType+"\", doAdd)'>创建</span> | "+
+                    return " <span style='cursor: pointer;' onclick='openPage(\"" + "创建"+rowData.service_name+"\",\""+rowData.service_name+"\",\""+rowData.id+"\",\""+rowData.projectType+"\",\""+rowData.ser_version+"\", doAdd)'>创建</span> | "+
                             "<span style='cursor: pointer;' onclick='to_detail();'>说明</span> ";
                 }},
             ]],
@@ -156,11 +155,9 @@
 //                    return rowData.service_code;
 //                }},
                 {"field": "service_name","title":"服务名称","width":150,align:"center"},
-                {"field": "ser_version","title":"版本","width":100,align:"center","formatter":function (value, rowData,rowIndex) {
-                    return getVerData(rowData.projectId);
-                }},
+                {"field": "ser_version","title":"版本","width":100,align:"center"},
                 {"field": "options","title":"操作","width":150,align:"center","formatter":function (value, rowData,rowIndex) {
-                    return " <span style='cursor: pointer;' onclick='openPage(\"" + "创建"+rowData.service_name+"\",\""+rowData.service_name+"\",\""+rowData.id+"\",\""+rowData.projectType+"\", doAdd)'>创建</span> | "+
+                    return " <span style='cursor: pointer;' onclick='openPage(\"" + "创建"+rowData.service_name+"\",\""+rowData.service_name+"\",\""+rowData.id+"\",\""+rowData.projectType+"\",\""+rowData.ser_version+"\", doAdd)'>创建</span> | "+
                             "<span style='cursor: pointer;' onclick='to_detail();'>说明</span> ";
                 }},
             ]],
@@ -177,27 +174,6 @@
 //        $('#servcieAbilityTable').datagrid('loadData',servciesAbilitydata);
     });
 
-    function getVerData(projectid){
-        var value = '';
-        if(projectid){
-            $.ajax({
-                url: '{{projcfg.appurl}}/api/project/dpm/project/develop/pm/verList',
-                type: 'get',
-                async:false,
-                data: {'projectId':projectid},
-                success: function (data) {
-                    console.log(data);
-                    if(data.success) {
-                        value = data.data[0].vNo;
-                    }
-                    else {
-                        msgError(data.msg+',错误代码:'+data.code);
-                    }
-                }
-            });
-        }
-        return value;
-    }
 
     //项目详情
     function to_detail(){
@@ -236,10 +212,12 @@
 
     }
     // 打开页面
-    function openPage(title, value,serviceId,projecttype, callback) {
+    function openPage(title, value,serviceId,projecttype,version, callback) {
         $("#serviceName").html(value);
         $("#serviceId").val(serviceId);
         $("#projectType").val(projecttype);
+        $("#verValue").html(version);
+        $("#serVersion").val(version);
         value = '';
         $('#myModal').show();
         $('#myModal').mydialog({

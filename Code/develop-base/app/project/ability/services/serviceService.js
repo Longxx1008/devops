@@ -9,7 +9,7 @@ var mysqlPool = require('../../utils/mysql_pool');
  * @param cb
  */
 exports.pageList = function(page, size, conditionMap, cb) {
-    var sql = " select t1.projectName as service_name,t1.projectType,s.* from pass_develop_project_resources t1,pass_project_service_info s where t1.id=s.projectId ";
+    var sql = " select t1.projectName as service_name,t1.projectType,s.*,sv.versionNo as ser_version from pass_develop_project_resources t1,pass_project_service_info s,pass_project_service_versions sv where t1.id=s.projectId and sv.serviceId = s.id ";
     var conditions = [];
     if(conditionMap) {
         if(conditionMap.projectCode) {
@@ -60,17 +60,17 @@ exports.versionList = function(conditionMap, cb) {
     var sql = " select t.* from pass_project_service_versions t where 1=1 ";
     var condition = [];
     if(conditionMap) {
-        if(conditionMap.servviceId) {
-            sql += " and t.servviceId=?";
-            condition.push(conditionMap.servviceId);
+        if(conditionMap.serviceId) {
+            sql += " and t.serviceId=?";
+            condition.push(conditionMap.serviceId);
         }
     }
     sql += " order by t.id desc";
     mysqlPool.query(sql,condition,function(err,results) {
         if(err) {
-            cb(utils.returnMsg(false, '1000', '获取版本信息异常', null, err));
+            cb(utils.returnMsg(false, '1000', '获取服务版本信息异常', null, err));
         } else {
-            cb(utils.returnMsg(true, '0000', '获取版本信息成功', results, null));
+            cb(utils.returnMsg(true, '0000', '获取服务版本信息成功', results, null));
         }
     });
 }
@@ -93,7 +93,7 @@ exports.getServiceByProId = function(conditionMap, cb) {
     });
 }
 
-//根据projectId与版本号获取服务数据
+//根据serviceId与版本号获取服务数据
 exports.getServiceVerByProIdAndVerNo = function(conditionMap, cb) {
     var sql = " select t.* from pass_project_service_versions t where 1=1 ";
     var condition = [];
@@ -103,7 +103,7 @@ exports.getServiceVerByProIdAndVerNo = function(conditionMap, cb) {
             condition.push(conditionMap.serviceId);
         }
         if(conditionMap.proVersion) {
-            sql += " and t.vNo=?";
+            sql += " and t.versionNo=?";
             condition.push(conditionMap.proVersion);
         }
     }
@@ -124,11 +124,11 @@ exports.getServiceVerByProIdAndVerNo = function(conditionMap, cb) {
  */
 exports.add = function(data, cb) {
     var sql = "insert into pass_project_service_info(projectId) values(?)";
-    mysqlPool.query(sql,data,function(err,results) {
+    mysqlPool.query(sql,data,function(err,result) {
         if(err) {
             cb(utils.returnMsg(false, '1000', '项目发布到仓库异常', null, err));
         } else {
-            cb(utils.returnMsg(true, '0000', '项目发布到仓库成功', results, null));
+            cb(utils.returnMsg(true, '0000', '项目发布到仓库成功', result, null));
         }
     });
 };
@@ -139,12 +139,27 @@ exports.add = function(data, cb) {
  * @param cb
  */
 exports.addSerVer = function(data, cb) {
-    var sql = "insert into pass_project_service_versions(vNo,serviceId,deployFileName,deployFileContent,createTime,createUser) values(?,?,?,?,now(),?)";
+    var sql = "insert into pass_project_service_versions(versionNo,serviceId,createTime,createUser) values(?,?,now(),?)";
     mysqlPool.query(sql,data,function(err,results) {
         if(err) {
             cb(utils.returnMsg(false, '1000', '新增服务版本异常', null, err));
         } else {
             cb(utils.returnMsg(true, '0000', '新增服务版本成功', results, null));
+        }
+    });
+};
+/**
+ * 修改服务版本状态信息
+ * @param data
+ * @param cb
+ */
+exports.updateSerVerStatus = function(data, cb) {
+    var sql = "update pass_project_service_versions set buildStatus = ? where id = ?";
+    mysqlPool.query(sql,data,function(err,results) {
+        if(err) {
+            cb(utils.returnMsg(false, '1000', '修改服务版本状态异常', null, err));
+        } else {
+            cb(utils.returnMsg(true, '0000', '修改服务版本状态成功', results, null));
         }
     });
 };
@@ -158,14 +173,14 @@ exports.update = function(data,corrdata, cb) {
     var sql = "update pass_project_service_info set status = ?,remark = ?,createTime = now(),createUser = ? where id = ?";
     mysqlPool.query(sql, data, function(err,results) {
         if(err) {
-            cb(utils.returnMsg(false, '1000', '服务创建异常', null, err));
+            cb(utils.returnMsg(false, '1000', '服务更新异常', null, err));
         } else {
             var corrsql = "insert into pass_project_service_corres_info(serviceId,userId,type,createTime,createUser) values(?,?,?,now(),?)";
-            mysqlPool.query(corrsql,corrdata,function(err,results){
+            mysqlPool.query(corrsql,corrdata,function(err,result){
                 if(err) {
-                    cb(utils.returnMsg(false, '1000', '服务创建异常', null, err));
+                    cb(utils.returnMsg(false, '1000', '创建服务对应表数据异常', null, err));
                 } else {
-                    cb(utils.returnMsg(true, '0000', '服务创建成功', null, null));
+                    cb(utils.returnMsg(true, '0000', '创建服务对应表数据成功', result, null));
                 }
             });
         }
