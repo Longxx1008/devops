@@ -49,7 +49,7 @@ api_build:
     - dev
   stage: apibuild
   before_script:
-    - if [ -n "${API_BUILD}" ]; then MY_CI_REGISTRY_IMAGE=10.201.253.197:5000/${CI_PROJECT_NAME}:${VERISON} ; fi
+    - if [ -n "${API_BUILD}" ]; then MY_CI_REGISTRY_IMAGE=192.168.31.92:5000/${CI_PROJECT_NAME}:${VERISON} ; fi
   script:
     - if [ -n "${API_BUILD}" ]; then docker build -t $MY_CI_REGISTRY_IMAGE .;fi
     - if [ -n "${API_BUILD}" ]; then docker push $MY_CI_REGISTRY_IMAGE ;fi
