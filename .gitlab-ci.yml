@@ -10,6 +10,7 @@ variables:
   FLAGS: '-al'
   FLAGST: 'echo $CI_RUNNER_ID'
   MY_CI_REGISTRY_IMAGE: 192.168.31.92:5000/${CI_PROJECT_NAME}:$CI_BUILD_TAG
+  TEST_CI_REGISTRY_IMAGE: 192.168.31.92:5000/cmcc/developer-base:v1.0.1
   
 # 定义编译阶段
 build_stages:
@@ -20,8 +21,8 @@ build_stages:
     - echo $MY_CI_REGISTRY_IMAGE
     - export
     - docker
-    - docker build -t $MY_CI_REGISTRY_IMAGE .
-    - if [ "$CI_BUILD_TAG" ]; then docker build -t $MY_CI_REGISTRY_IMAGE .;fi
+    - docker build -t $TEST_CI_REGISTRY_IMAGE .
+    - if [ "$CI_BUILD_TAG" ]; then sudo docker build -t $MY_CI_REGISTRY_IMAGE .;fi
 #    - if [ -n "${PUSH_TO_REGISTRY}" ]; then docker build -t $MY_CI_REGISTRY_IMAGE .;fi
   tags:
     - dev
@@ -40,7 +41,7 @@ release_image:
     - dev
   stage: deploy
   script:
-    - if [ "$CI_BUILD_TAG" ]; then docker push $MY_CI_REGISTRY_IMAGE ;fi
+    - if [ "$CI_BUILD_TAG" ]; then sudo docker push $MY_CI_REGISTRY_IMAGE ;fi
 #    - if [ -n "${PUSH_TO_REGISTRY}" ]; then docker push $MY_CI_REGISTRY_IMAGE ;fi
     
     
