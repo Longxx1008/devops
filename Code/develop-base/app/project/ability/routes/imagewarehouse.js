@@ -14,7 +14,17 @@ router.route('/develop/im/pageList').get(function(req,res){
     console.log("进入了imagewarehouse 的查询页面")
     var page = req.query.page;
     var length = req.query.rows;
+    var flag = req.query.flag;
+    var type = req.query.type;
     var conditionMap = {};
+    if(flag){
+        conditionMap.flag = flag;
+    }
+    if(type){
+        conditionMap.type = type;
+    }
+    var currentUser = utils.getCurrentUser(req);
+    conditionMap.loginUser = currentUser.login_account;
 
     imageService.pageList(page, length, conditionMap,function(result){
         utils.respJsonData(res, result);

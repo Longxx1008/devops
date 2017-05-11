@@ -114,10 +114,76 @@ exports.add = function(data, cb) {
             cb(utils.returnMsg(false, '1000', '创建项目信息异常', null, err));
         } else {
 
-            cb(utils.returnMsg(true, '0000', '创建项目信息成功', null, null));
+            cb(utils.returnMsg(true, '0000', '创建项目信息成功', result, null));
         }
     });
 };
+
+//从gitlab获取版本信息
+exports.getVerByGitLab = function(gitProjectId,projectId){
+    var options = {
+        hostname: config.platform.gitlabIp,
+        path: '/api/v3/projects/'+gitProjectId+'/pipelines?private_token='+config.platform.private_token+'&scope=tags',
+        rejectUnauthorized: false  // 忽略安全警告
+    };
+    var req = https.get(options, function (res) {
+        console.log(">>>>>>>>>>>>statusCode：" + res.statusCode + "<<<<<<<<<<<<<<");
+        res.setEncoding('utf8');
+        var chtmlJson = '';
+        res.on('data', function (chunk) {//拼接响应数据
+            chtmlJson += chunk;
+        });
+        res.on('end', function (){
+            console.log("==chtmlJson====",chtmlJson);
+            var info = JSON.parse(chtmlJson);//将拼接好的响应数据转换为json对象
+            var obj;
+            var results = [];
+            if (info) {
+                var i = 0;
+                forVersionInfo(info,i,projectId);
+            } else {
+                console.log( '创建项目时 项目版本信息不存在...');
+            }
+        });
+    });
+    req.on('error', function (err) {
+        console.error(err.code);
+        console.log( '创建项目时 获取项目版本信息错误：'+err.message);
+    });
+}
+
+function forVersionInfo(versions,i,projectId){
+    if(versions && versions.length > i){
+        console.log('创建项目时 检查版本状态：',versions[i].status);
+        if(versions[i].status == 'success'){
+            //根据projectId和版本号查询项目对应版本是否存在
+            var sersql = "select id from pass_develop_project_versions where versionNo=? and projectId=?";
+            mysqlPool.query(sersql,[versions[i].ref,projectId],function(err,serresult) {
+                if(err) {
+                    console.log('创建项目时 查询相关项目版本信息异常');
+                } else {
+                    if(serresult && serresult.length == 0){//如果项目版本不存在，就插入该版本信息
+                        var results=[];
+                        var sql = "insert into pass_develop_project_versions(versionNo,projectId,createTime) values(?,?,now())";
+                        results.push(versions[i].ref);
+                        results.push(projectId);
+                        mysqlPool.query(sql,results,function(err,result) {
+                            if(err) {
+                                console.log( '创建项目时 插入gitlab相关项目版本信息异常...');
+                            } else {
+                                console.log('创建项目时 插入gitlab相关项目版本信息成功...');
+                            }
+                            forVersionInfo(versions,++i,projectId);
+                        });
+                    }else{
+                        forVersionInfo(versions,++i,projectId);
+                        console.log( '创建项目时 项目版本信息已存在...');
+                    }
+                }
+            });
+        }
+    }
+}
 
 /**
  * 更新项目信息

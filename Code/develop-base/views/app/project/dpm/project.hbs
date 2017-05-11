@@ -19,9 +19,9 @@
                                     <button type="button" class="btn btn-default" onclick="showProjectMembers()" data-title="项目成员">
                                         <i class="fa fa-list"></i> 项目成员
                                     </button>
-                                    <button type="button" class="btn btn-default" onclick="toContainerListing()" data-title="容器列表">
-                                        <i class="fa fa-list"></i> 容器列表
-                                    </button>
+                                    <!--<button type="button" class="btn btn-default" onclick="toContainerListing()" data-title="容器列表">-->
+                                        <!--<i class="fa fa-list"></i> 容器列表-->
+                                    <!--</button>-->
                                     <button type="button" class="btn btn-default" onclick=toDeploy('deployDialog','一键部署','',doDeploy)  data-title="一键部署">
                                         <i class="fa fa-edit"></i> 一键部署
                                     </button>
@@ -217,7 +217,7 @@
     function verAarry(data){
         var arr = [];
         for(var i=0;i<data.length;i++){
-            arr.push(data[i].vNo);
+            arr.push(data[i].versionNo);
         }
         //进行倒序排序
         arr.sort(function(o1,o2){
@@ -251,7 +251,7 @@
             return false;
         }
         $.ajax({
-            url: '{{projcfg.appurl}}/api/project/dpm/project/develop/pm/add',
+            url: '{{projcfg.appurl}}/api/project/dpm/project/develop/pm/project',
             type: 'post',
             data: $('#projectForm').serializeJson(),
             success: function (data) {
@@ -269,7 +269,7 @@
     }
 
     function toDeploy(){
-        var rowData = $('#projectDataTable').datagrid("getSelections");
+        var rowData = $('#projectDataTable').datagrid("getChecked");
         if(rowData.length != 1){
             msgError("请选择要部署的应用！");
             return false;
@@ -316,7 +316,7 @@
     }
 
     function showProjectMembers(){
-        var rowdata = $('#projectDataTable').datagrid("getSelections");
+        var rowdata = $('#projectDataTable').datagrid("getChecked");
         if(rowdata.length !=1){
             msgError("请选择一条项目数据！");
             return false;
@@ -424,7 +424,7 @@
      * 发布到仓库
      */
     function to_servicewarehouse(){
-        var rowdata = $('#projectDataTable').datagrid("getSelections");
+        var rowdata = $('#projectDataTable').datagrid("getChecked");
         if(rowdata.length > 0){
             for (var i=0; i<rowdata.length;i++){
                 var rowindex = $('#projectDataTable').datagrid("getRowIndex",rowdata[i]);

@@ -73,12 +73,14 @@ router.route('/develop/pm/project').post(function(req,res) {
             var currentUser = utils.getCurrentUser(req);
             data.push(currentUser.login_account);
             data.push(req.body.projectType);
+            var gitProjectId = null;
             //判断是否从gitlab获取项目集合成功
             if(result.data && result.data.length>0){
                 var flag = true;
                 for(var i=0;i<result.data.length;i++){
                     if(pcode == result.data[i].projectName){
                         data.push(result.data[i].projectId);
+                        gitProjectId = result.data[i].projectId;
                         flag = true
                         break;
                     }else{
@@ -91,9 +93,20 @@ router.route('/develop/pm/project').post(function(req,res) {
             }else{
                 data.push(null);
             }
+            var projectId = null;
             projectService.add(data, function(results) {
+                if(results.success){
+                    projectId = results.data.insertId;
+                    console.log("gitprojectid===",gitProjectId);
+                    console.log("projectId===",projectId);
+                    //从gitlab pipelines拉取项目版本
+                    if(gitProjectId && projectId){
+                        projectService.getVerByGitLab(gitProjectId,projectId);
+                    }
+                }
                 utils.respJsonData(res, results);
             });
+
         }else{
             utils.respJsonData(res, result);
         }

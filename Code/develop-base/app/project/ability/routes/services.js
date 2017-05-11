@@ -47,10 +47,10 @@ router.route('/develop/sm/smPageList').get(function(req,res){
  * 查询服务版本数据
  */
 router.route('/develop/sm/verList').get(function(req,res){
-    var projectId = req.query.projectId;
+    var serviceId = req.query.serviceId;
     var conditionMap = {};
-    if(projectId){
-        conditionMap.projectId = projectId;
+    if(serviceId){
+        conditionMap.serviceId = serviceId;
     }
     // 调用
     serviceService.versionList(conditionMap,function(result){
@@ -59,7 +59,7 @@ router.route('/develop/sm/verList').get(function(req,res){
 });
 
 /**
- * 创建服务版本
+ * 创建服务及版本
  */
 router.route('/develop/sm/add').post(function(req,res) {
     // 获取提交信息
@@ -77,13 +77,43 @@ router.route('/develop/sm/add').post(function(req,res) {
         conditionMap.projectId = projectId;
     }
 
-    data.push(2);
-    data.push(projectId);
     serVerData.push(version);
-    serVerData.push(projectId);
-    serVerData.push(currentUser.login_account);
-    serviceService.addSerVer(data,serVerData,function(verResult){
-        utils.respJsonData(res, verResult);
+    //查询服务表是否有对应projectId的数据
+    serviceService.getServiceByProId(conditionMap,function(results){
+        console.info(results);
+        if(results.success && results.data.length == 0){//如果服务表无相关项目数据,则新增相关服务数据与服务版本数据
+            data.push(projectId);
+            serviceService.add(data, function(result) {
+                console.log("-----seradd----",result);
+                if(result.success){
+                    serVerData.push(result.data.insertId);
+                    serVerData.push(currentUser.login_account);
+                    serviceService.addSerVer(serVerData,function(verResult){
+                        utils.respJsonData(res, verResult);
+                    });
+                }else{
+                    utils.respJsonData(res, result);
+                }
+
+            });
+        }else if(results.success && results.data.length > 0){//如果查询有相关项目数据，则查询是否有对应的版本数据
+            conditionMap.serviceId = results.data[0].id;
+            serviceService.getServiceVerByProIdAndVerNo(conditionMap,function(verResults){
+                if(verResults.success && verResults.data.length == 0){//如果相关服务无对应的版本数据则新增版本数据
+                    serVerData.push(results.data[0].id);
+                    serVerData.push(currentUser.login_account);
+                    serviceService.addSerVer(serVerData,function(verResult){
+                        utils.respJsonData(res, verResult);
+                    });
+                }else{
+                    utils.respJsonData(res, utils.returnMsg(false, '1000', '相关服务版本已经存在', null, null));
+                }
+            });
+
+        }else{
+            utils.respJsonData(res, results);
+        }
+
     });
 });
 /**
