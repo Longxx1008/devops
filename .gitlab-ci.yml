@@ -12,7 +12,7 @@ variables:
   MY_CI_REGISTRY_IMAGE: 192.168.31.92:5000/${CI_PROJECT_NAME}:$CI_BUILD_TAG
   TEST_CI_REGISTRY_IMAGE: 192.168.31.92:5000/cmcc/developer-base:v1.0.1
   
-# 定义编译阶段
+# 定义编译阶段11
 build_stages:
   stage: build
   script:
