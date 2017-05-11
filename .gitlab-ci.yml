@@ -41,7 +41,7 @@ release_image:
     - dev
   stage: deploy
   script:
-    - if [ "$CI_BUILD_TAG" ]; then sudo docker push $MY_CI_REGISTRY_IMAGE ;fi
+    - if [ "$CI_BUILD_TAG" ]; then docker push $MY_CI_REGISTRY_IMAGE ;fi
 #    - if [ -n "${PUSH_TO_REGISTRY}" ]; then docker push $MY_CI_REGISTRY_IMAGE ;fi
     
     
