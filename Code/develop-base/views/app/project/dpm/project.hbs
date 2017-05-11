@@ -10,7 +10,7 @@
                                     <button type="button" class="btn btn-default" onclick="openPage('myModal','创建项目', '', doAdd)" data-title="创建">
                                         <i class="fa fa-plus"></i> 创建项目
                                     </button>
-                                    <button type="button" class="btn btn-default" onclick="toEdit()" data-title="编辑">
+                                    <button type="button" class="btn btn-default" onclick="to_edit()" data-title="编辑">
                                         <i class="fa fa-edit"></i> 项目编辑
                                     </button>
                                     <button type="button" class="btn btn-default" onclick="to_detail()" data-title="应用详情">
@@ -405,7 +405,7 @@
                     success: function (data) {
                         if(data.success) {
                             msgSuccess(data.msg);
-                            window.location.href = "{{projcfg.appurl}}/servicewarehouse";
+                            window.location.href = "{{projcfg.appurl}}/servicewarehouse?";
                         }
                         else {
                             msgError(data.msg+',错误代码:'+data.code);
@@ -426,6 +426,18 @@
     function disLoad() {
         $(".datagrid-mask").remove();
         $(".datagrid-mask-msg").remove();
+    }
+
+    function to_edit(){
+        var rows = $('#projectDataTable').datagrid('getChecked');
+        if(rows.length!=1){
+            msgError("提示，请选择一条数据再进行修改");
+            return false;
+        }else{
+            window.location.href = "{{projcfg.appurl}}/projectdetail?a="+rows[0].id;
+        }
+
+
     }
 
 </script>
