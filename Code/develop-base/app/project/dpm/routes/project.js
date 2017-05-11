@@ -44,6 +44,18 @@ router.route('/develop/pm/verList').get(function(req,res){
     });
 });
 
+
+router.route('/develop/pm/version/list').get(function(req,res){
+    var projectId = req.query.projectId;
+    var conditionMap = {};
+    if(projectId){
+        conditionMap.projectId = projectId;
+    }
+    // 调用查询
+    projectService.versionList(conditionMap,function(result){
+        utils.respJsonData(res, result.data);
+    });
+});
 /**
  * 创建项目
  */

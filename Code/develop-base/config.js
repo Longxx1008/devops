@@ -39,7 +39,7 @@ var config = {
         saveUninitialized: false,
         rolling:true,
         //mongodb_url:'mongodb://10.201.253.195:27017/pass',
-        mongodb_url:'mongodb://10.201.253.111:27017/pass',
+        mongodb_url:'mongodb://192.168.31.127:27017/pass',
         mongodb_collection:'common_user_session'
     },
     routes:{
@@ -72,16 +72,16 @@ var config = {
     },
     mongdb:{
         //url: 'mongodb://10.201.253.195:27017/pass',
-        url: 'mongodb://10.201.253.111:27017/pass',
+        url: 'mongodb://192.168.31.127:27017/pass',
         poolsize:20
     },
     memcached:{
-        server_locations:['10.201.253.111:11211'],
+        server_locations:['192.168.31.127:11211'],
         //server_locations:['127.0.0.1:11211'],
         options:{debug: true}
     },
     mysql:{
-        host: '10.201.253.111',
+        host: '192.168.31.127',
         port:3306,
         user: 'root',
         password: 'repLcmc0613',
