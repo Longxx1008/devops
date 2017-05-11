@@ -96,7 +96,16 @@
                     <div class="form-group">
                         <label for="catagory" class="col-sm-2 control-label no-padding-right">镜像类型:</label>
                         <div class="col-sm-10">
-                            <input type="text" class="easyui-validatebox form-control" data-options="required:true" name="catagory" id="catagory" placeholder="请输入镜像类型" style="width:60%">
+                            <select id="catagory" name="catagory" class="easyui-combobox easyui-validatebox" data-options="required:true" style="height: 30px;width: 300px;">
+                                <option value="db">数据库</option>
+                                <option value="service">服务器</option>
+                                <option value="sys">系统平台</option>
+                                <option value="pl">编程语言</option>
+                                <option value="mq">消息队列</option>
+                                <option value="tool">运维工具</option>
+                                <option value="web">WEB框架</option>
+                                <option value="other">其他</option>
+                            </select>
                         </div>
                     </div>
                     <div class="form-group">
@@ -155,7 +164,9 @@
                     return getVerData(rowData.imageCode,rowIndex);
                 }},
                 {"field": "simpleIntroduction","title":"简介","width":150,align:"center"},
-                {"field": "catagory","title":"类型","width":50,align:"center"},
+                {"field": "catagory","title":"类型","width":50,align:"center","formatter":function(value,rowData,rowIndex){
+                    return convertCatagory(value);
+                }},
                 {"field": "collectionNumber","title":"收藏数","width":50,align:"center"},
                 {"field": "downloadNumber","title":"下载数","width":50,align:"center"},
                 {"field":"createDate","title":"创建时间","width":80,align:"center"},
@@ -169,6 +180,28 @@
         });
 
     });
+
+    function convertCatagory(value){
+        var returnvalue = '';
+        if(value == "db"){
+            returnvalue = "数据库";
+        }else if(value == "service"){
+            returnvalue = "服务器";
+        }else if(value == "sys"){
+            returnvalue = "系统平台";
+        }else if(value == "pl"){
+            returnvalue = "编程语言";
+        }else if(value == "mq"){
+            returnvalue = "消息队列";
+        }else if(value == "tool"){
+            returnvalue = "运维工具";
+        }else if(value == "web"){
+            returnvalue = "WEB框架";
+        }else if(value == "other"){
+            returnvalue = "其他";
+        }
+        return returnvalue;
+    }
 
     function getVerData(imageCode,rowIndex){
         var flag = "vers"+rowIndex;

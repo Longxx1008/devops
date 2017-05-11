@@ -13,19 +13,19 @@ exports.pageList = function(page, size, conditionMap, cb) {
     var conditions = [];
     if(conditionMap) {
         if(conditionMap.flag && conditionMap.flag == 'privateimage') {
-            sql += " from pass_develop_image_info t";
+            sql += " from pass_develop_image_info t  where 1=1 ";
         }else if(conditionMap.flag && conditionMap.flag == 'favorites'){
             sql += ",t2.imagetype ,t2.userCode from pass_develop_image_info t "+
                 "LEFT JOIN pass_develop_image_mapping t2 ON t.imageCode=t2.imageCode where t2.imagetype = 1 ";
         }else if(conditionMap.flag && conditionMap.flag == 'myimage'){
             sql += ",t2.imagetype ,t2.userCode from pass_develop_image_info t "+
-                "LEFT JOIN pass_develop_image_mapping t2 ON t.imageCode=t2.imageCode where t2.userCode = '"+conditionMap.loginUser+"'";
+                "LEFT JOIN pass_develop_image_mapping t2 ON t.imageCode=t2.imageCode where t2.userCode = '"+conditionMap.loginUser+"' ";
         }else{
             sql += ",t2.imagetype ,t2.userCode from pass_develop_image_info t "+
                 "LEFT JOIN pass_develop_image_mapping t2 ON t.imageCode=t2.imageCode where 1=1 " ;
         }
         if(conditionMap.type){
-            sql += " and t.type = '"+conditionMap.type+"'";
+            sql += " and t.catagory = '"+conditionMap.type+"' ";
         }
     }
 

@@ -2,7 +2,6 @@ var utils = require('../../../common/core/utils/app_utils');
 var mysqlPool = require('../../utils/mysql_pool');
 var config = require('../../../../config');
 var https = require('https');
-var request = require('request');
 
 /**
  * 获取项目的分页数据
@@ -23,7 +22,7 @@ exports.pageList = function(page, size, conditionMap, cb) {
         }
     }
     var orderBy = " order by t1.createTime desc";
-    console.log("查询用户信息sql ====",sql);
+    console.log("查询项目信息sql ====",sql);
     utils.pagingQuery4Eui_mysql(sql,orderBy, page, size, conditions, cb);
 };
 
