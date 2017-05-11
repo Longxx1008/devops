@@ -9,10 +9,25 @@ var mysqlPool = require('../../utils/mysql_pool');
  * @param cb
  */
 exports.pageList = function(page, size, conditionMap, cb) {
-    var sql = "SELECT t.*,t1.imageVersion ,t2.imagetype ,t2.userCode from pass_develop_image_info t "+
-    "LEFT JOIN pass_develop_image_version t1 ON t.imageCode=t1.imageCode  "+
-    "LEFT JOIN pass_develop_image_mapping t2 ON t.imageCode=t2.imageCode where 1=1 " ;
+    var sql = "SELECT t.*" ;
     var conditions = [];
+    if(conditionMap) {
+        if(conditionMap.flag && conditionMap.flag == 'privateimage') {
+            sql += " from pass_develop_image_info t  where 1=1 ";
+        }else if(conditionMap.flag && conditionMap.flag == 'favorites'){
+            sql += ",t2.imagetype ,t2.userCode from pass_develop_image_info t "+
+                "LEFT JOIN pass_develop_image_mapping t2 ON t.imageCode=t2.imageCode where t2.imagetype = 1 ";
+        }else if(conditionMap.flag && conditionMap.flag == 'myimage'){
+            sql += ",t2.imagetype ,t2.userCode from pass_develop_image_info t "+
+                "LEFT JOIN pass_develop_image_mapping t2 ON t.imageCode=t2.imageCode where t2.userCode = '"+conditionMap.loginUser+"' ";
+        }else{
+            sql += ",t2.imagetype ,t2.userCode from pass_develop_image_info t "+
+                "LEFT JOIN pass_develop_image_mapping t2 ON t.imageCode=t2.imageCode where 1=1 " ;
+        }
+        if(conditionMap.type){
+            sql += " and t.catagory = '"+conditionMap.type+"' ";
+        }
+    }
 
     var orderBy = " order by t.imageCode ";
     console.log("查询用户信息sql ====",sql);

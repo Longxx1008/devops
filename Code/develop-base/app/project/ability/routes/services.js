@@ -59,7 +59,7 @@ router.route('/develop/sm/verList').get(function(req,res){
 });
 
 /**
- * 创建服务
+ * 创建服务及版本
  */
 router.route('/develop/sm/add').post(function(req,res) {
     // 获取提交信息
@@ -87,8 +87,6 @@ router.route('/develop/sm/add').post(function(req,res) {
                 console.log("-----seradd----",result);
                 if(result.success){
                     serVerData.push(result.data.insertId);
-                    serVerData.push('部署文件名称');
-                    serVerData.push('部署文件内容');
                     serVerData.push(currentUser.login_account);
                     serviceService.addSerVer(serVerData,function(verResult){
                         utils.respJsonData(res, verResult);
@@ -102,10 +100,7 @@ router.route('/develop/sm/add').post(function(req,res) {
             conditionMap.serviceId = results.data[0].id;
             serviceService.getServiceVerByProIdAndVerNo(conditionMap,function(verResults){
                 if(verResults.success && verResults.data.length == 0){//如果相关服务无对应的版本数据则新增版本数据
-
                     serVerData.push(results.data[0].id);
-                    serVerData.push('部署文件名称');
-                    serVerData.push('部署文件内容');
                     serVerData.push(currentUser.login_account);
                     serviceService.addSerVer(serVerData,function(verResult){
                         utils.respJsonData(res, verResult);
@@ -114,13 +109,12 @@ router.route('/develop/sm/add').post(function(req,res) {
                     utils.respJsonData(res, utils.returnMsg(false, '1000', '相关服务版本已经存在', null, null));
                 }
             });
-            
+
         }else{
             utils.respJsonData(res, results);
         }
 
     });
-
 });
 /**
  * 修改服务

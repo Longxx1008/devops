@@ -59,30 +59,8 @@ function httpsGetVersion(gitProjectId,projectId){
             var obj;
             if (info) {
                 console.log("===info===="+info);
-                //先删除原有的相关版本信息
-                var sql = "delete from pass_develop_project_versions where projectId = "+projectId;
-                mysqlPool.query(sql,function(err,results) {
-                    if(err) {
-                        console.log(DateUtils.format(new Date(),'yyyy-MM-dd hh:mm:ss') + ' 删除原有gitlab相关项目版本信息异常');
-                    } else {
-                        console.log(DateUtils.format(new Date(),'yyyy-MM-dd hh:mm:ss') + ' 删除原有gitlab相关项目版本信息成功，准备插入现有版本信息...');
-                        for(var i=0;i<info.length;i++){
-                            if(info[i].status == 'success'){
-                                var results=[];
-                                var sql = "insert into pass_develop_project_versions(vNo,projectId,createTime) values(?,?,now())";
-                                results.push(info[i].ref);
-                                results.push(projectId);
-                                mysqlPool.query(sql,results,function(err,results) {
-                                    if(err) {
-                                        console.log(DateUtils.format(new Date(),'yyyy-MM-dd hh:mm:ss') + ' 插入gitlab相关项目版本信息异常');
-                                    } else {
-                                        console.log(DateUtils.format(new Date(),'yyyy-MM-dd hh:mm:ss') + ' 插入gitlab相关项目版本信息成功');
-                                    }
-                                });
-                            }
-                        }
-                    }
-                });
+                var i = 0;
+                forVersionInfo(info,i,projectId);
 
             } else {
                 console.log(DateUtils.format(new Date(),'yyyy-MM-dd hh:mm:ss') + ' 获取gitlab相关项目版本信息异常');
@@ -94,4 +72,36 @@ function httpsGetVersion(gitProjectId,projectId){
         console.error(err.code);
         console.log(DateUtils.format(new Date(),'yyyy-MM-dd hh:mm:ss') + ' 连接获取gitlab相关项目版本信息异常：'+err.message);
     });
+}
+function forVersionInfo(versions,i,projectId){
+    if(versions && versions.length > i){
+        console.log(DateUtils.format(new Date(),'yyyy-MM-dd hh:mm:ss') + ' 检查版本状态：',versions[i].status);
+        if(versions[i].status == 'success'){
+            //根据projectId和版本号查询项目对应版本是否存在
+            var sersql = "select id from pass_develop_project_versions where versionNo=? and projectId=?";
+            mysqlPool.query(sersql,[versions[i].ref,projectId],function(err,serresult) {
+                if(err) {
+                    console.log(DateUtils.format(new Date(),'yyyy-MM-dd hh:mm:ss') + ' 查询GitLab相关项目版本信息异常');
+                } else {
+                    if(serresult && serresult.length == 0){//如果项目版本不存在，就插入该版本信息
+                        var results=[];
+                        var sql = "insert into pass_develop_project_versions(versionNo,projectId,createTime) values(?,?,now())";
+                        results.push(versions[i].ref);
+                        results.push(projectId);
+                        mysqlPool.query(sql,results,function(err,results) {
+                            if(err) {
+                                console.log(DateUtils.format(new Date(),'yyyy-MM-dd hh:mm:ss') + ' 插入gitlab相关项目版本信息异常...');
+                            } else {
+                                console.log(DateUtils.format(new Date(),'yyyy-MM-dd hh:mm:ss') + ' 插入gitlab相关项目版本信息成功...');
+                            }
+                            forVersionInfo(versions,++i,projectId);
+                        });
+                    }else{
+                        forVersionInfo(versions,++i,projectId);
+                        console.log(DateUtils.format(new Date(),'yyyy-MM-dd hh:mm:ss') + ' 项目版本信息已存在...');
+                    }
+                }
+            });
+        }
+    }
 }

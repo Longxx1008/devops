@@ -180,11 +180,11 @@
                                         <li>分类 <div style="float: right;cursor: pointer;" onclick="cleanRadioValue();">清空</div></li>
                                         <li><input name="types" type="radio" value="db" />数据库</li>
                                         <li><input name="types" type="radio" value="tool" />运维工具</li>
-                                        <li><input name="types" type="radio" value="nq" />消息队列</li>
+                                        <li><input name="types" type="radio" value="mq" />消息队列</li>
                                         <li><input name="types" type="radio" value="pl" />编程语言</li>
                                         <li><input name="types" type="radio" value="service" />服务器</li>
                                         <li><input name="types" type="radio" value="web" />web框架</li>
-                                        <li><input name="types" type="radio" value="sys" />操作系统</li>
+                                        <li><input name="types" type="radio" value="sys" />系统平台</li>
                                     </ul>
                                 </div>
                             </div>
@@ -207,10 +207,13 @@
 
 <script  type="text/javascript">
     $(function(){
+        $(":radio").click(function(){
+            showPrivateImages('privateimage',$(this).val());
+        });
         $('#myImageDataTable').datagrid({
             url:'{{projcfg.appurl}}/api/project/ability/imagewarehouse/develop/im/pageList',
             method:'get',
-            rownumbers:false,
+            queryParams:{"flag":"myimage"},
             striped:true,
             fitColumns:true,
             fit:true,
@@ -220,26 +223,60 @@
             columns:[[
                 // {"field": "imageCode", checkbox:true},
                 {"field": "imageCode","title":"编号","width":80,align:"center"},
-                {"field": "imageResource","title":"镜像源","width":150,align:"center"},
-                {"field": "imageVersion","title":"版本","width":100,align:"center"},
+                {"field": "imageName","title":"镜像源","width":150,align:"center"},
+                {"field": "version","title":"版本","width":100,align:"center","formatter":function(value,rowData,rowIndex){
+                    return getVerData(rowData.imageCode,rowIndex);
+                }},
                 {"field": "createDate","title":"创建时间","width":100,align:"center"},
-                {"field": "updateDate","title":"更新时间","width":80,align:"center"},
                 {"field": "remark","title":"备注","width":200,align:"center"},
                 {"field": "options","title":"操作","width":150,align:"center","formatter":function (value, rowData,rowIndex) {
                     return "<a  href='javascrip:void(0);'> 删除 </a>| <a href='javascrip:void(0);'>日志</a> ";
                 }}
             ]],
-            onLoadSuccess:function(json) {
-
-            },
             onLoadError:function() {
                 msgError('加载数据出现时发生错误,请稍候重试...');
             },
             pagination:true,
             loadMsg:'正在加载...'
         });
-    })
+    });
 
+    function cleanRadioValue(){
+        $('input:radio[name=types]').attr('checked',false);
+        showPrivateImages('privateimage','');
+    }
+    //显示加载私有镜像
+    function showPrivateImages(flag,type){
+        $.ajax({
+            url: '{{projcfg.appurl}}/api/project/ability/imagewarehouse/develop/im/pageList',
+            type: 'get',
+            data:{"page":1,"rows":6,"flag":flag,'type':type},
+            success: function (data) {
+                var html_div='';
+                var rows=data.rows;
+                $("#privateImageDiv").empty();
+                if(data.total > 0 ) {
+                    for(var i=0;i<rows.length;i++){
+                        html_div+='<div  class="box">' +
+                                '<div class="name-box clearfix">'+
+                                '<img src="data:'+rows[i].pictureType+';base64 ,'+rows[i].picture+'"'+'alt="">'+
+                                '<h3>'+rows[i].imageName+'</h3>'+
+                                ' <span> '+rows[i].channels+'</span>'+
+                                '</div>'+
+                                '<p class="miaoshu">'+rows[i].simpleIntroduction+'</p>'+
+                                '<p class="image-type">'+rows[i].catagory+'</p>'+
+                                '<div class="box-bottom"><a href=""><img src="{{projcfg.appurl}}/static/images/download.png""></img>'+rows[i].downloadNumber+'</a>'+
+                                '<a href=""><img src="{{projcfg.appurl}}/static/images/soucang.png""></img>'+rows[i].collectionNumber+'</a></div></div>'
+
+                    }
+                    $("#privateImageDiv").append(html_div);
+                }
+                else {
+                    msgError('该类别无镜像数据');
+                }
+            }
+        });
+    }
 
     function do_page(flag){
         $('#myImageDataTable').datagrid('loadData', { total: 0, rows: [] });
@@ -249,6 +286,7 @@
             $("#myImageDataTable").datagrid({
                 url:'{{projcfg.appurl}}/api/project/ability/imagewarehouse/develop/im/pageList',
                 method:'get',
+                queryParams:{"flag":flag},
                 rownumbers:false,
                 striped:true,
                 fitColumns:true,
@@ -259,8 +297,10 @@
                 columns:[[
                     // {"field": "imageCode", checkbox:true},
                     {"field": "imageCode","title":"编号","width":80,align:"center"},
-                    {"field": "imageResource","title":"镜像源","width":150,align:"center"},
-                    {"field": "imageVersion","title":"版本","width":100,align:"center"},
+                    {"field": "imageName","title":"镜像源","width":150,align:"center"},
+                    {"field": "imageVersion","title":"版本","width":100,align:"center","formatter":function(value,rowData,rowIndex){
+                        return getVerData(rowData.imageCode,rowIndex);
+                    }},
                     {"field": "createDate","title":"创建时间","width":100,align:"center",'formatter':function(value, rowData,rowIndex){
                         if(value){
                             var start_time=Date.parse(value);
@@ -299,48 +339,8 @@
                         }
 
                     }},
-                    {"field": "updateDate","title":"更新时间","width":80,align:"center",'formatter':function(value, rowData,rowIndex){
-                            if(value){
-                                 var start_time=Date.parse(value);
-                                 var end_time=new Date();
-                                 var time=end_time-start_time;
-                                //计算出相差天数
-                                var days=Math.floor(time/(24*3600*1000))
-                                //计算出小时数
-                                var leave1=time%(24*3600*1000) ;
-                                //计算天数后剩余的毫秒数
-                                var hours=Math.floor(leave1/(3600*1000))
-                                //计算相差分钟数
-                                var leave2=leave1%(3600*1000)
-                                //计算小时数后剩余的毫秒数
-                                var minutes=Math.floor(leave2/(60*1000))
-                                //计算相差秒数
-                                var leave3=leave2%(60*1000)
-                                //计算分钟数后剩余的毫秒数
-                                var seconds=Math.round(leave3/1000)
-                                if(days>0){
-                                    return days+"天"+hours+'时'+minutes+'分'+seconds+'秒前';
-
-                                }else{
-                                    if(hours>0){
-                                        return hours+'时'+minutes+'分'+seconds+'秒前';
-                                    }else{
-                                        if(minutes>0){
-                                            return minutes+'分'+seconds+'秒前';
-                                        }else{
-                                            if(seconds>0){
-                                                return seconds+'秒前';
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                    }},
                     {"field": "remark","title":"备注","width":200,align:"center"},
                 ]],
-                onLoadSuccess:function(json) {
-
-                },
                 onLoadError:function() {
                     msgError('加载数据出现时发生错误,请稍候重试...');
                 },
@@ -355,6 +355,7 @@
             $('#myImageDataTable').datagrid({
                 url:'{{projcfg.appurl}}/api/project/ability/imagewarehouse/develop/im/pageList',
                 method:'get',
+                queryParams:{"flag":flag},
                 rownumbers:false,
                 striped:true,
                 fitColumns:true,
@@ -366,18 +367,16 @@
                     {"field": "imageCode","title":"编号","width":80,align:"center","formatter":function (value, rowData,rowIndex) {
                         return rowData.imageCode;
                     }},
-                    {"field": "imageResource","title":"镜像源","width":150,align:"center"},
-                    {"field": "imageVersions","title":"版本","width":100,align:"center"},
+                    {"field": "imageName","title":"镜像源","width":150,align:"center"},
+                    {"field": "imageVersions","title":"版本","width":100,align:"center","formatter":function(value,rowData,rowIndex){
+                        return getVerData(rowData.imageCode,rowIndex);
+                    }},
                     {"field": "createDate","title":"创建时间","width":100,align:"center"},
-                    {"field": "updateDate","title":"更新时间","width":80,align:"center"},
                     {"field": "remark","title":"备注","width":200,align:"center"},
                     {"field": "options","title":"操作","width":150,align:"center","formatter":function (value, rowData,rowIndex) {
                         return " 部署应用 ";
                     }}
                 ]],
-                onLoadSuccess:function(json) {
-
-                },
                 onLoadError:function() {
                     msgError('加载数据出现时发生错误,请稍候重试...');
                 },
@@ -386,40 +385,58 @@
             });
         }else if(flag && flag == "privateimage"){
             $("#datagridPanel").hide();
-
-            $.ajax({
-                        url: '{{projcfg.appurl}}/api/project/ability/imagewarehouse/develop/im/pageList',
-                        type: 'get',
-                        data:{"page":1,"rows":6},
-                        success: function (data) {
-                            var html_div='';
-                            var rows=data.rows;
-                            if(data.total > 0 ) {
-                                for(var i=0;i<rows.length;i++){
-                                   html_div+='<div  class="box">' +
-                                                '<div class="name-box clearfix">'+
-                                                '<img src="data:'+rows[i].pictureType+';base64 ,'+rows[i].picture+'"'+'alt="">'+
-                                                    '<h3>'+rows[i].imageName+'</h3>'+
-                                                    ' <span> '+rows[i].channels+'</span>'+
-                                            '</div>'+
-                                            '<p class="miaoshu">'+rows[i].simpleIntroduction+'</p>'+
-                                            '<p class="image-type">'+rows[i].catagory+'</p>'+
-                                            '<div class="box-bottom"><a href=""><img src="{{projcfg.appurl}}/static/images/download.png""></img>'+rows[i].downloadNumber+'</a>'+
-                                            '<a href=""><img src="{{projcfg.appurl}}/static/images/soucang.png""></img>'+rows[i].collectionNumber+'</a></div></div>'
-
-                                }
-                                $("#privateImageDiv").append(html_div);
-//                                msgSuccess(data.msg);
-                            }
-                            else {
-                                msgError(data.msg+',错误代码:'+data.code);
-                            }
-                        }
-                    });
+            showPrivateImages(flag,'');
             $("#privatediv").show();
         }
     }
+    function getVerData(imageCode,rowIndex){
+        var flag = "vers"+rowIndex;
+        var select = "<select id=\""+flag+"\" class=\"easyui-combobox\" name=\""+flag+"\" style=\"width:130px;\">";
+        if(imageCode){
+            $.ajax({
+                url: '{{projcfg.appurl}}/api/project/ability/imagemanage/develop/im/verList',
+                type: 'get',
+                async:false,
+                data: {'imageCode':imageCode},
+                success: function (data) {
+                    console.log(data);
+                    if(data.success) {
+                        var verdata = verAarry(data.data);
+                        console.log("==",verdata);
+                        for(var i=0;i<verdata.length;i++){
+                            select += "<option value='"+verdata[i]+"'>"+verdata[i]+"</option>";
+                        }
+                    }
+                    else {
+                        msgError(data.msg+',错误代码:'+data.code);
+                    }
+                }
+            });
+        }
+        select +=  '</select>';
+        return select;
+    }
 
+    function verAarry(data){
+        var arr = [];
+        for(var i=0;i<data.length;i++){
+            arr.push(data[i].imageVersion);
+        }
+        //进行倒序排序
+        arr.sort(function(o1,o2){
+            var a1 = o1.replace('v','').split('.');
+            var a2 = o2.replace('v','').split('.');
+            var length = Math.max(a1.length,a2.length);
+            for(var i = 0; i < length; i++){
+                var n1 = parseInt(a1[i] || 0);
+                var n2 = parseInt(a2[i] || 0);
+                if(n1 - n2 != 0){
+                    return n2 - n1;
+                }
+            }
+        });
+        return arr;
+    }
 
 
 //    // 打开页面
