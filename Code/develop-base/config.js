@@ -83,7 +83,7 @@ var config = {
         host: '192.168.31.127',
         port:3306,
         user: 'root',
-        password: 'repLcmc0613',
+        password: 'root',
         database: 'pass'
     },
     //系统日志采集配置
