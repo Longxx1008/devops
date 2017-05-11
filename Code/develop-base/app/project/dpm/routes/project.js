@@ -6,11 +6,6 @@ var router = express.Router();
 var config = require('../../../../config');
 var projectService = require('../services/projectService');
 var utils = require('../../../common/core/utils/app_utils');
-// 连接服务
-var gitlab = require('gitlab')({
-    url   : config.platform.gitlabUrl,
-    token : config.platform.private_token
-});
 
 //分页查询项目数据列表
 router.route('/develop/pm/pageList').get(function(req,res){
@@ -54,7 +49,7 @@ router.route('/develop/pm/verList').get(function(req,res){
  */
 router.route('/develop/pm/project').post(function(req,res) {
     var data=[];
-    var results = [];
+    // var results = [];
     var gitaddress = req.body.gitAddress;
     //暂时截取git地址最后的名字作为编号,如：git@code.dev.gz.cmcc:develop-base/develop-base.git，develop-base就是编号
     var pcode = gitaddress.substring(gitaddress.lastIndexOf('/')+1,gitaddress.lastIndexOf('.'));
