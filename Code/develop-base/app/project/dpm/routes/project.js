@@ -214,7 +214,13 @@ router.route('/develop/pm/deploy').get(function(req, res){
                                     params.push(projectId);
                                     params.push(projectVersion);
                                     params.push(clusterId);
-                                    params.push("http://192.168.31.127" + ":" + deployJson.container.docker.portMappings[0].servicePort);
+                                    if(projectId == "25"){
+                                        params.push("http://192.168.31.127" + ":" + deployJson.container.docker.portMappings[0].servicePort);
+                                    }else if(projectId == "26"){
+                                        params.push("http://192.168.31.95" + ":" + deployJson.container.docker.portMappings[0].servicePort + "/demo");
+                                    }else{
+                                        params.push("http://192.168.31.95" + ":" + deployJson.container.docker.portMappings[0].servicePort);
+                                    }
                                     //params.push(JSON.stringify(data));
                                     params.push(remark);
                                     var currentUser = utils.getCurrentUser(req);
