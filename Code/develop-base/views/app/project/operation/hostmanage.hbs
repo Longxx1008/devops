@@ -1,0 +1,160 @@
+<script src="{{projcfg.appurl}}/static/js/containerlistingdata.js" type="text/javascript"></script>
+<div class="row">
+    <div class="col-xs-12 col-md-12">
+        <div class="widget">
+            <div class="widget-body">
+                <div id="toolbar" class="row tbRow" style="margin-bottom: 1.1rem;border-bottom: 1px solid #ccc;">
+                    <div class="col-xs-6 col-md-6" style="width:100%">
+                        <font size="3.5rem" style="margin-left: 1.2rem;margin-right: 2.5rem"> <b>主机管理</b></font>
+                    </div>
+                </div>
+                <div id="cc" class="easyui-layout" data-options="fit:true,border:false" style="width: 800px; height:575px;background-color: #fbfbfb;">
+                    <div id="images" data-options="region:'center',border:false" style="overflow-x:hidden;overflow-y:hidden">
+                        <div id="privatediv" style="width:100%;height: 100%;">
+                            <div style="width:100%;height:100%;float:right;background-color: #DDDDDD; ">
+                                <div class="btn-group" role="group" aria-label="...">
+                                    <button type="button" class="btn btn-default" onclick="doAdd()" data-title="新增">
+                                        <i class="fa fa-plus"></i> 新增
+                                    </button>
+                                    <button type="button" class="btn btn-default" onclick="toEdit()" data-title="修改">
+                                        <i class="fa fa-edit"></i> 修改
+                                    </button>
+                                    <button type="button" class="btn btn-default" onclick="toEdit()" data-title="删除">
+                                        <i class="fa fa-edit"></i> 删除
+                                    </button>
+                                </div>
+                                <table id="hostDataTable">
+                                </table>
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script  type="text/javascript">
+    $(function(){
+        $('#hostDataTable').datagrid({
+            url:'{{projcfg.appurl}}/api/project/operation/colonymanage',
+            method:'get',
+            rownumbers:false,
+            striped:true,
+            fitColumns:true,
+            //toolbar: '#toolbar',
+            fit:true,
+            border:true,
+            singleSelect:true,
+            selectOnCheck:false,
+            columns:[[
+                {"field":'id',checkbox:true},
+                {"field": "name","title":"名称","width":80,align:"center"},
+                {"field": "usage","title":"使用情况","width":130,align:"center",
+                    "formatter":function (value, rowData,rowIndex) {
+                        return "CPU：20核（20%） </br>内存：500GB（50%）</br>磁盘：<font color='red'>40TB（80%）</font></br>带宽：60Mbps（60%）";
+                    }},
+                {"field": "totalResource","title":"总资源","width":200,align:"center",
+                    "formatter":function (value, rowData,rowIndex) {
+                        return 'CPU： 100核</br> 内存： 1024 GB</br>磁盘： 50TB</br>带宽： 100Mbps';
+                    }},
+                {"field": "status","title":"状态","width":80,align:"center",
+                    "formatter":function (value, rowData,rowIndex) {
+                        return '运行中';
+                    }},
+                {"field": "remark","title":"备注","width":120,align:"center"}
+            ]],
+            onLoadError:function() {
+                msgError('加载数据出现时发生错误,请稍候重试...');
+            },
+            pagination:false,
+            loadMsg:'正在加载...'
+        });
+//        $("#myImageDataTable").datagrid({columns:myimagecols});
+//        $('#colonyDataTable').datagrid('loadData',colonymanagedata);
+    });
+
+  function hm_list(cm_name){
+      window.location.href = "{{projcfg.appurl}}/containermanage?colonyname="+encodeURI(cm_name);
+  }
+    /**
+     * 容器列表
+     */
+    function toContainerListing(){
+        window.location.href = "{{projcfg.appurl}}/containermanage";
+    }
+
+
+
+    function doSearch() {
+        $('#hostDataTable').datagrid('reload');
+    }
+    function doClear() {
+        doSearch();
+    }
+    function doAdd(value) {
+        var validate = $('#projectForm').form('validate');
+        if(!validate) {
+            return false;
+        }
+        $.ajax({
+            url: '{{projcfg.appurl}}/api/project/dpm/project/develop/pm/add',
+            type: 'post',
+            data: $('#projectForm').serializeJson(),
+            success: function (data) {
+                if(data.success) {
+                    msgSuccess(data.msg);
+                    closeDialog();
+                    doSearch();
+                }
+                else {
+                    msgError(data.msg+',错误代码:'+data.code);
+                }
+            }
+        });
+    }
+
+    // 打开页面
+    function openPage(title, value, callback) {
+        $('#myModal').show();
+        $('#myModal').mydialog({
+            title:title,
+            width: 700,
+            height: 485,
+            top:100,
+            modal: true,
+            myButtons:[
+                {
+                    text:'确定',
+                    btnCls:'btn btn-blue',
+                    handler:function(){
+                        callback(value);
+                    }
+                },
+                {
+                    text:'关闭',
+                    btnCls:'btn btn-danger',
+                    handler:function(){
+                        closeDialog();
+                    }
+                }
+            ]
+        });
+    }
+
+    // 清空新增表单数据
+    function clear() {
+        $('#projectForm').form('clear');
+    }
+
+    // 关闭窗口
+    function closeDialog() {
+        $('#myModal').dialog('close');
+        clear();
+    }
+
+</script>
