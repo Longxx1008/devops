@@ -25,14 +25,14 @@
     },
     {
       "category": "logstash",
-      "host": "127.0.0.1",
+      "host": "192.168.31.92",
       "port": 18087,
       "type": "logstashUDP",
       "logType": "applog",
       "fields": {
         "appgroup": "dw",
         "appid": "proxy",
-        "host": "127.0.0.1",
+        "host": "192.168.31.95",
         "pid": "1"
       },
       "layout": {
