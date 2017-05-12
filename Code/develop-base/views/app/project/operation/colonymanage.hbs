@@ -22,13 +22,13 @@
                             <!--</div>-->
                             <div style="width:100%;height:100%;float:right;background-color: #DDDDDD; ">
                                 <div class="btn-group" role="group" aria-label="...">
-                                    <button type="button" class="btn btn-default" onclick="doAdd()" data-title="新增">
+                                    <button type="button" class="btn btn-default" onclick="openPage('新增集群','',doAdd)" data-title="新增">
                                         <i class="fa fa-plus"></i> 新增
                                     </button>
                                     <button type="button" class="btn btn-default" onclick="toEdit()" data-title="修改">
                                         <i class="fa fa-edit"></i> 修改
                                     </button>
-                                    <button type="button" class="btn btn-default" onclick="toEdit()" data-title="删除">
+                                    <button type="button" class="btn btn-default" onclick="doDel()" data-title="删除">
                                         <i class="fa fa-edit"></i> 删除
                                     </button>
                                 </div>
@@ -45,25 +45,49 @@
         </div>
     </div>
 </div>
-<div>
 
+<div id="colonyDialog" class="mydialog"  data-options="iconCls:'icon-save'">
+    <div class="row">
+        <div class="col-md-12">
+            <div>
+                <form id="colonyForm" class="form-horizontal form-bordered" role="form" method="post" enctype="multipart/form-data">
+                    <input type="hidden" id="colonyId" name="id"/>
+                    <div class="form-group">
+                        <label for="imageName" class="col-sm-2 control-label no-padding-right">集群名称:</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="easyui-validatebox form-control" data-options="required:true" name="name" id="name" placeholder="请输入集群名称" style="width:60%">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="inputProjectRemark" class="col-sm-2 control-label no-padding-right">备注:</label>
+                        <div class="col-sm-10">
+                            <textarea class="form-control" rows="5" name="remark" id="remark" placeholder="请输入备注"></textarea>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
 </div>
-
 <script  type="text/javascript">
     $(function(){
-        $("#colonyTree").tree({
-            method: 'GET',
-            url: 'static/json/colony_tree.json',
-            onLoadSuccess: function (node, data) {
-                var first = $(this).tree("find", 11);
-                $(this).tree("select", first.target);
-            },
-            onSelect: function (node) {
-                console.log(node);
-
-            }
-        });
+//        $("#colonyTree").tree({
+//            method: 'GET',
+//            url: 'static/json/colony_tree.json',
+//            onLoadSuccess: function (node, data) {
+//                var first = $(this).tree("find", 11);
+//                $(this).tree("select", first.target);
+//            },
+//            onSelect: function (node) {
+//                console.log(node);
+//
+//            }
+//        });
         $('#colonyDataTable').datagrid({
+            url:'{{projcfg.appurl}}/api/project/operation/colonymanage',
+            method:'get',
             rownumbers:false,
             striped:true,
             fitColumns:true,
@@ -72,10 +96,23 @@
             border:true,
             singleSelect:true,
             selectOnCheck:false,
-            columns:colonymanagecols,
-            onLoadSuccess:function(json) {
-
-            },
+            columns:[[
+                {"field":'id',checkbox:true},
+                {"field": "name","title":"名称","width":80,align:"center"},
+                {"field": "usage","title":"使用情况","width":130,align:"center",
+                    "formatter":function (value, rowData,rowIndex) {
+                        return "CPU：20核（20%） </br>内存：500GB（50%）</br>磁盘：<font color='red'>40TB（80%）</font></br>带宽：60Mbps（60%）";
+                    }},
+                {"field": "totalResource","title":"总资源","width":200,align:"center",
+                    "formatter":function (value, rowData,rowIndex) {
+                        return 'CPU： 100核</br> 内存： 1024 GB</br>磁盘： 50TB</br>带宽： 100Mbps';
+                    }},
+                {"field": "status","title":"状态","width":80,align:"center",
+                    "formatter":function (value, rowData,rowIndex) {
+                        return '运行中';
+                    }},
+                {"field": "remark","title":"备注","width":120,align:"center"}
+            ]],
             onLoadError:function() {
                 msgError('加载数据出现时发生错误,请稍候重试...');
             },
@@ -83,7 +120,7 @@
             loadMsg:'正在加载...'
         });
 //        $("#myImageDataTable").datagrid({columns:myimagecols});
-        $('#colonyDataTable').datagrid('loadData',colonymanagedata);
+//        $('#colonyDataTable').datagrid('loadData',colonymanagedata);
     });
 
   function hm_list(cm_name){
@@ -99,21 +136,26 @@
 
 
     function doSearch() {
-        $('#projectDataTable').datagrid('reload');
+        $('#colonyDataTable').datagrid('reload');
     }
     function doClear() {
         doSearch();
     }
     function doAdd(value) {
-        var validate = $('#projectForm').form('validate');
+        var validate = $('#colonyForm').form('validate');
         if(!validate) {
             return false;
         }
+        $.messager.progress({
+            title : '提示',
+            text : '正在提交数据，请稍后....'
+        });
         $.ajax({
-            url: '{{projcfg.appurl}}/api/project/dpm/project/develop/pm/add',
+            url: '{{projcfg.appurl}}/api/project/operation/colonymanage',
             type: 'post',
-            data: $('#projectForm').serializeJson(),
+            data: $('#colonyForm').serializeJson(),
             success: function (data) {
+                $.messager.progress('close');
                 if(data.success) {
                     msgSuccess(data.msg);
                     closeDialog();
@@ -128,11 +170,11 @@
 
     // 打开页面
     function openPage(title, value, callback) {
-        $('#myModal').show();
-        $('#myModal').mydialog({
+        $('#colonyDialog').show();
+        $('#colonyDialog').mydialog({
             title:title,
-            width: 700,
-            height: 485,
+            width: 600,
+            height: 385,
             top:100,
             modal: true,
             myButtons:[
@@ -154,14 +196,83 @@
         });
     }
 
+    // 打开修改页面
+    function toEdit() {
+        // 获得选择行
+        var rows = $('#colonyDataTable').datagrid('getChecked');
+        if (rows.length != 1) {
+            msgError('提示,请选择一条数据再进行修改');
+            return false;
+        }
+        var id = rows[0].id;
+        $("#colonyForm").form('load',rows[0]);
+        openPage("修改集群信息", id, doEdit);
+
+    }
+    // 修改数据
+    function doEdit(id) {
+        // 验证表单
+        var validate = $('#colonyForm').form('validate');
+        if(!validate) {
+            return false;
+        }
+        $.messager.progress({
+            title : '提示',
+            text : '正在提交数据，请稍后....'
+        });
+        $.ajax({
+            url: '{{projcfg.appurl}}/api/project/operation/colonymanage',
+            type: 'put',
+            data: $('#colonyForm').serializeJson(),
+            success: function (data) {
+                $.messager.progress('close');
+                if(data.success) {
+                    msgSuccess(data.msg);
+                    closeDialog();
+                    doSearch();
+                }
+                else {
+                    msgError(data.msg+',错误代码:'+data.code);
+                }
+            }
+        });
+    }
+
+    //删除数据列表
+    function doDel() {
+        // 获得选择行
+        var rows = $('#projectdatatable').datagrid('getChecked');
+        if (rows.length != 1) {
+            msgError('提示,请选择一条数据再进行删除');
+            return false;
+        }
+        var id = rows[0]._id;
+        msgConfirm('确定删除此条记录么？',function(result) {
+            if(result){
+                $.ajax({
+                    url: '{{projcfg.appurl}}/api/project/operation/colonymanage/'+id,
+                    type: 'delete',
+                    success: function (data) {
+                        if(data.success) {
+                            msgSuccess(data.msg);
+                            doSearch();
+                        }else{
+                            msgError(data.msg + ',错误代码:' + data.code);
+                        }
+                    }
+                });
+            }
+        });
+    }
+
     // 清空新增表单数据
     function clear() {
-        $('#projectForm').form('clear');
+        $('#colonyForm').form('clear');
     }
 
     // 关闭窗口
     function closeDialog() {
-        $('#myModal').dialog('close');
+        $('#colonyDialog').dialog('close');
         clear();
     }
 

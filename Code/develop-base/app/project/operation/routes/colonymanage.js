@@ -28,12 +28,10 @@ router.route('/').get(function(req,res){
     colonyManageService.add(data, function(result) {
         utils.respJsonData(res, result);
     });
-})
-//修改集群信息
-    .put(function(req,res){
+}).put(function(req,res){
 
         // 获取提交信息
-        var id = req.params.id;
+        var id = req.body.id;
         var name = req.body.name;
         var remark = req.body.remark;
         // 验证通过组装数据
@@ -70,3 +68,6 @@ router.route('/:id')
             utils.respMsg(res, false, '1000', '集群ID不能为空。', null, null);
         }
     });
+
+
+module.exports = router;
