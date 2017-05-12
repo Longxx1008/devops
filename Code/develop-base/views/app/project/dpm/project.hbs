@@ -28,7 +28,7 @@
                                     <button type="button" class="btn btn-default" onclick="to_servicewarehouse()" data-title="发布到仓库">
                                         <i class="fa fa-edit"></i> 发布到服务仓库
                                     </button>
-                                    <button type="button" class="btn btn-default" onclick="" data-title="项目部署管理">
+                                    <button type="button" class="btn btn-default" onclick="toDeployed()" data-title="项目部署管理">
                                         <i class="fa fa-list"></i> 项目部署管理
                                     </button>
                                 </div>
@@ -100,26 +100,32 @@
         <div class="col-md-12">
             <div>
                 <form id="deployForm" class="form-horizontal form-bordered" role="form">
-                    <input type="hidden" id="deployProjectId" value=""/>
+                    <input type="hidden" id="deployProjectId" name="deployProjectId" value=""/>
                     <div class="form-group">
-                        <label class="col-sm-2 control-label no-padding-right" style="font-style: 黑体;font-size: 16px">项目名称:</label>
+                        <label for="deployProjectName" class="col-sm-2 control-label no-padding-right">项目名称:</label>
                         <div class="col-sm-10">
-                            <p id="deployProjectName" align="left" style="font-style: 黑体;font-size: 16px"></p>
+                            <input id="deployProjectName" name="deployProjectName" type="text" readonly class="easyui-validatebox form-control" data-options="required:true" style="width:80%;height:31px;">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="deployProjectVersion" class="col-sm-2 control-label no-padding-right" style="font-style: 黑体;font-size: 16px">部署版本:</label>
+                        <label for="deployProjectVersion" class="col-sm-2 control-label no-padding-right">部署版本:</label>
                         <div class="col-sm-10">
-                            <select id="deployProjectVersion"　class="easyui-validatebox form-control" data-options="required:true" style="width:60%">
+                            <select id="deployProjectVersion" name="deployProjectVersion"　class="easyui-validatebox form-control" data-options="required:true" style="width:80%;height:31px;">
                             </select>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="deployCluster" class="col-sm-2 control-label no-padding-right" style="font-size: 16px ; font-style: 黑体">部署集群:</label>
+                        <label for="deployClusterId" class="col-sm-2 control-label no-padding-right">部署版本:</label>
                         <div class="col-sm-10">
-                            <select id="deployClusterId"　class="easyui-validatebox form-control" data-options="required:true" style="width:60%">
-                                <option value="1" style="font-size: 16px ;" >测试集群</option>
+                            <select id="deployClusterId" name="deployClusterId" class="easyui-validatebox form-control" data-options="required:true" style="width:80%;">
+                                <option value="1">测试集群</option>
                             </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="remark" class="col-sm-2 control-label no-padding-right">备注:</label>
+                        <div class="col-sm-10">
+                            <textarea id="remark" name="remark" class="easyui-validatebox form-control" data-options="required:true" style="width:80%;height:80px;"></textarea>
                         </div>
                     </div>
                 </form>
@@ -282,10 +288,10 @@
         var projectId = rowData[0].id;
         var projectName = rowData[0].projectName;
         $("#deployProjectId").val(projectId);
-        $("#deployProjectName").html(projectName);
+        $("#deployProjectName").val(projectName);
         $('#deployProjectVersion').combobox({
             method: 'get',
-            url: '{{projcfg.appurl}}/api/project/dpm/project/develop/pm/version/list?projectId=' + projectId,
+            url: '{{projcfg.appurl}}/api/project/dpm/project/develop/pm/version?projectId=' + projectId,
             valueField:'versionNo',
             textField:'versionNo',
             editable:false,
@@ -298,8 +304,8 @@
         if(!validate) {
             return false;
         }
-        var projectName = $("#deployProjectName").html();
-        var clusterName = $("#deployClusterId").combobox('getText');
+        var projectName = $("#deployProjectName").val();
+        var clusterName = $("#deployClusterId").text();
         msgConfirm('确定要部署当前【 ' + projectName + '】部署到集群【' + clusterName + '】么？',function(result) {
             if(result){
                 $.ajax({
@@ -320,6 +326,9 @@
         });
     }
 
+    function toDeployed(){
+        window.location.href = "{{projcfg.appurl}}/deployed";
+    }
     function showProjectMembers(){
         var rowdata = $('#projectDataTable').datagrid("getChecked");
         if(rowdata.length !=1){
