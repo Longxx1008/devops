@@ -214,7 +214,7 @@ router.route('/develop/pm/deploy').get(function(req, res){
                                     params.push(projectId);
                                     params.push(projectVersion);
                                     params.push(clusterId);
-                                    params.push("http://192.168.31.96" + ":" + deployJson.container.docker.portMappings[0].servicePort);
+                                    params.push("http://192.168.31.127" + ":" + deployJson.container.docker.portMappings[0].servicePort);
                                     //params.push(JSON.stringify(data));
                                     params.push(remark);
                                     var currentUser = utils.getCurrentUser(req);
