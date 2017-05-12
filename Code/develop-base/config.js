@@ -4,10 +4,10 @@
 var project_url_prefix = "/project";
 var config = {
     project:{
-        appid:'pass',
-        appname: 'PaSS服务平台', // App名字
-        apptitle: 'PaSS服务平台', // 网页title
-        appdescription: 'PaSS', // App的描述
+        appid:'DevOps',
+        appname: '贵州移动DevOps平台', // App名字
+        apptitle: '贵州移动DevOps平台', // 网页title
+        appdescription: 'DevOps', // App的描述
         copyright:'©中国移动贵州公司 版权所有',
         keywords: 'cmcc,pass,docker',
         version: '0.0.1',
