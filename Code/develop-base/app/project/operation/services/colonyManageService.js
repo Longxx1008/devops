@@ -17,7 +17,7 @@ var https = require('https');
 exports.pageList = function(page,size,conditionMap,cb){
     var sql = "select * from pass_operation_colony_info";
     var conditions = [];
-    var orderSql = "order by id desc";
+    var orderSql = " order by id desc";
     console.log("查询集群信息sql ====",sql);
     utils.pagingQuery4Eui_mysql(sql,orderSql,page,size,conditions,cb);
 };
