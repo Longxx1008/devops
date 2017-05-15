@@ -81,6 +81,7 @@
     <child-task idref="t3"/>
     <child-task idref="t4"/>
     <child-task idref="t5"/>
+    <child-task idref="t21"/>
     <child-task idref="t14"/>
     <child-task idref="t15"/>
   </task>
@@ -110,6 +111,7 @@
   <task id="t6">
     <title>镜像管理</title>
     <effort>28800</effort>
+    <effort-done>28800</effort-done>
     <start-constraint-date>2017-05-03T01:00:00.000Z</start-constraint-date>
     <note>
       <text>
@@ -131,6 +133,7 @@
   <task id="t7">
     <title>服务管理</title>
     <effort>57600</effort>
+    <effort-done>57600</effort-done>
     <start-constraint-date>2017-05-04T00:00:00.000Z</start-constraint-date>
     <note>
       <text>
@@ -147,6 +150,7 @@
   <task id="t8">
     <title>镜像操作流程测试</title>
     <effort>28800</effort>
+    <effort-done>28800</effort-done>
     <start-constraint-date>2017-05-03T01:00:00.000Z</start-constraint-date>
     <note>
       <text>
@@ -163,6 +167,7 @@
   <task id="t10">
     <title>CI/CD持续集成</title>
     <effort>57600</effort>
+    <effort-done>57600</effort-done>
     <start-constraint-date>2017-05-02T00:00:00.000Z</start-constraint-date>
     <note>
       <text>
@@ -179,6 +184,7 @@
   <task id="t11">
     <title>mesos+marathon部署测试</title>
     <effort>57600</effort>
+    <effort-done>57600</effort-done>
     <start-constraint-date>2017-05-04T00:00:00.000Z</start-constraint-date>
     <assignment idref="r2"/>
     <start-no-earlier-than>2017-05-04T00:00:00.000Z</start-no-earlier-than>
@@ -186,6 +192,7 @@
   <task id="t12">
     <title>日志收集流程测试</title>
     <effort>57600</effort>
+    <effort-done>57600</effort-done>
     <start-constraint-date>2017-05-04T00:00:00.000Z</start-constraint-date>
     <prerequisite-task idref="t10"/>
     <assignment idref="r1"/>
@@ -194,22 +201,98 @@
   <task id="t13">
     <title>性能监控流程测试</title>
     <effort>57600</effort>
+    <effort-done>57600</effort-done>
     <start-constraint-date>2017-05-04T00:00:00.000Z</start-constraint-date>
     <prerequisite-task idref="t12"/>
     <assignment idref="r1"/>
     <start-no-earlier-than>2017-05-04T00:00:00.000Z</start-no-earlier-than>
   </task>
   <task id="t14">
-    <title>阶段四：mesos应用部署</title>
+    <title>阶段五：mesos应用部署</title>
     <effort>28800</effort>
     <start-constraint-date>2017-05-05T00:00:00.000Z</start-constraint-date>
     <start-no-earlier-than>2017-05-05T00:00:00.000Z</start-no-earlier-than>
   </task>
   <task id="t15">
-    <title>阶段五：整体集成</title>
+    <title>阶段六：整体集成</title>
     <effort>28800</effort>
     <start-constraint-date>2017-05-05T00:00:00.000Z</start-constraint-date>
     <start-no-earlier-than>2017-05-05T00:00:00.000Z</start-no-earlier-than>
+  </task>
+  <task id="t21">
+    <title>阶段四：第一轮优化</title>
+    <type>group</type>
+    <start-constraint-date>2017-05-15T00:00:00.000Z</start-constraint-date>
+    <child-task idref="t22"/>
+    <child-task idref="t23"/>
+    <child-task idref="t24"/>
+    <child-task idref="t25"/>
+    <child-task idref="t26"/>
+    <start-no-earlier-than>2017-05-15T00:00:00.000Z</start-no-earlier-than>
+  </task>
+  <task id="t22">
+    <title>项目阶段情况页面开发</title>
+    <effort>28800</effort>
+    <start-constraint-date>2017-05-15T00:00:00.000Z</start-constraint-date>
+    <start-no-earlier-than>2017-05-15T00:00:00.000Z</start-no-earlier-than>
+  </task>
+  <task id="t23">
+    <title>首页项目阶段展现</title>
+    <effort>28800</effort>
+    <start-constraint-date>2017-05-15T00:00:00.000Z</start-constraint-date>
+    <start-no-earlier-than>2017-05-15T00:00:00.000Z</start-no-earlier-than>
+  </task>
+  <task id="t24">
+    <title>首页镜像仓库取收藏TOP10展现</title>
+    <effort>28800</effort>
+    <start-constraint-date>2017-05-15T00:00:00.000Z</start-constraint-date>
+    <note>
+      <text>
+        <p>
+          <run>
+            <lit>点击收藏加入收藏夹</lit>
+          </run>
+        </p>
+      </text>
+    </note>
+    <start-no-earlier-than>2017-05-15T00:00:00.000Z</start-no-earlier-than>
+  </task>
+  <task id="t25">
+    <title>集群管理界面优化</title>
+    <effort>28800</effort>
+    <start-constraint-date>2017-05-15T00:00:00.000Z</start-constraint-date>
+    <note>
+      <text>
+        <p>
+          <run>
+            <lit>加入</lit>
+          </run>
+          <run>
+            <lit>mesos</lit>
+          </run>
+          <run>
+            <lit>资源情况</lit>
+          </run>
+        </p>
+        <p>
+          <run>
+            <lit>加入集群拓扑图</lit>
+          </run>
+        </p>
+        <p>
+          <run>
+            <lit>加入主机资源情况</lit>
+          </run>
+        </p>
+      </text>
+    </note>
+    <start-no-earlier-than>2017-05-15T00:00:00.000Z</start-no-earlier-than>
+  </task>
+  <task id="t26">
+    <title>项目部署管理和项目运维整合</title>
+    <effort>28800</effort>
+    <start-constraint-date>2017-05-15T00:00:00.000Z</start-constraint-date>
+    <start-no-earlier-than>2017-05-15T00:00:00.000Z</start-no-earlier-than>
   </task>
   <critical-path root="-1" enabled="false" resources="false">
     <color r="1" g="0.5" b="0.5"/>

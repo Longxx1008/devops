@@ -4,4 +4,71 @@
   <task-change-set user="文安国" date="2017-05-05T08:43:13.975Z" timestamp="2017-05-05T08:43:13.975Z">
     <change idref="t6" attribute="notesAllowingNil" type="textdata" from="e1xydGYxXGFuc2lcYW5zaWNwZzkzNlxjb2NvYXJ0ZjE1MDRcY29jb2FzdWJydGY4MjAKe1xmb250dGJsXGYwXGZuaWxcZmNoYXJzZXQxMzQgUGluZ0ZhbmdTQy1SZWd1bGFyO30Ke1xjb2xvcnRibDtccmVkMjU1XGdyZWVuMjU1XGJsdWUyNTU7XHJlZDg1XGdyZWVuODVcYmx1ZTg1O30Ke1wqXGV4cGFuZGVkY29sb3J0Ymw7O1xjc2dyYXlcYzQwOTIyO30KXHBhcmRcdHg1NjBcdHgxMTIwXHR4MTY4MFx0eDIyNDBcdHgyODAwXHR4MzM2MFx0eDM5MjBcdHg0NDgwXHR4NTA0MFx0eDU2MDBcdHg2MTYwXHR4NjcyMFxwYXJkaXJuYXR1cmFsXHBhcnRpZ2h0ZW5mYWN0b3IwCgpcZjBcZnMyNCBcY2YyIFwnYjBcJ2ZjXCdjMFwnYThcJ2JlXCdiNVwnY2ZcJ2YxXCdiNVwnYzRcJ2Q1XCdiOVwnY2ZcJ2Q2XCdhM1wnYWNcJ2QwXCdjNVwnY2ZcJ2EyXCdiMVwnZTBcJ2JjXCdhZFwnYjVcJ2M4fQ==" to="e1xydGYxXGFuc2lcYW5zaWNwZzkzNlxjb2NvYXJ0ZjE1MDRcY29jb2FzdWJydGY4MjAKe1xmb250dGJsXGYwXGZuaWxcZmNoYXJzZXQxMzQgUGluZ0ZhbmdTQy1SZWd1bGFyO1xmMVxmbmlsXGZjaGFyc2V0MCBIZWx2ZXRpY2FOZXVlO30Ke1xjb2xvcnRibDtccmVkMjU1XGdyZWVuMjU1XGJsdWUyNTU7XHJlZDg1XGdyZWVuODVcYmx1ZTg1O30Ke1wqXGV4cGFuZGVkY29sb3J0Ymw7O1xjc2dyYXlcYzQwOTIyO30KXHBhcmRcdHg1NjBcdHgxMTIwXHR4MTY4MFx0eDIyNDBcdHgyODAwXHR4MzM2MFx0eDM5MjBcdHg0NDgwXHR4NTA0MFx0eDU2MDBcdHg2MTYwXHR4NjcyMFxwYXJkaXJuYXR1cmFsXHBhcnRpZ2h0ZW5mYWN0b3IwCgpcZjBcZnMyNCBcY2YyIFwnYjBcJ2ZjXCdjMFwnYThcJ2JlXCdiNVwnY2ZcJ2YxXCdiNVwnYzRcJ2Q1XCdiOVwnY2ZcJ2Q2XCdhM1wnYWNcJ2QwXCdjNVwnY2ZcJ2EyXCdiMVwnZTBcJ2JjXCdhZFwnYjVcJ2M4ClxmMSBcY2YyIFwKClxmMCBcY2YyIFwnZDZcJ2RjXCdkMlwnYmJcJ2NkXCdlYVwnYjNcJ2M5XCdhM1wnYWNcJ2JlXCdiNVwnY2ZcJ2YxXCdkNVwnYjlcJ2NmXCdkNlwnYTNcJ2FjXCdiN1wnZmVcJ2NlXCdmMVwnZDVcJ2I5XCdjZlwnZDZcJ2EzXCdhY1wnY2FcJ2Q3XCdkMlwnYjNcJ2EzXCdhY1wnY2ZcJ2VlXCdjNFwnYmZcJ2I0XCdiNFwnYmRcJ2E4XCdhM1wnYWNcJ2IyXCdiZlwnY2FcJ2YwXCdiNVwnYzh9"/>
   </task-change-set>
+  <task-change-set user="文安国" date="2017-05-15T02:58:48.636Z" timestamp="2017-05-15T02:58:48.636Z">
+    <change idref="t6" attribute="internalEffortDone" type="real" from="0" to="28800" resolved="yes"/>
+    <change idref="t7" attribute="internalEffortDone" type="real" from="0" to="57600" resolved="yes"/>
+    <change idref="t8" attribute="internalEffortDone" type="real" from="0" to="28800" resolved="yes"/>
+    <change idref="t10" attribute="internalEffortDone" type="real" from="0" to="57600" resolved="yes"/>
+    <change idref="t11" attribute="internalEffortDone" type="real" from="0" to="57600" resolved="yes"/>
+    <change idref="t12" attribute="internalEffortDone" type="real" from="0" to="57600" resolved="yes"/>
+    <change idref="t13" attribute="internalEffortDone" type="real" from="0" to="57600" resolved="yes"/>
+  </task-change-set>
+  <task-change-set user="文安国" date="2017-05-15T02:59:23.862Z" timestamp="2017-05-15T02:59:23.862Z">
+    <change idref="t21" to="t1" to-position="3" resolved="yes">
+      <change idref="t21" attribute="noEarlierThanConstraintDate" type="date" to="2017-05-15T00:00:00.000Z"/>
+      <change idref="t21" attribute="title" type="string" to="阶段四：第一轮优化"/>
+    </change>
+    <change idref="t14" attribute="title" type="string" from="阶段四：mesos应用部署" to="阶段五：mesos应用部署" resolved="yes"/>
+    <change idref="t15" attribute="title" type="string" from="阶段五：整体集成" to="阶段六：整体集成" resolved="yes"/>
+  </task-change-set>
+  <task-change-set user="文安国" date="2017-05-15T05:56:15.502Z" timestamp="2017-05-15T05:56:15.502Z">
+    <change idref="t21" attribute="isGroup" type="real" from="0" to="1" resolved="yes"/>
+    <change idref="t21" attribute="multiResourceWorkType" type="real" from="0" resolved="yes"/>
+    <change idref="t21" attribute="isSplittableTask" type="real" from="1" resolved="yes"/>
+    <change idref="t21" attribute="taskType" type="real" from="0" to="2" resolved="yes"/>
+    <change idref="t21" attribute="resourceAssignmentType" type="real" from="0" resolved="yes"/>
+    <change idref="t21" attribute="staticCost" type="real" from="0" resolved="yes"/>
+    <change idref="t21" attribute="effort" type="real" from="28800" resolved="yes"/>
+    <change idref="t21" attribute="isSplitChunk" type="real" from="0" resolved="yes"/>
+    <change idref="t21" attribute="scheduleType" type="real" from="0" resolved="yes"/>
+    <change idref="t21" attribute="internalAssignments" type="string" from="" resolved="yes"/>
+    <change idref="t21" attribute="isSplitTask" type="real" from="0" resolved="yes"/>
+    <change idref="t21" attribute="internalEffortDone" type="real" from="0" resolved="yes"/>
+    <change idref="t22" to="t21" to-position="0" resolved="yes">
+      <change idref="t22" attribute="noEarlierThanConstraintDate" type="date" to="2017-05-15T00:00:00.000Z"/>
+      <change idref="t22" attribute="title" type="string" to="项目阶段管理开发"/>
+    </change>
+    <change idref="t23" to="t21" to-position="1" resolved="yes">
+      <change idref="t23" attribute="noEarlierThanConstraintDate" type="date" to="2017-05-15T00:00:00.000Z"/>
+      <change idref="t23" attribute="title" type="string" to="任务 1"/>
+    </change>
+  </task-change-set>
+  <task-change-set user="文安国" date="2017-05-15T06:17:07.710Z" timestamp="2017-05-15T06:17:07.710Z">
+    <change idref="t24" to="t21" to-position="2" resolved="yes">
+      <change idref="t24" attribute="noEarlierThanConstraintDate" type="date" to="2017-05-15T00:00:00.000Z"/>
+      <change idref="t24" attribute="title" type="string" to="首页镜像仓库取收藏TOP10展现"/>
+    </change>
+    <change idref="t22" attribute="title" type="string" from="项目阶段管理开发" to="项目阶段情况页面开发" resolved="yes"/>
+    <change idref="t23" attribute="title" type="string" from="任务 1" to="首页项目阶段展现" resolved="yes"/>
+  </task-change-set>
+  <task-change-set user="文安国" date="2017-05-15T06:17:29.577Z" timestamp="2017-05-15T06:17:29.577Z">
+    <change idref="t24" attribute="notesAllowingNil" type="textdata" to="e1xydGYxXGFuc2lcYW5zaWNwZzkzNlxjb2NvYXJ0ZjE1MDRcY29jb2FzdWJydGY4MjAKe1xmb250dGJsXGYwXGZuaWxcZmNoYXJzZXQxMzQgUGluZ0ZhbmdTQy1SZWd1bGFyO30Ke1xjb2xvcnRibDtccmVkMjU1XGdyZWVuMjU1XGJsdWUyNTU7XHJlZDg1XGdyZWVuODVcYmx1ZTg1O30Ke1wqXGV4cGFuZGVkY29sb3J0Ymw7O1xjc2dyYXlcYzQwOTIyO30KXHBhcmRcdHg1NjBcdHgxMTIwXHR4MTY4MFx0eDIyNDBcdHgyODAwXHR4MzM2MFx0eDM5MjBcdHg0NDgwXHR4NTA0MFx0eDU2MDBcdHg2MTYwXHR4NjcyMFxwYXJkaXJuYXR1cmFsXHBhcnRpZ2h0ZW5mYWN0b3IwCgpcZjBcZnMyNCBcY2YyIFx1cDAgXG5vc3VwZXJzdWIgXHVsbm9uZSBcb2JsaXF1ZW5lc3MwIFxleHBhbnNpb24wIFwnYjVcJ2UzXCdiYlwnZjdcJ2NhXCdkNVwnYjJcJ2Q4XCdiY1wnZDNcJ2M4XCdlYlwnY2FcJ2Q1XCdiMlwnZDhcJ2JjXCdkMH0=" resolved="yes"/>
+  </task-change-set>
+  <task-change-set user="文安国" date="2017-05-15T06:34:01.040Z" timestamp="2017-05-15T06:34:01.040Z">
+    <change idref="t25" to="t21" to-position="3" resolved="yes">
+      <change idref="t25" attribute="noEarlierThanConstraintDate" type="date" to="2017-05-15T00:00:00.000Z"/>
+      <change idref="t25" attribute="notesAllowingNil" type="textdata" to="e1xydGYxXGFuc2lcYW5zaWNwZzkzNlxjb2NvYXJ0ZjE1MDRcY29jb2FzdWJydGY4MjAKe1xmb250dGJsXGYwXGZuaWxcZmNoYXJzZXQxMzQgUGluZ0ZhbmdTQy1SZWd1bGFyO1xmMVxmbmlsXGZjaGFyc2V0MCBIZWx2ZXRpY2FOZXVlO30Ke1xjb2xvcnRibDtccmVkMjU1XGdyZWVuMjU1XGJsdWUyNTU7XHJlZDg1XGdyZWVuODVcYmx1ZTg1O30Ke1wqXGV4cGFuZGVkY29sb3J0Ymw7O1xjc2dyYXlcYzQwOTIyO30KXHBhcmRcdHg1NjBcdHgxMTIwXHR4MTY4MFx0eDIyNDBcdHgyODAwXHR4MzM2MFx0eDM5MjBcdHg0NDgwXHR4NTA0MFx0eDU2MDBcdHg2MTYwXHR4NjcyMFxwYXJkaXJuYXR1cmFsXHBhcnRpZ2h0ZW5mYWN0b3IwCgpcZjBcZnMyNCBcY2YyIFx1cDAgXG5vc3VwZXJzdWIgXHVsbm9uZSBcb2JsaXF1ZW5lc3MwIFxleHBhbnNpb24wIFwnYmNcJ2QzXCdjOFwnZWIKXGYxIG1lc29zClxmMCBcJ2Q3XCdjYVwnZDRcJ2I0XCdjN1wnZTlcJ2JmXCdmNgpcZjEgXAoKXGYwIFwnYmNcJ2QzXCdjOFwnZWJcJ2JjXCdhZlwnYzhcJ2JhXCdjZFwnZDhcJ2M2XCdjYlwnY2RcJ2JjClxmMSBcCgpcZjAgXCdiY1wnZDNcJ2M4XCdlYlwnZDZcJ2Y3XCdiYlwnZmFcJ2Q3XCdjYVwnZDRcJ2I0XCdjN1wnZTlcJ2JmXCdmNn0="/>
+      <change idref="t25" attribute="title" type="string" to="集群管理界面优化"/>
+    </change>
+    <change idref="t24" attribute="notesAllowingNil" type="textdata" from="e1xydGYxXGFuc2lcYW5zaWNwZzkzNlxjb2NvYXJ0ZjE1MDRcY29jb2FzdWJydGY4MjAKe1xmb250dGJsXGYwXGZuaWxcZmNoYXJzZXQxMzQgUGluZ0ZhbmdTQy1SZWd1bGFyO1xmMVxmbmlsXGZjaGFyc2V0MCBIZWx2ZXRpY2FOZXVlO30Ke1xjb2xvcnRibDtccmVkMjU1XGdyZWVuMjU1XGJsdWUyNTU7XHJlZDg1XGdyZWVuODVcYmx1ZTg1O30Ke1wqXGV4cGFuZGVkY29sb3J0Ymw7O1xjc2dyYXlcYzQwOTIyO30KXHBhcmRcdHg1NjBcdHgxMTIwXHR4MTY4MFx0eDIyNDBcdHgyODAwXHR4MzM2MFx0eDM5MjBcdHg0NDgwXHR4NTA0MFx0eDU2MDBcdHg2MTYwXHR4NjcyMFxwYXJkaXJuYXR1cmFsXHBhcnRpZ2h0ZW5mYWN0b3IwCgpcZjBcZnMyNCBcY2YyIFx1cDAgXG5vc3VwZXJzdWIgXHVsbm9uZSBcb2JsaXF1ZW5lc3MwIFxleHBhbnNpb24wIFwnYjVcJ2UzXCdiYlwnZjdcJ2NhXCdkNVwnYjJcJ2Q4XCdiY1wnZDNcJ2M4XCdlYlwnY2FcJ2Q1XCdiMlwnZDhcJ2JjXCdkMApcZjEgXAp9" to="e1xydGYxXGFuc2lcYW5zaWNwZzkzNlxjb2NvYXJ0ZjE1MDRcY29jb2FzdWJydGY4MjAKe1xmb250dGJsXGYwXGZuaWxcZmNoYXJzZXQxMzQgUGluZ0ZhbmdTQy1SZWd1bGFyO30Ke1xjb2xvcnRibDtccmVkMjU1XGdyZWVuMjU1XGJsdWUyNTU7XHJlZDg1XGdyZWVuODVcYmx1ZTg1O30Ke1wqXGV4cGFuZGVkY29sb3J0Ymw7O1xjc2dyYXlcYzQwOTIyO30KXHBhcmRcdHg1NjBcdHgxMTIwXHR4MTY4MFx0eDIyNDBcdHgyODAwXHR4MzM2MFx0eDM5MjBcdHg0NDgwXHR4NTA0MFx0eDU2MDBcdHg2MTYwXHR4NjcyMFxwYXJkaXJuYXR1cmFsXHBhcnRpZ2h0ZW5mYWN0b3IwCgpcZjBcZnMyNCBcY2YyIFx1cDAgXG5vc3VwZXJzdWIgXHVsbm9uZSBcb2JsaXF1ZW5lc3MwIFxleHBhbnNpb24wIFwnYjVcJ2UzXCdiYlwnZjdcJ2NhXCdkNVwnYjJcJ2Q4XCdiY1wnZDNcJ2M4XCdlYlwnY2FcJ2Q1XCdiMlwnZDhcJ2JjXCdkMH0=" resolved="yes"/>
+  </task-change-set>
+  <task-change-set user="文安国" date="2017-05-15T06:36:15.822Z" timestamp="2017-05-15T06:36:15.822Z">
+    <change idref="t25" attribute="notesAllowingNil" type="textdata" from="e1xydGYxXGFuc2lcYW5zaWNwZzkzNlxjb2NvYXJ0ZjE1MDRcY29jb2FzdWJydGY4MjAKe1xmb250dGJsXGYwXGZuaWxcZmNoYXJzZXQxMzQgUGluZ0ZhbmdTQy1SZWd1bGFyO1xmMVxmbmlsXGZjaGFyc2V0MCBIZWx2ZXRpY2FOZXVlO30Ke1xjb2xvcnRibDtccmVkMjU1XGdyZWVuMjU1XGJsdWUyNTU7XHJlZDg1XGdyZWVuODVcYmx1ZTg1O30Ke1wqXGV4cGFuZGVkY29sb3J0Ymw7O1xjc2dyYXlcYzQwOTIyO30KXHBhcmRcdHg1NjBcdHgxMTIwXHR4MTY4MFx0eDIyNDBcdHgyODAwXHR4MzM2MFx0eDM5MjBcdHg0NDgwXHR4NTA0MFx0eDU2MDBcdHg2MTYwXHR4NjcyMFxwYXJkaXJuYXR1cmFsXHBhcnRpZ2h0ZW5mYWN0b3IwCgpcZjBcZnMyNCBcY2YyIFx1cDAgXG5vc3VwZXJzdWIgXHVsbm9uZSBcb2JsaXF1ZW5lc3MwIFxleHBhbnNpb24wIFwnYmNcJ2QzXCdjOFwnZWIKXGYxIG1lc29zClxmMCBcJ2Q3XCdjYVwnZDRcJ2I0XCdjN1wnZTlcJ2JmXCdmNn0=" to="e1xydGYxXGFuc2lcYW5zaWNwZzkzNlxjb2NvYXJ0ZjE1MDRcY29jb2FzdWJydGY4MjAKe1xmb250dGJsXGYwXGZuaWxcZmNoYXJzZXQxMzQgUGluZ0ZhbmdTQy1SZWd1bGFyO1xmMVxmbmlsXGZjaGFyc2V0MCBIZWx2ZXRpY2FOZXVlO30Ke1xjb2xvcnRibDtccmVkMjU1XGdyZWVuMjU1XGJsdWUyNTU7XHJlZDg1XGdyZWVuODVcYmx1ZTg1O30Ke1wqXGV4cGFuZGVkY29sb3J0Ymw7O1xjc2dyYXlcYzQwOTIyO30KXHBhcmRcdHg1NjBcdHgxMTIwXHR4MTY4MFx0eDIyNDBcdHgyODAwXHR4MzM2MFx0eDM5MjBcdHg0NDgwXHR4NTA0MFx0eDU2MDBcdHg2MTYwXHR4NjcyMFxwYXJkaXJuYXR1cmFsXHBhcnRpZ2h0ZW5mYWN0b3IwCgpcZjBcZnMyNCBcY2YyIFx1cDAgXG5vc3VwZXJzdWIgXHVsbm9uZSBcb2JsaXF1ZW5lc3MwIFxleHBhbnNpb24wIFwnYmNcJ2QzXCdjOFwnZWIKXGYxIG1lc29zClxmMCBcJ2Q3XCdjYVwnZDRcJ2I0XCdjN1wnZTlcJ2JmXCdmNgpcZjEgXAoKXGYwIFwnYmNcJ2QzXCdjOFwnZWJcJ2JjXCdhZlwnYzhcJ2JhXCdjZFwnZDhcJ2M2XCdjYlwnY2RcJ2JjClxmMSBcCgpcZjAgXCdiY1wnZDNcJ2M4XCdlYlwnZDZcJ2Y3XCdiYlwnZmFcJ2Q3XCdjYVwnZDRcJ2I0XCdjN1wnZTlcJ2JmXCdmNn0=" resolved="yes"/>
+  </task-change-set>
+  <task-change-set user="文安国" date="2017-05-15T07:06:38.153Z" timestamp="2017-05-15T07:06:38.153Z">
+    <change idref="t26" to="t21" to-position="4" resolved="yes">
+      <change idref="t26" attribute="noEarlierThanConstraintDate" type="date" to="2017-05-15T00:00:00.000Z"/>
+      <change idref="t26" attribute="title" type="string" to="项目部署管理和项目运维整合"/>
+    </change>
+  </task-change-set>
 </changelog>
