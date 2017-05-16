@@ -21,17 +21,18 @@ var versionJson = '';
 var sql_info = "insert into pass_develop_image_info(imageName) values(";
 var sql_version = "insert into pass_develop_image_version(imageCode,imageVersion) values(";
 //启动
-
-exports.queryImageVersionJobRun = function(){
-    console.log(DateUtils.format(new Date(),'yyyy-MM-dd hh:mm:ss') + ' 获取镜像与相关镜像版本数据任务开始');
-    getdata();
-    console.log(DateUtils.format(new Date(),'yyyy-MM-dd hh:mm:ss') + ' 获取镜像与相关镜像版本数据任务结束');
-};
-
+//
+// exports.queryImageVersionJobRun = function(){
+//     console.log(DateUtils.format(new Date(),'yyyy-MM-dd hh:mm:ss') + ' 获取镜像与相关镜像版本数据任务开始');
+//     getdata();
+//     console.log(DateUtils.format(new Date(),'yyyy-MM-dd hh:mm:ss') + ' 获取镜像与相关镜像版本数据任务结束');
+// };
+getdata();
 
 //获取Json 数据
 function getdata() {
     var url = "http://"+config.platform.dockerIp+":"+config.platform.dockerPort+"/v2/_catalog";
+    console.log("url     :"+url);
     http.get(url, function (req, res) {
         var jsonStr = '';
         req.on("data", function (data) {
