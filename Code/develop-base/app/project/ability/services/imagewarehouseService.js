@@ -12,9 +12,7 @@ exports.pageList = function(page, size, conditionMap, cb) {
     var sql = "SELECT t.*" ;
     var conditions = [];
     if(conditionMap) {
-        if(conditionMap.flag && conditionMap.flag == 'privateimage') {
-            sql += " from pass_develop_image_info t  where 1=1 ";
-        }else if(conditionMap.flag && conditionMap.flag == 'favorites'){
+        if(conditionMap.flag && conditionMap.flag == 'favorites'){
             sql += ",t2.imagetype ,t2.userCode from pass_develop_image_info t "+
                 "LEFT JOIN pass_develop_image_mapping t2 ON t.imageCode=t2.imageCode where t2.imagetype = 1 ";
         }else if(conditionMap.flag && conditionMap.flag == 'myimage'){
@@ -22,14 +20,14 @@ exports.pageList = function(page, size, conditionMap, cb) {
                 "LEFT JOIN pass_develop_image_mapping t2 ON t.imageCode=t2.imageCode where t2.userCode = '"+conditionMap.loginUser+"' ";
         }else{
             sql += ",t2.imagetype ,t2.userCode from pass_develop_image_info t "+
-                "LEFT JOIN pass_develop_image_mapping t2 ON t.imageCode=t2.imageCode where 1=1 " ;
+                "LEFT JOIN pass_develop_image_mapping t2 ON t.imageCode=t2.imageCode and t2.imagetype = '1' where 1=1 " ;
         }
         if(conditionMap.type){
             sql += " and t.catagory = '"+conditionMap.type+"' ";
         }
     }
 
-    var orderBy = " order by t.imageCode ";
+    var orderBy = " order by t.collectionNumber desc ";
     console.log("查询用户信息sql ====",sql);
     utils.pagingQuery4Eui_mysql(sql,orderBy, page, size, conditions, cb);
 };
@@ -60,6 +58,43 @@ exports.add = function(data,data_map,cb) {
         }
     });
 };
+
+/**
+ * 修改收藏数或下载数
+ * @param conditionMap
+ * @param data
+ * @param mapData
+ * @param cb
+ */
+exports.imageCollectOrDownload = function(conditionMap,data,mapData,cb){
+    var sql = "update pass_develop_image_info set ";
+    var mapsql = "update pass_develop_image_mapping set imagetype =? where imageCode =? and userCode =?";
+    if(conditionMap && conditionMap.downloadNum){//记录下载数
+        sql += "downloadNumber =?"
+    }else{//收藏数
+        sql += "collectionNumber =?"
+    }
+    sql += " where imageCode =? ";
+    mysqlPool.query(sql,data,function(err,result) {
+        if(err) {
+            cb(utils.returnMsg(false, '1000', '修改记录数异常', null, err));
+        } else {
+            if(!conditionMap){
+                mysqlPool.query(mapsql,mapData,function(error,mapresult){
+                    if(error){
+                        cb(utils.returnMsg(false, '1000', '修改类型异常', null, error));
+                    } else{
+                        cb(utils.returnMsg(true, '0000', '修改类型成功', mapresult, null));
+                    }
+                });
+            }else{
+                cb(utils.returnMsg(true, '0000', '修改记录数成功', result, null));
+            }
+
+
+        }
+    });
+}
 
 /**
  * 更新项目信息

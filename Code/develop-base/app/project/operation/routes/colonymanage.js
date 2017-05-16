@@ -23,6 +23,8 @@ router.route('/').get(function(req,res){
     var data = [];
     data.push(req.body.name);
     data.push(req.body.remark);
+    data.push(req.body.mesosUrl);
+    data.push(req.body.marathonUrl);
     var currentUser = utils.getCurrentUser(req);
     data.push(currentUser.login_account);
     colonyManageService.add(data, function(result) {
@@ -38,6 +40,8 @@ router.route('/').get(function(req,res){
         var data = [];
         data.push(name);
         data.push(remark);
+        data.push(req.body.mesosUrl);
+        data.push(req.body.marathonUrl);
         data.push(id);
         colonyManageService.update(data, function(result) {
             utils.respJsonData(res, result);

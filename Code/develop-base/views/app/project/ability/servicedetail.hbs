@@ -22,6 +22,10 @@
                                     <!-- API树 -->
                                     <ul id="detailTree" class="easyui-tree"></ul>
                                 </div>
+                                <div id="mm" class="easyui-menu" style="width:120px;">
+                                    <div onclick="append()" data-options="iconCls:'icon-add'" style="padding-left: 2.2rem;">新增节点</div>
+                                    <div onclick="remove()" data-options="iconCls:'icon-remove'" style="padding-left: 2.2rem;">删除节点</div>
+                                </div>
                             </div>
                             <div style="width:74%;height:100%;float:right;background-color: #FFFFFF; ">
                                 <div id="desc" style="display:block;border:0px solid #ccc;width:100%;height:100%;float:left;margin:6px;background-color: #FFFFFF;">
@@ -203,22 +207,87 @@ URL地址：https://xxx.xxx.com/sms/single   </pre>
 
 <script  type="text/javascript">
     $(function() {
-
+        var params = GetRequest();
         $("#detailTree").tree({
             method: 'GET',
-            url: 'static/json/service_detail_tree.json',
+            url: '{{projcfg.appurl}}/api/project/dpm/project/develop/pm/tree?projectId='+params[0],
+//            url: 'static/json/service_detail_tree.json',
             onLoadSuccess: function (node, data) {
-                var first = $(this).tree("find", 11);
-                $(this).tree("select", first.target);
+                console.log("tree===data======",data);
+//                var first = $(this).tree("find", 11);
+//                $(this).tree("select", first.target);
             },
             onSelect: function (node) {
                 console.log(node);
                 showDetailContent(node);
+            },
+            onContextMenu: function(e, node){
+                e.preventDefault();
+                // select the node
+                $('#detailTree').tree('select', node.target);
+                // display context menu
+                $('#mm').menu('show', {
+                    left: e.pageX,
+                    top: e.pageY
+                });
             }
         });
     });
 
+    //页面直接跳转页面带参数时，获取url参数值
+    function GetRequest() {
+        var values = [];
+        var url = location.search; //获取url中"?"符后的字串
+        if (url.indexOf("?") != -1) {    //判断是否有参数
+            var str = url.substr(1); //从第一个字符开始 因为第0个是?号 获取所有除问号的所有符串
+            //用等号进行分隔 （因为知道只有一个参数 所以直接用等号进分隔 如果有多个参数 要用&号分隔 再用等号进行分隔）
+            if(str.indexOf("&") >= 0){
+                var strs = str.split("&");
+                for(var i=0;i<strs.length;i++){
+                    var vals = strs[i].split("=");
+                    if(i==0){
+                        values.push(decodeURI(vals[1]));
+                    }else{
+                        values.push(vals[1]);
+                    }
+                }
+            }else{
+                var strs = str.split("=");
+                values.push(strs[1]);
+            }
+            return values;
+        }
+    }
 
+function append(){
+    var selected = $('#detailTree').tree('getSelected');
+    var data = $('#detailTree').tree('getData',selected.target);
+    var nodeid;
+    if(data.children){
+        nodeid = data.id +''+(data.children.length+1);
+    }else{
+        nodeid = data.id +''+1;
+    }
+
+    console.log("nodeid====="+nodeid);
+    $('#detailTree').tree('append', {
+        parent: selected.target,
+        data: [{
+            id: nodeid,
+            text: '新增节点'
+        }]
+    });
+    var _node = $('#detailTree').tree('find',nodeid);
+    $('#detailTree').tree("select",_node.target).tree('beginEdit',_node.target);
+}
+
+    function remove(){
+        var selected = $('#detailTree').tree('getSelected');
+        if(selected.id>10){
+            $('#detailTree').tree('remove',selected.target);
+        }
+
+    }
 
 
     function do_page(flag){

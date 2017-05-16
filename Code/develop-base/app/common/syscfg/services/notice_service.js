@@ -171,7 +171,7 @@ exports.getNoticeMaxDate = function(cb){
 
     query.exec(function(err,rs){
         if(err){
-            cb(utils.returnMsg(false, '1004', '查询信息时出现异常。', null, error));
+            cb(utils.returnMsg(false, '1004', '查询信息时出现异常。', null, err));
         }else{
             cb(utils.returnMsg(true, '0000', '查询信息成功。', rs, null));
         }
