@@ -95,11 +95,12 @@
     .box-bottom {
         position: absolute;
         left: 0;
+        padding-left: 20px;
         bottom: 10px;
         width: 100%;
     }
 
-    .box-bottom a {
+    .box-bottom i {
         font-size: 12px;
         text-decoration: none;
         float: right;
@@ -141,6 +142,36 @@
          margin: 1rem;
     }
 
+    .depot-bottom{
+        overflow: hidden;
+        height: 25px;
+        position: relative;
+        margin-top: 10px;
+    }
+    .depot-bottom i{
+        font-size: 12px;
+        display: block;
+        float: left;
+        width:60px;
+        padding-left: 20px;
+        height: 20px;
+        color: #bbb;
+        font-style:normal;
+        position: absolute;
+        z-index:1;
+        top:0;
+    }
+    .depot-bottom i.collect{
+        background: url("{{projcfg.appurl}}/static/images/img/icon.png") no-repeat 0 -395px;
+        right:90px;
+    }
+    .depot-bottom i.collect.select{
+        background: url("{{projcfg.appurl}}/static/images/img/icon.png") no-repeat 0 -424px;
+    }
+    .depot-bottom i.download{
+        background: url("{{projcfg.appurl}}/static/images/img/icon.png") no-repeat 0 -452px;
+        right:0;
+    }
 </style>
 <div class="row">
     <div class="col-xs-12 col-md-12">
@@ -151,13 +182,13 @@
                         <font size="3.5rem" style="margin-left: 1.2rem;margin-right: 2.5rem"> <b>镜像仓库</b></font>
                         <div class="btn-group" role="group" aria-label="...">
                             <button type="button" class="btn btn-default" onclick="do_page('myimage')" data-title="我的镜像">
-                                <i class="fa fa-edit"></i> 我的镜像
+                                <i class="fa fa-circle"></i> 我的镜像
                             </button>
                             <button type="button" class="btn btn-default" onclick="do_page('favorites')" data-title="收藏夹">
-                                <i class="fa fa-edit"></i> 收藏夹
+                                <i class="fa fa-circle"></i> 收藏夹
                             </button>
                             <button type="button" class="btn btn-default" onclick="do_page('privateimage')" data-title="私有镜像">
-                                <i class="fa fa-edit"></i> 私有镜像
+                                <i class="fa fa-circle"></i> 私有镜像
                             </button>
                         </div>
 
@@ -250,13 +281,18 @@
         $.ajax({
             url: '{{projcfg.appurl}}/api/project/ability/imagewarehouse/develop/im/pageList',
             type: 'get',
-            data:{"page":1,"rows":6,"flag":flag,'type':type},
+            data:{"page":1,"rows":8,"flag":flag,'type':type},
             success: function (data) {
                 var html_div='';
                 var rows=data.rows;
                 $("#privateImageDiv").empty();
                 if(data.total > 0 ) {
                     for(var i=0;i<rows.length;i++){
+                        var imageclass = '';
+                        var dlclass = 'background: url("{{projcfg.appurl}}/static/images/img/icon.png") no-repeat 0 -452px;';
+                        if(rows[i].imagetype){
+                            imageclass = 'select';
+                        }
                         html_div+='<div  class="box">' +
                                 '<div class="name-box clearfix">'+
                                 '<img src="data:'+rows[i].pictureType+';base64 ,'+rows[i].picture+'"'+'alt="">'+
@@ -265,14 +301,50 @@
                                 '</div>'+
                                 '<div class="miaoshu">'+rows[i].simpleIntroduction+'</div>'+
                                 '<div class="image-type">'+rows[i].catagory+'</div>'+
-                                '<div class="box-bottom"><a href=""><img src="{{projcfg.appurl}}/static/images/download.png""></img>'+rows[i].downloadNumber+'</a>'+
-                                '<a href=""><img src="{{projcfg.appurl}}/static/images/soucang.png""></img>'+rows[i].collectionNumber+'</a></div></div>'
+                                '<div class="depot-bottom"><i class="download" style=\' cursor: pointer;\' onclick="">'+rows[i].downloadNumber+'</i>'+
+                                '<i id=\'souc'+i+'\' class=\'collect '+imageclass+'\' style=\' cursor: pointer;\' onclick=\'do_collect('+rows[i].imageCode+','+i+')\'>'+rows[i].collectionNumber+'</i></div></div>';
+
 
                     }
                     $("#privateImageDiv").append(html_div);
                 }
                 else {
                     msgError('该类别无镜像数据');
+                }
+            }
+        });
+    }
+    /**
+     * 记录收藏数
+     * @param id
+     * @param i
+     */
+    function do_collect(id,i){
+       var classvalue = $("#souc"+i).attr("class");
+        var numvalue = parseInt($("#souc"+i).text());
+        var imagetype =0;
+        var modifyvalue="collect"
+        if(classvalue.indexOf("select") >= 0){
+            numvalue = numvalue - 1;
+        }else{
+            modifyvalue = "collect select";
+            numvalue = numvalue + 1;
+            imagetype = 1;
+        }
+//        $("#souc"+i).text(numvalue);
+        $.ajax({
+            url: '{{projcfg.appurl}}/api/project/ability/imagewarehouse/develop/im/collectOrDownload',
+            type: 'put',
+            async:false,
+            data: {'imageCode':id,"collectNum":numvalue,'imagetype':imagetype},
+            success: function (data) {
+                console.log(data);
+                if(data.success) {
+                    $("#souc"+i).attr("class",modifyvalue);
+                    $("#souc"+i).text(numvalue);
+                }
+                else {
+                    msgError(data.msg+',错误代码:'+data.code);
                 }
             }
         });

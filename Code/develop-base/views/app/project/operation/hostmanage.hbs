@@ -6,23 +6,31 @@
                 <div id="toolbar" class="row tbRow" style="margin-bottom: 1.1rem;border-bottom: 1px solid #ccc;">
                     <div class="col-xs-6 col-md-6" style="width:100%">
                         <font size="3.5rem" style="margin-left: 1.2rem;margin-right: 2.5rem"> <b>主机管理</b></font>
+                        <div class="btn-group" role="group" aria-label="...">
+                            <!--<button type="button" class="btn btn-default" onclick="openPage('新增主机','',doAdd)" data-title="新增">-->
+                                <!--<i class="fa fa-plus"></i> 新增-->
+                            <!--</button>-->
+                            <button type="button" class="btn btn-default" onclick="toEdit()" data-title="修改">
+                                <i class="fa fa-edit"></i> 修改
+                            </button>
+                            <!--<button type="button" class="btn btn-default" onclick="doDel()" data-title="删除">-->
+                                <!--<i class="fa fa-remove"></i> 删除-->
+                            <!--</button>-->
+                        </div>
+                        <div class="btn-group" role="group" aria-label="..." style="float: right;margin-right: 2rem;">
+                            <button type="button" class="btn btn-default" onclick="do_return();" data-title="返回">
+                                <i class="fa fa-reply"></i> 返回
+                            </button>
+                        </div>
+                    </div>
+                    <div class="col-xs-6 col-md-6 " style="float: left;width: 100%;margin-left: 1rem;margin-top: 0.5rem;margin-bottom: 0.5rem;">
+                        所属集群：<span id="colonyname" style="margin-left: 1rem;"></span>
                     </div>
                 </div>
                 <div id="cc" class="easyui-layout" data-options="fit:true,border:false" style="width: 800px; height:575px;background-color: #fbfbfb;">
                     <div id="images" data-options="region:'center',border:false" style="overflow-x:hidden;overflow-y:hidden">
                         <div id="privatediv" style="width:100%;height: 100%;">
-                            <div style="width:100%;height:100%;float:right;background-color: #DDDDDD; ">
-                                <div class="btn-group" role="group" aria-label="...">
-                                    <button type="button" class="btn btn-default" onclick="doAdd()" data-title="新增">
-                                        <i class="fa fa-plus"></i> 新增
-                                    </button>
-                                    <button type="button" class="btn btn-default" onclick="toEdit()" data-title="修改">
-                                        <i class="fa fa-edit"></i> 修改
-                                    </button>
-                                    <button type="button" class="btn btn-default" onclick="toEdit()" data-title="删除">
-                                        <i class="fa fa-edit"></i> 删除
-                                    </button>
-                                </div>
+                            <div style="width:100%;height:100%; ">
                                 <table id="hostDataTable">
                                 </table>
 
@@ -37,12 +45,62 @@
     </div>
 </div>
 
+<div id="hostDialog" class="mydialog"  data-options="iconCls:'icon-save'">
+    <div class="row">
+        <div class="col-md-12">
+            <div>
+                <form id="hostForm" class="form-horizontal form-bordered" role="form" method="post" enctype="multipart/form-data">
+                    <input type="hidden" id="colonyId" name="colonyId"/>
+                    <input type="hidden" id="id" name="id"/>
+                    <div class="form-group">
+                        <label for="imageName" class="col-sm-2 control-label no-padding-right">主机名称:</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="easyui-validatebox form-control" data-options="required:true" name="name" id="name" placeholder="请输入主机名称" style="width:60%">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="imageName" class="col-sm-2 control-label no-padding-right">操作系统:</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="easyui-validatebox form-control" data-options="required:true" name="os" id="os" placeholder="请输入操作系统" style="width:60%">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="imageName" class="col-sm-2 control-label no-padding-right">IP:</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="easyui-validatebox form-control" data-options="required:true" name="ip" id="ip" placeholder="请输入IP" style="width:60%">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="inputProjectRemark" class="col-sm-2 control-label no-padding-right">配置:</label>
+                        <div class="col-sm-10">
+                            <textarea class="form-control" rows="3" name="configure" id="configure" placeholder="请输入配置信息"></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputProjectRemark" class="col-sm-2 control-label no-padding-right">备注:</label>
+                        <div class="col-sm-10">
+                            <textarea class="form-control" rows="5" name="remark" id="remark" placeholder="请输入备注"></textarea>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
 
 <script  type="text/javascript">
+
     $(function(){
+        var paramsValues = GetRequest();
+        console.log("======paramsValues=====",paramsValues);
+        $("#colonyname").html(paramsValues[0]);
+        $("#colonyId").val(paramsValues[1]);
         $('#hostDataTable').datagrid({
-            url:'{{projcfg.appurl}}/api/project/operation/colonymanage',
+            url:'{{projcfg.appurl}}/api/project/operation/hostmanage',
             method:'get',
+            queryParams:{'colonyId':paramsValues[1]},
             rownumbers:false,
             striped:true,
             fitColumns:true,
@@ -53,15 +111,20 @@
             selectOnCheck:false,
             columns:[[
                 {"field":'id',checkbox:true},
+                {"field":'colonyId',hidden:true},
                 {"field": "name","title":"名称","width":80,align:"center"},
-                {"field": "usage","title":"使用情况","width":130,align:"center",
+                {"field": "configure","title":"配置","width":130,align:"center",
                     "formatter":function (value, rowData,rowIndex) {
-                        return "CPU：20核（20%） </br>内存：500GB（50%）</br>磁盘：<font color='red'>40TB（80%）</font></br>带宽：60Mbps（60%）";
+                        if(value){
+                            value = value.replace(new RegExp('\r\n','gm'),'<br/>');
+                        }
+                        return value;
                     }},
-                {"field": "totalResource","title":"总资源","width":200,align:"center",
-                    "formatter":function (value, rowData,rowIndex) {
-                        return 'CPU： 100核</br> 内存： 1024 GB</br>磁盘： 50TB</br>带宽： 100Mbps';
-                    }},
+                {"field": "os","title":"操作系统","width":100,align:"center"},
+                {"field": "ip","title":"IP","width":100,align:"center"},
+                {"field": "cpu","title":"CPU","width":100,align:"center"},
+                {"field": "memory","title":"内存","width":100,align:"center"},
+                {"field": "disk","title":"磁盘","width":100,align:"center"},
                 {"field": "status","title":"状态","width":80,align:"center",
                     "formatter":function (value, rowData,rowIndex) {
                         return '运行中';
@@ -71,24 +134,34 @@
             onLoadError:function() {
                 msgError('加载数据出现时发生错误,请稍候重试...');
             },
-            pagination:false,
+            pagination:true,
             loadMsg:'正在加载...'
         });
-//        $("#myImageDataTable").datagrid({columns:myimagecols});
-//        $('#colonyDataTable').datagrid('loadData',colonymanagedata);
     });
-
-  function hm_list(cm_name){
-      window.location.href = "{{projcfg.appurl}}/containermanage?colonyname="+encodeURI(cm_name);
-  }
-    /**
-     * 容器列表
-     */
-    function toContainerListing(){
-        window.location.href = "{{projcfg.appurl}}/containermanage";
+    //页面直接跳转页面带参数时，获取url参数值
+    function GetRequest() {
+        var values = [];
+        var url = location.search; //获取url中"?"符后的字串
+        if (url.indexOf("?") != -1) {    //判断是否有参数
+            var str = url.substr(1); //从第一个字符开始 因为第0个是?号 获取所有除问号的所有符串
+            //用等号进行分隔 （因为知道只有一个参数 所以直接用等号进分隔 如果有多个参数 要用&号分隔 再用等号进行分隔）
+            if(str.indexOf("&") >= 0){
+                var strs = str.split("&");
+                for(var i=0;i<strs.length;i++){
+                    var vals = strs[i].split("=");
+                    if(i==0){
+                        values.push(decodeURI(vals[1]));
+                    }else{
+                        values.push(vals[1]);
+                    }
+                }
+            }else{
+                var strs = str.split("=");
+                values.push(decodeURI(strs[1]));
+            }
+            return values;
+        }
     }
-
-
 
     function doSearch() {
         $('#hostDataTable').datagrid('reload');
@@ -97,15 +170,20 @@
         doSearch();
     }
     function doAdd(value) {
-        var validate = $('#projectForm').form('validate');
+        var validate = $('#hostForm').form('validate');
         if(!validate) {
             return false;
         }
+        $.messager.progress({
+            title : '提示',
+            text : '正在提交数据，请稍后....'
+        });
         $.ajax({
-            url: '{{projcfg.appurl}}/api/project/dpm/project/develop/pm/add',
+            url: '{{projcfg.appurl}}/api/project/operation/hostmanage',
             type: 'post',
-            data: $('#projectForm').serializeJson(),
+            data: $('#hostForm').serializeJson(),
             success: function (data) {
+                $.messager.progress('close');
                 if(data.success) {
                     msgSuccess(data.msg);
                     closeDialog();
@@ -120,8 +198,8 @@
 
     // 打开页面
     function openPage(title, value, callback) {
-        $('#myModal').show();
-        $('#myModal').mydialog({
+        $('#hostDialog').show();
+        $('#hostDialog').mydialog({
             title:title,
             width: 700,
             height: 485,
@@ -146,15 +224,88 @@
         });
     }
 
+    // 打开修改页面
+    function toEdit() {
+        // 获得选择行
+        var rows = $('#hostDataTable').datagrid('getChecked');
+        if (rows.length != 1) {
+            msgError('提示,请选择一条数据再进行修改');
+            return false;
+        }
+        var id = rows[0].id;
+        $("#hostForm").form('load',rows[0]);
+        openPage("修改主机信息", id, doEdit);
+
+    }
+    // 修改数据
+    function doEdit(id) {
+        // 验证表单
+        var validate = $('#hostForm').form('validate');
+        if(!validate) {
+            return false;
+        }
+        $.messager.progress({
+            title : '提示',
+            text : '正在提交数据，请稍后....'
+        });
+        $.ajax({
+            url: '{{projcfg.appurl}}/api/project/operation/hostmanage',
+            type: 'put',
+            data: $('#hostForm').serializeJson(),
+            success: function (data) {
+                $.messager.progress('close');
+                if(data.success) {
+                    msgSuccess(data.msg);
+                    closeDialog();
+                    doSearch();
+                }
+                else {
+                    msgError(data.msg+',错误代码:'+data.code);
+                }
+            }
+        });
+    }
+
+    //删除数据列表
+    function doDel() {
+        // 获得选择行
+        var rows = $('#hostDataTable').datagrid('getChecked');
+        if (rows.length != 1) {
+            msgError('提示,请选择一条数据再进行删除');
+            return false;
+        }
+        var id = rows[0].id;
+        msgConfirm('确定删除此条记录么？',function(result) {
+            if(result){
+                $.ajax({
+                    url: '{{projcfg.appurl}}/api/project/operation/hostmanage/'+id,
+                    type: 'delete',
+                    success: function (data) {
+                        if(data.success) {
+                            msgSuccess(data.msg);
+                            doSearch();
+                        }else{
+                            msgError(data.msg + ',错误代码:' + data.code);
+                        }
+                    }
+                });
+            }
+        });
+    }
+
     // 清空新增表单数据
     function clear() {
-        $('#projectForm').form('clear');
+        $('#hostForm').form('clear');
     }
 
     // 关闭窗口
     function closeDialog() {
-        $('#myModal').dialog('close');
+        $('#hostDialog').dialog('close');
         clear();
+    }
+
+    function do_return(){
+        history.go(-1);
     }
 
 </script>

@@ -128,6 +128,32 @@ router.route('/develop/im/add').post(function(req,res) {
     });
 
 })
+/**
+ * 记录收藏或下载数
+ */
+router.route('/develop/im/collectOrDownload').put(function(req,res){
+    var imageCode = req.body.imageCode;
+    var collectNum = req.body.collectNum;
+    var imagetype = req.body.imagetype;
+    var downloadNum = req.body.downloadNum;
+    var flag = req.body.flag;
+    var conditionMap = {};
+    var data = [],mapdata = [];
+    if(flag && flag == "download"){
+        conditionMap.downloadNum = downloadNum;
+        data.push(downloadNum);
+    }else{
+        data.push(collectNum);
+        mapdata.push(imagetype);
+        mapdata.push(imageCode);
+        var currentUser = utils.getCurrentUser(req);
+        mapdata.push(currentUser.login_account);
+    }
+    data.push(imageCode);
+    imageService.imageCollectOrDownload(conditionMap,data,mapdata, function(result) {
+        utils.respJsonData(res, result);
+    });
+});
 
 //
     router.route('/develop/im/:id').delete(function(req,res) {

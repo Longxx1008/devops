@@ -22,6 +22,10 @@
                                     <!-- API树 -->
                                     <ul id="detailTree" class="easyui-tree"></ul>
                                 </div>
+                                <div id="mm" class="easyui-menu" style="width:120px;">
+                                    <div onclick="append()" data-options="iconCls:'icon-add'" style="padding-left: 2.2rem;">新增节点</div>
+                                    <div onclick="remove()" data-options="iconCls:'icon-remove'" style="padding-left: 2.2rem;">删除节点</div>
+                                </div>
                             </div>
                             <div style="overflow-y:scroll;width:74%;height:100%;float:right;background-color: #FFFFFF; ">
                                 <div id="title" align="center" style="font-size: 30px;width:100%">
@@ -54,9 +58,9 @@
         var projectId = getQueryString('projectId');
         $("#detailTree").tree({
             method: 'GET',
-            url: '{{projcfg.appurl}}/api/project/dpm/projectdetail/develop/pd/tree?projectId='+projectId,
+            url: '{{projcfg.appurl}}/api/project/dpm/projectdetail/develop/pd/tree?projectId=' + projectId,
             <!--url: '{{projcfg.appurl}}/api/project/dpm/projectdetail/develop/pd/detail/'+projectId,-->
-            cache:false,
+            cache: false,
             onLoadSuccess: function (node, data) {
                 if (data.length > 0) {
                     //找到第一个元素
@@ -69,32 +73,28 @@
             },
             onSelect: function (node) {
                 console.log(node);
-                var id=node.id;
-                var title=node.text;
-                if(node.parentId){
+                var id = node.id;
+                var title = node.text;
+                if (node.parentId) {
                     $("#editorSubmitContent").show();
                     $.ajax({
-                        url:"{{projcfg.appurl}}/api/project/dpm/projectdetail/develop/pd/selectContent",
-                        type:"post",
-                        data:{"id":id},
-                        async:false,
-                        success:function(result){
+                        url: "{{projcfg.appurl}}/api/project/dpm/projectdetail/develop/pd/selectContent",
+                        type: "post",
+                        data: {"id": id},
+                        async: false,
+                        success: function (result) {
                             console.info(result);
-                            console.log("title      "+title);
+                            console.log("title      " + title);
                             $("#title").html(title);
-                            var content=result.data[0].content;
+                            var content = result.data[0].content;
 
                             $("#title").html(title);
                             $("#content").html(content);
                         }
                     });
                 }
-
-
-
-
             },
-            onContextMenu: function(e, node){
+            onContextMenu: function (e, node) {
                 e.preventDefault();
                 // select the node
                 $('#detailTree').tree('select', node.target);
@@ -107,10 +107,44 @@
         });
     });
 
-    function getQueryString(name) {
-        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
-        var r = window.location.search.substr(1).match(reg);
-        if (r != null) return unescape(r[2]); return null;
+
+function append(){
+    var selected = $('#detailTree').tree('getSelected');
+    var data = $('#detailTree').tree('getData',selected.target);
+    var nodeid;
+    if(data.children){
+        nodeid = data.id +''+(data.children.length+1);
+    }else{
+        nodeid = data.id +''+1;
     }
+
+    console.log("nodeid====="+nodeid);
+    $('#detailTree').tree('append', {
+        parent: selected.target,
+        data: [{
+            id: nodeid,
+            text: '新增节点'
+        }]
+    });
+    var _node = $('#detailTree').tree('find',nodeid);
+    $('#detailTree').tree("select",_node.target).tree('beginEdit',_node.target);
+}
+
+function remove(){
+    var selected = $('#detailTree').tree('getSelected');
+    if(selected.id>10){
+        $('#detailTree').tree('remove',selected.target);
+    }
+
+}
+
+
+
+
+function getQueryString(name) {
+    var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+    var r = window.location.search.substr(1).match(reg);
+    if (r != null) return unescape(r[2]); return null;
+}
 
 </script>

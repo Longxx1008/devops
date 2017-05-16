@@ -125,7 +125,7 @@
         <div class="navbar-container">
             <!-- Navbar Barnd -->
             <div class="navbar-header pull-left">
-                <a href="#" class="navbar-brand">
+                <a target="_self" href="{{projcfg.appurl}}/home" class="navbar-brand" style="cursor:pointer;" title="首页">
                     <img src="{{projcfg.appurl}}/static/{{projcfg.theme}}img/top_logo.png" alt="" />
                 </a>
 
@@ -153,44 +153,47 @@
                             </div>
                         </div>
                     </div>
-                    <div class="navigation-down">
-                        {{#each sysmenus}}
-                            {{#ifCond @key ../currentUserRole.sys_id}}
-                                {{#each this}}
-                                    {{#containKey ../../../currentUserRoleMenus menu_code ../../../currentUser.login_account}}
-                                        {{#if children}}
-                                            <div id="nav_{{menu_code}}" class="nav-down-menu menu-1 bg-themeprimary"  style="display: none;" _t_nav="nav_{{menu_code}}">
-                                                <div class="navigation-down-inner">
-                                                    {{#each children}}
-                                                        {{#containKey ../../../../../../currentUserRoleMenus menu_code ../../../../../../currentUser.login_account}}
-                                                            <dl>
-                                                                {{#if children}}
-                                                                    <dt>{{menu_name}}</dt>
-                                                                    {{#each children}}
-                                                                        {{#containKey ../../../../../../../../../currentUserRoleMenus menu_code ../../../../../../../../../currentUser.login_account}}
-                                                                            <dd>
-                                                                                <a target="{{menu_target}}" href="{{../../../../../../../../../../projcfg.appurl}}/{{menu_code}}">{{menu_name}}</a>
-                                                                            </dd>
-                                                                        {{/containKey}}
-                                                                    {{/each}}
-                                                                {{else}}
-                                                                    <dd>
-                                                                        <a target="{{menu_target}}" href="{{../../../../../../../../projcfg.appurl}}/{{menu_code}}">{{menu_name}}</a>
-                                                                    </dd>
-                                                                {{/if}}
-                                                            </dl>
-                                                        {{/containKey}}
-                                                    {{/each}}
-                                                </div>
-                                            </div>
-                                        {{/if}}
-                                    {{/containKey}}
-                                {{/each}}
-                            {{/ifCond}}
-                        {{/each}}
-                    </div>
-                </div>
+                    <!--<div class="navigation-down">-->
+
+                <!--</div>-->
             </div>
+            <div class="navigation-down">
+                {{#each sysmenus}}
+                    {{#ifCond @key ../currentUserRole.sys_id}}
+                        {{#each this}}
+                            {{#containKey ../../../currentUserRoleMenus menu_code ../../../currentUser.login_account}}
+                                {{#if children}}
+                                    <div id="nav_{{menu_code}}" class="nav-down-menu menu-1 bg-themeprimary"  style="display: none;" _t_nav="nav_{{menu_code}}">
+                                        <div class="navigation-down-inner">
+                                            {{#each children}}
+                                                {{#containKey ../../../../../../currentUserRoleMenus menu_code ../../../../../../currentUser.login_account}}
+                                                    <dl>
+                                                        {{#if children}}
+                                                            <dt>{{menu_name}}</dt>
+                                                            {{#each children}}
+                                                                {{#containKey ../../../../../../../../../currentUserRoleMenus menu_code ../../../../../../../../../currentUser.login_account}}
+                                                                    <dd>
+                                                                        <a target="{{menu_target}}" href="{{../../../../../../../../../../projcfg.appurl}}/{{menu_code}}">{{menu_name}}</a>
+                                                                    </dd>
+                                                                {{/containKey}}
+                                                            {{/each}}
+                                                        {{else}}
+                                                            <dd>
+                                                                <a target="{{menu_target}}" href="{{../../../../../../../../projcfg.appurl}}/{{menu_code}}">{{menu_name}}</a>
+                                                            </dd>
+                                                        {{/if}}
+                                                    </dl>
+                                                {{/containKey}}
+                                            {{/each}}
+                                        </div>
+                                    </div>
+                                {{/if}}
+                            {{/containKey}}
+                        {{/each}}
+                    {{/ifCond}}
+                {{/each}}
+            </div>
+        </div>
 
             <div class="navbar-header pull-right" style="position: absolute;top:0;right:0;z-index: 1000">
                 <div class="navbar-account">
@@ -302,7 +305,9 @@
                             <!--<h1>
                             {{menu.menu_name}}
                             </h1>-->
-                            <a href="#">{{menu.menu_nav}}</a>
+                            <!--<a href="#" >{{menu.menu_nav}}</a>-->
+                            <a href="#" id="menu_nav"><script>var mn = '{{menu.menu_nav}}';
+                            $("#menu_nav").text(mn.replace(new RegExp('&amp;gt;','gm'),' > ').replace(new RegExp('&gt;','gm'),' > '));</script></a>
                         </div>
                     </div>
                     <div  class="col-xs-6 col-md-6">
@@ -349,6 +354,8 @@
     <script src="{{projcfg.appurl}}/static/themes/beyond/js/toastr/toastr.js"></script>
     <script>
         jQuery(document).ready(function(){
+            <!--var mn = '{{menu.menu_nav}}';-->
+            <!--$("#menu_nav").text(mn.replace(new RegExp('&amp;gt;','gm'),' > '));-->
             getSysNotice();
             //getMenu();
         });

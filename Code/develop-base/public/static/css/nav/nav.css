@@ -19,9 +19,9 @@ a:link, a:visited {
 .head-v3 {
     position:absolute;
     z-index:100;
-    width:100%;
+    width:70%;
     top:0;
-    left:0;
+    right:0;
 }
 
 .head-v3 .navigation-inner {
@@ -32,7 +32,6 @@ a:link, a:visited {
 
 .navigation-up {
     height:45px;
-    margin-left:450px;
 }
 
 .navigation-up .navigation-v3 {
