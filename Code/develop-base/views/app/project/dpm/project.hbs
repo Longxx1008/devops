@@ -26,7 +26,14 @@
                                         <i class="fa fa-edit"></i> 一键部署
                                     </button>
                                     <button type="button" class="btn btn-default" onclick="to_servicewarehouse()" data-title="发布到仓库">
+<<<<<<< HEAD
                                         <i class="fa fa-edit"></i> 发布到仓库
+=======
+                                        <i class="fa fa-edit"></i> 发布到服务仓库
+                                    </button>
+                                    <button type="button" class="btn btn-default" onclick="toDeployed()" data-title="项目部署管理">
+                                        <i class="fa fa-list"></i> 项目部署管理
+>>>>>>> d43b3bf7eb43cacc2a15617161299b4b222852a9
                                     </button>
                                 </div>
                             </div>
@@ -97,30 +104,29 @@
         <div class="col-md-12">
             <div>
                 <form id="deployForm" class="form-horizontal form-bordered" role="form">
+                    <input type="hidden" id="deployProjectId" name="deployProjectId" value=""/>
                     <div class="form-group">
-                        <label for="inputProjectName" class="col-sm-2 control-label no-padding-right" style="font-style: 黑体;font-size: 16px">项目名称:</label>
+                        <label for="deployProjectName" class="col-sm-2 control-label no-padding-right">项目名称:</label>
                         <div class="col-sm-10">
-                            <p align="left" style="font-style: 黑体;font-size: 16px">测试业务</p>
+                            <input id="deployProjectName" name="deployProjectName" type="text" readonly class="easyui-validatebox form-control" data-options="required:true" style="width:80%;height:31px;">
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label for="inputComputeUnite" class="col-sm-2 control-label no-padding-right" style="font-size: 16px ; font-style: 黑体">部署集群:</label>
-                        <div class="col-sm-10">
-                            <select class="easyui-validatebox form-control" data-options="required:true" style="width:60%">
-                                <option value ="test集群1" style="font-size: 16px ; " >测试集群</option>
-                                <option value ="test集群2" style="font-size: 16px ; ">生产集群</option>
 
+
+                    <div class="form-group">
+                        <label for="deployClusterId" class="col-sm-2 control-label no-padding-right">部署版本:</label>
+                        <div class="col-sm-10">
+                            <select id="deployClusterId" name="deployClusterId" class="easyui-validatebox form-control" data-options="required:true" style="width:80%;">
+                                <option value="1">测试集群</option>
                             </select>
                         </div>
                     </div>
-
                     <div class="form-group">
-                        <label for="inputProjectVersion" class="col-sm-2 control-label " style="font-style: 黑体;font-size: 16px">版本号:</label>
+                        <label for="remark" class="col-sm-2 control-label no-padding-right">备注:</label>
                         <div class="col-sm-10">
-                            <p align="left" style="font-style: 黑体;font-size: 16px">V2.0.1</p>
+                            <textarea id="remark" name="remark" class="easyui-validatebox form-control" data-options="required:true" style="width:80%;height:80px;"></textarea>
                         </div>
                     </div>
-
                 </form>
             </div>
         </div>
@@ -257,11 +263,16 @@
         if(!validate) {
             return false;
         }
+        $.messager.progress({
+            title : '提示',
+            text : '正在提交数据，请稍后....'
+        });
         $.ajax({
             url: '{{projcfg.appurl}}/api/project/dpm/project/develop/pm/add',
             type: 'post',
             data: $('#projectForm').serializeJson(),
             success: function (data) {
+                $.messager.progress('close');
                 if(data.success) {
                     msgSuccess(data.msg);
                     closeDialog();
@@ -275,15 +286,57 @@
         });
     }
 
+    function toDeploy(){
+        var rowData = $('#projectDataTable').datagrid("getChecked");
+        if(rowData.length != 1){
+            msgError("请选择要部署的应用！");
+            return false;
+        }
+        var projectId = rowData[0].id;
+        var projectName = rowData[0].projectName;
+        $("#deployProjectId").val(projectId);
+        $("#deployProjectName").val(projectName);
+        $('#deployProjectVersion').combobox({
+            method: 'get',
+            url: '{{projcfg.appurl}}/api/project/dpm/project/develop/pm/version?projectId=' + projectId,
+            valueField:'versionNo',
+            textField:'versionNo',
+            editable:false,
+            required:true
+        });
+        openPage('deployDialog','应用部署', '', doDeploy);
+    }
 
     function doDeploy(value) {
         var validate = $('#deployForm').form('validate');
         if(!validate) {
             return false;
         }
-        window.location.href = "{{projcfg.appurl}}/containerlisting";
+        var projectName = $("#deployProjectName").val();
+        var clusterName = $("#deployClusterId").text();
+        msgConfirm('确定要部署当前【 ' + projectName + '】部署到集群【' + clusterName + '】么？',function(result) {
+            if(result){
+                $.ajax({
+                    url: '{{projcfg.appurl}}/api/project/dpm/project/develop/pm/deploy',
+                    type: 'post',
+                    data: $('#deployForm').serializeJson(),
+                    success: function (data) {
+                        if(data.success) {
+                            msgSuccess(data.msg);
+                            doSearch();
+                            $('#deployDialog').dialog('close');
+                        }else{
+                            msgError(data.msg + ',错误代码:' + data.code);
+                        }
+                    }
+                });
+            }
+        });
     }
 
+    function toDeployed(){
+        window.location.href = "{{projcfg.appurl}}/deployed";
+    }
     function showProjectMembers(){
         var rowdata = $('#projectDataTable').datagrid("getSelections");
         if(rowdata.length !=1){
@@ -310,7 +363,8 @@
                     "formatter":function (value, rowData,rowIndex) {
                     return pn;
                 }},
-                {"field": "userName","title":"成员姓名","width":130,align:"center"}
+                {"field": "userName","title":"成员姓名","width":130,align:"center"},
+                {"field": "userRole","title":"成员角色","width":130,align:"center"}
             ]],
             onLoadError:function() {
                 msgError('加载数据出现时发生错误,请稍候重试...');
