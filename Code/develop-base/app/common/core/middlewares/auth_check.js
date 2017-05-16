@@ -50,5 +50,5 @@ exports.toRenderNoPermission = function (b, e) {
             menu_code: "error", menu_name: "\u7cfb\u7edf\u63d0\u793a",
             menu_nav: "\u7cfb\u7edf\u63d0\u793a", menu_cls: "fa fa-warning"
         }
-    })
+    });
 };

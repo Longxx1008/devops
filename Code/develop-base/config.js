@@ -4,10 +4,10 @@
 var project_url_prefix = "/project";
 var config = {
     project:{
-        appid:'pass',
-        appname: 'PaSS服务平台', // App名字
-        apptitle: 'PaSS服务平台', // 网页title
-        appdescription: 'PaSS', // App的描述
+        appid:'DevOps',
+        appname: '贵州移动DevOps平台', // App名字
+        apptitle: '贵州移动DevOps平台', // 网页title
+        appdescription: 'DevOps', // App的描述
         copyright:'©中国移动贵州公司 版权所有',
         keywords: 'cmcc,pass,docker',
         version: '0.0.1',
@@ -55,7 +55,8 @@ var config = {
             '/common/report/routes/': project_url_prefix + '/admin/api/common/report/',//report路由匹配路径
             '/common/app/routes/': project_url_prefix + '/admin/api/common/app/',//portal路由匹配路径
             '/project/dpm/routes/': project_url_prefix + '/api/project/dpm/',//dpm路由匹配路径
-            '/project/ability/routes/': project_url_prefix + '/api/project/ability/'//ability路由匹配路径
+            '/project/ability/routes/': project_url_prefix + '/api/project/ability/',//ability路由匹配路径
+            '/project/operation/routes/': project_url_prefix + '/api/project/operation/',
         },
         welcome_path:project_url_prefix + '/home',
         // 不做权限检查url（支持通配符*，尽量少用）
@@ -140,13 +141,14 @@ var config = {
         }
     },
     platform:{
-        gitlabIp:'code.dev.gz.cmcc',
+        // gitlabIp:'code.dev.gz.cmcc',
+        gitlabIp:'192.168.31.127',
         gitlabPort:443,
-        gitlabUrl: 'https://code.dev.gz.cmcc',
+        gitlabUrl: 'https://192.168.31.127',
         // private_token:'qay26GUyLfwvCv2zszBz',
         private_token:'yJFsQXvox3xGHUPxyDsE',
-        dockerIp: '10.201.253.165',
-        dockerPort:2375,
+        dockerIp: '192.168.31.92',
+        dockerPort:5000,
         defaultImage: "ubuntu_base:0.2",
         superRolesId:"56d7e358a6fbe05a1394ad6e",
         userRoot:'/mnt/dockerts/',

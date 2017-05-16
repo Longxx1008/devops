@@ -31,7 +31,8 @@ exports.queryImageVersionJobRun = function(){
 
 //获取Json 数据
 function getdata() {
-    http.get("http://10.201.253.197:5000/v2/_catalog", function (req, res) {
+    var url = "http://"+config.platform.dockerIp+":"+config.platform.dockerPort+"/v2/_catalog";
+    http.get(url, function (req, res) {
         var jsonStr = '';
         req.on("data", function (data) {
             jsonStr = data;
@@ -49,7 +50,7 @@ function getdata() {
 //获取Version数据
 function getVersion(catagorys, callback,insertMapData) {
 
-    var url = 'http://10.201.253.197:5000/v2/';
+    var url = "http://"+config.platform.dockerIp+":"+config.platform.dockerPort+"/v2/";
     for (var i = 0; i < catagorys.length; i++) {
         var temp_string = new String(url);
         temp_string+= catagorys[i] + "/tags/list";

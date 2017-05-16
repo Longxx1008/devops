@@ -17,10 +17,27 @@ var https = require('https');
 exports.pageList = function(page,size,conditionMap,cb){
     var sql = "select * from pass_operation_colony_info";
     var conditions = [];
-    var orderSql = "order by id desc";
+    var orderSql = " order by id desc";
     console.log("查询集群信息sql ====",sql);
     utils.pagingQuery4Eui_mysql(sql,orderSql,page,size,conditions,cb);
 };
+
+/**
+ * 获取单个集群
+ * @param data
+ * @param cb
+ */
+exports.getColony = function(id,cb){
+    var sql = "select * from pass_operation_colony_info where id = ? ";
+    mysqlPool.query(sql,[id],function(err,result) {
+        if(err) {
+            cb(utils.returnMsg(false, '1000', '获取单个集群信息异常', null, err));
+        } else {
+
+            cb(utils.returnMsg(true, '0000', '获取单个集群信息成功', result, null));
+        }
+    });
+}
 
 /**
  * 新增集群
@@ -45,7 +62,7 @@ exports.add = function(data,cb){
  * @param cb
  */
 exports.update = function(data,cb){
-    var sql = "update pass_operation_colony_info set name = ?,usage = ?,totalResource = ?,status = ?,remark = ? where id = ? ";
+    var sql = "update pass_operation_colony_info set name = ?,remark = ? where id = ? ";
     mysqlPool.query(sql, data, function(err,result) {
         if(err) {
             cb(utils.returnMsg(false, '1000', '更新集群信息异常', null, err));
@@ -69,7 +86,7 @@ exports.delete = function(id, cb) {
         }else{
             mysqlPool.query(colonysql,[id],function(err,colonyresult) {
                 if(err) {
-                    cb(utils.returnMsg(false, '1000', '删除集群信息异常', null, err));
+                    cb(utils.returnMsg(false, '1000', '删除集群主机成功，删除集群信息异常', null, err));
                 } else {
                     cb(utils.returnMsg(true, '0000', '删除集群信息成功', colonyresult, null));
                 }
