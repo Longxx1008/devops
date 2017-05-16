@@ -42,8 +42,8 @@
                                         <script id="conent" name="content" >
 
                                         </script>
-                                        <div align="center">
-                                            <input  style="background-color: #99BBE8 ;height:30px;width:80px;margin-top: 2rem;font-family: bold;font-size: 18px" onclick="updateContent()" value="提 交"/>
+                                        <div align="center" >
+                                            <input  type="submit" style="background-color: #99BBE8 ;height:30px;width:80px;margin-top: 2rem;font-family: bold;font-size: 18px" onclick="updateContent()" value="提 交"/>
                                         </div>
 
                                     </form>
@@ -251,12 +251,8 @@
 
     function updateContent(){
         var id=$("#id").val();
-        alert(id);
         var content=UE.getEditor("conent").getContent();
-        alert(content);
-
         content=encodeURIComponent(content);
-        console.log(content)
         $.ajax({
             url: "{{projcfg.appurl}}/api/project/dpm/projectdetail/develop/pd/updatecontent",
             type: "post",
