@@ -23,169 +23,17 @@
                                     <ul id="detailTree" class="easyui-tree"></ul>
                                 </div>
                             </div>
-                            <div style="width:74%;height:100%;float:right;background-color: #FFFFFF; ">
-                                <div id="desc" style="display:block;border:0px solid #ccc;width:100%;height:100%;float:left;margin:6px;background-color: #FFFFFF;">
-                                    <div style="margin:1.5rem;text-align: center;"><h4><b>项目简介</b></h4></div>
-                                    <div style="margin:1.5rem;border-bottom:1px solid #ccc;text-align: left;height:40px;"><h4><b>项目项目</b></h4></div>
-                                    <div style="float: left;margin-left:1.1rem;margin-right:1.1rem;">
-                                       <pre style="border:0px solid #ccc;background-color: #FFFFFF;">
-       业务酬金稽核系统实现系统的自动稽核，从底层数据中使用现有成熟的数据挖掘与分析相关
-处理技术，进行数据分析处理，建模，自动判断业务酬金数据情况，提高业务人员工作效率。
+                            <div style="overflow-y:scroll;width:74%;height:100%;float:right;background-color: #FFFFFF; ">
+                                <div id="title" align="center" style="font-size: 30px;width:100%">
 
-(1)提供完善的数据收集能力。开发通用的数据收集组件，可对多数据源及异构数据进行整合，进行
-相关数据ETL处理，汇聚到数据中心仓库，提升数据收集能力。
+                                </div>
+                                <div id="content" style="width:100%;">
 
-(2)全省所有业务酬金渠道稽核。通过对系统数据的分析，实现全省，分公司，分渠道，分业务的
-业务酬金稽核，实现业务酬金稽核自动化，提升业务酬金稽核的准确性。
 
-(3)数据挖掘与分析。在原有技术上建设数据仓库，通过数据仓库对数据进行数据挖掘及统计分析，
-可从各维度展现数据情况，并实现数据可视化，提高数据预测的准确度。
+                                </div>
 
-(4)对外能力提供。增强系统扩展性，可以api能力及数据的方式对外进行能力提供，第三方系统可
-快速实现业务酬金稽核系统的功能接入及功能扩展，增强系统的灵活性。
-                                           </pre>
-                                    </div>
-                                    <div style="float: left;margin-left:1.1rem;margin-right:1.1rem;margin-top:0.8rem;width: 100%">
-                                        <h4><b>详细描述</b></h4>
-                                    </div>
-                                    <div style="float: left;margin-left:1.1rem;margin-right:1.1rem;margin-top:0.8rem;">
-                                        <pre style="border:0px solid #ccc;background-color: #FFFFFF;">
-     贵州移动业务酬金稽核平台的系统架构主要采用大数据集群搭建。数据处理平台提供离线批处理及
-实时流处理两种计算方式，通过数据挖掘工具进行数据提取，建模，形成分析处理结果，供上层用户使用。
-贵州移动业务酬金系统架构图如下所示：   </pre>
-                                    </div>
-                                    <div style="float: left;margin-left:1.1rem;margin-right:1.1rem;margin-top:0rem;width: 100%;height: 100%">
-                                        <img src="{{projcfg.appurl}}/static/images/u98.png" width="60%" height="50%">
-                                    </div>
-                                </div>
-                                <div id="verdesc" style="display:none;border:0px solid #ccc;width:100%;height:100%;float:left;margin:6px;background-color: #FFFFFF;">
-                                    <div style="margin:1.5rem;text-align: center;"><h4><b>版本说明</b></h4></div>
-                                    <div style="width: 100%;float: left;margin-left:1.1rem;margin-right:1.1rem;margin-top:4rem;text-align: center;">
-                                        <div style="width: 60%;height: 30px;">
-                                            <span>v3.0.5</span>     <span style="margin: 4rem;">2017.3.15</span>
-                                        </div>
-                                        <div style="width: 60%;">
-                                              <span >优化短信发送速度</span>
-                                        </div>
-                                    </div>
-                                    <div style="width: 100%;float: left;margin-left:1.1rem;margin-right:1.1rem;margin-top:4rem;text-align: center;">
-                                        <div style="width: 60%;height: 30px;">
-                                            <span>v3.0.4</span>     <span style="margin: 4rem;">2017.2.15</span>
-                                        </div>
-                                        <div style="width: 60%;">
-                                              <span >加入批量发送短信接口</span>
-                                        </div>
-                                    </div>
-                                    <div style="width: 100%;float: left;margin-left:1.1rem;margin-right:1.1rem;margin-top:4rem;text-align: center;">
-                                        <div style="width: 60%;height: 30px;">
-                                            <span>v3.0.3</span>     <span style="margin: 4rem;">2017.1.15</span>
-                                        </div>
-                                        <div style="width: 60%;">
-                                              <span >调整网关对接策略</span>
-                                        </div>
-                                    </div>
-                                    <div style="width: 100%;float: left;margin-left:1.1rem;margin-right:1.1rem;margin-top:4rem;text-align: center;">
-                                        <div style="width: 60%;height: 30px;">
-                                            <span>v3.0.2</span>     <span style="margin: 4rem;">2017.1.12</span>
-                                        </div>
-                                        <div style="width: 60%;">
-                                              <span >加入敏感字过滤策略</span>
-                                        </div>
-                                    </div>
-                                    <div style="width: 100%;float: left;margin-left:1.1rem;margin-right:1.1rem;margin-top:4rem;text-align: center;">
-                                        <div style="width: 60%;height: 30px;">
-                                            <span>v3.0.1</span>     <span style="margin: 4rem;">2017.1.1</span>
-                                        </div>
-                                        <div style="width: 60%;">
-                                              <span >更新短信发送序列</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div id="nounexplain" style="display:none;border:0px solid #ccc;width:100%;height:100%;float:left;margin:6px;background-color: #FFFFFF;">
-                                    <div style="margin:1.5rem;text-align: center;"><h4><b>名词解释</b></h4></div>
-                                    <div style="float: left;margin:1.1rem;text-align: center;width: 95%;">
-                                        <table style="width: 95%;height: 90%;">
-                                            <tr style="background-color:#F2F2F2;height: 30px;text-align: center; "><td style="width: 25%">英文缩写</td><td style="width: 40%">英文全称</td><td style="width: 30%">说明</td></tr>
-                                            <tr style="height: 30px;text-align: center; "><td style="width: 25%">ISMG </td><td style="width: 40%">Intenet Short Message Gateway</td><td style="width: 30%">互联网短信网</td></tr>
-                                            <tr style="height: 30px;text-align: center; "><td style="width: 25%">DSMP</td><td style="width: 40%">Data Service Manage Platform</td><td style="width: 30%">数据业务管理平台</td></tr>
-                                            <tr style="height: 30px;text-align: center; "><td style="width: 25%">SMPP</td><td style="width: 40%">Short Message Peer to Peer</td><td style="width: 30%">短消息点对点协议</td></tr>
-                                            <tr style="height: 30px;text-align: center; "><td style="width: 25%">CMPP</td><td style="width: 40%">China Mobile Peer to Peer</td><td style="width: 30%">中国移动点对点协议</td></tr>
-                                            <tr style="height: 30px;text-align: center; "><td style="width: 25%">SMSC</td><td style="width: 40%">Short Message Service Center</td><td style="width: 30%">短消息中心</td></tr>
-                                            <tr style="height: 30px;text-align: center; "><td style="width: 25%">GNS</td><td style="width: 40%">Gateway Name Server</td><td style="width: 30%">网关名称服务器（汇接网关）</td></tr>
-                                            <tr style="height: 30px;text-align: center; "><td style="width: 25%">SP</td><td style="width: 40%">Service Provider </td><td style="width: 30%">业务提供者</td></tr>
-                                        </table>
-                                    </div>
-                                </div>
-                                <div id="agreement" style="display:none;border:0px solid #ccc;width:100%;height:100%;float:left;margin:6px;background-color: #FFFFFF;">
-                                    <div style="margin:1.5rem;text-align: center;"><h4><b>协议规则</b></h4></div>
-                                    <div style="float: left;margin:1.1rem;width:100%;"><img src="{{projcfg.appurl}}/static/images/u185.png" alt="" height="60%" width="65%"/></div>
-                                </div>
-                                <div id="sercurity" style="display:none;border:0px solid #ccc;width:100%;height:100%;float:left;margin:6px;background-color: #FFFFFF;">
-                                    <div style="margin:1.5rem;text-align: center;"><h4><b>安全规范</b></h4></div>
-                                    <div style="float: left;margin:1.1rem;">
-                                        <pre style="border:0px solid #ccc;background-color: #FFFFFF;">
-1、签名算法------（签名校验工具）
-签名生成的通用步骤如下：
-第一步，设所有发送或者接收到的数据为集合M，将集合M内非空参数值的参数按照参数名ASCII码从小到大排序（字典序），
-使用URL键值对的格式（即key1=value1&key2=value2…）拼接成字符串stringA。
-特别注意以下重要规则：
-◆ 参数名ASCII码从小到大排序（字典序）；
-◆ 如果参数的值为空不参与签名；
-◆ 参数名区分大小写；
-◆ 验证调用返回或微信主动通知签名时，传送的sign参数不参与签名，将生成的签名与该sign值作校验。
-◆ 微信接口可能增加字段，验证签名时必须支持增加的扩展字段
-第二步，在stringA最后拼接上key得到stringSignTemp字符串，并对stringSignTemp进行MD5运算，
-再将得到的字符串所有字符转换为大写，得到sign值signValue。   </pre>
-                                    </div>
-                                </div>
-                                <div id="scene" style="display:none;border:0px solid #ccc;width:100%;height:100%;float:left;margin:6px;background-color: #FFFFFF;">
-                                    <div style="margin:1.5rem;text-align: center;"><h4><b>场景介绍</b></h4></div>
-                                    <div style="float: left;margin:1.1rem;"><b>场景一：商户物流订单确认通知</b> </div>
-                                    <div style="float: left;margin-left:1.1rem;margin-right:1.1rem;">买家下单后，告知商品的物流状态，发货快递单号，请买家注意查收。物流提醒助力提升店铺服务质量，安抚客户，使客户放心。</div>
-                                    <div style="float:left;width:80%;height:80%;background: url('{{projcfg.appurl}}/static/images/u191.png') no-repeat left top;"></div>
-                                </div>
-                                <div id="flow" style="display:none;border:0px solid #ccc;width:100%;height:100%;float:left;margin:6px;background-color: #FFFFFF;">
-                                    <div style="margin:1.5rem;text-align: center;"><h4><b>流程介绍</b></h4></div>
-                                    <div style="float: left;margin:1.1rem;width:100%;"><img src="{{projcfg.appurl}}/static/images/u199.png" alt="" height="80%" width="95%"/></div>
-                                </div>
-                                <div id="singlesms" style="display:none;border:0px solid #ccc;width:100%;height:100%;float:left;margin:6px;background-color: #FFFFFF;">
-                                    <div style="margin:1.5rem;text-align: center;"><h4><b>单条短信下发接口</b></h4></div>
-                                    <div style="float: left;margin:1.1rem;">
-                                         <pre style="border:0px solid #ccc;background-color: #FFFFFF;">
-应用场景
-用户通过该接口可以发送单条短信给制定用户。
 
-接口链接
-URL地址：https://xxx.xxx.com/sms/single   </pre>
-                                    </div>
-                                    <div style="float: left;margin:0.1rem;width:100%;"><img src="{{projcfg.appurl}}/static/images/u213.png" alt="" height="80%" width="85%"/></div>
-                                </div>
-                                <div id="batch" style="display:none;border:0px solid #ccc;width:100%;height:100%;float:left;margin:6px;background-color: #FFFFFF;">
-                                    <div style="margin:1.5rem;text-align: center;"><h4><b>批量短信下发接口</b></h4></div>
-                                </div>
-                                <div id="statusObtain" style="display:none;border:0px solid #ccc;width:100%;height:100%;float:left;margin:6px;background-color: #FFFFFF;">
-                                    <div style="margin:1.5rem;text-align: center;"><h4><b>状态报告获取接口</b></h4></div>
-                                </div>
-                                <div id="error" style="display:none;border:0px solid #ccc;width:100%;height:100%;float:left;margin:6px;background-color: #FFFFFF;">
-                                    <div style="margin:1.5rem;text-align: center;"><h4><b>错误码</b></h4></div>
-                                    <div style="float: left;margin:1.1rem;width:100%;"><img src="{{projcfg.appurl}}/static/images/u223.png" alt="" height="80%" width="85%"/></div>
-                                </div>
-                                <div id="sdkdownload" style="display:none;border:0px solid #ccc;width:100%;height:100%;float:left;margin:6px;background-color: #FFFFFF;">
-                                    <div style="margin:1.5rem;text-align: center;"><h4><b>SDK下载</b></h4></div>
-                                    <div style="float: left;margin:1.1rem;text-align: center;width: 95%;">
-                                        <table style="width: 95%;height: 90%;border: 1px solid #ccc;">
-                                            <tr style="border: 1px solid #ccc;height: 30px;text-align: center; "><td style="border: 1px solid #ccc;width: 25%">平台语言</td><td style="border: 1px solid #ccc;width: 40%">说明</td><td style="border: 1px solid #ccc;width: 30%">操作</td></tr>
-                                            <tr style="border: 1px solid #ccc;height: 30px;text-align: center; "><td style="border: 1px solid #ccc;width: 25%">java </td><td style="border: 1px solid #ccc;width: 40%">【短信发送】API对应的SDK和调用示例</td><td style="border: 1px solid #ccc;width: 30%">下载</td></tr>
-                                            <tr style="border: 1px solid #ccc;height: 30px;text-align: center; "><td style="border: 1px solid #ccc;width: 25%">C#</td><td style="border: 1px solid #ccc;width: 40%">【短信发送】API对应的SDK和调用示例</td><td style="border: 1px solid #ccc;width: 30%">下载</td></tr>
-                                        </table>
-                                    </div>
-                                </div>
-                                <div id="cantact" style="display:none;border:0px solid #ccc;width:100%;height:100%;float:left;margin:6px;background-color: #FFFFFF;">
-                                    <div style="margin:2.5rem;text-align: center;"><h4><b>联系我们</b></h4></div>
-                                    <div style="float: left;margin:0.1rem;width: 100%;text-align: center;">邮编：<b>550002</b> </div>
-                                    <div style="float: left;margin:0.1rem;width: 100%;text-align: center;">电话：<b>152xxxxxxxx</b> </div>
-                                    <div style="float: left;margin:0.1rem;width: 100%;text-align: center;"><b>E-mail：xxxx@gz.chinamobile.com</b> </div>
-                                </div>
+
 
                             </div>
                         </div>
@@ -203,287 +51,66 @@ URL地址：https://xxx.xxx.com/sms/single   </pre>
 
 <script  type="text/javascript">
     $(function() {
-
+        var projectId = getQueryString('projectId');
         $("#detailTree").tree({
             method: 'GET',
-            url: 'static/json/service_detail_tree.json',
+            url: '{{projcfg.appurl}}/api/project/dpm/projectdetail/develop/pd/tree?projectId='+projectId,
+            <!--url: '{{projcfg.appurl}}/api/project/dpm/projectdetail/develop/pd/detail/'+projectId,-->
+            cache:false,
             onLoadSuccess: function (node, data) {
-                var first = $(this).tree("find", 11);
-                $(this).tree("select", first.target);
+                if (data.length > 0) {
+                    //找到第一个元素
+                    var n = $('#detailTree').tree('find', data[0].children[0].id);
+                    //调用选中事件
+                    $('#detailTree').tree('select', n.target);
+
+                }
+
             },
             onSelect: function (node) {
                 console.log(node);
-                showDetailContent(node);
+                var id=node.id;
+                var title=node.text;
+                if(node.parentId){
+                    $("#editorSubmitContent").show();
+                    $.ajax({
+                        url:"{{projcfg.appurl}}/api/project/dpm/projectdetail/develop/pd/selectContent",
+                        type:"post",
+                        data:{"id":id},
+                        async:false,
+                        success:function(result){
+                            console.info(result);
+                            console.log("title      "+title);
+                            $("#title").html(title);
+                            var content=result.data[0].content;
+
+                            $("#title").html(title);
+                            $("#content").html(content);
+                        }
+                    });
+                }
+
+
+
+
+            },
+            onContextMenu: function(e, node){
+                e.preventDefault();
+                // select the node
+                $('#detailTree').tree('select', node.target);
+                // display context menu
+                $('#mm').menu('show', {
+                    left: e.pageX,
+                    top: e.pageY
+                });
             }
         });
     });
 
-
-
-
-    function do_page(flag){
-        if(flag && flag == "myimage"){
-            $("#privatediv").hide();
-            $("#datagridPanel").show();
-            $("#myImageDataTable").datagrid({columns:myimagecols});
-            $('#myImageDataTable').datagrid('loadData',mydockerdata);
-        }else if(flag && flag == "favorites"){
-            $("#privatediv").hide();
-            $("#datagridPanel").show();
-            $("#myImageDataTable").datagrid({columns:myfavoritescols});
-            $('#myImageDataTable').datagrid('loadData',favoritesdata);
-        }else if(flag && flag == "privateimage"){
-            $("#datagridPanel").hide();
-            $("#privatediv").show();
-        }
-    }
-    function doAdd(value) {
-        var validate = $('#projectForm').form('validate');
-        if(!validate) {
-            return false;
-        }
-        $.ajax({
-            url: '{{projcfg.appurl}}/api/project/dpm/project/develop/pm/add',
-            type: 'post',
-            data: $('#projectForm').serializeJson(),
-            success: function (data) {
-                if(data.success) {
-                    msgSuccess(data.msg);
-                    closeDialog();
-                    doSearch();
-                }
-                else {
-                    msgError(data.msg+',错误代码:'+data.code);
-                }
-            }
-        });
-    }
-
-    // 打开页面
-    function openPage(title, value, callback) {
-        $('#myModal').show();
-        $('#myModal').mydialog({
-            title:title,
-            width: 700,
-            height: 485,
-            top:100,
-            modal: true,
-            myButtons:[
-                {
-                    text:'确定',
-                    btnCls:'btn btn-blue',
-                    handler:function(){
-                        callback(value);
-                    }
-                },
-                {
-                    text:'关闭',
-                    btnCls:'btn btn-danger',
-                    handler:function(){
-                        closeDialog();
-                    }
-                }
-            ]
-        });
-    }
-    function do_return(){
-        history.go(-1);
-    }
-    // 清空新增表单数据
-    function clear() {
-        $('#projectForm').form('clear');
-    }
-
-    // 关闭窗口
-    function closeDialog() {
-        $('#myModal').dialog('close');
-        clear();
-    }
-
-    function showDetailContent(node){
-        if(node.id == 11){
-            $("#desc").show();
-            $("#verdesc").hide();
-            $("#nounexplain").hide();
-            $("#agreement").hide();
-            $("#sercurity").hide();
-            $("#scene").hide();
-            $("#flow").hide();
-            $("#singlesms").hide();
-            $("#batch").hide();
-            $("#statusObtain").hide();
-            $("#error").hide();
-            $("#sdkdownload").hide();
-            $("#cantact").hide();
-        }else if(node.id == 12){
-            $("#desc").hide();
-            $("#verdesc").show();
-            $("#nounexplain").hide();
-            $("#agreement").hide();
-            $("#sercurity").hide();
-            $("#scene").hide();
-            $("#flow").hide();
-            $("#singlesms").hide();
-            $("#batch").hide();
-            $("#statusObtain").hide();
-            $("#error").hide();
-            $("#sdkdownload").hide();
-            $("#cantact").hide();
-        }else if(node.id == 21){
-            $("#desc").hide();
-            $("#verdesc").hide();
-            $("#nounexplain").show();
-            $("#agreement").hide();
-            $("#sercurity").hide();
-            $("#scene").hide();
-            $("#flow").hide();
-            $("#singlesms").hide();
-            $("#batch").hide();
-            $("#statusObtain").hide();
-            $("#error").hide();
-            $("#sdkdownload").hide();
-            $("#cantact").hide();
-        }else if(node.id == 31){
-            $("#desc").hide();
-            $("#verdesc").hide();
-            $("#nounexplain").hide();
-            $("#agreement").show();
-            $("#sercurity").hide();
-            $("#scene").hide();
-            $("#flow").hide();
-            $("#singlesms").hide();
-            $("#batch").hide();
-            $("#statusObtain").hide();
-            $("#error").hide();
-            $("#sdkdownload").hide();
-            $("#cantact").hide();
-        }else if(node.id == 32){
-            $("#desc").hide();
-            $("#verdesc").hide();
-            $("#nounexplain").hide();
-            $("#agreement").hide();
-            $("#sercurity").show();
-            $("#scene").hide();
-            $("#flow").hide();
-            $("#singlesms").hide();
-            $("#batch").hide();
-            $("#statusObtain").hide();
-            $("#error").hide();
-            $("#sdkdownload").hide();
-            $("#cantact").hide();
-        }else if(node.id == 41){
-            $("#desc").hide();
-            $("#verdesc").hide();
-            $("#nounexplain").hide();
-            $("#agreement").hide();
-            $("#sercurity").hide();
-            $("#scene").show();
-            $("#flow").hide();
-            $("#singlesms").hide();
-            $("#batch").hide();
-            $("#statusObtain").hide();
-            $("#error").hide();
-            $("#sdkdownload").hide();
-            $("#cantact").hide();
-        }else if(node.id == 42){
-            $("#desc").hide();
-            $("#verdesc").hide();
-            $("#nounexplain").hide();
-            $("#agreement").hide();
-            $("#sercurity").hide();
-            $("#scene").hide();
-            $("#flow").show();
-            $("#singlesms").hide();
-            $("#batch").hide();
-            $("#statusObtain").hide();
-            $("#error").hide();
-            $("#sdkdownload").hide();
-            $("#cantact").hide();
-        }else if(node.id == 51){
-            $("#desc").hide();
-            $("#verdesc").hide();
-            $("#nounexplain").hide();
-            $("#agreement").hide();
-            $("#sercurity").hide();
-            $("#scene").hide();
-            $("#flow").hide();
-            $("#singlesms").show();
-            $("#batch").hide();
-            $("#statusObtain").hide();
-            $("#error").hide();
-            $("#sdkdownload").hide();
-            $("#cantact").hide();
-        }else if(node.id == 52){
-            $("#desc").hide();
-            $("#verdesc").hide();
-            $("#nounexplain").hide();
-            $("#agreement").hide();
-            $("#sercurity").hide();
-            $("#scene").hide();
-            $("#flow").hide();
-            $("#singlesms").hide();
-            $("#batch").show();
-            $("#statusObtain").hide();
-            $("#error").hide();
-            $("#sdkdownload").hide();
-            $("#cantact").hide();
-        }else if(node.id == 53){
-            $("#desc").hide();
-            $("#verdesc").hide();
-            $("#nounexplain").hide();
-            $("#agreement").hide();
-            $("#sercurity").hide();
-            $("#scene").hide();
-            $("#flow").hide();
-            $("#singlesms").hide();
-            $("#batch").hide();
-            $("#statusObtain").show();
-            $("#error").hide();
-            $("#sdkdownload").hide();
-            $("#cantact").hide();
-        }else if(node.id == 61){
-            $("#desc").hide();
-            $("#verdesc").hide();
-            $("#nounexplain").hide();
-            $("#agreement").hide();
-            $("#sercurity").hide();
-            $("#scene").hide();
-            $("#flow").hide();
-            $("#singlesms").hide();
-            $("#batch").hide();
-            $("#statusObtain").hide();
-            $("#error").show();
-            $("#sdkdownload").hide();
-            $("#cantact").hide();
-        }else if(node.id == 71){
-            $("#desc").hide();
-            $("#verdesc").hide();
-            $("#nounexplain").hide();
-            $("#agreement").hide();
-            $("#sercurity").hide();
-            $("#scene").hide();
-            $("#flow").hide();
-            $("#singlesms").hide();
-            $("#batch").hide();
-            $("#statusObtain").hide();
-            $("#error").hide();
-            $("#sdkdownload").show();
-            $("#cantact").hide();
-        }else if(node.id == 72){
-            $("#desc").hide();
-            $("#verdesc").hide();
-            $("#nounexplain").hide();
-            $("#agreement").hide();
-            $("#sercurity").hide();
-            $("#scene").hide();
-            $("#flow").hide();
-            $("#singlesms").hide();
-            $("#batch").hide();
-            $("#statusObtain").hide();
-            $("#error").hide();
-            $("#sdkdownload").hide();
-            $("#cantact").show();
-        }
+    function getQueryString(name) {
+        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+        var r = window.location.search.substr(1).match(reg);
+        if (r != null) return unescape(r[2]); return null;
     }
 
 </script>

@@ -6,11 +6,6 @@ var router = express.Router();
 var config = require('../../../../config');
 var projectService = require('../services/projectService');
 var utils = require('../../../common/core/utils/app_utils');
-// 连接服务
-var gitlab = require('gitlab')({
-    url   : config.platform.gitlabUrl,
-    token : config.platform.private_token
-});
 
 //分页查询项目数据列表
 router.route('/develop/pm/pageList').get(function(req,res){
@@ -50,7 +45,7 @@ router.route('/develop/pm/verList').get(function(req,res){
 });
 
 
-router.route('/develop/pm/version/list').get(function(req,res){
+router.route('/develop/pm/version').get(function(req,res){
     var projectId = req.query.projectId;
     var conditionMap = {};
     if(projectId){
@@ -66,7 +61,7 @@ router.route('/develop/pm/version/list').get(function(req,res){
  */
 router.route('/develop/pm/project').post(function(req,res) {
     var data=[];
-    var results = [];
+    // var results = [];
     var gitaddress = req.body.gitAddress;
     //暂时截取git地址最后的名字作为编号,如：git@code.dev.gz.cmcc:develop-base/develop-base.git，develop-base就是编号
     var pcode = gitaddress.substring(gitaddress.lastIndexOf('/')+1,gitaddress.lastIndexOf('.'));
@@ -152,10 +147,25 @@ router.route('/develop/pm/:id').delete(function(req,res) {
     });
 });
 
-router.route('/develop/pm/deploy').post(function(req,res){
+router.route('/develop/pm/deploy').get(function(req, res){
+    // 分页条件
+    var projectName = req.query.projectName;
+    // 分页参数
+    var page = req.query.page;
+    var length = req.query.rows;
+    var conditionMap = {};
+    if(projectName){
+        conditionMap.projectName = projectName;
+    }
+    // 调用分页
+    projectService.deployedPageList(page, length, conditionMap,function(result){
+        utils.respJsonData(res, result);
+    });
+}).post(function(req,res){
     var projectId = req.body.deployProjectId;
     var projectVersion = req.body.deployProjectVersion;
     var clusterId = req.body.deployClusterId;
+    var remark = req.body.remark;
     if(!projectId) {
         utils.respMsg(res, false, '2001', '请求参数不全，请重试。', null, null);
     }
@@ -168,43 +178,60 @@ router.route('/develop/pm/deploy').post(function(req,res){
     var params = [];
     params.push(projectId);
     params.push(clusterId);
-    projectService.getDeployedList(param, function(result){
+    projectService.getDeployedList(params, function(result){
         if(result.success){
             if(result.data != null && result.data.length != 0){//已经部署过了
                 utils.respJsonData(res, utils.returnMsg(false, '0000', '所选应用在该集群已经部署过了，不能重复部署', null, null));
             }else{
                 //TODO 部署集群
-                params.clear();
+                params.splice(0,params.length);
                 params.push(projectId);
                 params.push(projectVersion);
-                projectService.getVersionInfo(param, function(result){
+                projectService.getVersionInfo(params, function(result){
                     if(result.success){
                         if(result.data != null && result.data.length == 1){
+                            //TODO 下面的mesos接口地址和marathon-lb的地址都应该根据集群ID从数据库获取
+                            console.log(result.data[0].deployJson);
                             var deployJson = JSON.parse(result.data[0].deployJson);
                             var request = require('request');
                             var options = {
                                 headers : {"Connection": "close"},
-                                url : 'http://192.168.31.91:8080/v2/apps',//TODO 需要根据集群ID查询集群的marathon-lb接口地址
+                                url : 'http://192.168.31.91:8080/v2/apps',
                                 method : 'POST',
                                 json : true,
-                                body : {data : deployJson}
+                                body : deployJson
                             };
                             function callback(error, response, data) {
-                                if (!error && response.statusCode == 200) {
-                                    console.log('----info------',data);
+                                if (!error && (response.statusCode == 200 || response.statusCode == 201)) {
+                                    console.log('部署成功----info------',data);
+                                    //插入启动的服务信息
+                                    params.splice(0,params.length);
+                                    params.push(projectId);
+                                    params.push(projectVersion);
+                                    params.push(clusterId);
+                                    if(projectId == "25"){
+                                        params.push("http://192.168.31.127" + ":" + deployJson.container.docker.portMappings[0].servicePort);
+                                    }else if(projectId == "26"){
+                                        params.push("http://192.168.31.95" + ":" + deployJson.container.docker.portMappings[0].servicePort + "/demo");
+                                    }else{
+                                        params.push("http://192.168.31.95" + ":" + deployJson.container.docker.portMappings[0].servicePort);
+                                    }
+                                    //params.push(JSON.stringify(data));
+                                    params.push(remark);
+                                    var currentUser = utils.getCurrentUser(req);
+                                    params.push(currentUser.login_account);
+                                    projectService.saveDeployInfo(params,function(result){
+                                        //utils.respJsonData(res, result);
+                                        if(!result.success){
+                                            utils.respMsg(res, false, '2001', '应用部署失败', null, null);
+                                        }else{
+                                            utils.respMsg(res, true, '2001', '应用部署成功', null, null);
+                                        }
+                                    });
+                                }else{
+                                    console.log("部署失败，" + error);
+                                    utils.respMsg(res, false, '2001', '应用部署失败', null, null);
                                 }
-                                //插入启动的服务信息
-                                params.clear();
-                                params.push(projectId);
-                                params.push(projectVersion);
-                                params.push(clusterId);
-                                params.push("http://192.168.31.91" + ":" + deployJson.container.docker.portMappings[0].servicePort);
-                                params.push(data);
-                                var currentUser = utils.getCurrentUser(req);
-                                params.push(currentUser.login_account);
-                                projectService.saveDeployInfo(params,function(result){
-                                    utils.respJsonData(res, result);
-                                });
                             }
                             request(options, callback);
                         } else{

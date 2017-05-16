@@ -45,8 +45,19 @@ exports.versionList = function(conditionMap, cb) {
             cb(utils.returnMsg(true, '0000', '获取版本信息成功', results, null));
         }
     });
-
 }
+
+exports.deployedPageList = function(page, size, conditionMap, cb) {
+    var sql = " select t1.*,t2.projectCode,t2.projectName from pass_develop_project_deploy t1,pass_develop_project_resources t2 where t1.projectId = t2.id";
+    var conditions = [];
+    if(conditionMap) {
+        if(conditionMap.projectName) {
+            sql += " and (t2.projectName like '%" + conditionMap.projectName + "%')";
+        }
+    }
+    var orderBy = " order by t1.createTime desc";
+    utils.pagingQuery4Eui_mysql(sql,orderBy, page, size, conditions, cb);
+};
 
 //根据projectCode获取项目数据
 exports.getProject = function(conditionMap, cb) {
@@ -262,13 +273,13 @@ exports.getUserList = function(conditionMap,cb){
  * @param cb
  */
 exports.getDeployedList = function(conditionMap, cb){
-    var sql = " select t1.*,t2.projectCode,t2.projectName from pass_develop_project_deploy t1,pass_develop_project_resources t2 where t1.projectId=t2.projectId ";
+    var sql = " select t1.*,t2.projectCode,t2.projectName from pass_develop_project_deploy t1,pass_develop_project_resources t2 where t1.projectId=t2.id ";
     sql += " and t1.projectId=? and t1.clusterId=?";
     mysqlPool.query(sql, conditionMap, function(err, result){
         if(err) {
             cb(utils.returnMsg(false, '1000', '查询已部署项目时出现错误', null, err));
         } else {
-            cb(utils.returnMsg(true, '0000', '查询已部署项目成功', null, null));
+            cb(utils.returnMsg(true, '0000', '查询已部署项目成功', result, null));
         }
     });
 }
@@ -279,13 +290,13 @@ exports.getDeployedList = function(conditionMap, cb){
  * @param cb
  */
 exports.getVersionInfo = function(conditionMap, cb){
-    var sql = "select t1.*,t2.projectCode,t2.projectName from pass_develop_project_versions t1,pass_develop_project_resources t2 where t1.projectId=t2.projectId ";
+    var sql = "select t1.*,t2.projectCode,t2.projectName from pass_develop_project_versions t1,pass_develop_project_resources t2 where t1.projectId=t2.id ";
     sql += " and t1.projectId=? and t1.versionNo=?";
     mysqlPool.query(sql, conditionMap, function(err, result){
         if(err) {
             cb(utils.returnMsg(false, '1000', '查询项目版本信息时出错', null, err));
         } else {
-            cb(utils.returnMsg(true, '0000', '查询项目版本信息成功', null, null));
+            cb(utils.returnMsg(true, '0000', '查询项目版本信息成功', result, null));
         }
     });
 }
@@ -296,12 +307,12 @@ exports.getVersionInfo = function(conditionMap, cb){
  * @param cb
  */
 exports.saveDeployInfo = function(conditionMap, cb){
-    var sql = "insert into pass_develop_project_deploy(type,projectId,version,clusterId,webSite,deploymentResult,createTime,createBy,updateTime) values('1',?,?,?,?,?,now(),?,now())";
+    var sql = "insert into pass_develop_project_deploy(type,projectId,version,clusterId,webSite,remark,createTime,createBy,updateTime) values('1',?,?,?,?,?,now(),?,now())";
     mysqlPool.query(sql, conditionMap, function(err, result){
         if(err) {
             cb(utils.returnMsg(false, '1000', '保存项目部署信息出错', null, err));
         } else {
-            cb(utils.returnMsg(true, '0000', '保存项目部署信息成功', null, null));
+            cb(utils.returnMsg(true, '0000', '保存项目部署信息成功', result, null));
         }
     });
 }

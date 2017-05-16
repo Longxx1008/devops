@@ -1,0 +1,277 @@
+<script src="{{projcfg.appurl}}/static/js/containerlistingdata.js" type="text/javascript"></script>
+<div class="row">
+    <div class="col-xs-12 col-md-12">
+        <div class="widget">
+            <div class="widget-body">
+                <div id="toolbar" class="row tbRow" style="margin-bottom: 1.1rem;border-bottom: 1px solid #ccc;">
+                    <div class="col-xs-6 col-md-6" style="width:100%">
+                        <font size="3.5rem" style="margin-left: 1.2rem;margin-right: 2.5rem"> <b>服务详情</b></font>
+                        <div class="btn-group" role="group" aria-label="..." style="float: right;margin-right: 2rem;">
+                            <button type="button" class="btn btn-default" onclick="do_return();" data-title="返回">
+                                <i class="fa fa-edit"></i> 返回
+                            </button>
+                        </div>
+
+                    </div>
+                </div>
+                <div id="cc" class="easyui-layout" data-options="fit:true,border:false" style="width: 800px; height:900px;background-color: #fbfbfb;">
+                    <div id="images" data-options="region:'center',border:false" style="overflow-x:hidden;overflow-y:hidden">
+                        <div id="privatediv" style="width:100%;height: 100%;">
+                            <div style="border-right:0px solid #ccc;width:25%;height:100%;float:left;">
+                                <div style="margin: 1rem;border: 1px solid #ccc;height: 70%;width:90%">
+                                    <!-- API树 -->
+                                    <ul id="detailTree" class="easyui-tree"></ul>
+                                </div>
+                                <div id="mm" class="easyui-menu" style="width:120px;">
+                                    <div onclick="append()" data-options="iconCls:'icon-add'" style="padding-left: 2.2rem;">新增节点</div>
+                                    <div onclick="edit()" data-options="iconCls:'icon-edit'" style="padding-left:2.2rem;">修改节点</div>
+                                    <div onclick="remove()" data-options="iconCls:'icon-remove'" style="padding-left: 2.2rem;">删除节点</div>
+                                </div>
+                            </div>
+
+                            <!--          ueditor                -->
+                            <div   id= "ueditor_all" style="width:74%;height:100%;float:right;background-color: #FFFFFF; ">
+                            <div>
+                                <div id="editorSubmitContent" style="display:none;">
+                                    <div id="title" class="form-group" align="center" style="font-size: 20px">
+
+                                    </div>
+
+                                    <form id="edit_all" class="form-horizontal form-bordered" role="form" >
+                                        <input id="id" name="id"  style="display:none;"  class="easyui-validatebox form-control" data-options="required:true">
+                                        <script id="conent" name="content" >
+
+                                        </script>
+                                        <div align="center">
+                                            <input  style="background-color: #99BBE8 ;height:30px;width:80px;margin-top: 2rem;font-family: bold;font-size: 18px" onclick="updateContent()" value="提 交"/>
+                                        </div>
+
+                                    </form>
+
+                                </div>
+
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<div>
+
+</div>
+
+<script  type="text/javascript">
+    $(function() {
+        var projectId = getQueryString('projectId');
+        $("#detailTree").tree({
+            method: 'GET',
+            url: '{{projcfg.appurl}}/api/project/dpm/projectdetail/develop/pd/tree?projectId='+projectId,
+            <!--url: '{{projcfg.appurl}}/api/project/dpm/projectdetail/develop/pd/detail/'+projectId,-->
+            cache:false,
+            onLoadSuccess: function (node, data) {
+                console.log("===tree==data===",data);
+            },
+            onSelect: function (node) {
+                console.log(node);
+                var id=node.id;
+                var title=node.text;
+                if(node.parentId){
+
+                    $.ajax({
+                        url:"{{projcfg.appurl}}/api/project/dpm/projectdetail/develop/pd/selectContent",
+                        type:"post",
+                        data:{"id":id},
+                        async:false,
+                        success:function(result){
+                            console.info(result);
+                            console.log("title      "+title);
+                            $("#title").html(title);
+                            $("#id").attr("value",id);
+                            console.info("++++++++++++++++++++++++++")
+                            console.info(result)
+                            console.info("++++++++++++++++++++++++++")
+                            var content=result.data[0].content;
+                            var ue=UE.getEditor("conent",{
+                                initialFrameWidth:'100%',
+                                initialFrameHeight:600
+
+                            });
+                            ue.ready(function() {//编辑器初始化完成再赋值
+                                $("#editorSubmitContent").show();
+                                if(typeof content=="undefined"){
+                                    ue.setContent("请输入内容");  //赋值给UEditor
+                                }else{
+                                    if(content!=null){
+                                        ue.setContent(content);
+                                    }else{
+                                        ue.setContent("请输入内容");  //赋值给UEditor
+                                    }
+                                }
+                            });
+                        }
+                    });
+                }
+
+
+                ///---------------------------------------------------------------------------
+
+            },
+            onContextMenu: function(e, node){
+                e.preventDefault();
+                // select the node
+                $('#detailTree').tree('select', node.target);
+                // display context menu
+                $('#mm').menu('show', {
+                    left: e.pageX,
+                    top: e.pageY
+                });
+            },
+            onAfterEdit: function(node){
+                console.log(node.text);
+                console.log(node.id);
+                $.ajax({
+                    url:"{{projcfg.appurl}}/api/project/dpm/projectdetail/develop/pd/updatechildnode",
+                    method:"post",
+                    async:"false",
+                    data:{"id":node.id,"menuName":node.text},
+                    success:function(results){
+                        $("#detailTree").tree("reload");
+                    },
+                    error:function(err){
+                        console.log(err);
+                    }
+                });
+            }
+        });
+
+        <!--$("#edit_all").form({-->
+            <!--url:"{{projcfg.appurl}}/api/project/dpm/projectdetail/develop/pd/updatecontent",-->
+            <!--onSubmit:function(){-->
+                <!--var validate = $(this).form('validate');-->
+                <!--if(!validate) {-->
+                    <!--return false;-->
+                <!--}-->
+            <!--},-->
+            <!--success:function(data){-->
+                <!--var result=JSON.parse(data);-->
+
+                <!--if(result.success){-->
+                    <!--msgSuccess(result.msg);-->
+
+                <!--}else{-->
+                    <!--msgError(result.msg+',错误代码:'+result.code);-->
+                <!--}-->
+            <!--}-->
+
+        <!--});-->
+    });
+
+
+    function getQueryString(name) {
+        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+        var r = window.location.search.substr(1).match(reg);
+        if (r != null) return unescape(r[2]); return null;
+    }
+
+
+
+    //节点 添加
+    function append(){
+        var selected = $('#detailTree').tree('getSelected');
+        var data = $('#detailTree').tree('getData',selected.target);
+        var nodeid;
+        var menuName;
+            $.ajax({
+                url:'{{projcfg.appurl}}/api/project/dpm/projectdetail/develop/pd/addchildnode/'+data.id,
+                type:"post",
+                async:"false",
+                success:function(result){
+                    console.log("================aaaaa====================");
+                    console.info(result);
+                    console.log("==================aaaaaa==================");
+                    if(result.success){
+                        nodeid=result.data.insertId;
+                        console.log(nodeid);
+                        $('#detailTree').tree('append', {
+                            parent: selected.target,
+                            data: [{
+                                id: nodeid,
+                                text: '新增节点'
+                            }]
+                        });
+
+                        var _node = $('#detailTree').tree('find',nodeid);
+                        $('#detailTree').tree("select",_node.target).tree('beginEdit',_node.target);
+                    }
+
+                },
+                error:function(err){
+                    console.log(err)
+                }
+            });
+
+    }
+
+    function remove(){
+        var selected = $('#detailTree').tree('getSelected');
+            var data= $('#detailTree').tree('getData',selected.target);
+            var id=data.id;
+            console.log("---------------------------------------------");
+            console.info(id);
+            $.ajax({
+                url:"{{projcfg.appurl}}/api/project/dpm/projectdetail/develop/pd/deletenode/"+id,
+                type:"delete",
+                async:false,
+                success:function(result){
+                    if(result.success){
+                        $('#detailTree').tree('remove',selected.target);
+                        $("#detailTree").tree("reload");
+                    }else{
+                        msgError(result.msg+',错误代码:'+result.code);
+                    }
+
+                }
+            })
+
+
+    }
+
+    function edit(){
+        var selected = $('#detailTree').tree('getSelected');
+        var data = $('#detailTree').tree('getData',selected.target);
+        var _node = $('#detailTree').tree('find',data.id);
+        $('#detailTree').tree("select",_node.target).tree('beginEdit',_node.target);
+
+    }
+
+    function updateContent(){
+        var id=$("#id").val();
+        alert(id);
+        var content=UE.getEditor("conent").getContent();
+        alert(content);
+
+        content=encodeURIComponent(content);
+        console.log(content)
+        $.ajax({
+            url: "{{projcfg.appurl}}/api/project/dpm/projectdetail/develop/pd/updatecontent",
+            type: "post",
+            data: {"id": id, "content": content},
+            async: false,
+            success: function (result) {
+
+                if (result.success) {
+                    msgSuccess(result.msg);
+                } else {
+                    msgError(result.msg + ',错误代码:' + result.code);
+                }
+            }
+        });
+    }
+</script>
+<script type="text/javascript" charset="utf-8" src="{{projcfg.appurl}}/static/js/ueditor/ueditor.config.js"></script>
+<script type="text/javascript" cahrset="utf-8" src="{{projcfg.appurl}}/static/js/ueditor/ueditor.all.js"></script>
