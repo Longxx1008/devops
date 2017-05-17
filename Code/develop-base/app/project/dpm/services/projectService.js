@@ -289,13 +289,26 @@ exports.getDeployedList = function(conditionMap, cb){
     });
 }
 
+exports.getDeployedInfo = function(id, cb){
+    var sql = " select t1.*,t2.projectCode,t2.projectName from pass_develop_project_deploy t1,pass_develop_project_resources t2 where t1.projectId=t2.id ";
+    sql += " and t1.id = ?";
+    mysqlPool.query(sql, [id], function(err, result){
+        if(err) {
+            cb(utils.returnMsg(false, '1000', '查询已部署项目信息出现错误', null, err));
+        } else {
+            cb(utils.returnMsg(true, '0000', '查询已部署项目信息成功', result, null));
+        }
+    });
+}
+
+
 /**
  * 获取指定版本的信息
  * @param conditionMap
  * @param cb
  */
 exports.getVersionInfo = function(conditionMap, cb){
-    var sql = "select t1.*,t2.projectCode,t2.projectName from pass_develop_project_versions t1,pass_develop_project_resources t2 where t1.projectId=t2.id ";
+    var sql = "select t1.*,t2.projectCode,t2.projectName,t2.homeUrl from pass_develop_project_versions t1,pass_develop_project_resources t2 where t1.projectId=t2.id ";
     sql += " and t1.projectId=? and t1.versionNo=?";
     mysqlPool.query(sql, conditionMap, function(err, result){
         if(err) {
@@ -312,12 +325,23 @@ exports.getVersionInfo = function(conditionMap, cb){
  * @param cb
  */
 exports.saveDeployInfo = function(conditionMap, cb){
-    var sql = "insert into pass_develop_project_deploy(type,projectId,version,clusterId,webSite,remark,createTime,createBy,updateTime) values('1',?,?,?,?,?,now(),?,now())";
+    var sql = "insert into pass_develop_project_deploy(type,projectId,mesosId,version,clusterId,webSite,remark,createTime,createBy,updateTime) values('1',?,?,?,?,?,?,now(),?,now())";
     mysqlPool.query(sql, conditionMap, function(err, result){
         if(err) {
             cb(utils.returnMsg(false, '1000', '保存项目部署信息出错', null, err));
         } else {
             cb(utils.returnMsg(true, '0000', '保存项目部署信息成功', result, null));
+        }
+    });
+}
+
+exports.updateDeployStatus = function(conditionMap,cb){
+    var sql = "update pass_develop_project_deploy set status = ? where id=?";
+    mysqlPool.query(sql, conditionMap, function(err, result){
+        if(err) {
+            cb(utils.returnMsg(false, '1000', '更新运行状态失败', null, err));
+        } else {
+            cb(utils.returnMsg(true, '0000', '更新运行状态失败', null, null));
         }
     });
 }
