@@ -144,8 +144,8 @@ var config = {
         // gitlabIp:'code.dev.gz.cmcc',
         gitlabIp:'192.168.31.127',
         gitlabPort:443,
-        gitlabUrl: 'https://192.168.31.127',
-        private_token:'BgNLAke5cybnRcqc-Qts',
+        gitlabUrl: 'http://192.168.31.127',//vpn openvpn
+        private_token:'BgNLAke5cybnRcqc-Qts',//192.168.31.127
         // private_token:'yJFsQXvox3xGHUPxyDsE',
         dockerIp: '192.168.31.92',
         dockerPort:5000,

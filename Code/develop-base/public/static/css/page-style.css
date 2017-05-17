@@ -506,7 +506,7 @@ input[type=button], input[type=text], input[type=password], button {
     text-align: center;
     overflow: hidden;
     width:120px;
-    height: 120px;
+    height: 110.5px;
     margin:0 auto;
 }
 .speed-ul li.box .speed-box.develop{
@@ -522,14 +522,15 @@ input[type=button], input[type=text], input[type=password], button {
     background: #69cf7e;
 }
 .speed-ul li.box .speed-box h1{
-    line-height:90px;
+    line-height:80px;
     color: #FFF;
-    font-size:42px;
+    font-size:40px;
 }
 .speed-ul li.box .speed-box h2{
     background:rgba(255,255,255,0.8);
     color: #555;
     line-height:30px;
+    font-size:12px;
 }
 .speed-ul li.arrow{
     width:12%;

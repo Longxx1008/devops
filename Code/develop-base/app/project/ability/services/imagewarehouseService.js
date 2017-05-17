@@ -79,7 +79,9 @@ exports.imageCollectOrDownload = function(conditionMap,data,mapData,cb){
         if(err) {
             cb(utils.returnMsg(false, '1000', '修改记录数异常', null, err));
         } else {
-            if(!conditionMap.length>0){
+            if(conditionMap && conditionMap.downloadNum){
+                cb(utils.returnMsg(true, '0000', '修改记录数成功', result, null));
+            }else{
                 mysqlPool.query(mapsql,mapData,function(error,mapresult){
                     if(error){
                         cb(utils.returnMsg(false, '1000', '修改类型异常', null, error));
@@ -87,8 +89,7 @@ exports.imageCollectOrDownload = function(conditionMap,data,mapData,cb){
                         cb(utils.returnMsg(true, '0000', '修改类型成功', mapresult, null));
                     }
                 });
-            }else{
-                cb(utils.returnMsg(true, '0000', '修改记录数成功', result, null));
+
             }
 
 

@@ -27,6 +27,8 @@
     </div>
 </div>
 
+
+
 <script  type="text/javascript">
     $(function(){
         $('#dataTable').datagrid({
@@ -123,7 +125,7 @@
     }
 
     function to_serviceDetail(id){
-        window.location.href = "{{projcfg.appurl}}/servicemonitor?deployId="+id;
+        window.location.href = "{{projcfg.appurl}}/monitor?deployId="+id;
     }
 
     // 清空新增表单数据
@@ -138,8 +140,11 @@
 
     //性能情况
     function performsStatus(){
-        var url = "http://192.168.31.92:3000";
-        window.open(url);
+//        var src = "http://192.168.31.92:3000/dashboard-solo/db/service-mysql-metrics?refresh=5s&orgId=1&panelId=1&from=1495019928060&to=1495023528061&var-host=mesos-master2&var-interval=%24__auto_interval";
+//        $("#performance").attr("src",src);
+        window.location.href = "{{projcfg.appurl}}/performs?iframsrc=http://192.168.31.92:3000/dashboard-solo/db/service-mysql-metrics?refresh=5s&orgId=1&panelId=1&from=1495019928060&to=1495023528061&var-host=mesos-master2&var-interval=%24__auto_interval";
+//        var url = "http://192.168.31.92:3000";
+//        window.open(src);
     }
     //日志中心
     function logsCenter(){

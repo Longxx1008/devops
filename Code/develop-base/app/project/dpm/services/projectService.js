@@ -1,7 +1,7 @@
 var utils = require('../../../common/core/utils/app_utils');
 var mysqlPool = require('../../utils/mysql_pool');
+var nodeGrass = require('../../utils/nodegrass');
 var config = require('../../../../config');
-var https = require('https');
 
 /**
  * 获取项目的分页数据
@@ -21,7 +21,7 @@ exports.pageList = function(page, size, conditionMap, cb) {
             sql += " and (t1.projectName like '%" + conditionMap.projectName + "%')";
         }
     }
-    var orderBy = " order by t1.createTime desc";
+    var orderBy = " order by d.version desc";
     console.log("查询项目信息sql ====",sql);
     utils.pagingQuery4Eui_mysql(sql,orderBy, page, size, conditions, cb);
 };
@@ -91,35 +91,23 @@ exports.getProject = function(conditionMap, cb) {
                 cb(utils.returnMsg(false, '1000', '项目已存在', results, null));
             }else{
                 //获取gitlab所有项目
-                var options = {
-                    hostname: config.platform.gitlabIp,
-                    path: '/api/v3/projects?private_token='+config.platform.private_token,
-                    rejectUnauthorized: false  // 忽略安全警告
-                };
-                var req = https.get(options, function (res) {
-                    console.log(">>>>>>>>>>>>statusCode：" + res.statusCode + "<<<<<<<<<<<<<<");
-                    res.setEncoding('utf8');
-                    var chtmlJson = '';
-                    res.on('data', function (chunk) {//拼接响应数据
-                        chtmlJson += chunk;
-                    });
-                    res.on('end', function (){
-                        var info = JSON.parse(chtmlJson);//将拼接好的响应数据转换为json对象
-                        var obj;
-                        var results = [];
-                        if (info) {
-                            for(var i=0;i<info.length;i++){
-                                results.push({"projectId":info[i].id,"projectName":info[i].name});
-                            }
-                            cb(utils.returnMsg(true, res.statusCode, '获取项目信息成功。', results, null));
-                        } else {
-                            cb(utils.returnMsg(false, res.statusCode, '获取项目信息失败。', results, null));
+                var url = config.platform.gitlabUrl+'/api/v3/projects?private_token='+config.platform.private_token;
+                nodeGrass.get(url,function(data,status,headers){
+                    // console.log(status);
+                    // console.log(data);
+                    var info = JSON.parse(data);//将拼接好的响应数据转换为json对象
+                    var results = [];
+                    if (info) {
+                        for(var i=0;i<info.length;i++){
+                            results.push({"projectId":info[i].id,"projectName":info[i].name});
                         }
-                    });
-                });
-                req.on('error', function (err) {
-                    console.error(err.code);
-                    cb(utils.returnMsg(false, '404', err.message, null, null));
+                        cb(utils.returnMsg(true, status, '获取项目信息成功。', results, null));
+                    } else {
+                        cb(utils.returnMsg(false, status, '获取项目信息失败。', results, null));
+                    }
+                },'utf8').on('error', function(e) {
+                    console.log("Got error: " + e.message);
+                    cb(utils.returnMsg(false, '404', e.message, null, null));
                 });
             }
         }
@@ -145,35 +133,22 @@ exports.add = function(data, cb) {
 
 //从gitlab获取版本信息
 exports.getVerByGitLab = function(gitProjectId,projectId){
-    var options = {
-        hostname: config.platform.gitlabIp,
-        path: '/api/v3/projects/'+gitProjectId+'/pipelines?private_token='+config.platform.private_token+'&scope=tags',
-        rejectUnauthorized: false  // 忽略安全警告
-    };
-    var req = https.get(options, function (res) {
-        console.log(">>>>>>>>>>>>statusCode：" + res.statusCode + "<<<<<<<<<<<<<<");
-        res.setEncoding('utf8');
-        var chtmlJson = '';
-        res.on('data', function (chunk) {//拼接响应数据
-            chtmlJson += chunk;
-        });
-        res.on('end', function (){
-            console.log("==chtmlJson====",chtmlJson);
-            var info = JSON.parse(chtmlJson);//将拼接好的响应数据转换为json对象
-            var obj;
-            var results = [];
-            if (info) {
-                var i = 0;
-                forVersionInfo(info,i,projectId);
-            } else {
-                console.log( '创建项目时 项目版本信息不存在...');
-            }
-        });
+    var url = config.platform.gitlabUrl+'/api/v3/projects/'+gitProjectId+'/pipelines?private_token='+config.platform.private_token+'&scope=tags';
+    nodeGrass.get(url,function(data,status,headers){
+        // console.log(status);
+        // console.log(data);
+        var info = JSON.parse(data);//将拼接好的响应数据转换为json对象
+        if (info) {
+            var i = 0;
+            forVersionInfo(info,i,projectId);
+        } else {
+            console.log( '创建项目时 项目版本信息不存在...');
+        }
+    },'utf8').on('error', function(e) {
+        console.log("Got error: " + e.message);
+        console.log( '创建项目时 获取项目版本信息错误：'+e.message);
     });
-    req.on('error', function (err) {
-        console.error(err.code);
-        console.log( '创建项目时 获取项目版本信息错误：'+err.message);
-    });
+    
 }
 
 function forVersionInfo(versions,i,projectId){
