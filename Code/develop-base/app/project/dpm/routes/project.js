@@ -80,7 +80,6 @@ router.route('/develop/pm/project').post(function(req,res) {
             var currentUser = utils.getCurrentUser(req);
             data.push(currentUser.login_account);
             data.push(req.body.projectType);
-            data.push(req.body.homeUrl);
             var gitProjectId = null;
             //判断是否从gitlab获取项目集合成功
             if(result.data && result.data.length>0){
@@ -101,6 +100,7 @@ router.route('/develop/pm/project').post(function(req,res) {
             }else{
                 data.push(null);
             }
+            data.push(req.body.homeUrl);
             var projectId = null;
             projectService.add(data, function(results) {
                 if(results.success){

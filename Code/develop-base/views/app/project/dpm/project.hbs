@@ -236,6 +236,7 @@
        if(value == 2){
            teststyle = "";
        }else if(value == 3 || value == 4){
+           teststyle = "";
            deploystyle = "background-color:#009933";
            opstyle = "background-color:#009966";
        }
@@ -322,7 +323,7 @@
                 $.messager.progress('close');
                 if(data.success) {
                     msgSuccess(data.msg);
-                    closeDialog();
+                    closeDialog('myModal','projectForm');
                     doSearch();
                 }
                 else {
