@@ -23,6 +23,8 @@ router.route('/').get(function(req,res){
     var data = [];
     data.push(req.body.name);
     data.push(req.body.remark);
+    data.push(req.body.mesosUrl);
+    data.push(req.body.marathonUrl);
     var currentUser = utils.getCurrentUser(req);
     data.push(currentUser.login_account);
     colonyManageService.add(data, function(result) {
@@ -38,11 +40,21 @@ router.route('/').get(function(req,res){
         var data = [];
         data.push(name);
         data.push(remark);
+        data.push(req.body.mesosUrl);
+        data.push(req.body.marathonUrl);
         data.push(id);
         colonyManageService.update(data, function(result) {
             utils.respJsonData(res, result);
         });
     });
+
+router.route('/combobox').get(function(req, res){
+    var conditionMap = {};
+    colonyManageService.comboboxList(conditionMap,function(result){
+        utils.respJsonData(res, result.data);
+    });
+});
+
 //根据Id获取集群数据
 router.route('/:id')
     .get(function(req,res){
@@ -68,6 +80,5 @@ router.route('/:id')
             utils.respMsg(res, false, '1000', '集群ID不能为空。', null, null);
         }
     });
-
 
 module.exports = router;

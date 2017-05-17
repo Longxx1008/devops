@@ -11,7 +11,7 @@ var https = require('https');
  * @param cb
  */
 exports.pageList = function(page, size, conditionMap, cb) {
-    var sql = " select t1.* from pass_develop_project_resources t1 where 1=1";
+    var sql = " select t1.*,d.version as deployVersion from pass_develop_project_resources t1 left join pass_develop_project_deploy d on t1.id=d.projectId where 1=1";
     var conditions = [];
     if(conditionMap) {
         if(conditionMap.projectCode) {
@@ -43,6 +43,20 @@ exports.versionList = function(conditionMap, cb) {
             cb(utils.returnMsg(false, '1000', '获取版本信息异常', null, err));
         } else {
             cb(utils.returnMsg(true, '0000', '获取版本信息成功', results, null));
+        }
+    });
+}
+//获取项目进度情况
+exports.projectProcess = function(cb) {
+    var sql = " select sum(case WHEN step = 1 then 1 else 0 end) as developNum,sum(case WHEN step = 2 then 1 else 0 end) as testNum," +
+        "sum(case WHEN step = 3 then 1 else 0 end) as deployNum,sum(case WHEN step = 4 then 1 else 0 end) as operationNum  " +
+        "from pass_develop_project_resources";
+    // 查询项目进度情况数据
+    mysqlPool.query(sql,[],function(err,result) {
+        if(err) {
+            cb(utils.returnMsg(false, '1000', '获取项目进度信息异常', null, err));
+        } else {
+            cb(utils.returnMsg(true, '0000', '获取项目进度信息成功', result, null));
         }
     });
 }
@@ -118,7 +132,7 @@ exports.getProject = function(conditionMap, cb) {
  * @param cb
  */
 exports.add = function(data, cb) {
-    var sql = "insert into pass_develop_project_resources(projectCode,projectName,gitAddress,healthCondition,resourceUse,remark,createTime,createUser,projectType,gitlabProjectId,type) values(?,?,?,?,?,?,now(),?,?,?,1)";
+    var sql = "insert into pass_develop_project_resources(projectCode,projectName,gitAddress,healthCondition,resourceUse,remark,createTime,createUser,projectType,gitlabProjectId,type,homeUrl) values(?,?,?,?,?,?,now(),?,?,?,1,?)";
     mysqlPool.query(sql,data,function(err,result) {
         if(err) {
             cb(utils.returnMsg(false, '1000', '创建项目信息异常', null, err));
@@ -201,12 +215,28 @@ function forVersionInfo(versions,i,projectId){
  * @param cb
  */
 exports.update = function(data, cb) {
-    var sql = "update pass_develop_project_resources set projectCode = ?,projectName = ?,gitAddress = ?,healthCondition = ?,resourceUse = ?,remark = ?,projectType = ? where id = ?";
-    mysqlPool.query(sql, data, function(err,results) {
+    var sql = "update pass_develop_project_resources set projectCode = ?,projectName = ?,gitAddress = ?,healthCondition = ?,resourceUse = ?,remark = ?,projectType = ?,homeUrl = ? where id = ?";
+    mysqlPool.query(sql, data, function(err,result) {
         if(err) {
             cb(utils.returnMsg(false, '1000', '更新项目信息异常', null, err));
         } else {
-            cb(utils.returnMsg(true, '0000', '更新项目信息成功', null, null));
+            cb(utils.returnMsg(true, '0000', '更新项目信息成功', result, null));
+        }
+    });
+};
+
+/**
+ * 更新项目阶段
+ * @param data
+ * @param cb
+ */
+exports.updateStep = function(data, cb) {
+    var sql = "update pass_develop_project_resources set step = ? where id = ?";
+    mysqlPool.query(sql, data, function(err,result) {
+        if(err) {
+            cb(utils.returnMsg(false, '1000', '更新项目阶段信息异常', null, err));
+        } else {
+            cb(utils.returnMsg(true, '0000', '更新项目阶段信息成功', result, null));
         }
     });
 };
@@ -315,4 +345,77 @@ exports.saveDeployInfo = function(conditionMap, cb){
             cb(utils.returnMsg(true, '0000', '保存项目部署信息成功', result, null));
         }
     });
+}
+
+exports.queryDetailTree = function(projectId,cb){
+    var sql = "select * from pass_project_service_detail where projectId = ? ";
+    mysqlPool.query(sql, [projectId], function(err, results){
+        if(err) {
+            cb(utils.returnMsg(false, '1000', '保存项目部署信息出错', null, err));
+        } else {
+            if(results && results.length > 0){
+                var trees = [];
+                for(var i=0;i<results.length;i++){
+                    var parentMap = {};
+                    var childMap = {};
+                    var childs = [];
+                    parentMap.id = results[i].id;
+                    parentMap.text = results[i].menuName;
+                    for(var j = 0;j<results.length;j++){
+                        if(results[j].parentId && results[i].id == results[j].parentId){
+                            childMap.id = results[j].id;
+                            childMap.text = results[j].menuName;
+                            childs.push(childMap);
+                        }
+                    }
+                    parentMap.children = childs;
+                    trees.push(parentMap);
+                }
+                cb(trees);
+            }else{//无数据，先插入父节点，再查询
+                var pv = ["文档说明","术语","接口规则","流程场景","API列表","错误码","SDK下载"];
+                var j = 0;
+                addParent(pv,j,'',projectId,cb);
+            }
+        }
+    });
+}
+
+function addParent(pv,j,parentId,projectId,cb){
+    var sql = "insert into pass_project_service_detail(menuName,projectId,createTime,createUser) values(?,?,now(),?)";
+    if(pv.length > j){
+        var data = [];
+        data.push(pv[j]);
+        data.push(projectId);
+        data.push("admin");
+        mysqlPool.query(sql, data, function(err, result){
+            if(err) {
+            } else {
+                if(pv.length-1 == j){
+                    var psql = "select * from pass_project_service_detail where projectId = ? ";
+                    mysqlPool.query(psql, [projectId], function(err, results){
+                        if(err) {
+                            cb(new Array());
+                        } else {
+                            if(results && results.length > 0){
+                                var trees = [];
+                                var parentMap = {};
+                                for(var i=0;i<results.length;i++){
+                                    var childs = [];
+                                    parentMap.id = results[i].id;
+                                    parentMap.text = results[i].menuName;
+                                    parentMap.children = childs;
+                                    trees.push(parentMap);
+                                }
+                                cb(trees);
+                            }
+                        }
+                        addParent(pv,++j,parentId,projectId,cb);
+                    });
+                }else{
+                    addParent(pv,++j,parentId,projectId,cb);
+                }
+            }
+        });
+    }
 }

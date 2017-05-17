@@ -251,11 +251,12 @@ exports.returnMsg4EasyuiPaging = function(success, code, msg, data, total){
 exports.respJsonData = function(res, json) {
     res.set({'Content-Type': 'text/json', 'Encodeing': 'utf8'});
     res.send(json);
+    res.end();
 }
 
 /**
  * response返回json数据
- * @param res
+ * @param res人
  * @param success
  * @param code
  * @param msg

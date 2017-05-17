@@ -44,7 +44,7 @@
                 {"field":'id',checkbox:true},
                 {"field": "projectCode","title":"应用编号","width":120,align:"center"},
                 {"field": "projectName","title":"应用名称","width":150,align:"center"},
-                {"field": "version","title":"版本","width":100,align:"center"},
+                {"field": "version","title":"部署版本","width":100,align:"center"},
                 {"field": "clusterId","title":"运行集群","width":100,align:"center",
                     "formatter":function (value, rowData,rowIndex) {
                         return '测试集群';
@@ -59,11 +59,19 @@
                         return 'cpu:3.0<br/>内存：4GB<br/>硬盘：500GB';
                     }
                 },
-                {"field": "remark","title":"备注","width":200,align:"center"},
-                {"field": "createTime","title":"创建时间","width":200,align:"center"},
-                {"field": "webSite","title":"操作","width":200,align:"center",
+                {"field": "webSite","title":"部署地址","width":100,align:"center",
                     "formatter":function(value, rowData, rowIndex){
                         return "<span class=\"label label-info\" style=\"height:26px;line-height:18px;font-weight:600;\"><a target=\"_blank\" href=\"" + value + "\" style=\"padding:0 10px;color:#fff;\">访问</a></span>"
+                    }
+                },
+//                {"field": "remark","title":"备注","width":200,align:"center"},
+//                {"field": "createTime","title":"创建时间","width":200,align:"center"},
+                {"field": "operation","title":"操作","width":200,align:"center",
+                    "formatter":function(value, rowData, rowIndex){
+                        var retvalue = "<span class=\"label label-warning\" style=\"height:26px;line-height:18px;font-weight:600;margin-top: 0.5rem;cursor: pointer;\" onclick=\"to_serviceDetail("+rowData.id+")\">服务详情</span>   "+
+                                 "<span class=\"label label-danger\" style=\"height:26px;line-height:18px;font-weight:600;margin-top: 0.5rem;margin-left: 0.5rem;cursor: pointer;\">停止</span></br>"+
+                                "<span class=\"label label-info\" style='height:26px;line-height:18px;font-weight:600;cursor: pointer;margin-top: 0.5rem;margin-bottom: 0.5rem;' onclick='performsStatus()'>性能情况</span> <span class=\"label label-info\" style='height:26px;line-height:18px;font-weight:600;cursor: pointer;' onclick='logsCenter()'>日志</span>";
+                        return retvalue;
                     }
                 }
             ]],
@@ -113,6 +121,11 @@
             ]
         });
     }
+
+    function to_serviceDetail(id){
+        window.location.href = "{{projcfg.appurl}}/servicemonitor?deployId="+id;
+    }
+
     // 清空新增表单数据
     function clear() {
         $('#projectForm').form('clear');
@@ -121,6 +134,17 @@
     function closeDialog() {
         $('#myModal').dialog('close');
         clear();
+    }
+
+    //性能情况
+    function performsStatus(){
+        var url = "http://192.168.31.92:3000";
+        window.open(url);
+    }
+    //日志中心
+    function logsCenter(){
+        var url = "http://192.168.31.92:5601";
+        window.open(url);
     }
 
 </script>

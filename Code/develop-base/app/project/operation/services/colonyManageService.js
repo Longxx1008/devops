@@ -15,7 +15,7 @@ var https = require('https');
  * @param cb
  */
 exports.pageList = function(page,size,conditionMap,cb){
-    var sql = "select * from pass_operation_colony_info";
+    var sql = "select * from pass_operation_colony_info ";
     var conditions = [];
     var orderSql = " order by id desc";
     console.log("查询集群信息sql ====",sql);
@@ -45,7 +45,7 @@ exports.getColony = function(id,cb){
  * @param cb
  */
 exports.add = function(data,cb){
-    var sql = "insert into pass_operation_colony_info(name,remark,createTime,createUser) values(?,?,now(),?)";
+    var sql = "insert into pass_operation_colony_info(name,remark,createTime,createUser,mesosUrl,marathonUrl) values(?,?,now(),?,?,?)";
     mysqlPool.query(sql,data,function(err,result) {
         if(err) {
             cb(utils.returnMsg(false, '1000', '创建集群信息异常', null, err));
@@ -62,7 +62,7 @@ exports.add = function(data,cb){
  * @param cb
  */
 exports.update = function(data,cb){
-    var sql = "update pass_operation_colony_info set name = ?,remark = ? where id = ? ";
+    var sql = "update pass_operation_colony_info set name = ?,remark = ?,mesosUrl = ?,marathonUrl = ?, where id = ? ";
     mysqlPool.query(sql, data, function(err,result) {
         if(err) {
             cb(utils.returnMsg(false, '1000', '更新集群信息异常', null, err));
@@ -94,4 +94,15 @@ exports.delete = function(id, cb) {
         }
     })
 
+}
+
+exports.comboboxList = function(data, cb){
+    var sql = "select * from pass_operation_colony_info where status = '1' and name is not null order by createTime desc";
+    mysqlPool.query(sql,[],function(err,result) {
+        if(err) {
+            cb(utils.returnMsg(false, '1000', '获取集群列表失败', null, err));
+        } else {
+            cb(utils.returnMsg(true, '0000', '获取集群列表成功', result, null));
+        }
+    });
 }

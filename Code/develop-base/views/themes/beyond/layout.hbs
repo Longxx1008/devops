@@ -60,7 +60,7 @@
         <div class="navbar-container">
             <!-- Navbar Barnd -->
             <div class="navbar-header pull-left">
-                <a href="#" class="navbar-brand">
+                <a target="_self" href="{{projcfg.appurl}}/home" class="navbar-brand" style="cursor: pointer" title="首页">
                     <img src="{{projcfg.appurl}}/static/images/top_logo.png" alt="" />
                 </a>
 
@@ -262,7 +262,9 @@
                     <!--<h1>
                         {{menu.menu_name}}
                     </h1>-->
-                    <a href="#">{{menu.menu_nav}}</a>
+                    <!--<a href="#">{{menu.menu_nav}}</a>-->
+                    <a href="#" id="menu_nav"><script>var mn = '{{menu.menu_nav}}';
+                    $("#menu_nav").text(mn.replace(new RegExp('&amp;gt;','gm'),' > ').replace(new RegExp('&gt;','gm'),' > '));</script></a>
                 </div>
                 <!--Header Buttons-->
                 <div class="header-buttons">

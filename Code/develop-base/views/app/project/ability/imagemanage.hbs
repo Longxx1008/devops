@@ -123,7 +123,7 @@
                     <div class="form-group" >
                         <label for="simpleIntroduction" class="col-sm-2 control-label no-padding-right">简介:</label>
                         <div class="col-sm-10" >
-                            <textarea  name="simpleIntroduction" id="simpleIntroduction" style="width:500px;height:300px;"></textarea>
+                            <input  class="easyui-textbox " name="simpleIntroduction" data-options="multiline:true" id="simpleIntroduction"   style="width:500px;height:300px;">
                         </div>
                     </div>
                     <input class="easyui-validatebox form-control" type="hidden" name="imageCode" id="imageCode">
@@ -300,11 +300,9 @@
 
         console.info(rows[0]);
         console.log(typeof rows[0]);
-        var ue1=UE.getEditor('simpleIntroduction');
+//        var ue1=UE.getEditor('simpleIntroduction');
         if(rows[0].simpleIntroduction){
-            ue1.setContent(rows[0].simpleIntroduction);
-        }else{
-            ue1.setContent("");
+            $("#simpleIntroduction").attr("value",rows[0].simpleIntroduction);
         }
 
         modal.form('load',rows[0]);

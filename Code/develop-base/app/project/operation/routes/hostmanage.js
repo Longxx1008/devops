@@ -39,7 +39,7 @@ router.route('/').get(function(req,res){
 })
 //修改集群主机信息
     .put(function(req,res){
-
+        var data = [];
         // 获取提交信息
         data.push(req.body.name);
         data.push(req.body.configure);

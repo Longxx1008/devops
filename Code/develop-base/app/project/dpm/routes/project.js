@@ -80,6 +80,7 @@ router.route('/develop/pm/project').post(function(req,res) {
             var currentUser = utils.getCurrentUser(req);
             data.push(currentUser.login_account);
             data.push(req.body.projectType);
+            data.push(req.body.homeUrl);
             var gitProjectId = null;
             //判断是否从gitlab获取项目集合成功
             if(result.data && result.data.length>0){
@@ -135,10 +136,20 @@ router.route('/develop/pm/update').put(function(req,res) {
     data.push(req.body.resourceUse);
     data.push(req.body.remark);
     data.push(req.body.projectType);
+    data.push(req.body.homeUrl);
     projectService.update(data, function(result) {
         utils.respJsonData(res, result);
     });
 });
+/**
+ * 项目进度情况
+ */
+router.route('/develop/pm/process').get(function(req, res){
+    projectService.projectProcess(function(result){
+        utils.respJsonData(res, result);
+    });
+});
+
 router.route('/develop/pm/:id').delete(function(req,res) {
     // 获取提交信息
     var id = req.params.id;
@@ -225,7 +236,20 @@ router.route('/develop/pm/deploy').get(function(req, res){
                                         if(!result.success){
                                             utils.respMsg(res, false, '2001', '应用部署失败', null, null);
                                         }else{
-                                            utils.respMsg(res, true, '2001', '应用部署成功', null, null);
+                                            var stepdata = [];
+                                            if(clusterId != 1){
+                                                stepdata.push(4);
+                                            }else{
+                                                stepdata.push(2);
+                                            }
+                                            stepdata.push(projectId);
+                                            projectService.updateStep(stepdata,function(result){
+                                                if(!result.success){
+                                                    utils.respMsg(res, false, '2001', '修改项目阶段失败', null, null);
+                                                }else{
+                                                    utils.respMsg(res, true, '2001', '应用部署成功', null, null);
+                                                }
+                                            });
                                         }
                                     });
                                 }else{
@@ -264,6 +288,18 @@ router.route('/develop/pm/proUserList').get(function(req,res){
     // 调用查询
     projectService.getUserList(conditionMap,function(result){
         utils.respJsonData(res, result);
+    });
+});
+
+router.route("/develop/pm/tree").get(function(req,res){
+    // 条件
+    var projectId = req.query.projectId;
+    if(!projectId){
+        return false;
+    }
+    // 调用查询
+    projectService.queryDetailTree(projectId,function(results){
+        utils.respJsonData(res, results);
     });
 });
 

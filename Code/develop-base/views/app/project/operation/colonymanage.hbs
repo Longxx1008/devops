@@ -6,7 +6,17 @@
                 <div id="toolbar" class="row tbRow" style="margin-bottom: 1.1rem;border-bottom: 1px solid #ccc;">
                     <div class="col-xs-6 col-md-6" style="width:100%">
                         <font size="3.5rem" style="margin-left: 1.2rem;margin-right: 2.5rem"> <b>集群管理</b></font>
-
+                        <div class="btn-group" role="group" aria-label="...">
+                            <button type="button" class="btn btn-default" onclick="openPage('新增集群','',doAdd)" data-title="新增">
+                                <i class="fa fa-plus"></i> 新增
+                            </button>
+                            <button type="button" class="btn btn-default" onclick="toEdit()" data-title="修改">
+                                <i class="fa fa-edit"></i> 修改
+                            </button>
+                            <button type="button" class="btn btn-default" onclick="doDel()" data-title="删除">
+                                <i class="fa fa-trash"></i> 删除
+                            </button>
+                        </div>
 
                     </div>
                 </div>
@@ -20,18 +30,8 @@
                                 <!--&lt;!&ndash; 集群树 &ndash;&gt;-->
                                 <!--<ul id="colonyTree" class="easyui-tree"></ul>-->
                             <!--</div>-->
-                            <div style="width:100%;height:100%;float:right;background-color: #DDDDDD; ">
-                                <div class="btn-group" role="group" aria-label="...">
-                                    <button type="button" class="btn btn-default" onclick="openPage('新增集群','',doAdd)" data-title="新增">
-                                        <i class="fa fa-plus"></i> 新增
-                                    </button>
-                                    <button type="button" class="btn btn-default" onclick="toEdit()" data-title="修改">
-                                        <i class="fa fa-edit"></i> 修改
-                                    </button>
-                                    <button type="button" class="btn btn-default" onclick="doDel()" data-title="删除">
-                                        <i class="fa fa-edit"></i> 删除
-                                    </button>
-                                </div>
+                            <div style="width:100%;height:100%; ">
+
                                 <table id="colonyDataTable">
                                 </table>
 
@@ -53,15 +53,27 @@
                 <form id="colonyForm" class="form-horizontal form-bordered" role="form" method="post" enctype="multipart/form-data">
                     <input type="hidden" id="colonyId" name="id"/>
                     <div class="form-group">
-                        <label for="imageName" class="col-sm-2 control-label no-padding-right">集群名称:</label>
-                        <div class="col-sm-10">
+                        <label for="imageName" class="col-sm-2 control-label no-padding-right" style="width: 21%">集群名称:</label>
+                        <div class="col-sm-10" style="width: 79%">
                             <input type="text" class="easyui-validatebox form-control" data-options="required:true" name="name" id="name" placeholder="请输入集群名称" style="width:60%">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="mesosUrl" class="col-sm-2 control-label no-padding-right" style="width: 21%">MESOS地址:</label>
+                        <div class="col-sm-10" style="width: 79%">
+                            <input type="text" class="easyui-validatebox form-control" data-options="required:true" name="mesosUrl" id="mesosUrl" placeholder="请输入MESOS地址" style="width:60%">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="marathonUrl" class="col-sm-2 control-label no-padding-right" style="width: 21%">MARATHON地址:</label>
+                        <div class="col-sm-10" style="width: 79%">
+                            <input type="text" class="easyui-validatebox form-control" data-options="required:true" name="marathonUrl" id="marathonUrl" placeholder="请输入MARATHON地址" style="width:60%">
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label for="inputProjectRemark" class="col-sm-2 control-label no-padding-right">备注:</label>
-                        <div class="col-sm-10">
+                        <label for="inputProjectRemark" class="col-sm-2 control-label no-padding-right" style="width: 21%">备注:</label>
+                        <div class="col-sm-10" style="width: 79%">
                             <textarea class="form-control" rows="5" name="remark" id="remark" placeholder="请输入备注"></textarea>
                         </div>
                     </div>
@@ -103,7 +115,7 @@
                     "formatter":function (value, rowData,rowIndex) {
                         return "CPU：20核（20%） </br>内存：500GB（50%）</br>磁盘：5TB（10%）</br>带宽：60Mbps（60%）";
                     }},
-                {"field": "totalResource","title":"总资源","width":200,align:"center",
+                {"field": "totalResource","title":"总资源","width":130,align:"center",
                     "formatter":function (value, rowData,rowIndex) {
                         return 'CPU： 100核</br> 内存： 1024 GB</br>磁盘： 50TB</br>带宽： 100Mbps';
                     }},
@@ -111,7 +123,11 @@
                     "formatter":function (value, rowData,rowIndex) {
                         return '运行中';
                     }},
-                {"field": "remark","title":"备注","width":120,align:"center"}
+                {"field": "remark","title":"备注","width":150,align:"center"},
+                {"field": "oper","title":"操作","width":120,align:"center",
+                    "formatter":function (value, rowData,rowIndex) {
+                        return "<span style='cursor: pointer;' onclick='hm_list("+rowData.id+",\""+rowData.name+"\")'>主机管理</span>";
+                    }}
             ]],
             onLoadError:function() {
                 msgError('加载数据出现时发生错误,请稍候重试...');
@@ -123,8 +139,8 @@
 //        $('#colonyDataTable').datagrid('loadData',colonymanagedata);
     });
 
-  function hm_list(cm_name){
-      window.location.href = "{{projcfg.appurl}}/containermanage?colonyname="+encodeURI(cm_name);
+  function hm_list(id,cm_name){
+      window.location.href = "{{projcfg.appurl}}/hostmanage?colonyname="+encodeURI(cm_name)+"&id="+id;
   }
     /**
      * 容器列表
@@ -174,7 +190,7 @@
         $('#colonyDialog').mydialog({
             title:title,
             width: 600,
-            height: 385,
+            height: 455,
             top:100,
             modal: true,
             myButtons:[
@@ -241,12 +257,12 @@
     //删除数据列表
     function doDel() {
         // 获得选择行
-        var rows = $('#projectdatatable').datagrid('getChecked');
+        var rows = $('#colonyDataTable').datagrid('getChecked');
         if (rows.length != 1) {
             msgError('提示,请选择一条数据再进行删除');
             return false;
         }
-        var id = rows[0]._id;
+        var id = rows[0].id;
         msgConfirm('确定删除此条记录么？',function(result) {
             if(result){
                 $.ajax({

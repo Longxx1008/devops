@@ -23,7 +23,7 @@ exports.pageList = function(page,size,conditionMap,cb){
             conditions.push(conditionMap.colonyId);
         }
     }
-    var orderSql = "order by id desc";
+    var orderSql = " order by id desc ";
     console.log("查询集群主机信息sql ====",sql);
     utils.pagingQuery4Eui_mysql(sql,orderSql,page,size,conditions,cb);
 };
