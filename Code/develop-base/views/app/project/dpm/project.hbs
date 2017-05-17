@@ -126,8 +126,7 @@
                     <div class="form-group">
                         <label for="deployClusterId" class="col-sm-2 control-label no-padding-right">部署集群:</label>
                         <div class="col-sm-10">
-                            <select id="deployClusterId" name="deployClusterId" class="easyui-validatebox form-control" data-options="required:true" style="width:80%;">
-                                <option value="1">测试集群</option>
+                            <select id="deployClusterId" name="deployClusterId" class="easyui-validatebox form-control" data-options="required:true" style="width:80%;height:31px;">
                             </select>
                         </div>
                     </div>
@@ -352,6 +351,14 @@
             editable:false,
             required:true
         });
+        $('#deployClusterId').combobox({
+            method: 'get',
+            url: '{{projcfg.appurl}}/api/project/operation/colonymanage/combobox',
+            valueField:'id',
+            textField:'name',
+            editable:false,
+            required:true
+        });
         openPage('deployDialog','deployForm','应用部署', '', doDeploy);
     }
 
@@ -439,13 +446,6 @@
             ]
         });
     }
-//    function (value){
-//
-//
-//
-//    }
-//    //打开部署的页面
-//    function
 
     // 打开页面
     function openPage(id,fromid,title, value, callback) {
@@ -545,8 +545,6 @@
         }else{
             window.location.href = "{{projcfg.appurl}}/projectdetail?projectId="+rows[0].id;
         }
-
-
     }
 
 </script>
