@@ -141,6 +141,15 @@ router.route('/develop/pm/update').put(function(req,res) {
         utils.respJsonData(res, result);
     });
 });
+/**
+ * 项目进度情况
+ */
+router.route('/develop/pm/process').get(function(req, res){
+    projectService.projectProcess(function(result){
+        utils.respJsonData(res, result);
+    });
+});
+
 router.route('/develop/pm/:id').delete(function(req,res) {
     // 获取提交信息
     var id = req.params.id;
