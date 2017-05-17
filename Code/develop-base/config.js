@@ -153,7 +153,10 @@ var config = {
         superRolesId:"56d7e358a6fbe05a1394ad6e",
         userRoot:'/mnt/dockerts/',
         LableKey:'index',
-        lableValue:'create'
+        lableValue:'create',
+        mesosHost:"http://192.168.31.91:5050",
+        marathonApi:"http://192.168.31.92:8080/v2/apps",
+        marathonLb:"http://192.168.31.95"
     }
 }
 module.exports = config;

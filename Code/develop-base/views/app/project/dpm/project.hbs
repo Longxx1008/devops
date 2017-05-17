@@ -227,6 +227,10 @@
         });
     }
 
+    function to_gitlab(){
+        window.open("http://192.168.31.127");
+    }
+
    function setProjectStepValue(value){
        var teststyle = "background-color:#CCCCCC",deploystyle = "background-color:#CCCCCC",opstyle="background-color:#CCCCCC";
        if(value == 2){
@@ -235,7 +239,7 @@
            deploystyle = "background-color:#009933";
            opstyle = "background-color:#009966";
        }
-       var devepsp = "<span class=\"label label-success\" style=\"margin-right:0.5rem;\" ><a target=\"_blank\" href=\"javascript:void(0);\" style=\"padding:3px 3px;color:#fff;cursor: pointer;\">开发</a></span>";
+       var devepsp = "<span class=\"label label-success\" style=\"margin-right:0.5rem;width:3.5rem;cursor: pointer;\"  onclick=\"to_gitlab()\">开发</span>";
        var testsp = "<span class=\"label label-success\" style=\"margin-right:0.5rem;margin-left: 0.5rem;"+teststyle+"\" ><a target=\"_blank\" href=\"javascript:void(0);\" style=\"padding:3px 3px;color:#fff;cursor: pointer;\">测试</a></span>";
        var depsp = "<span class=\"label label-success\" style=\"margin-right:0.5rem;margin-left: 0.5rem;"+deploystyle+"\" ><a target=\"_blank\" href=\"javascript:void(0);\" style=\"padding:3px 3px;color:#fff;cursor: pointer;\">部署</a></span>";
        var opsp = "<span class=\"label label-success\" style=\"margin-left: 0.5rem;"+opstyle+"\" ><a target=\"_blank\" href=\"javascript:void(0);\" style=\"padding:3px 3px;color:#fff;cursor: pointer;\">运维</a></span>";

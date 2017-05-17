@@ -158,6 +158,86 @@ router.route('/develop/pm/:id').delete(function(req,res) {
     });
 });
 
+router.route('/develop/pm/deploy/logs/:id').get(function(req, res){
+    var id = req.params.id;
+    projectService.getDeployedInfo(id,function(result){
+        if(result.success && result.data.length != 0){
+            var url = "http://" + result.data[0].hostIp +  ":2375/containers/" +  result.data[0].containerId + "/logs?stderr=1&stdout=1&timestamps=1&follow=0&tail=1000&since=0";
+            var http = require("http");
+            http.get(url, function(resp){
+                if(resp.statusCode == 200){
+                    var rhtml = '';
+                    resp.setEncoding('utf8');
+                    resp.on('data', function (chunk) {
+                        rhtml += chunk;
+                    });
+                    resp.on('end', function () {
+                        console.log("end....");
+                        res.end(rhtml,"utf-8");
+                    });
+                } else{
+                    utils.respMsg(res, false, '0000', '查询日志出错：' + resp.statusCode, null, null);
+                }
+            }).on('error',function(e){
+                console.log("Got error: " + e.message);
+            });
+        }else{
+            res.end("","utf-8");
+        }
+    })
+});
+
+
+router.route('/develop/pm/deploy/stop/:id').get(function(req, res){
+    var id = req.params.id;
+    projectService.getDeployedInfo(id,function(result){
+        if(result.success && result.data.length != 0){
+            var request = require('request');
+            var scaleJson = SON.parse({"instances": 0});
+            var options = {
+                headers : {"Connection": "close"},
+                url : config.platform.marathonApi + result.data.mesosId,
+                method : 'put',
+                json : true,
+                body : scaleJson
+            };
+            function callback(error, response, data) {
+                if (!error && (response.statusCode == 200 || response.statusCode == 201)) {
+                    console.log('停止应用成功----info------',data);
+                    var params = [];
+                    /*projectService.updateDeployStatus(params,function(result){
+                        //utils.respJsonData(res, result);
+                        if(!result.success){
+                            utils.respMsg(res, false, '2001', '应用部署失败', null, null);
+                        }else{
+                            var stepdata = [];
+                            if(clusterId != 1){
+                                stepdata.push(4);
+                            }else{
+                                stepdata.push(2);
+                            }
+                            stepdata.push(projectId);
+                            projectService.updateStep(stepdata,function(result){
+                                if(!result.success){
+                                    utils.respMsg(res, false, '2001', '修改项目阶段失败', null, null);
+                                }else{
+                                    utils.respMsg(res, true, '2001', '应用部署成功', null, null);
+                                }
+                            });
+                        }
+                    });*/
+                }else{
+                    console.log("部署失败，" + error);
+                    utils.respMsg(res, false, '2001', '应用部署失败', null, null);
+                }
+            }
+            request(options, callback);
+        }else{
+            res.end("","utf-8");
+        }
+    })
+});
+
 router.route('/develop/pm/deploy').get(function(req, res){
     // 分页条件
     var projectName = req.query.projectName;
@@ -207,7 +287,7 @@ router.route('/develop/pm/deploy').get(function(req, res){
                             var request = require('request');
                             var options = {
                                 headers : {"Connection": "close"},
-                                url : 'http://192.168.31.91:8080/v2/apps',
+                                url : config.platform.marathonApi,
                                 method : 'POST',
                                 json : true,
                                 body : deployJson
@@ -223,10 +303,8 @@ router.route('/develop/pm/deploy').get(function(req, res){
                                     params.push(clusterId);
                                     if(projectId == "25"){
                                         params.push("http://192.168.31.127" + ":" + deployJson.container.docker.portMappings[0].servicePort);
-                                    }else if(projectId == "26"){
-                                        params.push("http://192.168.31.95" + ":" + deployJson.container.docker.portMappings[0].servicePort + "/demo");
                                     }else{
-                                        params.push("http://192.168.31.95" + ":" + deployJson.container.docker.portMappings[0].servicePort);
+                                        params.push(config.platform.marathonLb + ":" + deployJson.container.docker.portMappings[0].servicePort + homeUrl);
                                     }
                                     //params.push(JSON.stringify(data));
                                     params.push(remark);
