@@ -79,7 +79,7 @@ exports.imageCollectOrDownload = function(conditionMap,data,mapData,cb){
         if(err) {
             cb(utils.returnMsg(false, '1000', '修改记录数异常', null, err));
         } else {
-            if(!conditionMap){
+            if(!conditionMap.length>0){
                 mysqlPool.query(mapsql,mapData,function(error,mapresult){
                     if(error){
                         cb(utils.returnMsg(false, '1000', '修改类型异常', null, error));
