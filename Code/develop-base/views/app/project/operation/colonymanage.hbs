@@ -53,27 +53,27 @@
                 <form id="colonyForm" class="form-horizontal form-bordered" role="form" method="post" enctype="multipart/form-data">
                     <input type="hidden" id="colonyId" name="id"/>
                     <div class="form-group">
-                        <label for="imageName" class="col-sm-2 control-label no-padding-right">集群名称:</label>
-                        <div class="col-sm-10">
+                        <label for="imageName" class="col-sm-2 control-label no-padding-right" style="width: 21%">集群名称:</label>
+                        <div class="col-sm-10" style="width: 79%">
                             <input type="text" class="easyui-validatebox form-control" data-options="required:true" name="name" id="name" placeholder="请输入集群名称" style="width:60%">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="imageName" class="col-sm-2 control-label no-padding-right">MESOS地址:</label>
-                        <div class="col-sm-10">
+                        <label for="mesosUrl" class="col-sm-2 control-label no-padding-right" style="width: 21%">MESOS地址:</label>
+                        <div class="col-sm-10" style="width: 79%">
                             <input type="text" class="easyui-validatebox form-control" data-options="required:true" name="mesosUrl" id="mesosUrl" placeholder="请输入MESOS地址" style="width:60%">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="imageName" class="col-sm-2 control-label no-padding-right">MARATHON地址:</label>
-                        <div class="col-sm-10">
+                        <label for="marathonUrl" class="col-sm-2 control-label no-padding-right" style="width: 21%">MARATHON地址:</label>
+                        <div class="col-sm-10" style="width: 79%">
                             <input type="text" class="easyui-validatebox form-control" data-options="required:true" name="marathonUrl" id="marathonUrl" placeholder="请输入MARATHON地址" style="width:60%">
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label for="inputProjectRemark" class="col-sm-2 control-label no-padding-right">备注:</label>
-                        <div class="col-sm-10">
+                        <label for="inputProjectRemark" class="col-sm-2 control-label no-padding-right" style="width: 21%">备注:</label>
+                        <div class="col-sm-10" style="width: 79%">
                             <textarea class="form-control" rows="5" name="remark" id="remark" placeholder="请输入备注"></textarea>
                         </div>
                     </div>
@@ -190,7 +190,7 @@
         $('#colonyDialog').mydialog({
             title:title,
             width: 600,
-            height: 385,
+            height: 455,
             top:100,
             modal: true,
             myButtons:[
