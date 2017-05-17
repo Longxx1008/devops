@@ -192,10 +192,10 @@ router.route('/develop/pm/deploy').get(function(req, res){
     projectService.getDeployedList(params, function(result){
         if(result.success){
             if(result.data != null && result.data.length != 0){//已经部署过了
-                utils.respJsonData(res, utils.returnMsg(false, '0000', '所选应用在该集群已经部署过了，不能重复部署', null, null));
+                utils.respJsonData(res, utils.returnMsg(false, '0000', '所选应用在该集群已经部署过了,不能重复部署', null, null));
             }else{
                 //TODO 部署集群
-                params.splice(0,params.length);
+                params.splice(0, params.length);
                 params.push(projectId);
                 params.push(projectVersion);
                 projectService.getVersionInfo(params, function(result){
@@ -218,6 +218,7 @@ router.route('/develop/pm/deploy').get(function(req, res){
                                     //插入启动的服务信息
                                     params.splice(0,params.length);
                                     params.push(projectId);
+                                    params.push(data.id);
                                     params.push(projectVersion);
                                     params.push(clusterId);
                                     if(projectId == "25"){

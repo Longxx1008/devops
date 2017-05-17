@@ -68,9 +68,10 @@
 //                {"field": "createTime","title":"创建时间","width":200,align:"center"},
                 {"field": "operation","title":"操作","width":200,align:"center",
                     "formatter":function(value, rowData, rowIndex){
-                        var retvalue = "<span class=\"label label-warning\" style=\"height:26px;line-height:18px;font-weight:600;margin-top: 0.5rem;cursor: pointer;\" onclick='to_serviceDetail()'>服务详情</span>   "+
+                        var retvalue = "<span class=\"label label-warning\" style=\"height:26px;line-height:18px;font-weight:600;margin-top: 0.5rem;cursor: pointer;\" onclick='to_serviceDetail()'>服务详情</span>"+
                                  "<span class=\"label label-danger\" style=\"height:26px;line-height:18px;font-weight:600;margin-top: 0.5rem;margin-left: 0.5rem;cursor: pointer;\">停止</span></br>"+
-                                "<span class=\"label label-info\" style='height:26px;line-height:18px;font-weight:600;cursor: pointer;margin-top: 0.5rem;margin-bottom: 0.5rem;' onclick='performsStatus()'>性能情况</span> <span class=\"label label-info\" style='height:26px;line-height:18px;font-weight:600;cursor: pointer;' onclick='logsCenter()'>日志</span>";
+                                "<span class=\"label label-info\" style='height:26px;line-height:18px;font-weight:600;cursor: pointer;margin-top: 0.5rem;margin-bottom: 0.5rem;' onclick='performsStatus()'>性能情况</span>" +
+                                "<span class=\"label label-info\" style='height:26px;line-height:18px;font-weight:600;cursor: pointer;' onclick='logsCenter()'>日志</span>";
                         return retvalue;
                     }
                 }
@@ -84,7 +85,6 @@
             loadMsg:'正在加载...'
         });
     });
-
 
     function doSearch() {
         $('#dataTable').datagrid('reload');

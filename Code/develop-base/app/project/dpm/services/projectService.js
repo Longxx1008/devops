@@ -337,7 +337,7 @@ exports.getVersionInfo = function(conditionMap, cb){
  * @param cb
  */
 exports.saveDeployInfo = function(conditionMap, cb){
-    var sql = "insert into pass_develop_project_deploy(type,projectId,version,clusterId,webSite,remark,createTime,createBy,updateTime) values('1',?,?,?,?,?,now(),?,now())";
+    var sql = "insert into pass_develop_project_deploy(type,projectId,mesosId,version,clusterId,webSite,remark,createTime,createBy,updateTime) values('1',?,?,?,?,?,?,now(),?,now())";
     mysqlPool.query(sql, conditionMap, function(err, result){
         if(err) {
             cb(utils.returnMsg(false, '1000', '保存项目部署信息出错', null, err));
