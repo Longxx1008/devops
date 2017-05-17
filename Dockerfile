@@ -7,3 +7,4 @@ EXPOSE 30000
 EXPOSE 8080
 RUN cnpm install
 CMD ["npm","start"]
+:q
