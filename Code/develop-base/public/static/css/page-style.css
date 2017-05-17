@@ -477,3 +477,95 @@ input[type=button], input[type=text], input[type=password], button {
     padding-right: 10px;
     font-size:12px;
 }
+.image-type {
+    margin-top: 5px;
+    margin-left: 5px;
+    font-size: 12px;
+    line-height: 20px;
+    color: #828282;
+    text-align: justify;
+    overflow: hidden;
+}
+
+.speed-ul{
+    overflow: hidden;
+    background: #FFF;
+    padding:20px;
+}
+.speed-ul li{
+    float: left;
+    overflow: hidden;
+}
+.speed-ul li.box{
+    width:16%;
+}
+.speed-ul li.box .speed-box{
+    -webkit-border-radius:60px;
+    -moz-border-radius:60px;
+    border-radius:60px;
+    text-align: center;
+    overflow: hidden;
+    width:120px;
+    height: 120px;
+    margin:0 auto;
+}
+.speed-ul li.box .speed-box.develop{
+    background: #00a0e9;
+}
+.speed-ul li.box .speed-box.test{
+    background: #f3b100;
+}
+.speed-ul li.box .speed-box.deploy{
+    background: #ff6b5c;
+}
+.speed-ul li.box .speed-box.operation{
+    background: #69cf7e;
+}
+.speed-ul li.box .speed-box h1{
+    line-height:90px;
+    color: #FFF;
+    font-size:42px;
+}
+.speed-ul li.box .speed-box h2{
+    background:rgba(255,255,255,0.8);
+    color: #555;
+    line-height:30px;
+}
+.speed-ul li.arrow{
+    width:12%;
+    height:120px;
+    text-align: center;
+    position: relative;
+}
+
+.arrow-content {
+    display: block;
+    -webkit-animation: arrow 1.5s infinite ease-in-out;
+    animation: arrow 1.5s infinite ease-in-out;
+    padding-top: 35px;
+}
+.arrow-content img{
+    width:50%;
+    margin:0 auto;
+}
+.arrow-content i{
+    display: block;
+    width:5px;
+    height:5px;
+    float: left;
+    background: #777;
+}
+@-webkit-keyframes arrow {
+    0% {
+        opacity: 0;
+        -webkit-transform: translate(-30px, 0px)
+    }
+    50% {
+        opacity: 1;
+        -webkit-transform: translate(0px, 0px)
+    }
+    100% {
+        opacity: 0;
+        -webkit-transform: translate(30px, 0px)
+    }
+}

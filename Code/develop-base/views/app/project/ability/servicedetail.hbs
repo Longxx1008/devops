@@ -8,7 +8,7 @@
                         <font size="3.5rem" style="margin-left: 1.2rem;margin-right: 2.5rem"> <b>服务详情</b></font>
                         <div class="btn-group" role="group" aria-label="..." style="float: right;margin-right: 2rem;">
                             <button type="button" class="btn btn-default" onclick="do_return();" data-title="返回">
-                                <i class="fa fa-edit"></i> 返回
+                                <i class="fa fa-reply"></i> 返回
                             </button>
                         </div>
 
@@ -146,5 +146,9 @@ function getQueryString(name) {
     var r = window.location.search.substr(1).match(reg);
     if (r != null) return unescape(r[2]); return null;
 }
+
+    function do_return(){
+        history.go(-1);
+    }
 
 </script>

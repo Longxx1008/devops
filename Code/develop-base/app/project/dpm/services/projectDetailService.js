@@ -4,7 +4,6 @@ var $util = require('../../../common/util/util');
 var mysql = require('mysql');
 var utils = require('../../../common/core/utils/app_utils');
 var mysqlPool = require('../../utils/mysql_pool');
-var async=require("async");
 var childNodeMap=new HashKey();
 // 使用连接池，提升性能
 
