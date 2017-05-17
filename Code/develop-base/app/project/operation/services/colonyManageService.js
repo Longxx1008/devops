@@ -95,3 +95,14 @@ exports.delete = function(id, cb) {
     })
 
 }
+
+exports.comboboxList = function(data, cb){
+    var sql = "select * from pass_operation_colony_info where status = '1' and name is not null order by createTime desc";
+    mysqlPool.query(sql,[],function(err,result) {
+        if(err) {
+            cb(utils.returnMsg(false, '1000', '获取集群列表失败', null, err));
+        } else {
+            cb(utils.returnMsg(true, '0000', '获取集群列表成功', result, null));
+        }
+    });
+}

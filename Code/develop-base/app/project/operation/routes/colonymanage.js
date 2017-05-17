@@ -47,6 +47,14 @@ router.route('/').get(function(req,res){
             utils.respJsonData(res, result);
         });
     });
+
+router.route('/combobox').get(function(req, res){
+    var conditionMap = {};
+    colonyManageService.comboboxList(conditionMap,function(result){
+        utils.respJsonData(res, result.data);
+    });
+});
+
 //根据Id获取集群数据
 router.route('/:id')
     .get(function(req,res){
@@ -72,6 +80,5 @@ router.route('/:id')
             utils.respMsg(res, false, '1000', '集群ID不能为空。', null, null);
         }
     });
-
 
 module.exports = router;
