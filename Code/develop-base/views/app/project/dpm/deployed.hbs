@@ -72,7 +72,7 @@
                     "formatter":function(value, rowData, rowIndex){
                         var retvalue = "<span class=\"label label-warning\" style=\"height:26px;line-height:18px;font-weight:600;margin-top: 0.5rem;cursor: pointer;\" onclick=\"to_serviceDetail("+rowData.id+")\">服务详情</span>   "+
                                  "<span class=\"label label-danger\" style=\"height:26px;line-height:18px;font-weight:600;margin-top: 0.5rem;margin-left: 0.5rem;cursor: pointer;\">停止</span></br>"+
-                                "<span class=\"label label-info\" style='height:26px;line-height:18px;font-weight:600;cursor: pointer;margin-top: 0.5rem;margin-bottom: 0.5rem;' onclick='performsStatus()'>性能情况</span> <span class=\"label label-info\" style='height:26px;line-height:18px;font-weight:600;cursor: pointer;' onclick='logsCenter()'>日志</span>";
+                                "<span class=\"label label-info\" style='height:26px;line-height:18px;font-weight:600;cursor: pointer;margin-top: 0.5rem;margin-bottom: 0.5rem;' >性能情况</span> <span class=\"label label-info\" style='height:26px;line-height:18px;font-weight:600;cursor: pointer;' onclick='logsCenter()'>日志</span>";
                         return retvalue;
                     }
                 }
@@ -138,14 +138,7 @@
         clear();
     }
 
-    //性能情况
-    function performsStatus(){
-//        var src = "http://192.168.31.92:3000/dashboard-solo/db/service-mysql-metrics?refresh=5s&orgId=1&panelId=1&from=1495019928060&to=1495023528061&var-host=mesos-master2&var-interval=%24__auto_interval";
-//        $("#performance").attr("src",src);
-        window.location.href = "{{projcfg.appurl}}/performs?iframsrc=http://192.168.31.92:3000/dashboard-solo/db/service-mysql-metrics?refresh=5s&orgId=1&panelId=1&from=1495019928060&to=1495023528061&var-host=mesos-master2&var-interval=%24__auto_interval";
-//        var url = "http://192.168.31.92:3000";
-//        window.open(src);
-    }
+    
     //日志中心
     function logsCenter(){
         var url = "http://192.168.31.92:5601";
