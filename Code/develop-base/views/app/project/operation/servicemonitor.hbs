@@ -46,10 +46,11 @@
             columns:[[
                 {"field":'id',checkbox:true},
                 {"field":'deployId',hidden:true},
+                {"field":'monitorUrl',hidden:true},
                 {"field": "serviceName","title":"服务名称","width":120,align:"center"},
                 {"field": "type","title":"类型","width":100,align:"center"},
                 {"field": "monitorPort","title":"监听端口","width":150,align:"center"},
-                {"field": "status","title":"状态","width":100,align:"center",
+                {"field": "status","title":"状态","width":80,align:"center",
                     "formatter":function (value, rowData,rowIndex) {
                         var retValue='';
                         if(value == 1){//正常
@@ -57,6 +58,12 @@
                         }else{//异常
                             retValue = "<span class=\"label label-danger\" onclick='' style=\"height:26px;line-height:18px;font-weight:600;margin-top: 0.5rem;margin-bottom: 0.5rem;cursor: pointer;\">异常</span>";
                         }
+                        return retValue;
+                    }
+                },
+                {"field": "oper","title":"操作","width":100,align:"center",
+                    "formatter":function (value, rowData,rowIndex) {
+                        var retValue="<span class=\"label label-warning\" data-murl='" + rowData.monitorUrl + "' onclick=\"to_servicemonitor(this)\" style='height:26px;line-height:18px;font-weight:600;margin-top: 0.5rem;margin-bottom: 0.5rem;margin-left: 0.6rem;cursor: pointer;'>服务监控</span>";
                         return retValue;
                     }
                 }
@@ -75,10 +82,14 @@
         if (r != null) return unescape(r[2]); return null;
     }
     /**
-     * 容器列表
+     * 服务监控
      */
-    function toContainerListing(){
-        window.location.href = "{{projcfg.appurl}}/containermanage";
+    function to_servicemonitor(thisObj){
+        var murl = $(thisObj).data("murl");
+        if(!murl){
+            return false;
+        }
+        window.open(murl);
     }
 
 //性能情况
@@ -91,12 +102,6 @@
       var url = "http://192.168.31.92:5601";
       window.open(url);
   }
-    /**
-     * 容器列表
-     */
-    function toContainerListing(){
-        window.location.href = "{{projcfg.appurl}}/containermanage";
-    }
 
 
 
