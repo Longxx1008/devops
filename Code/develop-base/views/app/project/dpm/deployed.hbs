@@ -65,6 +65,11 @@
                 {"field":'id',checkbox:true},
                 {"field": "projectCode","title":"应用编号","width":120,align:"center"},
                 {"field": "projectName","title":"应用名称","width":150,align:"center"},
+                {"field": "type","title":"应用类型","width":150,align:"center",
+                    "formatter":function (value, rowData,rowIndex) {
+                        return value == "1" ? "自主研发":"第三方应用";
+                    }
+                },
                 {"field": "version","title":"部署版本","width":100,align:"center"},
                 {"field": "clusterId","title":"运行集群","width":100,align:"center",
                     "formatter":function (value, rowData,rowIndex) {
