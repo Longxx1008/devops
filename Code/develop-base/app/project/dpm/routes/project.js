@@ -329,6 +329,7 @@ router.route('/develop/pm/deploy').get(function(req, res){
                             //TODO 下面的mesos接口地址和marathon-lb的地址都应该根据集群ID从数据库获取
                             console.log(result.data[0].deployJson);
                             var deployJson = JSON.parse(result.data[0].deployJson);
+                            var homeUrl = result.data[0].homeUrl;
                             var request = require('request');
                             var options = {
                                 headers : {"Connection": "close"},
@@ -346,11 +347,7 @@ router.route('/develop/pm/deploy').get(function(req, res){
                                     params.push(data.id);
                                     params.push(projectVersion);
                                     params.push(clusterId);
-                                    if(projectId == "25"){
-                                        params.push("http://192.168.31.127" + ":" + deployJson.container.docker.portMappings[0].servicePort);
-                                    }else{
-                                        params.push(config.platform.marathonLb + ":" + deployJson.container.docker.portMappings[0].servicePort + homeUrl);
-                                    }
+                                    params.push(config.platform.marathonLb + ":" + deployJson.container.docker.portMappings[0].servicePort);
                                     //params.push(JSON.stringify(data));
                                     params.push(remark);
                                     var currentUser = utils.getCurrentUser(req);
