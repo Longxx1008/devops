@@ -17,9 +17,9 @@ var memberUrl = "http://192.168.31.127/api/v3/projects/" ;
 var roleUrl = "http://192.168.31.127/api/v3//users/";
 
 exports.queryMemberDataRun = function(){
-    console.log(DateUtils.format(new Date(),'yyyy-MM-dd hh:mm:ss') + ' 获取镜像与相关镜像版本数据任务开始');
+    console.log(DateUtils.format(new Date(),'yyyy-MM-dd hh:mm:ss') + ' 获取成员与相关成员角色数据任务开始');
     getdata();
-    console.log(DateUtils.format(new Date(),'yyyy-MM-dd hh:mm:ss') + ' 获取镜像与相关镜像版本数据任务结束');
+    console.log(DateUtils.format(new Date(),'yyyy-MM-dd hh:mm:ss') + ' 获取成员与相关成员角色数据任务结束');
 };
 
 
