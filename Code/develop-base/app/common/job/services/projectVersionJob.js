@@ -8,6 +8,7 @@ var config = require('../../../../config');
 var $util = require('../../../common/util/util');
 var DateUtils = require('../../../common/core/utils/DateUtils');
 var mysqlPool = require('../../../project/utils/mysql_pool');
+var nodeGrass = require('../../../project/utils/nodegrass');
 
 // 使用连接池，提升性能
 var pool = mysql.createPool($util.extend({}, config.mysql));
@@ -31,7 +32,6 @@ exports.projectVersionJobRun = function(){
                     }
                 }
                 connection.release();
-                // console.log(DateUtils.format(new Date(),'yyyy-MM-dd hh:mm:ss') + ' 获取gitlab相关项目版本任务结束');
             });
         }
     });
@@ -42,35 +42,20 @@ exports.projectVersionJobRun = function(){
 //https请求gitlab，获取相关项目最新版本信息并插入
 function httpsGetVersion(gitProjectId,projectId){
     //获取pipelines的Tags--status为success的版本数据
-    var options = {
-        hostname: config.platform.gitlabIp,
-        path: '/api/v3/projects/'+gitProjectId+'/pipelines?private_token='+config.platform.private_token+'&scope=tags',
-        rejectUnauthorized: false  // 忽略安全警告
-    };
-    var req = https.get(options, function (res) {
-        console.log(">>>>>>>>>>>>statusCode：" + res.statusCode + "<<<<<<<<<<<<<<");
-        res.setEncoding('utf8');
-        var chtmlJson = '';
-        res.on('data', function (chunk) {//拼接响应数据
-            chtmlJson += chunk;
-        });
-        res.on('end', function () {
-            var info = JSON.parse(chtmlJson);//将拼接好的响应数据转换为json对象
-            var obj;
-            if (info) {
-                console.log("===info===="+info);
-                var i = 0;
-                forVersionInfo(info,i,projectId);
-
-            } else {
-                console.log(DateUtils.format(new Date(),'yyyy-MM-dd hh:mm:ss') + ' 获取gitlab相关项目版本信息异常');
-            }
-            console.log(DateUtils.format(new Date(),'yyyy-MM-dd hh:mm:ss') + ' 获取gitlab相关项目版本任务结束');
-        });
-    });
-    req.on('error', function (err) {
-        console.error(err.code);
-        console.log(DateUtils.format(new Date(),'yyyy-MM-dd hh:mm:ss') + ' 连接获取gitlab相关项目版本信息异常：'+err.message);
+    var url = config.platform.gitlabUrl+'/api/v3/projects/'+gitProjectId+'/pipelines?private_token='+config.platform.private_token+'&scope=tags';
+    nodeGrass.get(url,function(data,status,headers){
+        // console.log(status);
+        // console.log(data);
+        var info = JSON.parse(data);//将拼接好的响应数据转换为json对象
+        if (info) {
+            var i = 0;
+            forVersionInfo(info,i,projectId);
+        } else {
+            console.log( '创建项目时 项目版本信息不存在...');
+        }
+    },'utf8').on('error', function(e) {
+        console.log("Got error: " + e.message);
+        console.log( '创建项目时 获取项目版本信息错误：'+e.message);
     });
 }
 function forVersionInfo(versions,i,projectId){

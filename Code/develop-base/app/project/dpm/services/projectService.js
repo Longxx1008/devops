@@ -1,7 +1,8 @@
 var utils = require('../../../common/core/utils/app_utils');
 var mysqlPool = require('../../utils/mysql_pool');
+var nodeGrass = require('../../utils/nodegrass');
 var config = require('../../../../config');
-var https = require('https');
+var http = require('http');
 
 /**
  * 获取项目的分页数据
@@ -21,7 +22,7 @@ exports.pageList = function(page, size, conditionMap, cb) {
             sql += " and (t1.projectName like '%" + conditionMap.projectName + "%')";
         }
     }
-    var orderBy = " order by t1.createTime desc";
+    var orderBy = " order by d.version desc";
     console.log("查询项目信息sql ====",sql);
     utils.pagingQuery4Eui_mysql(sql,orderBy, page, size, conditions, cb);
 };
@@ -91,35 +92,23 @@ exports.getProject = function(conditionMap, cb) {
                 cb(utils.returnMsg(false, '1000', '项目已存在', results, null));
             }else{
                 //获取gitlab所有项目
-                var options = {
-                    hostname: config.platform.gitlabIp,
-                    path: '/api/v3/projects?private_token='+config.platform.private_token,
-                    rejectUnauthorized: false  // 忽略安全警告
-                };
-                var req = https.get(options, function (res) {
-                    console.log(">>>>>>>>>>>>statusCode：" + res.statusCode + "<<<<<<<<<<<<<<");
-                    res.setEncoding('utf8');
-                    var chtmlJson = '';
-                    res.on('data', function (chunk) {//拼接响应数据
-                        chtmlJson += chunk;
-                    });
-                    res.on('end', function (){
-                        var info = JSON.parse(chtmlJson);//将拼接好的响应数据转换为json对象
-                        var obj;
-                        var results = [];
-                        if (info) {
-                            for(var i=0;i<info.length;i++){
-                                results.push({"projectId":info[i].id,"projectName":info[i].name});
-                            }
-                            cb(utils.returnMsg(true, res.statusCode, '获取项目信息成功。', results, null));
-                        } else {
-                            cb(utils.returnMsg(false, res.statusCode, '获取项目信息失败。', results, null));
+                var url = config.platform.gitlabUrl+'/api/v3/projects?private_token='+config.platform.private_token;
+                nodeGrass.get(url,function(data,status,headers){
+                    // console.log(status);
+                    // console.log(data);
+                    var info = JSON.parse(data);//将拼接好的响应数据转换为json对象
+                    var results = [];
+                    if (info) {
+                        for(var i=0;i<info.length;i++){
+                            results.push({"projectId":info[i].id,"projectName":info[i].name});
                         }
-                    });
-                });
-                req.on('error', function (err) {
-                    console.error(err.code);
-                    cb(utils.returnMsg(false, '404', err.message, null, null));
+                        cb(utils.returnMsg(true, status, '获取项目信息成功。', results, null));
+                    } else {
+                        cb(utils.returnMsg(false, status, '获取项目信息失败。', results, null));
+                    }
+                },'utf8').on('error', function(e) {
+                    console.log("Got error: " + e.message);
+                    cb(utils.returnMsg(false, '404', e.message, null, null));
                 });
             }
         }
@@ -145,35 +134,22 @@ exports.add = function(data, cb) {
 
 //从gitlab获取版本信息
 exports.getVerByGitLab = function(gitProjectId,projectId){
-    var options = {
-        hostname: config.platform.gitlabIp,
-        path: '/api/v3/projects/'+gitProjectId+'/pipelines?private_token='+config.platform.private_token+'&scope=tags',
-        rejectUnauthorized: false  // 忽略安全警告
-    };
-    var req = https.get(options, function (res) {
-        console.log(">>>>>>>>>>>>statusCode：" + res.statusCode + "<<<<<<<<<<<<<<");
-        res.setEncoding('utf8');
-        var chtmlJson = '';
-        res.on('data', function (chunk) {//拼接响应数据
-            chtmlJson += chunk;
-        });
-        res.on('end', function (){
-            console.log("==chtmlJson====",chtmlJson);
-            var info = JSON.parse(chtmlJson);//将拼接好的响应数据转换为json对象
-            var obj;
-            var results = [];
-            if (info) {
-                var i = 0;
-                forVersionInfo(info,i,projectId);
-            } else {
-                console.log( '创建项目时 项目版本信息不存在...');
-            }
-        });
+    var url = config.platform.gitlabUrl+'/api/v3/projects/'+gitProjectId+'/pipelines?private_token='+config.platform.private_token+'&scope=tags';
+    nodeGrass.get(url,function(data,status,headers){
+        // console.log(status);
+        // console.log(data);
+        var info = JSON.parse(data);//将拼接好的响应数据转换为json对象
+        if (info) {
+            var i = 0;
+            forVersionInfo(info,i,projectId);
+        } else {
+            console.log( '创建项目时 项目版本信息不存在...');
+        }
+    },'utf8').on('error', function(e) {
+        console.log("Got error: " + e.message);
+        console.log( '创建项目时 获取项目版本信息错误：'+e.message);
     });
-    req.on('error', function (err) {
-        console.error(err.code);
-        console.log( '创建项目时 获取项目版本信息错误：'+err.message);
-    });
+    
 }
 
 function forVersionInfo(versions,i,projectId){
@@ -314,13 +290,26 @@ exports.getDeployedList = function(conditionMap, cb){
     });
 }
 
+exports.getDeployedInfo = function(id, cb){
+    var sql = " select t1.*,t2.projectCode,t2.projectName from pass_develop_project_deploy t1,pass_develop_project_resources t2 where t1.projectId=t2.id ";
+    sql += " and t1.id = ?";
+    mysqlPool.query(sql, [id], function(err, result){
+        if(err) {
+            cb(utils.returnMsg(false, '1000', '查询已部署项目信息出现错误', null, err));
+        } else {
+            cb(utils.returnMsg(true, '0000', '查询已部署项目信息成功', result, null));
+        }
+    });
+}
+
+
 /**
  * 获取指定版本的信息
  * @param conditionMap
  * @param cb
  */
 exports.getVersionInfo = function(conditionMap, cb){
-    var sql = "select t1.*,t2.projectCode,t2.projectName from pass_develop_project_versions t1,pass_develop_project_resources t2 where t1.projectId=t2.id ";
+    var sql = "select t1.*,t2.projectCode,t2.projectName,t2.homeUrl from pass_develop_project_versions t1,pass_develop_project_resources t2 where t1.projectId=t2.id ";
     sql += " and t1.projectId=? and t1.versionNo=?";
     mysqlPool.query(sql, conditionMap, function(err, result){
         if(err) {
@@ -337,12 +326,23 @@ exports.getVersionInfo = function(conditionMap, cb){
  * @param cb
  */
 exports.saveDeployInfo = function(conditionMap, cb){
-    var sql = "insert into pass_develop_project_deploy(type,projectId,version,clusterId,webSite,remark,createTime,createBy,updateTime) values('1',?,?,?,?,?,now(),?,now())";
+    var sql = "insert into pass_develop_project_deploy(type,projectId,mesosId,version,clusterId,webSite,status,remark,createTime,createBy,updateTime) values('1',?,?,?,?,?,'1',?,now(),?,now())";
     mysqlPool.query(sql, conditionMap, function(err, result){
         if(err) {
             cb(utils.returnMsg(false, '1000', '保存项目部署信息出错', null, err));
         } else {
             cb(utils.returnMsg(true, '0000', '保存项目部署信息成功', result, null));
+        }
+    });
+}
+
+exports.updateDeployStatus = function(conditionMap,cb){
+    var sql = "update pass_develop_project_deploy set status=?,healthStatus=?,resources=?,hostName=?,hostIp=?,containerId=?,containerName=? where id=?";
+    mysqlPool.query(sql, conditionMap, function(err, result){
+        if(err) {
+            cb(utils.returnMsg(false, '1000', '更新运行状态失败', null, err));
+        } else {
+            cb(utils.returnMsg(true, '0000', '更新运行状态失败', null, null));
         }
     });
 }
@@ -418,4 +418,112 @@ function addParent(pv,j,parentId,projectId,cb){
             }
         });
     }
+}
+
+exports.refreshDeployedInfo = function(id, mesosId){
+    var url = config.platform.marathonApi  + "/" + mesosId;
+    http.get(url, function(res) {
+        console.log("Got response: " + res.statusCode);
+        res.setEncoding('utf8');
+        var chtmlJson = '';
+        res.on('data', function (chunk) {//拼接响应数据
+            chtmlJson += chunk;
+        });
+        res.on('end', function () {
+            console.log(mesosId + "返回数据为:" + chtmlJson);
+            var json = JSON.parse(chtmlJson);//将拼接好的响应数据转换为json对象
+            if (json) {
+                //健康的实例大于1，就认为应用健康
+                var status = json.app.tasksHealthy > 0 ? 1 : 0;
+                var resources = "";
+                var instances = json.app.instances;
+                if(instances == 0){//实例个数为0
+                    resources  = "实例:0个<br>CPU:0个<br>内存:0M";
+                    var params = [];
+                    params.push(status);
+                    params.push(resources);
+                    params.push("");
+                    params.push("");
+                    params.push("");
+                    params.push("");
+                    params.push(id);
+                    mysqlPool.query("update pass_develop_project_deploy set healthStatus=?,resources=?,hostName=?,hostIp=?,containerId=?,containerName=? where id=?", params, function(err, result){
+                        if(err){
+                            console.log("更新已部署应用健康度等信息异常");
+                        }else{
+                            console.log("更新已部署应用健康度等信息成功");
+                        }
+                    });
+                }else{
+                    var cpus = json.app.cpus;
+                    var mem = json.app.mem;
+                    var disk = json.app.disk;
+                    resources  = "实例:" + instances + "个<br>CPU:" + instances * cpus + "个<br>内存:" + mem * instances + "M";
+                    //默认只读取第一个实例
+                    var taskId = json.app.tasks[0].id;
+                    var host = json.app.tasks[0].host;
+                    httpGetContainerInfo(id, mesosId, status, resources, taskId, host);
+                }
+            } else {
+                console.log(mesosId + "接口数据异常");
+            }
+        });
+    }).on('error', function(e) {
+        console.log("Got error: " + e.message);
+    });
+}
+
+function httpGetContainerInfo(id, mesosId, status, resources,taskId, hostName){
+    var params = [];
+    params.push(hostName);
+    mysqlPool.query("select * from pass_operation_host_info where name=?",params,function(err,result){
+        if(err || result == null || result.length == 0){
+            console.log("根据host查询IP异常" );
+        }else{
+            var hostIp = result[0].ip;
+            var path = "/containers/json?all=1";
+            var filters = "{\"label\":[\"MESOS_TASK_ID=" + taskId + "\"]}";
+            path = path + "&filters=" + filters;
+            var options = {
+                host:hostIp,
+                port:2375,
+                path:path
+            };
+            http.get(options, function(res) {
+                console.log("Got response: " + res.statusCode);
+                res.setEncoding('utf8');
+                var chtmlJson = '';
+                res.on('data', function (chunk) {//拼接响应数据
+                    chtmlJson += chunk;
+                });
+                res.on('end', function () {
+                    console.log("根据label查询容器返回数据为:" + chtmlJson);
+                    var json = JSON.parse(chtmlJson);//将拼接好的响应数据转换为json对象
+                    if (json) {
+                        var containerId = json[0].Id;
+                        var containerName = json[0].Names[0].replace("/","");
+                        var params = [];
+                        params.push(status);
+                        params.push(resources);
+                        params.push(hostName);
+                        params.push(hostIp);
+                        params.push(containerId);
+                        params.push(containerName);
+                        params.push(id);
+                        mysqlPool.query("update pass_develop_project_deploy set healthStatus=?,resources=?,hostName=?,hostIp=?,containerId=?,containerName=? where id=?", params, function(err, result){
+                            if(err){
+                                console.log("更新已部署应用健康度等信息异常");
+                            }else{
+                                console.log("更新已部署应用健康度等信息成功");
+                            }
+                        });
+                    } else {
+                        console.log(mesosId + "接口数据异常");
+                    }
+                });
+            }).on('error', function(e) {
+                console.log("Got error: " + e.message);
+            });
+        }
+    });
 }

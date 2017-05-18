@@ -27,6 +27,27 @@
     </div>
 </div>
 
+<div id="containerLogModal" class="mydialog" style="padding-top:0px;">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="widget flat radius-bordered">
+                <div class="widget-body" style="background-color: #fff;">
+                    <div id="registration-form">
+                        <div class="form-title bordered-bottom bordered-blue">
+                            <pre style="width: 960px;height: 470px;" id="logPre">
+
+                            </pre>
+                        </div>
+                        <div class="row" style="padding: 0px 20px;height: auto;">
+                            <span id="ccdetail"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script  type="text/javascript">
     $(function(){
         $('#dataTable').datagrid({
@@ -52,26 +73,37 @@
                 },
                 {"field": "healthStatus","title":"健康状况","width":120,align:"center",
                     "formatter":function(value, rowData, rowIndex){
-                        return "<span class=\"label label-success\"><a href=\"javascript:void(0);\" style=\"padding:3px 3px;color:#fff;\">正常</a></span>"
+                        if(value == 1){
+                            return "<span class=\"label label-success\"><a href=\"javascript:void(0);\" style=\"padding:3px 3px;color:#fff;\">正常</a></span>"
+                        }else{
+                            return "<span class=\"label label-warning\"><a href=\"javascript:void(0);\" style=\"padding:3px 3px;color:#fff;\">不正常</a></span>"
+                        }
                     }},
                 {"field": "resources","title":"资源使用","width":150,align:"center",
-                    "formatter":function (value, rowData,rowIndex) {
-                        return 'cpu:3.0<br/>内存：4GB<br/>硬盘：500GB';
-                    }
-                },
+                    "formatter":function(value, rowData, rowIndex){
+                        return "<span style='display:block;padding-left:20px;text-align:left;'>" + value + "</span>";
+                    }},
                 {"field": "webSite","title":"部署地址","width":100,align:"center",
                     "formatter":function(value, rowData, rowIndex){
-                        return "<span class=\"label label-info\" style=\"height:26px;line-height:18px;font-weight:600;\"><a target=\"_blank\" href=\"" + value + "\" style=\"padding:0 10px;color:#fff;\">访问</a></span>"
+                        if(rowData.status == "1"){
+                            return "<span class=\"label label-info\" style=\"height:26px;line-height:18px;font-weight:600;\"><a target=\"_blank\" href=\"" + value + "\" style=\"padding:0 10px;color:#fff;\">访问</a></span>"
+                        }else{
+                            return "";
+                        }
                     }
                 },
-//                {"field": "remark","title":"备注","width":200,align:"center"},
-//                {"field": "createTime","title":"创建时间","width":200,align:"center"},
                 {"field": "operation","title":"操作","width":200,align:"center",
                     "formatter":function(value, rowData, rowIndex){
-                        var retvalue = "<span class=\"label label-warning\" style=\"height:26px;line-height:18px;font-weight:600;margin-top: 0.5rem;cursor: pointer;\" onclick=\"to_serviceDetail("+rowData.id+")\">服务详情</span>   "+
-                                 "<span class=\"label label-danger\" style=\"height:26px;line-height:18px;font-weight:600;margin-top: 0.5rem;margin-left: 0.5rem;cursor: pointer;\">停止</span></br>"+
-                                "<span class=\"label label-info\" style='height:26px;line-height:18px;font-weight:600;cursor: pointer;margin-top: 0.5rem;margin-bottom: 0.5rem;' onclick='performsStatus()'>性能情况</span> <span class=\"label label-info\" style='height:26px;line-height:18px;font-weight:600;cursor: pointer;' onclick='logsCenter()'>日志</span>";
-                        return retvalue;
+                        var returnValue = "";
+                        if(rowData.status == "1"){
+                            returnValue =  "<span class=\"label label-warning\" style=\"height:26px;line-height:16px;font-weight:600;margin-top: 0.5rem;cursor: pointer;\" onclick=\"to_serviceDetail("+rowData.id+")\">服务详情</span>   "+
+                                    "<span class=\"label label-danger\" style=\"height:26px;line-height:16px;font-weight:600;margin-top: 0.5rem;margin-left: 0.5rem;cursor: pointer;\" data-id='" + rowData.id + "' data-name='" + rowData.projectName + "' onclick=\"doStop(this)\">停止</span></br>"+
+                                    "<span class=\"label label-info\" style='height:26px;line-height:16px;font-weight:600;cursor: pointer;margin-top: 0.5rem;margin-bottom: 0.5rem;' data-host='" + rowData.hostName + "' data-name='" + rowData.containerName + "' onclick=\"doNature(this)\">性能情况</span>" +
+                                    "<span class=\"label label-info\" style='height:26px;line-height:16px;font-weight:600;cursor: pointer;margin-left:0.3rem;' data-id='" + rowData.id + "' data-name='" + rowData.projectName + "' onclick='logsCenter(this)'>日志</span>";
+                        }else{
+                            returnValue = "<span class=\"label label-info\" style=\"height:26px;line-height:16px;font-weight:600;margin-top: 0.5rem;margin-left: 0.5rem;cursor: pointer;\" data-id='" + rowData.id + "' data-name='" + rowData.projectName + "' onclick=\"doStart(this)\">启动</span></br>";
+                        }
+                        return returnValue;
                     }
                 }
             ]],
@@ -85,12 +117,69 @@
         });
     });
 
-
     function doSearch() {
         $('#dataTable').datagrid('reload');
     }
     function doClear() {
         doSearch();
+    }
+
+    function doStart(thisObj){
+        var id = $(thisObj).data("id");
+        var name = $(thisObj).data("name");
+        msgConfirm('确定要停止【 ' + name + '】应用么？',function(result) {
+            if(result){
+                $.ajax({
+                    url:'{{projcfg.appurl}}/api/project/dpm/project/develop/pm/deploy/start/' + id,
+                    type: 'post',
+                    dataType:"json",
+                    data:{
+                        time : Math.random()
+                    },
+                    success: function (data) {
+                        if(data.success){
+                            msgSuccess(data.msg);
+                            doSearch();
+                        }else{
+                            msgError(data.msg);
+                        }
+                    },
+                    error : function(err) {
+                        console.log(err);
+                        $("#logPre").html("日志加载失败：" + err.statusCode);
+                    }
+                });
+            }
+        });
+    }
+
+    function doStop(thisObj){
+        var id = $(thisObj).data("id");
+        var name = $(thisObj).data("name");
+        msgConfirm('确定要停止【 ' + name + '】应用么？',function(result) {
+            if(result){
+                $.ajax({
+                    url:'{{projcfg.appurl}}/api/project/dpm/project/develop/pm/deploy/stop/' + id,
+                    type: 'put',
+                    dataType:"json",
+                    data:{
+                        time : Math.random()
+                    },
+                    success: function (data) {
+                        if(data.success){
+                            msgSuccess(data.msg);
+                            doSearch();
+                        }else{
+                            msgError(data.msg);
+                        }
+                    },
+                    error : function(err) {
+                        console.log(err);
+                        $("#logPre").html("日志加载失败：" + err.statusCode);
+                    }
+                });
+            }
+        });
     }
     // 打开页面
     function openPage(id,title, value, callback) {
@@ -123,7 +212,7 @@
     }
 
     function to_serviceDetail(id){
-        window.location.href = "{{projcfg.appurl}}/servicemonitor?deployId="+id;
+        window.location.href = "{{projcfg.appurl}}/monitor?deployId="+id;
     }
 
     // 清空新增表单数据
@@ -137,14 +226,68 @@
     }
 
     //性能情况
-    function performsStatus(){
-        var url = "http://192.168.31.92:3000";
-        window.open(url);
+    function doNature(thisObj){
+        var host = $(thisObj).data("host");
+        var name = $(thisObj).data("name");
+        window.open("http://192.168.31.92:3000/dashboard/db/dockerdan-ge-rong-qi-jian-kong?theme=light&orgId=1&var-host=" + host + "&var-container_name=" + name);
     }
     //日志中心
-    function logsCenter(){
-        var url = "http://192.168.31.92:5601";
-        window.open(url);
+    function logsCenter(thisObj){
+        /*var url = "http://192.168.31.92:5601";
+        window.open(url);*/
+        var id = $(thisObj).data("id");
+        var name = $(thisObj).data("name");
+        console.log(id);
+        console.log(name);
+        logs(id);
+        $('#containerLogModal').show();
+        $('#containerLogModal').mydialog({
+            title:name + "-运行日志",
+            width: 1000,
+            height: 560,
+            top:20,
+            modal: true,
+            myButtons:[
+                {
+                    text:'关闭',
+                    btnCls:'btn btn-danger',
+                    handler:function(){
+                        $('#containerLogModal').dialog('close');
+                    }
+                },{
+                    text:'刷新',
+                    btnCls:'btn btn-danger',
+                    handler:function(){
+                        $("#logPre").html("加载中...");
+                        logs(id);
+                    }
+                }
+            ]
+        });
+    }
+
+    function logs(id){
+        $("#logPre").html("加载中...");
+        $.ajax({
+            url:'{{projcfg.appurl}}/api/project/dpm/project/develop/pm/deploy/logs/' + id,
+            type: 'get',
+            dataType:"text",
+            data:{
+                time : Math.random()
+            },
+            success: function (data) {
+                console.log("success");
+                if(data){
+                    $("#logPre").html(data);
+                }else{
+                    $("#logPre").html("选择容器还没有运行日志");
+                }
+            },
+            error : function(err) {
+                console.log(err);
+                $("#logPre").html("日志加载失败：" + err.statusCode);
+            }
+        });
     }
 
 </script>

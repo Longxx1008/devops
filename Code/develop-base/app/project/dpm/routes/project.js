@@ -80,7 +80,6 @@ router.route('/develop/pm/project').post(function(req,res) {
             var currentUser = utils.getCurrentUser(req);
             data.push(currentUser.login_account);
             data.push(req.body.projectType);
-            data.push(req.body.homeUrl);
             var gitProjectId = null;
             //判断是否从gitlab获取项目集合成功
             if(result.data && result.data.length>0){
@@ -101,6 +100,7 @@ router.route('/develop/pm/project').post(function(req,res) {
             }else{
                 data.push(null);
             }
+            data.push(req.body.homeUrl);
             var projectId = null;
             projectService.add(data, function(results) {
                 if(results.success){
@@ -158,6 +158,131 @@ router.route('/develop/pm/:id').delete(function(req,res) {
     });
 });
 
+router.route('/develop/pm/deploy/logs/:id').get(function(req, res){
+    var id = req.params.id;
+    projectService.getDeployedInfo(id,function(result){
+        if(result.success && result.data.length != 0){
+            var url = "http://" + result.data[0].hostIp +  ":2375/containers/" +  result.data[0].containerId + "/logs?stderr=1&stdout=1&timestamps=1&follow=0&tail=1000&since=0";
+            var http = require("http");
+            http.get(url, function(resp){
+                if(resp.statusCode == 200){
+                    var rhtml = '';
+                    resp.setEncoding('utf8');
+                    resp.on('data', function (chunk) {
+                        rhtml += chunk;
+                    });
+                    resp.on('end', function () {
+                        console.log("end....");
+                        res.end(rhtml,"utf-8");
+                    });
+                } else{
+                    utils.respMsg(res, false, '0000', '查询日志出错：' + resp.statusCode, null, null);
+                }
+            }).on('error',function(e){
+                console.log("Got error: " + e.message);
+            });
+        }else{
+            res.end("","utf-8");
+        }
+    })
+});
+
+router.route('/develop/pm/deploy/stop/:id').put(function(req, res){
+    var id = req.params.id;
+    projectService.getDeployedInfo(id,function(result){
+        if(result.success && result.data.length != 0){
+            var mesosId = result.data[0].id;
+            var request = require('request');
+            var scaleJson = {"instances": 0};
+            var options = {
+                headers : {"Connection": "close"},
+                url : config.platform.marathonApi + result.data[0].mesosId,
+                method : 'put',
+                json : true,
+                body : scaleJson
+            };
+            function callback(error, response, data) {
+                if (!error && (response.statusCode == 200 || response.statusCode == 201)) {
+                    console.log('停止应用成功----info------',data);
+                    var params = [];
+                    params.push("0");
+                    params.push("0");
+                    params.push("实例:0个<br>CPU:0个<br>内存:0M");
+                    params.push("");
+                    params.push("");
+                    params.push("");
+                    params.push("");
+                    params.push(id);
+                    projectService.updateDeployStatus(params,function(result){
+                        if(!result.success){
+                            utils.respMsg(res, false, '10000', '停止应用成功，但更新应用状态失败', null, null);
+                        }else{
+                            utils.respMsg(res, true, '10000', '停止应用成功', null, null);
+                        }
+                    });
+                }else{
+                    console.log("停止应用失败，" + error);
+                    utils.respMsg(res, false, '10000', '停止应用操作失败', null, null);
+                }
+            }
+            request(options, callback);
+        }else{
+            utils.respMsg(res, false, '10000', '停止失败，所选应用不存在', null, null);
+        }
+    })
+});
+
+router.route('/develop/pm/deploy/start/:id').post(function(req, res){
+    var id = req.params.id;
+    projectService.getDeployedInfo(id,function(result){
+        if(result.success && result.data.length != 0){
+            var request = require('request');
+            var mesosId = result.data[0].mesosId;
+            //默认只启动一个实例
+            var scaleJson = {"instances": 1};
+            var options = {
+                headers : {"Connection": "close"},
+                url : config.platform.marathonApi + result.data[0].mesosId,
+                method : 'put',
+                json : true,
+                body : scaleJson
+            };
+            function callback(error, response, data) {
+                if (!error && (response.statusCode == 200 || response.statusCode == 201)) {
+                    console.log('启动应用成功----info------',data);
+                    //更新应用状态
+                    var params = [];
+                    params.push("1");
+                    params.push("1");
+                    params.push("实例:0个<br>CPU:0个<br>内存:0M");
+                    params.push("");
+                    params.push("");
+                    params.push("");
+                    params.push("");
+                    params.push(id);
+                    projectService.updateDeployStatus(params,function(result){
+                        if(!result.success){
+                            utils.respMsg(res, false, '10000', '启动应用成功，但更新应用状态失败', null, null);
+                        }else{
+                            utils.respMsg(res, true, '10000', '启动应用成功', null, null);
+                            //刷新应用状态
+                            setTimeout(function(){
+                                projectService.refreshDeployedInfo(id, mesosId);
+                            },10 * 1000);
+                        }
+                    });
+                }else{
+                    console.log("启动应用操作失败，" + error);
+                    utils.respMsg(res, false, '10000', '启动应用操作失败', null, null);
+                }
+            }
+            request(options, callback);
+        }else{
+            utils.respMsg(res, false, '10000', '启动失败，所选应用不存在', null, null);
+        }
+    })
+});
+
 router.route('/develop/pm/deploy').get(function(req, res){
     // 分页条件
     var projectName = req.query.projectName;
@@ -192,10 +317,10 @@ router.route('/develop/pm/deploy').get(function(req, res){
     projectService.getDeployedList(params, function(result){
         if(result.success){
             if(result.data != null && result.data.length != 0){//已经部署过了
-                utils.respJsonData(res, utils.returnMsg(false, '0000', '所选应用在该集群已经部署过了，不能重复部署', null, null));
+                utils.respJsonData(res, utils.returnMsg(false, '0000', '所选应用在该集群已经部署过了,不能重复部署', null, null));
             }else{
                 //TODO 部署集群
-                params.splice(0,params.length);
+                params.splice(0, params.length);
                 params.push(projectId);
                 params.push(projectVersion);
                 projectService.getVersionInfo(params, function(result){
@@ -207,7 +332,7 @@ router.route('/develop/pm/deploy').get(function(req, res){
                             var request = require('request');
                             var options = {
                                 headers : {"Connection": "close"},
-                                url : 'http://192.168.31.91:8080/v2/apps',
+                                url : config.platform.marathonApi,
                                 method : 'POST',
                                 json : true,
                                 body : deployJson
@@ -218,14 +343,13 @@ router.route('/develop/pm/deploy').get(function(req, res){
                                     //插入启动的服务信息
                                     params.splice(0,params.length);
                                     params.push(projectId);
+                                    params.push(data.id);
                                     params.push(projectVersion);
                                     params.push(clusterId);
                                     if(projectId == "25"){
                                         params.push("http://192.168.31.127" + ":" + deployJson.container.docker.portMappings[0].servicePort);
-                                    }else if(projectId == "26"){
-                                        params.push("http://192.168.31.95" + ":" + deployJson.container.docker.portMappings[0].servicePort + "/demo");
                                     }else{
-                                        params.push("http://192.168.31.95" + ":" + deployJson.container.docker.portMappings[0].servicePort);
+                                        params.push(config.platform.marathonLb + ":" + deployJson.container.docker.portMappings[0].servicePort + homeUrl);
                                     }
                                     //params.push(JSON.stringify(data));
                                     params.push(remark);

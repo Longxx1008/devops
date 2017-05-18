@@ -144,8 +144,8 @@ var config = {
         // gitlabIp:'code.dev.gz.cmcc',
         gitlabIp:'192.168.31.127',
         gitlabPort:443,
-        gitlabUrl: 'https://192.168.31.127',
-        private_token:'BgNLAke5cybnRcqc-Qts',
+        gitlabUrl: 'http://192.168.31.127',//vpn openvpn
+        private_token:'BgNLAke5cybnRcqc-Qts',//192.168.31.127
         // private_token:'yJFsQXvox3xGHUPxyDsE',
         dockerIp: '192.168.31.92',
         dockerPort:5000,
@@ -153,7 +153,10 @@ var config = {
         superRolesId:"56d7e358a6fbe05a1394ad6e",
         userRoot:'/mnt/dockerts/',
         LableKey:'index',
-        lableValue:'create'
+        lableValue:'create',
+        mesosHost:"http://192.168.31.91:5050",
+        marathonApi:"http://192.168.31.92:8080/v2/apps",
+        marathonLb:"http://192.168.31.95"
     }
 }
 module.exports = config;

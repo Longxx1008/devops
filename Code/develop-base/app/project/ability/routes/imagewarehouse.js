@@ -132,6 +132,7 @@ router.route('/develop/im/add').post(function(req,res) {
  * 记录收藏或下载数
  */
 router.route('/develop/im/collectOrDownload').put(function(req,res){
+    console.log(req.session.current_user.login_account);
     var imageCode = req.body.imageCode;
     var collectNum = req.body.collectNum;
     var imagetype = req.body.imagetype;
@@ -146,7 +147,7 @@ router.route('/develop/im/collectOrDownload').put(function(req,res){
         data.push(collectNum);
         mapdata.push(imagetype);
         mapdata.push(imageCode);
-        var currentUser = utils.getCurrentUser(req);
+        var currentUser =req.session.current_user;
         mapdata.push(currentUser.login_account);
     }
     data.push(imageCode);

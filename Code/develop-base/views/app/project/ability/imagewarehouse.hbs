@@ -242,9 +242,9 @@
             showPrivateImages('privateimage',$(this).val());
         });
         $('#myImageDataTable').datagrid({
-            url:'{{projcfg.appurl}}/api/project/ability/imagewarehouse/develop/im/pageList',
+            <!--url:'{{projcfg.appurl}}/api/project/ability/imagewarehouse/develop/im/pageList',-->
             method:'get',
-            queryParams:{"flag":"myimage"},
+//            queryParams:{"flag":"myimage"},
             striped:true,
             fitColumns:true,
             fit:true,
@@ -258,18 +258,59 @@
                 {"field": "version","title":"版本","width":100,align:"center","formatter":function(value,rowData,rowIndex){
                     return getVerData(rowData.imageCode,rowIndex);
                 }},
-                {"field": "createDate","title":"创建时间","width":100,align:"center"},
-                {"field": "remark","title":"备注","width":200,align:"center"},
-                {"field": "options","title":"操作","width":150,align:"center","formatter":function (value, rowData,rowIndex) {
-                    return "<a  href='javascrip:void(0);'> 删除 </a>| <a href='javascrip:void(0);'>日志</a> ";
-                }}
+                {"field": "createDate","title":"创建时间","width":100,align:"center",'formatter':function(value, rowData,rowIndex){
+                    if(value){
+                        var start_time=Date.parse(value);
+                        var end_time=new Date();
+                        var time=end_time-start_time;
+                        //计算出相差天数
+                        var days=Math.floor(time/(24*3600*1000))
+                        //计算出小时数
+                        var leave1=time%(24*3600*1000) ;
+                        //计算天数后剩余的毫秒数
+                        var hours=Math.floor(leave1/(3600*1000))
+                        //计算相差分钟数
+                        var leave2=leave1%(3600*1000)
+                        //计算小时数后剩余的毫秒数
+                        var minutes=Math.floor(leave2/(60*1000))
+                        //计算相差秒数
+                        var leave3=leave2%(60*1000)
+                        //计算分钟数后剩余的毫秒数
+                        var seconds=Math.round(leave3/1000)
+                        if(days>0){
+                            return days+"天"+hours+'时'+minutes+'分'+seconds+'秒前';
+
+                        }else{
+                            if(hours>0){
+                                return hours+'时'+minutes+'分'+seconds+'秒前';
+                            }else{
+                                if(minutes>0){
+                                    return minutes+'分'+seconds+'秒前';
+                                }else{
+                                    if(seconds>0){
+                                        return seconds+'秒前';
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                }},
+                {"field": "remark","title":"备注","width":200,align:"center"}
+//                {"field": "options","title":"操作","width":150,align:"center","formatter":function (value, rowData,rowIndex) {
+//                    return "<a  href='javascrip:void(0);'> 删除 </a>| <a href='javascrip:void(0);'>日志</a> ";
+//                }}
             ]],
+            onBeforeLoad:function(params){
+            },
             onLoadError:function() {
                 msgError('加载数据出现时发生错误,请稍候重试...');
             },
             pagination:true,
             loadMsg:'正在加载...'
         });
+
+        $('#myImageDataTable').datagrid({url:'{{projcfg.appurl}}/api/project/ability/imagewarehouse/develop/im/pageList',queryParams:{"flag":"myimage"}});
     });
 
     function cleanRadioValue(){
@@ -355,75 +396,11 @@
         if(flag && flag == "myimage"){
             $("#privatediv").hide();
             $("#datagridPanel").show();
-            $("#myImageDataTable").datagrid({
-                url:'{{projcfg.appurl}}/api/project/ability/imagewarehouse/develop/im/pageList',
-                method:'get',
-                queryParams:{"flag":flag},
-                rownumbers:false,
-                striped:true,
-                fitColumns:true,
-                fit:true,
-                border:true,
-                singleSelect:true,
-                selectOnCheck:false,
-                columns:[[
-                    // {"field": "imageCode", checkbox:true},
-                    {"field": "imageCode","title":"编号","width":80,align:"center"},
-                    {"field": "imageName","title":"镜像源","width":150,align:"center"},
-                    {"field": "imageVersion","title":"版本","width":100,align:"center","formatter":function(value,rowData,rowIndex){
-                        return getVerData(rowData.imageCode,rowIndex);
-                    }},
-                    {"field": "createDate","title":"创建时间","width":100,align:"center",'formatter':function(value, rowData,rowIndex){
-                        if(value){
-                            var start_time=Date.parse(value);
-                            var end_time=new Date();
-                            var time=end_time-start_time;
-                            //计算出相差天数
-                            var days=Math.floor(time/(24*3600*1000))
-                            //计算出小时数
-                            var leave1=time%(24*3600*1000) ;
-                            //计算天数后剩余的毫秒数
-                            var hours=Math.floor(leave1/(3600*1000))
-                            //计算相差分钟数
-                            var leave2=leave1%(3600*1000)
-                            //计算小时数后剩余的毫秒数
-                            var minutes=Math.floor(leave2/(60*1000))
-                            //计算相差秒数
-                            var leave3=leave2%(60*1000)
-                            //计算分钟数后剩余的毫秒数
-                            var seconds=Math.round(leave3/1000)
-                            if(days>0){
-                                return days+"天"+hours+'时'+minutes+'分'+seconds+'秒前';
-
-                            }else{
-                                if(hours>0){
-                                    return hours+'时'+minutes+'分'+seconds+'秒前';
-                                }else{
-                                    if(minutes>0){
-                                        return minutes+'分'+seconds+'秒前';
-                                    }else{
-                                        if(seconds>0){
-                                            return seconds+'秒前';
-                                        }
-                                    }
-                                }
-                            }
-                        }
-
-                    }},
-                    {"field": "remark","title":"备注","width":200,align:"center"},
-                ]],
-                onLoadError:function() {
-                    msgError('加载数据出现时发生错误,请稍候重试...');
-                },
-                pagination:true,
-                loadMsg:'正在加载...'
-            });
-
-//            $('#myImageDataTable').datagrid('loadData',mydockerdata);
+            $('#myImageDataTable').datagrid({url:'{{projcfg.appurl}}/api/project/ability/imagewarehouse/develop/im/pageList',queryParams:{"flag":flag}});
         }else if(flag && flag == "favorites"){
             $("#privatediv").hide();
             $("#datagridPanel").show();
+
             $('#myImageDataTable').datagrid({
                 url:'{{projcfg.appurl}}/api/project/ability/imagewarehouse/develop/im/pageList',
                 method:'get',
@@ -449,6 +426,9 @@
                         return " 部署应用 ";
                     }}
                 ]],
+                onBeforeLoad:function(params){
+
+                },
                 onLoadError:function() {
                     msgError('加载数据出现时发生错误,请稍候重试...');
                 },

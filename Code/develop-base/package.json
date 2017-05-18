@@ -40,6 +40,7 @@
 	"nodemailer":"2.6.0",
     "gitlab":"1.7.1",
     "formidable":"1.1.1",
-    "request":"2.81.0"
+    "request":"2.81.0",
+    "iconv-lite":"0.2.5"
   }
 }

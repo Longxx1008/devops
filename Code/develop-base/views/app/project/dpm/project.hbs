@@ -236,6 +236,7 @@
        if(value == 2){
            teststyle = "";
        }else if(value == 3 || value == 4){
+           teststyle = "";
            deploystyle = "background-color:#009933";
            opstyle = "background-color:#009966";
        }
@@ -322,7 +323,7 @@
                 $.messager.progress('close');
                 if(data.success) {
                     msgSuccess(data.msg);
-                    closeDialog();
+                    closeDialog('myModal','projectForm');
                     doSearch();
                 }
                 else {
@@ -526,15 +527,6 @@
             $.messager.alert("提示","请选择一条数据进行发布到仓库！","warning");
         }
 
-    }
-    function load(content) {
-        $("<div class=\"datagrid-mask\"></div>").css({ display: "block", width: "100%", height: $(window).height() }).appendTo("body");
-        $("<div class=\"datagrid-mask-msg\"></div>").html(content+", 请稍候。。。").appendTo("body").css({ display: "block", left: ($(document.body).outerWidth(true) - 190) / 2, top: ($(window).height() - 45) / 2 });
-    }
-    //取消加载层
-    function disLoad() {
-        $(".datagrid-mask").remove();
-        $(".datagrid-mask-msg").remove();
     }
 
     function to_edit(){
