@@ -113,11 +113,11 @@
                 {"field": "name","title":"名称","width":80,align:"center"},
                 {"field": "usage","title":"使用情况","width":130,align:"center",
                     "formatter":function (value, rowData,rowIndex) {
-                        return "CPU：20核（20%） </br>内存：500GB（50%）</br>磁盘：5TB（10%）</br>带宽：60Mbps（60%）";
+                        return "CPU：10核（42%） </br>内存：28GB（58%）</br>磁盘：50GB（41.6%）";
                     }},
                 {"field": "totalResource","title":"总资源","width":130,align:"center",
                     "formatter":function (value, rowData,rowIndex) {
-                        return 'CPU： 100核</br> 内存： 1024 GB</br>磁盘： 50TB</br>带宽： 100Mbps';
+                        return 'CPU： 24核</br> 内存： 48 GB</br>磁盘： 120GB';
                     }},
                 {"field": "status","title":"状态","width":80,align:"center",
                     "formatter":function (value, rowData,rowIndex) {
@@ -135,8 +135,6 @@
             pagination:true,
             loadMsg:'正在加载...'
         });
-//        $("#myImageDataTable").datagrid({columns:myimagecols});
-//        $('#colonyDataTable').datagrid('loadData',colonymanagedata);
     });
 
   function hm_list(id,cm_name){

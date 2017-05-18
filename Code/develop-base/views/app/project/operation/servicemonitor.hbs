@@ -1,0 +1,124 @@
+<div class="row">
+    <div class="col-xs-12 col-md-12">
+        <div class="widget">
+            <div class="widget-body">
+                <div id="toolbar" class="row tbRow" style="margin-bottom: 1.1rem;border-bottom: 1px solid #ccc;">
+                    <div class="col-xs-6 col-md-6" style="width:100%">
+                        <font size="3.5rem" style="margin-left: 1.2rem;margin-right: 2.5rem"> <b>服务监测</b></font>
+                        <div class="btn-group" role="group" aria-label="..." style="float: right;margin-right: 2rem;">
+                            <button type="button" class="btn btn-default" onclick="do_return();" data-title="返回">
+                                <i class="fa fa-reply"></i> 返回
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div id="cc" class="easyui-layout" data-options="fit:true,border:false" style="width: 800px; height:575px;background-color: #fbfbfb;">
+                    <div  data-options="region:'center',border:false" style="overflow-x:hidden;overflow-y:hidden">
+                        <table id="monitorDataTable">
+                        </table>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<div>
+
+</div>
+
+<script  type="text/javascript">
+    $(function(){
+        console.log("===========");
+        var deployId = getQueryString("deployId");
+        $('#monitorDataTable').datagrid({
+            url:'{{projcfg.appurl}}/api/project/operation/servicemonitor?deployId='+deployId,
+            method:'get',
+            rownumbers:false,
+            striped:true,
+            fitColumns:true,
+//            toolbar: '#toolbar',
+            fit:true,
+            border:true,
+            singleSelect:true,
+            selectOnCheck:false,
+            columns:[[
+                {"field":'id',checkbox:true},
+                {"field":'deployId',hidden:true},
+                {"field": "serviceName","title":"服务名称","width":120,align:"center"},
+                {"field": "type","title":"类型","width":100,align:"center"},
+                {"field": "monitorPort","title":"监听端口","width":150,align:"center"},
+                {"field": "status","title":"状态","width":100,align:"center",
+                    "formatter":function (value, rowData,rowIndex) {
+                        var retValue='';
+                        if(value == 1){//正常
+                            retValue = "<span class=\"label label-info\" style='height:26px;line-height:18px;font-weight:600;margin-top: 0.5rem;margin-bottom: 0.5rem;'>正常</span>";
+                        }else{//异常
+                            retValue = "<span class=\"label label-danger\" onclick='' style=\"height:26px;line-height:18px;font-weight:600;margin-top: 0.5rem;margin-bottom: 0.5rem;cursor: pointer;\">异常</span>";
+                        }
+                        return retValue;
+                    }
+                }
+            ]],
+            onLoadError:function() {
+                msgError('加载数据出现时发生错误,请稍候重试...');
+            },
+            pagination:true,
+            loadMsg:'正在加载...'
+        });
+    });
+
+    function getQueryString(name) {
+        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+        var r = window.location.search.substr(1).match(reg);
+        if (r != null) return unescape(r[2]); return null;
+    }
+    /**
+     * 容器列表
+     */
+    function toContainerListing(){
+        window.location.href = "{{projcfg.appurl}}/containermanage";
+    }
+
+//性能情况
+  function performsStatus(){
+      var url = "http://192.168.31.92:3000";
+      window.open(url);
+  }
+//日志中心
+  function logsCenter(){
+      var url = "http://192.168.31.92:5601";
+      window.open(url);
+  }
+    /**
+     * 容器列表
+     */
+    function toContainerListing(){
+        window.location.href = "{{projcfg.appurl}}/containermanage";
+    }
+
+
+
+    function doSearch() {
+        $('#projectDataTable').datagrid('reload');
+    }
+    function doClear() {
+        doSearch();
+    }
+
+    // 清空新增表单数据
+    function clear() {
+        $('#projectForm').form('clear');
+    }
+
+    // 关闭窗口
+    function closeDialog() {
+        $('#myModal').dialog('close');
+        clear();
+    }
+    function do_return(){
+        history.go(-1);
+    }
+
+</script>
