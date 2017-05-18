@@ -45,7 +45,7 @@ function getdata() {
     });
 }
 function getFristData(i, projectId, cb) {
-    var urlTemp = new String(memberUrl + projectId + "/members?private_token=BgNLAke5cybnRcqc-Qts");
+    var urlTemp = new String(config.platform.gitlabUrl+"/api/v3/projects/" + projectId + "/members?private_token="+config.platform.private_token);
     nodegrass.get(urlTemp, function (data, status, headers) {
         var accessData = JSON.parse(data);
         var idArray = new Array();
@@ -58,7 +58,7 @@ function getFristData(i, projectId, cb) {
     });
 }
 function getMember(k,id,projectId ) {
-    var url = new String(roleUrl + id + "?private_token=BgNLAke5cybnRcqc-Qts");
+    var url = new String(config.platform.gitlabUrl+"/api/v3//users/" + id + "?private_token="+config.platform.private_token);
     nodegrass.get(url, function (data, status, headers) {
         var dataTemp = JSON.parse(data);
         var admin = dataTemp.is_admin;//boolean
