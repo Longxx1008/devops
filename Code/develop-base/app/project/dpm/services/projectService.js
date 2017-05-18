@@ -499,7 +499,7 @@ function httpGetContainerInfo(id, mesosId, status, resources,taskId, hostName){
                 res.on('end', function () {
                     console.log("根据label查询容器返回数据为:" + chtmlJson);
                     var json = JSON.parse(chtmlJson);//将拼接好的响应数据转换为json对象
-                    if (json) {
+                    if (json && json.length != 0) {
                         var containerId = json[0].Id;
                         var containerName = json[0].Names[0].replace("/","");
                         var params = [];

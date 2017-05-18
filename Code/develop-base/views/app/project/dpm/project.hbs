@@ -133,7 +133,7 @@
                     <div class="form-group">
                         <label for="remark" class="col-sm-2 control-label no-padding-right">备注:</label>
                         <div class="col-sm-10">
-                            <textarea id="remark" name="remark" class="easyui-validatebox form-control" data-options="required:true" style="width:80%;height:80px;"></textarea>
+                            <textarea id="remark" name="remark" class="easyui-validatebox form-control" style="width:80%;height:80px;"></textarea>
                         </div>
                     </div>
                 </form>
@@ -377,7 +377,7 @@
             return false;
         }
         var projectName = $("#deployProjectName").val();
-        var clusterName = $("#deployClusterId").text();
+        var clusterName = $("#deployClusterId").combobox('getText');
         msgConfirm('确定要部署当前【 ' + projectName + '】部署到集群【' + clusterName + '】么？',function(result) {
             if(result){
                 $.ajax({

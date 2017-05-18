@@ -156,7 +156,7 @@ var config = {
         lableValue:'create',
         mesosHost:"http://192.168.31.91:5050",
         marathonApi:"http://192.168.31.92:8080/v2/apps",
-        marathonLb:"http://192.168.31.95"
+        marathonLb:"http://192.168.31.96"
     }
 }
 module.exports = config;
