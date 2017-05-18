@@ -32,6 +32,7 @@ exports.doJob = function(){
                         }
                     }
                 }
+                conn.release();
             });
         }
     });
