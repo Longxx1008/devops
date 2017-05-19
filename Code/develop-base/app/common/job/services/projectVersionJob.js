@@ -16,23 +16,16 @@ var pool = mysql.createPool($util.extend({}, config.mysql));
 exports.projectVersionJobRun = function(){
     console.log(DateUtils.format(new Date(),'yyyy-MM-dd hh:mm:ss') + ' 获取gitlab相关项目版本任务开始');
     //调用
-    pool.getConnection(function (err, connection) {
-        if (err != null) {
+    var sql = "select * from pass_develop_project_resources where gitlabProjectId is not null";
+    console.log("======sql======" + sql);
+    pool.query(sql,[], function (err, results) {
+        console.log(err+":"+results);
+        if(err){
             console.log(err.message);
-        } else {
-            var sql = "select * from pass_develop_project_resources where gitlabProjectId is not null";
-            console.log("======sql======" + sql);
-            connection.query(sql, function (err, results) {
-                console.log(err+":"+results);
-                if(err){
-                    console.log(err.message);
-                }else if(results && results.length > 0){
-                    for(var i = 0; i<results.length; i++){
-                        httpsGetVersion(results[i].gitlabProjectId,results[i].id);
-                    }
-                }
-                connection.release();
-            });
+        }else if(results && results.length > 0){
+            for(var i = 0; i<results.length; i++){
+                httpsGetVersion(results[i].gitlabProjectId,results[i].id);
+            }
         }
     });
 };
