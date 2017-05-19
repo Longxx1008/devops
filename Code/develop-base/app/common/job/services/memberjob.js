@@ -63,6 +63,7 @@ function getMember(k,id,projectId ) {
         var dataTemp = JSON.parse(data);
         var admin = dataTemp.is_admin;//boolean
         var role = '';
+        console.info(admin);
         if (admin) {
             role = "项目负责人";
         } else {
