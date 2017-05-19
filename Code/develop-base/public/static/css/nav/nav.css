@@ -48,7 +48,8 @@ a:link, a:visited {
     margin:0;
     padding:0;
     overflow: hidden;
-    font: normal 16px "microsoft yahei";
+    font: normal 20px "microsoft yahei";
+    /*font: normal 16px "microsoft yahei";*/
 }
 
 .navigation-up .navigation-v3 .nav-up-selected {
@@ -109,12 +110,15 @@ a:link, a:visited {
     border-bottom: 1px solid #ddd;
     margin-bottom: 10px;
     font-weight: normal;
+    font-size: 18px;
+    /*font-size: 14px;*/
 }
 
 .navigation-down .menu-1 dd a,.navigation-down .menu-1 .double dd a {
     color: #fff;
     line-height:40px;
-    font-size:14px;
+    font-size:18px;
+    /*font-size:14px;*/
     font-family:  "microsoft yahei";
 }
 
