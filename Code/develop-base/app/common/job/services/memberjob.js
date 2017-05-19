@@ -24,28 +24,21 @@ exports.queryMemberDataRun = function(){
 
 
 function getdata() {
-    pool.getConnection(function (err, conn) {
-        if (err) {
-            console.log(err);
+    pool.query(sqlResource,[], function (error, result) {
+        if (error) {
+            console.log(error);
         } else {
-            conn.query(sqlResource, function (error, result) {
-                if (error) {
-                    console.log(error);
-                } else {
-                    if (result.length > 0) {
-                        for (var i = 0; i < result.length; i++) {
-                            var projectId = JSON.parse(JSON.stringify(result[i])).gitlabProjectId;
-                            getFristData(i, projectId, getMember);
-                        }
-                    }
+            if (result.length > 0) {
+                for (var i = 0; i < result.length; i++) {
+                    var projectId = JSON.parse(JSON.stringify(result[i])).gitlabProjectId;
+                    getFristData(i, projectId, getMember);
                 }
-            });
+            }
         }
-        conn.release();
     });
 }
 function getFristData(i, projectId, cb) {
-    var urlTemp = new String(memberUrl + projectId + "/members?private_token=BgNLAke5cybnRcqc-Qts");
+    var urlTemp = new String(config.platform.gitlabUrl+"/api/v3/projects/" + projectId + "/members?private_token="+config.platform.private_token);
     nodegrass.get(urlTemp, function (data, status, headers) {
         var accessData = JSON.parse(data);
         var idArray = new Array();
@@ -58,7 +51,7 @@ function getFristData(i, projectId, cb) {
     });
 }
 function getMember(k,id,projectId ) {
-    var url = new String(roleUrl + id + "?private_token=BgNLAke5cybnRcqc-Qts");
+    var url = new String(config.platform.gitlabUrl+"/api/v3//users/" + id + "?private_token="+config.platform.private_token);
     nodegrass.get(url, function (data, status, headers) {
         var dataTemp = JSON.parse(data);
         var admin = dataTemp.is_admin;//boolean
@@ -70,39 +63,36 @@ function getMember(k,id,projectId ) {
             role = "开发人员";
         }
         var sqlSelectMember = "SELECT * FROM pass_develop_project_members where userId= '" + dataTemp.username + "'  and projectId= " + projectId;
-        pool.getConnection(function (err, conn) {
-            conn.query(sqlSelectMember, function (err, results) {
-                if (err) {
-                    console.log(err);
-                } else {
-                 
-                    if (results.length >0) {
-                        //存在就更新是不是管理员
-                        var data = JSON.parse(JSON.stringify(results[0]));
-                        var userRole = data.userRole;
-                        if (userRole != role) {
-                            var sqlUpdate = "update pass_develop_project_members set userRole='" + role + "'  where id=" + data.id;
-                            conn.query(sqlUpdate, function (err, result) {
-                                if (err) {
-                                    console.log(err);
-                                } else {
-                                    console.log("更新一个");
-                                }
-                            });
-                        }
-                    } else {
-                        var sqlInsert = "insert into pass_develop_project_members (projectId,userId,userName,createTime,userRole) values('" + projectId + "' , '" + dataTemp.username +" ', '" + dataTemp.name + "' ,now() , '" + role + "' )";
-                        conn.query(sqlInsert, function (err, result) {
+        pool.query(sqlSelectMember,[], function (err, results) {
+            if (err) {
+                console.log(err);
+            } else {
+
+                if (results.length >0) {
+                    //存在就更新是不是管理员
+                    var data = JSON.parse(JSON.stringify(results[0]));
+                    var userRole = data.userRole;
+                    if (userRole != role) {
+                        var sqlUpdate = "update pass_develop_project_members set userRole='" + role + "'  where id=" + data.id;
+                        conn.query(sqlUpdate, function (err, result) {
                             if (err) {
                                 console.log(err);
                             } else {
-                                console.log("插入一个")
+                                console.log("更新一个");
                             }
                         });
                     }
+                } else {
+                    var sqlInsert = "insert into pass_develop_project_members (projectId,userId,userName,createTime,userRole) values('" + projectId + "' , '" + dataTemp.username +" ', '" + dataTemp.name + "' ,now() , '" + role + "' )";
+                    pool.query(sqlInsert,[], function (err, result) {
+                        if (err) {
+                            console.log(err);
+                        } else {
+                            console.log("插入一个")
+                        }
+                    });
                 }
-            });
-            conn.release();
+            }
         });
     })
 }

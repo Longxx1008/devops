@@ -133,7 +133,7 @@
                     <div class="form-group">
                         <label for="remark" class="col-sm-2 control-label no-padding-right">备注:</label>
                         <div class="col-sm-10">
-                            <textarea id="remark" name="remark" class="easyui-validatebox form-control" data-options="required:true" style="width:80%;height:80px;"></textarea>
+                            <textarea id="remark" name="remark" class="easyui-validatebox form-control" style="width:80%;height:80px;"></textarea>
                         </div>
                     </div>
                 </form>
@@ -176,12 +176,20 @@
                 {"field": "gitAddress",hidden:true},
                 {"field": "resourceUse",hidden:true},
                 {"field": "projectCode","title":"编号","width":80,align:"center"},
-                {"field": "projectName","title":"应用名称","width":100,align:"center"},
+                {"field": "projectName","title":"项目名称","width":100,align:"center"},
                 {"field": "proVersions","title":"开发版本","width":120,align:"center",
                     "formatter":function (value, rowData,rowIndex) {
                         return getVerData(rowData.id,rowData.gitlabProjectId,rowIndex);
                     }},
-                {"field": "deployVersion","title":"上线版本","width":100,align:"center"},
+                {"field": "deployVersion","title":"上线版本","width":80,align:"center"},
+                {"field": "type","title":"项目类型","width":100,align:"center",
+                    "formatter":function (value, rowData,rowIndex) {
+                        if(value == 1){
+                            return "自主研发";
+                        }else{
+                            return "第三方";
+                        }
+                    }},
                 {"field": "step","title":"项目阶段","width":180,align:"center",
                     "formatter":function (value, rowData,rowIndex) {
                         return setProjectStepValue(value);
@@ -369,7 +377,7 @@
             return false;
         }
         var projectName = $("#deployProjectName").val();
-        var clusterName = $("#deployClusterId").text();
+        var clusterName = $("#deployClusterId").combobox('getText');
         msgConfirm('确定要部署当前【 ' + projectName + '】部署到集群【' + clusterName + '】么？',function(result) {
             if(result){
                 $.ajax({

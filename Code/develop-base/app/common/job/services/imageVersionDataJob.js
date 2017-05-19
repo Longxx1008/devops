@@ -82,77 +82,69 @@ function updateMapping(result){
             console.log("")
         }else{
             sql+="'"+data.imageName+"'";
-            pool.getConnection(function(err,conn){
-                if(err){
-                    console.log(err)
+            console.log("89     :  "+sql);
+            pool.query(sql,[],function(errs,results){
+                if(errs){
+                    console.info(errs)
                 }else{
-                    console.log("89     :  "+sql);
-                    conn.query(sql,function(errs,results){
-                        if(errs){
-                            console.info(errs)
-                        }else{
-                            if(results.length>0){
-                                var sqlMapping="select * from pass_develop_image_mapping where imageCode="
-                                var arr=new Array();
-                                var arrMap=new Array();
-                                var mapTemp={};
-                                var imageCode=new String(JSON.parse(JSON.stringify(results[0])).imageCode);
-                                console.log("101   :   "+  imageCode)
-                                for( var k=0;k<results.length;k++){
-                                    var temp=JSON.parse(JSON.stringify(results[k])).imageCode
-                                    arr.push(temp.userId);
-                                    mapTemp[temp.userId]=temp.userId;
-                                }
-                                if(imageCode!=null){
-                                    sqlMapping=sqlMapping+imageCode;
-                                    console.log("109      :  "+sqlMapping);
-                                    conn.query(sqlMapping,function(error,ret){
-                                        if(error){
-                                            console.log(error);
-                                        }else{
-                                            if(ret.length>0){
-                                                for(var j=0;j<ret.length;j++){
-                                                    var tempMap=JSON.parse(JSON.stringify(ret[j]));
-                                                    arrMap.push(tempMap.userCode);
-                                                }
-                                            }
-                                        }
-
-                                    });
-                                }
-
-                                if(arr.length !=arrMap.length){
-                                    for(var a=0;a<arr.length;a++){
-
-                                        for(var b=0;b<arrMap.length;b++){
-                                            if(arr[a]==arrMap[b]){
-                                                delete mapTemp[arr[a]];
-                                            }
-                                        }
-                                        if(mapTemp.length>0){
-                                            for (var key in mapTemp){
-                                                var insert="insert into pass_develop_image_mapping (imageCode,userCode) " +
-                                                    "values("+imageCode+" , "+key+")";
-                                                console.info("137    :   "+insert);
-                                                conn.query(insert,function(errors,results){
-                                                    if(errors){
-                                                        console.log(errors);
-                                                    }else{
-                                                        console.log("更新了一个Mapping");
-                                                    }
-                                                });
-                                            }
-
+                    if(results.length>0){
+                        var sqlMapping="select * from pass_develop_image_mapping where imageCode="
+                        var arr=new Array();
+                        var arrMap=new Array();
+                        var mapTemp={};
+                        var imageCode=new String(JSON.parse(JSON.stringify(results[0])).imageCode);
+                        console.log("101   :   "+  imageCode)
+                        for( var k=0;k<results.length;k++){
+                            var temp=JSON.parse(JSON.stringify(results[k])).imageCode
+                            arr.push(temp.userId);
+                            mapTemp[temp.userId]=temp.userId;
+                        }
+                        if(imageCode!=null){
+                            sqlMapping=sqlMapping+imageCode;
+                            console.log("109      :  "+sqlMapping);
+                            pool.query(sqlMapping,[],function(error,ret){
+                                if(error){
+                                    console.log(error);
+                                }else{
+                                    if(ret.length>0){
+                                        for(var j=0;j<ret.length;j++){
+                                            var tempMap=JSON.parse(JSON.stringify(ret[j]));
+                                            arrMap.push(tempMap.userCode);
                                         }
                                     }
                                 }
-                            }
+
+                            });
                         }
 
-                    })
+                        if(arr.length !=arrMap.length){
+                            for(var a=0;a<arr.length;a++){
+
+                                for(var b=0;b<arrMap.length;b++){
+                                    if(arr[a]==arrMap[b]){
+                                        delete mapTemp[arr[a]];
+                                    }
+                                }
+                                if(mapTemp.length>0){
+                                    for (var key in mapTemp){
+                                        var insert="insert into pass_develop_image_mapping (imageCode,userCode) " +
+                                            "values("+imageCode+" , "+key+")";
+                                        console.info("137    :   "+insert);
+                                        pool.query(insert,[],function(errors,results){
+                                            if(errors){
+                                                console.log(errors);
+                                            }else{
+                                                console.log("更新了一个Mapping");
+                                            }
+                                        });
+                                    }
+
+                                }
+                            }
+                        }
+                    }
                 }
-                conn.release()
-            })
+            });
 
         }
 
@@ -167,57 +159,49 @@ function updateVersion(result,dataVersion){
             var data=JSON.parse(JSON.stringify(result[i]))
             var imageCode=data.imageCode;
             var sql="select * from pass_develop_image_version where imagecode="+imageCode;
-            pool.getConnection(function(err,conn){
-                if(err){
-                    console.log(err);
-                }else{
-                    console.log("172    :  "+sql);
-                    conn.query(sql,function(err,result){
-                       if(err){
-                           console.log(err)
-                       }else{
-                           if(result.length>0){
-                               var arr=new Array();
+            console.log("172    :  "+sql);
+            pool.query(sql,[],function(err,result){
+               if(err){
+                   console.log(err)
+               }else{
+                   if(result.length>0){
+                       var arr=new Array();
 
-                               var gitMap={};
-                               for(var k=0;k<result.length;k++){
-                                   var dataVer=JSON.parse(JSON.stringify(result[k]));
-                                    arr.push(dataVer.imageVersion);
-                               }
+                       var gitMap={};
+                       for(var k=0;k<result.length;k++){
+                           var dataVer=JSON.parse(JSON.stringify(result[k]));
+                            arr.push(dataVer.imageVersion);
+                       }
 
-                               for(var t=0;t<dataVersion.length;t++){
-                                   gitMap[dataVersion[t]]=dataVersion[t];
-                               }
-                               if(dataVersion.length!=arr.length){
-                                   for(var a=0;a<dataVersion.length;a++){
-                                        for(var b=0;b<arr.length;b++){
-                                            if(arr[b]==dataVersion[a]){
-                                                delete gitMap[dataVersion[a]]
-                                            }
-                                        }
+                       for(var t=0;t<dataVersion.length;t++){
+                           gitMap[dataVersion[t]]=dataVersion[t];
+                       }
+                       if(dataVersion.length!=arr.length){
+                           for(var a=0;a<dataVersion.length;a++){
+                                for(var b=0;b<arr.length;b++){
+                                    if(arr[b]==dataVersion[a]){
+                                        delete gitMap[dataVersion[a]]
+                                    }
+                                }
 
-                                   }
-                                   if(gitMap.length>0){
-                                       for (var key in gitMap){
-                                           var sqlInsert="insert into pass_develop_image_version (imageCode,imageVersion) " +
-                                               "values("+imageCode+" , "+"'"+key+"') ";
-                                           console.log("  202   sqlInsert    :"+sqlInsert);
-                                           conn.query(sqlInsert,function(err,results){
-                                               if(err){
-                                                   console.log(err);
-                                               }else{
-                                                   console.log("更新一个Version");
-                                               }
-                                           });
+                           }
+                           if(gitMap.length>0){
+                               for (var key in gitMap){
+                                   var sqlInsert="insert into pass_develop_image_version (imageCode,imageVersion) " +
+                                       "values("+imageCode+" , "+"'"+key+"') ";
+                                   console.log("  202   sqlInsert    :"+sqlInsert);
+                                   pool.query(sqlInsert,[],function(err,results){
+                                       if(err){
+                                           console.log(err);
+                                       }else{
+                                           console.log("更新一个Version");
                                        }
-                                   }
+                                   });
                                }
                            }
                        }
-
-                    });
-                }
-                conn.release();
+                   }
+               }
             });
         }
 
@@ -226,13 +210,12 @@ function updateVersion(result,dataVersion){
 }
 //插入数据;
 function insertDataBase(version_data, insertMapData) {
-    pool.getConnection(function (err, conn) {
         for (var i= 0; i < version_data.length; i++) {
             var imageName = version_data[i].name;
             var tags = version_data[i].tags;          
             var temp_sql = "select imageCode ,imageName from pass_develop_image_info where imageName='" + imageName + "'";
             console.log("执行一次插入");
-            conn.query(temp_sql, function (err,result) {
+            pool.query(temp_sql,[], function (err,result) {
                 if (err) {
                     console.log(err);
 
@@ -245,7 +228,7 @@ function insertDataBase(version_data, insertMapData) {
                     } else {
                         var sql_temp_info = new String(sql_info);
                         sql_temp_info += "'" + imageName + "')";
-                        conn.query(sql_temp_info, function (err, result) {
+                        pool.query(sql_temp_info,[], function (err, result) {
                             if (err) {
                                 console.log(err);
                             } else {                                                                       
@@ -254,7 +237,7 @@ function insertDataBase(version_data, insertMapData) {
                                     var version_temp = tags[j];
                                     var sql_temp_version = new String(sql_version);
                                     sql_temp_version +=  imageCode + ",'" + version_temp + "')";
-                                    conn.query(sql_temp_version, function (err,ret) {
+                                    pool.query(sql_temp_version,[], function (err,ret) {
                                         if (err) {
                                             return console.log(err);
                                         }else{
@@ -270,13 +253,9 @@ function insertDataBase(version_data, insertMapData) {
                 }
             });
         }
-        conn.release();
-
-    });
 }
 
 function insertMapData(version_data ,imageCode) {
-    pool.getConnection(function (err, conn) {
         for (var i = 0; i < version_data.length; i++) {
             var sql = new String('SELECT t.gitlabProjectId from pass_develop_project_resources t where t.gitlabProjectId is not null and t.gitlabProjectId <> 0 and  t.projectCode= ');
             var sql_member = new String("select * from pass_develop_project_members where projectId=");
@@ -287,7 +266,7 @@ function insertMapData(version_data ,imageCode) {
             }
             sql += "'"+imageName+"'";
             console.log(sql);
-            conn.query(sql, function (err, result) {
+            pool.query(sql,[], function (err, result) {
                 if (err) {
                     console.log(err);
                 } else {
@@ -303,7 +282,7 @@ function insertMapData(version_data ,imageCode) {
                                     var userCode = new String(JSON.parse(JSON.stringify(ret[k])).userId);
                                     sql_temp_map = new String(sql_map);
                                     sql_temp_map += imageCode + ",'" + userCode + "')";
-                                    conn.query(sql_temp_map, function (error, result) {
+                                    pool.query(sql_temp_map,[], function (error, result) {
                                         if (error) {
                                             console.log(error);
                                         } else {
@@ -319,7 +298,5 @@ function insertMapData(version_data ,imageCode) {
                 }
             });
         }
-        conn.release();
-    });
 }
 
