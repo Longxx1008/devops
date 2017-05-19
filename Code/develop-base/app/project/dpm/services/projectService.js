@@ -50,7 +50,7 @@ exports.versionList = function(conditionMap, cb) {
 //获取项目进度情况
 exports.projectProcess = function(cb) {
     var sql = " select sum(case WHEN step = 1 then 1 else 0 end) as developNum,sum(case WHEN step = 2 then 1 else 0 end) as testNum," +
-        "sum(case WHEN step = 3 then 1 else 0 end) as deployNum,sum(case WHEN step = 4 then 1 else 0 end) as operationNum  " +
+        "sum(case WHEN step in (3,4) then 1 else 0 end) as deployNum,sum(case WHEN step in (3,4) then 1 else 0 end) as operationNum  " +
         "from pass_develop_project_resources";
     // 查询项目进度情况数据
     mysqlPool.query(sql,[],function(err,result) {
