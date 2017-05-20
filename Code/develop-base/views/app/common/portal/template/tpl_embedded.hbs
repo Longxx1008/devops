@@ -303,7 +303,7 @@
                                             <span class="widget-caption themeprimary">服务监控</span>
                                         </div><!--Widget Header-->
                                         <div class="widget-body" style="overflow:hidden;">
-                                            <iframe id="servicemonitorIframe" height="500px" scrolling="no" style="width:100%;" frameborder="0"></iframe>
+                                            <iframe id="servicemonitorIframe" height="550px"  style="width:100%;" frameborder="0"></iframe>
                                         </div>
                                     </div>
                                 </div>
@@ -438,7 +438,7 @@
         showMemoryChart();
         showDiskChart();
         showOperateData();
-        setheight();
+      //  setheight();
 
 
 
@@ -573,12 +573,13 @@
                     mesosId=data.rows[i].mesosId;
                     console.info(mesosId);
                     mesosId=mesosId.substring(1);
-                    src=data.rows[i].webSite+"/dashboard/db/ying-yong-guan-li?orgId=1&var-app_name="+mesosId;
+                    src="http://192.168.9.48:3000/dashboard/db/ying-yong-guan-li?orgId=1&var-app_name="+mesosId;
+                    console.log("src   :   "+src);
                     html='<li onclick="openPageIntoButton('+"'"+src+"'"+')"><div class="maintain-list warning"><h2>'+data.rows[i].projectName+'</h2><h2>'+data.rows[i].projectCode+'</h2><h3>'+type+'<span>'+data.rows[i].version+'</span></h3><i><a src="'+data.rows[i].webSite+'" ><span  '+icons +'></span>'+status+'</a></i></div></li>';
                     $("#operateData").append(html);
                 }
 
-                $("#servicemonitorIframe").attr("src",'http://192.168.9.48:3000/dashboard/db/ying-yong-guan-li?orgId=1&var-app_name=wlyxwh');
+                $("#servicemonitorIframe").attr("src",'http://192.168.9.48:3000/dashboard/db/wo-ying-yong-guan-li?orgId=1');
             }
         });
     }
@@ -1028,27 +1029,27 @@
         }
         return format;
     };
-    function setheight(){
-        var wp = window.parent;
-
-        if (wp != null)
-        {
-            var ifm = $("#servicemonitorIframe");
-
-            if (ifm != null)
-            {
-                SetIfmHeight();
-            }
-        }
-
-        function SetIfmHeight()
-        {
-            console.log("2222222222222222222222:   "+ document.body.scrollHeight)
-            var height= document.body.scrollHeight; //设置高
-            ifm.attr("height",height);
-            setTimeout('SetIfmHeight()', 1000); 　　　　//每隔一秒调用方法SetIfmHeight()一次，以适应页面的变化
-        }
-
-
-    }
+//    function setheight(){
+//        var wp = window.parent;
+//
+//        if (wp != null)
+//        {
+//            var ifm = $("#servicemonitorIframe");
+//
+//            if (ifm != null)
+//            {
+//                SetIfmHeight();
+//            }
+//        }
+//
+//        function SetIfmHeight()
+//        {
+//            console.log("2222222222222222222222:   "+ document.body.scrollHeight)
+//            var height= document.body.scrollHeight; //设置高
+//            ifm.attr("height",height);
+//            setTimeout('SetIfmHeight()', 1000); 　　　　//每隔一秒调用方法SetIfmHeight()一次，以适应页面的变化
+//        }
+//
+//
+//    }
 </script>
