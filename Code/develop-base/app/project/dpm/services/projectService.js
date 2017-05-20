@@ -335,6 +335,21 @@ exports.saveDeployInfo = function(conditionMap, cb){
         }
     });
 }
+/**
+ * 删除已部署应用
+ * @param conditionMap
+ * @param cb
+ */
+exports.deleteDeployInfo = function(id, cb){
+    var sql = "delete from pass_develop_project_deploy where id=?";
+    mysqlPool.query(sql, [id], function(err, result){
+        if(err) {
+            cb(utils.returnMsg(false, '1000', '删除项目部署信息出错', null, err));
+        } else {
+            cb(utils.returnMsg(true, '0000', '删除项目部署信息成功', result, null));
+        }
+    });
+}
 
 exports.updateDeployStatus = function(conditionMap,cb){
     var sql = "update pass_develop_project_deploy set status=?,healthStatus=?,resources=?,hostName=?,hostIp=?,containerId=?,containerName=? where id=?";
@@ -432,7 +447,7 @@ exports.refreshDeployedInfo = function(id, mesosId){
         res.on('end', function () {
             console.log(mesosId + "返回数据为:" + chtmlJson);
             var json = JSON.parse(chtmlJson);//将拼接好的响应数据转换为json对象
-            if (json) {
+            if (json && json.app) {
                 //健康的实例大于1，就认为应用健康
                 var status = json.app.tasksHealthy > 0 ? 1 : 0;
                 var resources = "";
@@ -462,7 +477,7 @@ exports.refreshDeployedInfo = function(id, mesosId){
                     //默认只读取第一个实例
                     var taskId = json.app.tasks[0].id;
                     var host = json.app.tasks[0].host;
-                    httpGetContainerInfo(id, mesosId, status, resources, taskId, host);
+                    exports.httpGetContainerInfo(id, mesosId, status, resources, taskId, host);
                 }
             } else {
                 console.log(mesosId + "接口数据异常");
@@ -473,7 +488,7 @@ exports.refreshDeployedInfo = function(id, mesosId){
     });
 }
 
-function httpGetContainerInfo(id, mesosId, status, resources,taskId, hostName){
+exports.httpGetContainerInfo = function(id, mesosId, status, resources,taskId, hostName){
     var params = [];
     params.push(hostName);
     mysqlPool.query("select * from pass_operation_host_info where name=?",params,function(err,result){
@@ -517,6 +532,8 @@ function httpGetContainerInfo(id, mesosId, status, resources,taskId, hostName){
                                 console.log("更新已部署应用健康度等信息成功");
                             }
                         });
+                        //同步数据到influxDB
+
                     } else {
                         console.log(mesosId + "接口数据异常");
                     }
@@ -526,4 +543,38 @@ function httpGetContainerInfo(id, mesosId, status, resources,taskId, hostName){
             });
         }
     });
+}
+
+function syncData2InfluxDB(appName,hostName,hostIp,containerId,containerName){
+    var request = require("request");
+    const Influx = require('influxdb-nodejs');
+    const client = new Influx(config.platform.influxDB);
+
+    const fieldSchema = {
+        value:'string'
+    };
+    const tagSchema = {
+        app_name:'*',
+        container_name:'*',
+        container_id:'*',
+        host_ip:'*',
+        host_name:'*'
+    };
+    client.schema('dockermapping', fieldSchema, tagSchema, {
+        // default is false
+        stripUnknown: true,
+    });
+    client.write('dockermapping')
+        .tag({
+            app_name:appName,
+            container_name:containerName,
+            container_id:containerId,
+            host_ip:hostIp,
+            host_name:hostName
+        })
+        .field({
+            value:'1'
+        })
+        .then(console.info('write point success'))
+        .catch(console.error);
 }

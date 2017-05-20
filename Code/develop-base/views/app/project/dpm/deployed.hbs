@@ -106,7 +106,8 @@
                                     "<span class=\"label label-info\" style='height:26px;line-height:16px;font-weight:600;cursor: pointer;margin-top: 0.5rem;margin-bottom: 0.5rem;' data-host='" + rowData.hostName + "' data-name='" + rowData.containerName + "' onclick=\"doNature(this)\">性能情况</span>" +
                                     "<span class=\"label label-info\" style='height:26px;line-height:16px;font-weight:600;cursor: pointer;margin-left:0.3rem;' data-id='" + rowData.id + "' data-name='" + rowData.projectName + "' onclick='logsCenter(this)'>日志</span>";
                         }else{
-                            returnValue = "<span class=\"label label-info\" style=\"height:26px;line-height:16px;font-weight:600;margin-top: 0.5rem;margin-left: 0.5rem;cursor: pointer;\" data-id='" + rowData.id + "' data-name='" + rowData.projectName + "' onclick=\"doStart(this)\">启动</span></br>";
+                            returnValue = "<span class=\"label label-info\" style=\"height:26px;line-height:16px;font-weight:600;margin-top: 0.5rem;margin-left: 0.5rem;cursor: pointer;\" data-id='" + rowData.id + "' data-name='" + rowData.projectName + "' onclick=\"doStart(this)\">启动</span>" +
+                                    "<span class=\"label label-danger\" style=\"height:26px;line-height:16px;font-weight:600;margin-top: 0.5rem;margin-left: 0.5rem;cursor: pointer;\" data-id='" + rowData.id + "' data-name='" + rowData.projectName + "' onclick=\"doDelete(this)\">删除</span></br>";
                         }
                         return returnValue;
                     }
@@ -165,6 +166,35 @@
             if(result){
                 $.ajax({
                     url:'{{projcfg.appurl}}/api/project/dpm/project/develop/pm/deploy/stop/' + id,
+                    type: 'put',
+                    dataType:"json",
+                    data:{
+                        time : Math.random()
+                    },
+                    success: function (data) {
+                        if(data.success){
+                            msgSuccess(data.msg);
+                            doSearch();
+                        }else{
+                            msgError(data.msg);
+                        }
+                    },
+                    error : function(err) {
+                        console.log(err);
+                        $("#logPre").html("日志加载失败：" + err.statusCode);
+                    }
+                });
+            }
+        });
+    }
+
+    function doDelete(thisObj){
+        var id = $(thisObj).data("id");
+        var name = $(thisObj).data("name");
+        msgConfirm('确定要删除【 ' + name + '】应用么？',function(result) {
+            if(result){
+                $.ajax({
+                    url:'{{projcfg.appurl}}/api/project/dpm/project/develop/pm/deploy/delete/' + id,
                     type: 'put',
                     dataType:"json",
                     data:{

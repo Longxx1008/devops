@@ -154,9 +154,10 @@ var config = {
         userRoot:'/mnt/dockerts/',
         LableKey:'index',
         lableValue:'create',
-        mesosHost:"http://192.168.31.91:5050",
+        mesosHost:"http://192.168.9.45:5050",
         marathonApi:"http://192.168.31.92:8080/v2/apps",
-        marathonLb:"http://192.168.31.96"
+        marathonLb:"http://192.168.31.94",
+        influxDB:"http://192.168.31.48:8086/telegraf"
     }
 }
 module.exports = config;

@@ -191,7 +191,6 @@ router.route('/develop/pm/deploy/stop/:id').put(function(req, res){
     var id = req.params.id;
     projectService.getDeployedInfo(id,function(result){
         if(result.success && result.data.length != 0){
-            var mesosId = result.data[0].id;
             var request = require('request');
             var scaleJson = {"instances": 0};
             var options = {
@@ -228,6 +227,43 @@ router.route('/develop/pm/deploy/stop/:id').put(function(req, res){
             request(options, callback);
         }else{
             utils.respMsg(res, false, '10000', '停止失败，所选应用不存在', null, null);
+        }
+    })
+});
+
+router.route('/develop/pm/deploy/delete/:id').put(function(req, res){
+    var id = req.params.id;
+    projectService.getDeployedInfo(id,function(result){
+        if(result.success && result.data.length != 0){
+            var request = require('request');
+            var scaleJson = {"instances": 0};
+            var options = {
+                headers : {"Connection": "close"},
+                url : config.platform.marathonApi + result.data[0].mesosId,
+                method : 'delete',
+                json : true,
+                body : scaleJson
+            };
+            function callback(error, response, data) {
+                if (!error && (response.statusCode == 200 || response.statusCode == 201)) {
+                    console.log('删除应用成功----info------',data);
+
+                    projectService.deleteDeployInfo(id,function(result){
+                        if(!result.success){
+                            utils.respMsg(res, false, '10000', '删除应用失败', null, null);
+                        }else{
+                            utils.respMsg(res, true, '00000', '删除应用成功', null, null);
+                        }
+
+                    });
+                }else{
+                    console.log("删除应用失败，" + error);
+                    utils.respMsg(res, false, '10000', '删除应用操作失败', null, null);
+                }
+            }
+            request(options, callback);
+        }else{
+            utils.respMsg(res, false, '10000', '删除失败，所选应用不存在', null, null);
         }
     })
 });
@@ -282,7 +318,47 @@ router.route('/develop/pm/deploy/start/:id').post(function(req, res){
         }
     })
 });
-
+router.route('/develop/pm/deploy/status').get(function(req, res){
+    var id = req.query.projectId;
+    var mesosId = req.query.projectCode;
+    var url = config.platform.marathonApi  + "/" + mesosId;
+    var http = require("http");
+    http.get(url, function(resp) {
+        console.log("Got response: " + resp.statusCode);
+        resp.setEncoding('utf8');
+        var chtmlJson = '';
+        resp.on('data', function (chunk) {//拼接响应数据
+            chtmlJson += chunk;
+        });
+        resp.on('end', function () {
+            console.log(mesosId + "返回数据为:" + chtmlJson);
+            var json = JSON.parse(chtmlJson);//将拼接好的响应数据转换为json对象
+            if (json && json.app) {
+                //健康的实例大于1，就认为应用健康
+                var status = json.app.tasksHealthy > 0 ? 1 : 0;
+                if(status == 1){//健康
+                    utils.respMsg(res, true, '1000', '应用健康', null, null);
+                    var cpus = json.app.cpus;
+                    var mem = json.app.mem;
+                    var instances = json.app.instances;
+                    var resources  = "实例:" + instances + "个<br>CPU:" + instances * cpus + "个<br>内存:" + mem * instances + "M";
+                    //默认只读取第一个实例
+                    var taskId = json.app.tasks[0].id;
+                    var host = json.app.tasks[0].host;
+                    projectService.httpGetContainerInfo(id, mesosId, status, resources, taskId, host);
+                }else{
+                    utils.respMsg(res, false, '1000', '应用不健康', null, null);
+                }
+            } else {
+                console.log(mesosId + "接口数据异常");
+                utils.respMsg(res, false, '1000', '应用不健康', null, null);
+            }
+        });
+    }).on('error', function(e) {
+        console.log("Got error: " + e.message);
+        utils.respMsg(res, false, '1000', '应用不健康', null, null);
+    });
+});
 router.route('/develop/pm/deploy').get(function(req, res){
     // 分页条件
     var projectName = req.query.projectName;
