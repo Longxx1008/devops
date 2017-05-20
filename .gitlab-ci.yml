@@ -23,11 +23,11 @@ build_stages:
     - if [ "$CI_BUILD_TAG" ]; then  docker build -t $MY_CI_REGISTRY_IMAGE .;fi
 #    - if [ -n "${PUSH_TO_REGISTRY}" ]; then docker build -t $MY_CI_REGISTRY_IMAGE .;fi
   tags:
-    - dev
+    - dockerindocker
 # 定义测试阶段
 test_stages:
   tags:
-    - dev
+    - dockerindocker
   stage: test
   script:
     - echo "TEST"
@@ -36,7 +36,7 @@ test_stages:
 # 定义部署阶段
 release_image:
   tags:
-    - dev
+    - dockerindocker
   stage: deploy
   script:
     - if [ "$CI_BUILD_TAG" ]; then docker push $MY_CI_REGISTRY_IMAGE ;fi
