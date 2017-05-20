@@ -491,16 +491,17 @@ exports.refreshDeployedInfo = function(id, mesosId){
 exports.httpGetContainerInfo = function(id, mesosId, status, resources,taskId, hostName){
     var params = [];
     params.push(hostName);
-    mysqlPool.query("select * from pass_operation_host_info where name=?",params,function(err,result){
+    /*mysqlPool.query("select * from pass_operation_host_info where name=?",params,function(err,result){
         if(err || result == null || result.length == 0){
             console.log("根据host查询IP异常" );
         }else{
-            var hostIp = result[0].ip;
+            var hostIp = result[0].ip;*/
+            var hostIp = "";
             var path = "/containers/json?all=1";
             var filters = "{\"label\":[\"MESOS_TASK_ID=" + taskId + "\"]}";
             path = path + "&filters=" + filters;
             var options = {
-                host:hostIp,
+                host:hostName,
                 port:2375,
                 path:path
             };
@@ -533,7 +534,7 @@ exports.httpGetContainerInfo = function(id, mesosId, status, resources,taskId, h
                             }
                         });
                         //同步数据到influxDB
-
+                        syncData2InfluxDB(mesosId, hostName, hostIp, containerId, containerName);
                     } else {
                         console.log(mesosId + "接口数据异常");
                     }
@@ -541,8 +542,8 @@ exports.httpGetContainerInfo = function(id, mesosId, status, resources,taskId, h
             }).on('error', function(e) {
                 console.log("Got error: " + e.message);
             });
-        }
-    });
+        /*}*/
+    /*});*/
 }
 
 function syncData2InfluxDB(appName,hostName,hostIp,containerId,containerName){
@@ -566,10 +567,10 @@ function syncData2InfluxDB(appName,hostName,hostIp,containerId,containerName){
     });
     client.write('dockermapping')
         .tag({
-            app_name:appName,
+            app_name:appName.replace("/",""),
             container_name:containerName,
             container_id:containerId,
-            host_ip:hostIp,
+            host_ip:hostName,
             host_name:hostName
         })
         .field({

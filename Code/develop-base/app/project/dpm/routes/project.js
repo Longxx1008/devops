@@ -189,6 +189,7 @@ router.route('/develop/pm/deploy/logs/:id').get(function(req, res){
 
 router.route('/develop/pm/deploy/stop/:id').put(function(req, res){
     var id = req.params.id;
+    var projectId = req.body.projectId;
     projectService.getDeployedInfo(id,function(result){
         if(result.success && result.data.length != 0){
             var request = require('request');
@@ -201,6 +202,7 @@ router.route('/develop/pm/deploy/stop/:id').put(function(req, res){
                 body : scaleJson
             };
             function callback(error, response, data) {
+                console.log(response);
                 if (!error && (response.statusCode == 200 || response.statusCode == 201)) {
                     console.log('停止应用成功----info------',data);
                     var params = [];
@@ -216,7 +218,16 @@ router.route('/develop/pm/deploy/stop/:id').put(function(req, res){
                         if(!result.success){
                             utils.respMsg(res, false, '10000', '停止应用成功，但更新应用状态失败', null, null);
                         }else{
-                            utils.respMsg(res, true, '10000', '停止应用成功', null, null);
+                            var stepData = [];
+                            stepData.push(2);
+                            stepData.push(projectId);
+                            projectService.updateStep(stepData,function(result){
+                                if(!result.success){
+                                    utils.respMsg(res, false, '10000', '停止应用失败', null, null);
+                                }else{
+                                    utils.respMsg(res, true, '10000', '停止应用成功', null, null);
+                                }
+                            });
                         }
                     });
                 }else{
@@ -233,6 +244,7 @@ router.route('/develop/pm/deploy/stop/:id').put(function(req, res){
 
 router.route('/develop/pm/deploy/delete/:id').put(function(req, res){
     var id = req.params.id;
+    var projectId = req.body.projectId;
     projectService.getDeployedInfo(id,function(result){
         if(result.success && result.data.length != 0){
             var request = require('request');
@@ -247,14 +259,21 @@ router.route('/develop/pm/deploy/delete/:id').put(function(req, res){
             function callback(error, response, data) {
                 if (!error && (response.statusCode == 200 || response.statusCode == 201)) {
                     console.log('删除应用成功----info------',data);
-
                     projectService.deleteDeployInfo(id,function(result){
-                        if(!result.success){
-                            utils.respMsg(res, false, '10000', '删除应用失败', null, null);
+                        if(result.success){
+                            var stepData = [];
+                            stepData.push(2);
+                            stepData.push(projectId);
+                            projectService.updateStep(stepData,function(result){
+                                if(!result.success){
+                                    utils.respMsg(res, false, '10000', '删除应用失败', null, null);
+                                }else{
+                                    utils.respMsg(res, true, '2001', '应用部署成功', null, null);
+                                }
+                            });
                         }else{
-                            utils.respMsg(res, true, '00000', '删除应用成功', null, null);
+                            utils.respMsg(res, false, '10000', '删除应用失败', null, null);
                         }
-
                     });
                 }else{
                     console.log("删除应用失败，" + error);
@@ -270,6 +289,7 @@ router.route('/develop/pm/deploy/delete/:id').put(function(req, res){
 
 router.route('/develop/pm/deploy/start/:id').post(function(req, res){
     var id = req.params.id;
+    var projectId = req.body.projectId;
     projectService.getDeployedInfo(id,function(result){
         if(result.success && result.data.length != 0){
             var request = require('request');
@@ -278,7 +298,7 @@ router.route('/develop/pm/deploy/start/:id').post(function(req, res){
             var scaleJson = {"instances": 1};
             var options = {
                 headers : {"Connection": "close"},
-                url : config.platform.marathonApi + result.data[0].mesosId,
+                url : config.platform.marathonApi + mesosId,
                 method : 'put',
                 json : true,
                 body : scaleJson
@@ -300,7 +320,16 @@ router.route('/develop/pm/deploy/start/:id').post(function(req, res){
                         if(!result.success){
                             utils.respMsg(res, false, '10000', '启动应用成功，但更新应用状态失败', null, null);
                         }else{
-                            utils.respMsg(res, true, '10000', '启动应用成功', null, null);
+                            var stepData = [];
+                            stepData.push(4);
+                            stepData.push(projectId);
+                            projectService.updateStep(stepData,function(result){
+                                if(!result.success){
+                                    utils.respMsg(res, false, '10000', '启动应用成功，但更新应用状态失败', null, null);
+                                }else{
+                                    utils.respMsg(res, true, '10000', '启动应用成功', null, null);
+                                }
+                            });
                             //刷新应用状态
                             setTimeout(function(){
                                 projectService.refreshDeployedInfo(id, mesosId);
@@ -406,6 +435,7 @@ router.route('/develop/pm/deploy').get(function(req, res){
                             console.log(result.data[0].deployJson);
                             var deployJson = JSON.parse(result.data[0].deployJson);
                             var homeUrl = result.data[0].homeUrl;
+                            var mesosId = result.data[0].mesosId;
                             var request = require('request');
                             var options = {
                                 headers : {"Connection": "close"},
@@ -430,9 +460,15 @@ router.route('/develop/pm/deploy').get(function(req, res){
                                     params.push(currentUser.login_account);
                                     projectService.saveDeployInfo(params,function(result){
                                         //utils.respJsonData(res, result);
+                                        console.log(result);
                                         if(!result.success){
                                             utils.respMsg(res, false, '2001', '应用部署失败', null, null);
                                         }else{
+                                            //刷新应用状态
+                                            var deployId = result.data.insertId;
+                                            setTimeout(function(){
+                                                projectService.refreshDeployedInfo(deployId, mesosId);
+                                            },30 * 1000);
                                             var stepdata = [];
                                             if(clusterId != 1){
                                                 stepdata.push(4);
@@ -498,6 +534,12 @@ router.route("/develop/pm/tree").get(function(req,res){
     projectService.queryDetailTree(projectId,function(results){
         utils.respJsonData(res, results);
     });
+});
+
+router.route("/test").post(function(req,res){
+    console.log(req.evalMatches);
+    console.log(req);
+    console.log(res);
 });
 
 module.exports = router;

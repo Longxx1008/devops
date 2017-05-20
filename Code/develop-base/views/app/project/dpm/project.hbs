@@ -470,12 +470,13 @@
                         //启动定时任务检查状态
                         var checkNum = 0;//检查10次
                         var checkInterval = setInterval(function(){
-                            if(checkNum == 10){
+                            if(checkNum == 60){
                                 clearInterval(checkInterval);
                                 if(!runnIndex){
-                                    msgError("应用启动失败，请重试");
                                     doSearch();
                                     $('#deployDialog').dialog('close');
+                                    closeRadia();
+                                    msgError("应用启动失败，请重试");
                                 }
                             }else{
                                 $.getJSON("{{projcfg.appurl}}/api/project/dpm/project/develop/pm/deploy/status",{"projectId":projectId,"projectCode":projectCode},function(data){
@@ -513,11 +514,14 @@
                         setTimeout(function(){
                             closeRadia();
                             msgSuccess("应用启动成功");
-                            doSearch();
-                            $('#deployDialog').dialog('close');
+                            //doSearch();
+                            //$('#deployDialog').dialog('close');
+                            setTimeout(function(){
+                                window.location.href = "{{projcfg.appurl}}/deployed";
+                            },1000);
                         },1500);
                     }
-                },200);
+                },100);
             }
         });
     }
