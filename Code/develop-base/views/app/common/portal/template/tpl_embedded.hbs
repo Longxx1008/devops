@@ -1,5 +1,18 @@
 <script src="{{projcfg.appurl}}/static/js/echart/v3.1.3/echarts.min.js"></script>
 <link type="text/css" rel="stylesheet" href="{{projcfg.appurl}}/static/css/page-style.css">
+<style type="text/css">
+    .warning-icon{
+        background:url("{{projcfg.appurl}}/static/images/img/maintain-icon.png") no-repeat 0 10px #ffbf76;
+    }
+    .sale-icon{
+        background:url("{{projcfg.appurl}}/static/images/img/maintain-icon.png") no-repeat 0 -120px #53e59d;
+    }
+    .serious-icon{
+        background:url("{{projcfg.appurl}}/static/images/img/maintain-icon.png") no-repeat 0 -250px #ff7575;
+    }
+
+
+</style>
 <div class="row">
     <div class="col-xs-12 col-md-12">
         <div class="widget">
@@ -242,9 +255,8 @@
 
                         <!--</div>-->
 
-                        <div class="row">
+                        <div class="left">
                             <div class="col-xs-8 col-md-8" style="width:100%">
-                                <div class="widget">
                                     <div class="widget-header bordered-bottom bordered-themeprimary">
                                         <i class="widget-icon fa fa-tags themeprimary"></i>
                                         <span class="widget-caption themeprimary">资源占用情况</span>
@@ -281,40 +293,93 @@
                                             <!--</div>-->
                                         </div>
                                     </div>
-                                </div>
                             </div>
 
-                        </div>
 
-                        <div class="row">
-                            <div class="col-xs-8 col-md-8" style="width:100%;height:500px;">
-                                <div class="widget" style="height: 100%">
-                                    <div class="widget-header bordered-bottom bordered-themeprimary">
-                                        <i class="widget-icon fa fa-tags themeprimary"></i>
-                                        <span class="widget-caption themeprimary">运维列表</span>
-                                    </div><!--Widget Header-->
-                                    <div class="widget-body" style="height: 98%">
-                                        <table id="operationDataTabale"></table>
+                                <div class="col-xs-8 col-md-8" style="width:100%;">
+                                    <div class="widget">
+                                        <div class="widget-header bordered-bottom bordered-themeprimary">
+                                            <i class="widget-icon fa fa-tags themeprimary"></i>
+                                            <span class="widget-caption themeprimary">服务监控</span>
+                                        </div><!--Widget Header-->
+                                        <div class="widget-body" style="overflow:hidden;">
+                                            <iframe id="servicemonitorIframe" height="550px"  style="width:100%;" frameborder="0"></iframe>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
+
+
 
                         </div>
 
-                        <div class="row">
-                            <div class="col-xs-8 col-md-8" style="width:100%;margin-top: 2.5rem;">
-                                <div class="widget">
-                                    <div class="widget-header bordered-bottom bordered-themeprimary">
-                                        <i class="widget-icon fa fa-tags themeprimary"></i>
-                                        <span class="widget-caption themeprimary">服务监控</span>
-                                    </div><!--Widget Header-->
-                                    <div class="widget-body">
-                                        <iframe id="servicemonitorIframe"  width="100%" height="400" frameborder="0"></iframe>
-                                    </div>
-                                </div>
+                        <div class="right">
+                            <div class="maintain-box">
+                                <ul id="operateData">
+                                    <!--<li>-->
+                                        <!--<div class="maintain-list warning">-->
+                                            <!--<h1>集团专线建设工维一体</h1>-->
+                                            <!--<h2>应用编号：zxjs</h2>-->
+                                            <!--<h3>自主研发<span>V1.0.2</span></h3>-->
+                                            <!--<i><span class="warning-icon"></span>警告</i>-->
+                                        <!--</div>-->
+                                    <!--</li>-->
+                                    <!--<li>-->
+                                        <!--<div class="maintain-list sale">-->
+                                            <!--<h1>仪器仪表资源管理</h1>-->
+                                            <!--<h2>应用编号：zxjs</h2>-->
+                                            <!--<h3>自主研发<span>V1.0.2</span></h3>-->
+                                            <!--<i><span class="sale-icon"></span>正常</i>-->
+                                        <!--</div>-->
+                                    <!--</li>-->
+                                    <!--<li>-->
+                                        <!--<div class="maintain-list serious">-->
+                                            <!--<h1>网络运行维护项目管理平台</h1>-->
+                                            <!--<h2>应用编号：zxjs</h2>-->
+                                            <!--<h3>自主研发<span>V1.0.2</span></h3>-->
+                                            <!--<i><span class="serious-icon"></span>严重</i>-->
+                                        <!--</div>-->
+                                    <!--</li>-->
+                                    <!--<li>-->
+                                        <!--<div class="maintain-list sale">-->
+                                            <!--<h1>创客天地</h1>-->
+                                            <!--<h2>应用编号：zxjs</h2>-->
+                                            <!--<h3>自主研发<span>V1.0.2</span></h3>-->
+                                            <!--<i><span class="sale-icon"></span>正常</i>-->
+                                        <!--</div>-->
+                                    <!--</li>-->
+                                </ul>
                             </div>
 
                         </div>
+                        <!--<div class="row">-->
+                        <!--<div class="col-xs-8 col-md-8" style="width:100%;height:500px;">-->
+                            <!--<div class="widget" style="height: 100%">-->
+                                <!--<div class="widget-header bordered-bottom bordered-themeprimary">-->
+                                    <!--<i class="widget-icon fa fa-tags themeprimary"></i>-->
+                                    <!--<span class="widget-caption themeprimary">运维列表</span>-->
+                                <!--</div>&lt;!&ndash;Widget Header&ndash;&gt;-->
+                                <!--<div class="widget-body" style="height: 98%">-->
+                                    <!--<table id="operationDataTabale"></table>-->
+                                <!--</div>-->
+                            <!--</div>-->
+                        <!--</div>-->
+
+                    <!--</div>-->
+
+                        <!--<div class="row">-->
+                            <!--<div class="col-xs-8 col-md-8" style="width:100%;margin-top: 2.5rem;">-->
+                                <!--<div class="widget">-->
+                                    <!--<div class="widget-header bordered-bottom bordered-themeprimary">-->
+                                        <!--<i class="widget-icon fa fa-tags themeprimary"></i>-->
+                                        <!--<span class="widget-caption themeprimary">服务监控</span>-->
+                                    <!--</div>&lt;!&ndash;Widget Header&ndash;&gt;-->
+                                    <!--<div class="widget-body">-->
+                                        <!--<iframe id="servicemonitorIframe"  width="100%" height="400" frameborder="0"></iframe>-->
+                                    <!--</div>-->
+                                <!--</div>-->
+                            <!--</div>-->
+
+                        <!--</div>-->
 
                     </div>
                 </div>
@@ -365,57 +430,65 @@
     //获取当前月
     var month = myDate.getMonth()+1;
 
+
+
+
     $(function(){
         showCpuChart();
         showMemoryChart();
         showDiskChart();
+        showOperateData();
+      //  setheight();
 
-        $('#operationDataTabale').datagrid({
-            url:'{{projcfg.appurl}}/api/project/dpm/project/develop/pm/deploy',
-            method:'get',
-            rownumbers:false,
-            striped:true,
-            fitColumns:true,
-            fit:true,
-            border:true,
-            singleSelect:true,
-            selectOnCheck:false,
-            columns:[[
-                {"field":'id',checkbox:true},
-                {"field":'alarmNum',hidden:true},
-                {"field": "projectCode","title":"应用编号","width":120,align:"center"},
-                {"field": "projectName","title":"应用名称","width":150,align:"center"},
-                {"field": "type","title":"应用类型","width":150,align:"center",
-                    "formatter":function (value, rowData,rowIndex) {
-                        return value == "1" ? "自主研发":"第三方应用";
-                    }
-                },
-                {"field": "version","title":"部署版本","width":100,align:"center"},
-                {"field": "healthStatus","title":"健康状况","width":120,align:"center",
-                    "formatter":function(value, rowData, rowIndex){
-                        if(value == 1){
-                            return "<span class=\"label label-success\"><a href=\"javascript:void(0);\" style=\"padding:3px 3px;color:#fff;\">正常</a></span>"
-                        }else{
-                            return "<span class=\"label label-danger\"><a href=\"javascript:void(0);\" style=\"padding:3px 3px;color:#fff;\">告警 <span class=\"badge\" style='margin-left: 0.1rem;'>"+rowData.alarmNum+"</span></a></span>"
-                        }
-                    }}
-            ]],
-            onLoadSuccess:function(data){
-                if(data.total > 0){
-                    var src = "http://www.baidu.com";
-                    $("#servicemonitorIframe").attr("src",src);
-                }
-            },
-            onClickRow:function(rowIndex, rowData){
-                var src = "http://www.runoob.com/bootstrap/bootstrap-badges.html";
-                $("#servicemonitorIframe").attr("src",src);
-            },
-            onLoadError:function() {
-                msgError('加载数据出现时发生错误,请稍候重试...');
-            },
-            pagination:true,
-            loadMsg:'正在加载...'
-        });
+
+
+
+        <!--$('#operationDataTabale').datagrid({-->
+            <!--url:'{{projcfg.appurl}}/api/project/dpm/project/develop/pm/deploy',-->
+            <!--method:'get',-->
+            <!--rownumbers:false,-->
+            <!--striped:true,-->
+            <!--fitColumns:true,-->
+            <!--fit:true,-->
+            <!--border:true,-->
+            <!--singleSelect:true,-->
+            <!--selectOnCheck:false,-->
+            <!--columns:[[-->
+                <!--{"field":'id',checkbox:true},-->
+                <!--{"field":'alarmNum',hidden:true},-->
+                <!--{"field": "projectCode","title":"应用编号","width":120,align:"center"},-->
+                <!--{"field": "projectName","title":"应用名称","width":150,align:"center"},-->
+                <!--{"field": "type","title":"应用类型","width":150,align:"center",-->
+                    <!--"formatter":function (value, rowData,rowIndex) {-->
+                        <!--return value == "1" ? "自主研发":"第三方应用";-->
+                    <!--}-->
+                <!--},-->
+                <!--{"field": "version","title":"部署版本","width":100,align:"center"},-->
+                <!--{"field": "healthStatus","title":"健康状况","width":120,align:"center",-->
+                    <!--"formatter":function(value, rowData, rowIndex){-->
+                        <!--if(value == 1){-->
+//                            <!--return "<span class=\"label label-success\"><a href=\"javascript:void(0);\" style=\"padding:3px 3px;color:#fff;\">正常</a></span>"-->
+//                        <!--}else{-->
+//                            <!--return "<span class=\"label label-danger\"><a href=\"javascript:void(0);\" style=\"padding:3px 3px;color:#fff;\">告警 <span class=\"badge\" style='margin-left: 0.1rem;'>"+rowData.alarmNum+"</span></a></span>"-->
+//                        <!--}-->
+//                    <!--}}-->
+//            <!--]],-->
+//            <!--onLoadSuccess:function(data){-->
+//                <!--if(data.total > 0){-->
+//                    <!--var src = "http://www.baidu.com";-->
+//                    <!--$("#servicemonitorIframe").attr("src",src);-->
+//                <!--}-->
+//            <!--},-->
+//            <!--onClickRow:function(rowIndex, rowData){-->
+//                <!--var src = "http://www.runoob.com/bootstrap/bootstrap-badges.html";-->
+//                <!--$("#servicemonitorIframe").attr("src",src);-->
+//            <!--},-->
+//            <!--onLoadError:function() {-->
+//                <!--msgError('加载数据出现时发生错误,请稍候重试...');-->
+//            <!--},-->
+//            <!--pagination:true,-->
+//            <!--loadMsg:'正在加载...'-->
+//        <!--});-->
 //        $("#performance").attr("src",iframesrc.replace("iframsrc=",""));
     });
 
@@ -427,6 +500,8 @@
 //        showDiskChart();
 //        projectProcess();
 //    });
+
+
 
     //显示加载私有镜像
     function showImageDatas(){
@@ -468,6 +543,51 @@
      * @param id
      * @param i
      */
+
+    function showOperateData(){
+        $.ajax({
+            url:'{{projcfg.appurl}}/api/project/dpm/project/develop/pm/deploy',
+            method:'get',
+            data:{"rows":150,'page':1},
+            success:function(data){
+                console.info(data.rows);
+                var html;
+                for (var i=0;i<data.rows.length;i++){
+                    var icons,status,type,src,mesosId;
+                    if(data.rows[i].healthStatus=='1'){
+                        icons='class="sale-icon"';
+                        status="正常"
+
+                    }else{
+                        icons='class="warning-icon"';
+                        status="警告"
+
+                    }
+
+                    if(data.rows[i].type=='1'){
+                        type="自主研发"
+                    } else{
+                        type="第三方应用"
+                    }
+
+                    mesosId=data.rows[i].mesosId;
+                    console.info(mesosId);
+                    mesosId=mesosId.substring(1);
+                    src="http://192.168.9.48:3000/dashboard/db/ying-yong-guan-li?orgId=1&var-app_name="+mesosId;
+                    console.log("src   :   "+src);
+                    html='<li onclick="openPageIntoButton('+"'"+src+"'"+')"><div class="maintain-list warning"><h2>'+data.rows[i].projectName+'</h2><h2>'+data.rows[i].projectCode+'</h2><h3>'+type+'<span>'+data.rows[i].version+'</span></h3><i><a src="'+data.rows[i].webSite+'" ><span  '+icons +'></span>'+status+'</a></i></div></li>';
+                    $("#operateData").append(html);
+                }
+
+                $("#servicemonitorIframe").attr("src",'http://192.168.9.48:3000/dashboard/db/wo-ying-yong-guan-li?orgId=1');
+            }
+        });
+    }
+
+    function openPageIntoButton(src){
+        $("#servicemonitorIframe").attr("src",src)
+    }
+
     function do_collect(id,i){
         var classvalue = $("#souc"+i).attr("class");
         var numvalue = parseInt($("#souc"+i).text());
@@ -909,5 +1029,27 @@
         }
         return format;
     };
-
+//    function setheight(){
+//        var wp = window.parent;
+//
+//        if (wp != null)
+//        {
+//            var ifm = $("#servicemonitorIframe");
+//
+//            if (ifm != null)
+//            {
+//                SetIfmHeight();
+//            }
+//        }
+//
+//        function SetIfmHeight()
+//        {
+//            console.log("2222222222222222222222:   "+ document.body.scrollHeight)
+//            var height= document.body.scrollHeight; //设置高
+//            ifm.attr("height",height);
+//            setTimeout('SetIfmHeight()', 1000); 　　　　//每隔一秒调用方法SetIfmHeight()一次，以适应页面的变化
+//        }
+//
+//
+//    }
 </script>
