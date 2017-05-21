@@ -28,4 +28,6 @@ exports.doJob = function(){
             }
         }
     });
+
+    projectService.refreshMarathonLbInfo();
 };

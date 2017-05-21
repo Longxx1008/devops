@@ -434,14 +434,20 @@
 
 
     $(function(){
-        showCpuChart();
-        showMemoryChart();
-        showDiskChart();
+        /**/
         showOperateData();
+        $.getJSON("{{projcfg.appurl}}/api/project/operation/colonymanage/status",{},function(result){
+            console.log(result);
+            if(result.success){
+                var data = result.data;
+                showCpuChart(data.cpuTotal,data.cpuUsed);
+                showMemoryChart(data.memTotal,data.memUsed);
+                showDiskChart(data.diskTotal,data.diskUsed);
+            }else{
+                msgError(data.msg);
+            }
+        });
       //  setheight();
-
-
-
 
         <!--$('#operationDataTabale').datagrid({-->
             <!--url:'{{projcfg.appurl}}/api/project/dpm/project/develop/pm/deploy',-->
@@ -682,66 +688,71 @@
     }
 
     //显示cpu饼图
-    function showCpuChart(){
+    function showCpuChart(cpuTotal,cpuUsed){
+        var unUsed = cpuTotal - cpuUsed;
+        console.log(cpuTotal);
+        console.log(cpuUsed);
         var cpuChart = echarts.init(document.getElementById('cpuChart'));
         cpuoption = {
             series: [
                 {
                     name: '',
                     type: 'pie',
-                    radius: '85%',
+                    radius: '75%',
                     center: ['50%', '55%'],
                     data: [
-                        {value:4, name:'已使用'},
-                        {value:12, name:'未使用'}
+                        {value:cpuUsed, name:'已使用'},
+                        {value:unUsed, name:'未使用'}
                     ]
                 }
             ]
         };
         cpuChart.setOption(cpuoption);
-        $('#cpudesc').html("共计"+16+",已使用"+4);
+        $('#cpudesc').html("共计" + cpuTotal + ",已使用" + cpuUsed);
     }
 
     //显示Memory饼图
-    function showMemoryChart(){
+    function showMemoryChart(memTotal,memUsed){
+        var unUsed = memTotal - memUsed;
         var memoryChart = echarts.init(document.getElementById('memoryChart'));
         memoryoption = {
             series: [
                 {
                     name: '',
                     type: 'pie',
-                    radius: '85%',
+                    radius: '75%',
                     center: ['50%', '55%'],
                     data: [
-                        {value:20, name:'已使用'},
-                        {value:20, name:'未使用'}
+                        {value:memUsed, name:'已使用'},
+                        {value:unUsed, name:'未使用'}
                     ]
                 }
             ]
         };
         memoryChart.setOption(memoryoption);
-        $('#memorydesc').html("共计"+40+"G,已使用"+20+"G");
+        $('#memorydesc').html("共计" + (memTotal / 1024).toFixed(3) + "G,已使用" + (memUsed / 1024).toFixed(3) + "G");
     }
 
     //显示Disk饼图
-    function showDiskChart(){
+    function showDiskChart(diskTotal,diskUsed){
+        var unUsed = diskTotal - diskUsed;
         var diskChart = echarts.init(document.getElementById('diskChart'));
         diskoption = {
             series: [
                 {
                     name: '',
                     type: 'pie',
-                    radius: '85%',
+                    radius: '75%',
                     center: ['50%', '55%'],
                     data: [
-                        {value:240, name:'已使用'},
-                        {value:200, name:'未使用'}
+                        {value:diskUsed, name:'已使用'},
+                        {value:unUsed, name:'未使用'}
                     ]
                 }
             ]
         };
         diskChart.setOption(diskoption);
-        $('#diskdesc').html("共计"+440+"G,已使用"+240+"G");
+        $('#diskdesc').html("共计" + (diskTotal / 1024).toFixed(3) + "G,已使用" + (diskUsed / 1024).toFixed(3) + "G");
     }
 
     function showRingChart() {

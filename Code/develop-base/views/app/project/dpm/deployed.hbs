@@ -88,9 +88,9 @@
                     "formatter":function(value, rowData, rowIndex){
                         return "<span style='display:block;padding-left:20px;text-align:left;'>" + value + "</span>";
                     }},
-                {"field": "webSite","title":"部署地址","width":100,align:"center",
+                {"field": "url","title":"部署地址","width":100,align:"center",
                     "formatter":function(value, rowData, rowIndex){
-                        if(rowData.status == "1"){
+                        if(rowData.healthStatus == "1"){
                             return "<span class=\"label label-info\" style=\"height:26px;line-height:18px;font-weight:600;\"><a target=\"_blank\" href=\"" + value + "\" style=\"padding:0 10px;color:#fff;\">访问</a></span>"
                         }else{
                             return "";

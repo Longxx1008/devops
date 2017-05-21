@@ -453,7 +453,7 @@ router.route('/develop/pm/deploy').get(function(req, res){
                                     params.push(data.id);
                                     params.push(projectVersion);
                                     params.push(clusterId);
-                                    params.push(config.platform.marathonLb + ":" + deployJson.container.docker.portMappings[0].servicePort);
+                                    params.push(deployJson.container.docker.portMappings[0].servicePort);
                                     //params.push(JSON.stringify(data));
                                     params.push(remark);
                                     var currentUser = utils.getCurrentUser(req);

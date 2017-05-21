@@ -63,7 +63,7 @@ exports.projectProcess = function(cb) {
 }
 
 exports.deployedPageList = function(page, size, conditionMap, cb) {
-    var sql = " select t1.*,t2.projectCode,t2.projectName from pass_develop_project_deploy t1,pass_develop_project_resources t2 where t1.projectId = t2.id";
+    var sql = " select t1.*,concat('" + config.platform.marathonLb + "',':',t1.webSite) as url,t2.projectCode,t2.projectName from pass_develop_project_deploy t1,pass_develop_project_resources t2 where t1.projectId = t2.id";
     var conditions = [];
     if(conditionMap) {
         if(conditionMap.projectName) {
@@ -447,7 +447,7 @@ exports.refreshDeployedInfo = function(id, mesosId){
         res.on('end', function () {
             console.log(mesosId + "返回数据为:" + chtmlJson);
             var json = JSON.parse(chtmlJson);//将拼接好的响应数据转换为json对象
-            if (json && json.app) {
+            if (json && json.app && json.app.tasks.length != 0) {
                 //健康的实例大于1，就认为应用健康
                 var status = json.app.tasksHealthy > 0 ? 1 : 0;
                 var resources = "";
@@ -544,6 +544,33 @@ exports.httpGetContainerInfo = function(id, mesosId, status, resources,taskId, h
             });
         /*}*/
     /*});*/
+}
+
+/**
+ * 刷新marathon-lb地址
+ */
+exports.refreshMarathonLbInfo = function(){
+    var url = config.platform.marathonApi  + "/marathon-lb";
+    http.get(url, function(res) {
+        console.log("Got response: " + res.statusCode);
+        res.setEncoding('utf8');
+        var chtmlJson = '';
+        res.on('data', function (chunk) {//拼接响应数据
+            chtmlJson += chunk;
+        });
+        res.on('end', function () {
+            console.log("接口查询/marathon-lb地址返回数据为:" + chtmlJson);
+            var json = JSON.parse(chtmlJson);//将拼接好的响应数据转换为json对象
+            if (json && json.app && json.app.tasks.length != 0) {
+                var host = json.app.tasks[0].host;
+                config.platform.marathonLb = "http://" + host;
+            } else {
+                console.log("接口查询/marathon-lb地址返回数据为数据异常");
+            }
+        });
+    }).on('error', function(e) {
+        console.log("Got error: " + e.message);
+    });
 }
 
 function syncData2InfluxDB(appName,hostName,hostIp,containerId,containerName){
