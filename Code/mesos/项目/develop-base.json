@@ -32,7 +32,7 @@
     {
       "gracePeriodSeconds": 300,
       "intervalSeconds": 5,
-      "timeoutSeconds": 10,
+      "timeoutSeconds": 20,
       "maxConsecutiveFailures": 3,
       "portIndex": 0,
       "path": "/",
