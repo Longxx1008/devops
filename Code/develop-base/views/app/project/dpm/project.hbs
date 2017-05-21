@@ -449,6 +449,14 @@
                 var configIndex = false;
                 var n = 0;
                 var interval = setInterval(function(){
+
+                    console.log(n);
+                    console.log(beginIndex);
+                    console.log(commitIndex);
+                    console.log(runnIndex);
+                    console.log(configIndex);
+                    console.log("-----------------");
+
                     if(n == 0){
                         $.ajax({
                             url: '{{projcfg.appurl}}/api/project/dpm/project/develop/pm/deploy',
@@ -489,12 +497,11 @@
                             }
                             checkNum ++;
                         },500);
-
-                    }else if(runnIndex && n == 80){
+                    }/*else if(runnIndex && n == 80){
                         setTimeout(function(){
                             configIndex = true;
                         },3000)
-                    }
+                    }*/
 
                     if(n <= 40){
                         setValue(n);
@@ -508,7 +515,8 @@
                         setValue(n);
                         setMsg("正在配置应用");
                         n++;
-                    }else if(configIndex){
+                    /*}else if(configIndex){*/
+                    }else{
                         clearInterval(interval);
                         setValue(n);
                         setTimeout(function(){

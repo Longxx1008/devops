@@ -20,8 +20,8 @@ router.route('/alert').get(function(req,res){
     //
     var appId = message.substring(0,message.indexOf(","));
     var params = [];
-    params.push(appid);
-    params.push("1");// 1 grafana 告警 0 应用监控告警
+    params.push(appId);
+    params.push("1");// 1 grafana 告警 2 应用监控告警
     params.push(title);
     params.push(ruleId);
     params.push(ruleName);

@@ -2,6 +2,7 @@ var utils = require('../../../common/core/utils/app_utils');
 var mysqlPool = require('../../utils/mysql_pool');
 var nodeGrass = require('../../utils/nodegrass');
 var config = require('../../../../config');
+var alertService = require('./alertService');
 var http = require('http');
 
 /**
@@ -467,6 +468,33 @@ exports.refreshDeployedInfo = function(id, mesosId){
                             console.log("更新已部署应用健康度等信息异常");
                         }else{
                             console.log("更新已部署应用健康度等信息成功");
+                        }
+                    });
+                    //不健康，需要写入告警信息到告警表
+                    var title = "marathon告警信息";
+                    var ruleId = "";
+                    var ruleName = "";
+                    var ruleUrl = "";
+                    var state = "";
+                    var imageUrl = "";
+                    var message = mesosId + "健康检查结果为：服务不可用";
+                    var appId = mesosId;
+                    var params = [];
+                    params.push(appId);
+                    params.push("2");// 1 grafana 告警 2 应用监控告警
+                    params.push(title);
+                    params.push(ruleId);
+                    params.push(ruleName);
+                    params.push(ruleUrl);
+                    params.push(state);
+                    params.push(imageUrl);
+                    params.push(message);
+                    params.push("1");//1 有效 0 无效
+                    alertService.save(params,function(err,result){
+                        if(!result.success){
+                            console.log("同步告警信息到高竞标失败");
+                        }else{
+                            console.log("同步告警信息到高竞标成功");
                         }
                     });
                 }else{
