@@ -39,7 +39,7 @@ var config = {
         saveUninitialized: false,
         rolling:true,
         //mongodb_url:'mongodb://10.201.253.195:27017/pass',
-        mongodb_url:'mongodb://192.168.31.127:27017/pass',
+        mongodb_url:'mongodb://192.168.9.48:27017/pass',
         mongodb_collection:'common_user_session'
     },
     routes:{
@@ -60,7 +60,7 @@ var config = {
         },
         welcome_path:project_url_prefix + '/home',
         // 不做权限检查url（支持通配符*，尽量少用）
-        exclude_auth_check_urls:[project_url_prefix + '/login',project_url_prefix + '/captcha',project_url_prefix + '/test/*', project_url_prefix +'/static/*'],
+        exclude_auth_check_urls:[project_url_prefix + '/login',project_url_prefix + '/captcha',project_url_prefix + '/test/*', project_url_prefix +'/static/*',project_url_prefix +'/api/project/dpm/project/test'],
         // 登录后就能访问的url（无需授权）（支持通配符*，尽量少用）,如：修改个人信息、注销等操作
         logged_can_access_urls:[
             project_url_prefix + '/public/*',
@@ -72,16 +72,16 @@ var config = {
     },
     mongdb:{
         //url: 'mongodb://10.201.253.195:27017/pass',
-        url: 'mongodb://192.168.31.127:27017/pass',
+        url: 'mongodb://192.168.9.48:27017/pass',
         poolsize:20
     },
     memcached:{
-        server_locations:['192.168.31.127:11211'],
+        server_locations:['192.168.9.48:11211'],
         //server_locations:['127.0.0.1:11211'],
         options:{debug: true}
     },
     mysql:{
-        host: '192.168.31.127',
+        host: '192.168.9.48',
         port:3306,
         user: 'root',
         password: 'root',
@@ -142,9 +142,9 @@ var config = {
     },
     platform:{
         // gitlabIp:'code.dev.gz.cmcc',
-        gitlabIp:'192.168.31.127',
+        gitlabIp:'192.168.9.48',
         gitlabPort:443,
-        gitlabUrl: 'http://192.168.31.127',//vpn openvpn
+        gitlabUrl: 'http://192.168.9.48',//vpn openvpn
         private_token:'BgNLAke5cybnRcqc-Qts',//192.168.31.127
         // private_token:'yJFsQXvox3xGHUPxyDsE',
         dockerIp: '192.168.31.92',
@@ -154,9 +154,12 @@ var config = {
         userRoot:'/mnt/dockerts/',
         LableKey:'index',
         lableValue:'create',
-        mesosHost:"http://192.168.31.91:5050",
-        marathonApi:"http://192.168.31.92:8080/v2/apps",
-        marathonLb:"http://192.168.31.96"
+        mesosHost:"http://192.168.9.45:5050",
+        //marathonApi:"http://192.168.31.92:8080/v2/apps",
+        marathonApi:"http://192.168.9.45:8080/v2/apps",
+        //marathonLb:"http://192.168.31.94",
+        marathonLb:"http://192.168.9.52",
+        influxDB:"http://192.168.9.48:8086/telegraf"
     }
 }
 module.exports = config;

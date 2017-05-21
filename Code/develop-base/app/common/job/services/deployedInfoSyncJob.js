@@ -28,26 +28,4 @@ exports.doJob = function(){
             }
         }
     });
-    /*pool.getConnection(function(err, conn) {
-        if (err != null) {
-            console.log(err.message);
-        } else {
-            var sql = "select * from pass_develop_project_deploy where 1 = 1";
-            conn.query(sql, function (err, result) {
-                if(err){
-                    console.log(err);
-                }else {
-                    var id,mesosId;
-                    for(var i = 0; result != null && i < result.length; i++){
-                        id = result[i].id;
-                        mesosId = result[i].mesosId;
-                        if(mesosId != null && mesosId != ""){
-                            projectService.refreshDeployedInfo(id,mesosId);
-                        }
-                    }
-                }
-                conn.release();
-            });
-        }
-    });*/
 };
