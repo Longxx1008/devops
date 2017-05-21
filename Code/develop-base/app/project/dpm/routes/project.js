@@ -162,7 +162,7 @@ router.route('/develop/pm/deploy/logs/:id').get(function(req, res){
     var id = req.params.id;
     projectService.getDeployedInfo(id,function(result){
         if(result.success && result.data.length != 0){
-            var url = "http://" + result.data[0].hostIp +  ":2375/containers/" +  result.data[0].containerId + "/logs?stderr=1&stdout=1&timestamps=1&follow=0&tail=1000&since=0";
+            var url = "http://" + result.data[0].hostName +  ":2375/containers/" +  result.data[0].containerId + "/logs?stderr=1&stdout=1&timestamps=1&follow=0&tail=1000&since=0";
             var http = require("http");
             http.get(url, function(resp){
                 if(resp.statusCode == 200){
@@ -268,7 +268,7 @@ router.route('/develop/pm/deploy/delete/:id').put(function(req, res){
                                 if(!result.success){
                                     utils.respMsg(res, false, '10000', '删除应用失败', null, null);
                                 }else{
-                                    utils.respMsg(res, true, '2001', '应用部署成功', null, null);
+                                    utils.respMsg(res, true, '2001', '应用删除成功', null, null);
                                 }
                             });
                         }else{
@@ -453,7 +453,7 @@ router.route('/develop/pm/deploy').get(function(req, res){
                                     params.push(data.id);
                                     params.push(projectVersion);
                                     params.push(clusterId);
-                                    params.push(config.platform.marathonLb + ":" + deployJson.container.docker.portMappings[0].servicePort);
+                                    params.push(deployJson.container.docker.portMappings[0].servicePort);
                                     //params.push(JSON.stringify(data));
                                     params.push(remark);
                                     var currentUser = utils.getCurrentUser(req);

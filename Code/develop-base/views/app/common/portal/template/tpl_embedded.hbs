@@ -434,14 +434,20 @@
 
 
     $(function(){
-        showCpuChart();
-        showMemoryChart();
-        showDiskChart();
+        /**/
         showOperateData();
+        $.getJSON("{{projcfg.appurl}}/api/project/operation/colonymanage/status",{},function(result){
+            console.log(result);
+            if(result.success){
+                var data = result.data;
+                showCpuChart(data.cpuTotal,data.cpuUsed);
+                showMemoryChart(data.memTotal,data.memUsed);
+                showDiskChart(data.diskTotal,data.diskUsed);
+            }else{
+                msgError(data.msg);
+            }
+        });
       //  setheight();
-
-
-
 
         <!--$('#operationDataTabale').datagrid({-->
             <!--url:'{{projcfg.appurl}}/api/project/dpm/project/develop/pm/deploy',-->
@@ -552,34 +558,31 @@
             success:function(data){
                 console.info(data.rows);
                 var html;
-                for (var i=0;i<data.rows.length;i++){
-                    var icons,status,type,src,mesosId;
-                    if(data.rows[i].healthStatus=='1'){
-                        icons='class="sale-icon"';
-                        status="正常"
-
-                    }else{
-                        icons='class="warning-icon"';
-                        status="警告"
-
+                if(data.rows.length != 0){
+                    for (var i=0;i<data.rows.length;i++){
+                        var icons,status,type,src,mesosId;
+                        if(data.rows[i].healthStatus=='1'){
+                            icons='class="sale-icon"';
+                            status="正常"
+                        }else{
+                            icons='class="warning-icon"';
+                            status="警告"
+                        }
+                        if(data.rows[i].type=='1'){
+                            type="自主研发"
+                        } else{
+                            type="第三方应用"
+                        }
+                        mesosId = data.rows[i].mesosId;
+                        console.info(mesosId);
+                        mesosId=mesosId.substring(1);
+                        src="http://192.168.9.48:3000/dashboard/db/ying-yong-guan-li?orgId=1&var-app_name="+mesosId;
+                        console.log("src   :   "+src);
+                        html='<li onclick="openPageIntoButton('+"'"+src+"'"+')"><div class="maintain-list warning"><h2>' + data.rows[i].projectName+'</h2><h2>'+data.rows[i].projectCode+'</h2><h3>'+type+'<span>'+data.rows[i].version+'</span></h3><i><a src="'+data.rows[i].webSite+'" ><span  '+icons +'></span>'+status+'</a></i></div></li>';
+                        $("#operateData").append(html);
                     }
-
-                    if(data.rows[i].type=='1'){
-                        type="自主研发"
-                    } else{
-                        type="第三方应用"
-                    }
-
-                    mesosId=data.rows[i].mesosId;
-                    console.info(mesosId);
-                    mesosId=mesosId.substring(1);
-                    src="http://192.168.9.48:3000/dashboard/db/ying-yong-guan-li?orgId=1&var-app_name="+mesosId;
-                    console.log("src   :   "+src);
-                    html='<li onclick="openPageIntoButton('+"'"+src+"'"+')"><div class="maintain-list warning"><h2>'+data.rows[i].projectName+'</h2><h2>'+data.rows[i].projectCode+'</h2><h3>'+type+'<span>'+data.rows[i].version+'</span></h3><i><a src="'+data.rows[i].webSite+'" ><span  '+icons +'></span>'+status+'</a></i></div></li>';
-                    $("#operateData").append(html);
+                    $("#servicemonitorIframe").attr("src",'http://192.168.9.48:3000/dashboard/db/ying-yong-guan-li?orgId=1&var-app_name=' + data.rows[0].mesosId.substring(1));
                 }
-
-                $("#servicemonitorIframe").attr("src",'http://192.168.9.48:3000/dashboard/db/wo-ying-yong-guan-li?orgId=1');
             }
         });
     }
@@ -643,10 +646,6 @@
         });
     }
 
-    function initView() {
-        $("#ring_title").text(year+"年"+month+"月单业务酬金分布(万元）");
-    }
-
     function initChartData() {
         $.ajax({
             url:'{{projcfg.appurl}}/api/remuneration/singlebusiness',
@@ -682,66 +681,71 @@
     }
 
     //显示cpu饼图
-    function showCpuChart(){
+    function showCpuChart(cpuTotal,cpuUsed){
+        var unUsed = cpuTotal - cpuUsed;
+        console.log(cpuTotal);
+        console.log(cpuUsed);
         var cpuChart = echarts.init(document.getElementById('cpuChart'));
         cpuoption = {
             series: [
                 {
                     name: '',
                     type: 'pie',
-                    radius: '85%',
+                    radius: '75%',
                     center: ['50%', '55%'],
                     data: [
-                        {value:4, name:'已使用'},
-                        {value:12, name:'未使用'}
+                        {value:cpuUsed, name:'已使用'},
+                        {value:unUsed, name:'未使用'}
                     ]
                 }
             ]
         };
         cpuChart.setOption(cpuoption);
-        $('#cpudesc').html("共计"+16+",已使用"+4);
+        $('#cpudesc').html("共计" + cpuTotal + ",已使用" + cpuUsed);
     }
 
     //显示Memory饼图
-    function showMemoryChart(){
+    function showMemoryChart(memTotal,memUsed){
+        var unUsed = memTotal - memUsed;
         var memoryChart = echarts.init(document.getElementById('memoryChart'));
         memoryoption = {
             series: [
                 {
                     name: '',
                     type: 'pie',
-                    radius: '85%',
+                    radius: '75%',
                     center: ['50%', '55%'],
                     data: [
-                        {value:20, name:'已使用'},
-                        {value:20, name:'未使用'}
+                        {value:memUsed, name:'已使用'},
+                        {value:unUsed, name:'未使用'}
                     ]
                 }
             ]
         };
         memoryChart.setOption(memoryoption);
-        $('#memorydesc').html("共计"+40+"G,已使用"+20+"G");
+        $('#memorydesc').html("共计" + (memTotal / 1024).toFixed(3) + "G,已使用" + (memUsed / 1024).toFixed(3) + "G");
     }
 
     //显示Disk饼图
-    function showDiskChart(){
+    function showDiskChart(diskTotal,diskUsed){
+        var unUsed = diskTotal - diskUsed;
         var diskChart = echarts.init(document.getElementById('diskChart'));
         diskoption = {
             series: [
                 {
                     name: '',
                     type: 'pie',
-                    radius: '85%',
+                    radius: '75%',
                     center: ['50%', '55%'],
                     data: [
-                        {value:240, name:'已使用'},
-                        {value:200, name:'未使用'}
+                        {value:diskUsed, name:'已使用'},
+                        {value:unUsed, name:'未使用'}
                     ]
                 }
             ]
         };
         diskChart.setOption(diskoption);
-        $('#diskdesc').html("共计"+440+"G,已使用"+240+"G");
+        $('#diskdesc').html("共计" + (diskTotal / 1024).toFixed(3) + "G,已使用" + (diskUsed / 1024).toFixed(3) + "G");
     }
 
     function showRingChart() {

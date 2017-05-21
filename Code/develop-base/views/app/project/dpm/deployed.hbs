@@ -88,9 +88,9 @@
                     "formatter":function(value, rowData, rowIndex){
                         return "<span style='display:block;padding-left:20px;text-align:left;'>" + value + "</span>";
                     }},
-                {"field": "webSite","title":"部署地址","width":100,align:"center",
+                {"field": "url","title":"部署地址","width":100,align:"center",
                     "formatter":function(value, rowData, rowIndex){
-                        if(rowData.status == "1"){
+                        if(rowData.healthStatus == "1"){
                             return "<span class=\"label label-info\" style=\"height:26px;line-height:18px;font-weight:600;\"><a target=\"_blank\" href=\"" + value + "\" style=\"padding:0 10px;color:#fff;\">访问</a></span>"
                         }else{
                             return "";
@@ -122,6 +122,10 @@
             loadMsg:'正在加载...'
         });
     });
+
+    setInterval(function(){
+        doSearch();
+    },5000);
 
     function doSearch() {
         $('#dataTable').datagrid('reload');
@@ -270,7 +274,7 @@
     function doNature(thisObj){
         var host = $(thisObj).data("host");
         var name = $(thisObj).data("name");
-        window.open("http://192.168.31.92:3000/dashboard/db/dockerdan-ge-rong-qi-jian-kong?theme=light&orgId=1&var-host=" + host + "&var-container_name=" + name);
+        window.open("http://192.168.9.48:3000/dashboard/db/dockerdan-ge-rong-qi-jian-kong?theme=light&orgId=1&var-host=" + host + "&var-container_name=" + name);
     }
     //日志中心
     function logsCenter(thisObj){
