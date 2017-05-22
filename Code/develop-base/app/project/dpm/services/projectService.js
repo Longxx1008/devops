@@ -436,6 +436,36 @@ exports.refreshDeployedInfo = function(id, mesosId){
             if (json) {
                 //健康的实例大于1，就认为应用健康
                 var status = json.app.tasksHealthy > 0 ? 1 : 0;
+
+                //不健康，需要写入告警信息到告警表
+                if(status == 0){
+                    var title = "marathon告警信息";
+                    var ruleId = "";
+                    var ruleName = "";
+                    var ruleUrl = "";
+                    var state = "";
+                    var imageUrl = "";
+                    var message = mesosId + "健康检查结果为：服务不可用";
+                    var appId = mesosId;
+                    var params = [];
+                    params.push(appId);
+                    params.push("2");// 1 grafana 告警 2 应用监控告警
+                    params.push(title);
+                    params.push(ruleId);
+                    params.push(ruleName);
+                    params.push(ruleUrl);
+                    params.push(state);
+                    params.push(imageUrl);
+                    params.push(message);
+                    params.push("1");//1 有效 0 无效
+                    alertService.save(params,function(err,result){
+                        if(!result.success){
+                            console.log("同步告警信息到高竞标失败");
+                        }else{
+                            console.log("同步告警信息到高竞标成功");
+                        }
+                    });
+                }
                 var resources = "";
                 var instances = json.app.instances;
                 if(instances == 0){//实例个数为0
