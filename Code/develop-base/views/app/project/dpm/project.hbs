@@ -1,43 +1,3 @@
-<style>
-    #mask{
-        position: fixed;
-        left:0;
-        top:0;
-        height:100%;
-        width:100%;
-        z-index:99999;
-        display:none;
-    }
-    .cover{
-        background:#000;
-        opacity:0.6;
-        width:100%;
-        height:100%;
-    }
-
-    .indicatorContainer{
-        position: absolute;
-        width: 100px;
-        height: 100px;
-        left: 50%;
-        margin-left: -50px;
-        top: 50%;
-        margin-top: -50px;
-    }
-
-    #mask .msg{
-        position: absolute;
-        width:100px;
-        top:50%;
-        margin-top:60px;
-        left:50%;
-        margin-left:-45px;
-        height:20px;
-        line-height:20px;
-        color: white;
-        text-align: center;
-    }
-</style>
 <div class="row">
     <div class="col-xs-12 col-md-12">
         <div class="widget">
@@ -150,7 +110,6 @@
             <div>
                 <form id="deployForm" class="form-horizontal form-bordered" role="form">
                     <input type="hidden" id="deployProjectId" name="deployProjectId" value=""/>
-                    <input type="hidden" id="deployProjectCode" name="deployProjectCode" value=""/>
                     <div class="form-group">
                         <label for="deployProjectName" class="col-sm-2 control-label no-padding-right">项目名称:</label>
                         <div class="col-sm-10">
@@ -197,14 +156,6 @@
     <!--</div>-->
 </div>
 
-<div id="mask">
-    <div class="cover"></div>
-    <div class="indicatorContainer">
-    </div>
-    <div class="msg">
-    </div>
-</div>
-<script src="{{projcfg.appurl}}/static/js/radialIndicator.js"></script>
 <script  type="text/javascript">
     $(function(){
         $('#projectDataTable').datagrid({
@@ -399,9 +350,7 @@
         }
         var projectId = rowData[0].id;
         var projectName = rowData[0].projectName;
-        var projectCode = rowData[0].projectCode;
         $("#deployProjectId").val(projectId);
-        $("#deployProjectCode").val(projectCode);
         $("#deployProjectName").val(projectName);
         $('#deployProjectVersion').combobox({
             method: 'get',
@@ -427,124 +376,26 @@
         if(!validate) {
             return false;
         }
-        var projectId = $("#deployProjectId").val();
-        var projectCode = $("#deployProjectCode").val();
         var projectName = $("#deployProjectName").val();
         var clusterName = $("#deployClusterId").combobox('getText');
         msgConfirm('确定要部署当前【 ' + projectName + '】部署到集群【' + clusterName + '】么？',function(result) {
             if(result){
-                $("#mask").css("display", "block");
-                $('.indicatorContainer').radialIndicator({
-                    barColor: {
-                        0: '#FF0000',
-                        33: '#FFFF00',
-                        66: '#0066FF',
-                        100: '#33CC33'
-                    },
-                    percentage: true
-                });
-                var beginIndex = true;
-                var commitIndex = false;
-                var runnIndex = false;
-                var configIndex = false;
-                var n = 0;
-                var interval = setInterval(function(){
-
-                    console.log(n);
-                    console.log(beginIndex);
-                    console.log(commitIndex);
-                    console.log(runnIndex);
-                    console.log(configIndex);
-                    console.log("-----------------");
-
-                    if(n == 0){
-                        $.ajax({
-                            url: '{{projcfg.appurl}}/api/project/dpm/project/develop/pm/deploy',
-                            type: 'post',
-                            data: $('#deployForm').serializeJson(),
-                            success: function (data) {
-                                if(data.success) {
-                                    //msgSuccess(data.msg);
-                                    //doSearch();
-                                    //$('#deployDialog').dialog('close');
-                                    commitIndex = true;
-                                }else{
-                                    closeRadia();
-                                    msgError(data.msg + ',错误代码:' + data.code);
-                                }
-                            }
-                        });
-                    }else if(commitIndex && n == 40){
-                        //启动定时任务检查状态
-                        var checkNum = 0;//检查10次
-                        var checkInterval = setInterval(function(){
-                            if(checkNum == 60){
-                                clearInterval(checkInterval);
-                                if(!runnIndex){
-                                    doSearch();
-                                    $('#deployDialog').dialog('close');
-                                    closeRadia();
-                                    msgError("应用启动失败，请重试");
-                                }
-                            }else{
-                                $.getJSON("{{projcfg.appurl}}/api/project/dpm/project/develop/pm/deploy/status",{"projectId":projectId,"projectCode":projectCode},function(data){
-                                    console.log(data);
-                                    if(data.success){
-                                        runnIndex = true;
-                                        clearInterval(checkInterval);
-                                    }
-                                });
-                            }
-                            checkNum ++;
-                        },500);
-                    }/*else if(runnIndex && n == 80){
-                        setTimeout(function(){
-                            configIndex = true;
-                        },3000)
-                    }*/
-
-                    if(n <= 40){
-                        setValue(n);
-                        setMsg("正在拉取镜像");
-                        n++;
-                    }else if(commitIndex && n <= 80){
-                        setValue(n);
-                        setMsg("正在启动容器");
-                        n++;
-                    }else if(runnIndex && n < 100){
-                        setValue(n);
-                        setMsg("正在配置应用");
-                        n++;
-                    /*}else if(configIndex){*/
-                    }else{
-                        clearInterval(interval);
-                        setValue(n);
-                        setTimeout(function(){
-                            closeRadia();
-                            msgSuccess("应用启动成功");
-                            //doSearch();
-                            //$('#deployDialog').dialog('close');
-                            setTimeout(function(){
-                                window.location.href = "{{projcfg.appurl}}/deployed";
-                            },1000);
-                        },1500);
+                $.ajax({
+                    url: '{{projcfg.appurl}}/api/project/dpm/project/develop/pm/deploy',
+                    type: 'post',
+                    data: $('#deployForm').serializeJson(),
+                    success: function (data) {
+                        if(data.success) {
+                            msgSuccess(data.msg);
+                            doSearch();
+                            $('#deployDialog').dialog('close');
+                        }else{
+                            msgError(data.msg + ',错误代码:' + data.code);
+                        }
                     }
-                },100);
+                });
             }
         });
-    }
-
-    function setValue(val){
-        var radialObj = $('.indicatorContainer').data('radialIndicator');
-        radialObj.animate(val);
-    }
-    function setMsg(msg){
-        $("#mask .msg").html(msg);
-    }
-
-    function closeRadia(){
-        $("#mask").css("display", "none");
-        $('.indicatorContainer').html("");
     }
 
     function toDeployed(){

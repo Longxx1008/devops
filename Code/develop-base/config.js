@@ -60,7 +60,7 @@ var config = {
         },
         welcome_path:project_url_prefix + '/home',
         // 不做权限检查url（支持通配符*，尽量少用）
-        exclude_auth_check_urls:[project_url_prefix + '/login',project_url_prefix + '/captcha',project_url_prefix + '/test/*', project_url_prefix +'/static/*',project_url_prefix +'/api/project/dpm/interface/*'],
+        exclude_auth_check_urls:[project_url_prefix + '/login',project_url_prefix + '/captcha',project_url_prefix + '/test/*', project_url_prefix +'/static/*'],
         // 登录后就能访问的url（无需授权）（支持通配符*，尽量少用）,如：修改个人信息、注销等操作
         logged_can_access_urls:[
             project_url_prefix + '/public/*',
@@ -142,9 +142,9 @@ var config = {
     },
     platform:{
         // gitlabIp:'code.dev.gz.cmcc',
-        gitlabIp:'192.168.9.48',
+        gitlabIp:'192.168.31.127',
         gitlabPort:443,
-        gitlabUrl: 'http://192.168.9.48',//vpn openvpn
+        gitlabUrl: 'http://192.168.31.127',//vpn openvpn
         private_token:'BgNLAke5cybnRcqc-Qts',//192.168.31.127
         // private_token:'yJFsQXvox3xGHUPxyDsE',
         dockerIp: '192.168.31.92',
@@ -154,13 +154,9 @@ var config = {
         userRoot:'/mnt/dockerts/',
         LableKey:'index',
         lableValue:'create',
-        mesosHost:"http://192.168.9.45:5050",
-        //marathonApi:"http://192.168.31.92:8080/v2/apps",
-        marathonApi:"http://192.168.9.45:8080/v2/apps",
-        //marathonLb:"http://192.168.31.94",
-        //默认值，实际值会在deployedInfoSyncJob中刷新
-        marathonLb:"http://192.168.9.51",
-        influxDB:"http://192.168.9.48:8086/telegraf"
+        mesosHost:"http://192.168.31.91:5050",
+        marathonApi:"http://192.168.31.92:8080/v2/apps",
+        marathonLb:"http://192.168.31.96"
     }
 }
 module.exports = config;

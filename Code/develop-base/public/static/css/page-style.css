@@ -592,7 +592,7 @@ input[type=button], input[type=text], input[type=password], button {
     position: relative;
 }
 .maintain-list h1{
-    font-size:24px;
+    font-size:18px;
     line-height:50px;
 }
 .maintain-list h2{
@@ -709,7 +709,7 @@ input[type=button], input[type=text], input[type=password], button {
     border-radius:50px;
     width:20px;
     height:20px;
-    background:url("img/select.png") no-repeat #00EE00;
+    background:url("../images/img/select.png") no-repeat #00EE00;
     background-size: 100% 100%;
     position: absolute;
     top:5px;
