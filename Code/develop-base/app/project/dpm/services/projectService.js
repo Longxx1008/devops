@@ -64,14 +64,15 @@ exports.projectProcess = function(cb) {
 }
 
 exports.deployedPageList = function(page, size, conditionMap, cb) {
-    var sql = " select t1.*,concat('" + config.platform.marathonLb + "',':',t1.webSite) as url,t2.projectCode,t2.projectName from pass_develop_project_deploy t1,pass_develop_project_resources t2 where t1.projectId = t2.id";
+    var sql = "select a.*,case  when da.alertNum is NULL then 0 else da.alertNum end alertNum from ( select t1.*,concat('" + config.platform.marathonLb + "',':',t1.webSite) as url,t2.projectCode,t2.projectName from pass_develop_project_deploy t1,pass_develop_project_resources t2 where t1.projectId = t2.id"+
+        ") a LEFT JOIN (select appId,count(appId) as alertNum from pass_develop_deploy_alert where status = '1' GROUP BY appId) da ON a.projectCode = da.appId where 1=1 ";
     var conditions = [];
     if(conditionMap) {
         if(conditionMap.projectName) {
-            sql += " and (t2.projectName like '%" + conditionMap.projectName + "%')";
+            sql += " and (a.projectName like '%" + conditionMap.projectName + "%')";
         }
     }
-    var orderBy = " order by t1.createTime desc";
+    var orderBy = " order by a.createTime desc";
     utils.pagingQuery4Eui_mysql(sql,orderBy, page, size, conditions, cb);
 };
 

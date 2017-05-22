@@ -673,3 +673,47 @@ input[type=button], input[type=text], input[type=password], button {
     float: left;
     overflow: hidden;
 }
+
+.warning-icon{
+    background:url("../images/img/maintain-icon.png") no-repeat 0 10px #ffbf76;
+}
+.sale-icon{
+    background:url("../images/img/maintain-icon.png") no-repeat 0 -120px #53e59d;
+}
+.serious-icon{
+    background:url("../images/img/maintain-icon.png") no-repeat 0 -250px #ff7575;
+}
+.select{
+    position: absolute;
+    width:50px;
+    height:50px;
+    z-index:1;
+    right:0;
+    top:0;
+}
+.select em{
+    width: 0;
+    height: 0;
+    border-bottom:50px solid transparent;
+    border-right: 50px solid  rgba(0, 238, 0, 0.3);
+    display: block;
+    position: absolute;
+    z-index:1;
+    left:0;
+    top:0;
+}
+.select span{
+    display: block;
+    -webkit-border-radius:50px;
+    -moz-border-radius:50px;
+    border-radius:50px;
+    width:20px;
+    height:20px;
+    background:url("img/select.png") no-repeat #00EE00;
+    background-size: 100% 100%;
+    position: absolute;
+    top:5px;
+    right:5px;
+    box-sizing: border-box;
+    z-index:1;
+}
