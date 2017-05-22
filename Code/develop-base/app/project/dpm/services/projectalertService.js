@@ -22,3 +22,20 @@ exports.pageList = function(page, size, conditionMap, cb) {
     console.log("查询项目信息sql ====",sql);
     utils.pagingQuery4Eui_mysql(sql,orderBy, page, size, conditions, cb);
 };
+
+/**
+ * 更新告警状态信息
+ * @param data
+ * @param cb
+ */
+exports.update = function(data, cb) {
+    var sql = "update pass_develop_deploy_alert set status = '0' where id in ("+data+")";
+    mysqlPool.query(sql,[],function(err,result) {
+        if(err) {
+            cb(utils.returnMsg(true, '0000', '更新告警状态信息异常', null, err));
+        } else {
+            cb(utils.returnMsg(true, '0000', '更新告警状态信息成功', result, null));
+        }
+    });
+};
+
