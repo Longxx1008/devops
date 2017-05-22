@@ -8,8 +8,9 @@ var alertService = require('../services/alertService');
 var utils = require('../../../common/core/utils/app_utils');
 
 //分页查询项目数据列表
-router.route('/alert').get(function(req,res){
+router.route('/alert').post(function(req,res){
     console.log("收到来自grafana的告警信息...");
+    console.log(req.body);
     var title = req.body.title;
     var ruleId = req.body.ruleId;
     var ruleName = req.body.ruleName;
