@@ -574,7 +574,6 @@
                     console.info(mesosId);
                     mesosId=mesosId.substring(1);
                     src="http://192.168.9.48:3000/dashboard/db/ying-yong-guan-li?orgId=1&var-app_name="+mesosId;
-                    console.log("src   :   "+src);
                     html='<li onclick="openPageIntoButton('+"'"+src+"'"+')"><div class="maintain-list warning"><h2>'+data.rows[i].projectName+'</h2><h2>'+data.rows[i].projectCode+'</h2><h3>'+type+'<span>'+data.rows[i].version+'</span></h3><i><a src="'+data.rows[i].webSite+'" ><span  '+icons +'></span>'+status+'</a></i></div></li>';
                     $("#operateData").append(html);
                 }
