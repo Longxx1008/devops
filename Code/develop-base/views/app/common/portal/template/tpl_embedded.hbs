@@ -574,7 +574,7 @@
                         src="http://192.168.9.48:3000/dashboard/db/ying-yong-guan-li?orgId=1&var-app_name="+mesosId;
                         console.log("src   :   "+src);
                         html='<li><div id="maintain'+i+'"  class="maintain-list '+divclass+'"><div style="cursor:pointer;" onclick="openPageIntoButton('+"'"+src+"','maintain"+i+"'"+')"><h1>' + data.rows[i].projectName+'</h1><h2>'+data.rows[i].projectCode+'</h2><h3>'+type+'<span>'+data.rows[i].version+'</span></h3></div>'+
-                                '<div style="float:left;"><i '+iproperty+'><span  '+icons +'></span>'+status+'</i></div></li></div>';
+                                '<div style="float:left;"><i '+iproperty+'><span  '+icons +'></span><p id="'+data.rows[i].projectCode+'">'+status+'</p></i></div></li></div>';
                         $("#operateData").append(html);
                     }
                     $("#maintain0").append("<div class='select'><em></em><span></span></div>");
@@ -594,9 +594,33 @@
      * 查看告警信息
      * */
     function to_warning(appId){
-        alert(appId);
-        <!--window.location.href = "{{projcfg.appurl}}/projectalert?appId="+appId;-->
+        window.location.href = "{{projcfg.appurl}}/projectalert?appId="+appId;
     }
+
+    //循环获取告警次数信息
+    var interval = setInterval(function(){
+        $.ajax({
+            url:'{{projcfg.appurl}}/api/project/dpm/project/develop/pm/deploy',
+            method:'get',
+            data:{"rows":150,'page':1},
+            success:function(data){
+                console.info(data.rows);
+                if(data.rows.length != 0){
+                    for (var i=0;i<data.rows.length;i++){
+                        var status;
+                        if(data.rows[i].healthStatus=='1' && data.rows[i].alertNum > 0){
+                            status="告警/"+data.rows[i].alertNum+'次';
+                            $("#"+data.rows[i].projectCode).text(status);
+                        }else if(data.rows[i].healthStatus=='0'){
+                            status="严重/"+data.rows[i].alertNum+'次';
+                            $("#"+data.rows[i].projectCode).text(status);
+                        }
+                    }
+                }
+//                clearInterval(interval);
+            }
+        });
+    },1000*10);
 
     function do_collect(id,i){
         var classvalue = $("#souc"+i).attr("class");
