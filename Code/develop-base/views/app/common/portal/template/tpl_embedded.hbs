@@ -556,12 +556,12 @@
                             icons='class="warning-icon"';
                             divclass = 'warning';
                             status="告警/"+data.rows[i].alertNum+'次';
-                            iproperty = "style='cursor:pointer;' onclick='to_warning('"+data.rows[i].projectCode+"')' title='查看告警信息'";
+                            iproperty = 'style="cursor:pointer;" onclick="to_warning('+"'"+data.rows[i].projectCode+"'"+')" title="查看告警信息"';
                         }else if(data.rows[i].healthStatus=='0'){
                             icons='class="serious-icon"';
                             divclass = 'serious';
                             status="严重/"+data.rows[i].alertNum+'次';
-                            iproperty = "style='cursor:pointer;' onclick='to_warning('"+data.rows[i].projectCode+"')'";
+                            iproperty = 'style="cursor:pointer;" onclick="to_warning('+"'"+data.rows[i].projectCode+"'"+')" title="查看严重告警信息"';
                         }
                         if(data.rows[i].type=='1'){
                             type="自主研发"
@@ -594,7 +594,8 @@
      * 查看告警信息
      * */
     function to_warning(appId){
-        window.location.href = "{{projcfg.appurl}}/projectalert?appId="+appId;
+        alert(appId);
+        <!--window.location.href = "{{projcfg.appurl}}/projectalert?appId="+appId;-->
     }
 
     function do_collect(id,i){
