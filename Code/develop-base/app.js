@@ -27,6 +27,8 @@ var param_filter = require('./app/common/core/filter/param_filter');
 var logHelper = require('./app/common/log/utils/log_util.js');
 /*var seqHelper = require('./app/common/log/utils/sequence_util.js');*/
 
+
+
  //装载日志请求
  logHelper.use(app);
 
