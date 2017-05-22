@@ -12,7 +12,7 @@
     "type": "DOCKER",
     "volumes": [],
     "docker": {
-      "image": "192.168.9.47:5000/yqyb:v1.0.4",
+      "image": "192.168.31.92:5000/yqyb:v1.0.3",
       "network": "BRIDGE",
       "portMappings": [
         {
@@ -31,7 +31,7 @@
   "healthChecks": [
     {
       "gracePeriodSeconds": 300,
-      "intervalSeconds": 10,
+      "intervalSeconds": 60,
       "timeoutSeconds": 20,
       "maxConsecutiveFailures": 3,
       "portIndex": 0,
