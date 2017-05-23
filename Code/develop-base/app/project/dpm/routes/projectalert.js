@@ -13,6 +13,7 @@ router.route('/').get(function(req,res){
     // 分页条件
     var appId = req.query.appId;
     var status = req.query.status;
+    var appName = req.query.appName;
 
     // 分页参数
     var page = req.query.page;
@@ -23,6 +24,9 @@ router.route('/').get(function(req,res){
      }
     if(status) {
         conditionMap.status = status;
+    }
+    if(appName) {
+        conditionMap.appName = appName;
     }
     // 调用分页
     projectalertService.pageList(page, length, conditionMap,function(result){

@@ -31,9 +31,9 @@
 <script  type="text/javascript">
     $(function(){
         console.log("===========");
-        var deployId = getQueryString("deployId");
+        var projectId = getQueryString("projectId");
         $('#monitorDataTable').datagrid({
-            url:'{{projcfg.appurl}}/api/project/operation/servicemonitor?deployId='+deployId,
+            url:'{{projcfg.appurl}}/api/project/operation/servicemonitor?projectId='+projectId,
             method:'get',
             rownumbers:false,
             striped:true,

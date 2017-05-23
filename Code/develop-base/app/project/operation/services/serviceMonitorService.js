@@ -5,7 +5,6 @@
 var utils = require('../../../common/core/utils/app_utils');
 var mysqlPool = require('../../utils/mysql_pool');
 var config = require('../../../../config');
-var https = require('https');
 
 /**
  * 分页查询
@@ -18,9 +17,9 @@ exports.pageList = function(page,size,conditionMap,cb){
     var sql = " select t1.* from pass_project_service_monitor t1 where 1=1";
     var conditions = [];
     if(conditionMap) {
-        if(conditionMap.deployId) {
-            sql += " and t1.deployId = ?";
-            conditions.push(conditionMap.deployId);
+        if(conditionMap.projectId) {
+            sql += " and t1.projectId = ?";
+            conditions.push(conditionMap.projectId);
         }
     }
     var orderBy = " order by t1.createTime desc";
