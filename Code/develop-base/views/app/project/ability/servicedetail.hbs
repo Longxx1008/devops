@@ -22,10 +22,7 @@
                                     <!-- API树 -->
                                     <ul id="detailTree" class="easyui-tree"></ul>
                                 </div>
-                                <div id="mm" class="easyui-menu" style="width:120px;">
-                                    <div onclick="append()" data-options="iconCls:'icon-add'" style="padding-left: 2.2rem;">新增节点</div>
-                                    <div onclick="remove()" data-options="iconCls:'icon-remove'" style="padding-left: 2.2rem;">删除节点</div>
-                                </div>
+
                             </div>
                             <div style="overflow-y:scroll;width:74%;height:100%;float:right;background-color: #FFFFFF; ">
                                 <div id="title" align="center" style="font-size: 30px;width:100%">
@@ -107,36 +104,6 @@
         });
     });
 
-
-function append(){
-    var selected = $('#detailTree').tree('getSelected');
-    var data = $('#detailTree').tree('getData',selected.target);
-    var nodeid;
-    if(data.children){
-        nodeid = data.id +''+(data.children.length+1);
-    }else{
-        nodeid = data.id +''+1;
-    }
-
-    console.log("nodeid====="+nodeid);
-    $('#detailTree').tree('append', {
-        parent: selected.target,
-        data: [{
-            id: nodeid,
-            text: '新增节点'
-        }]
-    });
-    var _node = $('#detailTree').tree('find',nodeid);
-    $('#detailTree').tree("select",_node.target).tree('beginEdit',_node.target);
-}
-
-function remove(){
-    var selected = $('#detailTree').tree('getSelected');
-    if(selected.id>10){
-        $('#detailTree').tree('remove',selected.target);
-    }
-
-}
 
 
 
