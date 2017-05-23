@@ -55,6 +55,42 @@ router.route('/combobox').get(function(req, res){
     });
 });
 
+router.route('/status').get(function(req,res){
+    var url = config.platform.mesosHost + "/metrics/snapshot";
+    var http = require("http");
+    http.get(url, function(resp){
+        if(resp.statusCode == 200){
+            var rhtml = '';
+            resp.setEncoding('utf8');
+            resp.on('data', function (chunk) {
+                rhtml += chunk;
+            });
+            resp.on('end', function () {
+                //将拼接好的响应数据转换为json对象
+                console.log(rhtml);
+                rhtml = rhtml.replace(new RegExp("\\\\/","gm"),"_");
+                console.log(rhtml);
+                var json = JSON.parse(rhtml);
+                if(json){
+                    console.log(json.allocator_mesos_resources_disk_offered_or_allocated);
+                    var diskTotal = json.allocator_mesos_resources_disk_total;
+                    var diskUsed = json.allocator_mesos_resources_disk_offered_or_allocated;
+                    var memTotal = json.allocator_mesos_resources_mem_total;
+                    var memUsed = json.allocator_mesos_resources_mem_offered_or_allocated;
+                    var cpuTotal = json.allocator_mesos_resources_cpus_total;
+                    var cpuUsed = json.allocator_mesos_resources_cpus_offered_or_allocated;
+                    var result = {"diskTotal": diskTotal,"diskUsed":diskUsed,"memTotal":memTotal,"memUsed":memUsed,"cpuTotal":cpuTotal,"cpuUsed":cpuUsed};
+                    utils.respMsg(res, true, '0000', '查询集群资源快照成功：' + resp.statusCode, result, null);
+                }
+            });
+        } else{
+            utils.respMsg(res, false, '0000', '查询集群资源快照失败：' + resp.statusCode, null, null);
+        }
+    }).on('error',function(e){
+        console.log("Got error: " + e.message);
+    });
+});
+
 //根据Id获取集群数据
 router.route('/:id')
     .get(function(req,res){
@@ -80,5 +116,4 @@ router.route('/:id')
             utils.respMsg(res, false, '1000', '集群ID不能为空。', null, null);
         }
     });
-
 module.exports = router;

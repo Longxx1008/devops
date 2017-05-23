@@ -2,6 +2,7 @@ var utils = require('../../../common/core/utils/app_utils');
 var mysqlPool = require('../../utils/mysql_pool');
 var nodeGrass = require('../../utils/nodegrass');
 var config = require('../../../../config');
+var alertService = require('./alertService');
 var http = require('http');
 
 /**
@@ -63,15 +64,14 @@ exports.projectProcess = function(cb) {
 }
 
 exports.deployedPageList = function(page, size, conditionMap, cb) {
-    var sql = "select a.*,case  when da.alertNum is NULL then 0 else da.alertNum end alertNum from ( select t1.*,concat('" + config.platform.marathonLb + "',':',t1.webSite) as url,t2.projectCode,t2.projectName from pass_develop_project_deploy t1,pass_develop_project_resources t2 where t1.projectId = t2.id"+
-        " ) a LEFT JOIN (select appId,count(appId) as alertNum from pass_develop_deploy_alert where status = '1' GROUP BY appId) da ON a.projectCode = da.appId where 1=1 ";
+    var sql = " select t1.*,concat('" + config.platform.marathonLb + "',':',t1.webSite) as url,t2.projectCode,t2.projectName from pass_develop_project_deploy t1,pass_develop_project_resources t2 where t1.projectId = t2.id";
     var conditions = [];
     if(conditionMap) {
         if(conditionMap.projectName) {
-            sql += " and (a.projectName like '%" + conditionMap.projectName + "%')";
+            sql += " and (t2.projectName like '%" + conditionMap.projectName + "%')";
         }
     }
-    var orderBy = " order by a.createTime desc";
+    var orderBy = " order by t1.createTime desc";
     utils.pagingQuery4Eui_mysql(sql,orderBy, page, size, conditions, cb);
 };
 
@@ -336,6 +336,21 @@ exports.saveDeployInfo = function(conditionMap, cb){
         }
     });
 }
+/**
+ * 删除已部署应用
+ * @param conditionMap
+ * @param cb
+ */
+exports.deleteDeployInfo = function(id, cb){
+    var sql = "delete from pass_develop_project_deploy where id=?";
+    mysqlPool.query(sql, [id], function(err, result){
+        if(err) {
+            cb(utils.returnMsg(false, '1000', '删除项目部署信息出错', null, err));
+        } else {
+            cb(utils.returnMsg(true, '0000', '删除项目部署信息成功', result, null));
+        }
+    });
+}
 
 exports.updateDeployStatus = function(conditionMap,cb){
     var sql = "update pass_develop_project_deploy set status=?,healthStatus=?,resources=?,hostName=?,hostIp=?,containerId=?,containerName=? where id=?";
@@ -433,10 +448,9 @@ exports.refreshDeployedInfo = function(id, mesosId){
         res.on('end', function () {
             console.log(mesosId + "返回数据为:" + chtmlJson);
             var json = JSON.parse(chtmlJson);//将拼接好的响应数据转换为json对象
-            if (json) {
+            if (json && json.app && json.app.tasks.length != 0) {
                 //健康的实例大于1，就认为应用健康
                 var status = json.app.tasksHealthy > 0 ? 1 : 0;
-
                 //不健康，需要写入告警信息到告警表
                 if(status == 0){
                     var title = "marathon告警信息";
@@ -493,7 +507,7 @@ exports.refreshDeployedInfo = function(id, mesosId){
                     //默认只读取第一个实例
                     var taskId = json.app.tasks[0].id;
                     var host = json.app.tasks[0].host;
-                    httpGetContainerInfo(id, mesosId, status, resources, taskId, host);
+                    exports.httpGetContainerInfo(id, mesosId, status, resources, taskId, host);
                 }
             } else {
                 console.log(mesosId + "接口数据异常");
@@ -504,19 +518,20 @@ exports.refreshDeployedInfo = function(id, mesosId){
     });
 }
 
-function httpGetContainerInfo(id, mesosId, status, resources,taskId, hostName){
+exports.httpGetContainerInfo = function(id, mesosId, status, resources,taskId, hostName){
     var params = [];
     params.push(hostName);
-    mysqlPool.query("select * from pass_operation_host_info where name=?",params,function(err,result){
+    /*mysqlPool.query("select * from pass_operation_host_info where name=?",params,function(err,result){
         if(err || result == null || result.length == 0){
             console.log("根据host查询IP异常" );
         }else{
-            var hostIp = result[0].ip;
+            var hostIp = result[0].ip;*/
+            var hostIp = "";
             var path = "/containers/json?all=1";
             var filters = "{\"label\":[\"MESOS_TASK_ID=" + taskId + "\"]}";
             path = path + "&filters=" + filters;
             var options = {
-                host:hostIp,
+                host:hostName,
                 port:2375,
                 path:path
             };
@@ -548,6 +563,8 @@ function httpGetContainerInfo(id, mesosId, status, resources,taskId, hostName){
                                 console.log("更新已部署应用健康度等信息成功");
                             }
                         });
+                        //同步数据到influxDB
+                        syncData2InfluxDB(mesosId, hostName, hostIp, containerId, containerName);
                     } else {
                         console.log(mesosId + "接口数据异常");
                     }
@@ -555,6 +572,67 @@ function httpGetContainerInfo(id, mesosId, status, resources,taskId, hostName){
             }).on('error', function(e) {
                 console.log("Got error: " + e.message);
             });
-        }
+        /*}*/
+    /*});*/
+}
+
+/**
+ * 刷新marathon-lb地址
+ */
+exports.refreshMarathonLbInfo = function(){
+    var url = config.platform.marathonApi  + "/marathon-lb";
+    http.get(url, function(res) {
+        console.log("Got response: " + res.statusCode);
+        res.setEncoding('utf8');
+        var chtmlJson = '';
+        res.on('data', function (chunk) {//拼接响应数据
+            chtmlJson += chunk;
+        });
+        res.on('end', function () {
+            console.log("接口查询/marathon-lb地址返回数据为:" + chtmlJson);
+            var json = JSON.parse(chtmlJson);//将拼接好的响应数据转换为json对象
+            if (json && json.app && json.app.tasks.length != 0) {
+                var host = json.app.tasks[0].host;
+                config.platform.marathonLb = "http://" + host;
+            } else {
+                console.log("接口查询/marathon-lb地址返回数据为数据异常");
+            }
+        });
+    }).on('error', function(e) {
+        console.log("Got error: " + e.message);
     });
+}
+
+function syncData2InfluxDB(appName,hostName,hostIp,containerId,containerName){
+    var request = require("request");
+    const Influx = require('influxdb-nodejs');
+    const client = new Influx(config.platform.influxDB);
+
+    const fieldSchema = {
+        value:'string'
+    };
+    const tagSchema = {
+        app_name:'*',
+        container_name:'*',
+        container_id:'*',
+        host_ip:'*',
+        host_name:'*'
+    };
+    client.schema('dockermapping', fieldSchema, tagSchema, {
+        // default is false
+        stripUnknown: true,
+    });
+    client.write('dockermapping')
+        .tag({
+            app_name:appName.replace("/",""),
+            container_name:containerName,
+            container_id:containerId,
+            host_ip:hostName,
+            host_name:hostName
+        })
+        .field({
+            value:'1'
+        })
+        .then(console.info('write point success'))
+        .catch(console.error);
 }
