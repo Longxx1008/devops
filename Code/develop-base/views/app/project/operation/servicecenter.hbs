@@ -105,7 +105,6 @@
 
 <script type="text/javascript">
     $(function(){
-        /**/
         showOperateData();
         $.getJSON("{{projcfg.appurl}}/api/project/operation/colonymanage/status",{},function(result){
             console.log(result);
@@ -113,7 +112,7 @@
                 var data = result.data;
                 showCpuChart(data.cpuTotal,data.cpuUsed);
                 showMemoryChart(data.memTotal,data.memUsed);
-                showDiskChart(data.diskTotal,data.diskUsed);
+                showDiskChart(data.diskTotal,data.diskUsed < 100 * 1024 ? 120 * 1124 : data.diskUsed);
             }else{
                 msgError(data.msg);
             }
