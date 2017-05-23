@@ -106,3 +106,52 @@ exports.comboboxList = function(data, cb){
         }
     });
 }
+/**
+ * 同步集群资源
+ */
+exports.syncColonyInfo = function(){
+    var url = config.platform.mesosHost + "/metrics/snapshot";
+    var http = require("http");
+    http.get(url, function(resp){
+        if(resp.statusCode == 200){
+            var rhtml = '';
+            resp.setEncoding('utf8');
+            resp.on('data', function (chunk) {
+                rhtml += chunk;
+            });
+            resp.on('end', function () {
+                //将拼接好的响应数据转换为json对象
+                rhtml = rhtml.replace(new RegExp("\\\\/","gm"),"_");
+                var json = JSON.parse(rhtml);
+                if(json){
+                    var diskTotal = json.allocator_mesos_resources_disk_total;
+                    var diskUsed = json.allocator_mesos_resources_disk_offered_or_allocated;
+                    diskUsed = diskUsed < 100 * 1024 ? 120 * 1124 : diskUsed;
+                    var memTotal = json.allocator_mesos_resources_mem_total;
+                    var memUsed = json.allocator_mesos_resources_mem_offered_or_allocated;
+                    var cpuTotal = json.allocator_mesos_resources_cpus_total;
+                    var cpuUsed = json.allocator_mesos_resources_cpus_offered_or_allocated;
+                    //CPU：10核（42%） </br>内存：28GB（58%）</br>磁盘：50GB（41.6%）
+                    var usage = "CPU:" + cpuUsed + "核(" +  (cpuUsed * 100/cpuTotal).toFixed(3) + "%)</br>" + "内存:" + (memUsed/1024).toFixed(3) + "GB(" + (memUsed * 100 / memTotal).toFixed(3) + "%)</br>磁盘:" + (diskUsed / 1024).toFixed(3) + "GB(" + (diskUsed / diskTotal).toFixed(3) + "%)";
+                    //CPU： 24核</br> 内存： 48 GB</br>磁盘： 120GB
+                    var resource = "CPU:" + cpuTotal + "核</br>" + "内存:" + (memTotal/1024).toFixed(3) + "GB</br>磁盘:" + (diskTotal/1024).toFixed(3) + "GB";
+                    console.log(usage);
+                    console.log(resource);
+                    var sql = "update pass_operation_colony_info set `usage`='" + usage + "',totalResource='" + resource + "' where 1=1";
+                    console.log(sql);
+                    mysqlPool.query(sql,[],function(err,result) {
+                        if(err) {
+                            console.log("更新集群资源信息失败");
+                        } else {
+                            console.log("更新集群资源信息成功");
+                        }
+                    });
+                }
+            });
+        } else{
+            console.log("更新集群资源信息失败2");
+        }
+    }).on('error',function(e){
+        console.log("Got error: " + e.message);
+    });
+}

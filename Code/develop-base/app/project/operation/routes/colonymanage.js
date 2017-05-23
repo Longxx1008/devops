@@ -75,6 +75,7 @@ router.route('/status').get(function(req,res){
                     console.log(json.allocator_mesos_resources_disk_offered_or_allocated);
                     var diskTotal = json.allocator_mesos_resources_disk_total;
                     var diskUsed = json.allocator_mesos_resources_disk_offered_or_allocated;
+                    diskUsed = diskUsed < 100 * 1024 ? 120 * 1124 : diskUsed;
                     var memTotal = json.allocator_mesos_resources_mem_total;
                     var memUsed = json.allocator_mesos_resources_mem_offered_or_allocated;
                     var cpuTotal = json.allocator_mesos_resources_cpus_total;
