@@ -17,8 +17,6 @@ var gitlab = require('gitlab')({
 router.route('/develop/pd/detail/:id').get(function(req,res){
     var userName = req.session.current_user.user_no;
     var projectId = req.params.id;
-    console.log("----------------------------------------------------------")
-    console.log(projectId);
     var conditionMap = {};
         conditionMap.userName=userName;
         conditionMap.projectId = projectId;
@@ -32,7 +30,6 @@ router.route('/develop/pd/detail/:id').get(function(req,res){
 router.route('/develop/pd/addchildnode/:id').post(function(req,res){
     var userName = req.session.current_user.user_no;
     var projectId = req.params.id;
-    console.log(projectId);
     var conditionMap = {};
     var retrunResult = [];
     conditionMap.userName=userName;
@@ -58,7 +55,6 @@ router.route('/develop/pd/updatechildnode').post(function(req,res){
 
 
 router.route('/develop/pd/selectChileNode').post(function(req,res){
-    console.log("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
     var id = req.body.id;
     var condition = [];
     condition.push(id);
@@ -68,7 +64,6 @@ router.route('/develop/pd/selectChileNode').post(function(req,res){
 });
 
 router.route('/develop/pd/selectContent').post(function(req,res){
-    console.log("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
     var userName = req.session.current_user.user_no;
     var id = req.body.id;
     var condition = [];
@@ -80,19 +75,21 @@ router.route('/develop/pd/selectContent').post(function(req,res){
 });
 
 router.route('/develop/pd/updatecontent').post(function(req,res) {
+    console.info(req);
     var id = req.body.id;
     var content = req.body.content;
     content=decodeURIComponent(content);
-    console.info(content);
     var path = config.project.appurl;
     var src=null;
     var reg_img = /<img[^>]+>/g;
     var arr_img = content.match(reg_img);
-    var l = arr_img.length;
-    src='  src="'+path+"/";
-    var reg = /\ssrc="/ig;
-    console.info(content);
-    content=content.replace(reg,src)
+    if(arr_img){
+        var l = arr_img.length;
+        src='  src="'+path+"/";
+        var reg = /\ssrc="/ig;
+        content=content.replace(reg,src);
+    }
+
     var condition = [];
     condition.push(content);
     condition.push(id);

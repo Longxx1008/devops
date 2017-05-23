@@ -181,7 +181,7 @@ exports.updateContent = function(data, cb) {
             console.log(err);
             cb(utils.returnMsg(false, '1000', '更新项目信息异常', null, err));
         } else {
-            cb(utils.returnMsg(true, '0000', '更新项目信息成功', results, null));
+            cb(utils.returnMsg(true, '0000', '更新项目信息成功', null, null));
         }
     });
 };

@@ -5,7 +5,7 @@
             <div class="widget-body">
                 <div id="toolbar" class="row tbRow" style="margin-bottom: 1.1rem;border-bottom: 1px solid #ccc;">
                     <div class="col-xs-6 col-md-6" style="width:100%">
-                        <font size="3.5rem" style="margin-left: 1.2rem;margin-right: 2.5rem"> <b>服务详情</b></font>
+                        <font size="3.5rem" style="margin-left: 1.2rem;margin-right: 2.5rem"> <b>项目编辑</b></font>
                         <div class="btn-group" role="group" aria-label="..." style="float: right;margin-right: 2rem;">
                             <button type="button" class="btn btn-default" onclick="do_return();" data-title="返回">
                                 <i class="fa fa-reply"></i> 返回
@@ -43,7 +43,7 @@
 
                                         </script>
                                         <div align="center" >
-                                            <input  type="submit" style="background-color: #99BBE8 ;height:30px;width:80px;margin-top: 2rem;font-family: bold;font-size: 18px" onclick="updateContent()" value="提 交"/>
+                                            <input  type="button" style="background-color: #99BBE8 ;height:30px;width:80px;margin-top: 2rem;font-family: bold;font-size: 18px" onclick="updateContent()" value="提 交"/>
                                         </div>
 
                                     </form>
@@ -66,13 +66,13 @@
 </div>
 
 <script  type="text/javascript">
+    var projectId = getQueryString('projectId');
     $(function() {
-        var projectId = getQueryString('projectId');
         $("#detailTree").tree({
+            animate:true,
             method: 'GET',
             url: '{{projcfg.appurl}}/api/project/dpm/projectdetail/develop/pd/tree?projectId='+projectId,
             <!--url: '{{projcfg.appurl}}/api/project/dpm/projectdetail/develop/pd/detail/'+projectId,-->
-            cache:false,
             onLoadSuccess: function (node, data) {
                 console.log("===tree==data===",data);
             },
@@ -252,19 +252,20 @@
     function updateContent(){
         var id=$("#id").val();
         var content=UE.getEditor("conent").getContent();
+        console.info("{{projcfg.appurl}}/api/project/dpm/projectdetail/develop/pd/updatecontent");
         content=encodeURIComponent(content);
+        console.info(content);
         $.ajax({
             url: "{{projcfg.appurl}}/api/project/dpm/projectdetail/develop/pd/updatecontent",
             type: "post",
             data: {"id": id, "content": content},
-            async: false,
             success: function (result) {
-
                 if (result.success) {
-                    msgSuccess(result.msg);
-                } else {
-                    msgError(result.msg + ',错误代码:' + result.code);
+                   window.location.href="{{projcfg.appurl}}/projectdetail?projectId="+projectId;
                 }
+            },
+            error:function(e){
+                console.log(e);
             }
         });
     }
