@@ -60,6 +60,7 @@ function forVersionInfo(versions,i,projectId){
             mysqlPool.query(sersql,[versions[i].ref,projectId],function(err,serresult) {
                 if(err) {
                     console.log(DateUtils.format(new Date(),'yyyy-MM-dd hh:mm:ss') + ' 查询GitLab相关项目版本信息异常');
+                    forVersionInfo(versions,++i,projectId);
                 } else {
                     if(serresult && serresult.length == 0){//如果项目版本不存在，就插入该版本信息
                         var results=[];
@@ -80,6 +81,8 @@ function forVersionInfo(versions,i,projectId){
                     }
                 }
             });
+        }else{
+            forVersionInfo(versions,++i,projectId);
         }
     }
 }
