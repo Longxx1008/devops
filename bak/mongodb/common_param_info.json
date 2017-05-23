@@ -1,0 +1,90 @@
+{
+	"__v" : NumberInt("0"),
+	"_id" : ObjectId("56fb8297f9a9fe002ed86da1"),
+	"param_catalogid" : "0",
+	"param_desc" : "登陆默认页",
+	"param_name" : "login_page_url",
+	"param_status" : NumberInt("1"),
+	"param_sysid" : "56d7df43a6fbe05a1394ad6c",
+	"param_val" : "login.html,main.html,mainui.html"
+},
+{
+	"__v" : NumberInt("0"),
+	"_id" : ObjectId("56fb82e6f9a9fe002ed86da5"),
+	"param_catalogid" : "56fb6ec478fc0d90072af7c9",
+	"param_desc" : "是否登陆验证：true false",
+	"param_name" : "enable_login_code",
+	"param_status" : NumberInt("0"),
+	"param_sysid" : "56d7df43a6fbe05a1394ad6c",
+	"param_val" : "true"
+},
+{
+	"__v" : NumberInt("0"),
+	"_id" : ObjectId("56fb83a4f9a9fe002ed86daf"),
+	"param_catalogid" : "56fb714b11caefdc0287e827",
+	"param_desc" : "邮件名",
+	"param_name" : "mail_user",
+	"param_status" : NumberInt("1"),
+	"param_sysid" : "56d7df43a6fbe05a1394ad6c",
+	"param_val" : "admin"
+},
+{
+	"__v" : NumberInt("0"),
+	"_id" : ObjectId("56fb856bb78ea6c038792288"),
+	"param_catalogid" : "56fb713211caefdc0287e823",
+	"param_desc" : "日志地址",
+	"param_name" : "log_addr",
+	"param_status" : NumberInt("1"),
+	"param_sysid" : "56d7df43a6fbe05a1394ad6c",
+	"param_val" : "D:/"
+},
+{
+	"__v" : NumberInt("0"),
+	"_id" : ObjectId("56fc80498cbe5d84035b27d6"),
+	"param_catalogid" : "56fb8b26b78ea6c0387922d1",
+	"param_desc" : "是否记住",
+	"param_name" : "enable_remeber",
+	"param_status" : NumberInt("1"),
+	"param_sysid" : "56d80e02a6fbe05a1394ad91",
+	"param_val" : "true"
+},
+{
+	"__v" : NumberInt("0"),
+	"_id" : ObjectId("56fc83a28cbe5d84035b2801"),
+	"param_catalogid" : "56fb8b26b78ea6c0387922d1",
+	"param_desc" : "是否记住",
+	"param_name" : "disable_remeber",
+	"param_status" : NumberInt("1"),
+	"param_sysid" : "56d80e02a6fbe05a1394ad91",
+	"param_val" : "false"
+},
+{
+	"__v" : NumberInt("0"),
+	"_id" : ObjectId("56fc83f38cbe5d84035b2809"),
+	"param_catalogid" : "56fb8b26b78ea6c0387922d1",
+	"param_desc" : "服务器IP",
+	"param_name" : "server_ip",
+	"param_status" : NumberInt("1"),
+	"param_sysid" : "56d80e02a6fbe05a1394ad91",
+	"param_val" : "127.0.0.1"
+},
+{
+	"__v" : NumberInt("0"),
+	"_id" : ObjectId("56fde13a6651acf41d3e0fee"),
+	"param_catalogid" : "56fb6ec478fc0d90072af7c9",
+	"param_desc" : "日志地址",
+	"param_name" : "log_addr",
+	"param_status" : NumberInt("1"),
+	"param_sysid" : "56d7df43a6fbe05a1394ad6c",
+	"param_val" : "/opt/log"
+},
+{
+	"__v" : NumberInt("0"),
+	"_id" : ObjectId("571d7b820ee0b9e82b31fd03"),
+	"param_catalogid" : "56fb6ec478fc0d90072af7c9",
+	"param_desc" : "参数值new",
+	"param_name" : "param_zhi",
+	"param_status" : NumberInt("0"),
+	"param_sysid" : "56d7df43a6fbe05a1394ad6c",
+	"param_val" : "123456"
+},

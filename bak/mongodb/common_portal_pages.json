@@ -1,0 +1,157 @@
+{
+	"_id" : ObjectId("5705fe5cc1f762f9a6648f4c"),
+	"page_bg_cls" : "normal",
+	"page_body" : "common/portal/template/tpl",
+	"page_code" : "portal_index",
+	"page_is_customize" : NumberInt("1"),
+	"page_is_default" : NumberInt("1"),
+	"page_layout" : "themes/portal_eui/layout",
+	"page_layout_col_type" : "1:1:1:1",
+	"page_layout_modules" : [
+		{
+			"_id" : ObjectId("57206bd0847325d105ae86c6"),
+			"col_index" : NumberInt("0"),
+			"module_id" : ObjectId("571f24c2583a0814c995a8d9")
+		},
+		{
+			"_id" : ObjectId("57206bd0847325d105ae86c5"),
+			"col_index" : NumberInt("1"),
+			"module_id" : ObjectId("5720279bfb04300432c01292")
+		}
+	],
+	"page_name" : "测试页面",
+	"page_remark" : "测试页面",
+	"page_status" : NumberInt("1"),
+	"page_user_id" : "",
+	"sys_id" : "56f20ec0c2b4db9c2a7dfe7a"
+},
+{
+	"_id" : ObjectId("5714537f56191f52f0e0c032"),
+	"page_bg_cls" : "normal",
+	"page_body" : "common/portal/template/tpl_embedded",
+	"page_code" : "index",
+	"page_is_customize" : NumberInt("0"),
+	"page_is_default" : NumberInt("1"),
+	"page_layout" : "themes/portal_eui/layout",
+	"page_layout_col_type" : "1:1:1",
+	"page_layout_modules" : [
+		{
+			"_id" : ObjectId("575d0098cd7aa640240b0ea1"),
+			"col_index" : NumberInt("0"),
+			"module_id" : ObjectId("5734523fd3a424c420dc2402")
+		},
+		{
+			"_id" : ObjectId("575d0098cd7aa640240b0ea0"),
+			"col_index" : NumberInt("1"),
+			"module_id" : ObjectId("5734625fd3a424c420dc2407")
+		},
+		{
+			"_id" : ObjectId("575d0098cd7aa640240b0e9f"),
+			"col_index" : NumberInt("2"),
+			"module_id" : ObjectId("5734643cd3a424c420dc2412")
+		},
+		{
+			"_id" : ObjectId("575d0098cd7aa640240b0e9e"),
+			"col_index" : NumberInt("2"),
+			"module_id" : ObjectId("57346ed0d3a424c420dc2460")
+		}
+	],
+	"page_name" : "系统主页portal",
+	"page_remark" : "",
+	"page_status" : NumberInt("1"),
+	"page_user_id" : "",
+	"sys_id" : "56d7df43a6fbe05a1394ad6c"
+},
+{
+	"__v" : NumberInt("0"),
+	"_id" : ObjectId("5719c6c87942d88d1922ec3a"),
+	"page_bg_cls" : "normal",
+	"page_body" : "common/portal/template/tpl",
+	"page_code" : "100_demo",
+	"page_is_customize" : NumberInt("0"),
+	"page_layout" : "themes/portal_eui/layout",
+	"page_layout_col_type" : "1:3",
+	"page_layout_modules" : [
+		{
+			"_id" : ObjectId("575781db0eb3f1c41ddf1214"),
+			"col_index" : NumberInt("0"),
+			"module_id" : ObjectId("5734524b641e27342c2b1c19")
+		},
+		{
+			"_id" : ObjectId("575781db0eb3f1c41ddf1213"),
+			"col_index" : NumberInt("0"),
+			"module_id" : ObjectId("5705f890c1f762f9a6648f4a")
+		},
+		{
+			"_id" : ObjectId("575781db0eb3f1c41ddf1212"),
+			"col_index" : NumberInt("1"),
+			"module_id" : ObjectId("570b3cbd5765234e0c5d1010")
+		}
+	],
+	"page_name" : "示例页面",
+	"page_remark" : "示例页面",
+	"page_status" : NumberInt("1"),
+	"sys_id" : "56d7df43a6fbe05a1394ad6c"
+},
+{
+	"__v" : NumberInt("0"),
+	"_id" : ObjectId("573450d43a256bf91e524f64"),
+	"page_bg_cls" : "normal",
+	"page_body" : "common/portal/template/tpl",
+	"page_code" : "demo_index",
+	"page_is_customize" : NumberInt("1"),
+	"page_layout" : "themes/portal_eui/layout",
+	"page_layout_col_type" : "1:1:1",
+	"page_layout_modules" : [
+		{
+			"_id" : ObjectId("57347f81641e27342c2b1c6b"),
+			"col_index" : NumberInt("0"),
+			"module_id" : ObjectId("57345fe1641e27342c2b1c33")
+		},
+		{
+			"_id" : ObjectId("57347f81641e27342c2b1c6a"),
+			"col_index" : NumberInt("0"),
+			"module_id" : ObjectId("57346758641e27342c2b1c40")
+		},
+		{
+			"_id" : ObjectId("57347f81641e27342c2b1c69"),
+			"col_index" : NumberInt("1"),
+			"module_id" : ObjectId("5734524b641e27342c2b1c19")
+		},
+		{
+			"_id" : ObjectId("57347f81641e27342c2b1c68"),
+			"col_index" : NumberInt("1"),
+			"module_id" : ObjectId("57347f49641e27342c2b1c4d")
+		},
+		{
+			"_id" : ObjectId("57347f81641e27342c2b1c67"),
+			"col_index" : NumberInt("2"),
+			"module_id" : ObjectId("5734630f641e27342c2b1c36")
+		}
+	],
+	"page_name" : "主页",
+	"page_remark" : "",
+	"page_status" : NumberInt("1"),
+	"sys_id" : "573448be3a256bf91e524f5d"
+},
+{
+	"__v" : NumberInt("0"),
+	"_id" : ObjectId("573451133a256bf91e524f65"),
+	"page_bg_cls" : "normal",
+	"page_body" : "common/portal/template/tpl",
+	"page_code" : "demo_user_portrait",
+	"page_is_customize" : NumberInt("0"),
+	"page_layout" : "themes/portal_eui/layout",
+	"page_layout_col_type" : "1",
+	"page_layout_modules" : [
+		{
+			"_id" : ObjectId("57347790b05d8a9da7008e3c"),
+			"col_index" : NumberInt("0"),
+			"module_id" : ObjectId("5734704f7767aa3d82896346")
+		}
+	],
+	"page_name" : "用户画像",
+	"page_remark" : "",
+	"page_status" : NumberInt("1"),
+	"sys_id" : "573448be3a256bf91e524f5d"
+},

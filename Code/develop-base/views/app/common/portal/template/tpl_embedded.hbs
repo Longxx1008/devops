@@ -18,13 +18,13 @@
                                             <div class="box-list-content">
                                                 <ul class="safe">
                                                     <li>
-                                                        <div class="safe-list">
+                                                        <div onclick="to_servicecenter()" class="safe-list" style="cursor: pointer;">
                                                             <div class="safe-list-title event">
                                                                 <i></i>
                                                             </div>
                                                             <div class="safe-list-content">
-                                                                <h1 class="red">3</h1>
-                                                                <h2>紧急事件</h2>
+                                                                <h1 id="warningnum" class="red">3</h1>
+                                                                <h2>告警</h2>
                                                             </div>
                                                         </div>
                                                     </li>
@@ -46,7 +46,7 @@
                                                             </div>
                                                             <div class="safe-list-content">
                                                                 <h1 class="yellow">1</h1>
-                                                                <h2>攻击</h2>
+                                                                <h2>异常登录</h2>
                                                             </div>
                                                         </div>
                                                     </li>
@@ -350,6 +350,7 @@
     var month = myDate.getMonth()+1;
 
     $(document).ready(function(){
+        showOperateData();
         initSystemNotice();
         showImageDatas();
 //        showCpuChart();
@@ -359,6 +360,53 @@
 //        initView();
 //        initChartData();
     });
+
+    //告警数据
+    function showOperateData(){
+        $.ajax({
+            url:'{{projcfg.appurl}}/api/project/dpm/project/develop/pm/deploy',
+            method:'get',
+            data:{"rows":300,'page':1},
+            success:function(data){
+                console.info(data.rows);
+                if(data.rows.length != 0){
+                    var totalNum = 0;
+                    for (var i=0;i<data.rows.length;i++){
+                        if(data.rows[i].healthStatus=='1' && data.rows[i].alertNum > 0){
+                            totalNum += data.rows[i].alertNum;
+                        }
+                    }
+                    $("#warningnum").html(totalNum);
+                }
+            }
+        });
+    }
+
+    //循环获取告警次数信息
+    var interval = setInterval(function(){
+        $.ajax({
+            url:'{{projcfg.appurl}}/api/project/dpm/project/develop/pm/deploy',
+            method:'get',
+            data:{"rows":300,'page':1},
+            success:function(data){
+                console.info(data.rows);
+                if(data.rows.length != 0){
+                    var totalNum = 0;
+                    for (var i=0;i<data.rows.length;i++){
+                        if(data.rows[i].healthStatus=='1' && data.rows[i].alertNum > 0){
+                            totalNum += data.rows[i].alertNum;
+                        }
+                    }
+                    $("#warningnum").html(totalNum);
+                }
+//                clearInterval(interval);
+            }
+        });
+    },1000*10);
+
+    function to_servicecenter(){
+        window.location.href = "{{projcfg.appurl}}/operation_center";
+    }
 
     //显示加载私有镜像
     function showImageDatas(){

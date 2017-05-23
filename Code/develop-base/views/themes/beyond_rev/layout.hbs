@@ -172,8 +172,13 @@
                                                             <dt>{{menu_name}}</dt>
                                                             {{#each children}}
                                                                 {{#containKey ../../../../../../../../../currentUserRoleMenus menu_code ../../../../../../../../../currentUser.login_account}}
-                                                                    <dd>
-                                                                        <a target="{{menu_target}}" href="{{../../../../../../../../../../projcfg.appurl}}/{{menu_code}}">{{menu_name}}</a>
+                                                                    <dd><!-- 增加代码管理菜单直接跳转判断 -->
+                                                                    {{#ifCond menu_code ../../../../../../../../../../projcfg.menuflag}}
+                                                                        <a target="{{menu_target}}" href="{{menu_url}}">{{menu_name}}</a>
+                                                                    {{else}}
+                                                                        <a target="{{menu_target}}" href="{{../../../../../../../../../../../projcfg.appurl}}/{{menu_code}}">{{menu_name}}</a>
+                                                                    {{/ifCond}}
+
                                                                     </dd>
                                                                 {{/containKey}}
                                                             {{/each}}
@@ -360,6 +365,7 @@
             //getMenu();
         });
         InitSys.init();
+        var menucode = '{{menu.menu_code}}';
         InitSys.initMenu('{{projcfg.appurl}}/{{menu.menu_code}}');
         //获取系统公告，设置跑马灯...
         function getSysNotice(){

@@ -1,0 +1,6 @@
+{
+	"_id" : ObjectId("573bd1b8825e773a37bebb1e"),
+	"clientId" : "s6BhdRkqt3",
+	"clientSecret" : "nightworld",
+	"redirectUri" : "http://localhost:3001/auth/provider/callback"
+},

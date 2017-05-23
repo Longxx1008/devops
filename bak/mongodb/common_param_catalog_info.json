@@ -1,0 +1,70 @@
+{
+	"__v" : NumberInt("0"),
+	"_id" : ObjectId("56fb6ec478fc0d90072af7c9"),
+	"catalog_name" : "基本配置",
+	"catalog_pid" : "0",
+	"catalog_remark" : "基本配置",
+	"catalog_status" : NumberInt("1"),
+	"catalog_sysid" : "56d7df43a6fbe05a1394ad6c"
+},
+{
+	"__v" : NumberInt("0"),
+	"_id" : ObjectId("56fb713211caefdc0287e823"),
+	"catalog_name" : "日志配置",
+	"catalog_pid" : "0",
+	"catalog_remark" : "日志配置管理",
+	"catalog_status" : NumberInt("1"),
+	"catalog_sysid" : "56d7df43a6fbe05a1394ad6c"
+},
+{
+	"__v" : NumberInt("0"),
+	"_id" : ObjectId("56fb714b11caefdc0287e827"),
+	"catalog_name" : "邮件配置",
+	"catalog_pid" : "0",
+	"catalog_remark" : "邮件配置",
+	"catalog_status" : NumberInt("1"),
+	"catalog_sysid" : "56d7df43a6fbe05a1394ad6c"
+},
+{
+	"__v" : NumberInt("0"),
+	"_id" : ObjectId("56fb8b26b78ea6c0387922d1"),
+	"catalog_name" : "系统测试",
+	"catalog_pid" : "0",
+	"catalog_remark" : "系统测试",
+	"catalog_status" : NumberInt("1"),
+	"catalog_sysid" : "56d80e02a6fbe05a1394ad91"
+},
+{
+	"__v" : NumberInt("0"),
+	"_id" : ObjectId("56fb92ffb78ea6c038792338"),
+	"catalog_name" : "redis配置",
+	"catalog_pid" : "0",
+	"catalog_status" : NumberInt("1"),
+	"catalog_sysid" : "56d7df43a6fbe05a1394ad6c"
+},
+{
+	"__v" : NumberInt("0"),
+	"_id" : ObjectId("56fb9428b78ea6c038792348"),
+	"catalog_name" : "数据库管理",
+	"catalog_pid" : "0",
+	"catalog_remark" : "数据库配置",
+	"catalog_status" : NumberInt("1"),
+	"catalog_sysid" : "56d7df43a6fbe05a1394ad6c"
+},
+{
+	"__v" : NumberInt("0"),
+	"_id" : ObjectId("56fbd94f2337bbb42299e637"),
+	"catalog_name" : "hello",
+	"catalog_pid" : "0",
+	"catalog_status" : NumberInt("1"),
+	"catalog_sysid" : "56f0a1441e9fa07c0bbee3f9"
+},
+{
+	"__v" : NumberInt("0"),
+	"_id" : ObjectId("56fc83d78cbe5d84035b2805"),
+	"catalog_name" : "服务器配置",
+	"catalog_pid" : "0",
+	"catalog_remark" : "服务器配置",
+	"catalog_status" : NumberInt("1"),
+	"catalog_sysid" : "56d80e02a6fbe05a1394ad91"
+},
