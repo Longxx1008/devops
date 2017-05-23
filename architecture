@@ -1,5 +1,5 @@
 {
-  "id": "/hpg",
+  "id": "/develop-base",
   "cmd": null,
   "cpus": 1,
   "mem": 1024,
@@ -12,13 +12,13 @@
     "type": "DOCKER",
     "volumes": [],
     "docker": {
-      "image": "192.168.31.92:5000/hpg:v1.0.1",
+      "image": "192.168.9.47:5000/develop-base:v1.2.3”,
       "network": "BRIDGE",
       "portMappings": [
         {
           "containerPort": 0,
           "hostPort": 0,
-          "servicePort": 10007,
+          "servicePort": 10003,
           "protocol": "tcp",
           "labels": {}
         }
@@ -31,7 +31,7 @@
   "healthChecks": [
     {
       "gracePeriodSeconds": 300,
-      "intervalSeconds": 60,
+      "intervalSeconds": 5,
       "timeoutSeconds": 20,
       "maxConsecutiveFailures": 3,
       "portIndex": 0,
@@ -42,6 +42,13 @@
   ],
   "labels": {
     "HAPROXY_GROUP": "external"
-  }
-  
+  },
+  "portDefinitions": [
+    {
+      "port": 10003,
+      "protocol": "tcp",
+      "name": "default",
+      "labels": {}
+    }
+  ]
 }
