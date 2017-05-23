@@ -78,9 +78,12 @@
   <task id="t1">
     <title>编码</title>
     <type>group</type>
-    <child-task idref="t27"/>
-    <child-task idref="t29"/>
-    <child-task idref="t30"/>
+    <child-task idref="t3"/>
+    <child-task idref="t4"/>
+    <child-task idref="t5"/>
+    <child-task idref="t21"/>
+    <child-task idref="t14"/>
+    <child-task idref="t15"/>
   </task>
   <task id="t2">
     <title>测试</title>
@@ -200,20 +203,19 @@
     <effort>57600</effort>
     <effort-done>57600</effort-done>
     <start-constraint-date>2017-05-04T00:00:00.000Z</start-constraint-date>
+    <prerequisite-task idref="t12"/>
     <assignment idref="r1"/>
     <start-no-earlier-than>2017-05-04T00:00:00.000Z</start-no-earlier-than>
   </task>
   <task id="t14">
     <title>阶段五：mesos应用部署</title>
     <effort>28800</effort>
-    <effort-done>28800</effort-done>
     <start-constraint-date>2017-05-05T00:00:00.000Z</start-constraint-date>
     <start-no-earlier-than>2017-05-05T00:00:00.000Z</start-no-earlier-than>
   </task>
   <task id="t15">
     <title>阶段六：整体集成</title>
     <effort>28800</effort>
-    <effort-done>28800</effort-done>
     <start-constraint-date>2017-05-05T00:00:00.000Z</start-constraint-date>
     <start-no-earlier-than>2017-05-05T00:00:00.000Z</start-no-earlier-than>
   </task>
@@ -231,21 +233,18 @@
   <task id="t22">
     <title>项目阶段情况页面开发</title>
     <effort>28800</effort>
-    <effort-done>28800</effort-done>
     <start-constraint-date>2017-05-15T00:00:00.000Z</start-constraint-date>
     <start-no-earlier-than>2017-05-15T00:00:00.000Z</start-no-earlier-than>
   </task>
   <task id="t23">
     <title>首页项目阶段展现</title>
     <effort>28800</effort>
-    <effort-done>28800</effort-done>
     <start-constraint-date>2017-05-15T00:00:00.000Z</start-constraint-date>
     <start-no-earlier-than>2017-05-15T00:00:00.000Z</start-no-earlier-than>
   </task>
   <task id="t24">
     <title>首页镜像仓库取收藏TOP10展现</title>
     <effort>28800</effort>
-    <effort-done>28800</effort-done>
     <start-constraint-date>2017-05-15T00:00:00.000Z</start-constraint-date>
     <note>
       <text>
@@ -261,7 +260,6 @@
   <task id="t25">
     <title>集群管理界面优化</title>
     <effort>28800</effort>
-    <effort-done>28800</effort-done>
     <start-constraint-date>2017-05-15T00:00:00.000Z</start-constraint-date>
     <note>
       <text>
@@ -293,34 +291,8 @@
   <task id="t26">
     <title>项目部署管理和项目运维整合</title>
     <effort>28800</effort>
-    <effort-done>28800</effort-done>
     <start-constraint-date>2017-05-15T00:00:00.000Z</start-constraint-date>
     <start-no-earlier-than>2017-05-15T00:00:00.000Z</start-no-earlier-than>
-  </task>
-  <task id="t27">
-    <title>阶段一</title>
-    <type>group</type>
-    <start-constraint-date>2017-05-23T00:00:00.000Z</start-constraint-date>
-    <child-task idref="t3"/>
-    <child-task idref="t4"/>
-    <child-task idref="t5"/>
-    <child-task idref="t21"/>
-    <child-task idref="t14"/>
-    <child-task idref="t15"/>
-    <start-no-earlier-than>2017-05-23T00:00:00.000Z</start-no-earlier-than>
-  </task>
-  <task id="t29">
-    <title>阶段二</title>
-    <effort>28800</effort>
-    <start-constraint-date>2017-05-23T00:00:00.000Z</start-constraint-date>
-    <prerequisite-task idref="t27"/>
-    <start-no-earlier-than>2017-05-23T00:00:00.000Z</start-no-earlier-than>
-  </task>
-  <task id="t30">
-    <title>阶段三</title>
-    <effort>28800</effort>
-    <start-constraint-date>2017-05-23T00:00:00.000Z</start-constraint-date>
-    <start-no-earlier-than>2017-05-23T00:00:00.000Z</start-no-earlier-than>
   </task>
   <critical-path root="-1" enabled="false" resources="false">
     <color r="1" g="0.5" b="0.5"/>

@@ -63,7 +63,6 @@
             selectOnCheck:false,
             columns:[[
                 {"field":'id',checkbox:true},
-                {"field":'projectId',hidden:true},
                 {"field": "projectCode","title":"应用编号","width":120,align:"center"},
                 {"field": "projectName","title":"应用名称","width":150,align:"center"},
                 {"field": "type","title":"应用类型","width":150,align:"center",
@@ -89,26 +88,34 @@
                     "formatter":function(value, rowData, rowIndex){
                         return "<span style='display:block;padding-left:20px;text-align:left;'>" + value + "</span>";
                     }},
-                {"field": "url","title":"部署地址","width":100,align:"center",
+                {"field": "webSite","title":"部署地址","width":100,align:"center",
                     "formatter":function(value, rowData, rowIndex){
-                        if(rowData.healthStatus == "1"){
-                            return "<span class=\"label label-info\" style=\"height:26px;line-height:18px;font-weight:600;\"><a target=\"_blank\" href=\"" + value + "\" style=\"padding:0 10px;color:#fff;\">访问</a></span>"
+                        if(rowData.type != "1"){
+                            return "<span class=\"label label-info\" style=\"height:26px;line-height:18px;font-weight:600;\"><a target=\"_blank\" href=\"" + value + "\" style=\"padding:0 10px;color:#fff;\">访问</a></span>";
                         }else{
-                            return "";
+                            if(rowData.healthStatus == "1"){
+                                return "<span class=\"label label-info\" style=\"height:26px;line-height:18px;font-weight:600;\"><a target=\"_blank\" href=\"" + rowData.marathonLB + ":" + value + "\" style=\"padding:0 10px;color:#fff;\">访问</a></span>"
+                            }else{
+                                return "";
+                            }
                         }
                     }
                 },
                 {"field": "operation","title":"操作","width":200,align:"center",
                     "formatter":function(value, rowData, rowIndex){
                         var returnValue = "";
-                        if(rowData.status == "1"){
-                            returnValue =  "<span class=\"label label-warning\" style=\"height:26px;line-height:16px;font-weight:600;margin-top: 0.5rem;cursor: pointer;\" onclick=\"to_serviceDetail("+rowData.projectId+")\">服务详情</span>   "+
-                                    "<span class=\"label label-danger\" style=\"height:26px;line-height:16px;font-weight:600;margin-top: 0.5rem;margin-left: 0.5rem;cursor: pointer;\" data-id='" + rowData.id + "' data-name='" + rowData.projectName + "' data-pid='" + rowData.projectId + "' onclick=\"doStop(this)\">停止</span></br>"+
-                                    "<span class=\"label label-info\" style='height:26px;line-height:16px;font-weight:600;cursor: pointer;margin-top: 0.5rem;margin-bottom: 0.5rem;' data-host='" + rowData.hostName + "' data-name='" + rowData.containerName + "' onclick=\"doNature(this)\">性能情况</span>" +
-                                    "<span class=\"label label-info\" style='height:26px;line-height:16px;font-weight:600;cursor: pointer;margin-left:0.3rem;' data-id='" + rowData.id + "' data-name='" + rowData.projectName + "' onclick='logsCenter(this)'>日志</span>";
+                        if(rowData.type != 1){
+                            returnValue = "<a class=\"label label-info\" style='height:26px;line-height:16px;font-weight:600;cursor: pointer;margin-top: 0.5rem;margin-bottom: 0.5rem;' href='" + value + "' target='_blank'>性能情况</a>";
                         }else{
-                            returnValue = "<span class=\"label label-info\" style=\"height:26px;line-height:16px;font-weight:600;margin-top: 0.5rem;margin-left: 0.5rem;cursor: pointer;\" data-id='" + rowData.id + "' data-name='" + rowData.projectName + "' data-pid='" + rowData.projectId + "' onclick=\"doStart(this)\">启动</span>" +
-                                    "<span class=\"label label-danger\" style=\"height:26px;line-height:16px;font-weight:600;margin-top: 0.5rem;margin-left: 0.5rem;cursor: pointer;\" data-id='" + rowData.id + "' data-name='" + rowData.projectName + "' data-pid='" + rowData.projectId + "' onclick=\"doDelete(this)\">删除</span></br>";
+                            if(rowData.status == "1"){
+                                returnValue =  "<span class=\"label label-warning\" style=\"height:26px;line-height:16px;font-weight:600;margin-top: 0.5rem;cursor: pointer;\" onclick=\"to_serviceDetail("+rowData.id+")\">服务详情</span>   "+
+                                        "<span class=\"label label-danger\" style=\"height:26px;line-height:16px;font-weight:600;margin-top: 0.5rem;margin-left: 0.5rem;cursor: pointer;\" data-id='" + rowData.id + "' data-name='" + rowData.projectName + "' data-pid='" + rowData.projectId + "' onclick=\"doStop(this)\">停止</span></br>"+
+                                        "<span class=\"label label-info\" style='height:26px;line-height:16px;font-weight:600;cursor: pointer;margin-top: 0.5rem;margin-bottom: 0.5rem;' data-host='" + rowData.hostName + "' data-name='" + rowData.containerName + "' onclick=\"doNature(this)\">性能情况</span>" +
+                                        "<span class=\"label label-info\" style='height:26px;line-height:16px;font-weight:600;cursor: pointer;margin-left:0.6rem;' data-id='" + rowData.id + "' data-name='" + rowData.projectName + "' onclick='logsCenter(this)'>日志</span>";
+                            }else{
+                                returnValue = "<span class=\"label label-info\" style=\"height:26px;line-height:16px;font-weight:600;margin-top: 0.5rem;margin-left: 0.5rem;cursor: pointer;\" data-id='" + rowData.id + "' data-name='" + rowData.projectName + "' data-pid='" + rowData.projectId + "' onclick=\"doStart(this)\">启动</span>" +
+                                        "<span class=\"label label-danger\" style=\"height:26px;line-height:16px;font-weight:600;margin-top: 0.5rem;margin-left: 0.5rem;cursor: pointer;\" data-id='" + rowData.id + "' data-name='" + rowData.projectName + "' data-pid='" + rowData.projectId + "' onclick=\"doDelete(this)\">删除</span></br>";
+                            }
                         }
                         return returnValue;
                     }
@@ -258,7 +265,7 @@
     }
 
     function to_serviceDetail(id){
-        window.location.href = "{{projcfg.appurl}}/monitor?projectId="+id;
+        window.location.href = "{{projcfg.appurl}}/monitor?deployId="+id;
     }
 
     // 清空新增表单数据

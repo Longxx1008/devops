@@ -121,7 +121,7 @@
     });
 
     /**
-     * 记录收藏数
+     * 记录告警数
      * @param id
      * @param i
      */
@@ -159,15 +159,24 @@
                         }
                         mesosId = data.rows[i].mesosId;
                         console.info(mesosId);
-                        mesosId=mesosId.substring(1);
-                        src="http://192.168.9.48:3000/dashboard/db/ying-yong-guan-li?orgId=1&var-app_name="+mesosId;
+                        if(mesosId){
+                            mesosId=mesosId.substring(1);
+                            src="http://192.168.9.48:3000/dashboard/db/ying-yong-guan-li?orgId=1&var-app_name="+mesosId;
+                        }else{
+                            src=data.rows[i].operation;
+                        }
                         console.log("src   :   "+src);
                         html='<li><div id="maintain'+i+'"  class="maintain-list '+divclass+'"><div style="cursor:pointer;" onclick="openPageIntoButton('+"'"+src+"','maintain"+i+"'"+')"><h1>' + data.rows[i].projectName+'</h1><h2>'+data.rows[i].projectCode+'</h2><h3>'+type+'<span>'+data.rows[i].version+'</span></h3></div>'+
                                 '<div style="float:left;"><i '+iproperty+'><span  '+icons +'></span><p id="'+data.rows[i].projectCode+'">'+status+'</p></i></div></li></div>';
                         $("#operateData").append(html);
                     }
                     $("#maintain0").append("<div class='select'><em></em><span></span></div>");
-                    $("#servicemonitorIframe").attr("src",'http://192.168.9.48:3000/dashboard/db/ying-yong-guan-li?orgId=1&var-app_name=' + data.rows[0].mesosId.substring(1));
+                    if(data.rows[0].mesosId){
+                        $("#servicemonitorIframe").attr("src",'http://192.168.9.48:3000/dashboard/db/ying-yong-guan-li?orgId=1&var-app_name=' + data.rows[0].mesosId.substring(1));
+                    }else{
+                        $("#servicemonitorIframe").attr("src",data.rows[0].operation);
+                    }
+
                 }
             }
         });
