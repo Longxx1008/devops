@@ -18,7 +18,8 @@ var config = {
         appviewurl:'app/',
         password_suffix:'@cmcc',
         captcha_login_enable:false,// 是否开启登录验证码
-        captcha_session_key:'captcha_session_key'
+        captcha_session_key:'captcha_session_key',
+        menuflag:'codemanage'
     },
     datas:{
         tree_org:{
