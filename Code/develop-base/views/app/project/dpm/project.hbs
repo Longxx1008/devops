@@ -245,6 +245,12 @@
                     }}
 //                {"field": "remark","title":"备注","width":200,align:"center"}
             ]],
+            rowStyler: function(index,row){
+                //如果type!=1时，该行隐藏
+                 if (row.type!=1){
+                     return 'display:none';
+                 }
+            },
 //            onDblClickRow:function(rowIndex, rowData){
 //                toQueryProject(rowData);
 //            },
