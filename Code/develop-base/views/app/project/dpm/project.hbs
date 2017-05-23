@@ -469,6 +469,7 @@
                                     //$('#deployDialog').dialog('close');
                                     commitIndex = true;
                                 }else{
+                                    clearInterval(interval);
                                     closeRadia();
                                     msgError(data.msg + ',错误代码:' + data.code);
                                 }
