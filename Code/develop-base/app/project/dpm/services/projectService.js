@@ -474,44 +474,13 @@ exports.refreshDeployedInfo = function(id, mesosId){
         res.on('end', function () {
             console.log(mesosId + "返回数据为:" + chtmlJson);
             var json = JSON.parse(chtmlJson);//将拼接好的响应数据转换为json对象
-            if (json && json.app && json.app.tasks.length != 0) {
-                //健康的实例大于1，就认为应用健康
-                var status = json.app.tasksHealthy > 0 ? 1 : 0;
-                //不健康，需要写入告警信息到告警表
-                if(status == 0){
-                    var title = "marathon告警信息";
-                    var ruleId = "";
-                    var ruleName = "";
-                    var ruleUrl = "";
-                    var state = "";
-                    var imageUrl = "";
-                    var message = mesosId + "健康检查结果为：服务不可用";
-                    var appId = mesosId;
+            if (json && json.app && json.app.tasks) {
+                //实例数为0 或者健康数为0
+                if(json.app.tasks.length == 0 || json.app.tasksHealthy == 0){
+                    //更新应用状态为不正常
+                    var resources  = "实例:0个<br>CPU:0个<br>内存:0M";
                     var params = [];
-                    params.push(appId);
-                    params.push("2");// 1 grafana 告警 2 应用监控告警
-                    params.push(title);
-                    params.push(ruleId);
-                    params.push(ruleName);
-                    params.push(ruleUrl);
-                    params.push(state);
-                    params.push(imageUrl);
-                    params.push(message);
-                    params.push("1");//1 有效 0 无效
-                    alertService.save(params,function(err,result){
-                        if(!result.success){
-                            console.log("同步告警信息到高竞标失败");
-                        }else{
-                            console.log("同步告警信息到高竞标成功");
-                        }
-                    });
-                }
-                var resources = "";
-                var instances = json.app.instances;
-                if(instances == 0){//实例个数为0
-                    resources  = "实例:0个<br>CPU:0个<br>内存:0M";
-                    var params = [];
-                    params.push(status);
+                    params.push("0");
                     params.push(resources);
                     params.push("");
                     params.push("");
@@ -525,7 +494,36 @@ exports.refreshDeployedInfo = function(id, mesosId){
                             console.log("更新已部署应用健康度等信息成功");
                         }
                     });
-                }else{
+                    //写入告警信息到告警表
+                    var title = "marathon告警信息";
+                    var ruleId = "";
+                    var ruleName = "";
+                    var ruleUrl = "";
+                    var state = "";
+                    var imageUrl = "";
+                    var message = mesosId + "健康检查结果为：服务不可用";
+                    var appId = mesosId.replace("/","");
+                    var params = [];
+                    params.push(appId);
+                    params.push("2");// 1 grafana 告警 2 应用监控告警
+                    params.push(title);
+                    params.push(ruleId);
+                    params.push(ruleName);
+                    params.push(ruleUrl);
+                    params.push(state);
+                    params.push(imageUrl);
+                    params.push(message);
+                    params.push("1");//1 有效 0 无效
+                    alertService.save(params,function(result){
+                        if(!result.success){
+                            console.log("同步告警信息到高竞标失败");
+                        }else{
+                            console.log("同步告警信息到高竞标成功");
+                        }
+                    });
+                }else{//应用健康
+                    var resources = "";
+                    var instances = json.app.instances;
                     var cpus = json.app.cpus;
                     var mem = json.app.mem;
                     var disk = json.app.disk;
@@ -533,7 +531,7 @@ exports.refreshDeployedInfo = function(id, mesosId){
                     //默认只读取第一个实例
                     var taskId = json.app.tasks[0].id;
                     var host = json.app.tasks[0].host;
-                    exports.httpGetContainerInfo(id, mesosId, status, resources, taskId, host);
+                    exports.httpGetContainerInfo(id, mesosId, "1", resources, taskId, host);
                 }
             } else {
                 console.log(mesosId + "接口数据异常");
@@ -619,6 +617,7 @@ exports.refreshMarathonLbInfo = function(){
             var json = JSON.parse(chtmlJson);//将拼接好的响应数据转换为json对象
             if (json && json.app && json.app.tasks.length != 0) {
                 var host = json.app.tasks[0].host;
+                console.log("marathon-lb当前运行地址为:" + host);
                 config.platform.marathonLb = "http://" + host;
             } else {
                 console.log("接口查询/marathon-lb地址返回数据为数据异常");

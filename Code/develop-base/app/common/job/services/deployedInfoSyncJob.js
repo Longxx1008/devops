@@ -7,8 +7,6 @@ var config = require('../../../../config');
 var $util = require('../../../common/util/util');
 var DateUtils = require('../../../common/core/utils/DateUtils');
 var projectService = require('../../../project/dpm/services/projectService');
-var mysqlPool = require('../../../project/utils/mysql_pool');
-
 // 使用连接池，提升性能
 var pool = mysql.createPool($util.extend({}, config.mysql));
 exports.doJob = function(){
@@ -28,6 +26,4 @@ exports.doJob = function(){
             }
         }
     });
-
-    projectService.refreshMarathonLbInfo();
 };
