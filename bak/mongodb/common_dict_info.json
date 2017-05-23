@@ -1,0 +1,67 @@
+{
+	"__v" : NumberInt("0"),
+	"_id" : ObjectId("5716f657cd57ca3c33d775db"),
+	"dict_code" : "common_portal_module_type",
+	"dict_name" : "porta组件类型",
+	"dict_remark" : "porta组件类型",
+	"dict_status" : NumberInt("1")
+},
+{
+	"__v" : NumberInt("0"),
+	"_id" : ObjectId("571700c1bf55d5106ef61aec"),
+	"dict_code" : "common_portal_page_type",
+	"dict_name" : "portal页面类型",
+	"dict_status" : NumberInt("1")
+},
+{
+	"__v" : NumberInt("0"),
+	"_id" : ObjectId("5717004e1ea4e7d03aa42a0f"),
+	"dict_code" : "pm_user_model_status",
+	"dict_name" : "pm用户状态",
+	"dict_status" : NumberInt("1")
+},
+{
+	"__v" : NumberInt("0"),
+	"_id" : ObjectId("57218bc63c6bfd643a50c7e5"),
+	"dict_code" : "pm_demand_model_demand_progress",
+	"dict_name" : "pm需求采购进度",
+	"dict_status" : NumberInt("1")
+},
+{
+	"__v" : NumberInt("0"),
+	"_id" : ObjectId("574d56562b112870da034749"),
+	"dict_code" : "common_org_type",
+	"dict_name" : "机构类型",
+	"dict_remark" : "机构类型",
+	"dict_status" : NumberInt("1")
+},
+{
+	"__v" : NumberInt("0"),
+	"_id" : ObjectId("5750f23fca6d61505adc20d3"),
+	"dict_code" : "common_area_code",
+	"dict_name" : "贵州地市区域编码",
+	"dict_status" : NumberInt("1")
+},
+{
+	"__v" : NumberInt("0"),
+	"_id" : ObjectId("575f5aeb3d006a742a9f573f"),
+	"dict_code" : "org_contract_term",
+	"dict_name" : "厂家合同期限",
+	"dict_status" : NumberInt("1")
+},
+{
+	"__v" : NumberInt("0"),
+	"_id" : ObjectId("57610181fdb87dc8af873f2f"),
+	"dict_code" : "common_sys_themes",
+	"dict_name" : "系统皮肤",
+	"dict_remark" : "系统皮肤",
+	"dict_status" : NumberInt("1")
+},
+{
+	"__v" : NumberInt("0"),
+	"_id" : ObjectId("5810637b4590ff7185bb3393"),
+	"dict_code" : "common_db_connect_info",
+	"dict_name" : "数据库连接",
+	"dict_remark" : "数据库连接字符串",
+	"dict_status" : NumberInt("1")
+},

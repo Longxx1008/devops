@@ -1,0 +1,10 @@
+{
+	"_id" : ObjectId("56d7df43a6fbe05a1394ad6c"),
+	"sys_code" : "ywcj",
+	"sys_main_url" : "home",
+	"sys_name" : "基础研发框架平台",
+	"sys_remark" : "基础研发框架平台",
+	"sys_status" : NumberInt("1"),
+	"sys_theme_layout" : "themes/beyond_rev/layout",
+	"sys_url" : "http://localhost:30001/project/index"
+},
