@@ -12,7 +12,7 @@ var pool = mysql.createPool($util.extend({}, config.mysql));
 exports.doJob = function(){
     console.log('获取已部署项目健康度、占用资源等信息开始...' + DateUtils.format(new Date(),'yyyy-MM-dd hh:mm:ss'));
     //调用
-    pool.query("select * from pass_develop_project_deploy where 1 = 1 and status=1",[],function(err,result){
+    pool.query("select * from pass_develop_project_deploy where 1=1 and status=1",[],function(err,result){
         if(err){
             console.log(err);
         }else {

@@ -6,8 +6,8 @@ var projectService = require('./app/project/dpm/services/projectService');
  */
 exports.$ = function(app) {
     //启动健康检查定时任务
-    setInterval(function(){
+    /*setInterval(function(){
         deployedInfoSyncJob.doJob();
         projectService.refreshMarathonLbInfo();
-    },10000);
+    },10000);*/
 }
