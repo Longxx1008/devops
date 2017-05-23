@@ -17,6 +17,9 @@ exports.pageList = function(page, size, conditionMap, cb) {
         if(conditionMap.status) {
             sql += " and (a.status = '" + conditionMap.status + "')";
         }
+        if(conditionMap.appName) {
+            sql += " and (b.projectName like '%" + conditionMap.appName + "%')";
+        }
     }
      var orderBy = " order by a.createTime";
     console.log("查询项目信息sql ====",sql);

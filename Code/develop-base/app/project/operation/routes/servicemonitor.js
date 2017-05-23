@@ -12,10 +12,10 @@ router.route('/').get(function(req,res){
     // 分页参数
     var page = req.query.page;
     var length = req.query.rows;
-    var deployId = req.query.deployId;
+    var projectId = req.query.projectId;
     var conditionMap = {};
-    if(deployId){
-        conditionMap.deployId = deployId;
+    if(projectId){
+        conditionMap.projectId = projectId;
     }
     // 调用分页
     serviceMonitorService.pageList(page, length, conditionMap,function(result){

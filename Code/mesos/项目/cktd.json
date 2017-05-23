@@ -1,5 +1,5 @@
 {
-  "id": "/yqyb",
+  "id": "/cktd",
   "cmd": null,
   "cpus": 1,
   "mem": 1024,
@@ -12,13 +12,13 @@
     "type": "DOCKER",
     "volumes": [],
     "docker": {
-      "image": "192.168.9.47:5000/yqyb:v1.0.4",
+      "image": "192.168.9.47:5000/cktd:v1.0.3",
       "network": "BRIDGE",
       "portMappings": [
         {
           "containerPort": 0,
           "hostPort": 0,
-          "servicePort": 10006,
+          "servicePort": 10004,
           "protocol": "tcp",
           "labels": {}
         }

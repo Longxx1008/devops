@@ -44,9 +44,34 @@ exports.versionList = function(conditionMap, cb) {
         if(err) {
             cb(utils.returnMsg(false, '1000', '获取版本信息异常', null, err));
         } else {
-            cb(utils.returnMsg(true, '0000', '获取版本信息成功', results, null));
+            cb(utils.returnMsg(true, '0000', '获取版本信息成功', verAarry(results), null));
         }
     });
+}
+function verAarry(data){
+    var arr = [];
+    for(var i=0;i<data.length;i++){
+        arr.push(data[i].versionNo);
+    }
+    //进行倒序排序
+    arr.sort(function(o1,o2){
+        var a1 = o1.replace('v','').split('.');
+        var a2 = o2.replace('v','').split('.');
+        var length = Math.max(a1.length,a2.length);
+        for(var i = 0; i < length; i++){
+            var n1 = parseInt(a1[i] || 0);
+            var n2 = parseInt(a2[i] || 0);
+            if(n1 - n2 != 0){
+                return n2 - n1;
+            }
+        }
+    });
+
+    var datanew = [];
+    for(var j=0;j<arr.length;j++){
+        datanew.push({"versionNo":arr[j]});
+    }
+    return datanew;
 }
 //获取项目进度情况
 exports.projectProcess = function(cb) {
@@ -64,14 +89,15 @@ exports.projectProcess = function(cb) {
 }
 
 exports.deployedPageList = function(page, size, conditionMap, cb) {
-    var sql = " select t1.*,concat('" + config.platform.marathonLb + "',':',t1.webSite) as url,t2.projectCode,t2.projectName from pass_develop_project_deploy t1,pass_develop_project_resources t2 where t1.projectId = t2.id";
+    var sql = "select a.*,case  when da.alertNum is NULL then 0 else da.alertNum end alertNum from ( select t1.*,concat('" + config.platform.marathonLb + "',':',t1.webSite) as url,t2.projectCode,t2.projectName from pass_develop_project_deploy t1,pass_develop_project_resources t2 where t1.projectId = t2.id"+
+        " ) a LEFT JOIN (select appId,count(appId) as alertNum from pass_develop_deploy_alert where status = '1' GROUP BY appId) da ON a.projectCode = da.appId where 1=1 ";
     var conditions = [];
     if(conditionMap) {
         if(conditionMap.projectName) {
-            sql += " and (t2.projectName like '%" + conditionMap.projectName + "%')";
+            sql += " and (a.projectName like '%" + conditionMap.projectName + "%')";
         }
     }
-    var orderBy = " order by t1.createTime desc";
+    var orderBy = " order by a.createTime desc";
     utils.pagingQuery4Eui_mysql(sql,orderBy, page, size, conditions, cb);
 };
 
@@ -267,11 +293,11 @@ exports.getUserList = function(conditionMap,cb){
     var size = 50;
     if(conditionMap) {
         if(conditionMap.projectId) {//gitlab项目Id
-            sql += " and t.projectId=?";
+            sql += " and t.projectId=? ";
             condition.push(conditionMap.projectId);
         }
     }
-   var orderBy = 'order by t.id desc';
+   var orderBy = ' order by t.id desc';
     utils.pagingQuery4Eui_mysql(sql,orderBy, page, size, condition, cb);
 }
 /**
