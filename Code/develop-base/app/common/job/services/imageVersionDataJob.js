@@ -273,7 +273,7 @@ function insertMapData(version_data ,imageCode) {
                     if (result.length > 0) {
                         var GroupID = JSON.parse(JSON.stringify(result[0])).gitlabProjectId;
                         sql_member += GroupID;
-                        conn.query(sql_member, function (err,ret) {
+                        pool.query(sql_member, function (err,ret) {
                             if (err) {
                                 console.log(err);
                             } else {

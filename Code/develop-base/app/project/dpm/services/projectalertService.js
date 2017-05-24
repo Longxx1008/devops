@@ -7,8 +7,8 @@ var mysql = require('mysql');
 var utils = require('../../../common/core/utils/app_utils');
 var mysqlPool = require('../../utils/mysql_pool');
 
-exports.pageList = function(page, size, conditionMap, cb) {
-    var sql = "select b.projectName,a.* from pass_develop_deploy_alert a  left join pass_develop_project_resources b on a.appId=b.projectCode where 1=1";
+exports.pageList = function(page, size, conditionMap, cb) {//容器时间要晚8小时，所以时间加了8小时
+    var sql = "select b.projectName,a.*,DATE_FORMAT(date_add(a.createTime, interval 8 hour),'%Y-%m-%d %H:%i:%s') as warningTime from pass_develop_deploy_alert a  left join pass_develop_project_resources b on a.appId=b.projectCode where 1=1";
     var conditions = [];
     if(conditionMap) {
         if(conditionMap.appId) {
@@ -21,7 +21,7 @@ exports.pageList = function(page, size, conditionMap, cb) {
             sql += " and (b.projectName like '%" + conditionMap.appName + "%')";
         }
     }
-     var orderBy = " order by a.createTime";
+     var orderBy = " order by a.createTime desc";
     console.log("查询项目信息sql ====",sql);
     utils.pagingQuery4Eui_mysql(sql,orderBy, page, size, conditions, cb);
 };
