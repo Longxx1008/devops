@@ -255,7 +255,7 @@ function insertDataBase(version_data, insertMapData) {
                                 }
                                 // 插入到MAP 表格
                               insertMapData(version_data, imageCode);
-
+                              insertVersionData(version_data,imageCode);
                             }
                         });
                     }
@@ -264,6 +264,23 @@ function insertDataBase(version_data, insertMapData) {
         }
 }
 
+function insertVersionData(version_data,imageCode){
+    var data = version_data.tags;
+    var sql="insert into pass_develop_image_version (imageCode,imageVersion) values(?,?)"
+    for (var i=0;i<data.length;i++){
+        var condition=[];
+        condition.push(imageCode);
+        condition.push(data[i]);
+        pool.query(sql,condition,function(err,result){
+           if(err){
+               console.log(err);
+           } else{
+               console.log("Version  插入一条数据");
+           }
+
+        });
+    }
+}
 function insertMapData(version_data ,imageCode) {
         for (var i = 0; i < version_data.length; i++) {
             var sql = new String('SELECT t.gitlabProjectId from pass_develop_project_resources t where t.gitlabProjectId is not null and t.gitlabProjectId <> 0 and  t.projectCode= ');
