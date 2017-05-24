@@ -148,7 +148,7 @@ var config = {
         gitlabUrl: 'http://192.168.9.48',//vpn openvpn
         private_token:'BgNLAke5cybnRcqc-Qts',//192.168.31.127
         // private_token:'yJFsQXvox3xGHUPxyDsE',
-        dockerIp: '192.168.31.92',
+        dockerIp: '192.168.9.47',
         dockerPort:5000,
         defaultImage: "ubuntu_base:0.2",
         superRolesId:"56d7e358a6fbe05a1394ad6e",
