@@ -92,7 +92,7 @@
                 {"field": "ser_version","title":"版本","width":100,align:"center"},
                 {"field": "options","title":"操作","width":150,align:"center","formatter":function (value, rowData,rowIndex) {
                     return " <span style='cursor: pointer;' onclick='openPage(\"" + "创建"+rowData.service_name+"\",\""+rowData.service_name+"\",\""+rowData.id+"\",\""+rowData.projectType+"\",\""+rowData.ser_version+"\", doAdd)'>创建</span> | "+
-                            "<span style='cursor: pointer;' onclick='to_detail();'>说明</span> ";
+                            "<span style='cursor: pointer;' onclick='to_detail(\""+rowData.projectId+"\");'>说明</span> ";
                 }},
             ]],
             onLoadError:function() {
@@ -123,7 +123,7 @@
                 {"field": "ser_version","title":"版本","width":100,align:"center"},
                 {"field": "options","title":"操作","width":150,align:"center","formatter":function (value, rowData,rowIndex) {
                     return " <span style='cursor: pointer;' onclick='openPage(\"" + "创建"+rowData.service_name+"\",\""+rowData.service_name+"\",\""+rowData.id+"\",\""+rowData.projectType+"\",\""+rowData.ser_version+"\", doAdd)'>创建</span> | "+
-                            "<span style='cursor: pointer;' onclick='to_detail();'>说明</span> ";
+                            "<span style='cursor: pointer;' onclick='to_detail(\""+rowData.projectId+"\");'>说明</span> ";
                 }},
             ]],
             onLoadSuccess:function(json) {
@@ -141,8 +141,8 @@
 
 
     //项目详情
-    function to_detail(){
-        window.location.href = "{{projcfg.appurl}}/servicedetail";
+    function to_detail(projectId){
+        window.location.href = "{{projcfg.appurl}}/servicedetail?projectId="+projectId;
     }
 
 
