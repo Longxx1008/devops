@@ -73,7 +73,7 @@ function forVersionInfo(versions,i,projectId,projectCode){
 function getDeployJson(versions,i,projectId,projectCode){
     var results=[];
     var sql = "insert into pass_develop_project_versions(versionNo,projectId,deployJson,createTime) values(?,?,?,now())";
-    results.push(ref);
+    results.push(versions[i].ref);
     results.push(projectId);
     //读取部署信息
     //http://192.168.9.48/cmcc/develop-base/raw/dev/architecture?pivate_token=BgNLAke5cybnRcqc-
