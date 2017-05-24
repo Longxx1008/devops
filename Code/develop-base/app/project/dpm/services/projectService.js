@@ -4,6 +4,10 @@ var nodeGrass = require('../../utils/nodegrass');
 var config = require('../../../../config');
 var alertService = require('./alertService');
 var http = require('http');
+var mysql = require('mysql');
+var $util = require('../../../common/util/util');
+// 使用连接池，提升性能
+var pool = mysql.createPool($util.extend({}, config.mysql));
 
 /**
  * 获取项目的分页数据
@@ -477,21 +481,30 @@ exports.refreshDeployedInfo = function(id, mesosId){
             if (json && json.app && json.app.tasks) {
                 //实例数为0 或者健康数为0
                 if(json.app.tasks.length == 0 || json.app.tasksHealthy == 0){
-                    //更新应用状态为不正常
-                    var resources  = "实例:0个<br>CPU:0个<br>内存:0M";
-                    var params = [];
-                    params.push("0");
-                    params.push(resources);
-                    params.push("");
-                    params.push("");
-                    params.push("");
-                    params.push("");
-                    params.push(id);
-                    mysqlPool.query("update pass_develop_project_deploy set healthStatus=?,resources=?,hostName=?,hostIp=?,containerId=?,containerName=? where id=?", params, function(err, result){
-                        if(err){
-                            console.log("更新已部署应用健康度等信息异常");
-                        }else{
-                            console.log("更新已部署应用健康度等信息成功");
+                    pool.getConnection(function (err, conn) {
+                        if (err != null) {
+                            console.log(err.message);
+                        } else {
+                            //更新应用状态为不正常
+                            var resources  = "实例:0个<br>CPU:0个<br>内存:0M";
+                            var params = [];
+                            params.push("0");
+                            params.push(resources);
+                            params.push("");
+                            params.push("");
+                            params.push("");
+                            params.push("");
+                            params.push(id);
+                            var sql = "update pass_develop_project_deploy set healthStatus=?,resources=?,hostName=?,hostIp=?,containerId=?,containerName=? where id=?";
+                            conn.query(sql,params,function (err, result) {
+                                if(err){
+                                    console.log(err);
+                                    console.log("更新已部署应用健康度等信息异常");
+                                }else {
+                                    console.log("更新已部署应用健康度等信息成功");
+                                }
+                                conn.release();
+                            });
                         }
                     });
                     //写入告警信息到告警表

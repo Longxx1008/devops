@@ -59,28 +59,7 @@ function forVersionInfo(versions,i,projectId,projectCode){
                     console.log(DateUtils.format(new Date(),'yyyy-MM-dd hh:mm:ss') + ' 查询GitLab相关项目版本信息异常');
                 } else {
                     if(serresult && serresult.length == 0){//如果项目版本不存在，就插入该版本信息
-                        var results=[];
-                        var sql = "insert into pass_develop_project_versions(versionNo,projectId,deployJson,createTime) values(?,?,?,now())";
-                        results.push(versions[i].ref);
-                        results.push(projectId);
-                        //读取部署信息
-                        //http://192.168.9.48/cmcc/develop-base/raw/dev/architecture?pivate_token=BgNLAke5cybnRcqc-
-                        var url = config.platform.gitlabUrl + '/cmcc/' + projectCode + '/raw/dev/architecture?private_token=' + config.platform.private_token;
-                        nodeGrass.get(url,function(data,status,headers){
-                            console.log("--------------");
-                            console.log(data);
-                            results.push(data);
-                            mysqlPool.query(sql,results,function(err,results) {
-                                if(err) {
-                                    console.log(DateUtils.format(new Date(),'yyyy-MM-dd hh:mm:ss') + ' 插入gitlab相关项目版本信息异常...');
-                                } else {
-                                    console.log(DateUtils.format(new Date(),'yyyy-MM-dd hh:mm:ss') + ' 插入gitlab相关项目版本信息成功...');
-                                }
-                                forVersionInfo(versions, ++i, projectId, projectCode);
-                            });
-                        },'utf8').on('error', function(e) {
-                            console.log( '获取项目部署信息失败：'+e.message);
-                        });
+                        getDeployJson(versions,i,projectId,projectCode);
                     }else{
                         forVersionInfo(versions, ++i, projectId, projectCode);
                         console.log(DateUtils.format(new Date(),'yyyy-MM-dd hh:mm:ss') + ' 项目版本信息已存在...');
@@ -89,4 +68,28 @@ function forVersionInfo(versions,i,projectId,projectCode){
             });
         }
     }
+}
+
+function getDeployJson(versions,i,projectId,projectCode){
+    var results=[];
+    var sql = "insert into pass_develop_project_versions(versionNo,projectId,deployJson,createTime) values(?,?,?,now())";
+    results.push(ref);
+    results.push(projectId);
+    //读取部署信息
+    //http://192.168.9.48/cmcc/develop-base/raw/dev/architecture?pivate_token=BgNLAke5cybnRcqc-
+    var url = config.platform.gitlabUrl + '/cmcc/' + projectCode + '/raw/dev/architecture?private_token=' + config.platform.private_token;
+    nodeGrass.get(url,function(data,status,headers){
+        console.log("--------------");
+        results.push(data);
+        mysqlPool.query(sql,results,function(err,results) {
+            if(err) {
+                console.log(DateUtils.format(new Date(),'yyyy-MM-dd hh:mm:ss') + ' 插入gitlab相关项目版本信息异常...');
+            } else {
+                console.log(DateUtils.format(new Date(),'yyyy-MM-dd hh:mm:ss') + ' 插入gitlab相关项目版本信息成功...');
+            }
+            forVersionInfo(versions, ++i, projectId, projectCode);
+        });
+    },'utf8').on('error', function(e) {
+        console.log( '获取项目部署信息失败：'+e.message);
+    });
 }

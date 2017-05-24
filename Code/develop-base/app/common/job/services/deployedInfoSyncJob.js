@@ -12,7 +12,30 @@ var pool = mysql.createPool($util.extend({}, config.mysql));
 exports.doJob = function(){
     console.log('获取已部署项目健康度、占用资源等信息开始...' + DateUtils.format(new Date(),'yyyy-MM-dd hh:mm:ss'));
     //调用
-    pool.query("select * from pass_develop_project_deploy where type=1 and status=1",[],function(err,result){
+    pool.getConnection(function (err, conn) {
+        if (err != null) {
+            console.log(err.message);
+        } else {
+            var sql = "select * from pass_develop_project_deploy where type=1 and status=1";
+            conn.query(sql, function (err, result) {
+                console.log(err+":"+result);
+                if(err){
+                    console.log(err);
+                }else {
+                    var id,mesosId;
+                    for(var i = 0; result != null && i < result.length; i++){
+                        id = result[i].id;
+                        mesosId = result[i].mesosId;
+                        if(mesosId != null && mesosId != ""){
+                            projectService.refreshDeployedInfo(id,mesosId);
+                        }
+                    }
+                }
+                conn.release();
+            });
+        }
+    });
+    /*pool.query("select * from pass_develop_project_deploy where type=1 and status=1",[],function(err,result){
         if(err){
             console.log(err);
         }else {
@@ -25,5 +48,5 @@ exports.doJob = function(){
                 }
             }
         }
-    });
+    });*/
 };
