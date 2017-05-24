@@ -9,7 +9,7 @@ var mysqlPool = require('../../utils/mysql_pool');
  * @param cb
  */
 exports.pageList = function(page, size, conditionMap, cb) {
-    var sql = "SELECT t.*,DATE_FORMAT(date_add(t.createDate, interval 8 hour),'%Y-%m-%d %H:%i:%s') as imageTime" ;
+    var sql = "SELECT t.*,DATE_FORMAT(date_add(t.createDate, interval 8 hour),'%Y-%m-%d %H:%i:%s') as imageTime " ;
     var conditions = [];
     if(conditionMap) {
         if(conditionMap.flag && conditionMap.flag == 'favorites'){

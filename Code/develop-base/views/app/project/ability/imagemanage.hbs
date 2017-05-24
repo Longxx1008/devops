@@ -157,7 +157,7 @@
                 {"field": "imageCode", checkbox:true},
                 {"field": "imageName","title":" 镜像名称","width":80,align:"center"},
                 {"field": "channels","title":"渠道","width":100,align:"center"},
-                {"field": "picture","title":"图片","width":100,align:"center","formatter":function(value,rowDate,rowIndex){
+                {"field": "picture","title":"图片","width":80,align:"center","formatter":function(value,rowDate,rowIndex){
                     return '<img src="data:'+rowDate.pictureType+";base64 ,"+rowDate.picture+'"  style="height:35px;width:35px">';
                 }},
                 {"field":"imageVersion","title":"版本","width":100,align:"center","formatter":function(value,rowData,rowIndex){
@@ -169,8 +169,8 @@
                 }},
                 {"field": "collectionNumber","title":"收藏数","width":50,align:"center"},
                 {"field": "downloadNumber","title":"下载数","width":50,align:"center"},
-                {"field":"createDate","title":"创建时间","width":80,align:"center"},
-                {"field": "imageResource","title":"镜像源","width":100,align:"center",hidden:'true'}
+                {"field":"imageTime","title":"创建时间","width":100,align:"center"},
+                {"field": "imageResource",hidden:'true'}
             ]],
             onLoadError:function() {
                 msgError('加载数据出现时发生错误,请稍候重试...');
