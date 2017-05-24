@@ -67,12 +67,13 @@
             columns:[[
                 {"field": "serviceId", checkbox:true},
                 {"field": "projectId", hidden:true},
+                {"field": "projectCode", hidden:true},
                 {"field": "service_name","title":"服务名称","width":150,align:"center"},
                 {"field": "createTime","title":"开通时间","width":100,align:"center"},
                 {"field": "status","title":"状态","width":100,align:"center"},
                 {"field": "remark","title":"备注","width":200,align:"center"},
                 {"field": "options","title":"操作","width":150,align:"center","formatter":function (value, rowData,rowIndex) {
-                    return "<span style='cursor: pointer;' onclick='to_detail();'> 详情 </span>";
+                    return "<span style='cursor: pointer;' onclick=\"to_detail(\'"+rowData.projectCode+"\');\"> 详情 </span>";
                 }},
             ]],
             onLoadSuccess:function(json) {
@@ -104,7 +105,7 @@
                 {"field": "status","title":"状态","width":100,align:"center"},
                 {"field": "remark","title":"备注","width":200,align:"center"},
                 {"field": "options","title":"操作","width":150,align:"center","formatter":function (value, rowData,rowIndex) {
-                    return "<span style='cursor: pointer;' onclick='to_detail();'> 详情 </span>";
+                    return "<span style='cursor: pointer;' onclick=\"to_detail(\'"+rowData.projectCode+"\');\"> 详情 </span>";
                 }},
             ]],
             onLoadSuccess:function(json) {
@@ -121,8 +122,9 @@
     });
 
     //项目详情
-    function to_detail(){
-        window.location.href = "{{projcfg.appurl}}/servicedetail";
+    function to_detail(address){
+        window.open("http://192.168.9.48/cmcc/"+address+"/blob/dev/README.md?private_token=BgNLAke5cybnRcqc-Qts");
+        <!--window.location.href = "{{projcfg.appurl}}/servicedetail?projectId="+projectid;-->
     }
 
 

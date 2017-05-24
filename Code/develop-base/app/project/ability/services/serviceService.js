@@ -36,7 +36,7 @@ exports.pageList = function(page, size, conditionMap, cb) {
  * @param cb
  */
 exports.smPageList = function(page, size, conditionMap, cb) {
-    var sql = " SELECT t1.id as projectId, t1.projectName AS service_name, sc.serviceId, DATE_FORMAT(sc.createTime,'%Y-%d-%m %H:%i:%s') as createTime, s.`status`, s.remark FROM pass_project_service_corres_info sc, pass_develop_project_resources t1, pass_project_service_info s "+
+    var sql = " SELECT t1.id as projectId,t1.projectCode, t1.projectName AS service_name, sc.serviceId, DATE_FORMAT(sc.createTime,'%Y-%d-%m %H:%i:%s') as createTime, s.`status`, s.remark FROM pass_project_service_corres_info sc, pass_develop_project_resources t1, pass_project_service_info s "+
     " WHERE t1.id = s.projectId  AND s.id = sc.serviceId ";
     var conditions = [];
     if(conditionMap) {

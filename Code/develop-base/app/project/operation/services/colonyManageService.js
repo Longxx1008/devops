@@ -62,7 +62,7 @@ exports.add = function(data,cb){
  * @param cb
  */
 exports.update = function(data,cb){
-    var sql = "update pass_operation_colony_info set name = ?,remark = ?,mesosUrl = ?,marathonUrl = ?, where id = ? ";
+    var sql = "update pass_operation_colony_info set name = ?,remark = ?,mesosUrl = ?,marathonUrl = ? where id = ? ";
     mysqlPool.query(sql, data, function(err,result) {
         if(err) {
             cb(utils.returnMsg(false, '1000', '更新集群信息异常', null, err));
