@@ -147,8 +147,8 @@
     function doStart(thisObj){
         var id = $(thisObj).data("id");
         var name = $(thisObj).data("name");
-        var projectId = $(thisObj).data("projectId");
-        msgConfirm('确定要停止【 ' + name + '】应用么？',function(result) {
+        var projectId = $(thisObj).data("pid");
+        msgConfirm('确定要启动【 ' + name + '】应用么？',function(result) {
             if(result){
                 $.ajax({
                     url:'{{projcfg.appurl}}/api/project/dpm/project/develop/pm/deploy/start/' + id,
