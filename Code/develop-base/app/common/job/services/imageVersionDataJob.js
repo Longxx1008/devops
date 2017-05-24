@@ -79,13 +79,13 @@ function updateMapping(result){
         var imageName =data.imageName;
         if(imageName.lastIndexOf('/')!=-1){
             imageName=imageName.substr(imageName.lastIndexOf('/')+1,-1)
-            console.log("")
+            console.log("");
         }else{
-            sql+="'"+data.imageName+"'";
+            sql=sql+"'"+data.imageName+"'";
             console.log("89     :  "+sql);
             pool.query(sql,[],function(errs,results){
                 if(errs){
-                    console.info(errs)
+                    console.info(errs);
                 }else{
                     if(results.length>0){
                         var sqlMapping="select * from pass_develop_image_mapping where imageCode="
@@ -162,30 +162,33 @@ function updateVersion(result,dataVersion){
             console.log("172    :  "+sql);
             pool.query(sql,[],function(err,result){
                if(err){
-                   console.log(err)
+                   console.log(err);
                }else{
-                   if(result.length>0){
-                       var arr=new Array();
 
+                       var arr=new Array();
                        var gitMap={};
                        for(var k=0;k<result.length;k++){
                            var dataVer=JSON.parse(JSON.stringify(result[k]));
                             arr.push(dataVer.imageVersion);
                        }
 
-                       for(var t=0;t<dataVersion.length;t++){
-                           gitMap[dataVersion[t]]=dataVersion[t];
+                       for(var t=0;t<dataVersion[0].tags.length;t++){
+                           gitMap[dataVersion[0].tags[t]]=dataVersion[0].tags[t];
                        }
-                       if(dataVersion.length!=arr.length){
-                           for(var a=0;a<dataVersion.length;a++){
+                       console.log(dataVersion[0].tags.length);
+                       console.log(arr.length);
+                       if(dataVersion[0].tags.length!=arr.length){
+                           for(var a=0;a<dataVersion[0].tags.length;a++){
                                 for(var b=0;b<arr.length;b++){
-                                    if(arr[b]==dataVersion[a]){
-                                        delete gitMap[dataVersion[a]]
+                                    if(arr[b]==dataVersion[0].tags[a]){
+                                        console.log("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$444");
+                                        console.info(gitMap[dataVersion[0].tags[a]]);
+                                        delete gitMap[dataVersion[0].tags[a]];
                                     }
                                 }
 
                            }
-                           if(gitMap.length>0){
+                               console.log("version   执行插入配对")
                                for (var key in gitMap){
                                    var sqlInsert="insert into pass_develop_image_version (imageCode,imageVersion) " +
                                        "values("+imageCode+" , "+"'"+key+"') ";
@@ -198,9 +201,9 @@ function updateVersion(result,dataVersion){
                                        }
                                    });
                                }
-                           }
+
                        }
-                   }
+
                }
             });
         }
@@ -210,6 +213,8 @@ function updateVersion(result,dataVersion){
 }
 //插入数据;
 function insertDataBase(version_data, insertMapData) {
+    console.log("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@2")
+        console.info(version_data);
         for (var i= 0; i < version_data.length; i++) {
             var imageName = version_data[i].name;
             var tags = version_data[i].tags;          
@@ -222,17 +227,20 @@ function insertDataBase(version_data, insertMapData) {
                 } else {
                     if (result.length>0) {
                         //当info表格中存在的时候相关项目名的时候 就开始验证 Version  ,mapping表中的数据否为最新的
+                        console.log("======================================================================================");
+                        console.info(result);
+                        console.info(version_data);
                         console.log("已经存在,检查最新的表格内容");
                         updateMapping(result);
                         updateVersion(result,version_data);
                     } else {
                         var sql_temp_info = new String(sql_info);
                         sql_temp_info += "'" + imageName + "')";
-                        pool.query(sql_temp_info,[], function (err, result) {
+                        pool.query(sql_temp_info,[], function (err, results) {
                             if (err) {
                                 console.log(err);
                             } else {                                                                       
-                                var imageCode = result.insertId;
+                                var imageCode = results.insertId;
                                 for (var j = 0; j < tags.length; j++) {
                                     var version_temp = tags[j];
                                     var sql_temp_version = new String(sql_version);
@@ -247,6 +255,7 @@ function insertDataBase(version_data, insertMapData) {
                                 }
                                 // 插入到MAP 表格
                               insertMapData(version_data, imageCode);
+
                             }
                         });
                     }
@@ -280,7 +289,7 @@ function insertMapData(version_data ,imageCode) {
                                 // console.log(ret);
                                 for (var k = 0; k < ret.length; k++) {
                                     var userCode = new String(JSON.parse(JSON.stringify(ret[k])).userId);
-                                    sql_temp_map = new String(sql_map);
+                                    var sql_temp_map = new String(sql_map);
                                     sql_temp_map += imageCode + ",'" + userCode + "')";
                                     pool.query(sql_temp_map,[], function (error, result) {
                                         if (error) {
