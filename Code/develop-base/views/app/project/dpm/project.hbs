@@ -50,9 +50,9 @@
                                     <button type="button" class="btn btn-default" onclick="openPage('myModal','projectForm','创建项目', '', doAdd)" data-title="创建">
                                         <i class="fa fa-plus"></i> 创建项目
                                     </button>
-                                    <button type="button" class="btn btn-default" onclick="to_edit()" data-title="编辑">
-                                        <i class="fa fa-edit"></i> 项目编辑
-                                    </button>
+                                    <!--<button type="button" class="btn btn-default" onclick="to_edit()" data-title="编辑">-->
+                                        <!--<i class="fa fa-edit"></i> 项目编辑-->
+                                    <!--</button>-->
                                     <button type="button" class="btn btn-default" onclick="to_detail()" data-title="应用详情">
                                         <i class="fa fa-edit"></i> 应用详情
                                     </button>
@@ -656,10 +656,15 @@
     }
     function to_detail(){
         var rowdata = $('#projectDataTable').datagrid("getChecked");
+        console.info(rowdata);
+
         if(rowdata.length != 1){
             $.messager.alert("提示","请选择一条数据进行查看！","warning");
         }else{
-            window.location.href = "{{projcfg.appurl}}/servicedetail?projectId="+rowdata[0].id;
+            //row
+            var address=rowdata[0].projectCode;
+
+            window.open("http://192.168.9.48/cmcc/"+address+"/blob/dev/README.md?private_token=BgNLAke5cybnRcqc-Qts");
         }
 
     }
@@ -693,14 +698,14 @@
 
     }
 
-    function to_edit(){
-        var rows = $('#projectDataTable').datagrid('getChecked');
-        if(rows.length!=1){
-            msgError("提示，请选择一条数据再进行修改");
-            return false;
-        }else{
-            window.location.href = "{{projcfg.appurl}}/projectdetail?projectId="+rows[0].id;
-        }
-    }
+    <!--function to_edit(){-->
+        <!--var rows = $('#projectDataTable').datagrid('getChecked');-->
+        <!--if(rows.length!=1){-->
+            <!--msgError("提示，请选择一条数据再进行修改");-->
+            <!--return false;-->
+        <!--}else{-->
+            <!--window.location.href = "{{projcfg.appurl}}/projectdetail?projectId="+rows[0].id;-->
+        <!--}-->
+    <!--}-->
 
 </script>
