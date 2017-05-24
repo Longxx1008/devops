@@ -22,7 +22,7 @@
       "maxLogSize": "1024*1024",
       "backups":3,
       "category": "service_log"
-    },
+    }/*,
     {
       "category": "logstash",
       "host": "192.168.31.92",
@@ -39,7 +39,7 @@
         "type": "pattern",
         "pattern": "%m"
       }
-    }
+    }*/
   ],
   "replaceConsole": true,
   "levels":{
