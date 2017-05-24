@@ -69,7 +69,8 @@
                 {"field": "projectName","title":"应用名称","width":150,align:"center"},
                 {"field": "type","title":"应用类型","width":150,align:"center",
                     "formatter":function (value, rowData,rowIndex) {
-                        return value == "1" ? "自主研发":"第三方应用";
+//                        return value == "1" ? "自主研发":"第三方应用";
+                        return value == "1" ? "<span class=\"label label-success\" style=\"height:26px;line-height:16px;font-weight:600;margin-top: 0.5rem;margin-left: 0.5rem;\">自主研发</span>":"<span class=\"label label-info\" style=\"height:26px;line-height:16px;font-weight:600;margin-top: 0.5rem;margin-left: 0.5rem;\">第三方应用</span>";
                     }
                 },
                 {"field": "version","title":"部署版本","width":100,align:"center"},
@@ -123,8 +124,6 @@
                     }
                 }
             ]],
-            onLoadSuccess:function(json) {
-            },
             onLoadError:function() {
                 msgError('加载数据出现时发生错误,请稍候重试...');
             },
