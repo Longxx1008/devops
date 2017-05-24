@@ -44,6 +44,7 @@ exports.versionList = function(conditionMap, cb) {
         if(err) {
             cb(utils.returnMsg(false, '1000', '获取版本信息异常', null, err));
         } else {
+
             cb(utils.returnMsg(true, '0000', '获取版本信息成功', verAarry(results), null));
         }
     });
@@ -153,8 +154,20 @@ exports.add = function(data, cb) {
         if(err) {
             cb(utils.returnMsg(false, '1000', '创建项目信息异常', null, err));
         } else {
-
-            cb(utils.returnMsg(true, '0000', '创建项目信息成功', result, null));
+            var projectId = result.insertId;
+            var condition=[projectId];
+            var sqlInsertMysql="insert into pass_project_service_monitor (projectId,serviceName,type,monitorPort,status,monitorUrl,createTime) value(?,'mysql','数据库','192.168.9.48:3306','1','http://192.168.9.48:3000/dashboard/db/mysql-metrics?refresh=5s&orgId=1',now());";
+            var sqlInsertMongdb="insert into pass_project_service_monitor (projectId,serviceName,type,monitorPort,status,monitorUrl,createTime) value(?,'mongodb','数据库','192.168.9.48:27017','1','http://192.168.9.48:3000/dashboard/db/mongodb-dashboard?refresh=5s&orgId=1',now())";
+            mysqlPool.query(sqlInsertMysql,condition,function(errs,mresult){
+                if(errs){
+                    console.log(errs);
+                } else{
+                    mysqlPool.query(sqlInsertMongdb,condition,function(errors,rets){
+                        cb(utils.returnMsg(true, '0000', '创建项目信息成功', result, null));
+                    });
+                }
+            });
+            
         }
     });
 };
