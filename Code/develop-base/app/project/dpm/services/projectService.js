@@ -177,7 +177,7 @@ exports.add = function(data, cb) {
 };
 
 //从gitlab获取版本信息
-exports.getVerByGitLab = function(gitProjectId,projectId){
+exports.getVerByGitLab = function(gitProjectId,projectId,projectCode){
     var url = config.platform.gitlabUrl+'/api/v3/projects/'+gitProjectId+'/pipelines?private_token='+config.platform.private_token+'&scope=tags';
     nodeGrass.get(url,function(data,status,headers){
         // console.log(status);
@@ -185,7 +185,7 @@ exports.getVerByGitLab = function(gitProjectId,projectId){
         var info = JSON.parse(data);//将拼接好的响应数据转换为json对象
         if (info) {
             var i = 0;
-            forVersionInfo(info,i,projectId);
+            forVersionInfo(info,i,projectId,projectCode);
         } else {
             console.log( '创建项目时 项目版本信息不存在...');
         }
@@ -196,7 +196,7 @@ exports.getVerByGitLab = function(gitProjectId,projectId){
     
 }
 
-function forVersionInfo(versions,i,projectId){
+function forVersionInfo(versions,i,projectId,projectCode){
     if(versions && versions.length > i){
         console.log('创建项目时 检查版本状态：',versions[i].status);
         if(versions[i].status == 'success'){
@@ -207,26 +207,51 @@ function forVersionInfo(versions,i,projectId){
                     console.log('创建项目时 查询相关项目版本信息异常');
                 } else {
                     if(serresult && serresult.length == 0){//如果项目版本不存在，就插入该版本信息
-                        var results=[];
-                        var sql = "insert into pass_develop_project_versions(versionNo,projectId,createTime) values(?,?,now())";
-                        results.push(versions[i].ref);
-                        results.push(projectId);
-                        mysqlPool.query(sql,results,function(err,result) {
-                            if(err) {
-                                console.log( '创建项目时 插入gitlab相关项目版本信息异常...');
-                            } else {
-                                console.log('创建项目时 插入gitlab相关项目版本信息成功...');
-                            }
-                            forVersionInfo(versions,++i,projectId);
-                        });
+                        // var results=[];
+                        // var sql = "insert into pass_develop_project_versions(versionNo,projectId,createTime) values(?,?,now())";
+                        // results.push(versions[i].ref);
+                        // results.push(projectId);
+                        // mysqlPool.query(sql,results,function(err,result) {
+                        //     if(err) {
+                        //         console.log( '创建项目时 插入gitlab相关项目版本信息异常...');
+                        //     } else {
+                        //         console.log('创建项目时 插入gitlab相关项目版本信息成功...');
+                        //     }
+                        //     forVersionInfo(versions,++i,projectId,projectCode);
+                        // });
+                        getDeployJson(versions,i,projectId,projectCode);
                     }else{
-                        forVersionInfo(versions,++i,projectId);
+                        forVersionInfo(versions,++i,projectId,projectCode);
                         console.log( '创建项目时 项目版本信息已存在...');
                     }
                 }
             });
         }
     }
+}
+
+function getDeployJson(versions,i,projectId,projectCode){
+    var results=[];
+    var sql = "insert into pass_develop_project_versions(versionNo,projectId,deployJson,createTime) values(?,?,?,now())";
+    results.push(versions[i].ref);
+    results.push(projectId);
+    //读取部署信息
+    //http://192.168.9.48/cmcc/develop-base/raw/dev/architecture?pivate_token=BgNLAke5cybnRcqc-
+    var url = config.platform.gitlabUrl + '/cmcc/' + projectCode + '/raw/dev/architecture?private_token=' + config.platform.private_token;
+    nodeGrass.get(url,function(data,status,headers){
+        console.log("--------------");
+        results.push(data);
+        mysqlPool.query(sql,results,function(err,results) {
+            if(err) {
+                console.log(' 插入gitlab相关项目版本信息异常...');
+            } else {
+                console.log(' 插入gitlab相关项目版本信息成功...');
+            }
+            forVersionInfo(versions, ++i, projectId, projectCode);
+        });
+    },'utf8').on('error', function(e) {
+        console.log( '获取项目部署信息失败：'+e.message);
+    });
 }
 
 /**

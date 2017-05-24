@@ -182,10 +182,10 @@
                         <font size="3.5rem" style="margin-left: 1.2rem;margin-right: 2.5rem"> <b>镜像仓库</b></font>
                         <div class="btn-group" role="group" aria-label="...">
                             <button type="button" class="btn btn-default" onclick="do_page('myimage')" data-title="我的镜像">
-                                <i class="fa fa-circle"></i> 我的镜像
+                                <i class="fa fa-user"></i> 我的镜像
                             </button>
                             <button type="button" class="btn btn-default" onclick="do_page('favorites')" data-title="收藏夹">
-                                <i class="fa fa-circle"></i> 收藏夹
+                                <i class="fa fa-star"></i> 收藏夹
                             </button>
                             <button type="button" class="btn btn-default" onclick="do_page('privateimage')" data-title="私有镜像">
                                 <i class="fa fa-circle"></i> 私有镜像
@@ -196,11 +196,11 @@
                 </div>
                 <div id="cc" class="easyui-layout" data-options="fit:true,border:false" style="width: 800px; height:575px;background-color: #fbfbfb;">
                     <div id="images" data-options="region:'center',border:false" style="overflow-x:hidden;overflow-y:hidden">
-                        <div id="datagridPanel" style="width:100%;height: 100%;">
+                        <div id="datagridPanel" style="width:100%;height: 100%;display:none;">
                             <table id="myImageDataTable">
                             </table>
                         </div>
-                        <div id="privatediv" style="width:100%;height: 100%;display:none;">
+                        <div id="privatediv" style="width:100%;height: 100%;">
                             <div style="border-right:1px solid #ccc;width:15%;height:100%;float:left;">
                                 <div class="div-bor">
                                     <i class="icon-serach"></i>
@@ -220,7 +220,7 @@
                                 </div>
                             </div>
 
-                            <div id="privateImageDiv" class="main"  >
+                            <div id="privateImageDiv" class="main"  style="overflow-y:scroll;height:100%;">
 
                             </div>
                         </div>
@@ -241,10 +241,8 @@
         $(":radio").click(function(){
             showPrivateImages('privateimage',$(this).val());
         });
+        showPrivateImages('privateimage','');
         $('#myImageDataTable').datagrid({
-            <!--url:'{{projcfg.appurl}}/api/project/ability/imagewarehouse/develop/im/pageList',-->
-            method:'get',
-//            queryParams:{"flag":"myimage"},
             striped:true,
             fitColumns:true,
             fit:true,
@@ -322,7 +320,7 @@
         $.ajax({
             url: '{{projcfg.appurl}}/api/project/ability/imagewarehouse/develop/im/pageList',
             type: 'get',
-            data:{"page":1,"rows":8,"flag":flag,'type':type},
+            data:{"page":1,"rows":100,"flag":flag,'type':type},
             success: function (data) {
                 var html_div='';
                 var rows=data.rows;

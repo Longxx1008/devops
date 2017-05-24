@@ -109,7 +109,7 @@ router.route('/develop/pm/project').post(function(req,res) {
                     console.log("projectId===",projectId);
                     //从gitlab pipelines拉取项目版本
                     if(gitProjectId && projectId){
-                        projectService.getVerByGitLab(gitProjectId,projectId);
+                        projectService.getVerByGitLab(gitProjectId,projectId,pcode);
                     }
                 }
                 utils.respJsonData(res, results);
