@@ -29,6 +29,12 @@ module.exports = function (b, e, d) {
                     -1 != c && (a = a.substring(0, c));
                     a = a.replace(config.project.appurl + "/", "");
                     console.log("\u83dc\u5355\u6743\u9650\u68c0\u67e5:" + a);
+                    if(a == "/"){
+                        e.writeHead(302, {
+                            'Location': config.project.appurl + "/home"
+                        });
+                        e.end();
+                    }
                     f[a] ?
                         d() : exports.toRenderNoPermission(b, e)
                 }
