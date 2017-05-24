@@ -72,7 +72,7 @@
                 {"field": "status","title":"状态","width":100,align:"center"},
                 {"field": "remark","title":"备注","width":200,align:"center"},
                 {"field": "options","title":"操作","width":150,align:"center","formatter":function (value, rowData,rowIndex) {
-                    return "<span style='cursor: pointer;' onclick='to_detail();'> 详情 </span>";
+                    return "<span style='cursor: pointer;' onclick=\"to_detail(\'"+rowData.projectId+"\');\"> 详情 </span>";
                 }},
             ]],
             onLoadSuccess:function(json) {
@@ -104,7 +104,7 @@
                 {"field": "status","title":"状态","width":100,align:"center"},
                 {"field": "remark","title":"备注","width":200,align:"center"},
                 {"field": "options","title":"操作","width":150,align:"center","formatter":function (value, rowData,rowIndex) {
-                    return "<span style='cursor: pointer;' onclick='to_detail();'> 详情 </span>";
+                    return "<span style='cursor: pointer;' onclick=\"to_detail(\'"+rowData.projectId+"\');\"> 详情 </span>";
                 }},
             ]],
             onLoadSuccess:function(json) {
@@ -121,8 +121,8 @@
     });
 
     //项目详情
-    function to_detail(){
-        window.location.href = "{{projcfg.appurl}}/servicedetail";
+    function to_detail(projectid){
+        window.location.href = "{{projcfg.appurl}}/servicedetail?projectId="+projectid;
     }
 
 
