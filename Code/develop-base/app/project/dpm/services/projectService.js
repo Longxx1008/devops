@@ -82,7 +82,7 @@ function verAarry(data){
 exports.projectProcess = function(cb) {
     var sql = " select sum(case WHEN step = 1 then 1 else 0 end) as developNum,sum(case WHEN step = 2 then 1 else 0 end) as testNum," +
         "sum(case WHEN step in (3,4) then 1 else 0 end) as deployNum,sum(case WHEN step in (3,4) then 1 else 0 end) as operationNum  " +
-        "from pass_develop_project_resources where projectType = '0'";
+        "from pass_develop_project_resources where type = '1'";
     // 查询项目进度情况数据
     mysqlPool.query(sql,[],function(err,result) {
         if(err) {
