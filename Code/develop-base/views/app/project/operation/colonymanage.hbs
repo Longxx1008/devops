@@ -120,7 +120,7 @@
                 {"field": "remark","title":"备注","width":150,align:"center"},
                 {"field": "oper","title":"操作","width":120,align:"center",
                     "formatter":function (value, rowData,rowIndex) {
-                        return "<span style='cursor: pointer;' onclick='hm_list("+rowData.id+",\""+rowData.name+"\")'>主机管理</span>";
+                        return "<span class=\"label label-info\" style='height:26px;line-height:16px;font-weight:600;margin-top: 0.5rem;margin-left: 0.5rem;cursor: pointer;' onclick='hm_list("+rowData.id+",\""+rowData.name+"\")'>主机管理</span>";
                     }}
             ]],
             onLoadError:function() {
