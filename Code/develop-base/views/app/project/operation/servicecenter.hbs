@@ -161,7 +161,7 @@
                         console.info(mesosId);
                         if(mesosId){
                             mesosId=mesosId.substring(1);
-                            src="http://192.168.9.48:3000/dashboard/db/ying-yong-guan-li?orgId=1&var-app_name="+mesosId;
+                            src="http://192.168.9.48:3000/dashboard/db/ying-yong-guan-li?orgId=1&var-app_name="+mesosId + "&var-container_name=" + data.rows[i].containerName;
                         }else{
                             src=data.rows[i].operation;
                         }
@@ -172,7 +172,7 @@
                     }
                     $("#maintain0").append("<div class='select'><em></em><span></span></div>");
                     if(data.rows[0].mesosId){
-                        $("#servicemonitorIframe").attr("src",'http://192.168.9.48:3000/dashboard/db/ying-yong-guan-li?orgId=1&var-app_name=' + data.rows[0].mesosId.substring(1));
+                        $("#servicemonitorIframe").attr("src",'http://192.168.9.48:3000/dashboard/db/ying-yong-guan-li?orgId=1&var-app_name=' + data.rows[0].mesosId.substring(1) + "&var-container_name=" + data.rows[0].containerName);
                     }else{
                         $("#servicemonitorIframe").attr("src",data.rows[0].operation);
                     }
