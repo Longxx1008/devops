@@ -1,0 +1,18 @@
+nginxw:
+   image: nginx:latest
+   volumes:
+       - ./nginx.conf:/etc/nginx/nginx.conf
+   links:
+       - web
+   ports:
+       - "80:80"
+       
+web:
+  build: .  
+  volumes: 
+       - .:/code
+  links:
+       - redis
+
+redis:
+  image: redis
