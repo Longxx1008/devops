@@ -1,0 +1,51 @@
+{
+  "id": "/marathon-lb",
+  "cmd": "/marathon-lb/run sse --marathon http://192.168.9.45:8080 --group external",
+  "cpus": 1,
+  "mem": 256,
+  "disk": 0,
+  "instances": 2,
+  "constraints": [
+    [
+      "hostname",
+      "UNIQUE",
+      ""
+    ]
+  ],
+  "acceptedResourceRoles": [],
+  "container": {
+    "type": "DOCKER",
+    "volumes": [],
+    "docker": {
+      "image": "mesosphere/marathon-lb",
+      "network": "HOST",
+      "portMappings": [],
+      "privileged": true,
+      "parameters": [],
+      "forcePullImage": false
+    }
+  },
+  "env": {
+    "PORTS": "9090"
+  },
+  "healthChecks": [
+    {
+      "gracePeriodSeconds": 30,
+      "intervalSeconds": 5,
+      "timeoutSeconds": 5,
+      "maxConsecutiveFailures": 5,
+      "port": 9090,
+      "path": "/_haproxy_health_check",
+      "protocol": "HTTP",
+      "ignoreHttp1xx": false
+    }
+  ],
+  "portDefinitions": [
+    {
+      "port": 10001,
+      "protocol": "tcp",
+      "name": "default",
+      "labels": {}
+    }
+  ]
+}

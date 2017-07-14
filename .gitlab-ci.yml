@@ -31,7 +31,7 @@ test_stages:
   stage: test
   script:
     - cd Code/develop-base/test
-    - code mocha
+#    - code mocha
     - echo "TEST"
     - echo "test stage"
 
