@@ -30,7 +30,7 @@ test_stages:
     - dockerindocker
   stage: test
   script:
-    - cd Code/develop-base/test
+#    - cd Code/develop-base/test
 #    - code mocha
     - echo "TEST"
     - echo "test stage"
