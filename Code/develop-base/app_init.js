@@ -7,9 +7,10 @@ var colonyManageService = require('./app/project/operation/services/colonyManage
  */
 exports.$ = function() {
     //启动健康检查定时任务
-     setInterval(function(){
-         deployedInfoSyncJob.doJob();
-         projectService.refreshMarathonLbInfo();
-         colonyManageService.syncColonyInfo();
-     },10000);
+
+    setInterval(function(){
+        deployedInfoSyncJob.doJob();
+        projectService.refreshMarathonLbInfo();
+        colonyManageService.syncColonyInfo();
+    },10000);
 }
