@@ -1,4 +1,4 @@
-nginxw:
+nginx1:
    image: nginx:latest
    volumes:
        - ./nginx.conf:/etc/nginx/nginx.conf
