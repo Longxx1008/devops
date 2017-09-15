@@ -128,15 +128,18 @@
             columns:[[
                 {"field":'id',checkbox:true},
                 {"field":'colonyId',hidden:true},
-                {"field": "name","title":"编号","width":80,align:"center"},
-                {"field": "configure","title":"配置","width":130,align:"center",
-                    "formatter":function (value, rowData,rowIndex) {
-                        if(value){
-                            value = value.replace(new RegExp('\r\n','gm'),'<br/>');
-                        }
-                        return value;
-                    }},
-                {"field": "os","title":"操作系统","width":100,align:"center","formatter":function(value,rowData,rowIndex){
+                {"field": "name","title":"编号","width":70,align:"center"},
+                {"field": "configure","title":"资源配置","width":60,align:"left","formatter":function(value,rowData,rowIndex){
+                    console.log(rowData);
+                    var str="";
+                    str+="CPU :"+rowData.cpu+"<br>";
+                    str+="memory :"+rowData.memory+"MB<br>";
+                    str+="disk :"+rowData.disk+"MB<br>";
+                    str+="gpu :"+rowData.gpus+"<br>";
+                    return str;
+                }},
+
+                {"field": "os","title":"操作系统","width":30,align:"center","formatter":function(value,rowData,rowIndex){
                     if(value=="Ubuntu"){
                         //Unbuntu
                         return "Ubuntu";
@@ -151,12 +154,22 @@
                     }
 
                 }},
-//                {"field": "ip","title":"IP","width":100,align:"center"},
-//                {"field": "cpu","title":"CPU","width":100,align:"center"},
-//                {"field": "memory","title":"内存","width":100,align:"center"},
-//                {"field": "disk","title":"磁盘","width":100,align:"center"},
+                {"field": "slave_ip","title":"IP","width":40,align:"center"},
+                {"field": "used","title":"资源使用","width":60,align:"left","formatter":function(value,rowData,rowIndex){
+                    console.log(rowData);
+                    var str="";
+                    str+="CPU :"+rowData.cpu_used+"<br>";
+                    str+="memory :"+rowData.memory_used+"MB<br>";
+                    str+="disk :"+rowData.disk_used+"MB<br>";
+                    str+="gpu :"+rowData.gpus_used+"<br>";
+                    return str;
+                }},
+//                {"field": "cpu_used","title":"使用CPU","width":50,align:"center"},
+//                {"field": "memory_used","title":"使用内存","width":30,align:"center"},
+//                {"field": "disk_used","title":"使用磁盘","width":30,align:"center"},
+//                {"field": "gpus_used","title":"使用GPU","width":20,align:"center"},
 
-                {"field": "status","title":"状态","width":80,align:"center",
+                {"field": "status","title":"状态","width":30,align:"center",
                     "formatter":function (value, rowData,rowIndex) {
                         if(value=="true"){
                             return '<img id="u56_img" class="img " src="{{projcfg.appurl}}/static/images/u56.png">'+'运行中';
@@ -164,16 +177,17 @@
                         }else{
                             return '<img id="u58_img" class="img " src="{{projcfg.appurl}}/static/images/u58.png">'+'故障';
                         }
-                    }},
-
-
-                {"field": "remark","title":"备注","width":120,align:"center"},
-                {"field": "oper","title":"操作","width":120,align:"center",
+                    }
+                },
+                {"field": "master_ip","title":"主机IP","width":40,align:"center"},
+                {"field": "master_id","title":"主机ID","width":100,align:"center"},
+                {"field": "oper","title":"操作","width":70,align:"center",
                     "formatter":function (value, rowData,rowIndex) {
                         return "<span  style='height:26px;line-height:16px;font-weight:600;margin-top: 0.5rem;margin-left: 0.5rem;cursor: pointer;' onclick='hm_list("+rowData.id+",\""+rowData.name+"\")'>主机管理</span>" +
                                 " <span  style='height:26px;line-height:16px;font-weight:600;margin-top: 0.5rem;margin-left: 0.5rem;cursor: pointer;' onclick='hm_list(\"+rowData.id+\",\\\"\"+rowData.name+\"\\\")'>主机管理</span>" +
                                 "<span style='height:26px;line-height:16px;font-weight:600;margin-top: 0.5rem;margin-left: 0.5rem;cursor: pointer;' onclick='hm_list(\"+rowData.id+\",\\\"\"+rowData.name+\"\\\")'>主机管理</span>";
-                    }}
+                    }},
+                {"field": "remark","title":"备注","width":20,align:"center"}
             ]],
             onLoadError:function() {
                 msgError('加载数据出现时发生错误,请稍候重试...');

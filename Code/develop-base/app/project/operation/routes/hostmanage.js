@@ -14,7 +14,7 @@ router.route('/').get(function(req,res){
     var length = req.query.rows;
     var master_id = req.query.master_id;
     var conditionMap = {};
-    if(colonyId){
+    if(master_id){
         conditionMap.master_id = master_id;
     }
     // 调用分页
