@@ -1,0 +1,513 @@
+<script src="{{projcfg.appurl}}/static/js/containerlistingdata.js" type="text/javascript"></script>
+<div class="row">
+    <div class="col-xs-12 col-md-12">
+        <div class="widget">
+                    <div class="col-xs-6 col-md-6" style="width:100%">
+                        <font size="3.5rem" style=""> <b>集群管理详情</b></font>
+
+                    </div>
+                <div class="col-xs-12 col-md-12" style="margin-top: 5px"><hr style="height:1px;border:none;border-top:1px solid #555555;" ></div>
+                    <div class="col-xs-6 col-md-6" style="width:100%;margin-top: 10px">
+                        <font size="3.5rem" style=""> <b>基础信息</b></font>
+
+                    </div>
+                    <div style="display: inline;font-size: 16px;" class="col-xs-6 col-md-6">名称  :  <span id="name"></span></div>
+                    <div class="col-xs-6 col-md-6" style="font-size: 16px">位置  :  <span id="position"></span></div>
+                    <div class="col-xs-6 col-md-6" style="font-size: 16px;margin-top: 10px">状态  :  <span id="status"></span></div>
+        </div>
+        <div class="col-xs-6 col-md-6" style="width:100%;margin-top: 30px">
+            <font size="3.5rem" style=""> <b>资源使用情况</b></font>
+
+        </div>
+        <div class="col-xs-12 col-md-12" style="margin-top: 5px"><hr style="height:1px;border:none;border-top:1px solid #555555;" ></div>
+        <table style="width: 100%;height: 200px;margin-top: 10px" class="col-xs-12 col-md-12">
+            <tr>
+                <td id="cpu" style="width:33%; height: 200px;"></td>
+                <td id="neicun" style="width:33%; height: 200px;"></td>
+                <td id="disk" style="width:33%; height: 200px;"></td>
+            </tr>
+        </table>
+        <div class="col-xs-12 col-md-12" style="margin-top: 5px"><hr style="height:1px;border:none;border-top:1px solid #555555;" ></div>
+        <table style="width: 100%;height: 600px;margin-top: 10px" class="col-xs-12 col-md-12">
+            <tr>
+                <td id="runStatus" style="width:40%; height: 32px;"></td>
+                <td id="ringChart" style="width:60%; height: 600px;" rowspan="2"></td>
+            </tr>
+            <tr>
+                <td id="operationSystem" style="width:30%; height: 100px;"></td>
+            </tr>
+            <tr>
+                <td id="hostStatus" colspan="2" style="width:100%; height: 500px;"></td>
+            </tr>
+            <tr>
+                <td id="netStatus" colspan="2" style="width:20%; height: 500px;"></td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+
+
+<script type="text/javascript" src="{{projcfg.appurl}}/static/js/echart/v3.1.3/echarts.min.js"></script>
+<script  type="text/javascript">
+    //页面直接跳转页面带参数时，获取url参数值
+    function GetRequest() {
+        var values = [];
+        var url = location.search; //获取url中"?"符后的字串
+        if (url.indexOf("?") != -1) {    //判断是否有参数
+            var str = url.substr(1); //从第一个字符开始 因为第0个是?号 获取所有除问号的所有符串
+            //用等号进行分隔 （因为知道只有一个参数 所以直接用等号进分隔 如果有多个参数 要用&号分隔 再用等号进行分隔）
+            if(str.indexOf("&") >= 0){
+                var strs = str.split("&");
+                for(var i=0;i<strs.length;i++){
+                    var vals = strs[i].split("=");
+                    if(i==0){
+                        values.push(decodeURI(vals[1]));
+                    }else{
+                        values.push(vals[1]);
+                    }
+                }
+            }else{
+                var strs = str.split("=");
+                values.push(decodeURI(strs[1]));
+            }
+            return values;
+        }
+    }
+    $(function(){
+        var paramsValues = GetRequest();
+        console.log("======paramsValues=====",paramsValues);
+        var id =paramsValues[0];
+        $.ajax({
+            url:'{{projcfg.appurl}}/api/project/operation/colonymanage/'+id,
+            type:'get',
+            success:function(data){
+                $("#name").html(data.data[0].name);
+                $("#position").html(data.data[0].position);
+                if(data.data[0].status==1)
+                    $("#status").html("运行中");
+                else
+                    $("#status").html("失效");
+            }
+        });
+        //初始化echarts实例
+        var cpuChart = echarts.init(document.getElementById('cpu'));
+        var memoryChart = echarts.init(document.getElementById('neicun'));
+        var diskChart = echarts.init(document.getElementById('disk'));
+        var runStatusChart = echarts.init(document.getElementById('runStatus'));
+        var operationSystemChart = echarts.init(document.getElementById('operationSystem'));
+        var ringChart = echarts.init(document.getElementById('ringChart'));
+        var hostStatusChart =echarts.init(document.getElementById('hostStatus'));
+        var netStatusChart=echarts.init(document.getElementById('netStatus'));
+        var usedCpu,totalCpu,usedDisk,totalDisk,usedMemory,totalMemory;
+        $.ajax({
+            url:'{{projcfg.appurl}}/api/project/operation/colonydetail/'+id,
+            type:'post',
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            success:function(data){
+                usedCpu=parseFloat(data.data[0].usedCpu);
+                totalCpu=parseFloat(data.data[0].totalCpu);
+                usedCpu=usedCpu/totalCpu*100;
+                usedDisk=parseFloat(data.data[0].usedDisk);
+                totalDisk=parseFloat(data.data[0].totalDisk);
+                usedDisk=usedDisk/totalDisk*100;
+                usedMemory=parseFloat(data.data[0].usedMemory);
+                totalMemory=parseFloat(data.data[0].totalMemory);
+                usedMemory=usedMemory/totalMemory*100;
+                cpuChart.setOption({
+                    title : {
+                        text: 'CPU',
+                        x:'center'
+                    },
+                    tooltip : {
+                        trigger: 'item',
+                        formatter: "{a} <br/>{b} : {c} ({d}%)"
+                    },
+                    legend: {
+                    },
+                    series : [
+                        {
+                            name: '使用情况',
+                            type: 'pie',
+                            radius : '60%',
+                            center: ['50%', '60%'],
+                            data:[
+                                {value:usedCpu, name:'已使用'},
+                                {value:(100-usedCpu), name:'未使用'},
+                            ],
+                            itemStyle: {
+                                emphasis: {
+                                    shadowBlur: 20,
+                                    shadowOffsetX: 0,
+                                    shadowColor: 'rgba(0, 0, 0, 0.5)'
+                                }
+                            }
+                        }
+                    ]
+                });
+                memoryChart.setOption({
+                    title : {
+                        text: '内存',
+                        x:'center'
+                    },
+                    tooltip : {
+                        trigger: 'item',
+                        formatter: "{a} <br/>{b} : {c} ({d}%)"
+                    },
+                    legend: {
+                    },
+                    series : [
+                        {
+                            name: '使用情况',
+                            type: 'pie',
+                            radius : '60%',
+                            center: ['50%', '60%'],
+                            data:[
+                                {value:usedMemory, name:'已使用'},
+                                {value:(100-usedMemory), name:'未使用'},
+                            ],
+                            itemStyle: {
+                                emphasis: {
+                                    shadowBlur: 20,
+                                    shadowOffsetX: 0,
+                                    shadowColor: 'rgba(0, 0, 0, 0.5)'
+                                }
+                            }
+                        }
+                    ]
+                });
+                diskChart.setOption({
+                    title : {
+                        text: '磁盘',
+                        x:'center'
+                    },
+                    tooltip : {
+                        trigger: 'item',
+                        formatter: "{a} <br/>{b} : {c} ({d}%)"
+                    },
+                    legend: {
+                    },
+                    series : [
+                        {
+                            name: '使用情况',
+                            type: 'pie',
+                            radius : '60%',
+                            center: ['50%', '60%'],
+                            data:[
+                                {value:usedDisk, name:'已使用'},
+                                {value:(100-usedDisk), name:'未使用'},
+                            ],
+                            itemStyle: {
+                                emphasis: {
+                                    shadowBlur: 20,
+                                    shadowOffsetX: 0,
+                                    shadowColor: 'rgba(0, 0, 0, 0.5)'
+                                }
+                            }
+                        }
+                    ]
+                })
+            }
+        });
+        $.ajax({
+            url:'{{projcfg.appurl}}/api/project/operation/colonydetail/getHostInfo',
+            type:"get",
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            success:function(data) {
+                var xAxis=new Array();//获取主机列表
+                var cpuUsed=new Array();//获取cpu使用情况
+                var diskUsed=new Array();//获取硬盘使用情况
+                var memoryUsed=new Array();//获取内存使用情况
+                var status=new Array();//获取运行状态使用情况
+                var running=0,stopping=0;
+                var operationSystem=new Array();//获取操作系统情况
+                for(var i in data.data){
+                    xAxis.push(data.data[i].slave_ip);
+                    cpuUsed.push(parseFloat((data.data[i].cpu_used)/parseFloat(data.data[i].cpu)*100).toFixed(2));
+                    diskUsed.push(parseFloat((data.data[i].disk_used)/parseFloat(data.data[i].disk)*100).toFixed(2));
+                    memoryUsed.push(parseFloat((data.data[i].memory_used)/parseFloat(data.data[i].memory)*100).toFixed(2));
+                    if(data.data[i].status){
+                        running++;
+                    }else{
+                        stopping++;
+                    }
+                    if(operationSystem.indexOf(data.data[i].os)==-1){
+                        operationSystem.push(data.data[i].os);
+                    }
+
+                }
+                status.push(running);
+                status.push(stopping);
+        runStatusChart.setOption({
+            title: {
+                text: '系统类型',
+                subtext: '状态'
+            },
+            tooltip: {
+                trigger: 'axis',
+                axisPointer: {
+                    type: 'shadow'
+                }
+            },
+            legend: {
+            },
+            grid: {
+                left: '3%',
+                right: '4%',
+                bottom: '3%',
+                containLabel: true
+            },
+            xAxis: {
+                type: 'value',
+                splitLine:{
+
+                    show:false
+
+                },
+                boundaryGap: [0, 0.01]
+            },
+            yAxis: {
+                type: 'category',
+                splitLine:{
+
+                    show:false
+
+                },
+                data: ['运行中','失效']
+            },
+            color:["green"],
+            series: [
+                {
+                    name:"数量",
+                    type: 'bar',
+                    data: status
+                }
+            ]
+        });
+        operationSystemChart.setOption({
+            title: {
+                text: '',
+                subtext: '操作系统'
+            },
+            tooltip: {
+                trigger: 'axis',
+                axisPointer: {
+                    type: 'shadow'
+                }
+            },
+            legend: {
+            },
+            grid: {
+                left: '3%',
+                right: '4%',
+                bottom: '3%',
+                containLabel: true
+            },
+            xAxis: {
+                type: 'value',
+                splitLine:{
+
+                    show:false
+
+                },
+                boundaryGap: [0, 1]
+            },
+            yAxis: {
+                type: 'category',
+                splitLine:{
+
+                    show:false
+
+                },
+                data: operationSystem
+            },
+            color:["green"],
+            series: [
+                {
+                    name: '数量',
+                    type: 'bar',
+                    data: status
+                }
+            ]
+        });
+        ringChart.setOption({
+            tooltip: {
+                trigger: 'item',
+                formatter: "{a} <br/>{b}: {c} ({d}%)"
+            },
+            legend: {
+
+            },
+            series: [
+                {
+                    name:'数量',
+                    type:'pie',
+                    selectedMode: 'single',
+                    radius: [0, '30%'],
+
+                    label: {
+                        normal: {
+                            position: 'inner'
+                        }
+                    },
+                    labelLine: {
+                        normal: {
+                            show: false
+                        }
+                    },
+                    data:[
+                        {value:stopping, name:'失效', selected:true},
+                        {value:running, name:'运行中'}
+                    ]
+                },
+                {
+                    name:'操作系统数量',
+                    type:'pie',
+                    radius: ['40%', '55%'],
+                    label: {
+                        normal: {
+                            backgroundColor: '#eee',
+                            borderColor: '#aaa',
+                            borderWidth: 1,
+                            borderRadius: 4,
+                            rich: {
+                                a: {
+                                    color: '#999',
+                                    lineHeight: 22,
+                                    align: 'center'
+                                },
+                                hr: {
+                                    borderColor: '#aaa',
+                                    width: '100%',
+                                    borderWidth: 0.5,
+                                    height: 0
+                                },
+                                b: {
+                                    fontSize: 16,
+                                    lineHeight: 33
+                                },
+                                per: {
+                                    color: '#eee',
+                                    backgroundColor: '#334455',
+                                    padding: [2, 4],
+                                    borderRadius: 2
+                                }
+                            }
+                        }
+                    },
+                    data:[
+                        {value:7, name:'Linux'}
+                    /*    {value:310, name:'ubuntu16'},
+                        {value:234, name:'centos6'},
+                        {value:135, name:'centos7'},
+                        {value:1048, name:'redhat5.5'}*/
+                    ]
+                }
+            ]
+        });
+
+                hostStatusChart.setOption({
+                    title: {
+                        text: '各主机资源使用情况',
+                        x: 'center'
+                    },
+                    tooltip: {
+                        trigger: 'axis',
+                        axisPointer: {            // 坐标轴指示器，坐标轴触发有效
+                            type: 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+                        }
+                    },
+                    legend: {
+                        data: ['cpu使用率', '内存使用率', '硬盘使用率'],
+                        y: 30
+                    },
+                    color: ["blue", "yellow", "gray"],
+                    grid: {
+                        left: '3%',
+                        right: '4%',
+                        bottom: '3%',
+                        containLabel: true
+                    },
+                    xAxis: [
+                        {
+                            type: 'category',
+                            data: xAxis,
+                            splitLine: {
+
+                                show: false
+
+                            },
+                        }
+                    ],
+                    yAxis: [
+                        {
+                            type: 'value',
+                            splitLine: {
+
+                                show: false
+
+                            },
+                            axisLabel: {
+                                formatter: '{value} %'
+                            }
+                        }
+                    ],
+                    series: [
+                        {
+                            name: 'cpu使用率',
+                            type: 'bar',
+                            data: cpuUsed
+                        },
+                        {
+                            name: '内存使用率',
+                            type: 'bar',
+                            data: memoryUsed
+                        },
+                        {
+                            name: '硬盘使用率',
+                            type: 'bar',
+                            data: diskUsed
+                        }
+                    ]
+                });
+        netStatusChart.setOption({
+            title: {
+                text: '各主机网络情况',
+                subtext: '网络(外网)'
+            },
+            tooltip: {
+                trigger: 'axis'
+            },
+            legend: {
+                data:['出网kbps','入网kbps']
+            },
+            xAxis:  {
+                type: 'category',
+                boundaryGap: false,
+                data: ['主机一','主机二','主机三','主机四','主机五','主机六','主机七']
+            },
+            yAxis: {
+                type: 'value',
+                axisLabel: {
+                    formatter: '{value} kbps'
+                }
+            },
+            series: [
+                {
+                    name:'出网kbps',
+                    type:'line',
+                    data:[11, 11, 15, 13, 12, 13, 10],
+                },
+                {
+                    name:'入网kbps',
+                    type:'line',
+                    data:[1, -2, 2, 5, 3, 2, 0],
+                }
+            ]
+        });
+            }
+        });
+    })
+</script>
