@@ -6,26 +6,42 @@
                 <div id="toolbar" class="row tbRow" style="margin-bottom: 1.1rem;border-bottom: 1px solid #ccc;">
                     <div class="col-xs-6 col-md-6" style="width:100%">
                         <font size="3.5rem" style="margin-left: 1.2rem;margin-right: 2.5rem"> <b>主机管理</b></font>
-                        <div class="btn-group" role="group" aria-label="...">
+                        <div>
+                            <div class="btn-group" role="group" aria-label="...">
+                                <button type="button" class="btn btn-default" onclick="" data-title="花溪机房">
+                                    花溪机房
+                                </button>
+                                <button type="button" class="btn btn-default" onclick="toEdit()" data-title="金阳机房">
+                                    金阳机房
+                                </button>
+                                <button type="button" class="btn btn-default" onclick="doDel()" data-title="远通大厦">
+                                    远通大厦
+                                </button>
+                            </div>
+                            <div class="btn-group" role="group" aria-label="..." style="float: right;margin-right: 2rem;">
+                                <button type="button" class="btn btn-default" onclick=";" data-title="查询">
+                                    查询
+                                </button>
+                            </div>
+                        </div>
+
+                        <div style="margin-top:10px"><hr style="height:1px;border:none;border-top:1px solid #555555;" /></div>
+                        <div class="btn-group" role="group" aria-label="..." style="margin-top:10px">
                             <button type="button" class="btn btn-default" onclick="openPage('新增主机','',doAdd)" data-title="新增">
                                 <i class="fa fa-plus"></i> 新增
                             </button>
                             <button type="button" class="btn btn-default" onclick="toEdit()" data-title="修改">
                                 <i class="fa fa-edit"></i> 修改
                             </button>
-                            <!--<button type="button" class="btn btn-default" onclick="doDel()" data-title="删除">-->
-                                <!--<i class="fa fa-remove"></i> 删除-->
-                            <!--</button>-->
-                        </div>
-                        <div class="btn-group" role="group" aria-label="..." style="float: right;margin-right: 2rem;">
-                            <button type="button" class="btn btn-default" onclick="do_return();" data-title="返回">
-                                <i class="fa fa-reply"></i> 返回
+                            <button type="button" class="btn btn-default" onclick="doDel()" data-title="删除">
+                                <i class="fa fa-remove"></i> 删除
                             </button>
                         </div>
+
                     </div>
-                    <div class="col-xs-6 col-md-6 " style="float: left;width: 100%;margin-left: 1rem;margin-top: 0.5rem;margin-bottom: 0.5rem;">
-                        所属集群：<span id="colonyname" style="margin-left: 1rem;"></span>
-                    </div>
+                    <!--<div class="col-xs-6 col-md-6 " style="float: left;width: 100%;margin-left: 1rem;margin-top: 0.5rem;margin-bottom: 0.5rem;">-->
+                        <!--所属集群：<span id="colonyname" style="margin-left: 1rem;"></span>-->
+                    <!--</div>-->
                 </div>
                 <div id="cc" class="easyui-layout" data-options="fit:true,border:false" style="width: 800px; height:575px;background-color: #fbfbfb;">
                     <div id="images" data-options="region:'center',border:false" style="overflow-x:hidden;overflow-y:hidden">
@@ -95,12 +111,12 @@
     $(function(){
         var paramsValues = GetRequest();
         console.log("======paramsValues=====",paramsValues);
-        $("#colonyname").html(paramsValues[0]);
-        $("#colonyId").val(paramsValues[1]);
+        $("master_ip").html(paramsValues[0]);
+        $("#master_id").val(paramsValues[1]);
         $('#hostDataTable').datagrid({
             url:'{{projcfg.appurl}}/api/project/operation/hostmanage',
             method:'get',
-            queryParams:{'colonyId':paramsValues[1]},
+            queryParams:{'master_id':paramsValues[1]},
             rownumbers:false,
             striped:true,
             fitColumns:true,
@@ -112,7 +128,7 @@
             columns:[[
                 {"field":'id',checkbox:true},
                 {"field":'colonyId',hidden:true},
-                {"field": "name","title":"名称","width":80,align:"center"},
+                {"field": "name","title":"编号","width":80,align:"center"},
                 {"field": "configure","title":"配置","width":130,align:"center",
                     "formatter":function (value, rowData,rowIndex) {
                         if(value){
@@ -120,16 +136,44 @@
                         }
                         return value;
                     }},
-                {"field": "os","title":"操作系统","width":100,align:"center"},
-                {"field": "ip","title":"IP","width":100,align:"center"},
-                {"field": "cpu","title":"CPU","width":100,align:"center"},
-                {"field": "memory","title":"内存","width":100,align:"center"},
-                {"field": "disk","title":"磁盘","width":100,align:"center"},
+                {"field": "os","title":"操作系统","width":100,align:"center","formatter":function(value,rowData,rowIndex){
+                    if(value=="Ubuntu"){
+                        //Unbuntu
+                        return "Ubuntu";
+                    }else if(value=="CentOS"){
+                        //CentOs  系统
+                        return "CentOS";
+                    }else if(value=="Windows"){
+                        //Windows系统
+                        return "Windows";
+                    }else {
+                        return "Linux";
+                    }
+
+                }},
+//                {"field": "ip","title":"IP","width":100,align:"center"},
+//                {"field": "cpu","title":"CPU","width":100,align:"center"},
+//                {"field": "memory","title":"内存","width":100,align:"center"},
+//                {"field": "disk","title":"磁盘","width":100,align:"center"},
+
                 {"field": "status","title":"状态","width":80,align:"center",
                     "formatter":function (value, rowData,rowIndex) {
-                        return '运行中';
+                        if(value=="true"){
+                            return '<img id="u56_img" class="img " src="{{projcfg.appurl}}/static/images/u56.png">'+'运行中';
+
+                        }else{
+                            return '<img id="u58_img" class="img " src="{{projcfg.appurl}}/static/images/u58.png">'+'故障';
+                        }
                     }},
-                {"field": "remark","title":"备注","width":120,align:"center"}
+
+
+                {"field": "remark","title":"备注","width":120,align:"center"},
+                {"field": "oper","title":"操作","width":120,align:"center",
+                    "formatter":function (value, rowData,rowIndex) {
+                        return "<span  style='height:26px;line-height:16px;font-weight:600;margin-top: 0.5rem;margin-left: 0.5rem;cursor: pointer;' onclick='hm_list("+rowData.id+",\""+rowData.name+"\")'>主机管理</span>" +
+                                " <span  style='height:26px;line-height:16px;font-weight:600;margin-top: 0.5rem;margin-left: 0.5rem;cursor: pointer;' onclick='hm_list(\"+rowData.id+\",\\\"\"+rowData.name+\"\\\")'>主机管理</span>" +
+                                "<span style='height:26px;line-height:16px;font-weight:600;margin-top: 0.5rem;margin-left: 0.5rem;cursor: pointer;' onclick='hm_list(\"+rowData.id+\",\\\"\"+rowData.name+\"\\\")'>主机管理</span>";
+                    }}
             ]],
             onLoadError:function() {
                 msgError('加载数据出现时发生错误,请稍候重试...');
