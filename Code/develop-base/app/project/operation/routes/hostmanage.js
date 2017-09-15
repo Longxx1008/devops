@@ -12,10 +12,10 @@ router.route('/').get(function(req,res){
     // 分页参数
     var page = req.query.page;
     var length = req.query.rows;
-    var colonyId = req.query.colonyId;
+    var master_id = req.query.master_id;
     var conditionMap = {};
     if(colonyId){
-        conditionMap.colonyId = colonyId;
+        conditionMap.master_id = master_id;
     }
     // 调用分页
         hostManageService.pageList(page, length, conditionMap,function(result){
