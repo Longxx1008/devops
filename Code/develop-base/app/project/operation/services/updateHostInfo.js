@@ -10,11 +10,9 @@ var pool = mysql.createPool($util.extend({}, config.mysql));
 
 var nodegrass=require("nodegrass");
 
-getSalve();
 
 
-
-function getSalve(){
+exports.getSalve=function(){
     var REQ_HEADERS = {
         'Content-Type': 'application/x-www-form-urlencoded'
     };
@@ -276,7 +274,7 @@ function updateMysql(k,slaves,master_id,master_ip,createUser){
 
          }
      });
-     
+
  }else{
 
      return ;
