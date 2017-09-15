@@ -137,7 +137,8 @@ exports.syncColonyInfo = function(){
                     var resource = "CPU:" + cpuTotal + "核</br>" + "内存:" + (memTotal/1024).toFixed(3) + "GB</br>磁盘:" + (diskTotal/1024).toFixed(3) + "GB";
                     console.log(usage);
                     console.log(resource);
-                    var sql = "update pass_operation_colony_info set `usage`='" + usage + "',totalResource='" + resource + "' where 1=1";
+                    /*var sql = "update pass_operation_colony_info set `usage`='" + usage + "',totalResource='" + resource + "' where 1=1";*/
+                    var sql = "update pass_operation_colony_info set totalCpu='"+cpuTotal+"核',usedCpu='"+cpuUsed+"核',totalMemory='"+memTotal+"GB',usedMemory='"+memUsed+"GB',totalDisk='"+diskTotal+"GB',usedDisk='"+diskUsed+"GB' where 1=1";
                     console.log(sql);
                     mysqlPool.query(sql,[],function(err,result) {
                         if(err) {

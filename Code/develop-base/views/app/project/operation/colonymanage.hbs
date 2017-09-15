@@ -111,8 +111,12 @@
             columns:[[
                 {"field":'id',checkbox:true},
                 {"field": "name","title":"名称","width":80,align:"center"},
-                {"field": "usage","title":"使用情况","width":130,align:"center"},
-                {"field": "totalResource","title":"总资源","width":130,align:"center"},
+                {"field": "totalCpu","title":"cpu总资源","width":130,align:"center"},
+                {"field": "usedCpu","title":"cpu使用情况","width":130,align:"center"},
+                {"field": "totalDisk","title":"硬盘总资源","width":130,align:"center"},
+                {"field": "usedDisk","title":"硬盘使用情况","width":130,align:"center"},
+                {"field": "totalMemory","title":"内存总资源","width":130,align:"center"},
+                {"field": "usedMemory","title":"内存使用情况","width":130,align:"center"},
                 {"field": "status","title":"状态","width":80,align:"center",
                     "formatter":function (value, rowData,rowIndex) {
                         return '运行中';
@@ -120,19 +124,25 @@
                 {"field": "remark","title":"备注","width":150,align:"center"},
                 {"field": "oper","title":"操作","width":120,align:"center",
                     "formatter":function (value, rowData,rowIndex) {
-                        return "<span class=\"label label-info\" style='height:26px;line-height:16px;font-weight:600;margin-top: 0.5rem;margin-left: 0.5rem;cursor: pointer;' onclick='hm_list("+rowData.id+",\""+rowData.name+"\")'>主机管理</span>";
+                        return "<span class=\"label label-info\" style='height:26px;line-height:16px;font-weight:600;margin-top: 0.5rem;margin-left: 0.5rem;cursor: pointer;' onclick='hm_list(\""+rowData.master_id+"\",\""+rowData.master_ip+"\")'>主机管理</span>";
                     }}
             ]],
             onLoadError:function() {
                 msgError('加载数据出现时发生错误,请稍候重试...');
             },
+            //双击显示详情页面
+            onDblClickRow:function(rowIndex,rowData){
+                colonymanage(rowData.id);
+            },
             pagination:true,
             loadMsg:'正在加载...'
         });
     });
-
-  function hm_list(id,cm_name){
-      window.location.href = "{{projcfg.appurl}}/hostmanage?colonyname="+encodeURI(cm_name)+"&id="+id;
+  function colonymanage(id){
+      window.location.href="{{projcfg.appurl}}/colonydetail?id="+id;
+  }
+  function hm_list(master_ip,master_id){
+      window.location.href = "{{projcfg.appurl}}/hostmanage?master_ip="+encodeURI(master_id)+"&master_id="+master_ip;
   }
     /**
      * 容器列表
