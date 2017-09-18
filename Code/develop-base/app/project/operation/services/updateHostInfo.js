@@ -30,7 +30,7 @@ exports.getSalve=function(){
                 console.log("---------------------------",k,master_id,master_ip,createUser);
                 updateMysql(k,slaves,master_id,master_ip,createUser);
             }else{
-                console.log("登录失败。");
+                console.log("访问mesos失败 。");
                 console.log(res);
                 console.log(status);
             }
@@ -67,210 +67,210 @@ function updateMysql(k,slaves,master_id,master_ip,createUser){
          if (err) {
              console.log(err.message);
          } else {
-             var sql_select="select * from pass_operation_host_info where slave_id='"+slave_id+"' and master_id='"+master_id+"'";
-             console.log(sql_select);
-             connection.query(sql_select,function(err,results){
-                 if(err){
-                     console.log(err);
-                 }else{
-                     if(results.length>0){
+             // var sql_select="select * from pass_operation_host_info where slave_id='"+slave_id+"' and master_id='"+master_id+"'";
+             // console.log(sql_select);
+             // connection.query(sql_select,function(err,results){
+             //     if(err){
+             //         console.log(err);
+             //     }else{
+                     // if(results.length>0){
                          //存在然后更新；
 
-                         var sql_update="UPDATE pass_operation_host_info SET ";
-                         if(os){
-                             sql_update+=" os='"+os+"'";
-                         }
-                         if(name){
-                            sql_update+=",name='"+name+"'";
-                         }
-
-                         if(cpu){
-                             sql_update+=",cpu='"+cpu+"'";
-                         }
-                         if(slave_id){
-                             sql_update+=",slave_id='"+slave_id+"'";
-                         }
-                         if(slave_ip){
-                             sql_update+=",slave_ip='"+slave_ip+"'";
-                         }
-                         if(slave_port){
-                             sql_update+=",slave_port='"+slave_port+"'";
-                         }
-                         if(memory){
-                             sql_update+=",memory='"+memory+"'";
-                         }
-                         if(gpus){
-                             sql_update+=",gpus='"+gpus+"'";
-                         }
-                         if(disk){
-                             sql_update+=",disk='"+disk+"'";
-                         }
-                         if(disk_used){
-                             sql_update+=",disk_used='"+disk_used+"'";
-                         }
-                         if(memory_used){
-                             sql_update+=",memory_used='"+memory_used+"'";
-                         }
-                         if(master_ip){
-                             sql_update+=",master_ip='"+master_ip+"'";
-                         }
-
-                         if(createUser){
-                             console.log("createUser",createUser);
-                             sql_update+=",CreateUser='"+createUser+"' ";
-                         }
-                         if(gpus_used){
-                             sql_update+=",gpus_used='"+gpus_used+"' ";
-                         }
-                         if(status){
-                             sql_update+=",status='"+status+"' ";
-                         }
-                         if(createTime){
-                             sql_update+=",createTime='"+createTime+"' ";
-                         }
-                         if(cpu_used){
-                             sql_update+=",cpu_used='"+cpu_used+"' ";
-                         }
-                         sql_update+="where slave_id='"+slave_id+"' and master_id='"+master_id+"' ;";
-                         console.log("sql_update    ;",sql_update);
-                         connection.query(sql_update,function(error,result){
-                             if(error){
-                                 console.log(error);
-                             }else{
-                                 k++;
-                                 updateMysql(k,slaves,master_id,master_ip,createUser);
-                             }
-                         })
-                     }else{
+                         // var sql_update="UPDATE pass_operation_host_info SET ";
+                         // if(os){
+                         //     sql_update+=" os='"+os+"'";
+                         // }
+                         // if(name){
+                         //    sql_update+=",name='"+name+"'";
+                         // }
+                         //
+                         // if(cpu){
+                         //     sql_update+=",cpu='"+cpu+"'";
+                         // }
+                         // if(slave_id){
+                         //     sql_update+=",slave_id='"+slave_id+"'";
+                         // }
+                         // if(slave_ip){
+                         //     sql_update+=",slave_ip='"+slave_ip+"'";
+                         // }
+                         // if(slave_port){
+                         //     sql_update+=",slave_port='"+slave_port+"'";
+                         // }
+                         // if(memory){
+                         //     sql_update+=",memory='"+memory+"'";
+                         // }
+                         // if(gpus){
+                         //     sql_update+=",gpus='"+gpus+"'";
+                         // }
+                         // if(disk){
+                         //     sql_update+=",disk='"+disk+"'";
+                         // }
+                         // if(disk_used){
+                         //     sql_update+=",disk_used='"+disk_used+"'";
+                         // }
+                         // if(memory_used){
+                         //     sql_update+=",memory_used='"+memory_used+"'";
+                         // }
+                         // if(master_ip){
+                         //     sql_update+=",master_ip='"+master_ip+"'";
+                         // }
+                         //
+                         // if(createUser){
+                         //     console.log("createUser",createUser);
+                         //     sql_update+=",CreateUser='"+createUser+"' ";
+                         // }
+                         // if(gpus_used){
+                         //     sql_update+=",gpus_used='"+gpus_used+"' ";
+                         // }
+                         // if(status){
+                         //     sql_update+=",status='"+status+"' ";
+                         // }
+                         // if(createTime){
+                         //     sql_update+=",createTime='"+createTime+"' ";
+                         // }
+                         // if(cpu_used){
+                         //     sql_update+=",cpu_used='"+cpu_used+"' ";
+                         // }
+                         // sql_update+="where slave_id='"+slave_id+"' and master_id='"+master_id+"' ;";
+                         // console.log("sql_update    ;",sql_update);
+                         // connection.query(sql_update,function(error,result){
+                         //     if(error){
+                         //         console.log(error);
+                         //     }else{
+                         //         k++;
+                         //         updateMysql(k,slaves,master_id,master_ip,createUser);
+                         //     }
+                         // })
+                     // }else{
                          // 不存在然后插入
-                         var sql_insert = "INSERT INTO pass_operation_host_info ( ";
-                         if(os){
-                             sql_insert+="os";
-                         }
-                         if(name){
-                             sql_insert+=",name";
-                         }
-                         if(cpu){
-                             sql_insert+=",cpu";
-                         }
-                         if(slave_id){
-                             sql_insert+=",slave_id";
-                         }
-                         if(slave_ip){
-                             sql_insert+=",slave_ip";
-                         }
-                         if(slave_port){
-                             sql_insert+=",slave_port";
-                         }
-                         if(memory){
-                             sql_insert+=",memory";
-                         }
-                         if(gpus){
-                             sql_insert+=",gpus";
-                         }
-                         if(disk){
-                             sql_insert+=",disk";
-                         }
-                         if(disk_used){
-                             sql_insert+=",disk_used";
-                         }
-                         if(memory_used){
-                             sql_insert+=",memory_used";
-                         }
-                         if(master_ip){
-                             sql_insert+=",master_ip";
-                         }
-                         if(createUser){
-                             sql_insert+=",createUser ";
-                         }
-                         if(gpus_used){
-                             sql_insert+=",gpus_used ";
-                         }
-                         if(status){
-                             sql_insert+=",status ";
-                         }
-                         if(createTime){
-                             sql_insert+=",createTime ";
-                         }
-                         if(cpu_used){
-                             sql_insert+=",cpu_used";
-                         }
-                         if(master_id){
-                             sql_insert+=",master_id"
-                         }
-                         sql_insert+=") values (";
+             var sql_insert = "INSERT INTO pass_operation_host_info ( ";
+             if(os){
+                 sql_insert+="os";
+             }
+             if(name){
+                 sql_insert+=",name";
+             }
+             if(cpu){
+                 sql_insert+=",cpu";
+             }
+             if(slave_id){
+                 sql_insert+=",slave_id";
+             }
+             if(slave_ip){
+                 sql_insert+=",slave_ip";
+             }
+             if(slave_port){
+                 sql_insert+=",slave_port";
+             }
+             if(memory){
+                 sql_insert+=",memory";
+             }
+             if(gpus){
+                 sql_insert+=",gpus";
+             }
+             if(disk){
+                 sql_insert+=",disk";
+             }
+             if(disk_used){
+                 sql_insert+=",disk_used";
+             }
+             if(memory_used){
+                 sql_insert+=",memory_used";
+             }
+             if(master_ip){
+                 sql_insert+=",master_ip";
+             }
+             if(createUser){
+                 sql_insert+=",createUser ";
+             }
+             if(gpus_used){
+                 sql_insert+=",gpus_used ";
+             }
+             if(status){
+                 sql_insert+=",status ";
+             }
+             if(createTime){
+                 sql_insert+=",createTime ";
+             }
+             if(cpu_used){
+                 sql_insert+=",cpu_used";
+             }
+             if(master_id){
+                 sql_insert+=",master_id"
+             }
+             sql_insert+=") values (";
 
-                         if(os){
-                             sql_insert+="'"+os+"'";
-                         }
-                         if(name){
-                             sql_insert+=",'"+name+"'";
-                         }
-                         if(cpu){
-                             sql_insert+=",'"+cpu+"'";
-                         }
-                         if(slave_id){
-                             sql_insert+=",'"+slave_id+"'";
-                         }
-                         if(slave_ip){
-                             sql_insert+=",'"+slave_ip+"'";
-                         }
-                         if(slave_port){
-                             sql_insert+=",'"+slave_port+"'";
-                         }
-                         if(memory){
-                             sql_insert+=",'"+memory+"'";
-                         }
-                         if(gpus){
-                             sql_insert+=",'"+gpus+"'";
-                         }
-                         if(disk){
-                             sql_insert+=",'"+disk+"'";
-                         }
-                         if(disk_used){
-                             sql_insert+=",'"+disk_used+"'";
-                         }
-                         if(memory_used){
-                             sql_insert+=",'"+memory_used+"'";
-                         }
-                         if(master_ip){
-                             sql_insert+=",'"+master_ip+"'";
-                         }
-                         if(createUser){
-                             sql_insert+=",'"+createUser+"'";
-                         }
-                         if(gpus_used){
-                             sql_insert+=",'"+gpus_used +"'";
-                         }
-                         if(status){
-                             sql_insert+=",'"+status+"' ";
-                         }
-                         if(createTime){
-                             sql_insert+=",'"+createTime+"' ";
-                         }
-                         if(cpu_used){
-                             sql_insert+=",'"+cpu_used+"'";
-                         }
-                         if(master_id){
-                             sql_insert+=",'"+master_id+"'";
-                         }
-                         sql_insert+=")";
-                         console.log("createTime   ",createTime);
-                         console.log("sql_insert  : ",sql_insert);
-                         connection.query(sql_insert,function(error,result){
-                             if(error){
-                                 console.log(error);
-                             }else{
-                                 k++;
-                                 updateMysql(k,slaves,master_id,master_ip,createUser);
-                             }
-                         })
-
-                     }
-
+             if(os){
+                 sql_insert+="'"+os+"'";
+             }
+             if(name){
+                 sql_insert+=",'"+name+"'";
+             }
+             if(cpu){
+                 sql_insert+=",'"+cpu+"'";
+             }
+             if(slave_id){
+                 sql_insert+=",'"+slave_id+"'";
+             }
+             if(slave_ip){
+                 sql_insert+=",'"+slave_ip+"'";
+             }
+             if(slave_port){
+                 sql_insert+=",'"+slave_port+"'";
+             }
+             if(memory){
+                 sql_insert+=",'"+memory+"'";
+             }
+             if(gpus){
+                 sql_insert+=",'"+gpus+"'";
+             }
+             if(disk){
+                 sql_insert+=",'"+disk+"'";
+             }
+             if(disk_used){
+                 sql_insert+=",'"+disk_used+"'";
+             }
+             if(memory_used){
+                 sql_insert+=",'"+memory_used+"'";
+             }
+             if(master_ip){
+                 sql_insert+=",'"+master_ip+"'";
+             }
+             if(createUser){
+                 sql_insert+=",'"+createUser+"'";
+             }
+             if(gpus_used){
+                 sql_insert+=",'"+gpus_used +"'";
+             }
+             if(status){
+                 sql_insert+=",'"+status+"' ";
+             }
+             if(createTime){
+                 sql_insert+=",'"+createTime+"' ";
+             }
+             if(cpu_used){
+                 sql_insert+=",'"+cpu_used+"'";
+             }
+             if(master_id){
+                 sql_insert+=",'"+master_id+"'";
+             }
+             sql_insert+=")";
+             console.log("createTime   ",createTime);
+             console.log("sql_insert  : ",sql_insert);
+             connection.query(sql_insert,function(error,result){
+                 if(error){
+                     console.log(error);
+                 }else{
+                     k++;
+                     updateMysql(k,slaves,master_id,master_ip,createUser);
                  }
+             })
 
-             });
+                     // }
+
+                 // }
+
+             // });
 
          }
      });
