@@ -15,7 +15,7 @@ var nodegrass=require("nodegrass");
 
 exports.getSalve=function(){
 
-     return new Promise(function(resolve,reject){
+     var p =new Promise(function(resolve,reject){
          var REQ_HEADERS = {
              'Content-Type': 'application/x-www-form-urlencoded'
          };
@@ -46,8 +46,12 @@ exports.getSalve=function(){
         });
 
 
-    });
+    }).catch(function(error){
 
+        console.log(error);
+
+     })
+    return p;
 }
 //                   k,slaves,master_id,master_ip,createUser,master_port
 function updateMysql(resolve,k,slaves,master_id,master_ip,createUser){

@@ -30,13 +30,14 @@ router.route('/').get(function(req,res){
 router.route('/getHostInfo').get(function(req,res){
     // 调用查询
     var id=req.query.id;
-    if(id){
+    var name=req.query.name;
+    if(id&&name){
         slaveDetailService.getSyncHostInfo(id).then(function(rs){
             utils.respJsonData(res,rs)
 
         });
     }else{
-        utils.respJsonData(res,{"error":new Error(),"message":"id不能为空","code":10000,"success":false});
+        utils.respJsonData(res,{"error":new Error(),"message":"id或name不能为空","code":10000,"success":false});
 
     }
 

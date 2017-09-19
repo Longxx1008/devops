@@ -44,15 +44,21 @@ exports.getSyncHostInfo = function(id){
                 resolve({"error": err, "code": 1001, "message": "查询数据失败！", "data": null, "success": false});
             }else{
                 if(results.length>0){
-                    var master_ip=reuslts[0].master_ip;
+                    var master_ip=results[0].master_ip;
+                    var slave_id=results[0].slave_id
+                    // console.log("http://"+"192.168.9.65"+":5050/master/state.json");
                     if(master_ip){
-                        nodegrass.get("http://+"+master_ip+":5050/master/state.json",
+                        nodegrass.get("http://"+master_ip+":5050/master/state.json",
                             function (res, status, headers) {
                                 if (status=="200") {
                                     var all=JSON.parse(res);
                                     var slaves=all.slaves;
-                                    console.log(slaves)
-                                    resolve({"error": null, "code": 0000, "message": "获取meosos数据成功！", "data": slaves, "success": true})
+                                    for(var slave in slaves){
+                                        if(slaves[slave].id==slave_id){
+                                            resolve({"error": null, "code": 0000, "message": "获取meosos数据成功！", "data": slaves[slave], "success": true})
+                                        }
+                                    }
+
 
                                 }else{
                                     console.log("访问mesos失败 。");

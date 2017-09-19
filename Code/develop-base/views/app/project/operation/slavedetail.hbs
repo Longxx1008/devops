@@ -1,10 +1,12 @@
 
-    <link rel="stylesheet" href="{{projcfg.appurl}}/static/css/base.css">
+<script type="text/javascript" src="{{projcfg.appurl}}/static/js/echart/v3.1.3/echarts.min.js"></script>
+<link rel="stylesheet" href="{{projcfg.appurl}}/static/css/base.css">
     <style>
         .header-box h2{
             font-size: 16px;
             font-weight: bold;
             float: left;
+            margin-top: 15px;
         }
         .header-box button{
             background-color: #2dc3e8;
@@ -44,10 +46,6 @@
         .main-box .infom-table li label{
             margin-right: 5px;
         }
-        .main-box .infom-table li span.state{
-            display: inline-block;
-            color: #48e88d;
-        }
         .main-box .monitoring-box{
             width: 735px;
         }
@@ -60,74 +58,71 @@
             border: 1px solid #dddddd;
             padding: 10px;
             margin-top: 10px;
+
         }
         .main-box .monitoring-box li span{
             font-weight: bold;
             margin-bottom: 10px;
             display: block;
         }
+        .monitoring-pic{
+            width: 100%;
+            height: 200px;
+        }
+        .page-body{
+            background-color: #ffffff;
+        }
     </style>
 
 <header class="header-box wrap clearfix">
-    <h2>主机详情</h2><button>返回</button>
+    <h2>主机详情 </h2>
+
+    <button onclick='javascript:history.back(-1);' >返回</button>
 </header>
+
 <div class="main-box wrap">
     <section class="f-l infom-table">
         <ul>
             <li><h2 class="infom-title">基本信息</h2></li>
-            <li><label>ID：</label><span>A454551</span></li>
-            <li><label>名称：</label><span>A454551</span></li>
-            <li><label>CPU：</label><span>A454551</span></li>
-            <li><label>内存：</label><span>A454551</span></li>
-            <li><label>操作系统：</label><span>A454551</span></li>
-            <li><label>磁盘：</label><span>A454551</span></li>
-            <li><label>内网IP：</label><span>A454551</span></li>
-            <li><label>状态：</label><span class="state">运行中</span></li>
+            <!--<li><label>ID：</label><span id="id"></span></li>-->
+            <li><label>名称：</label><span id="name"></span></li>
+            <li><label>CPU：</label><span id="cpu_info"></span></li>
+            <li><label>内存：</label><span id="memory_info"></span></li>
+            <li><label>操作系统：</label><span>Linux</span></li>
+            <li><label>磁盘：</label><span id="disk_info"></span></li>
+            <li><label>内网IP：</label><span id="ip"></span></li>
+            <li><label>状态：</label><span class="state" id="state"></span></li>
         </ul>
     </section>
     <section class="f-r monitoring-box">
-        <h2>监控信息</h2>
+        <h2 ><span id="id">&nbsp; &nbsp;</span> <b>主机监控信息 </b>  </h2>
+
         <ul>
             <li>
-                <span class="monitoring-title">CPU</span>
-                <div id="cpu" class="monitoring-pic">
+                <div id="cpu" class="monitoring-pic" >
 
                 </div>
             </li> <li>
-            <span class="monitoring-title">CPU</span>
-            <div class="monitoring-pic">
-                <img src="{{projcfg.appurl}}/static/images/img1.png" alt="" width="100%">
+            <div   id="memory" class="monitoring-pic" s>
+
             </div>
-        </li> <li>
-            <span class="monitoring-title">CPU</span>
-            <div class="monitoring-pic">
-                <img src="{{projcfg.appurl}}/static/images/img1.png" alt="" width="100%">
-            </div>
-        </li> <li>
-            <span class="monitoring-title">CPU</span>
-            <div class="monitoring-pic">
-                <img src="{{projcfg.appurl}}/static/images/img1.png" alt="" width="100%">
-            </div>
-        </li> <li>
-            <span class="monitoring-title">CPU</span>
-            <div class="monitoring-pic">
-                <img src="{{projcfg.appurl}}/static/images/img1.png" alt="" width="100%">
+        </li>  <li>
+            <div id="disk" class="monitoring-pic"  >
             </div>
         </li>
         </ul>
     </section>
 </div>
-<div style="width:100px;height:10px">
+<!--<div style="width:100px;height:10px">
     <div style="height:10px;width:60%;background:#ff0000; float:left;"></div>
     <div style="height:10px;width:40%;background:#36d70f; float:right;"></div>
-</div>
+</div>-->
 
 
 
 <script  type="text/javascript">
-
+    var paramsValues = GetRequest();
     $(function(){
-        var paramsValues = GetRequest();
         console.log("======paramsValues=====",paramsValues);
 //        $("master_ip").html(paramsValues[0]);
 //        $("#master_id").val(paramsValues[1]);
@@ -139,12 +134,140 @@
             success:function(data){
 //                console.log(data);
                 var data=data.data;
-                console.info(data);
+//                console.info(data);
+                var cpu_percent_line=[];
+                var memory_percent_line=[];
+                var disk_percent_line=[];
+                for(var i in data){
+                    var map={};
+                    var cpu=data[i].cpu ;
+                    var cpu_used=data[i].cpu_used;
+                    var updateTime=data[i].updateTime;
+                    var percent_cpu=(cpu_used/cpu*100).toFixed(2);
+                    var date = new Date(updateTime);
+                    var time =date.getFullYear()+"/"+date.getMonth()+"/"+date.getDay()+" "+date.getHours()+":"+date.getMinutes()+":"+date.getSeconds();
+                    map.name=time;
+                    var value=[];
+                    value.push(time);
+                    value.push(percent_cpu);
+                    map.value=value;
+                    cpu_percent_line.push(map)
+                }
 
+                for(var i in data){
+                    var map={};
+                    var disk=data[i].disk ;
+                    var disk_used=data[i].disk_used;
+                    var updateTime=data[i].updateTime;
+                    var percent_disk=(disk_used/disk*100).toFixed(2);
+                    var date = new Date(updateTime);
+                    var time =date.getFullYear()+"/"+date.getMonth()+"/"+date.getDay()+" "+date.getHours()+":"+date.getMinutes()+":"+date.getSeconds();
+                    map.name=time;
+                    var value=[];
+                    value.push(time);
+                    value.push(percent_disk);
+                    map.value=value;
+                    disk_percent_line.push(map)
+                }
+                for(var i in data){
+                    var map={};
+                    var memory=data[i].memory ;
+                    var memory_used=data[i].memory_used;
+                    var updateTime=data[i].updateTime;
+                    var percent_memory=(memory_used/memory*100).toFixed(2);
+                    var date = new Date(updateTime);
+                    var time =date.getFullYear()+"/"+date.getMonth()+"/"+date.getDay()+" "+date.getHours()+":"+date.getMinutes()+":"+date.getSeconds();
+                    map.name=time;
+                    var value=[];
+                    value.push(time);
+                    value.push(percent_memory);
+                    map.value=value;
+                    memory_percent_line.push(map)
+                }
+                console.log(cpu_percent_line);
+                console.log(memory_percent_line);
+
+                echart_init("cpu",cpu_percent_line);
+                echart_init("memory",memory_percent_line);
+                echart_init("disk",disk_percent_line);
             }
         });
 
     });
+
+
+    function echart_init(id,data){
+        var anchor = [];
+        var date= new Date();
+        var tomorrow = new Date();
+        tomorrow.setTime(tomorrow.getTime()+24*60*60*1000);
+        var start=date.getFullYear()+"/"+date.getMonth()+"/"+date.getDay()+" 00:00:00";
+        var end=tomorrow.getFullYear()+"/"+tomorrow.getMonth()+"/"+tomorrow.getDay()+" 00:00:00";
+        for(var i =0;i<2;i++){
+            if(i==1){
+                start=end;
+            }
+            var map={};
+            map.name=start;
+            var value=[];
+            value.push(start);
+            value.push(0);
+            map.value=value;
+            anchor.push(map);
+        }
+
+        var myCpuChart = echarts.init(document.getElementById(id));
+        var option_cpu = {
+            title : {
+                text : id.toUpperCase()+"使用率(%)",
+                subtext : '24小时'
+            },
+            tooltip: {
+                trigger: 'axis',
+                formatter: function (params) {
+                    params = params[0];
+                    var date = new Date(params.name);
+                    return date.getDate() + '/' + (date.getMonth() + 1) + '/' + date.getFullYear() + ' : ' + params.value[1];
+                },
+                axisPointer: {
+                    animation: false
+                }
+            },
+
+            xAxis: {
+                type: 'time',
+                splitLine: {
+                    show: false
+                }
+            },
+            yAxis: {
+                type: 'value',
+                boundaryGap: [0, '100%'],
+                max:100,
+                min:0,
+                splitLine: {
+                    show: false
+                }
+            },
+            series: [{
+                name: id+'使用率',
+                type: 'line',
+                showSymbol: false,
+                hoverAnimation: false,
+                data: data
+            }, {
+                name:'.anchor',
+                type:'line',
+                showSymbol:false,
+                data:anchor,
+                itemStyle:{normal:{opacity:0}},
+                lineStyle:{normal:{opacity:0}}
+            }]
+
+        };
+        myCpuChart.setOption(option_cpu);
+
+    }
     //页面直接跳转页面带参数时，获取url参数值
     function GetRequest() {
         var values = [];
@@ -171,11 +294,37 @@
     }
 
 
+    getHostInfo();
+
+    function getHostInfo(){
+        $.ajax({
+            url: '{{projcfg.appurl}}/api/project/operation/slavedetail/getHostInfo',
+            data: {"id": paramsValues[0], "name": paramsValues[1]},
+            type: 'get',
+            success:function(result){
+                var data=result.data;
+                console.info(data);
+                $("#ip").html(data.hostname);
+                $("#name").html(data.pid);
+                $("#disk_info").html((data.resources.disk/1024).toFixed(2)+"GB");
+                $("#cpu_info").html(data.resources.cpus+"核");
+                $("#memory_info").html((data.resources.mem/1024).toFixed(2)+"GB");
+                $("#state").html(data.active?'<img id=\"u56_img\" class=\"img \" src=\"{{projcfg.appurl}}/static/images/u56.png\">'+'运行中':'<img id="u58_img" class="img " src="{{projcfg.appurl}}/static/images/u58.png">'+'失效中');
+                $("#id").html("<b> ID : "+data.id+"</b>");
+//
 
 
-    function hm_list(slave_id){
-        window.location.href = "{{projcfg.appurl}}/colonydetail?master_ip="+encodeURI(slave_id)
+            }
+
+        })
+
+
     }
+
+
+    <!--function hm_list(slave_id){-->
+        <!--window.location.href = "{{projcfg.appurl}}/colonydetail?master_ip="+encodeURI(slave_id)-->
+    <!--}-->
 
 
 
