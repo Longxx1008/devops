@@ -21,4 +21,11 @@ router.route('/getHostInfo').get(function(req,res){
     });
 });
 
+router.route('/monitor').get(function(req,res){
+    // 调用查询
+    colonyDetailService.monitor(function(results){
+        utils.respJsonData(res, results);
+    });
+});
+
 module.exports = router;

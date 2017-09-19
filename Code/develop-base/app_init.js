@@ -13,6 +13,6 @@ exports.$ = function() {
         /*deployedInfoSyncJob.doJob();
         projectService.refreshMarathonLbInfo();*/
         colonyManageService.syncColonyInfo();
-        updateHostInfo.getSalve();
-    },10000);
+        /*updateHostInfo.getSalve();*/
+    },1000*60*10);
 }
