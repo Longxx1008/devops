@@ -14,5 +14,5 @@ exports.$ = function() {
         projectService.refreshMarathonLbInfo();*/
         colonyManageService.syncColonyInfo();
         /*updateHostInfo.getSalve();*/
-    },10000);
+    },1000*60*10);
 }
