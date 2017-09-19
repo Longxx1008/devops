@@ -4,6 +4,7 @@ var $util = require('../../../common/util/util');
 var DateUtils = require('../../../common/core/utils/DateUtils');
 // 使用连接池，提升性能
 var pool = mysql.createPool($util.extend({}, config.mysql));
+var Promise=require("bluebird");
 // var REQ_HEADERS = {
 //     'Content-Type': 'application/json'
 // };
@@ -13,38 +14,43 @@ var nodegrass=require("nodegrass");
 
 
 exports.getSalve=function(){
-    var REQ_HEADERS = {
-        'Content-Type': 'application/x-www-form-urlencoded'
-    };
 
-    nodegrass.get("http://192.168.9.65:5050/master/state.json",
-        function (res, status, headers) {
-            if (status=="200") {
-                var all=JSON.parse(res);
-                var slaves=all.slaves;
-                // console.info(all);
-                var master_id=all.id;
-                var master_ip=all.hostname;
-                var createUser=all.build_user;
-                var k=0;
-                console.log("---------------------------",k,master_id,master_ip,createUser);
-                updateMysql(k,slaves,master_id,master_ip,createUser);
-            }else{
-                console.log("访问mesos失败 。");
-                console.log(res);
-                console.log(status);
-            }
-        },
-        REQ_HEADERS,
-        {date: new Date()},
-        'utf8').
-    on('error', function (e) {
-        console.log("Got error: " + e.message);
+     return new Promise(function(resolve,reject){
+         var REQ_HEADERS = {
+             'Content-Type': 'application/x-www-form-urlencoded'
+         };
+        nodegrass.get("http://192.168.9.65:5050/master/state.json",
+            function (res, status, headers) {
+                if (status=="200") {
+                    var all=JSON.parse(res);
+                    var slaves=all.slaves;
+                    // console.info(all);
+                    var master_id=all.id;
+                    var master_ip=all.hostname;
+                    var createUser=all.build_user;
+                    var k=0;
+                    updateMysql(resolve,k,slaves,master_id,master_ip,createUser);
+                }else{
+                    console.log("访问mesos失败 。");
+                    console.log(res);
+                    console.log(status);
+                }
+            },
+            REQ_HEADERS,
+            {date: new Date()},
+            'utf8').
+        on('error', function (e) {
+            console.log("Got error: " + e.message);
+            resolve({"error":e.message,"message":"访问数据失败"})
+
+        });
+
+
     });
 
 }
 //                   k,slaves,master_id,master_ip,createUser,master_port
-function updateMysql(k,slaves,master_id,master_ip,createUser){
+function updateMysql(resolve,k,slaves,master_id,master_ip,createUser){
  if(slaves&&slaves.length>k){
      var slave=slaves[k];
      var slave_id=slave.id;
@@ -66,6 +72,7 @@ function updateMysql(k,slaves,master_id,master_ip,createUser){
      pool.getConnection(function (err, connection) {
          if (err) {
              console.log(err.message);
+             resolve({"error":err,"message":"获取连接池失败"})
          } else {
              // var sql_select="select * from pass_operation_host_info where slave_id='"+slave_id+"' and master_id='"+master_id+"'";
              // console.log(sql_select);
@@ -255,14 +262,15 @@ function updateMysql(k,slaves,master_id,master_ip,createUser){
                  sql_insert+=",'"+master_id+"'";
              }
              sql_insert+=")";
-             console.log("createTime   ",createTime);
-             console.log("sql_insert  : ",sql_insert);
+             // console.log("createTime   ",createTime);
+             // console.log("sql_insert  : ",sql_insert);
              connection.query(sql_insert,function(error,result){
                  if(error){
                      console.log(error);
+                     resolve({"error":error,"message":"插入数据失败 sql :"+sql_insert })
                  }else{
                      k++;
-                     updateMysql(k,slaves,master_id,master_ip,createUser);
+                     updateMysql(resolve,k,slaves,master_id,master_ip,createUser);
                  }
              })
 
@@ -277,7 +285,7 @@ function updateMysql(k,slaves,master_id,master_ip,createUser){
 
  }else{
 
-     return ;
+     resolve({"error":null,"message":"获取数据完成！"});
  }
 
 }

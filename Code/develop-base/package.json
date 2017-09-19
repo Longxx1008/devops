@@ -43,6 +43,7 @@
     "request": "2.81.0",
     "iconv-lite": "0.2.5",
     "influxdb-nodejs": "*",
-    "nodegrass": "*"
+    "nodegrass": "*",
+    "bluebird": "*"
   }
 }
