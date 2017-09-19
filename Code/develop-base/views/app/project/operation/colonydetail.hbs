@@ -3,17 +3,18 @@
     <div class="col-xs-12 col-md-12">
         <div class="widget">
                     <div class="col-xs-6 col-md-6" style="width:100%">
-                        <font size="3.5rem" style=""> <b>集群管理详情</b></font>
+                        <font size="3.0rem" style=""> <b>集群资源概览</b></font>
 
                     </div>
-                <div class="col-xs-12 col-md-12" style="margin-top: 5px"><hr style="height:1px;border:none;border-top:1px solid #555555;" ></div>
-                    <div class="col-xs-6 col-md-6" style="width:100%;margin-top: 10px">
+                <div class="col-xs-12 col-md-12" style="margin-top: 5px"><hr style="height:1px;border:none;border-top:1px solid #555555;margin-top: 20px" ></div>
+                    <div class="col-xs-6 col-md-6" style="width:100%;margin-top: 30px">
                         <font size="3.5rem" style=""> <b>基础信息</b></font>
 
                     </div>
-                    <div style="display: inline;font-size: 16px;" class="col-xs-6 col-md-6">名称  :  <span id="name"></span></div>
-                    <div class="col-xs-6 col-md-6" style="font-size: 16px">位置  :  <span id="position"></span></div>
-                    <div class="col-xs-6 col-md-6" style="font-size: 16px;margin-top: 10px">状态  :  <span id="status"></span></div>
+                    <div style="display: inline;font-size: 16px;margin-top: 20px" class="col-xs-6 col-md-6">名称  :  <span id="name"></span></div>
+                    <div class="col-xs-6 col-md-6" style="font-size: 16px;margin-top: 20px">位置  :  <span id="position"></span></div>
+                    <div class="col-xs-6 col-md-6" style="font-size: 16px;margin-top: 20px">管理员  :  <span id="user"></span></div>
+                    <div class="col-xs-6 col-md-6" style="font-size: 16px;margin-top: 20px">状态  :  <span id="status"></span></div>
         </div>
         <div class="col-xs-6 col-md-6" style="width:100%;margin-top: 30px">
             <font size="3.5rem" style=""> <b>资源使用情况</b></font>
@@ -84,10 +85,11 @@
             success:function(data){
                 $("#name").html(data.data[0].name);
                 $("#position").html(data.data[0].position);
+                $("#user").html(data.data[0].createUser);
                 if(data.data[0].status==1)
-                    $("#status").html("运行中");
+                    $("#status").html('<img id="u56_img" class="img " src="{{projcfg.appurl}}/static/images/u56.png">运行中');
                 else
-                    $("#status").html("失效");
+                    $("#status").html('<img id="u58_img" class="img " src="{{projcfg.appurl}}/static/images/u58.png">失效');
             }
         });
         //初始化echarts实例
@@ -407,106 +409,135 @@
                 }
             ]
         });
-
-                hostStatusChart.setOption({
+                netStatusChart.setOption({
                     title: {
-                        text: '各主机资源使用情况',
-                        x: 'center'
+                        text: '各主机网络情况',
+                        subtext: '网络(外网)'
                     },
                     tooltip: {
-                        trigger: 'axis',
-                        axisPointer: {            // 坐标轴指示器，坐标轴触发有效
-                            type: 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
-                        }
+                        trigger: 'axis'
                     },
                     legend: {
-                        data: ['cpu使用率', '内存使用率', '硬盘使用率'],
-                        y: 30
+                        data:['出网kbps','入网kbps']
                     },
-                    color: ["blue", "yellow", "gray"],
-                    grid: {
-                        left: '3%',
-                        right: '4%',
-                        bottom: '3%',
-                        containLabel: true
+                    xAxis:  {
+                        type: 'category',
+                        boundaryGap: false,
+                        data: ['主机一','主机二','主机三','主机四','主机五','主机六','主机七']
                     },
-                    xAxis: [
-                        {
-                            type: 'category',
-                            data: xAxis,
-                            splitLine: {
-
-                                show: false
-
-                            },
+                    yAxis: {
+                        type: 'value',
+                        axisLabel: {
+                            formatter: '{value} kbps'
                         }
-                    ],
-                    yAxis: [
-                        {
-                            type: 'value',
-                            splitLine: {
-
-                                show: false
-
-                            },
-                            axisLabel: {
-                                formatter: '{value} %'
-                            }
-                        }
-                    ],
+                    },
                     series: [
                         {
-                            name: 'cpu使用率',
-                            type: 'bar',
-                            data: cpuUsed
+                            name:'出网kbps',
+                            type:'line',
+                            data:[11, 11, 15, 13, 12, 13, 10],
                         },
                         {
-                            name: '内存使用率',
-                            type: 'bar',
-                            data: memoryUsed
-                        },
-                        {
-                            name: '硬盘使用率',
-                            type: 'bar',
-                            data: diskUsed
+                            name:'入网kbps',
+                            type:'line',
+                            data:[1, -2, 2, 5, 3, 2, 0],
                         }
                     ]
                 });
-        netStatusChart.setOption({
-            title: {
-                text: '各主机网络情况',
-                subtext: '网络(外网)'
-            },
-            tooltip: {
-                trigger: 'axis'
-            },
-            legend: {
-                data:['出网kbps','入网kbps']
-            },
-            xAxis:  {
-                type: 'category',
-                boundaryGap: false,
-                data: ['主机一','主机二','主机三','主机四','主机五','主机六','主机七']
-            },
-            yAxis: {
-                type: 'value',
-                axisLabel: {
-                    formatter: '{value} kbps'
-                }
-            },
-            series: [
-                {
-                    name:'出网kbps',
-                    type:'line',
-                    data:[11, 11, 15, 13, 12, 13, 10],
-                },
-                {
-                    name:'入网kbps',
-                    type:'line',
-                    data:[1, -2, 2, 5, 3, 2, 0],
-                }
-            ]
+            }
         });
+        $.ajax({
+            url: '{{projcfg.appurl}}/api/project/operation/colonydetail/monitor',
+            type: 'get',
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            success: function (data) {
+                var x=new Array();
+                var cpuvalue=new Array();
+                var diskvalue=new Array();
+                var memoryvalue=new Array();
+                for(var i in data.data){
+                    x.push(data.data[i].createTime);
+                    cpuvalue.push(parseFloat((data.data[i].usedCpu)/parseFloat(data.data[i].totalCpu)*100).toFixed(2));
+                    diskvalue.push(parseFloat((data.data[i].usedDisk)/parseFloat(data.data[i].totalDisk)*100).toFixed(2));
+                    memoryvalue.push(parseFloat((data.data[i].usedMemory)/parseFloat(data.data[i].totalMemory)*100).toFixed(2));
+                }
+                hostStatusChart.setOption({
+                    title: {
+                        x:"center",
+                        text: '24小时资源使用情况',
+                    },
+                    tooltip: {
+                        trigger: 'axis'
+                    },
+                    legend: {
+                        data:['CPU使用率','内存使用率','硬盘使用率'],
+                    },
+                    xAxis:  {
+                        type: 'category',
+                        boundaryGap: false,
+                        axisLabel :{
+                            interval:0
+                        },
+                        data: x,
+                    },
+                    yAxis: {
+                        type: 'value',
+                        axisLabel: {
+                            formatter: '{value} %'
+                        }
+                    },
+                    series: [
+                        {
+                            name:'CPU使用情况',
+                            type:'line',
+                            data:cpuvalue,
+                            markPoint: {
+                                data: [
+                                    {type: 'max', name: '最大值'},
+                                    {type: 'min', name: '最小值'}
+                                ]
+                            },
+                            markLine: {
+                                data: [
+                                    {type: 'average', name: '平均值'}
+                                ]
+                            }
+                        },
+                        {
+                            name:'内存使用情况',
+                            type:'line',
+                            data:memoryvalue,
+                            markPoint: {
+                                data: [
+                                    {type: 'max', name: '最大值'},
+                                    {type: 'min', name: '最小值'}
+                                ]
+                            },
+                            markLine: {
+                                data: [
+                                    {type: 'average', name: '平均值'}
+                                ]
+                            }
+                        },
+                        {
+                            name:'硬盘使用情况',
+                            type:'line',
+                            data:diskvalue,
+                            markPoint: {
+                                data: [
+                                    {type: 'max', name: '最大值'},
+                                    {type: 'min', name: '最小值'}
+                                ]
+                            },
+                            markLine: {
+                                data: [
+                                    {type: 'average', name: '平均值'}
+                                ]
+                            }
+                        }
+                    ]
+                });
             }
         });
     })

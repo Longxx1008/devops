@@ -32,3 +32,16 @@ exports.getHostInfo = function(cb){
         }
     });
 }
+
+exports.monitor = function(cb){
+    var sql='select * from pass_operation_colony_monitor';
+    mysqlPool.query(sql, function(err, results){
+        if(err) {
+            cb(utils.returnMsg(false, '1000', '查询监控信息出错', null, err));
+        } else {
+            if(results && results.length > 0) {
+                cb(utils.returnMsg(true, '0000', '查询监控信息成功', results, null));
+            }
+        }
+    });
+}
