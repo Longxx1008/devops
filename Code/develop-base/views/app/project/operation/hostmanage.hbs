@@ -5,7 +5,7 @@
             <div class="widget-body">
                 <div id="toolbar" class="row tbRow" style="margin-bottom: 1.1rem;border-bottom: 1px solid #ccc;">
                     <div class="col-xs-6 col-md-6" style="width:100%">
-                        <font size="3.5rem" style="margin-left: 1.2rem;margin-right: 2.5rem"> <b>主机管理</b></font>
+                        <font size="3.5rem" style="margin-left: 1.2rem;margin-right: 2.5rem;"> <b>主机管理</b></font>
                         <!--<div>-->
                             <!--<div class="btn-group" role="group" aria-label="...">-->
                                 <!--<button type="button" class="btn btn-default" onclick="" data-title="花溪机房">-->
@@ -96,7 +96,7 @@
                     <div class="form-group">
                         <label for="inputProjectRemark" class="col-sm-2 control-label no-padding-right">备注:</label>
                         <div class="col-sm-10">
-                            <textarea class="form-control" rows="5" name="remark" id="remark" placeholder="请输入备注"></textarea>
+                            <textarea class="form-control" rows="5" name="remark" id="remark" placeholder="请输入备注" style="background:#ff0000"></textarea>
                         </div>
                     </div>
                 </form>
@@ -134,9 +134,23 @@
                     var cpu_precent=(rowData.cpu_used/rowData.cpu*100).toFixed(2);
                     var cpu_uesd_percent=100-cpu_precent;
                     var str="";
-                    str+= '<div title="总CPU数：'+　rowData.cpu+'  已使用： '+rowData.cpu_used+' (使用率 '+cpu_precent+'%)">' +
-                            '<div style=\"height:20px;width:'+cpu_precent+'%;background:#ff0000; float:left;\"></div>';
-                    str+= '<div style=\"height:20px;width:'+cpu_uesd_percent+'%;background:#36d70f; float:right;\"></div></div>';
+                    str+= '<div title="总CPU数：'+　rowData.cpu+'  已使用： '+rowData.cpu_used+' (使用率 '+cpu_precent+'%)">' ;
+
+                    if(cpu_precent<=30){
+                        str += '<div style=\"height:20px;width:' + cpu_precent +'%;background:#4cff00; float:left;\"></div>';
+                        str += '<div style=\"height:20px;width:' + cpu_uesd_percent +'%;background:#2fdae5; float:right;\"></div></div>'
+
+                    }else if(cpu_precent<=75){
+                        str += '<div style=\"height:20px;width:' + cpu_precent +'%;background:#ffd800; float:left;\"></div>';
+                        str += '<div style=\"height:20px;width:' + cpu_uesd_percent +'%;background:#2fdae5; float:right;\"></div></div>'
+
+
+
+                    }else if(cpu_precent>75){
+                        str+= '<div style=\"height:20px;width:'+cpu_precent+'%;background:#ff0000; float:left;\"></div>';
+                        str += '<div style=\"height:20px;width:' + cpu_uesd_percent +'%;background:#2fdae5; float:right;\"></div></div>'
+                    }
+
                     return str;
 
                 }},
@@ -146,9 +160,18 @@
                     var str="";
                     var data_g=(rowData.memory/1024).toFixed(2);
                     var data_u=(rowData.memory_used/1024).toFixed(2);
-                    str+= '<div title="总内存数：'+　data_g+'G  已经使用： '+data_u+' G (使用率 '+memory_precent+'%)\">' +
-                            '<div style=\"height:20px;width:'+memory_precent+'%;background:#ff0000; float:left;\"></div>';
-                    str+= '<div style=\"height:20px;width:'+memory_uesd_percent+'%;background:#36d70f; float:right;\"></div></div>';
+                    str+= '<div title="总内存数：'+　data_g+'G  已经使用： '+data_u+' G (使用率 '+memory_precent+'%)\">' ;
+                    if(memory_precent<=30){
+                        str += '<div style=\"height:20px;width:' + memory_precent +'%;background:#4cff00; float:left;\"></div>';
+                        str += '<div style=\"height:20px;width:' + memory_uesd_percent +'%;background:#2fdae5; float:right;\"></div></div>';
+                    }else if(memory_precent<=75){
+                        str += '<div style=\"height:20px;width:' + memory_precent +'%;background:#ffd800; float:left;\"></div>';
+                        str += '<div style=\"height:20px;width:' + memory_uesd_percent +'%;background:#2fdae5; float:right;\"></div></div>';
+                    }else if(memory_precent>75){
+                        str+= '<div style=\"height:20px;width:'+memory_precent+'%;background:#ff0000; float:left;\"></div>';
+                        str += '<div style=\"height:20px;width:' + memory_uesd_percent +'%;background:#2fdae5; float:right;\"></div></div>';
+                    }
+
                     return str;
 
                 }},
@@ -158,9 +181,20 @@
                     var str="";
                     var data_g=(rowData.disk/1024/1024).toFixed(2);
                     var data_u=(rowData.disk_used/1024).toFixed(2);
-                    str+= '<div title="总硬盘数：'+　data_g+'TB  已经使用： '+data_u+' B (使用率 '+disk_precent+'%)">' +
-                            '<div style=\"height:20px;width:'+disk_precent+'%;background:#ff0000; float:left;\"></div>';
-                    str+= '<div style=\"height:20px;width:'+disk_uesd_percent+'%;background:#36d70f; float:right;\"></div></div>';
+                    str+= '<div title="总硬盘数：'+　data_g+'TB  已经使用： '+data_u+' B (使用率 '+disk_precent+'%)">' ;
+                    if(disk_precent<=30){
+                        str += '<div style=\"height:20px;width:' + disk_precent +'%;background:#4cff00; float:left;\"></div>';
+                        str += '<div style=\"height:20px;width:' + disk_uesd_percent +'%;background:#2fdae5; float:right;\"></div></div>';
+                    }else if(disk_precent<=75){
+                        str += '<div style=\"height:20px;width:' + disk_precent +'%;background:#ffd800; float:left;\"></div>';
+                        str += '<div style=\"height:20px;width:' + disk_uesd_percent +'%;background:#2fdae5; float:right;\"></div></div>';
+                    }else if(disk_precent>75){
+                        str+= '<div style=\"height:20px;width:'+disk_precent+'%;background:#ff0000; float:left;\"></div>';
+                        str += '<div style=\"height:20px;width:' + disk_uesd_percent +'%;background:#2fdae5; float:right;\"></div></div>';
+                    }
+
+
+
                     return str;
                 }},
 
