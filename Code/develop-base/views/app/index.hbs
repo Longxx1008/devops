@@ -4,7 +4,7 @@
     <div class="col-xs-12 col-md-12">
         <div class="widget">
             <div class="widget-body">
-                <div class="row" >
+                <div class="row">
                     <div class="col-xs-12 col-md-12">
                         <div class="row">
                             <div class="col-xs-4 col-md-4">
@@ -62,19 +62,23 @@
                                     <div class="widget-header bordered-bottom bordered-themeprimary">
                                         <i class="widget-icon fa fa-tags themeprimary"></i>
                                         <span class="widget-caption themeprimary">待办事项</span>
+                                        <div class="widget-buttons">
+                                            <a href="#" onclick="openMoreScheduleList()">
+                                                more
+                                            </a>
+                                        </div>
                                     </div><!--Widget Header-->
                                     <div class="widget-body">
                                         <div style="height:230px;">
                                             <div class="box-list-content">
-                                                <ul class="ul-list">
-                                                    <li>1月运维巡检</li>
-                                                    <li>2月运维巡检</li>
-                                                    <li>3月运维巡检</li>
-                                                    <li>4月运维巡检</li>
-                                                    <li>5月运维巡检</li>
-                                                    <li>6月运维巡检</li>
+                                                <ul class="ul-list" id="scheduleList">
                                                 </ul>
                                             </div>
+                                            <!--<table class="table table-hover">-->
+                                                <!--<tbody id="systemScheduleTablelist">-->
+
+                                                <!--</tbody>-->
+                                            <!--</table>-->
                                         </div>
                                     </div>
                                 </div>
@@ -195,17 +199,20 @@
                                                 <div class="product-box">
                                                     <ul class="resource-ul">
                                                         <li>
-                                                            <div id="cpuChart" class="chart" style="height:160px;"></div>
+                                                            <div id="cpuChart" class="chart"
+                                                                 style="height:160px;"></div>
                                                             <h1>CPU</h1>
                                                             <h2><span id="cpudesc"></span></h2>
                                                         </li>
                                                         <li>
-                                                            <div id="memoryChart"  class="chart" style="height:160px;"></div>
+                                                            <div id="memoryChart" class="chart"
+                                                                 style="height:160px;"></div>
                                                             <h1>内存</h1>
                                                             <h2><span id="memorydesc"></span></h2>
                                                         </li>
                                                         <li>
-                                                            <div id="diskChart"  class="chart" style="height:160px;"></div>
+                                                            <div id="diskChart" class="chart"
+                                                                 style="height:160px;"></div>
                                                             <h1>硬盘</h1>
                                                             <h2><span id="diskdesc"></span></h2>
                                                         </li>
@@ -249,7 +256,8 @@
                                                         <li>
                                                             <div class="depot-list">
                                                                 <div class="depot-top">
-                                                                    <div class="img"><img src="static/images/img/img.png"></div>
+                                                                    <div class="img"><img
+                                                                            src="static/images/img/img.png"></div>
                                                                     <div class="depot-title">
                                                                         <h1>标题</h1>
                                                                         <h2>渠道</h2>
@@ -267,7 +275,8 @@
                                                         <li>
                                                             <div class="depot-list">
                                                                 <div class="depot-top">
-                                                                    <div class="img"><img src="static/images/img/img.png"></div>
+                                                                    <div class="img"><img
+                                                                            src="static/images/img/img.png"></div>
                                                                     <div class="depot-title">
                                                                         <h1>标题</h1>
                                                                         <h2>渠道</h2>
@@ -285,7 +294,8 @@
                                                         <li>
                                                             <div class="depot-list">
                                                                 <div class="depot-top">
-                                                                    <div class="img"><img src="static/images/img/img.png"></div>
+                                                                    <div class="img"><img
+                                                                            src="static/images/img/img.png"></div>
                                                                     <div class="depot-title">
                                                                         <h1>标题</h1>
                                                                         <h2>渠道</h2>
@@ -303,7 +313,8 @@
                                                         <li>
                                                             <div class="depot-list">
                                                                 <div class="depot-top">
-                                                                    <div class="img"><img src="static/images/img/img.png"></div>
+                                                                    <div class="img"><img
+                                                                            src="static/images/img/img.png"></div>
                                                                     <div class="depot-title">
                                                                         <h1>标题</h1>
                                                                         <h2>渠道</h2>
@@ -321,7 +332,8 @@
                                                         <li>
                                                             <div class="depot-list">
                                                                 <div class="depot-top">
-                                                                    <div class="img"><img src="static/images/img/img.png"></div>
+                                                                    <div class="img"><img
+                                                                            src="static/images/img/img.png"></div>
                                                                     <div class="depot-title">
                                                                         <h1>标题</h1>
                                                                         <h2>渠道</h2>
@@ -339,7 +351,8 @@
                                                         <li>
                                                             <div class="depot-list">
                                                                 <div class="depot-top">
-                                                                    <div class="img"><img src="static/images/img/img.png"></div>
+                                                                    <div class="img"><img
+                                                                            src="static/images/img/img.png"></div>
                                                                     <div class="depot-title">
                                                                         <h1>标题</h1>
                                                                         <h2>渠道</h2>
@@ -357,7 +370,8 @@
                                                         <li>
                                                             <div class="depot-list">
                                                                 <div class="depot-top">
-                                                                    <div class="img"><img src="static/images/img/img.png"></div>
+                                                                    <div class="img"><img
+                                                                            src="static/images/img/img.png"></div>
                                                                     <div class="depot-title">
                                                                         <h1>标题</h1>
                                                                         <h2>渠道</h2>
@@ -375,7 +389,8 @@
                                                         <li>
                                                             <div class="depot-list">
                                                                 <div class="depot-top">
-                                                                    <div class="img"><img src="static/images/img/img.png"></div>
+                                                                    <div class="img"><img
+                                                                            src="static/images/img/img.png"></div>
                                                                     <div class="depot-title">
                                                                         <h1>标题</h1>
                                                                         <h2>渠道</h2>
@@ -420,7 +435,8 @@
                                                             </div>
                                                             <div class="data-content">
                                                                 <h1>京东商城架构参考</h1>
-                                                                <h2>通过第三方大数据系统对贵阳各大商圈人流量及消费能消费通过第三方大数据系统对贵阳各大商圈人流量及消费量及消费能消费通过第三方大数据系统对贵阳各大商圈人流量及消费量及消费能消费通过第三方大数据系统对贵阳各大商圈人流量及消费量及消费能消费通过第三方大数据系统对贵阳各大商圈人流量及消费量及消费能消费通过第三方大数据系统对贵阳各大商圈人流量及消费能消费系统对贵阳各大商圈人流量及消费能消费能=能...</h2>
+                                                                <h2>
+                                                                    通过第三方大数据系统对贵阳各大商圈人流量及消费能消费通过第三方大数据系统对贵阳各大商圈人流量及消费量及消费能消费通过第三方大数据系统对贵阳各大商圈人流量及消费量及消费能消费通过第三方大数据系统对贵阳各大商圈人流量及消费量及消费能消费通过第三方大数据系统对贵阳各大商圈人流量及消费量及消费能消费通过第三方大数据系统对贵阳各大商圈人流量及消费能消费系统对贵阳各大商圈人流量及消费能消费能=能...</h2>
                                                                 <a href="javascript:;">查看详情</a>
                                                             </div>
                                                         </li>
@@ -430,7 +446,8 @@
                                                             </div>
                                                             <div class="data-content">
                                                                 <h1>京东商城架构参考</h1>
-                                                                <h2>通过第三方大数据系统对贵阳各大商圈人流量及消费能消费通过第三方大数据系统对贵阳各大商圈人流量及消费量及消费能消费通过第三方大数据系统对贵阳各大商圈人流量及消费量及消费能消费通过第三方大数据系统对贵阳各大商圈人流量及消费量及消费能消费通过第三方大数据系统对贵阳各大商圈人流量及消费量及消费能消费通过第三方大数据系统对贵阳各大商圈人流量及消费能消费系统对贵阳各大商圈人流量及消费能消费能=能...</h2>
+                                                                <h2>
+                                                                    通过第三方大数据系统对贵阳各大商圈人流量及消费能消费通过第三方大数据系统对贵阳各大商圈人流量及消费量及消费能消费通过第三方大数据系统对贵阳各大商圈人流量及消费量及消费能消费通过第三方大数据系统对贵阳各大商圈人流量及消费量及消费能消费通过第三方大数据系统对贵阳各大商圈人流量及消费量及消费能消费通过第三方大数据系统对贵阳各大商圈人流量及消费能消费系统对贵阳各大商圈人流量及消费能消费能=能...</h2>
                                                                 <a href="javascript:;">查看详情</a>
                                                             </div>
                                                         </li>
@@ -440,7 +457,8 @@
                                                             </div>
                                                             <div class="data-content">
                                                                 <h1>京东商城架构参考</h1>
-                                                                <h2>通过第三方大数据系统对贵阳各大商圈人流量及消费能消费通过第三方大数据系统对贵阳各大商圈人流量及消费量及消费能消费通过第三方大数据系统对贵阳各大商圈人流量及消费量及消费能消费通过第三方大数据系统对贵阳各大商圈人流量及消费量及消费能消费通过第三方大数据系统对贵阳各大商圈人流量及消费量及消费能消费通过第三方大数据系统对贵阳各大商圈人流量及消费能消费系统对贵阳各大商圈人流量及消费能消费能=能...</h2>
+                                                                <h2>
+                                                                    通过第三方大数据系统对贵阳各大商圈人流量及消费能消费通过第三方大数据系统对贵阳各大商圈人流量及消费量及消费能消费通过第三方大数据系统对贵阳各大商圈人流量及消费量及消费能消费通过第三方大数据系统对贵阳各大商圈人流量及消费量及消费能消费通过第三方大数据系统对贵阳各大商圈人流量及消费量及消费能消费通过第三方大数据系统对贵阳各大商圈人流量及消费能消费系统对贵阳各大商圈人流量及消费能消费能=能...</h2>
                                                                 <a href="javascript:;">查看详情</a>
                                                             </div>
                                                         </li>
@@ -450,7 +468,8 @@
                                                             </div>
                                                             <div class="data-content">
                                                                 <h1>京东商城架构参考</h1>
-                                                                <h2>通过第三方大数据系统对贵阳各大商圈人流量及消费能消费通过第三方大数据系统对贵阳各大商圈人流量及消费量及消费能消费通过第三方大数据系统对贵阳各大商圈人流量及消费量及消费能消费通过第三方大数据系统对贵阳各大商圈人流量及消费量及消费能消费通过第三方大数据系统对贵阳各大商圈人流量及消费量及消费能消费通过第三方大数据系统对贵阳各大商圈人流量及消费能消费系统对贵阳各大商圈人流量及消费能消费能=能...</h2>
+                                                                <h2>
+                                                                    通过第三方大数据系统对贵阳各大商圈人流量及消费能消费通过第三方大数据系统对贵阳各大商圈人流量及消费量及消费能消费通过第三方大数据系统对贵阳各大商圈人流量及消费量及消费能消费通过第三方大数据系统对贵阳各大商圈人流量及消费量及消费能消费通过第三方大数据系统对贵阳各大商圈人流量及消费量及消费能消费通过第三方大数据系统对贵阳各大商圈人流量及消费能消费系统对贵阳各大商圈人流量及消费能消费能=能...</h2>
                                                                 <a href="javascript:;">查看详情</a>
                                                             </div>
                                                         </li>
@@ -475,10 +494,34 @@
 </div>
 <!-- Modal -->
 <div id="systemNotice_Modal" class="mydialog" style="padding-top:0px;">
-    <div class="easyui-layout" data-options="fit:true,border:false" >
+    <div class="easyui-layout" data-options="fit:true,border:false">
         <div data-options="region:'center',border:false,fit:true" style="overflow-x:scroll;overflow-y:hidden">
             <table id="moreSystemNoticeTablelist">
 
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- 点击代办事务more弹出框-->
+<div id="schedule_Modal" style="padding-top:0px;">
+    <div class="easyui-layout" data-options="fit:true,border:false">
+        <div data-options="region:'center',border:false,fit:true" style="overflow-x:scroll;overflow-y:hidden">
+            <table id="moreScheduleTablelist">
+
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- 点击代办事务每一条弹出框-->
+<div id="scheduleDetails_Modal" style="display:none;overflow:hidden">
+    <div class="row">
+        <div class="col-md-12">
+            <table class="table table-hover">
+                <tbody id="scheduleDetailsTablelist">
+
+                </tbody>
             </table>
         </div>
     </div>
@@ -585,57 +628,58 @@
     //获取当前年
     var year = myDate.getFullYear();
     //获取当前月
-    var month = myDate.getMonth()+1;
+    var month = myDate.getMonth() + 1;
 
-    $(document).ready(function(){
+    $(document).ready(function () {
         initSystemNotice();
         showCpuChart();
         showMemoryChart();
         showDiskChart();
+        initSchedule();
 //        initView();
 //        initChartData();
     });
 
     function initView() {
-        $("#ring_title").text(year+"年"+month+"月单业务酬金分布(万元）");
+        $("#ring_title").text(year + "年" + month + "月单业务酬金分布(万元）");
     }
 
     function initChartData() {
         $.ajax({
-            url:'{{projcfg.appurl}}/api/remuneration/singlebusiness',
-            method:'get',
+            url: '{{projcfg.appurl}}/api/remuneration/singlebusiness',
+            method: 'get',
             data: {
                 page: '1',
                 rows: '100',
-                year:year,
-                month:month
+                year: year,
+                month: month
             },
-            success:function(data){
-                if(data.success){
+            success: function (data) {
+                if (data.success) {
                     var result = data.rows;
 
-                    for(var i =0;i<result.length;i++){
-                        x_serviceName[i]=result[i].service;
+                    for (var i = 0; i < result.length; i++) {
+                        x_serviceName[i] = result[i].service;
                         x_current_month_reward[i] = result[i].monthMoney;
                         x_last_month_reward[i] = result[i].lastMonthMoney;
                         x_chain_increase[i] = result[i].monthMoneyChain;
 
-                        var data_ring_chart={};
-                        data_ring_chart.value=result[i].monthMoneyHold;
-                        data_ring_chart.name=result[i].service;
+                        var data_ring_chart = {};
+                        data_ring_chart.value = result[i].monthMoneyHold;
+                        data_ring_chart.name = result[i].service;
                         x_proportion.push(data_ring_chart);
                     }
 
                     showRingChart();
-                }else{
-                    msgError('提示,'+data.msg + ',错误代码:' + data.code);
+                } else {
+                    msgError('提示,' + data.msg + ',错误代码:' + data.code);
                 }
             }
         });
     }
 
     //显示cpu饼图
-    function showCpuChart(){
+    function showCpuChart() {
         var cpuChart = echarts.init(document.getElementById('cpuChart'));
         cpuoption = {
             series: [
@@ -645,18 +689,18 @@
                     radius: '85%',
                     center: ['50%', '55%'],
                     data: [
-                        {value:4, name:'已使用'},
-                        {value:12, name:'未使用'}
+                        {value: 4, name: '已使用'},
+                        {value: 12, name: '未使用'}
                     ]
                 }
             ]
         };
         cpuChart.setOption(cpuoption);
-        $('#cpudesc').html("共计"+16+",已使用"+4);
+        $('#cpudesc').html("共计" + 16 + ",已使用" + 4);
     }
 
     //显示Memory饼图
-    function showMemoryChart(){
+    function showMemoryChart() {
         var memoryChart = echarts.init(document.getElementById('memoryChart'));
         memoryoption = {
             series: [
@@ -666,18 +710,18 @@
                     radius: '85%',
                     center: ['50%', '55%'],
                     data: [
-                        {value:20, name:'已使用'},
-                        {value:20, name:'未使用'}
+                        {value: 20, name: '已使用'},
+                        {value: 20, name: '未使用'}
                     ]
                 }
             ]
         };
         memoryChart.setOption(memoryoption);
-        $('#memorydesc').html("共计"+20+"G,已使用"+20+"G");
+        $('#memorydesc').html("共计" + 20 + "G,已使用" + 20 + "G");
     }
 
     //显示Disk饼图
-    function showDiskChart(){
+    function showDiskChart() {
         var diskChart = echarts.init(document.getElementById('diskChart'));
         diskoption = {
             series: [
@@ -687,14 +731,14 @@
                     radius: '85%',
                     center: ['50%', '55%'],
                     data: [
-                        {value:240, name:'已使用'},
-                        {value:200, name:'未使用'}
+                        {value: 240, name: '已使用'},
+                        {value: 200, name: '未使用'}
                     ]
                 }
             ]
         };
         diskChart.setOption(diskoption);
-        $('#diskdesc').html("共计"+440+"G,已使用"+240+"G");
+        $('#diskdesc').html("共计" + 440 + "G,已使用" + 240 + "G");
     }
 
     function showRingChart() {
@@ -725,84 +769,89 @@
     }
 
 
-    function openPage(id,title){
+    function openPage(id, title) {
         //获取页面滚动距离
         var scrollTop = window.pageYOffset
                 || document.documentElement.scrollTop
                 || document.body.scrollTop
                 || 0;
-        var top = ($(window).height() - 500)/2+scrollTop;
-        $('#'+id).show();
-        $('#'+id).mydialog({
-            title:title,
+        var top = ($(window).height() - 500) / 2 + scrollTop;
+        $('#' + id).show();
+        $('#' + id).mydialog({
+            title: title,
             width: 1000,
             height: 500,
-            top:top,
+            top: top,
             modal: true,
-            myButtons:[
+            myButtons: [
                 {
-                    text:'关闭',
-                    btnCls:'btn btn-danger',
-                    handler:function(){
-                        $('#'+id).dialog('close');
+                    text: '关闭',
+                    btnCls: 'btn btn-danger',
+                    handler: function () {
+                        $('#' + id).dialog('close');
                     }
                 }
             ]
         });
     }
     //更多公告列表
-    function openMoreSystemNoticeList(){
+    function openMoreSystemNoticeList() {
         //初始化grid
         $('#moreSystemNoticeTablelist').datagrid({
-            method:'get',
+            method: 'get',
             url: '{{projcfg.appurl}}/admin/api/common/syscfg/notice?notice_status=2',
-            rownumbers:true,
-            striped:true,
-            fitColumns:true,
-            fit:true,
-            border:false,
-            singleSelect:true,
-            selectOnCheck:true,
-            columns:[[
-                {"field": "notice_title","title":"公告标题","width":100},
-                {"field": "notice_type","title":"公告类型","width":50,
-                    formatter : function(value, rowData, rowIndex) {
-                        if(value == 1){
+            rownumbers: true,
+            striped: true,
+            fitColumns: true,
+            fit: true,
+            border: false,
+            singleSelect: true,
+            selectOnCheck: true,
+            columns: [[
+                {"field": "notice_title", "title": "公告标题", "width": 100},
+                {
+                    "field": "notice_type", "title": "公告类型", "width": 50,
+                    formatter: function (value, rowData, rowIndex) {
+                        if (value == 1) {
                             return '<span class="label label-danger">重要</span>';
-                        }else if(value == 2){
+                        } else if (value == 2) {
                             return '<span class="label label-azure">限时</span>';
-                        }else if(value == 3){
+                        } else if (value == 3) {
                             return '<span class="label label-warning">通报</span>';
                         }
                     }
                 },
-                {"field": "notice_issuer","title":"发布人","width":40,
-                    formatter : function(value, rowData, rowIndex) {
-                        if(value){
+                {
+                    "field": "notice_issuer", "title": "发布人", "width": 40,
+                    formatter: function (value, rowData, rowIndex) {
+                        if (value) {
                             return value.user_name;
                         }
                     }
                 },
-                {"field": "notice_auditor","title":"审核人","width":40,
-                    formatter : function(value, rowData, rowIndex) {
-                        if(value){
+                {
+                    "field": "notice_auditor", "title": "审核人", "width": 40,
+                    formatter: function (value, rowData, rowIndex) {
+                        if (value) {
                             return value.user_name;
                         }
                     }
                 },
-                {"field": "notice_status","title":"状态","width":40,
-                    formatter : function(value, rowData, rowIndex) {
-                        if(value == 1){
+                {
+                    "field": "notice_status", "title": "状态", "width": 40,
+                    formatter: function (value, rowData, rowIndex) {
+                        if (value == 1) {
                             return '<span class="label label-primary">未审核</span>';
-                        }else if(value == 2){
+                        } else if (value == 2) {
                             return '<span class="label label-success">已发布</span>';
-                        }else if(value == 3){
+                        } else if (value == 3) {
                             return '<span class="label label-danger">作废</span>';
                         }
                     }
                 },
-                {"field": "notice_date","title":"创建日期","width":100,
-                    formatter : function(value, rowData, rowIndex) {
+                {
+                    "field": "notice_date", "title": "创建日期", "width": 100,
+                    formatter: function (value, rowData, rowIndex) {
                         return new Date(value).format();
                     }
                 },
@@ -813,19 +862,19 @@
                     }
                 }
             ]],
-            onLoadSuccess:function(json) {
-                if(!json.success) {
-                    msgError('提示,'+json.msg + ',错误代码:' + json.code);
+            onLoadSuccess: function (json) {
+                if (!json.success) {
+                    msgError('提示,' + json.msg + ',错误代码:' + json.code);
                 }
             },
-            onLoadError:function() {
+            onLoadError: function () {
                 msgError('提示,加载数据出现时发生错误,请稍候重试...');
             },
-            pagination:true,
-            loadMsg:'正在加载...'
+            pagination: true,
+            loadMsg: '正在加载...'
         });
 
-        openPage('systemNotice_Modal','系统公告');
+        openPage('systemNotice_Modal', '系统公告');
 
     }
     function openPageDetails() {
@@ -833,81 +882,202 @@
         var rows = $('#moreSystemNoticeTablelist').datagrid('getChecked');
         if (rows.length != 1) {
             msgError('提示,请选择一条数据再进行查看');
-            return ;
+            return;
         }
 
         systemNoticeDetails(rows[0]._id)
     }
     //系统公告详情
-    function systemNoticeDetails(id){
+    function systemNoticeDetails(id) {
 
         $.ajax({
-            url: '{{projcfg.appurl}}/admin/api/common/syscfg/notice/'+id,
+            url: '{{projcfg.appurl}}/admin/api/common/syscfg/notice/' + id,
             type: 'get',
             data: {},
             success: function (data) {
 
-                if(data.success) {
+                if (data.success) {
                     var html = '';
-                    if(data.data!=''&&data.data!=null){
+                    if (data.data != '' && data.data != null) {
                         var type;
                         var noticeType = data.data[0].notice_type;
-                        if(noticeType == 1){
+                        if (noticeType == 1) {
                             type = '<span class="label label-danger">重要</span>';
-                        }else if(noticeType == 2){
+                        } else if (noticeType == 2) {
                             type = '<span class="label label-azure">限时</span>';
-                        }else if(noticeType == 3){
+                        } else if (noticeType == 3) {
                             type = '<span class="label label-warning">通报</span>';
                         }
                         var temp = '<tr>'
                                 + '<td align="center">'
-                                + data.data[0].notice_title+type
-                                +'<br>'
+                                + data.data[0].notice_title + type
+                                + '<br>'
                                 + '</td>'
-                                +'</tr>'
-                                +'<tr>'
-                                +'<td>'
-                                +'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'
+                                + '</tr>'
+                                + '<tr>'
+                                + '<td>'
+                                + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'
                                 + data.data[0].notice_content
                                 + '</td>'
-                                +'</tr>'
-                                +'<tr>'
-                                +'<td align="right" style="padding-right: 40px;">'
-                                +'<br>'
-                                +'发布时间：'+new Date(data.data[0].notice_date).format("yyyy-MM-dd hh:mm")
+                                + '</tr>'
+                                + '<tr>'
+                                + '<td align="right" style="padding-right: 40px;">'
+                                + '<br>'
+                                + '发布时间：' + new Date(data.data[0].notice_date).format("yyyy-MM-dd hh:mm")
                                 + '</td>'
-                                +'</tr>';
+                                + '</tr>';
                         html += temp;
 
-                        openPage('systemNoticeDetails_Modal','系统公告详情');
-                    }else {
+                        openPage('systemNoticeDetails_Modal', '系统公告详情');
+                    } else {
                         msgError("获取公告详情失败！");
                     }
 
                     $('#systemNoticeDetailsTablelist').html(html);
                 }
                 else {
-                    msgError(data.msg+',错误代码:'+data.code);
+                    msgError(data.msg + ',错误代码:' + data.code);
+                }
+            }
+        });
+    }
+    //初始化代办事项
+    function initSchedule() {
+        $.ajax({
+            url: '{{projcfg.appurl}}/admin/api/common/syscfg/schedule/getSchedulesByIndex',
+            type: 'get',
+            data: {
+                page: '1',
+                rows: '6'
+            },
+            success: function (data) {
+                if (data.success) {
+                    console.log("------scheduleMsg------", data.rows)
+                    var html = '';
+                    $.each(data.rows, function (i, n) {
+                        var temp = '<li onclick="systemScheduleDetails(\''
+                                + n._id
+                                + '\')">'
+                                + (i + 1) + "、" + n.schedule_name +
+                                '</li>';
+                        html += temp;
+                    });
+
+
+                    //<li onclick="systemScheduleDetails(n._id)">1、测试定时任务'</li>
+
+                    $('#scheduleList').append(html);
+
+                }
+                else {
+
+                    msgError(data.msg + ',错误代码:' + data.code);
+                }
+            }
+        });
+
+    }
+
+    //打开更多代办事项
+    function openMoreScheduleList() {
+        //初始化grid
+        $('#moreScheduleTablelist').datagrid({
+            method: 'get',
+            url: '{{projcfg.appurl}}/admin/api/common/syscfg/schedule/getSchedulesByIndex',
+            rownumbers: true,
+            striped: true,
+            fitColumns: true,
+            fit: true,
+            border: false,
+            singleSelect: true,
+            selectOnCheck: true,
+            columns: [[
+                {"field": "schedule_code", "title": "编号", "width": 60},
+                {"field": "schedule_creator", "title": "创建者", "width": 50},
+                {"field": "schedule_name", "title": "事项名称", "width": 100},
+                {
+                    "field": "schedule_create_time", "title": "创建日期", "width": 80,
+                    formatter: function (value, rowData, rowIndex) {
+                        return new Date(value).format();
+                    }
+                }
+            ]],
+            onLoadSuccess: function (json) {
+                if (!json.success) {
+                    msgError('提示,' + json.msg + ',错误代码:' + json.code);
+                }
+            },
+            onLoadError: function () {
+                msgError('提示,加载数据出现时发生错误,请稍候重试...');
+            },
+            pagination: true,
+            loadMsg: '正在加载...'
+        });
+
+        openPage('schedule_Modal', '代办事项');
+    }
+
+    //代办事项详情
+    function systemScheduleDetails(id) {
+        $.ajax({
+            url: '{{projcfg.appurl}}/admin/api/common/syscfg/schedule/' + id,
+            type: 'get',
+            data: {},
+            success: function (data) {
+                console.log("scheduleMsg",data);
+                if (data.success) {
+                    var html = '';
+                    if (data.data != '' && data.data != null) {
+                        var temp = '<tr>'
+                                + '<td align="center">'
+                                + data.data[0].schedule_creator
+                                + '<br>'
+                                + '</td>'
+                                + '</tr>'
+                                + '<tr>'
+                                + '<td>'
+                                + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'
+                                + data.data[0].schedule_name
+                                + '</td>'
+                                + '</tr>'
+                                + '<tr>'
+                                + '<td align="right" style="padding-right: 40px;">'
+                                + '<br>'
+                                + '时间：' + new Date(data.data[0].schedule_create_time).format("yyyy-MM-dd hh:mm")
+                                + '</td>'
+                                + '</tr>';
+                        html += temp;
+                        openPage('scheduleDetails_Modal', '待办事项详情');
+                    } else {
+                        msgError("获取代办事项详情失败！");
+                    }
+                    console.log("scheduleMsgHtml",html);
+
+                    $('#scheduleDetailsTablelist').html(html);
+                }
+                else {
+                    console.log("error",data.msg);
+                    msgError(data.msg + ',错误代码:' + data.code);
                 }
             }
         });
     }
 
-    function initSystemNotice(){
+    function initSystemNotice() {
         $.ajax({
             url: '{{projcfg.appurl}}/admin/api/common/syscfg/notice/getNoticesByIndex',
             type: 'get',
             data: {},
             success: function (data) {
-                if(data.success) {
+                if (data.success) {
                     var html = '';
-                    $.each(data.data,function(i,n){
+                    $.each(data.data, function (i, n) {
                         var type;
-                        if(n.notice_type == 1){
+                        if (n.notice_type == 1) {
                             type = '<span class="label label-danger">重要</span>';
-                        }else if(n.notice_type == 2){
+                        } else if (n.notice_type == 2) {
                             type = '<span class="label label-azure">限时</span>';
-                        }else if(n.notice_type == 3){
+                        } else if (n.notice_type == 3) {
                             type = '<span class="label label-warning">通报</span>';
                         }
 
@@ -916,7 +1086,7 @@
                                 + n._id
                                 + '\')">'
                                 + '<td>'
-                                + (i+1)+"、"+n.notice_title+type
+                                + (i + 1) + "、" + n.notice_title + type
                                 + '</td>'
                                 + '<td>'
                                 + new Date(n.notice_date).format()
@@ -924,21 +1094,22 @@
                         '</tr>';
                         html += temp;
                     });
+
                     $('#systemNoticeTablelist').append(html);
                 }
                 else {
-                    msgError(data.msg+',错误代码:'+data.code);
+                    msgError(data.msg + ',错误代码:' + data.code);
                 }
             }
         });
     }
 
-    $(window).scroll(function(){
+    $(window).scroll(function () {
         var scrollTop = window.pageYOffset
                 || document.documentElement.scrollTop
                 || document.body.scrollTop
                 || 0;
-        var topPosition = $(window).height() - 150+scrollTop;
+        var topPosition = $(window).height() - 150 + scrollTop;
 //        $('#noticeDialog').panel('resize',{
 //            top:topPosition
 //        });
@@ -949,35 +1120,35 @@
      * 扩展javaScriptDate类型工具js
      * 实现格式化日期功能
      */
-    Date.prototype.format = function(format){
-        if(isNaN(this.getMonth())){
+    Date.prototype.format = function (format) {
+        if (isNaN(this.getMonth())) {
             return '';
         }
-        if(!format){
+        if (!format) {
             format = 'yyyy-MM-dd';
         }
         var o = {
             //month
-            "M+" : this.getMonth() + 1,
+            "M+": this.getMonth() + 1,
             //day
-            "d+" : this.getDate(),
+            "d+": this.getDate(),
             //hour
-            "h+" : this.getHours(),
+            "h+": this.getHours(),
             //minute
-            "m+" : this.getMinutes(),
+            "m+": this.getMinutes(),
             //second
-            "s+" : this.getSeconds(),
+            "s+": this.getSeconds(),
             //quarter
-            "q+" : Math.floor((this.getMonth() + 3) / 3),
+            "q+": Math.floor((this.getMonth() + 3) / 3),
             //millisecond
-            "s" : this.getMilliseconds()
+            "s": this.getMilliseconds()
         };
-        if(/(y+)/.test(format)){
-            format = format.replace(RegExp.$1,(this.getFullYear() + "").substr(4 - RegExp.$1.length));
+        if (/(y+)/.test(format)) {
+            format = format.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
         }
-        for(var k in o){
-            if(new RegExp("(" + k + ")").test(format)){
-                format = format.replace(RegExp.$1,RegExp.$1.length == 1 ? o[k] : ("00" + o[k]).substr(("" + o[k]).length));
+        for (var k in o) {
+            if (new RegExp("(" + k + ")").test(format)) {
+                format = format.replace(RegExp.$1, RegExp.$1.length == 1 ? o[k] : ("00" + o[k]).substr(("" + o[k]).length));
             }
         }
         return format;
