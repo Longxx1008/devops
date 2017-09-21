@@ -1,20 +1,22 @@
 
-<div class="row">
+<div class="row" style="background-color: white">
     <div class="col-xs-12 col-md-12">
         <div class="widget">
-                    <div class="col-xs-6 col-md-6" style="width:100%">
+                    <div class="col-xs-6 col-md-6" style="width:100%;margin-top: 10px;display: inline">
                         <font size="3.0rem" style=""> <b>集群资源概览</b></font>
-
+                        <div style="float: right"><button id="btnBack" class="btn btn-default">返回</button></div>
+                        <div style="float: right;margin-right: 10px"><button id="btnList" class="btn btn-default">主机列表</button></div>
                     </div>
+
                 <div class="col-xs-12 col-md-12" style="margin-top: 5px"><hr style="height:1px;border:none;border-top:1px solid #555555;margin-top: 20px" ></div>
                     <div class="col-xs-6 col-md-6" style="width:100%;margin-top: 30px">
                         <font size="3.5rem" style=""> <b>基础信息</b></font>
 
                     </div>
-                    <div style="display: inline;font-size: 16px;margin-top: 20px" class="col-xs-6 col-md-6">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp名称  :  <span id="name"></span></div>
-                    <div class="col-xs-6 col-md-6" style="font-size: 16px;margin-top: 20px">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp位置  :  <span id="position"></span></div>
-                    <div class="col-xs-6 col-md-6" style="font-size: 16px;margin-top: 20px">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp管理员  :  <span id="user"></span></div>
-                    <div class="col-xs-6 col-md-6" style="font-size: 16px;margin-top: 20px">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp状态  :  <span id="status"></span></div>
+                    <div style="display: inline;font-size: 16px;margin-top: 20px" class="col-xs-6 col-md-6">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp名称  :  <span id="name"></span></div>
+                    <div class="col-xs-6 col-md-6" style="font-size: 16px;margin-top: 20px">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp位置  :  <span id="position"></span></div>
+                    <div class="col-xs-6 col-md-6" style="font-size: 16px;margin-top: 20px">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp管理员  :  <span id="user"></span></div>
+                    <div class="col-xs-6 col-md-6" style="font-size: 16px;margin-top: 20px">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp状态  :  <span id="status"></span></div>
         </div>
         <div class="col-xs-6 col-md-6" style="width:100%;margin-top: 30px">
             <font size="3.5rem" style=""> <b>资源使用情况</b></font>
@@ -29,21 +31,47 @@
             </tr>
         </table>
         <div class="col-xs-12 col-md-12" style="margin-top: 5px"><hr style="height:1px;border:none;border-top:1px solid #555555;" ></div>
+        <div id="runStatus" style="width:40%; height: 300px;margin-top: 50px;" class="col-xs-6 col-md-6"></div>
+        <div id="ringChart" style="width:60%; height: 600px;margin-top: 50px" class="col-xs-6 col-md-6"></div>
+        <div id="operationSystem" style="width:40%; height: 300px;margin-top: -290px;margin-left: 17px" class="col-xs-6 col-md-6"></div>
+        <div class="col-xs-12 col-md-12" style="margin-top: 5px"><hr style="height:1px;border:none;border-top:1px solid #555555;" ></div>
+        <div class="col-xs-6 col-md-6" style="width:100%;margin-top: 30px">
+            <font size="3.0rem" style=""> <b>资源使用情况时序图</b></font>
+
+        </div>
         <table style="width: 100%;height: 600px;margin-top: 10px" class="col-xs-12 col-md-12">
-            <tr>
-                <td id="runStatus" style="width:40%; height: 32px;"></td>
-                <td id="ringChart" style="width:60%; height: 600px;" rowspan="2"></td>
-            </tr>
-            <tr>
-                <td id="operationSystem" style="width:30%; height: 100px;"></td>
-            </tr>
             <tr>
                 <td id="hostStatus" colspan="2" style="width:100%; height: 500px;"></td>
             </tr>
             <tr>
+                <td  colspan="2" ><div class="col-xs-12 col-md-12" style="margin-top: 5px"><hr style="height:1px;border:none;border-top:1px solid #555555;" ></div></td>
+            </tr>
+            <tr>
+                <td>        <div class="col-xs-6 col-md-6" style="width:100%;margin-top: 30px">
+                    <font size="3.0rem" style=""> <b>网络出入时序图</b></font>
+
+                </div></td>
+            </tr>
+            <tr>
                 <td id="netStatus" colspan="2" style="width:20%; height: 500px;"></td>
             </tr>
+            <tr>
+                <td  colspan="2" ><div class="col-xs-12 col-md-12" style="margin-top: 5px"><hr style="height:1px;border:none;border-top:1px solid #555555;" ></div></td>
+            </tr>
+            <tr>
+                <td>        <div class="col-xs-6 col-md-6" style="width:100%;margin-top: 30px">
+                    <font size="3.0rem" style=""> <b>集群拓扑图</b></font>
+
+                </div></td>
+            </tr>
+            <tr>
+                <td>&nbsp</td>
+            </tr>
+            <tr>
+                <td colspan="2" style="width:20%; height: 500px;"><img src="{{projcfg.appurl}}/static/images/netWork.png" style="width: 100%"></td>
+            </tr>
         </table>
+
     </div>
 </div>
 
@@ -52,6 +80,7 @@
 <script type="text/javascript" src="{{projcfg.appurl}}/static/js/echart/v3.1.3/echarts.min.js"></script>
 <script  type="text/javascript">
     //页面直接跳转页面带参数时，获取url参数值
+    var master_ip,master_id;
     function GetRequest() {
         var values = [];
         var url = location.search; //获取url中"?"符后的字串
@@ -75,6 +104,12 @@
             return values;
         }
     }
+    $("#btnList").click(function(){
+        window.location.href = "{{projcfg.appurl}}/hostmanage?master_ip="+encodeURI(master_ip)+"&master_id="+master_id;
+    })
+    $("#btnBack").click(function(){
+        window.location.href = "{{projcfg.appurl}}/colonym";
+    })
     $(function(){
         var paramsValues = GetRequest();
         console.log("======paramsValues=====",paramsValues);
@@ -83,6 +118,8 @@
             url:'{{projcfg.appurl}}/api/project/operation/colonymanage/'+id,
             type:'get',
             success:function(data){
+                master_ip=data.data[0].master_ip;
+                master_id=data.data[0].master_id;
                 $("#name").html(data.data[0].name);
                 $("#position").html(data.data[0].position);
                 $("#user").html(data.data[0].createUser);
@@ -124,7 +161,7 @@
                     },
                     tooltip : {
                         trigger: 'item',
-                        formatter: "{a} <br/>{b} : {c} ({d}%)"
+                        formatter: "{a} <br/>{d}%"
                     },
                     legend: {
                     },
@@ -155,7 +192,7 @@
                     },
                     tooltip : {
                         trigger: 'item',
-                        formatter: "{a} <br/>{b} : {c} ({d}%)"
+                        formatter: "{a} <br/>{d}%"
                     },
                     legend: {
                     },
@@ -186,7 +223,7 @@
                     },
                     tooltip : {
                         trigger: 'item',
-                        formatter: "{a} <br/>{b} : {c} ({d}%)"
+                        formatter: "{a} <br/>{d}%"
                     },
                     legend: {
                     },
@@ -245,7 +282,7 @@
         runStatusChart.setOption({
             title: {
                 text: '系统类型',
-                subtext: '状态'
+                x:20
             },
             tooltip: {
                 trigger: 'axis',
@@ -277,7 +314,7 @@
                     show:false
 
                 },
-                data: ['运行中','失效']
+                data: ['运行中: '+status[0]+'台','失效: '+status[1]+'台']
             },
             color:["green"],
             series: [
@@ -290,8 +327,8 @@
         });
         operationSystemChart.setOption({
             title: {
-                text: '',
-                subtext: '操作系统'
+                text: '操作系统',
+                subtext: '',
             },
             tooltip: {
                 trigger: 'axis',
@@ -360,7 +397,7 @@
                         }
                     },
                     data:[
-                        {value:stopping, name:'失效', selected:true},
+                        {value:stopping, name:'失效', selected:false},
                         {value:running, name:'运行中'}
                     ]
                 },
@@ -411,14 +448,23 @@
         });
                 netStatusChart.setOption({
                     title: {
-                        text: '各主机网络情况',
-                        subtext: '网络(外网)'
+                        text: '24小时网络(外网)出入情况',
+                        x:'center',
+                        subtext: '',
+                        y:10,
+                        textStyle:{
+                            //字体粗细 'normal','bold','bolder','lighter',100 | 200 | 300 | 400...
+                            fontWeight:'normal',
+                            //字体大小
+                            fontSize:16
+                        }
                     },
                     tooltip: {
                         trigger: 'axis'
                     },
                     legend: {
-                        data:['出网kbps','入网kbps']
+                        data:['出网kbps','入网kbps'],
+                        y:35
                     },
                     xAxis:  {
                         type: 'category',
@@ -465,7 +511,12 @@
                 hostStatusChart.setOption({
                     title: {
                         x:"center",
+                        y:10,
                         text: '24小时资源使用情况',
+                        textStyle: {
+                            fontSize:16,
+                            fontWeight:'normal',
+                        }
                     },
                     tooltip: {
                         trigger: 'axis'
