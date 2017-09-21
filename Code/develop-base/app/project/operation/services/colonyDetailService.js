@@ -25,7 +25,7 @@ exports.getResourceByConoly = function(cb){
 
 exports.getHostInfo = function(cb){
     var p = new Promise(function(resolve, reject) {
-        var sql = 'select * from pass_operation_host_info';
+        var sql = 'select DISTINCT slave_ip,cpu,memory,disk,memory_used,disk_used,os,master_ip,cpu_used,slave_id,master_id,status from pass_operation_host_info';
         mysqlPool.query(sql, function (err, results) {
             if (err) {
                 cb(utils.returnMsg(false, '1000', '讀取主机信息出错', null, err));
