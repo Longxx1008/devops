@@ -2,6 +2,7 @@ var mysql = require('mysql');
 var config = require('../../../../config');
 var $util = require('../../../common/util/util');
 var DateUtils = require('../../../common/core/utils/DateUtils');
+var mysqlPool = require('../../utils/mysql_pool');
 // 使用连接池，提升性能
 var pool = mysql.createPool($util.extend({}, config.mysql));
 var Promise=require("bluebird");
@@ -29,7 +30,86 @@ exports.getSalve=function(){
                     var master_ip=all.hostname;
                     var createUser=all.build_user;
                     var k=0;
-                    updateMysql(resolve,k,slaves,master_id,master_ip,createUser);
+                    var datas=[];
+                    for(var i in slaves){
+                        var data=[];
+                        slave=slaves[i];
+                        data.push(slave.id.toString());
+                        data.push(slave.hostname.toString());
+                        data.push(slave.port.toString());
+                        data.push(slave.pid);
+                        data.push("Linux");
+                        data.push(slave.resources.cpus.toString());
+                        data.push(slave.resources.mem.toString());
+                        data.push((slave.resources.gpus)?slave.resources.gpus.toString():"0");
+                        data.push(slave.resources.disk.toString());
+                        data.push((slave.used_resources.cpus)? slave.used_resources.cpus.toString():"0");
+                        data.push((slave.used_resources.mem)?slave.used_resources.mem.toString():"0");
+                        data.push((slave.used_resources.disk)?slave.used_resources.disk.toString():"0");
+                        data.push((slave.used_resources.gpus)?slave.used_resources.gpus.toString():"0");
+                        data.push( slave.active.toString());
+                        data.push(slave.registered_time.toString());
+                        data.push(master_ip.toString());
+                        data.push(createUser.toString());
+                        data.push(master_id.toString());
+                        datas.push(data);
+                    }
+
+                    var sql_insert = "INSERT INTO pass_operation_host_info ( slave_id,slave_ip,slave_port,name,os,cpu,memory,gpus,disk,cpu_used,memory_used,disk_used,gpus_used ,status,createTime,master_ip,createUser,master_id ) values (?)";
+                        for(var k=0 ; datas.length-1>k;k++){
+                            sql_insert+=",(?)";
+                        }
+
+                    // console.log(sql_insert);
+                    pool.getConnection(function (err, connection){
+                        if(err){
+
+                            console.log(err);
+                            resolve({"error":err,"message":"获取数据库连接失败","success":false,"code":1001,"data":null})
+
+                        }else{
+                            connection.query(sql_insert,datas,function(errs,rs){
+                                if(errs){
+                                    console.log(errs);
+                                    resolve({"error":errs,"message":"插入数据失败 sql :"+sql_insert ,"success":false,"code":1001,"data":null})
+
+                                }else {
+                                    resolve({
+                                        "error": null,
+                                        "message": "插入数据成功 :",
+                                        "success": true,
+                                        "code": 0000,
+                                        "data":rs
+                                    })
+
+                                }
+
+                            })
+
+                        }
+
+
+                    });
+                    // mysql.createQuery(sql_insert,datas,function(errs,results){
+                    //     if(errs){
+                    //         console.log(errs);
+                    //     }else{
+                    //         console.log(results);
+                    //     }
+                    //
+                    // })
+
+                    //
+                    // query(sql_insert,datas,function(err, rows, fields){
+                    //     if(err){
+                    //         console.log(err);
+                    //     }else{
+                    //         console.log(rows);
+                    //         console.log(fields);
+                    //
+                    //     }
+                    //
+                    // })
                 }else{
                     console.log("访问mesos失败 。");
                     console.log(res);
@@ -41,7 +121,7 @@ exports.getSalve=function(){
             'utf8').
         on('error', function (e) {
             console.log("Got error: " + e.message);
-            resolve({"error":e.message,"message":"访问数据失败"})
+            resolve({"error":e.message,"message":"访问数据失败","success":false})
 
         });
 
@@ -54,7 +134,8 @@ exports.getSalve=function(){
     return p;
 }
 //                   k,slaves,master_id,master_ip,createUser,master_port
-function updateMysql(resolve,k,slaves,master_id,master_ip,createUser){
+function updateMysql(resolve,k,slaves,master_id,master_ip,createUser,datas){
+    console.log(" insert data  ing ");
  if(slaves&&slaves.length>k){
      var slave=slaves[k];
      var slave_id=slave.id;
@@ -76,84 +157,8 @@ function updateMysql(resolve,k,slaves,master_id,master_ip,createUser){
      pool.getConnection(function (err, connection) {
          if (err) {
              console.log(err.message);
-             resolve({"error":err,"message":"获取连接池失败"})
+             resolve({"error":err,"message":"获取连接池失败","success":false})
          } else {
-             // var sql_select="select * from pass_operation_host_info where slave_id='"+slave_id+"' and master_id='"+master_id+"'";
-             // console.log(sql_select);
-             // connection.query(sql_select,function(err,results){
-             //     if(err){
-             //         console.log(err);
-             //     }else{
-                     // if(results.length>0){
-                         //存在然后更新；
-
-                         // var sql_update="UPDATE pass_operation_host_info SET ";
-                         // if(os){
-                         //     sql_update+=" os='"+os+"'";
-                         // }
-                         // if(name){
-                         //    sql_update+=",name='"+name+"'";
-                         // }
-                         //
-                         // if(cpu){
-                         //     sql_update+=",cpu='"+cpu+"'";
-                         // }
-                         // if(slave_id){
-                         //     sql_update+=",slave_id='"+slave_id+"'";
-                         // }
-                         // if(slave_ip){
-                         //     sql_update+=",slave_ip='"+slave_ip+"'";
-                         // }
-                         // if(slave_port){
-                         //     sql_update+=",slave_port='"+slave_port+"'";
-                         // }
-                         // if(memory){
-                         //     sql_update+=",memory='"+memory+"'";
-                         // }
-                         // if(gpus){
-                         //     sql_update+=",gpus='"+gpus+"'";
-                         // }
-                         // if(disk){
-                         //     sql_update+=",disk='"+disk+"'";
-                         // }
-                         // if(disk_used){
-                         //     sql_update+=",disk_used='"+disk_used+"'";
-                         // }
-                         // if(memory_used){
-                         //     sql_update+=",memory_used='"+memory_used+"'";
-                         // }
-                         // if(master_ip){
-                         //     sql_update+=",master_ip='"+master_ip+"'";
-                         // }
-                         //
-                         // if(createUser){
-                         //     console.log("createUser",createUser);
-                         //     sql_update+=",CreateUser='"+createUser+"' ";
-                         // }
-                         // if(gpus_used){
-                         //     sql_update+=",gpus_used='"+gpus_used+"' ";
-                         // }
-                         // if(status){
-                         //     sql_update+=",status='"+status+"' ";
-                         // }
-                         // if(createTime){
-                         //     sql_update+=",createTime='"+createTime+"' ";
-                         // }
-                         // if(cpu_used){
-                         //     sql_update+=",cpu_used='"+cpu_used+"' ";
-                         // }
-                         // sql_update+="where slave_id='"+slave_id+"' and master_id='"+master_id+"' ;";
-                         // console.log("sql_update    ;",sql_update);
-                         // connection.query(sql_update,function(error,result){
-                         //     if(error){
-                         //         console.log(error);
-                         //     }else{
-                         //         k++;
-                         //         updateMysql(k,slaves,master_id,master_ip,createUser);
-                         //     }
-                         // })
-                     // }else{
-                         // 不存在然后插入
              var sql_insert = "INSERT INTO pass_operation_host_info ( ";
              if(os){
                  sql_insert+="os";
@@ -271,10 +276,11 @@ function updateMysql(resolve,k,slaves,master_id,master_ip,createUser){
              connection.query(sql_insert,function(error,result){
                  if(error){
                      console.log(error);
-                     resolve({"error":error,"message":"插入数据失败 sql :"+sql_insert })
+                     resolve({"error":error,"message":"插入数据失败 sql :"+sql_insert ,"success":false})
                  }else{
+                     datas.push(result);
                      k++;
-                     updateMysql(resolve,k,slaves,master_id,master_ip,createUser);
+                     updateMysql(resolve,k,slaves,master_id,master_ip,createUser,datas);
                  }
              })
 
@@ -289,7 +295,7 @@ function updateMysql(resolve,k,slaves,master_id,master_ip,createUser){
 
  }else{
 
-     resolve({"error":null,"message":"获取数据完成！"});
+     resolve({"error":null,"message":"获取数据完成！","success":true,"data":datas});
  }
 
 }

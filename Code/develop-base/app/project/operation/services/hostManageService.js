@@ -5,6 +5,7 @@
 var utils = require('../../../common/core/utils/app_utils');
 var mysqlPool = require('../../utils/mysql_pool');
 var config = require('../../../../config');
+
 var https = require('https');
 
 /**
@@ -14,18 +15,22 @@ var https = require('https');
  * @param conditionMap
  * @param cb
  */
-exports.pageList = function(page,size,conditionMap,cb){
+exports.pageList = function(page,size,ids,cb){
     var sql = "select * from pass_operation_host_info where 1=1 ";
+
     var conditions = [];
-    if(conditionMap){
-        if(conditionMap.colonyId){
-            sql += " and colonyId = ? "
-            conditions.push(conditionMap.colonyId);
-        }
+    if(ids){
+        sql += " and id in  ("+ids.toString()+")  "
+        var orderSql = " order by id desc ";
+        console.log("查询集群主机信息sql ====",sql);
+        utils.pagingQuery4Eui_mysql(sql,orderSql,page,size,conditions,cb);
+    }else{
+        sql += " and 1=0 "
+        var orderSql = " order by id desc ";
+        console.log("查询集群主机信息sql ====",sql);
+        utils.pagingQuery4Eui_mysql(sql,orderSql,page,size,conditions,cb);
     }
-    var orderSql = " order by id desc ";
-    console.log("查询集群主机信息sql ====",sql);
-    utils.pagingQuery4Eui_mysql(sql,orderSql,page,size,conditions,cb);
+
 };
 
 /**
