@@ -511,8 +511,7 @@
                 hostStatusChart.setOption({
                     title: {
                         x:"center",
-                        y:10,
-                        text: '24小时资源使用情况',
+                        text: '今日24小时资源使用情况',
                         textStyle: {
                             fontSize:16,
                             fontWeight:'normal',
@@ -522,7 +521,8 @@
                         trigger: 'axis'
                     },
                     legend: {
-                        data:['CPU使用率','内存使用率','硬盘使用率'],
+                        data:['CPU使用情况','内存使用情况','硬盘使用情况'],
+                        y:30
                     },
                     xAxis:  {
                         type: 'category',
