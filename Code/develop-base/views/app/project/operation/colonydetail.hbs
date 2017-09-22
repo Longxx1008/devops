@@ -256,17 +256,11 @@
             contentType: "application/json; charset=utf-8",
             success:function(data) {
                 var xAxis=new Array();//获取主机列表
-                var cpuUsed=new Array();//获取cpu使用情况
-                var diskUsed=new Array();//获取硬盘使用情况
-                var memoryUsed=new Array();//获取内存使用情况
                 var status=new Array();//获取运行状态使用情况
                 var running=0,stopping=0;
                 var operationSystem=new Array();//获取操作系统情况
                 for(var i in data.data){
                     xAxis.push(data.data[i].slave_ip);
-                    cpuUsed.push(parseFloat((data.data[i].cpu_used)/parseFloat(data.data[i].cpu)*100).toFixed(2));
-                    diskUsed.push(parseFloat((data.data[i].disk_used)/parseFloat(data.data[i].disk)*100).toFixed(2));
-                    memoryUsed.push(parseFloat((data.data[i].memory_used)/parseFloat(data.data[i].memory)*100).toFixed(2));
                     if(data.data[i].status){
                         running++;
                     }else{
@@ -293,7 +287,7 @@
             legend: {
             },
             grid: {
-                left: '3%',
+                left: '5%',
                 right: '4%',
                 bottom: '3%',
                 containLabel: true
