@@ -126,18 +126,31 @@ exports.syncColonyInfo = function(){
                 if(json){
                     var diskTotal = json.allocator_mesos_resources_disk_total;
                     var diskUsed = json.allocator_mesos_resources_disk_offered_or_allocated;
-                    diskUsed = diskUsed < 100 * 1024 ? 120 * 1124 : diskUsed;
                     var memTotal = json.allocator_mesos_resources_mem_total;
                     var memUsed = json.allocator_mesos_resources_mem_offered_or_allocated;
                     var cpuTotal = json.allocator_mesos_resources_cpus_total;
                     var cpuUsed = json.allocator_mesos_resources_cpus_offered_or_allocated;
-                    //CPU：10核（42%） </br>内存：28GB（58%）</br>磁盘：50GB（41.6%）
-                    var usage = "CPU:" + cpuUsed + "核(" +  (cpuUsed * 100/cpuTotal).toFixed(3) + "%)</br>" + "内存:" + (memUsed/1024).toFixed(3) + "GB(" + (memUsed * 100 / memTotal).toFixed(3) + "%)</br>磁盘:" + (diskUsed / 1024).toFixed(3) + "GB(" + (diskUsed / diskTotal).toFixed(3) + "%)";
-                    //CPU： 24核</br> 内存： 48 GB</br>磁盘： 120GB
-                    var resource = "CPU:" + cpuTotal + "核</br>" + "内存:" + (memTotal/1024).toFixed(3) + "GB</br>磁盘:" + (diskTotal/1024).toFixed(3) + "GB";
-                    console.log(usage);
-                    console.log(resource);
-                    var sql = "update pass_operation_colony_info set `usage`='" + usage + "',totalResource='" + resource + "' where 1=1";
+                    var cputool = "总量:" + cpuTotal + "核</br>" + "已使用:" + cpuUsed + "核(" +  (cpuUsed * 100/cpuTotal).toFixed(2) + "%)</br>空闲:"+(cpuTotal-cpuUsed)+"核";
+                    if(diskTotal<=1024*1024){
+                        var disktool = "总量:" + (diskTotal/1024).toFixed(2) + "G</br>" + "已使用:" + (diskUsed/1024).toFixed(2) + "G("  + (diskUsed / diskTotal).toFixed(2) + "%)</br>空闲:"+((diskTotal-diskUsed)/1024).toFixed(2)+"G";
+                    }else{
+                        var disktool = "总量:" + (diskTotal/1024/1024).toFixed(2) + "T</br>" + "已使用:" + (diskUsed/1024).toFixed(2)+ "G("  + (diskUsed / diskTotal).toFixed(2) + "%)</br>空闲:"+((diskTotal-diskUsed)/1024/1024).toFixed(2)+"T";
+                        if(diskUsed>=1024*1024){
+                            disktool = "总量:" + (diskUsed/1024/1024).toFixed(2) + "T</br>" + "已使用:" + (diskUsed/1024/1024).toFixed(2) + "T("  + (diskUsed / diskTotal).toFixed(2) + "%)</br>空闲:"+((diskTotal-diskUsed)/1024/1024).toFixed(2)+"T";
+                        }
+                    }
+                    if(memTotal<=1024*1024){
+                        var memorytool = "总量:" + (memTotal/1024).toFixed(2) + "G</br>" + "已使用:" + (memUsed/1024).toFixed(2) + "G("+(memUsed * 100/memTotal).toFixed(2) + "%)</br>空闲:"+((memTotal-memUsed)/1024).toFixed(2)+"G";
+                    }else{
+                        var memorytool = "总量:" + (memTotal/1024/1024).toFixed(2) + "T</br>" + "已使用:" + (memUsed/1024).toFixed(2) + "G("+(memUsed * 100/memTotal).toFixed(2) + "%)</br>空闲:"+((memTotal-memUsed)/1024/1024).toFixed(2)+"T";
+
+                        if(memUsed>=1024*1024){
+                            memorytool = "总量:" + (memTotal/1024/1024).toFixed(2) + "T</br>"+ "已使用:" + (memUsed/1024/1024).toFixed(2) + "T("+(memUsed * 100/memTotal).toFixed(2) + "%)</br>空闲:"+((memTotal-memUsed)/1024/1024).toFixed(2)+"T";
+
+                        }
+                    }
+                    //容器时间要晚8小时，所以时间加了8小时
+                    var sql = "update pass_operation_colony_info set totalCpu='"+cpuTotal+"',usedCpu='"+cpuUsed+"',totalMemory='"+memTotal+"',usedMemory='"+memUsed+"',totalDisk='"+diskTotal+"',usedDisk='"+diskUsed+"',`cputool`='" + cputool + "',`disktool`='" + disktool + "',`memorytool`='" + memorytool + "',createDate=DATE_FORMAT(date_add(CURDATE(), interval 8 hour),'%Y-%m-%d'),createTime=DATE_FORMAT(date_add(CURTIME(), interval 8 hour),'%H:%i:%s') where 1=1";
                     console.log(sql);
                     mysqlPool.query(sql,[],function(err,result) {
                         if(err) {

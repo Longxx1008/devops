@@ -6,21 +6,49 @@ var router = express.Router();
 var config = require('../../../../config');
 var hostManageService = require('../services/hostManageService');
 var utils = require('../../../common/core/utils/app_utils');
+var updateHostInfo=require("../services/updateHostInfo");
 
 //查询集群主机数据
 router.route('/').get(function(req,res){
     // 分页参数
     var page = req.query.page;
     var length = req.query.rows;
-    var colonyId = req.query.colonyId;
+    var master_id = req.query.master_id;
     var conditionMap = {};
-    if(colonyId){
-        conditionMap.colonyId = colonyId;
+    if(master_id){
+        conditionMap.master_id = master_id;
     }
     // 调用分页
-        hostManageService.pageList(page, length, conditionMap,function(result){
-        utils.respJsonData(res, result);
-    });
+    updateHostInfo.getSalve().then(function(rs){
+        console.log(rs);
+        if(rs.success){
+            var ids=[];
+            for(var i in rs.data){
+                if(i=="affectedRows"){
+                    var affectedRows= rs.data[i];
+                }else if(i=="insertId"){
+                    var insertId=rs.data[i];
+                }
+
+            }
+
+            console.log("affect ?????????",affectedRows)
+            for(var i=0;affectedRows>i;i++){
+                console.log(insertId+i);
+                ids.push(insertId+i);
+            }
+
+            console.log("ids  ---------",ids)
+            hostManageService.pageList(page, length, ids,function(result){
+                utils.respJsonData(res, result);
+            });
+
+        }else{
+            utils.respJsonData(res, rs);
+        }
+
+    })
+
 })
 //新增集群主机数据
 .post(function(req,res){
