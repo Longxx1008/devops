@@ -21,7 +21,7 @@ build_stages:
     - docker
 #    - docker build -t $TEST_CI_REGISTRY_IMAGE .
     - if [ "$CI_BUILD_TAG" ]; then  docker build -t $MY_CI_REGISTRY_IMAGE .;fi
-    - if [ "$CI_BUILD_TAG" ]; then  curl -X POST http://192.168.9.61:8080/v2/apps -d @architecture.json -H "Content-type: application/json" ;fi
+    - if [ "$CI_BUILD_TAG" ]; then  curl -X POST http://192.168.9.61:8080/v2/apps -d @architecture.json -H 'Content-type: application/json' ;fi
 #    - if [ -n "${PUSH_TO_REGISTRY}" ]; then docker build -t $MY_CI_REGISTRY_IMAGE .;fi
   tags:
     - dockerin
