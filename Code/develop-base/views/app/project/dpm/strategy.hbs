@@ -1,0 +1,270 @@
+
+<div class="row">
+    <div class="col-xs-12 col-md-12">
+        <div class="widget">
+            <div class="widget-body">
+                <div id="toolbar" class="row tbRow" style="margin-bottom: 1.1rem;border-bottom: 1px solid #ccc;">
+                    <div class="col-xs-6 col-md-6" style="width:100%">
+
+                        <div id="toolbar" class="row tbRow" style="">
+                            <font size="3.5rem" style="margin-left: 1.2rem;margin-right: 2.5rem"> <b>策略配置</b></font>
+                            <div class="btn-group" role="group" aria-label="...">
+                                <button type="button" class="btn btn-default" onclick="openPage('新增策略','',doAdd)" data-title="新增">
+                                    <i class="fa fa-plus"></i> 新增
+                                </button>
+                                <button type="button" class="btn btn-default" onclick="toEdit()" data-title="修改">
+                                    <i class="fa fa-edit"></i> 修改
+                                </button>
+                                <button type="button" class="btn btn-default" onclick="doDel()" data-title="删除">
+                                    <i class="fa fa-trash"></i> 删除
+                                </button>
+                            </div>
+                          <!--  <div class="col-xs-3 col-md-3 text-right" style="float: right">
+                                    <div class="form-group">
+                                        <div class="input-group">
+                                            <input type="input" class="form-control" id="strategyName" name="strategyName" placeholder="策略名称">
+                                            <span class="input-group-btn">
+                                                <button class="btn btn-default" type="button" onclick="doSearch()"><i class="fa fa-search"></i>查询</button>
+                                            </span>
+                                        </div>
+                                    </div>
+                            </div>-->
+                        </div>
+
+                    </div>
+                </div>
+                <div id="cc" class="easyui-layout" data-options="fit:true,border:false" style="width: 800px; height:575px;background-color: #fbfbfb;">
+                    <div id="images" data-options="region:'center',border:false" style="overflow-x:hidden;overflow-y:hidden">
+                        <div id="privatediv" style="width:100%;height: 100%;">
+                            <div style="width:100%;height:100%; ">
+                                <table id="strategyTable">
+                                </table>
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="colonyDialog" class="mydialog"  data-options="iconCls:'icon-save'">
+    <div class="row">
+        <div class="col-md-12">
+            <div>
+                <form id="colonyForm" class="form-horizontal form-bordered" role="form" method="post" enctype="multipart/form-data">
+                    <input type="hidden" id="id" name="id"/>
+                    <div class="form-group">
+                        <label for="strategy_name" class="col-sm-2 control-label no-padding-right" style="width: 21%">策略名称:</label>
+                        <div class="col-sm-10" style="width: 79%">
+                            <input type="text" class="easyui-validatebox form-control" data-options="required:true" name="strategy_name" id="strategy_name" placeholder="请输入策略名称" style="width:60%">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="strategy_parameter" class="col-sm-2 control-label no-padding-right" style="width: 21%">参数:</label>
+                        <div class="col-sm-10" style="width: 79%">
+                            <input type="text" class="easyui-validatebox form-control" data-options="required:true" name="strategy_parameter" id="strategy_parameter" placeholder="请输入策略参数" style="width:60%">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="trigger_shell" class="col-sm-2 control-label no-padding-right" style="width: 21%">脚本命令:</label>
+                        <div class="col-sm-10" style="width: 79%">
+                            <input type="text" class="easyui-validatebox form-control" data-options="required:true" name="trigger_shell" id="trigger_shell" placeholder="请输入脚本命令" style="width:60%">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="remark" class="col-sm-2 control-label no-padding-right" style="width: 21%">备注:</label>
+                        <div class="col-sm-10" style="width: 79%">
+                            <textarea class="form-control" rows="5" name="remark" id="remark" placeholder="请输入备注"></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="strategy_status" class="col-sm-2 control-label no-padding-right" style="width: 21%">状态:</label>
+                        <div class="col-sm-10" style="width: 79%">
+                            <select class="easyui-combobox" name="strategy_status" id="strategy_status" style="width:200px;">
+                                <option value="1" selected="selected">正常</option>
+                                <option value="0">禁用</option>
+                            </select>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+<script  type="text/javascript">
+    $(function(){
+        $('#strategyTable').datagrid({
+            url:'{{projcfg.appurl}}/api/project/dpm/strategy/list',
+            method:'get',
+            rownumbers:false,
+            striped:true,
+            fitColumns:true,
+            toolbar: '#toolbar',
+            fit:true,
+            border:true,
+            singleSelect:true,
+            selectOnCheck:false,
+            columns:[[
+                {"field":'id',checkbox:true,"title":"编号"},
+                {"field": "strategy_name","title":"策略名称","width":80,align:"center"},
+                {"field": "strategy_parameter","title":"参数","width":80,align:"center"},
+                {"field": "remark","title":"备注","width":80,align:"center"},
+                {"field": "strategy_status","title":"状态","width":80,align:"center",
+                    "formatter":function (value, rowData,rowIndex) {
+                        if(value==1)
+                            return '正常';
+                        else
+                            return "禁用";
+                    }},
+            ]],
+            onLoadError:function() {
+                msgError('加载数据出现时发生错误,请稍候重试...');
+            },
+            pagination:true,
+            loadMsg:'正在加载...'
+        });
+    });
+    function doAdd(value) {
+        var validate = $('#colonyForm').form('validate');
+        if(!validate) {
+            return false;
+        }
+        $.messager.progress({
+            title : '提示',
+            text : '正在提交数据，请稍后....'
+        });
+        $.ajax({
+            url: '{{projcfg.appurl}}/api/project/dpm/strategy/list',
+            type: 'put',
+            data: $('#colonyForm').serializeJson(),
+            success: function (data) {
+                $.messager.progress('close');
+                if(data.success) {
+                    msgSuccess(data.msg);
+                    closeDialog();
+                    doSearch();
+                }
+                else {
+                    msgError(data.msg+',错误代码:'+data.code);
+                }
+            }
+        });
+    }
+    function doSearch() {
+        $('#strategyTable').datagrid('reload');
+    }
+    // 打开页面
+    function openPage(title, value, callback) {
+        $('#colonyDialog').show();
+        $('#colonyDialog').mydialog({
+            title:title,
+            width: 600,
+            height: 555,
+            top:100,
+            modal: true,
+            myButtons:[
+                {
+                    text:'确定',
+                    btnCls:'btn btn-blue',
+                    handler:function(){
+                        callback(value);
+                    }
+                },
+                {
+                    text:'关闭',
+                    btnCls:'btn btn-danger',
+                    handler:function(){
+                        closeDialog();
+                    }
+                }
+            ]
+        });
+    }
+
+    // 打开修改页面
+    function toEdit() {
+        // 获得选择行
+        var rows = $('#strategyTable').datagrid('getChecked');
+        if (rows.length != 1) {
+            msgError('提示,请选择一条数据再进行修改');
+            return false;
+        }
+        var id = rows[0].id;
+        $("#colonyForm").form('load',rows[0]);
+        openPage("修改策略配置", id, doEdit);
+
+    }
+    // 修改数据
+    function doEdit(id) {
+        // 验证表单
+        var validate = $('#colonyForm').form('validate');
+        if(!validate) {
+            return false;
+        }
+        $.messager.progress({
+            title : '提示',
+            text : '正在提交数据，请稍后....'
+        });
+        $.ajax({
+            url: '{{projcfg.appurl}}/api/project/dpm/strategy/list',
+            type: 'post',
+            data: $('#colonyForm').serializeJson(),
+            success: function (data) {
+                $.messager.progress('close');
+                if(data.success) {
+                    msgSuccess(data.msg);
+                    closeDialog();
+                    doSearch();
+                }
+                else {
+                    msgError(data.msg+',错误代码:'+data.code);
+                }
+            }
+        });
+    }
+
+    //删除数据列表
+    function doDel() {
+        // 获得选择行
+        var rows = $('#strategyTable').datagrid('getChecked');
+        if (rows.length != 1) {
+            msgError('提示,请选择一条数据再进行删除');
+            return false;
+        }
+        var id = rows[0].id;
+        msgConfirm('确定删除此条记录么？',function(result) {
+            if(result){
+                $.ajax({
+                    url: '{{projcfg.appurl}}/api/project/dpm/strategy/'+id,
+                    type: 'delete',
+                    success: function (data) {
+                        if(data.success) {
+                            msgSuccess(data.msg);
+                            doSearch();
+                        }else{
+                            msgError(data.msg + ',错误代码:' + data.code);
+                        }
+                    }
+                });
+            }
+        });
+    }
+
+    // 清空新增表单数据
+    function clear() {
+        $('#colonyForm').form('clear');
+    }
+
+    // 关闭窗口
+    function closeDialog() {
+        $('#colonyDialog').dialog('close');
+        clear();
+    }
+
+</script>
