@@ -122,6 +122,10 @@
                         else
                             return "禁用";
                     }},
+                {"field": "oper","title":"操作","width":120,align:"center",
+                    "formatter":function (value, rowData,rowIndex) {
+                        return "<span  style='height:26px;line-height:16px;margin-top: 0.5rem;margin-left: 0.5rem;cursor: pointer;' onclick='hm_list(\""+rowData.master_id+"\",\""+rowData.master_ip+"\")'>监控</span>  | <span  style='height:26px;line-height:16px;margin-top: 0.5rem;margin-left: 0.5rem;cursor: pointer;' onclick='colonymanage(\""+rowData.id+"\")'>管理</span>  | <span  style='height:26px;line-height:16px;margin-top: 0.5rem;margin-left: 0.5rem;cursor: pointer;' onclick='colonymanage(\""+rowData.id+"\")'>详情</span>";
+                    }}
             ]],
             onLoadError:function() {
                 msgError('加载数据出现时发生错误,请稍候重试...');
