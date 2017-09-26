@@ -9,19 +9,15 @@ var Schema = mongoose.Schema;
 
 var commonScheduleSchema = new Schema(
     {
-        schedule_name : String,// 任务名称
-        schedule_code : String,// 任务编号
-        schedule_cron : String,//
-        schedule_js_path : String,
-        schedule_js_fun : String,//
-        schedule_ip : String,//
-        schedule_status : Number,//
-        schedule_create_time:Date,//
-        schedule_creator:String,
-        __v:Number,
-        schedule_date:Date
+        schedule_name : String, //事项名称
+        schedule_content : String, //事项内容
+        schedule_creator : {type: Schema.Types.ObjectId, ref: 'CommonCoreUser'}, //事项发布人
+        schedule_executor : String, //事项执行人
+        schedule_create_time : Date, //发布时间
+        schedule_complete_time : Date,  //截止时间
+        schedule_grade :String  //紧急程度
     },
-    {collection: "common_schedule"}//mongodb集合名
+    {collection: "common_schedule_info"}//mongodb集合名
 );
 
 // 代办事项model

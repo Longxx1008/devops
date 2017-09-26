@@ -62,14 +62,19 @@
                                     <div class="widget-header bordered-bottom bordered-themeprimary">
                                         <i class="widget-icon fa fa-tags themeprimary"></i>
                                         <span class="widget-caption themeprimary">待办事项</span>
+                                        <div class="widget-buttons">
+                                            <a href="#" onclick="openMoreScheduleList()">
+                                                more
+                                            </a>
+                                        </div>
                                     </div><!--Widget Header-->
                                     <div class="widget-body">
                                         <div style="height:230px;">
                                             <div class="box-list-content">
-                                                <ul class="ul-list">
-                                                    <li>develop-base告警事项处理</li>
+                                                <ul class="ul-list" id="scheduleList">
                                                 </ul>
                                             </div>
+
                                         </div>
                                     </div>
                                 </div>
@@ -313,6 +318,31 @@
         </div>
     </div>
 </div>
+
+<!-- 点击代办事务more弹出框-->
+<div id="schedule_Modal" style="padding-top:0px;">
+    <div class="easyui-layout" data-options="fit:true,border:false">
+        <div data-options="region:'center',border:false,fit:true" style="overflow-x:scroll;overflow-y:hidden">
+            <table id="moreScheduleTablelist">
+
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- 点击代办事务每一条弹出框-->
+<div id="scheduleDetails_Modal" style="display:none;overflow:hidden">
+    <div class="row">
+        <div class="col-md-12">
+            <table class="table table-hover">
+                <tbody id="scheduleDetailsTablelist">
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
 <!-- 通知详情Modal -->
 <div id="systemNoticeDetails_Modal" style="display:none;overflow:hidden">
     <div class="row">
@@ -347,6 +377,7 @@
     $(document).ready(function(){
         showOperateData();
         initSystemNotice();
+        initSchedule();
         showImageDatas();
 //        showCpuChart();
 //        showMemoryChart();
@@ -649,6 +680,186 @@
             ]
         });
     }
+
+
+
+    //初始化待办事项
+    function initSchedule() {
+        $.ajax({
+            url: '{{projcfg.appurl}}/admin/api/common/syscfg/schedule/getSchedulesByIndex',
+            type: 'get',
+            data: {},
+            success: function (data) {
+                if (data.success) {
+                    var html = '';
+                    $.each(data.data, function (i, n) {
+
+
+
+                        var temp = '<li  onclick="systemScheduleDetails(\''
+                                + n._id
+                                + '\')">'
+                                + (i + 1) + "、" + n.schedule_name +'&nbsp&nbsp&nbsp&nbsp'+'&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp'+'&nbsp&nbsp&nbsp&nbsp'+'&nbsp&nbsp&nbsp&nbsp'+'&nbsp&nbsp&nbsp&nbsp'+'&nbsp&nbsp&nbsp&nbsp'+'&nbsp&nbsp&nbsp&nbsp'+'&nbsp&nbsp&nbsp&nbsp'+'&nbsp&nbsp&nbsp&nbsp'+'&nbsp&nbsp&nbsp&nbsp'+'&nbsp&nbsp&nbsp&nbsp'+'&nbsp&nbsp&nbsp&nbsp'+'&nbsp&nbsp&nbsp&nbsp'+'&nbsp&nbsp&nbsp&nbsp'+'&nbsp&nbsp&nbsp&nbsp'+'&nbsp&nbsp&nbsp&nbsp'+'&nbsp&nbsp&nbsp&nbsp'+'&nbsp&nbsp&nbsp&nbsp'+'&nbsp&nbsp&nbsp&nbsp'+'&nbsp&nbsp&nbsp&nbsp'+
+                                new Date(n.schedule_create_time).format()+
+                                '</li>';
+                        html += temp;
+                    });
+
+                    $('#scheduleList').append(html);
+                }
+                else {
+                    msgError(data.msg + ',错误代码:' + data.code);
+                }
+            }
+        });
+    }
+
+
+    //打开更多代办事项
+    function openMoreScheduleList() {
+        //初始化grid
+        $('#moreScheduleTablelist').datagrid({
+            method: 'get',
+            url: '{{projcfg.appurl}}/admin/api/common/syscfg/schedule/getSchedulesByIndexMore',
+            rownumbers: true,
+            striped: true,
+            fitColumns: true,
+            fit: true,
+            border: false,
+            singleSelect: true,
+            selectOnCheck: true,
+            columns: [[
+                {"field": "schedule_name", "title": "事项名称", "width": 60},
+                {"field": "schedule_content", "title": "内容", "width": 100},
+                {
+                    "field": "schedule_grade", "title": "紧急程度", "width": 40,
+                    formatter: function (value, rowData, rowIndex) {
+                        if (value == 1) {
+                            return '<span class="label label-danger">紧急</span>';
+                        } else if (value == 2) {
+                            return '<span class="label label-success">一般</span>';
+                        }
+                    }
+                },
+                {"field": "schedule_executor", "title": "执行者", "width": 40},
+                {
+                    "field": "schedule_creator", "title": "发布者", "width": 50,
+                    formatter: function (value, rowData, rowIndex) {
+                        if (value) {
+                            return value.user_name;
+                        }
+                    }
+                },
+                {
+                    "field": "schedule_create_time", "title": "创建日期", "width": 60,
+                    formatter: function (value, rowData, rowIndex) {
+                        return new Date(value).format();
+                    }
+                },
+                {
+                    "field": "schedule_complete_time", "title": "截止日期", "width": 60,
+                    formatter: function (value, rowData, rowIndex) {
+                        return new Date(value).format();
+                    }
+                },
+                {
+                    "field": "opt", "title": "详情", "width": 50,
+                    "formatter": function (value, rowData, rowIndex) {
+
+                        return '<a href="javascript:openSchedulePageDetails()">查看详情</a>';
+                    }
+                }
+
+            ]],
+            onLoadSuccess: function (json) {
+                if (!json.success) {
+                    msgError('提示,' + json.msg + ',错误代码:' + json.code);
+                }
+            },
+            onLoadError: function () {
+                msgError('提示,加载数据出现时发生错误,请稍候重试...');
+            },
+            pagination: true,
+            loadMsg: '正在加载...'
+        });
+
+        openPage('schedule_Modal', '代办事项');
+    }
+
+
+
+    function openSchedulePageDetails() {
+        //获取数据
+        var rows = $('#moreScheduleTablelist').datagrid('getChecked');
+        if (rows.length != 1) {
+            msgError('提示,请选择一条数据再进行查看');
+            return;
+        }
+
+        systemScheduleDetails(rows[0]._id)
+    }
+
+
+    //代办事项详情
+    function systemScheduleDetails(id) {
+        $.ajax({
+            url: '{{projcfg.appurl}}/admin/api/common/syscfg/schedule/' + id,
+            type: 'get',
+            data: {},
+            success: function (data) {
+                if (data.success) {
+                    var html = '';
+                    if (data.data != '' && data.data != null) {
+                        var temp = '<tr>'
+                                + '<td align="center">'
+                                + data.data[0].schedule_name
+                                + '<br>'
+                                + '</td>'
+                                + '</tr>'
+                                + '<tr>'
+                                + '<td>'
+                                + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'
+                                + data.data[0].schedule_executor
+                                + '</td>'
+                                + '</tr>'
+                                + '<tr>'
+                                + '<td>'
+                                + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'
+                                + data.data[0].schedule_content
+                                + '</td>'
+                                + '</tr>'
+                                + '<tr>'
+                                + '<td align="right" style="padding-right: 40px;">'
+                                + '<br>'
+                                + '发布时间：' + new Date(data.data[0].schedule_create_time).format("yyyy-MM-dd hh:mm")
+                                + '</td>'
+                                + '</tr>'
+                                + '<tr>'
+                                + '<td align="right" style="padding-right: 40px;">'
+                                + '<br>'
+                                + '截止时间：' + new Date(data.data[0].schedule_complete_time).format("yyyy-MM-dd hh:mm")
+                                + '</td>'
+                                + '</tr>';
+                        html += temp;
+                        openPage('scheduleDetails_Modal', '待办事项详情');
+                    } else {
+                        msgError("获取代办事项详情失败！");
+                    }
+
+
+                    $('#scheduleDetailsTablelist').html(html);
+                }
+                else {
+
+                    msgError(data.msg + ',错误代码:' + data.code);
+                }
+            }
+        });
+    }
+
+
+
+
     //更多公告列表
     function openMoreSystemNoticeList(){
         //初始化grid

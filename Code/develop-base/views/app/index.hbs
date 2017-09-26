@@ -74,11 +74,7 @@
                                                 <ul class="ul-list" id="scheduleList">
                                                 </ul>
                                             </div>
-                                            <!--<table class="table table-hover">-->
-                                                <!--<tbody id="systemScheduleTablelist">-->
 
-                                                <!--</tbody>-->
-                                            <!--</table>-->
                                         </div>
                                     </div>
                                 </div>
@@ -893,7 +889,8 @@
         $.ajax({
             url: '{{projcfg.appurl}}/admin/api/common/syscfg/notice/' + id,
             type: 'get',
-            data: {},
+            data: { page: '1',
+                rows: '6'},
             success: function (data) {
 
                 if (data.success) {
@@ -941,49 +938,46 @@
             }
         });
     }
-    //初始化代办事项
+
+
+    //初始化待办事项
     function initSchedule() {
         $.ajax({
             url: '{{projcfg.appurl}}/admin/api/common/syscfg/schedule/getSchedulesByIndex',
             type: 'get',
-            data: {
-                page: '1',
-                rows: '6'
-            },
+            data: {},
             success: function (data) {
                 if (data.success) {
-                    console.log("------scheduleMsg------", data.rows)
                     var html = '';
-                    $.each(data.rows, function (i, n) {
-                        var temp = '<li onclick="systemScheduleDetails(\''
+                    $.each(data.data, function (i, n) {
+
+
+
+                        var temp = '<li  onclick="systemScheduleDetails(\''
                                 + n._id
                                 + '\')">'
-                                + (i + 1) + "、" + n.schedule_name +
+                                + (i + 1) + "、" + n.schedule_name +'&nbsp&nbsp&nbsp&nbsp'+'&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp'+'&nbsp&nbsp&nbsp&nbsp'+'&nbsp&nbsp&nbsp&nbsp'+'&nbsp&nbsp&nbsp&nbsp'+'&nbsp&nbsp&nbsp&nbsp'+'&nbsp&nbsp&nbsp&nbsp'+'&nbsp&nbsp&nbsp&nbsp'+'&nbsp&nbsp&nbsp&nbsp'+'&nbsp&nbsp&nbsp&nbsp'+'&nbsp&nbsp&nbsp&nbsp'+'&nbsp&nbsp&nbsp&nbsp'+'&nbsp&nbsp&nbsp&nbsp'+'&nbsp&nbsp&nbsp&nbsp'+'&nbsp&nbsp&nbsp&nbsp'+'&nbsp&nbsp&nbsp&nbsp'+'&nbsp&nbsp&nbsp&nbsp'+'&nbsp&nbsp&nbsp&nbsp'+'&nbsp&nbsp&nbsp&nbsp'+'&nbsp&nbsp&nbsp&nbsp'+
+                               new Date(n.schedule_create_time).format()+
                                 '</li>';
                         html += temp;
                     });
 
-
-                    //<li onclick="systemScheduleDetails(n._id)">1、测试定时任务'</li>
-
                     $('#scheduleList').append(html);
-
                 }
                 else {
-
                     msgError(data.msg + ',错误代码:' + data.code);
                 }
             }
         });
-
     }
+
 
     //打开更多代办事项
     function openMoreScheduleList() {
         //初始化grid
         $('#moreScheduleTablelist').datagrid({
             method: 'get',
-            url: '{{projcfg.appurl}}/admin/api/common/syscfg/schedule/getSchedulesByIndex',
+            url: '{{projcfg.appurl}}/admin/api/common/syscfg/schedule/getSchedulesByIndexMore',
             rownumbers: true,
             striped: true,
             fitColumns: true,
@@ -992,15 +986,47 @@
             singleSelect: true,
             selectOnCheck: true,
             columns: [[
-                {"field": "schedule_code", "title": "编号", "width": 60},
-                {"field": "schedule_creator", "title": "创建者", "width": 50},
-                {"field": "schedule_name", "title": "事项名称", "width": 100},
+                {"field": "schedule_name", "title": "事项名称", "width": 60},
+                {"field": "schedule_content", "title": "内容", "width": 100},
                 {
-                    "field": "schedule_create_time", "title": "创建日期", "width": 80,
+                    "field": "schedule_grade", "title": "紧急程度", "width": 40,
+                    formatter: function (value, rowData, rowIndex) {
+                        if (value == 1) {
+                            return '<span class="label label-danger">紧急</span>';
+                        } else if (value == 2) {
+                            return '<span class="label label-success">一般</span>';
+                        }
+                    }
+                },
+                {"field": "schedule_executor", "title": "执行者", "width": 40},
+                {
+                    "field": "schedule_creator", "title": "发布者", "width": 50,
+                    formatter: function (value, rowData, rowIndex) {
+                        if (value) {
+                            return value.user_name;
+                        }
+                    }
+                },
+                {
+                    "field": "schedule_create_time", "title": "创建日期", "width": 60,
                     formatter: function (value, rowData, rowIndex) {
                         return new Date(value).format();
                     }
+                },
+                {
+                    "field": "schedule_complete_time", "title": "截止日期", "width": 60,
+                    formatter: function (value, rowData, rowIndex) {
+                        return new Date(value).format();
+                    }
+                },
+                {
+                    "field": "opt", "title": "详情", "width": 50,
+                    "formatter": function (value, rowData, rowIndex) {
+
+                        return '<a href="javascript:openSchedulePageDetails()">查看详情</a>';
+                    }
                 }
+
             ]],
             onLoadSuccess: function (json) {
                 if (!json.success) {
@@ -1017,6 +1043,20 @@
         openPage('schedule_Modal', '代办事项');
     }
 
+
+
+    function openSchedulePageDetails() {
+        //获取数据
+        var rows = $('#moreScheduleTablelist').datagrid('getChecked');
+        if (rows.length != 1) {
+            msgError('提示,请选择一条数据再进行查看');
+            return;
+        }
+
+        systemScheduleDetails(rows[0]._id)
+    }
+
+
     //代办事项详情
     function systemScheduleDetails(id) {
         $.ajax({
@@ -1024,26 +1064,37 @@
             type: 'get',
             data: {},
             success: function (data) {
-                console.log("scheduleMsg",data);
                 if (data.success) {
                     var html = '';
                     if (data.data != '' && data.data != null) {
                         var temp = '<tr>'
                                 + '<td align="center">'
-                                + data.data[0].schedule_creator
+                                + data.data[0].schedule_name
                                 + '<br>'
                                 + '</td>'
                                 + '</tr>'
                                 + '<tr>'
                                 + '<td>'
                                 + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'
-                                + data.data[0].schedule_name
+                                + data.data[0].schedule_executor
+                                + '</td>'
+                                + '</tr>'
+                                + '<tr>'
+                                + '<td>'
+                                + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'
+                                + data.data[0].schedule_content
                                 + '</td>'
                                 + '</tr>'
                                 + '<tr>'
                                 + '<td align="right" style="padding-right: 40px;">'
                                 + '<br>'
-                                + '时间：' + new Date(data.data[0].schedule_create_time).format("yyyy-MM-dd hh:mm")
+                                + '发布时间：' + new Date(data.data[0].schedule_create_time).format("yyyy-MM-dd hh:mm")
+                                + '</td>'
+                                + '</tr>'
+                                + '<tr>'
+                                + '<td align="right" style="padding-right: 40px;">'
+                                + '<br>'
+                                + '截止时间：' + new Date(data.data[0].schedule_complete_time).format("yyyy-MM-dd hh:mm")
                                 + '</td>'
                                 + '</tr>';
                         html += temp;
@@ -1051,18 +1102,19 @@
                     } else {
                         msgError("获取代办事项详情失败！");
                     }
-                    console.log("scheduleMsgHtml",html);
+
 
                     $('#scheduleDetailsTablelist').html(html);
                 }
                 else {
-                    console.log("error",data.msg);
+
                     msgError(data.msg + ',错误代码:' + data.code);
                 }
             }
         });
     }
 
+    //初始化系统公告
     function initSystemNotice() {
         $.ajax({
             url: '{{projcfg.appurl}}/admin/api/common/syscfg/notice/getNoticesByIndex',
