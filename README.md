@@ -60,6 +60,8 @@ xx
 
 <a href="http://192.168.9.61:8080">marathon</a>
 
+<a href="http://192.168.9.68">gitlab</a>
+
 <a href="http://192.168.9.69:18080">docker-registry</a>
 
 <a href="http://192.168.9.69:3000">granafa</a>
