@@ -2,7 +2,7 @@
 
 # 贵州移动DevOps平台
 ------------
-###### 最新版本：v1.3.3
+###### 最新版本：v1.4.8
 ###### <a href="http://192.168.9.61:10003">测试平台访问地址</a>
 
 ### 项目简介
@@ -31,7 +31,7 @@ docker_registry:端口/项目组（对应gitlab中group）/项目名称
 xx
 示例：
 
-> 192.168.9.47:5000/cmcc/develop-base    
+> 192.168.9.69:5000/cmcc/develop-base    
 
 
 ***************
@@ -51,3 +51,17 @@ xx
 缓存：memcached
 
 <img src="Code/develop-base/public/static/images/memcached.png"> 
+
+------
+### 链接地址
+<a href="http://192.168.9.69:18081/devops/index.html">项目进度计划</a>
+
+<a href="http://192.168.9.65:5050">mesos</a>
+
+<a href="http://192.168.9.61:8080">marathon</a>
+
+<a href="http://192.168.9.69:18080">docker-registry</a>
+
+<a href="http://192.168.9.69:3000">granafa</a>
+
+<a href="http://192.168.9.69:8083">influxdb</a>
