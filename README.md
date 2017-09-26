@@ -1,9 +1,9 @@
-[![build status](http://192.168.9.48/cmcc/develop-base/badges/dev/build.svg)](http://192.168.9.48/cmcc/develop-base/commits/dev)
+[![build status](http://192.168.9.68/cmcc/develop-base/badges/dev/build.svg)](http://192.168.9.68/cmcc/develop-base/commits/dev)
 
 # 贵州移动DevOps平台
 ------------
 ###### 最新版本：v1.3.3
-###### <a href="http://192.168.9.51:10003">测试平台访问地址</a>
+###### <a href="http://192.168.9.61:10003">测试平台访问地址</a>
 
 ### 项目简介
 
