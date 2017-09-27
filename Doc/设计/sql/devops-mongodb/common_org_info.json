@@ -1,0 +1,187 @@
+{ 
+    "_id" : ObjectId("56d6850ea6fb090cead5296a"), 
+    "org_code" : "52000001", 
+    "org_name" : "贵州移动", 
+    "org_fullname" : "贵州移动", 
+    "org_order" : NumberInt(1), 
+    "org_type" : "10", 
+    "org_pid" : "0", 
+    "org_status" : NumberInt(1), 
+    "org_remark" : ""
+}
+{ 
+    "_id" : ObjectId("56e66c00e36520368cb4f640"), 
+    "org_code" : "5200000101", 
+    "org_name" : "省公司", 
+    "org_fullname" : "贵州移动/省公司", 
+    "org_order" : NumberInt(1), 
+    "org_type" : "10", 
+    "org_pid" : "56d6850ea6fb090cead5296a", 
+    "org_status" : NumberInt(1), 
+    "org_remark" : "测试"
+}
+{ 
+    "_id" : ObjectId("56e66c91e36520368cb4f644"), 
+    "org_code" : "5200000103", 
+    "org_name" : "遵义分公司", 
+    "org_fullname" : "贵州移动/遵义公司", 
+    "org_order" : NumberInt(3), 
+    "org_type" : "10", 
+    "org_pid" : "56d6850ea6fb090cead5296a", 
+    "org_status" : NumberInt(1), 
+    "org_remark" : ""
+}
+{ 
+    "_id" : ObjectId("56e66cc0e36520368cb4f646"), 
+    "org_code" : "5200000102", 
+    "org_name" : "贵阳分公司", 
+    "org_fullname" : "贵州移动/贵阳公司", 
+    "org_order" : NumberInt(2), 
+    "org_type" : "10", 
+    "org_pid" : "56d6850ea6fb090cead5296a", 
+    "org_status" : NumberInt(1), 
+    "org_remark" : ""
+}
+{ 
+    "_id" : ObjectId("56e66d4de36520368cb4f64e"), 
+    "org_code" : "5200000104", 
+    "org_name" : "安顺分公司", 
+    "org_fullname" : "贵州移动/安顺分公司", 
+    "org_order" : NumberInt(4), 
+    "org_type" : "10", 
+    "org_pid" : "56d6850ea6fb090cead5296a", 
+    "org_status" : NumberInt(1), 
+    "org_remark" : ""
+}
+{ 
+    "_id" : ObjectId("5751276ea96f314de41264e2"), 
+    "org_code" : "5200000201", 
+    "org_name" : "厂家A", 
+    "org_fullname" : "厂家A", 
+    "org_order" : NumberInt(1), 
+    "org_type" : "11", 
+    "org_pid" : "5760b0aa4da6e1de67603778", 
+    "org_status" : NumberInt(1), 
+    "org_remark" : ""
+}
+{ 
+    "_id" : ObjectId("575127a1a96f314de41264e4"), 
+    "org_code" : "520000020101", 
+    "org_name" : "施工部门", 
+    "org_fullname" : "厂家A/施工部门", 
+    "org_order" : NumberInt(1), 
+    "org_type" : "12", 
+    "org_pid" : "5751276ea96f314de41264e2", 
+    "org_status" : NumberInt(1), 
+    "org_remark" : ""
+}
+{ 
+    "_id" : ObjectId("575127d7a96f314de41264e6"), 
+    "org_code" : "520000020102", 
+    "org_name" : "设计部门", 
+    "org_fullname" : "厂家A/设计部门", 
+    "org_order" : NumberInt(2), 
+    "org_type" : "13", 
+    "org_pid" : "5751276ea96f314de41264e2", 
+    "org_status" : NumberInt(1), 
+    "org_remark" : ""
+}
+{ 
+    "_id" : ObjectId("5751280fa96f314de41264e8"), 
+    "org_code" : "520000020103", 
+    "org_name" : "监理部门", 
+    "org_fullname" : "厂家A/监理部门", 
+    "org_order" : NumberInt(3), 
+    "org_type" : "14", 
+    "org_pid" : "5751276ea96f314de41264e2", 
+    "org_status" : NumberInt(1), 
+    "org_remark" : ""
+}
+{ 
+    "_id" : ObjectId("57512842a96f314de41264ea"), 
+    "org_code" : "5200000202", 
+    "org_name" : "厂家B", 
+    "org_fullname" : "厂家B", 
+    "org_order" : NumberInt(2), 
+    "org_type" : "11", 
+    "org_pid" : "5760b0aa4da6e1de67603778", 
+    "org_status" : NumberInt(1), 
+    "org_remark" : ""
+}
+{ 
+    "_id" : ObjectId("57512889a96f314de41264ec"), 
+    "org_code" : "520000020201", 
+    "org_name" : "施工部门", 
+    "org_fullname" : "厂家B/施工部门", 
+    "org_order" : NumberInt(1), 
+    "org_type" : "12", 
+    "org_pid" : "57512842a96f314de41264ea", 
+    "org_status" : NumberInt(1), 
+    "org_remark" : ""
+}
+{ 
+    "_id" : ObjectId("575128c0a96f314de41264ee"), 
+    "org_code" : "520000020202", 
+    "org_name" : "设计部门", 
+    "org_fullname" : "厂家B/设计部门", 
+    "org_order" : NumberInt(2), 
+    "org_type" : "13", 
+    "org_pid" : "57512842a96f314de41264ea", 
+    "org_status" : NumberInt(1), 
+    "org_remark" : ""
+}
+{ 
+    "_id" : ObjectId("575128e2a96f314de41264f0"), 
+    "org_code" : "520000020203", 
+    "org_name" : "监理部门", 
+    "org_fullname" : "厂家B/监理部门", 
+    "org_order" : NumberInt(3), 
+    "org_type" : "14", 
+    "org_pid" : "57512842a96f314de41264ea", 
+    "org_status" : NumberInt(1), 
+    "org_remark" : ""
+}
+{ 
+    "_id" : ObjectId("575cd621787cad3026b140a4"), 
+    "org_code" : "5200000203", 
+    "org_name" : "厂家C", 
+    "org_fullname" : "厂家C", 
+    "org_order" : NumberInt(3), 
+    "org_type" : "11", 
+    "org_pid" : "5760b0aa4da6e1de67603778", 
+    "org_status" : NumberInt(1), 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("575cd66c787cad3026b140a5"), 
+    "org_code" : "520000020301", 
+    "org_name" : "设计部门", 
+    "org_fullname" : "厂家C/设计部门", 
+    "org_order" : NumberInt(1), 
+    "org_type" : "13", 
+    "org_pid" : "575cd621787cad3026b140a4", 
+    "org_status" : NumberInt(1), 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("575d2e8f62064a6c1096f4d3"), 
+    "org_code" : "520000020302", 
+    "org_name" : "施工部门", 
+    "org_fullname" : "厂家C/施工部门", 
+    "org_order" : NumberInt(2), 
+    "org_type" : "12", 
+    "org_pid" : "575cd621787cad3026b140a4", 
+    "org_status" : NumberInt(1), 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5760b0aa4da6e1de67603778"), 
+    "org_code" : "52000002", 
+    "org_name" : "合作厂家", 
+    "org_fullname" : "合作厂家", 
+    "org_order" : NumberInt(2), 
+    "org_type" : "11", 
+    "org_pid" : "0", 
+    "org_status" : NumberInt(1), 
+    "__v" : NumberInt(0)
+}

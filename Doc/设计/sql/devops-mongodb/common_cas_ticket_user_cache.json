@@ -1,0 +1,45 @@
+{ 
+    "_id" : ObjectId("574d4633997491206577e912"), 
+    "tkt_key" : "9c3f20fe50704675bf97f6e957b25b05", 
+    "tkt_value" : "{\"login_account\":\"admin\",\"user_no\":\"00001\",\"user_name\":\"系统管理员\",\"user_phone\":\"18885000000\",\"user_tel\":\"18885000000\"}", 
+    "sys_id" : "", 
+    "sys_service" : "", 
+    "create_time" : ISODate("2016-05-31T08:07:15.863+0000"), 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("574d4f20997491206577e913"), 
+    "tkt_key" : "8c174b77dbc5430f9ca9f1cf6cb346cc", 
+    "tkt_value" : "{\"login_account\":\"admin\",\"user_no\":\"00001\",\"user_name\":\"系统管理员\",\"user_phone\":\"18885000000\",\"user_tel\":\"18885000000\"}", 
+    "sys_id" : "", 
+    "sys_service" : "", 
+    "create_time" : ISODate("2016-05-31T08:45:20.854+0000"), 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("574f9bb8b0080ba646297b72"), 
+    "tkt_key" : "4874ddb040c74d8abd63333c0ee8541f", 
+    "tkt_value" : "{\"login_account\":\"yangtongquan\",\"user_no\":\"yangtongquan\",\"user_name\":\"杨通全\"}", 
+    "sys_id" : "", 
+    "sys_service" : "", 
+    "create_time" : ISODate("2016-06-02T02:36:40.403+0000"), 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("574f9c80b0080ba646297b73"), 
+    "tkt_key" : "ee7070db56ca45b1a1f4e68756466e7b", 
+    "tkt_value" : "{\"login_account\":\"yangtongquan\",\"user_no\":\"yangtongquan\",\"user_name\":\"杨通全\"}", 
+    "sys_id" : "", 
+    "sys_service" : "", 
+    "create_time" : ISODate("2016-06-02T02:40:00.424+0000"), 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("574fa0a3b0080ba646297b74"), 
+    "tkt_key" : "6a4befda09af47cbaaa08e0e53a753c7", 
+    "tkt_value" : "{\"login_account\":\"yangtongquan\",\"user_no\":\"yangtongquan\",\"user_name\":\"杨通全\"}", 
+    "sys_id" : "", 
+    "sys_service" : "", 
+    "create_time" : ISODate("2016-06-02T02:57:39.718+0000"), 
+    "__v" : NumberInt(0)
+}

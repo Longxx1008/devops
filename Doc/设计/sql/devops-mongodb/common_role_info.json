@@ -1,0 +1,123 @@
+{ 
+    "_id" : ObjectId("56d7e358a6fbe05a1394ad6e"), 
+    "role_code" : "sysadmin", 
+    "role_name" : "系统管理员", 
+    "role_status" : NumberInt(1), 
+    "sys_id" : "56d7df43a6fbe05a1394ad6c", 
+    "role_remark" : "", 
+    "role_order" : NumberInt(1)
+}
+{ 
+    "_id" : ObjectId("56d80e3ca6fbe05a1394ad93"), 
+    "role_code" : "devpoler", 
+    "role_name" : "开发人员", 
+    "role_status" : NumberInt(1), 
+    "sys_id" : "56d7df43a6fbe05a1394ad6c", 
+    "role_remark" : "", 
+    "role_order" : "1"
+}
+{ 
+    "_id" : ObjectId("56f1f3a278ee01fc4bed1008"), 
+    "role_code" : "tester", 
+    "role_name" : "测试人员", 
+    "role_status" : NumberInt(1), 
+    "sys_id" : "56d7df43a6fbe05a1394ad6c", 
+    "role_order" : NumberInt(3), 
+    "role_remark" : "测试人员", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("56f1f3f678ee01fc4bed100f"), 
+    "role_code" : "test1", 
+    "role_name" : "test1", 
+    "role_status" : NumberInt(0), 
+    "sys_id" : "56d80e02a6fbe05a1394ad91", 
+    "role_order" : NumberInt(4), 
+    "role_remark" : "test1", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("56f2484f4ff9835843f7d5d9"), 
+    "role_code" : "yanfashi", 
+    "role_name" : "项目负责人", 
+    "role_status" : NumberInt(1), 
+    "sys_id" : "56f0a1441e9fa07c0bbee3f9", 
+    "role_order" : NumberInt(1), 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("56f251bdabcdd81044372582"), 
+    "role_code" : "testcj", 
+    "role_name" : "系统测试", 
+    "role_status" : NumberInt(0), 
+    "sys_id" : "56dfcc4af937e55824b2e05b", 
+    "role_order" : NumberInt(2), 
+    "role_remark" : "测试", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("56f4f7865a406ee41ffabe42"), 
+    "role_code" : "guankongshi", 
+    "role_name" : "项目管控", 
+    "role_status" : NumberInt(1), 
+    "sys_id" : "56f0a1441e9fa07c0bbee3f9", 
+    "role_order" : NumberInt(2), 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("56f4fa3e6d7364a8369c02cb"), 
+    "role_code" : "zonghe", 
+    "role_name" : "综合业务管理", 
+    "role_status" : NumberInt(1), 
+    "sys_id" : "56f0a1441e9fa07c0bbee3f9", 
+    "role_order" : NumberInt(2), 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("56f61908405b34dc3a8f4921"), 
+    "role_code" : "sysadmin", 
+    "role_name" : "系统管理员", 
+    "role_status" : NumberInt(1), 
+    "sys_id" : "56f0a1441e9fa07c0bbee3f9", 
+    "role_order" : NumberInt(1), 
+    "role_remark" : "拥有系统所有菜单权限", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("56f9de9fb825306446a56e10"), 
+    "role_code" : "test_01", 
+    "role_name" : "test_01", 
+    "role_status" : NumberInt(1), 
+    "sys_id" : "56d80e02a6fbe05a1394ad91", 
+    "role_order" : NumberInt(1), 
+    "role_remark" : "test_010", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("571edf17ce184c503d4ed1b4"), 
+    "role_code" : "peacekeepingRole", 
+    "role_name" : "代维人员", 
+    "role_status" : NumberInt(1), 
+    "sys_id" : "56f20ec0c2b4db9c2a7dfe7a", 
+    "role_order" : NumberInt(1), 
+    "role_remark" : "代维人员", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("572073e4e33c777516e75bbc"), 
+    "role_code" : "qcRole", 
+    "role_name" : "质管人员", 
+    "role_status" : NumberInt(1), 
+    "sys_id" : "56f20ec0c2b4db9c2a7dfe7a", 
+    "role_order" : NumberInt(2), 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("57344c2f3a256bf91e524f60"), 
+    "role_code" : "demoUserRole", 
+    "role_name" : "演示用户", 
+    "role_status" : NumberInt(1), 
+    "sys_id" : "573448be3a256bf91e524f5d", 
+    "role_order" : NumberInt(1), 
+    "__v" : NumberInt(0)
+}

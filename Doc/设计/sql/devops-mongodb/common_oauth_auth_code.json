@@ -1,0 +1,63 @@
+{ 
+    "_id" : ObjectId("573d9070a80026021ba5e81e"), 
+    "authCode" : "ef78f68a3e3077c204b61c363ace41b0221dcd38", 
+    "expires" : ISODate("2016-05-19T09:57:25.221+0000"), 
+    "userId" : "573bd202825e773a37bebb20", 
+    "clientId" : "s6BhdRkqt3"
+}
+{ 
+    "_id" : ObjectId("573d950ba80026021ba5e81f"), 
+    "authCode" : "367d4df4d8ff5ea59fd01fff0aa8e40474954629", 
+    "expires" : ISODate("2016-05-19T10:17:03.709+0000"), 
+    "userId" : "573bd202825e773a37bebb20", 
+    "clientId" : "s6BhdRkqt3"
+}
+{ 
+    "_id" : ObjectId("573d9a15a80026021ba5e820"), 
+    "authCode" : "4a08f2bd1d995dba755b18595d86def387c07f25", 
+    "expires" : ISODate("2016-05-19T10:38:34.351+0000"), 
+    "userId" : "573bd202825e773a37bebb20", 
+    "clientId" : "s6BhdRkqt3"
+}
+{ 
+    "_id" : ObjectId("573d9a2aa80026021ba5e821"), 
+    "authCode" : "4c0694997ffa18f9e0f49c9b9289824b04a10efc", 
+    "expires" : ISODate("2016-05-19T10:38:54.850+0000"), 
+    "userId" : "573bd202825e773a37bebb20", 
+    "clientId" : "s6BhdRkqt3"
+}
+{ 
+    "_id" : ObjectId("573d9a63a80026021ba5e822"), 
+    "authCode" : "d56f529246defe1c12690fb4e453237373803abf", 
+    "expires" : ISODate("2016-05-19T10:39:52.085+0000"), 
+    "userId" : "573bd202825e773a37bebb20", 
+    "clientId" : "s6BhdRkqt3"
+}
+{ 
+    "_id" : ObjectId("573d9b65a80026021ba5e823"), 
+    "authCode" : "7af3035906db714286732834e4f6a3b54f7e7107", 
+    "expires" : ISODate("2016-05-19T10:44:09.454+0000"), 
+    "userId" : "573bd202825e773a37bebb20", 
+    "clientId" : "s6BhdRkqt3"
+}
+{ 
+    "_id" : ObjectId("573da191a80026021ba5e824"), 
+    "authCode" : "bb654e018da59d2ff9407ebc3ce22b4ab2f8afd8", 
+    "expires" : ISODate("2016-05-19T11:10:29.697+0000"), 
+    "userId" : "573bd202825e773a37bebb20", 
+    "clientId" : "s6BhdRkqt3"
+}
+{ 
+    "_id" : ObjectId("573da258a80026021ba5e825"), 
+    "authCode" : "b089647c0ecaddd2dfc0581705821b21504b5ede", 
+    "expires" : ISODate("2016-05-19T11:13:48.575+0000"), 
+    "userId" : "573bd202825e773a37bebb20", 
+    "clientId" : "s6BhdRkqt3"
+}
+{ 
+    "_id" : ObjectId("573da280a80026021ba5e826"), 
+    "authCode" : "f73e2eb0cfa1430ca67f0f71d5d588be05cf0d55", 
+    "expires" : ISODate("2016-05-19T11:14:28.734+0000"), 
+    "userId" : "573bd202825e773a37bebb20", 
+    "clientId" : "s6BhdRkqt3"
+}

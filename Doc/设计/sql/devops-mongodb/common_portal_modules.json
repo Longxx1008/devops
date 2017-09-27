@@ -1,0 +1,447 @@
+{ 
+    "_id" : ObjectId("5705f890c1f762f9a6648f4a"), 
+    "module_code" : "m101", 
+    "module_title" : "组织机构", 
+    "module_url" : "project/portal/modules/module_test_1", 
+    "module_height" : NumberInt(200), 
+    "module_cls" : "blue", 
+    "module_status" : NumberInt(1), 
+    "module_closable" : NumberInt(0), 
+    "module_remark" : "显示组织机构树", 
+    "module_order" : NumberInt(4), 
+    "sys_id" : "56d7df43a6fbe05a1394ad6c", 
+    "module_roles" : [
+
+    ], 
+    "module_is_public" : NumberInt(1), 
+    "module_type" : "1", 
+    "module_params" : "{id:20}", 
+    "module_icon_cls" : "", 
+    "module_body_cls" : "border"
+}
+{ 
+    "_id" : ObjectId("570b3cbd5765234e0c5d1010"), 
+    "module_code" : "m102", 
+    "module_title" : "人员列表", 
+    "module_url" : "project/portal/modules/module_test_2", 
+    "module_height" : NumberInt(410), 
+    "module_status" : NumberInt(1), 
+    "module_remark" : "", 
+    "module_order" : NumberInt(5), 
+    "sys_id" : "56d7df43a6fbe05a1394ad6c", 
+    "module_closable" : NumberInt(0), 
+    "module_cls" : "blue", 
+    "module_roles" : [
+
+    ], 
+    "module_is_public" : NumberInt(1), 
+    "module_type" : "1", 
+    "module_params" : ""
+}
+{ 
+    "_id" : ObjectId("570b492d5765234e0c5d1014"), 
+    "module_code" : "m103", 
+    "module_title" : "echarts", 
+    "module_url" : "project/portal/modules/module_test_3", 
+    "module_height" : NumberInt(410), 
+    "module_status" : NumberInt(1), 
+    "module_remark" : "", 
+    "module_order" : NumberInt(3), 
+    "sys_id" : "56d7df43a6fbe05a1394ad6c", 
+    "module_closable" : NumberInt(1), 
+    "module_cls" : "blue", 
+    "module_roles" : [
+        "56d80e3ca6fbe05a1394ad93"
+    ], 
+    "module_is_public" : NumberInt(0), 
+    "module_type" : "10", 
+    "module_params" : ""
+}
+{ 
+    "_id" : ObjectId("570c52cf290f3f12f8436507"), 
+    "module_code" : "m104", 
+    "module_title" : "嵌入第三方页面(baidu)", 
+    "module_url" : "http://www.baidu.com", 
+    "module_height" : NumberInt(410), 
+    "module_status" : NumberInt(0), 
+    "module_remark" : "", 
+    "module_order" : NumberInt(4), 
+    "sys_id" : "56d7df43a6fbe05a1394ad6c", 
+    "module_closable" : NumberInt(1), 
+    "module_cls" : "blue", 
+    "module_roles" : [
+        "56d80e3ca6fbe05a1394ad93"
+    ], 
+    "module_is_public" : NumberInt(0), 
+    "module_type" : "1", 
+    "module_params" : ""
+}
+{ 
+    "_id" : ObjectId("571f24c2583a0814c995a8d9"), 
+    "sys_id" : "56f20ec0c2b4db9c2a7dfe7a", 
+    "module_type" : "1", 
+    "module_is_public" : NumberInt(0), 
+    "module_code" : "p01", 
+    "module_title" : "我的待办", 
+    "module_url" : "common/portal/modules/module_todo", 
+    "module_cls" : "white", 
+    "module_height" : NumberInt(430), 
+    "module_order" : NumberInt(1), 
+    "module_status" : NumberInt(1), 
+    "module_remark" : "", 
+    "module_roles" : [
+        "572073e4e33c777516e75bbc", 
+        "571edf17ce184c503d4ed1b4"
+    ], 
+    "module_closable" : NumberInt(0), 
+    "__v" : NumberInt(0), 
+    "module_params" : "type=2"
+}
+{ 
+    "_id" : ObjectId("5720279bfb04300432c01292"), 
+    "sys_id" : "56f20ec0c2b4db9c2a7dfe7a", 
+    "module_type" : "1", 
+    "module_is_public" : NumberInt(1), 
+    "module_code" : "p02", 
+    "module_title" : "系统公告", 
+    "module_url" : "common/portal/modules/module_notice", 
+    "module_cls" : "blue", 
+    "module_height" : NumberInt(344), 
+    "module_order" : NumberInt(2), 
+    "module_status" : NumberInt(1), 
+    "module_remark" : "", 
+    "module_roles" : [
+
+    ], 
+    "module_closable" : NumberInt(0), 
+    "__v" : NumberInt(0), 
+    "module_params" : "type=3"
+}
+{ 
+    "_id" : ObjectId("5733fe624e9c677c805b9f7a"), 
+    "sys_id" : "56d7df43a6fbe05a1394ad6c", 
+    "module_type" : "10", 
+    "module_is_public" : NumberInt(1), 
+    "module_code" : "sfstqdzb", 
+    "module_title" : "贵州行业实体渠道占比情况", 
+    "module_url" : "project/portal/modules/module_test_4", 
+    "module_cls" : "blue", 
+    "module_height" : NumberInt(344), 
+    "module_order" : NumberInt(1), 
+    "module_status" : NumberInt(1), 
+    "module_remark" : "", 
+    "module_params" : "", 
+    "module_roles" : [
+
+    ], 
+    "module_closable" : NumberInt(0), 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5734039e920170f892249b1d"), 
+    "sys_id" : "56d7df43a6fbe05a1394ad6c", 
+    "module_type" : "10", 
+    "module_is_public" : NumberInt(1), 
+    "module_code" : "ydqdzb", 
+    "module_title" : "贵州移动渠道占比", 
+    "module_url" : "project/portal/modules/module_test_5", 
+    "module_cls" : "blue", 
+    "module_height" : NumberInt(344), 
+    "module_order" : NumberInt(2), 
+    "module_status" : NumberInt(1), 
+    "module_remark" : "", 
+    "module_params" : "", 
+    "module_roles" : [
+
+    ], 
+    "module_closable" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5734048d920170f892249b1f"), 
+    "sys_id" : "56d7df43a6fbe05a1394ad6c", 
+    "module_type" : "10", 
+    "module_is_public" : NumberInt(1), 
+    "module_code" : "gzydstqdjls", 
+    "module_title" : "贵州移动实体渠道经理数", 
+    "module_url" : "project/portal/modules/module_test_6", 
+    "module_cls" : "blue", 
+    "module_height" : NumberInt(344), 
+    "module_order" : NumberInt(3), 
+    "module_status" : NumberInt(1), 
+    "module_remark" : "", 
+    "module_params" : "", 
+    "module_roles" : [
+
+    ], 
+    "module_closable" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("573413f0920170f892249b21"), 
+    "sys_id" : "56f20ec0c2b4db9c2a7dfe7a", 
+    "module_type" : "10", 
+    "module_is_public" : NumberInt(1), 
+    "module_code" : "sfstqdzb", 
+    "module_title" : "贵州行业实体渠道占比情况", 
+    "module_url" : "project/portal/modules/module_test_4", 
+    "module_cls" : "blue", 
+    "module_body_cls" : "noborder", 
+    "module_icon_cls" : "", 
+    "module_height" : NumberInt(344), 
+    "module_order" : NumberInt(1), 
+    "module_status" : NumberInt(1), 
+    "module_remark" : "", 
+    "module_params" : "", 
+    "module_roles" : [
+
+    ], 
+    "module_closable" : NumberInt(0), 
+    "module_tools" : [
+        {
+            "icon_cls" : "icon-add", 
+            "icon_handler" : "alert(2);"
+        }
+    ]
+}
+{ 
+    "_id" : ObjectId("5734140b920170f892249b23"), 
+    "sys_id" : "56f20ec0c2b4db9c2a7dfe7a", 
+    "module_type" : "10", 
+    "module_is_public" : NumberInt(1), 
+    "module_code" : "ydqdzb", 
+    "module_title" : "贵州移动渠道占比", 
+    "module_url" : "project/portal/modules/module_test_5", 
+    "module_cls" : "blue", 
+    "module_height" : NumberInt(344), 
+    "module_order" : NumberInt(2), 
+    "module_status" : NumberInt(1), 
+    "module_remark" : "", 
+    "module_params" : "", 
+    "module_roles" : [
+
+    ], 
+    "module_closable" : NumberInt(0), 
+    "module_icon_cls" : "", 
+    "module_body_cls" : "noborder"
+}
+{ 
+    "_id" : ObjectId("5734142c920170f892249b25"), 
+    "sys_id" : "56f20ec0c2b4db9c2a7dfe7a", 
+    "module_type" : "10", 
+    "module_is_public" : NumberInt(1), 
+    "module_code" : "gzydstqdjls", 
+    "module_title" : "贵州移动实体渠道经理数", 
+    "module_url" : "project/portal/modules/module_test_6", 
+    "module_cls" : "blue", 
+    "module_height" : NumberInt(344), 
+    "module_order" : NumberInt(3), 
+    "module_status" : NumberInt(1), 
+    "module_remark" : "", 
+    "module_params" : "", 
+    "module_roles" : [
+
+    ], 
+    "module_closable" : NumberInt(0), 
+    "module_icon_cls" : "", 
+    "module_body_cls" : "noborder"
+}
+{ 
+    "_id" : ObjectId("5734523fd3a424c420dc2402"), 
+    "sys_id" : "56d7df43a6fbe05a1394ad6c", 
+    "module_type" : "10", 
+    "module_is_public" : NumberInt(1), 
+    "module_code" : "prodemo1", 
+    "module_title" : "研发项目趋势图", 
+    "module_url" : "project/portal/modules/pro_demo1", 
+    "module_cls" : "blue", 
+    "module_height" : NumberInt(344), 
+    "module_order" : NumberInt(4), 
+    "module_status" : NumberInt(1), 
+    "module_remark" : "", 
+    "module_params" : "", 
+    "module_roles" : [
+
+    ], 
+    "module_closable" : NumberInt(0), 
+    "__v" : NumberInt(0), 
+    "module_icon_cls" : ""
+}
+{ 
+    "_id" : ObjectId("5734524b641e27342c2b1c19"), 
+    "sys_id" : "573448be3a256bf91e524f5d", 
+    "module_type" : "1", 
+    "module_is_public" : NumberInt(1), 
+    "module_code" : "publicInfo", 
+    "module_title" : "消息公告", 
+    "module_url" : "project/demo/modules_public_info", 
+    "module_cls" : "blue", 
+    "module_height" : NumberInt(250), 
+    "module_order" : NumberInt(1), 
+    "module_status" : NumberInt(1), 
+    "module_remark" : "显示信息公告", 
+    "module_params" : "", 
+    "module_roles" : [
+
+    ], 
+    "module_closable" : NumberInt(0), 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("57345fe1641e27342c2b1c33"), 
+    "sys_id" : "573448be3a256bf91e524f5d", 
+    "module_type" : "1", 
+    "module_is_public" : NumberInt(1), 
+    "module_code" : "newInfo", 
+    "module_title" : "新闻动态", 
+    "module_url" : "project/demo/modules_new_info", 
+    "module_cls" : "blue", 
+    "module_height" : NumberInt(250), 
+    "module_order" : NumberInt(2), 
+    "module_status" : NumberInt(1), 
+    "module_remark" : "显示要闻推荐列表", 
+    "module_params" : "", 
+    "module_roles" : [
+
+    ], 
+    "module_closable" : NumberInt(0), 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5734625fd3a424c420dc2407"), 
+    "sys_id" : "56d7df43a6fbe05a1394ad6c", 
+    "module_type" : "10", 
+    "module_is_public" : NumberInt(1), 
+    "module_code" : "prodemo2", 
+    "module_title" : "git提交总数", 
+    "module_url" : "project/portal/modules/pro_demo2", 
+    "module_cls" : "blue", 
+    "module_height" : NumberInt(344), 
+    "module_order" : NumberInt(5), 
+    "module_status" : NumberInt(1), 
+    "module_remark" : "", 
+    "module_params" : "", 
+    "module_roles" : [
+
+    ], 
+    "module_closable" : NumberInt(0), 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5734630f641e27342c2b1c36"), 
+    "sys_id" : "573448be3a256bf91e524f5d", 
+    "module_type" : "1", 
+    "module_is_public" : NumberInt(1), 
+    "module_code" : "urlInfo", 
+    "module_title" : "常用链接", 
+    "module_url" : "project/demo/modules_url_info", 
+    "module_cls" : "blue", 
+    "module_height" : NumberInt(250), 
+    "module_order" : NumberInt(3), 
+    "module_status" : NumberInt(1), 
+    "module_remark" : "显示常用链接数据列表", 
+    "module_params" : "", 
+    "module_roles" : [
+
+    ], 
+    "module_closable" : NumberInt(0), 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5734643cd3a424c420dc2412"), 
+    "sys_id" : "56d7df43a6fbe05a1394ad6c", 
+    "module_type" : "10", 
+    "module_is_public" : NumberInt(1), 
+    "module_code" : "prodemo3", 
+    "module_title" : "开发人员总数", 
+    "module_url" : "project/portal/modules/pro_demo3", 
+    "module_cls" : "blue", 
+    "module_height" : NumberInt(344), 
+    "module_order" : NumberInt(6), 
+    "module_status" : NumberInt(1), 
+    "module_remark" : "", 
+    "module_params" : "", 
+    "module_roles" : [
+
+    ], 
+    "module_closable" : NumberInt(0), 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("57346758641e27342c2b1c40"), 
+    "sys_id" : "573448be3a256bf91e524f5d", 
+    "module_type" : "1", 
+    "module_is_public" : NumberInt(1), 
+    "module_code" : "agency_info", 
+    "module_title" : "待办信息", 
+    "module_url" : "project/demo/modules_agency_info", 
+    "module_cls" : "blue", 
+    "module_height" : NumberInt(250), 
+    "module_order" : NumberInt(4), 
+    "module_status" : NumberInt(1), 
+    "module_remark" : "", 
+    "module_params" : "", 
+    "module_roles" : [
+
+    ], 
+    "module_closable" : NumberInt(0), 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("57346ed0d3a424c420dc2460"), 
+    "sys_id" : "56d7df43a6fbe05a1394ad6c", 
+    "module_type" : "10", 
+    "module_is_public" : NumberInt(1), 
+    "module_code" : "prodemo4", 
+    "module_title" : "总代码行数", 
+    "module_url" : "project/portal/modules/pro_demo4", 
+    "module_cls" : "blue", 
+    "module_height" : NumberInt(344), 
+    "module_order" : NumberInt(7), 
+    "module_status" : NumberInt(1), 
+    "module_remark" : "", 
+    "module_params" : "", 
+    "module_roles" : [
+
+    ], 
+    "module_closable" : NumberInt(0), 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5734704f7767aa3d82896346"), 
+    "sys_id" : "573448be3a256bf91e524f5d", 
+    "module_type" : "1", 
+    "module_is_public" : NumberInt(1), 
+    "module_code" : "demoUserPortrait", 
+    "module_title" : "用户信息查询", 
+    "module_url" : "project/portal/modules/module_user_portrait", 
+    "module_cls" : "white", 
+    "module_height" : NumberInt(500), 
+    "module_order" : NumberInt(1), 
+    "module_status" : NumberInt(1), 
+    "module_remark" : "", 
+    "module_params" : "", 
+    "module_roles" : [
+
+    ], 
+    "module_closable" : NumberInt(0), 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("57347f49641e27342c2b1c4d"), 
+    "sys_id" : "573448be3a256bf91e524f5d", 
+    "module_type" : "1", 
+    "module_is_public" : NumberInt(1), 
+    "module_code" : "reportInfo", 
+    "module_title" : "统计信息", 
+    "module_url" : "project/demo/modules_report_info", 
+    "module_cls" : "blue", 
+    "module_height" : NumberInt(250), 
+    "module_order" : NumberInt(1), 
+    "module_status" : NumberInt(1), 
+    "module_remark" : "显示统计信息", 
+    "module_params" : "", 
+    "module_roles" : [
+
+    ], 
+    "module_closable" : NumberInt(0), 
+    "__v" : NumberInt(0)
+}

@@ -1,0 +1,224 @@
+{ 
+    "_id" : ObjectId("57347376920170f892249b2b"), 
+    "day" : "2016-05-11", 
+    "time" : NumberInt(1), 
+    "gprs" : 0.006686211, 
+    "user_id" : "18286088391"
+}
+{ 
+    "_id" : ObjectId("57347386920170f892249b2d"), 
+    "time" : NumberInt(3), 
+    "gprs" : 0.003018379, 
+    "user_id" : "18286088391", 
+    "day" : "2016-05-11"
+}
+{ 
+    "_id" : ObjectId("57347391920170f892249b2f"), 
+    "time" : NumberInt(5), 
+    "gprs" : 0.006686211, 
+    "user_id" : "18286088391", 
+    "day" : "2016-05-11"
+}
+{ 
+    "_id" : ObjectId("573473a1920170f892249b31"), 
+    "time" : NumberInt(9), 
+    "gprs" : 42.47296047, 
+    "user_id" : "18286088391", 
+    "day" : "2016-05-11"
+}
+{ 
+    "_id" : ObjectId("573473bd920170f892249b33"), 
+    "time" : NumberInt(10), 
+    "gprs" : 0.190405846, 
+    "user_id" : "18286088391", 
+    "day" : "2016-05-11"
+}
+{ 
+    "_id" : ObjectId("573473ce920170f892249b35"), 
+    "time" : NumberInt(13), 
+    "gprs" : 3.357865334, 
+    "user_id" : "18286088391", 
+    "day" : "2016-05-11"
+}
+{ 
+    "_id" : ObjectId("573473df920170f892249b37"), 
+    "time" : NumberInt(14), 
+    "gprs" : 0.020358086, 
+    "user_id" : "18286088391", 
+    "day" : "2016-05-11"
+}
+{ 
+    "_id" : ObjectId("573473eb920170f892249b39"), 
+    "time" : NumberInt(17), 
+    "gprs" : 0.020389557, 
+    "user_id" : "18286088391", 
+    "day" : "2016-05-11"
+}
+{ 
+    "_id" : ObjectId("573473f7920170f892249b3b"), 
+    "time" : NumberInt(19), 
+    "gprs" : 0.309304237, 
+    "user_id" : "18286088391", 
+    "day" : "2016-05-11"
+}
+{ 
+    "_id" : ObjectId("57347405920170f892249b3d"), 
+    "time" : NumberInt(20), 
+    "gprs" : 0.493548393, 
+    "user_id" : "18286088391", 
+    "day" : "2016-05-11"
+}
+{ 
+    "_id" : ObjectId("57347414920170f892249b3f"), 
+    "time" : NumberInt(21), 
+    "gprs" : 0.369681358, 
+    "user_id" : "18286088391", 
+    "day" : "2016-05-11"
+}
+{ 
+    "_id" : ObjectId("57347421920170f892249b41"), 
+    "time" : NumberInt(23), 
+    "gprs" : 0.37787056, 
+    "user_id" : "18286088391", 
+    "day" : "2016-05-11"
+}
+{ 
+    "_id" : ObjectId("57348f03c5c6ff8f69a85e60"), 
+    "day" : "2016-05-11", 
+    "time" : NumberInt(0), 
+    "gprs" : 33.37814903, 
+    "user_id" : "18275128916"
+}
+{ 
+    "_id" : ObjectId("57348f14c5c6ff8f69a85e62"), 
+    "day" : "2016-05-11", 
+    "time" : NumberInt(8), 
+    "gprs" : 26.53215, 
+    "user_id" : "18275128916"
+}
+{ 
+    "_id" : ObjectId("57348f57c5c6ff8f69a85e64"), 
+    "day" : "2016-05-11", 
+    "time" : NumberInt(12), 
+    "gprs" : 32.367, 
+    "user_id" : "18275128916"
+}
+{ 
+    "_id" : ObjectId("57348f6ec5c6ff8f69a85e66"), 
+    "day" : "2016-05-11", 
+    "time" : NumberInt(20), 
+    "gprs" : 21.74408627, 
+    "user_id" : "18275128916"
+}
+{ 
+    "_id" : ObjectId("57348f83c5c6ff8f69a85e68"), 
+    "day" : "2016-05-11", 
+    "time" : NumberInt(21), 
+    "gprs" : 1.424998283, 
+    "user_id" : "18275128916"
+}
+{ 
+    "_id" : ObjectId("57348f99c5c6ff8f69a85e6a"), 
+    "day" : "2016-05-11", 
+    "time" : NumberInt(22), 
+    "gprs" : 10.62180519, 
+    "user_id" : "18275128916"
+}
+{ 
+    "_id" : ObjectId("57348fadc5c6ff8f69a85e6c"), 
+    "day" : "2016-05-11", 
+    "time" : NumberInt(23), 
+    "gprs" : 30.00938511, 
+    "user_id" : "18275128916"
+}
+{ 
+    "_id" : ObjectId("5734900ec5c6ff8f69a85e70"), 
+    "day" : "2016-05-11", 
+    "time" : NumberInt(9), 
+    "gprs" : 39.14132509, 
+    "user_id" : "18275032975"
+}
+{ 
+    "_id" : ObjectId("57349028c5c6ff8f69a85e72"), 
+    "day" : "2016-05-11", 
+    "time" : NumberInt(10), 
+    "gprs" : 12.7858782, 
+    "user_id" : "18275032975"
+}
+{ 
+    "_id" : ObjectId("5734903cc5c6ff8f69a85e74"), 
+    "day" : "2016-05-11", 
+    "time" : NumberInt(13), 
+    "gprs" : 44.65675673, 
+    "user_id" : "18275032975"
+}
+{ 
+    "_id" : ObjectId("57349050c5c6ff8f69a85e76"), 
+    "day" : "2016-05-11", 
+    "time" : NumberInt(17), 
+    "gprs" : 10.54046263, 
+    "user_id" : "18275032975"
+}
+{ 
+    "_id" : ObjectId("57349063c5c6ff8f69a85e78"), 
+    "day" : "2016-05-11", 
+    "time" : NumberInt(18), 
+    "gprs" : 139.1775314, 
+    "user_id" : "18275032975"
+}
+{ 
+    "_id" : ObjectId("57349077c5c6ff8f69a85e7a"), 
+    "day" : "2016-05-11", 
+    "time" : NumberInt(20), 
+    "gprs" : 1.332064827, 
+    "user_id" : "18275032975"
+}
+{ 
+    "_id" : ObjectId("5734908cc5c6ff8f69a85e7c"), 
+    "day" : "2016-05-11", 
+    "time" : NumberInt(22), 
+    "gprs" : 0.365981108, 
+    "user_id" : "18275032975"
+}
+{ 
+    "_id" : ObjectId("573490b4c5c6ff8f69a85e7e"), 
+    "day" : "2016-05-11", 
+    "time" : NumberInt(7), 
+    "gprs" : NumberInt(0), 
+    "user_id" : "18885027897"
+}
+{ 
+    "_id" : ObjectId("573490ccc5c6ff8f69a85e80"), 
+    "day" : "2016-05-11", 
+    "time" : NumberInt(13), 
+    "gprs" : NumberInt(0), 
+    "user_id" : "18885027897"
+}
+{ 
+    "_id" : ObjectId("573490dcc5c6ff8f69a85e82"), 
+    "day" : "2016-05-11", 
+    "time" : NumberInt(18), 
+    "gprs" : 0.081584199, 
+    "user_id" : "18885027897"
+}
+{ 
+    "_id" : ObjectId("573490efc5c6ff8f69a85e84"), 
+    "day" : "2016-05-11", 
+    "time" : NumberInt(19), 
+    "gprs" : 0.1684221, 
+    "user_id" : "18885027897"
+}
+{ 
+    "_id" : ObjectId("57349101c5c6ff8f69a85e86"), 
+    "day" : "2016-05-11", 
+    "time" : NumberInt(20), 
+    "gprs" : 19.07282429, 
+    "user_id" : "18885027897"
+}
+{ 
+    "_id" : ObjectId("57349117c5c6ff8f69a85e88"), 
+    "day" : "2016-05-11", 
+    "time" : NumberInt(21), 
+    "gprs" : 80.67716941, 
+    "user_id" : "18885027897"
+}

@@ -1,0 +1,200 @@
+{ 
+    "_id" : ObjectId("58d2355132abcf124c9d12e5"), 
+    "schedule_name" : "测试定时任务", 
+    "schedule_code" : "test_loop", 
+    "schedule_cron" : "0 0/3 * * * *", 
+    "schedule_js_path" : "common/job/services/test_loop", 
+    "schedule_js_fun" : "printStr", 
+    "schedule_ip" : [
+        "127.0.0.1"
+    ], 
+    "schedule_status" : NumberInt(0), 
+    "schedule_create_time" : ISODate("2017-05-17T08:58:34.325+0000"), 
+    "schedule_creator" : "xy", 
+    "__v" : NumberInt(0), 
+    "schedule_date" : ""
+}
+{ 
+    "_id" : ObjectId("58d877eea004e21d34e96cf4"), 
+    "schedule_name" : "业务酬金环比任务", 
+    "schedule_code" : "ywcj_An", 
+    "schedule_cron" : "0 * * * * *", 
+    "schedule_js_path" : "common/job/services/ywcj_An", 
+    "schedule_js_fun" : "PrintAn", 
+    "schedule_status" : NumberInt(0), 
+    "schedule_create_time" : ISODate("2017-03-27T05:44:52.140+0000"), 
+    "schedule_creator" : "系统管理员", 
+    "schedule_ip" : [
+        "127.0.0.1"
+    ], 
+    "schedule_date" : "", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("58d8a7f5c9150317c45aab62"), 
+    "schedule_name" : "业务酬金同比任务", 
+    "schedule_code" : "ywcj_Mon", 
+    "schedule_cron" : "1-2 * * * * ? *", 
+    "schedule_js_path" : "common/job/services/ywcj_Mon", 
+    "schedule_js_fun" : "PrintMon", 
+    "schedule_status" : NumberInt(0), 
+    "schedule_create_time" : ISODate("2017-03-27T05:49:41.981+0000"), 
+    "schedule_creator" : "系统管理员", 
+    "schedule_ip" : [
+        "127.0.0.1"
+    ], 
+    "schedule_date" : [
+        ""
+    ], 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("58db0e1fcbd1ad1cf8cc874c"), 
+    "schedule_name" : "每月执行一次调度任务", 
+    "schedule_code" : "ywcj_Month", 
+    "schedule_cron" : "* * * * * ?", 
+    "schedule_js_path" : "common/job/services/ywcj_Month", 
+    "schedule_js_fun" : "PrintMonth", 
+    "schedule_status" : NumberInt(0), 
+    "schedule_create_time" : ISODate("2017-03-29T01:30:07.274+0000"), 
+    "schedule_creator" : "系统管理员", 
+    "schedule_ip" : [
+        "127.0.0.1"
+    ], 
+    "schedule_date" : [
+        ""
+    ], 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("58df7cb966b95a114ce5ada4"), 
+    "schedule_name" : "各地市的各业务渠道酬金表数据统计定时任务", 
+    "schedule_code" : "channelAreaServiceMoneyJobRun", 
+    "schedule_cron" : "0 1 0 1 * ?", 
+    "schedule_js_path" : "common/job/services/channelAreaServiceMoneyJob", 
+    "schedule_js_fun" : "channelAreaServiceMoneyJobRun", 
+    "schedule_status" : NumberInt(0), 
+    "schedule_create_time" : ISODate("2017-04-01T10:15:46.085+0000"), 
+    "schedule_creator" : "系统管理员", 
+    "schedule_ip" : [
+        "127.0.0.1"
+    ], 
+    "schedule_date" : "", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("58df7d3f66b95a114ce5ada6"), 
+    "schedule_name" : "全省单渠道酬金表数据统计定时任务", 
+    "schedule_code" : "channelMoneyJob", 
+    "schedule_cron" : "0 33 16 * * ?", 
+    "schedule_js_path" : "common/job/services/channelMoneyJob", 
+    "schedule_js_fun" : "channelMoneyJobRun", 
+    "schedule_status" : NumberInt(0), 
+    "schedule_create_time" : ISODate("2017-05-09T08:31:31.260+0000"), 
+    "schedule_creator" : "系统管理员", 
+    "schedule_ip" : [
+        "127.0.0.1"
+    ], 
+    "schedule_date" : "", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("58df7db466b95a114ce5ada8"), 
+    "schedule_name" : "各业务渠道酬金表数据统计定时任务", 
+    "schedule_code" : "channelServiceMoneyJob", 
+    "schedule_cron" : "0 10 0 1 * ?", 
+    "schedule_js_path" : "common/job/services/channelServiceMoneyJob", 
+    "schedule_js_fun" : "channelServiceMoneyJobRun", 
+    "schedule_status" : NumberInt(0), 
+    "schedule_create_time" : ISODate("2017-04-01T10:15:16.411+0000"), 
+    "schedule_creator" : "系统管理员", 
+    "schedule_ip" : [
+        "127.0.0.1"
+    ], 
+    "schedule_date" : [
+        ""
+    ], 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("59109349d0775012a82ed3bc"), 
+    "schedule_name" : "获取GitLab项目相关版本任务", 
+    "schedule_code" : "projectVersionJob", 
+    "schedule_cron" : "0/3 * * * * *", 
+    "schedule_js_path" : "common/job/services/projectVersionJob", 
+    "schedule_js_fun" : "projectVersionJobRun", 
+    "schedule_status" : NumberInt(0), 
+    "schedule_create_time" : ISODate("2017-05-18T06:26:14.842+0000"), 
+    "schedule_creator" : "系统管理员", 
+    "schedule_ip" : [
+        "127.0.0.1"
+    ], 
+    "schedule_date" : "", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5911824288922d23c8c37ad8"), 
+    "schedule_name" : "获取镜像与镜像版本任务", 
+    "schedule_code" : "queryImageVersion", 
+    "schedule_cron" : "0/3 * * * * *", 
+    "schedule_js_path" : "common/job/services/imageVersionDataJob", 
+    "schedule_js_fun" : "queryImageVersionJobRun", 
+    "schedule_status" : NumberInt(0), 
+    "schedule_create_time" : ISODate("2017-05-24T03:12:13.544+0000"), 
+    "schedule_creator" : "系统管理员", 
+    "schedule_ip" : [
+        "127.0.0.1"
+    ], 
+    "schedule_date" : "", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("591c0ddb0141e72e045f66fa"), 
+    "schedule_name" : "获取已部署应用健康度等信息", 
+    "schedule_code" : "deployedInfoSyncJob", 
+    "schedule_cron" : "0 0 0 * * *", 
+    "schedule_js_path" : "common/job/services/deployedInfoSyncJob", 
+    "schedule_js_fun" : "doJob", 
+    "schedule_status" : NumberInt(0), 
+    "schedule_create_time" : ISODate("2017-05-23T05:57:29.381+0000"), 
+    "schedule_creator" : "系统管理员", 
+    "schedule_ip" : [
+        "127.0.0.1"
+    ], 
+    "schedule_date" : "", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("591d46c938e03c0a2cdd2e64"), 
+    "schedule_name" : "获取镜像相关成员及角色任务", 
+    "schedule_code" : "memberJob", 
+    "schedule_cron" : "0/3 * * * * *", 
+    "schedule_js_path" : "common/job/services/memberjob", 
+    "schedule_js_fun" : "queryMemberDataRun", 
+    "schedule_status" : NumberInt(0), 
+    "schedule_create_time" : ISODate("2017-05-18T07:01:29.347+0000"), 
+    "schedule_creator" : "系统管理员", 
+    "schedule_ip" : [
+        "127.0.0.1"
+    ], 
+    "schedule_date" : [
+        ""
+    ], 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("591d4759905bf11e28ee1dd0"), 
+    "schedule_name" : "获取成员角色及信息", 
+    "schedule_code" : "queryMemberDate", 
+    "schedule_cron" : "0/3 * * * * *", 
+    "schedule_js_path" : "common/job/services/memberjob", 
+    "schedule_js_fun" : "queryMemberDataRun", 
+    "schedule_status" : NumberInt(0), 
+    "schedule_create_time" : ISODate("2017-05-18T07:08:57.712+0000"), 
+    "schedule_creator" : "系统管理员", 
+    "schedule_ip" : [
+        "127.0.0.1"
+    ], 
+    "schedule_date" : "", 
+    "__v" : NumberInt(0)
+}

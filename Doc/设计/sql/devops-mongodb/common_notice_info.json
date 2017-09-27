@@ -1,0 +1,24 @@
+{ 
+    "_id" : ObjectId("58229310e995d90998376971"), 
+    "notice_title" : "V1.2.1版本系统上线通知", 
+    "notice_type" : "1", 
+    "notice_content" : "<p>&nbsp; 各位领导及同事，你们好，贵州移动DevOps平台版本门户系统将于2017年05月10日开始V1.2.0版本上线试用。</p><p>上线功能如下：</p><p>功能模块：</p><p><br /></p><p>各位在试用过程中有任何问题请与我方联系，联系人：文安国 15285027249</p><p><br /></p>", 
+    "notice_issuer" : ObjectId("56d67d83a6fb090cead52968"), 
+    "notice_status" : "2", 
+    "notice_date" : ISODate("2017-05-11T07:54:51.840+0000"), 
+    "__v" : NumberInt(0), 
+    "notice_auditor" : ObjectId("56d67d83a6fb090cead52968"), 
+    "notice_up_time" : ISODate("2017-09-22T08:45:40.000+0000")
+}
+{ 
+    "_id" : ObjectId("58cfa8eba8a91628fccd104d"), 
+    "notice_title" : "DevOps平台上线v1.1.9", 
+    "notice_type" : "1", 
+    "notice_content" : "<p>各位，大家好！</p><p>贵州移动DevOps上线v1.1.9，可登陆http://10.201.253.197:30000进行测试使用。<br /></p><p><br /></p><p><br /></p><p>中移公司</p><p>项目研发室</p>", 
+    "notice_issuer" : ObjectId("56d67d83a6fb090cead52968"), 
+    "notice_status" : "2", 
+    "notice_date" : ISODate("2017-05-18T02:21:51.896+0000"), 
+    "__v" : NumberInt(0), 
+    "notice_auditor" : ObjectId("56d67d83a6fb090cead52968"), 
+    "notice_up_time" : ISODate("2017-09-22T08:46:05.000+0000")
+}

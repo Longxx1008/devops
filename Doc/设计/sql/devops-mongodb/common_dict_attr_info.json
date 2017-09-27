@@ -1,0 +1,1688 @@
+{ 
+    "_id" : ObjectId("5716f72cbf55d5106ef61aea"), 
+    "dict_id" : ObjectId("5716f657cd57ca3c33d775db"), 
+    "field_code" : "1", 
+    "field_name" : "公共组件", 
+    "field_value" : "1", 
+    "field_status" : NumberInt(1), 
+    "field_checked" : NumberInt(1), 
+    "field_order" : NumberInt(1), 
+    "field_parent_value" : "", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5716ffe1bf55d5106ef61aeb"), 
+    "dict_id" : ObjectId("5716f657cd57ca3c33d775db"), 
+    "field_code" : "2", 
+    "field_name" : "用户管理", 
+    "field_value" : "2", 
+    "field_status" : NumberInt(0), 
+    "__v" : NumberInt(0), 
+    "field_checked" : NumberInt(0), 
+    "field_order" : NumberInt(2), 
+    "field_parent_value" : ""
+}
+{ 
+    "_id" : ObjectId("571700ec1ea4e7d03aa42a26"), 
+    "dict_id" : ObjectId("5717004e1ea4e7d03aa42a0f"), 
+    "field_code" : "pm_01", 
+    "field_name" : "启用", 
+    "field_value" : "1", 
+    "field_status" : NumberInt(1), 
+    "field_checked" : NumberInt(1), 
+    "field_order" : NumberInt(1), 
+    "field_parent_value" : "", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("571701181ea4e7d03aa42a31"), 
+    "dict_id" : ObjectId("5717004e1ea4e7d03aa42a0f"), 
+    "field_code" : "pm_02", 
+    "field_name" : "禁用", 
+    "field_value" : "2", 
+    "field_status" : NumberInt(1), 
+    "field_checked" : NumberInt(0), 
+    "field_order" : NumberInt(2), 
+    "field_parent_value" : "", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("57218bf03c6bfd643a50c7e6"), 
+    "dict_id" : ObjectId("57218bc63c6bfd643a50c7e5"), 
+    "field_code" : "pm_50", 
+    "field_name" : "提交申请", 
+    "field_value" : "1", 
+    "field_status" : NumberInt(1), 
+    "field_checked" : NumberInt(1), 
+    "field_order" : NumberInt(1), 
+    "field_parent_value" : "", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("57218c0b3c6bfd643a50c7e7"), 
+    "dict_id" : ObjectId("57218bc63c6bfd643a50c7e5"), 
+    "field_code" : "pm_51", 
+    "field_name" : "完成评审", 
+    "field_value" : "2", 
+    "field_status" : NumberInt(1), 
+    "field_checked" : NumberInt(1), 
+    "field_order" : NumberInt(2), 
+    "field_parent_value" : "", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("57218c3c3c6bfd643a50c7e8"), 
+    "dict_id" : ObjectId("57218bc63c6bfd643a50c7e5"), 
+    "field_code" : "pm_52", 
+    "field_name" : "提交采购", 
+    "field_value" : "3", 
+    "field_status" : NumberInt(1), 
+    "field_checked" : NumberInt(1), 
+    "field_order" : NumberInt(3), 
+    "field_parent_value" : "", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("57218c5c3c6bfd643a50c7e9"), 
+    "dict_id" : ObjectId("57218bc63c6bfd643a50c7e5"), 
+    "field_code" : "pm_54", 
+    "field_name" : "完成需求评审", 
+    "field_value" : "4", 
+    "field_status" : NumberInt(1), 
+    "field_checked" : NumberInt(1), 
+    "field_order" : NumberInt(4), 
+    "field_parent_value" : "", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("57218c683c6bfd643a50c7ea"), 
+    "dict_id" : ObjectId("57218bc63c6bfd643a50c7e5"), 
+    "field_code" : "pm_55", 
+    "field_name" : "完成方案评审", 
+    "field_value" : "5", 
+    "field_status" : NumberInt(1), 
+    "field_checked" : NumberInt(1), 
+    "field_order" : NumberInt(5), 
+    "field_parent_value" : "", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("57218c7b3c6bfd643a50c7eb"), 
+    "dict_id" : ObjectId("57218bc63c6bfd643a50c7e5"), 
+    "field_code" : "pm_56", 
+    "field_name" : "采购中", 
+    "field_value" : "6", 
+    "field_status" : NumberInt(1), 
+    "field_checked" : NumberInt(1), 
+    "field_order" : NumberInt(6), 
+    "field_parent_value" : "", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("57218c913c6bfd643a50c7ec"), 
+    "dict_id" : ObjectId("57218bc63c6bfd643a50c7e5"), 
+    "field_code" : "pm_57", 
+    "field_name" : "完成谈判", 
+    "field_value" : "7", 
+    "field_status" : NumberInt(1), 
+    "field_checked" : NumberInt(1), 
+    "field_order" : NumberInt(7), 
+    "field_parent_value" : "", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("57218cab3c6bfd643a50c7ed"), 
+    "dict_id" : ObjectId("57218bc63c6bfd643a50c7e5"), 
+    "field_code" : "pm_58", 
+    "field_name" : "供货中", 
+    "field_value" : "8", 
+    "field_status" : NumberInt(1), 
+    "field_checked" : NumberInt(1), 
+    "field_order" : NumberInt(8), 
+    "field_parent_value" : "", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("57218cb93c6bfd643a50c7ee"), 
+    "dict_id" : ObjectId("57218bc63c6bfd643a50c7e5"), 
+    "field_code" : "pm_59", 
+    "field_name" : "到货", 
+    "field_value" : "9", 
+    "field_status" : NumberInt(1), 
+    "field_checked" : NumberInt(1), 
+    "field_order" : NumberInt(9), 
+    "field_parent_value" : "", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("57218ccf3c6bfd643a50c7ef"), 
+    "dict_id" : ObjectId("57218bc63c6bfd643a50c7e5"), 
+    "field_code" : "pm_60", 
+    "field_name" : "采购完成", 
+    "field_value" : "10", 
+    "field_status" : NumberInt(1), 
+    "field_checked" : NumberInt(1), 
+    "field_order" : NumberInt(10), 
+    "field_parent_value" : "", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("572aa372b2e58f29c0258bc7"), 
+    "dict_id" : ObjectId("5716f657cd57ca3c33d775db"), 
+    "field_code" : "3", 
+    "field_name" : "待办事项", 
+    "field_value" : "3", 
+    "field_status" : NumberInt(0), 
+    "field_checked" : NumberInt(0), 
+    "field_order" : NumberInt(3), 
+    "field_parent_id" : "5716f72cbf55d5106ef61aea", 
+    "field_parent_value" : "1", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("572ae3998796d29c6ec2eafc"), 
+    "dict_id" : ObjectId("5716f657cd57ca3c33d775db"), 
+    "field_code" : "4", 
+    "field_name" : "通知公告", 
+    "field_value" : "4", 
+    "field_status" : NumberInt(0), 
+    "field_checked" : NumberInt(0), 
+    "field_order" : NumberInt(4), 
+    "field_remark" : "aaaaa", 
+    "field_parent_id" : "5716f72cbf55d5106ef61aea", 
+    "field_parent_value" : "1", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("572ae4fb8796d29c6ec2eafd"), 
+    "dict_id" : ObjectId("5716f657cd57ca3c33d775db"), 
+    "field_code" : "5", 
+    "field_name" : "组织机构", 
+    "field_value" : "5", 
+    "field_status" : NumberInt(0), 
+    "field_checked" : NumberInt(0), 
+    "field_order" : NumberInt(5), 
+    "field_remark" : "vvvvv", 
+    "field_parent_id" : "5716ffe1bf55d5106ef61aeb", 
+    "field_parent_value" : "2", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("572ae51b8796d29c6ec2eafe"), 
+    "dict_id" : ObjectId("5716f657cd57ca3c33d775db"), 
+    "field_code" : "6", 
+    "field_name" : "日志管理", 
+    "field_value" : "6", 
+    "field_status" : NumberInt(0), 
+    "field_checked" : NumberInt(0), 
+    "field_order" : NumberInt(6), 
+    "field_remark" : "gggg", 
+    "field_parent_value" : "2", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("572ae5c98796d29c6ec2eaff"), 
+    "dict_id" : ObjectId("5716f657cd57ca3c33d775db"), 
+    "field_code" : "7", 
+    "field_name" : "日志审计", 
+    "field_value" : "7", 
+    "field_status" : NumberInt(0), 
+    "field_checked" : NumberInt(0), 
+    "field_order" : NumberInt(7), 
+    "field_remark" : "hhhhh", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("572ae5ea8796d29c6ec2eb00"), 
+    "dict_id" : ObjectId("5716f657cd57ca3c33d775db"), 
+    "field_code" : "8", 
+    "field_name" : "帐号管理", 
+    "field_value" : "8", 
+    "field_status" : NumberInt(0), 
+    "field_checked" : NumberInt(0), 
+    "field_order" : NumberInt(8), 
+    "field_remark" : "rrrrr", 
+    "field_parent_id" : "5716ffe1bf55d5106ef61aeb", 
+    "field_parent_value" : "2", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("572ae64e8796d29c6ec2eb01"), 
+    "dict_id" : ObjectId("5716f657cd57ca3c33d775db"), 
+    "field_code" : "9", 
+    "field_name" : "系统帮助", 
+    "field_value" : "9", 
+    "field_status" : NumberInt(0), 
+    "field_checked" : NumberInt(0), 
+    "field_order" : NumberInt(9), 
+    "field_remark" : "wwwww", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5733f4c44e9c677c805b9f79"), 
+    "dict_id" : ObjectId("5716f657cd57ca3c33d775db"), 
+    "field_code" : "10", 
+    "field_name" : "图表组件", 
+    "field_value" : "10", 
+    "field_status" : NumberInt(1), 
+    "field_checked" : NumberInt(0), 
+    "field_order" : NumberInt(3), 
+    "__v" : NumberInt(0), 
+    "field_parent_value" : ""
+}
+{ 
+    "_id" : ObjectId("574d56af2b112870da03474a"), 
+    "dict_id" : ObjectId("574d56562b112870da034749"), 
+    "field_code" : "1110", 
+    "field_name" : "内部", 
+    "field_value" : "10", 
+    "field_status" : NumberInt(1), 
+    "field_checked" : NumberInt(1), 
+    "field_order" : NumberInt(1), 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("574d56c62b112870da03474b"), 
+    "dict_id" : ObjectId("574d56562b112870da034749"), 
+    "field_code" : "1011", 
+    "field_name" : "厂家", 
+    "field_value" : "11", 
+    "field_status" : NumberInt(1), 
+    "field_checked" : NumberInt(1), 
+    "field_order" : NumberInt(2), 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("574d570a2b112870da03474c"), 
+    "dict_id" : ObjectId("574d56562b112870da034749"), 
+    "field_code" : "1012", 
+    "field_name" : "施工", 
+    "field_value" : "12", 
+    "field_status" : NumberInt(1), 
+    "field_checked" : NumberInt(1), 
+    "field_order" : NumberInt(1), 
+    "field_parent_id" : "574d56c62b112870da03474b", 
+    "field_parent_value" : "11", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("574d576c2b112870da03474d"), 
+    "dict_id" : ObjectId("574d56562b112870da034749"), 
+    "field_code" : "1013", 
+    "field_name" : "设计", 
+    "field_value" : "13", 
+    "field_status" : NumberInt(1), 
+    "field_checked" : NumberInt(1), 
+    "field_order" : NumberInt(2), 
+    "field_parent_id" : "574d56c62b112870da03474b", 
+    "field_parent_value" : "11", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("574d57902b112870da03474e"), 
+    "dict_id" : ObjectId("574d56562b112870da034749"), 
+    "field_code" : "1014", 
+    "field_name" : "监理", 
+    "field_value" : "14", 
+    "field_status" : NumberInt(1), 
+    "field_checked" : NumberInt(1), 
+    "field_order" : NumberInt(3), 
+    "field_parent_id" : "574d56c62b112870da03474b", 
+    "field_parent_value" : "11", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("574e768d7bd383d933d5de97"), 
+    "dict_id" : ObjectId("5716f657cd57ca3c33d775db"), 
+    "field_code" : "11", 
+    "field_name" : "demo组件", 
+    "field_value" : "11", 
+    "field_status" : NumberInt(1), 
+    "field_checked" : NumberInt(0), 
+    "field_order" : NumberInt(4), 
+    "__v" : NumberInt(0), 
+    "field_parent_value" : ""
+}
+{ 
+    "_id" : ObjectId("574e7bb05625387c8e482b00"), 
+    "dict_id" : ObjectId("571700c1bf55d5106ef61aec"), 
+    "field_name" : "portal页面", 
+    "field_value" : "0", 
+    "field_status" : NumberInt(1), 
+    "field_checked" : NumberInt(0), 
+    "field_order" : NumberInt(1), 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("574e7bba5625387c8e482b01"), 
+    "dict_id" : ObjectId("571700c1bf55d5106ef61aec"), 
+    "field_name" : "框架内置", 
+    "field_value" : "1", 
+    "field_status" : NumberInt(1), 
+    "field_checked" : NumberInt(0), 
+    "field_order" : NumberInt(2), 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("574e7bc55625387c8e482b02"), 
+    "dict_id" : ObjectId("571700c1bf55d5106ef61aec"), 
+    "field_name" : "业务自有", 
+    "field_value" : "2", 
+    "field_status" : NumberInt(1), 
+    "field_checked" : NumberInt(0), 
+    "field_order" : NumberInt(3), 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5750f29aca6d61505adc20d4"), 
+    "dict_id" : ObjectId("5750f23fca6d61505adc20d3"), 
+    "field_name" : "贵阳", 
+    "field_value" : "520100", 
+    "field_status" : NumberInt(1), 
+    "field_checked" : NumberInt(0), 
+    "field_order" : NumberInt(2), 
+    "__v" : NumberInt(0), 
+    "field_parent_value" : "520100"
+}
+{ 
+    "_id" : ObjectId("5750f2d0ca6d61505adc20d5"), 
+    "dict_id" : ObjectId("5750f23fca6d61505adc20d3"), 
+    "field_name" : "遵义", 
+    "field_value" : "520300", 
+    "field_status" : NumberInt(1), 
+    "field_checked" : NumberInt(0), 
+    "field_order" : NumberInt(3), 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5750f2e0ca6d61505adc20d6"), 
+    "dict_id" : ObjectId("5750f23fca6d61505adc20d3"), 
+    "field_name" : "安顺", 
+    "field_value" : "520400", 
+    "field_status" : NumberInt(1), 
+    "field_checked" : NumberInt(0), 
+    "field_order" : NumberInt(4), 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5750f2ebca6d61505adc20d7"), 
+    "dict_id" : ObjectId("5750f23fca6d61505adc20d3"), 
+    "field_name" : "六盘水", 
+    "field_value" : "520200", 
+    "field_status" : NumberInt(1), 
+    "field_checked" : NumberInt(0), 
+    "field_order" : NumberInt(9), 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5750f2fdca6d61505adc20d8"), 
+    "dict_id" : ObjectId("5750f23fca6d61505adc20d3"), 
+    "field_name" : "黔南", 
+    "field_value" : "522700", 
+    "field_status" : NumberInt(1), 
+    "field_checked" : NumberInt(0), 
+    "field_order" : NumberInt(5), 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5750f30eca6d61505adc20d9"), 
+    "dict_id" : ObjectId("5750f23fca6d61505adc20d3"), 
+    "field_name" : "铜仁", 
+    "field_value" : "522200", 
+    "field_status" : NumberInt(1), 
+    "field_checked" : NumberInt(0), 
+    "field_order" : NumberInt(7), 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5750f31eca6d61505adc20da"), 
+    "dict_id" : ObjectId("5750f23fca6d61505adc20d3"), 
+    "field_name" : "黔东南", 
+    "field_value" : "522600", 
+    "field_status" : NumberInt(1), 
+    "field_checked" : NumberInt(0), 
+    "field_order" : NumberInt(6), 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5750f32bca6d61505adc20db"), 
+    "dict_id" : ObjectId("5750f23fca6d61505adc20d3"), 
+    "field_name" : "黔西南", 
+    "field_value" : "522300", 
+    "field_status" : NumberInt(1), 
+    "field_checked" : NumberInt(0), 
+    "field_order" : NumberInt(10), 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5750f338ca6d61505adc20dc"), 
+    "dict_id" : ObjectId("5750f23fca6d61505adc20d3"), 
+    "field_name" : "毕节", 
+    "field_value" : "522400", 
+    "field_status" : NumberInt(1), 
+    "field_checked" : NumberInt(0), 
+    "field_order" : NumberInt(8), 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("575f5b6d3d006a742a9f5740"), 
+    "dict_id" : ObjectId("575f5aeb3d006a742a9f573f"), 
+    "field_name" : "施工", 
+    "field_value" : "12", 
+    "field_status" : NumberInt(1), 
+    "field_checked" : NumberInt(0), 
+    "field_order" : NumberInt(1), 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("575f5bea3d006a742a9f5741"), 
+    "dict_id" : ObjectId("575f5aeb3d006a742a9f573f"), 
+    "field_name" : "2016.01.01~2016.12.31", 
+    "field_value" : "1001", 
+    "field_status" : NumberInt(1), 
+    "field_checked" : NumberInt(0), 
+    "field_order" : NumberInt(2), 
+    "field_parent_id" : "575f5b6d3d006a742a9f5740", 
+    "field_parent_value" : "12", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("575f5bea3d006a742a9f5742"), 
+    "dict_id" : ObjectId("575f5aeb3d006a742a9f573f"), 
+    "field_name" : "2017.01.01~2017.12.31", 
+    "field_value" : "1002", 
+    "field_status" : NumberInt(1), 
+    "field_checked" : NumberInt(0), 
+    "field_order" : NumberInt(3), 
+    "field_parent_id" : "575f5b6d3d006a742a9f5740", 
+    "field_parent_value" : "12", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("575f5beb3d006a742a9f5743"), 
+    "dict_id" : ObjectId("575f5aeb3d006a742a9f573f"), 
+    "field_name" : "2018.01.01~2018.12.31", 
+    "field_value" : "1003", 
+    "field_status" : NumberInt(1), 
+    "field_checked" : NumberInt(0), 
+    "field_order" : NumberInt(4), 
+    "field_parent_id" : "575f5b6d3d006a742a9f5740", 
+    "field_parent_value" : "12", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("575f5bec3d006a742a9f5744"), 
+    "dict_id" : ObjectId("575f5aeb3d006a742a9f573f"), 
+    "field_name" : "设计", 
+    "field_value" : "13", 
+    "field_status" : NumberInt(1), 
+    "field_checked" : NumberInt(0), 
+    "field_order" : NumberInt(5), 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("575f5d0b3169e7182a3fc8fe"), 
+    "dict_id" : ObjectId("575f5aeb3d006a742a9f573f"), 
+    "field_name" : "2016.01.01~2016.12.31", 
+    "field_value" : "2001", 
+    "field_status" : NumberInt(1), 
+    "field_checked" : NumberInt(0), 
+    "field_order" : NumberInt(6), 
+    "field_parent_id" : "575f5bec3d006a742a9f5744", 
+    "field_parent_value" : "13", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("575f5d1c3169e7182a3fc8ff"), 
+    "dict_id" : ObjectId("575f5aeb3d006a742a9f573f"), 
+    "field_name" : "监理", 
+    "field_value" : "14", 
+    "field_status" : NumberInt(1), 
+    "field_checked" : NumberInt(0), 
+    "field_order" : NumberInt(7), 
+    "__v" : NumberInt(0), 
+    "field_parent_value" : "3"
+}
+{ 
+    "_id" : ObjectId("575f5d2c3169e7182a3fc900"), 
+    "dict_id" : ObjectId("575f5aeb3d006a742a9f573f"), 
+    "field_name" : "2016.01.01~2016.12.31", 
+    "field_value" : "3001", 
+    "field_status" : NumberInt(1), 
+    "field_checked" : NumberInt(0), 
+    "field_order" : NumberInt(8), 
+    "field_parent_id" : "575f5d1c3169e7182a3fc8ff", 
+    "field_parent_value" : "14", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("576101bbfdb87dc8af873f30"), 
+    "dict_id" : ObjectId("57610181fdb87dc8af873f2f"), 
+    "field_name" : "beyond", 
+    "field_value" : "themes/beyond/layout", 
+    "field_status" : NumberInt(1), 
+    "field_checked" : NumberInt(0), 
+    "field_order" : NumberInt(1), 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("576101d0fdb87dc8af873f31"), 
+    "dict_id" : ObjectId("57610181fdb87dc8af873f2f"), 
+    "field_name" : "portal", 
+    "field_value" : "themes/portal_eui/layout", 
+    "field_status" : NumberInt(0), 
+    "field_checked" : NumberInt(0), 
+    "field_order" : NumberInt(3), 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("57610a9dfdb87dc8af873f32"), 
+    "dict_id" : ObjectId("57610181fdb87dc8af873f2f"), 
+    "field_name" : "beyond_rev", 
+    "field_value" : "themes/beyond_rev/layout", 
+    "field_status" : NumberInt(1), 
+    "field_checked" : NumberInt(0), 
+    "field_order" : NumberInt(2), 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("581063a34590ff7185bb3394"), 
+    "dict_id" : ObjectId("5810637b4590ff7185bb3393"), 
+    "field_name" : "db143", 
+    "field_value" : "Server=10.201.250.143; Database=jkyth; uid=root; password=yanfashi2016;", 
+    "field_status" : NumberInt(1), 
+    "field_checked" : NumberInt(0), 
+    "field_order" : NumberInt(1), 
+    "field_remark" : "143数据库连接字符串", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5811629cccaf4d11b8f4d7f6"), 
+    "dict_id" : ObjectId("5810637b4590ff7185bb3393"), 
+    "field_name" : "db142", 
+    "field_value" : "Server=10.201.250.142; Database=jkyth; uid=root; password=repLcmc0613;", 
+    "field_status" : NumberInt(1), 
+    "field_checked" : NumberInt(0), 
+    "field_order" : NumberInt(2), 
+    "field_remark" : "142数据库连接字符串", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("58d328233b49c132f08c06d1"), 
+    "dict_id" : ObjectId("5750f23fca6d61505adc20d3"), 
+    "field_name" : "贵安", 
+    "field_value" : "550025", 
+    "field_status" : NumberInt(1), 
+    "field_checked" : NumberInt(0), 
+    "field_order" : NumberInt(1), 
+    "field_parent_value" : "520100", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("58d3287d3b49c132f08c06d2"), 
+    "dict_id" : ObjectId("5750f23fca6d61505adc20d3"), 
+    "field_name" : "南明区", 
+    "field_value" : "520102", 
+    "field_status" : NumberInt(1), 
+    "field_checked" : NumberInt(0), 
+    "field_order" : NumberInt(1), 
+    "field_parent_id" : "5750f29aca6d61505adc20d4", 
+    "field_parent_value" : "520100", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("58d33ec23b49c132f08c06d3"), 
+    "dict_id" : ObjectId("5750f23fca6d61505adc20d3"), 
+    "field_name" : "云岩区", 
+    "field_value" : "520103", 
+    "field_status" : NumberInt(1), 
+    "field_checked" : NumberInt(0), 
+    "field_order" : NumberInt(2), 
+    "field_parent_id" : "5750f29aca6d61505adc20d4", 
+    "field_parent_value" : "520100", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("58d33edc3b49c132f08c06d4"), 
+    "dict_id" : ObjectId("5750f23fca6d61505adc20d3"), 
+    "field_name" : "花溪区", 
+    "field_value" : "520111", 
+    "field_status" : NumberInt(1), 
+    "field_checked" : NumberInt(0), 
+    "field_order" : NumberInt(3), 
+    "field_parent_id" : "5750f29aca6d61505adc20d4", 
+    "field_parent_value" : "520100", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("58d33f013b49c132f08c06d5"), 
+    "dict_id" : ObjectId("5750f23fca6d61505adc20d3"), 
+    "field_name" : "乌当区", 
+    "field_value" : "520112", 
+    "field_status" : NumberInt(1), 
+    "field_checked" : NumberInt(0), 
+    "field_order" : NumberInt(4), 
+    "field_parent_id" : "5750f29aca6d61505adc20d4", 
+    "field_parent_value" : "520100", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("58d33f1f3b49c132f08c06d6"), 
+    "dict_id" : ObjectId("5750f23fca6d61505adc20d3"), 
+    "field_name" : "白云区", 
+    "field_value" : "520113", 
+    "field_status" : NumberInt(1), 
+    "field_checked" : NumberInt(0), 
+    "field_order" : NumberInt(5), 
+    "field_parent_id" : "5750f29aca6d61505adc20d4", 
+    "field_parent_value" : "520100", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("58d33f383b49c132f08c06d7"), 
+    "dict_id" : ObjectId("5750f23fca6d61505adc20d3"), 
+    "field_name" : "观山湖区", 
+    "field_value" : "520114", 
+    "field_status" : NumberInt(1), 
+    "field_checked" : NumberInt(0), 
+    "field_order" : NumberInt(6), 
+    "field_parent_id" : "5750f29aca6d61505adc20d4", 
+    "field_parent_value" : "520100", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("58d33f9c3b49c132f08c06d8"), 
+    "dict_id" : ObjectId("5750f23fca6d61505adc20d3"), 
+    "field_name" : "开阳县", 
+    "field_value" : "520121", 
+    "field_status" : NumberInt(1), 
+    "field_checked" : NumberInt(0), 
+    "field_order" : NumberInt(7), 
+    "field_parent_id" : "5750f29aca6d61505adc20d4", 
+    "field_parent_value" : "520100", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("58d33fb63b49c132f08c06d9"), 
+    "dict_id" : ObjectId("5750f23fca6d61505adc20d3"), 
+    "field_name" : "息烽县", 
+    "field_value" : "520122", 
+    "field_status" : NumberInt(1), 
+    "field_checked" : NumberInt(0), 
+    "field_order" : NumberInt(8), 
+    "field_parent_id" : "5750f29aca6d61505adc20d4", 
+    "field_parent_value" : "520100", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("58d33fcf3b49c132f08c06da"), 
+    "dict_id" : ObjectId("5750f23fca6d61505adc20d3"), 
+    "field_name" : "修文县", 
+    "field_value" : "520123", 
+    "field_status" : NumberInt(1), 
+    "field_checked" : NumberInt(0), 
+    "field_order" : NumberInt(9), 
+    "field_parent_id" : "5750f29aca6d61505adc20d4", 
+    "field_parent_value" : "520100", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("58d33fee3b49c132f08c06db"), 
+    "dict_id" : ObjectId("5750f23fca6d61505adc20d3"), 
+    "field_name" : "清镇市", 
+    "field_value" : "520181", 
+    "field_status" : NumberInt(1), 
+    "field_checked" : NumberInt(0), 
+    "field_order" : NumberInt(10), 
+    "field_parent_id" : "5750f29aca6d61505adc20d4", 
+    "field_parent_value" : "520100", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("58d340bb3b49c132f08c06dc"), 
+    "dict_id" : ObjectId("5750f23fca6d61505adc20d3"), 
+    "field_name" : "钟山区", 
+    "field_value" : "520201", 
+    "field_status" : NumberInt(1), 
+    "field_checked" : NumberInt(0), 
+    "field_order" : NumberInt(1), 
+    "field_parent_id" : "5750f2ebca6d61505adc20d7", 
+    "field_parent_value" : "520200", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("58d340d63b49c132f08c06dd"), 
+    "dict_id" : ObjectId("5750f23fca6d61505adc20d3"), 
+    "field_name" : "六枝特区", 
+    "field_value" : "520203", 
+    "field_status" : NumberInt(1), 
+    "field_checked" : NumberInt(0), 
+    "field_order" : NumberInt(2), 
+    "field_parent_id" : "5750f2ebca6d61505adc20d7", 
+    "field_parent_value" : "520200", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("58d340f43b49c132f08c06de"), 
+    "dict_id" : ObjectId("5750f23fca6d61505adc20d3"), 
+    "field_name" : "水城县", 
+    "field_value" : "520221", 
+    "field_status" : NumberInt(1), 
+    "field_checked" : NumberInt(0), 
+    "field_order" : NumberInt(3), 
+    "field_parent_id" : "5750f2ebca6d61505adc20d7", 
+    "field_parent_value" : "520200", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("58d3410a3b49c132f08c06df"), 
+    "dict_id" : ObjectId("5750f23fca6d61505adc20d3"), 
+    "field_name" : "盘县", 
+    "field_value" : "520222", 
+    "field_status" : NumberInt(1), 
+    "field_checked" : NumberInt(0), 
+    "field_order" : NumberInt(4), 
+    "field_parent_id" : "5750f2ebca6d61505adc20d7", 
+    "field_parent_value" : "520200", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("58d341463b49c132f08c06e0"), 
+    "dict_id" : ObjectId("5750f23fca6d61505adc20d3"), 
+    "field_name" : "红花岗区", 
+    "field_value" : "520302", 
+    "field_status" : NumberInt(1), 
+    "field_checked" : NumberInt(0), 
+    "field_order" : NumberInt(1), 
+    "field_parent_id" : "5750f2d0ca6d61505adc20d5", 
+    "field_parent_value" : "520300", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("58d3417b3b49c132f08c06e1"), 
+    "dict_id" : ObjectId("5750f23fca6d61505adc20d3"), 
+    "field_name" : "汇川区", 
+    "field_value" : "520303", 
+    "field_status" : NumberInt(1), 
+    "field_checked" : NumberInt(0), 
+    "field_order" : NumberInt(2), 
+    "field_parent_id" : "5750f2d0ca6d61505adc20d5", 
+    "field_parent_value" : "520300", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("58d341ba3b49c132f08c06e2"), 
+    "dict_id" : ObjectId("5750f23fca6d61505adc20d3"), 
+    "field_name" : "播州区", 
+    "field_value" : "520321", 
+    "field_status" : NumberInt(1), 
+    "field_checked" : NumberInt(0), 
+    "field_order" : NumberInt(3), 
+    "field_parent_id" : "5750f2d0ca6d61505adc20d5", 
+    "field_parent_value" : "520300", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("58d341d23b49c132f08c06e3"), 
+    "dict_id" : ObjectId("5750f23fca6d61505adc20d3"), 
+    "field_name" : "桐梓县", 
+    "field_value" : "520322", 
+    "field_status" : NumberInt(1), 
+    "field_checked" : NumberInt(0), 
+    "field_order" : NumberInt(4), 
+    "field_parent_id" : "5750f2d0ca6d61505adc20d5", 
+    "field_parent_value" : "520300", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("58d341e63b49c132f08c06e4"), 
+    "dict_id" : ObjectId("5750f23fca6d61505adc20d3"), 
+    "field_name" : "绥阳县", 
+    "field_value" : "520323", 
+    "field_status" : NumberInt(1), 
+    "field_checked" : NumberInt(0), 
+    "field_order" : NumberInt(5), 
+    "field_parent_id" : "5750f2d0ca6d61505adc20d5", 
+    "field_parent_value" : "520300", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("58d342033b49c132f08c06e5"), 
+    "dict_id" : ObjectId("5750f23fca6d61505adc20d3"), 
+    "field_name" : "正安县", 
+    "field_value" : "520324", 
+    "field_status" : NumberInt(1), 
+    "field_checked" : NumberInt(0), 
+    "field_order" : NumberInt(6), 
+    "field_parent_id" : "5750f2d0ca6d61505adc20d5", 
+    "field_parent_value" : "520300", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("58d3421b3b49c132f08c06e6"), 
+    "dict_id" : ObjectId("5750f23fca6d61505adc20d3"), 
+    "field_name" : "道真县", 
+    "field_value" : "520325", 
+    "field_status" : NumberInt(1), 
+    "field_checked" : NumberInt(0), 
+    "field_order" : NumberInt(7), 
+    "field_parent_id" : "5750f2d0ca6d61505adc20d5", 
+    "field_parent_value" : "520300", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("58d342323b49c132f08c06e7"), 
+    "dict_id" : ObjectId("5750f23fca6d61505adc20d3"), 
+    "field_name" : "务川县", 
+    "field_value" : "520326", 
+    "field_status" : NumberInt(1), 
+    "field_checked" : NumberInt(0), 
+    "field_order" : NumberInt(8), 
+    "field_parent_id" : "5750f2d0ca6d61505adc20d5", 
+    "field_parent_value" : "520300", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("58d342473b49c132f08c06e8"), 
+    "dict_id" : ObjectId("5750f23fca6d61505adc20d3"), 
+    "field_name" : "凤冈县", 
+    "field_value" : "520327", 
+    "field_status" : NumberInt(1), 
+    "field_checked" : NumberInt(0), 
+    "field_order" : NumberInt(9), 
+    "field_parent_id" : "5750f2d0ca6d61505adc20d5", 
+    "field_parent_value" : "520300", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("58d342663b49c132f08c06e9"), 
+    "dict_id" : ObjectId("5750f23fca6d61505adc20d3"), 
+    "field_name" : "湄潭县", 
+    "field_value" : "520328", 
+    "field_status" : NumberInt(1), 
+    "field_checked" : NumberInt(0), 
+    "field_order" : NumberInt(10), 
+    "field_parent_id" : "5750f2d0ca6d61505adc20d5", 
+    "field_parent_value" : "520300", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("58d342813b49c132f08c06ea"), 
+    "dict_id" : ObjectId("5750f23fca6d61505adc20d3"), 
+    "field_name" : "余庆县", 
+    "field_value" : "520329", 
+    "field_status" : NumberInt(1), 
+    "field_checked" : NumberInt(0), 
+    "field_order" : NumberInt(11), 
+    "field_parent_id" : "5750f2d0ca6d61505adc20d5", 
+    "field_parent_value" : "520300", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("58d342963b49c132f08c06eb"), 
+    "dict_id" : ObjectId("5750f23fca6d61505adc20d3"), 
+    "field_name" : "习水县", 
+    "field_value" : "520330", 
+    "field_status" : NumberInt(1), 
+    "field_checked" : NumberInt(0), 
+    "field_order" : NumberInt(12), 
+    "field_parent_id" : "5750f2d0ca6d61505adc20d5", 
+    "field_parent_value" : "520300", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("58d342bb3b49c132f08c06ec"), 
+    "dict_id" : ObjectId("5750f23fca6d61505adc20d3"), 
+    "field_name" : "赤水市", 
+    "field_value" : "520381", 
+    "field_status" : NumberInt(1), 
+    "field_checked" : NumberInt(0), 
+    "field_order" : NumberInt(13), 
+    "field_parent_id" : "5750f2d0ca6d61505adc20d5", 
+    "field_parent_value" : "520300", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("58d342ea3b49c132f08c06ed"), 
+    "dict_id" : ObjectId("5750f23fca6d61505adc20d3"), 
+    "field_name" : "仁怀市", 
+    "field_value" : "520382", 
+    "field_status" : NumberInt(1), 
+    "field_checked" : NumberInt(0), 
+    "field_order" : NumberInt(14), 
+    "field_parent_id" : "5750f2d0ca6d61505adc20d5", 
+    "field_parent_value" : "520300", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("58d356fb20a7b716b8ea953e"), 
+    "dict_id" : ObjectId("5750f23fca6d61505adc20d3"), 
+    "field_name" : "西秀区", 
+    "field_value" : "520402", 
+    "field_status" : NumberInt(1), 
+    "field_checked" : NumberInt(0), 
+    "field_order" : NumberInt(1), 
+    "field_parent_id" : "5750f2e0ca6d61505adc20d6", 
+    "field_parent_value" : "520400", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("58d3571920a7b716b8ea953f"), 
+    "dict_id" : ObjectId("5750f23fca6d61505adc20d3"), 
+    "field_name" : "平坝区", 
+    "field_value" : "520403", 
+    "field_status" : NumberInt(1), 
+    "field_checked" : NumberInt(0), 
+    "field_order" : NumberInt(2), 
+    "field_parent_id" : "5750f2e0ca6d61505adc20d6", 
+    "field_parent_value" : "520400", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("58d3573020a7b716b8ea9540"), 
+    "dict_id" : ObjectId("5750f23fca6d61505adc20d3"), 
+    "field_name" : "普定县", 
+    "field_value" : "520422", 
+    "field_status" : NumberInt(1), 
+    "field_checked" : NumberInt(0), 
+    "field_order" : NumberInt(3), 
+    "field_parent_id" : "5750f2e0ca6d61505adc20d6", 
+    "field_parent_value" : "520400", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("58d3574720a7b716b8ea9541"), 
+    "dict_id" : ObjectId("5750f23fca6d61505adc20d3"), 
+    "field_name" : "镇宁县", 
+    "field_value" : "520423", 
+    "field_status" : NumberInt(1), 
+    "field_checked" : NumberInt(0), 
+    "field_order" : NumberInt(4), 
+    "field_parent_id" : "5750f2e0ca6d61505adc20d6", 
+    "field_parent_value" : "520400", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("58d3575a20a7b716b8ea9542"), 
+    "dict_id" : ObjectId("5750f23fca6d61505adc20d3"), 
+    "field_name" : "关岭县", 
+    "field_value" : "520424", 
+    "field_status" : NumberInt(1), 
+    "field_checked" : NumberInt(0), 
+    "field_order" : NumberInt(5), 
+    "field_parent_id" : "5750f2e0ca6d61505adc20d6", 
+    "field_parent_value" : "520400", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("58d3576f20a7b716b8ea9543"), 
+    "dict_id" : ObjectId("5750f23fca6d61505adc20d3"), 
+    "field_name" : "紫云县", 
+    "field_value" : "520425", 
+    "field_status" : NumberInt(1), 
+    "field_checked" : NumberInt(0), 
+    "field_order" : NumberInt(6), 
+    "field_parent_id" : "5750f2e0ca6d61505adc20d6", 
+    "field_parent_value" : "520400", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("58d357aa20a7b716b8ea9544"), 
+    "dict_id" : ObjectId("5750f23fca6d61505adc20d3"), 
+    "field_name" : "七星关区", 
+    "field_value" : "520502", 
+    "field_status" : NumberInt(1), 
+    "field_checked" : NumberInt(0), 
+    "field_order" : NumberInt(1), 
+    "field_parent_id" : "5750f338ca6d61505adc20dc", 
+    "field_parent_value" : "522400", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("58d357bf20a7b716b8ea9545"), 
+    "dict_id" : ObjectId("5750f23fca6d61505adc20d3"), 
+    "field_name" : "大方县", 
+    "field_value" : "520521", 
+    "field_status" : NumberInt(1), 
+    "field_checked" : NumberInt(0), 
+    "field_order" : NumberInt(2), 
+    "field_parent_id" : "5750f338ca6d61505adc20dc", 
+    "field_parent_value" : "522400", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("58d357d420a7b716b8ea9546"), 
+    "dict_id" : ObjectId("5750f23fca6d61505adc20d3"), 
+    "field_name" : "黔西县", 
+    "field_value" : "520522", 
+    "field_status" : NumberInt(1), 
+    "field_checked" : NumberInt(0), 
+    "field_order" : NumberInt(3), 
+    "field_parent_id" : "5750f338ca6d61505adc20dc", 
+    "field_parent_value" : "522400", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("58d357ec20a7b716b8ea9547"), 
+    "dict_id" : ObjectId("5750f23fca6d61505adc20d3"), 
+    "field_name" : "金沙县", 
+    "field_value" : "520523", 
+    "field_status" : NumberInt(1), 
+    "field_checked" : NumberInt(0), 
+    "field_order" : NumberInt(4), 
+    "field_parent_id" : "5750f338ca6d61505adc20dc", 
+    "field_parent_value" : "522400", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("58d3580220a7b716b8ea9548"), 
+    "dict_id" : ObjectId("5750f23fca6d61505adc20d3"), 
+    "field_name" : "织金县", 
+    "field_value" : "520524", 
+    "field_status" : NumberInt(1), 
+    "field_checked" : NumberInt(0), 
+    "field_order" : NumberInt(5), 
+    "field_parent_id" : "5750f338ca6d61505adc20dc", 
+    "field_parent_value" : "522400", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("58d3581820a7b716b8ea9549"), 
+    "dict_id" : ObjectId("5750f23fca6d61505adc20d3"), 
+    "field_name" : "纳雍县", 
+    "field_value" : "520525", 
+    "field_status" : NumberInt(1), 
+    "field_checked" : NumberInt(0), 
+    "field_order" : NumberInt(6), 
+    "field_parent_id" : "5750f338ca6d61505adc20dc", 
+    "field_parent_value" : "522400", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("58d3583220a7b716b8ea954a"), 
+    "dict_id" : ObjectId("5750f23fca6d61505adc20d3"), 
+    "field_name" : "威宁县", 
+    "field_value" : "520526", 
+    "field_status" : NumberInt(1), 
+    "field_checked" : NumberInt(0), 
+    "field_order" : NumberInt(7), 
+    "field_parent_id" : "5750f338ca6d61505adc20dc", 
+    "field_parent_value" : "522400", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("58d3584620a7b716b8ea954b"), 
+    "dict_id" : ObjectId("5750f23fca6d61505adc20d3"), 
+    "field_name" : "赫章县", 
+    "field_value" : "520527", 
+    "field_status" : NumberInt(1), 
+    "field_checked" : NumberInt(0), 
+    "field_order" : NumberInt(8), 
+    "field_parent_id" : "5750f338ca6d61505adc20dc", 
+    "field_parent_value" : "522400", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("58d3589020a7b716b8ea954c"), 
+    "dict_id" : ObjectId("5750f23fca6d61505adc20d3"), 
+    "field_name" : "碧江区", 
+    "field_value" : "520602", 
+    "field_status" : NumberInt(1), 
+    "field_checked" : NumberInt(0), 
+    "field_order" : NumberInt(1), 
+    "field_parent_id" : "5750f30eca6d61505adc20d9", 
+    "field_parent_value" : "522200", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("58d358a520a7b716b8ea954d"), 
+    "dict_id" : ObjectId("5750f23fca6d61505adc20d3"), 
+    "field_name" : "万山区", 
+    "field_value" : "520603", 
+    "field_status" : NumberInt(1), 
+    "field_checked" : NumberInt(0), 
+    "field_order" : NumberInt(2), 
+    "field_parent_id" : "5750f30eca6d61505adc20d9", 
+    "field_parent_value" : "522200", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("58d358bd20a7b716b8ea954e"), 
+    "dict_id" : ObjectId("5750f23fca6d61505adc20d3"), 
+    "field_name" : "江口县", 
+    "field_value" : "520621", 
+    "field_status" : NumberInt(1), 
+    "field_checked" : NumberInt(0), 
+    "field_order" : NumberInt(3), 
+    "field_parent_id" : "5750f30eca6d61505adc20d9", 
+    "field_parent_value" : "522200", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("58d358d420a7b716b8ea954f"), 
+    "dict_id" : ObjectId("5750f23fca6d61505adc20d3"), 
+    "field_name" : "玉屏县", 
+    "field_value" : "520622", 
+    "field_status" : NumberInt(1), 
+    "field_checked" : NumberInt(0), 
+    "field_order" : NumberInt(4), 
+    "field_parent_id" : "5750f30eca6d61505adc20d9", 
+    "field_parent_value" : "522200", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("58d358e720a7b716b8ea9550"), 
+    "dict_id" : ObjectId("5750f23fca6d61505adc20d3"), 
+    "field_name" : "石阡县", 
+    "field_value" : "520623", 
+    "field_status" : NumberInt(1), 
+    "field_checked" : NumberInt(0), 
+    "field_order" : NumberInt(5), 
+    "field_parent_id" : "5750f30eca6d61505adc20d9", 
+    "field_parent_value" : "522200", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("58d358f720a7b716b8ea9551"), 
+    "dict_id" : ObjectId("5750f23fca6d61505adc20d3"), 
+    "field_name" : "思南县", 
+    "field_value" : "520624", 
+    "field_status" : NumberInt(1), 
+    "field_checked" : NumberInt(0), 
+    "field_order" : NumberInt(6), 
+    "field_parent_id" : "5750f30eca6d61505adc20d9", 
+    "field_parent_value" : "522200", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("58d3590b20a7b716b8ea9552"), 
+    "dict_id" : ObjectId("5750f23fca6d61505adc20d3"), 
+    "field_name" : "印江县", 
+    "field_value" : "520625", 
+    "field_status" : NumberInt(1), 
+    "field_checked" : NumberInt(0), 
+    "field_order" : NumberInt(7), 
+    "field_parent_id" : "5750f30eca6d61505adc20d9", 
+    "field_parent_value" : "522200", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("58d3591f20a7b716b8ea9553"), 
+    "dict_id" : ObjectId("5750f23fca6d61505adc20d3"), 
+    "field_name" : "德江县", 
+    "field_value" : "520626", 
+    "field_status" : NumberInt(1), 
+    "field_checked" : NumberInt(0), 
+    "field_order" : NumberInt(8), 
+    "field_parent_id" : "5750f30eca6d61505adc20d9", 
+    "field_parent_value" : "522200", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("58d3593e20a7b716b8ea9554"), 
+    "dict_id" : ObjectId("5750f23fca6d61505adc20d3"), 
+    "field_name" : "沿河县", 
+    "field_value" : "520627", 
+    "field_status" : NumberInt(1), 
+    "field_checked" : NumberInt(0), 
+    "field_order" : NumberInt(9), 
+    "field_parent_id" : "5750f30eca6d61505adc20d9", 
+    "field_parent_value" : "522200", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("58d3595120a7b716b8ea9555"), 
+    "dict_id" : ObjectId("5750f23fca6d61505adc20d3"), 
+    "field_name" : "松桃县", 
+    "field_value" : "520628", 
+    "field_status" : NumberInt(1), 
+    "field_checked" : NumberInt(0), 
+    "field_order" : NumberInt(10), 
+    "field_parent_id" : "5750f30eca6d61505adc20d9", 
+    "field_parent_value" : "522200", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("58d3598820a7b716b8ea9556"), 
+    "dict_id" : ObjectId("5750f23fca6d61505adc20d3"), 
+    "field_name" : "兴义市", 
+    "field_value" : "522301", 
+    "field_status" : NumberInt(1), 
+    "field_checked" : NumberInt(0), 
+    "field_order" : NumberInt(1), 
+    "field_parent_id" : "5750f32bca6d61505adc20db", 
+    "field_parent_value" : "522300", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("58d3599d20a7b716b8ea9557"), 
+    "dict_id" : ObjectId("5750f23fca6d61505adc20d3"), 
+    "field_name" : "兴仁县", 
+    "field_value" : "522322", 
+    "field_status" : NumberInt(1), 
+    "field_checked" : NumberInt(0), 
+    "field_order" : NumberInt(2), 
+    "field_parent_id" : "5750f32bca6d61505adc20db", 
+    "field_parent_value" : "522300", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("58d359b120a7b716b8ea9558"), 
+    "dict_id" : ObjectId("5750f23fca6d61505adc20d3"), 
+    "field_name" : "普安县", 
+    "field_value" : "522323", 
+    "field_status" : NumberInt(1), 
+    "field_checked" : NumberInt(0), 
+    "field_order" : NumberInt(3), 
+    "field_parent_id" : "5750f32bca6d61505adc20db", 
+    "field_parent_value" : "522300", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("58d359c720a7b716b8ea9559"), 
+    "dict_id" : ObjectId("5750f23fca6d61505adc20d3"), 
+    "field_name" : "晴隆县", 
+    "field_value" : "522324", 
+    "field_status" : NumberInt(1), 
+    "field_checked" : NumberInt(0), 
+    "field_order" : NumberInt(4), 
+    "field_parent_id" : "5750f32bca6d61505adc20db", 
+    "field_parent_value" : "522300", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("58d359db20a7b716b8ea955a"), 
+    "dict_id" : ObjectId("5750f23fca6d61505adc20d3"), 
+    "field_name" : "贞丰县", 
+    "field_value" : "522325", 
+    "field_status" : NumberInt(1), 
+    "field_checked" : NumberInt(0), 
+    "field_order" : NumberInt(5), 
+    "field_parent_id" : "5750f32bca6d61505adc20db", 
+    "field_parent_value" : "522300", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("58d359ef20a7b716b8ea955b"), 
+    "dict_id" : ObjectId("5750f23fca6d61505adc20d3"), 
+    "field_name" : "望谟县", 
+    "field_value" : "522326", 
+    "field_status" : NumberInt(1), 
+    "field_checked" : NumberInt(0), 
+    "field_order" : NumberInt(6), 
+    "field_parent_id" : "5750f32bca6d61505adc20db", 
+    "field_parent_value" : "522300", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("58d35a0520a7b716b8ea955c"), 
+    "dict_id" : ObjectId("5750f23fca6d61505adc20d3"), 
+    "field_name" : "册亨县", 
+    "field_value" : "522327", 
+    "field_status" : NumberInt(1), 
+    "field_checked" : NumberInt(0), 
+    "field_order" : NumberInt(7), 
+    "field_parent_id" : "5750f32bca6d61505adc20db", 
+    "field_parent_value" : "522300", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("58d35a1a20a7b716b8ea955d"), 
+    "dict_id" : ObjectId("5750f23fca6d61505adc20d3"), 
+    "field_name" : "安龙县", 
+    "field_value" : "522328", 
+    "field_status" : NumberInt(1), 
+    "field_checked" : NumberInt(0), 
+    "field_order" : NumberInt(8), 
+    "field_parent_id" : "5750f32bca6d61505adc20db", 
+    "field_parent_value" : "522300", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("58d35ae220a7b716b8ea955e"), 
+    "dict_id" : ObjectId("5750f23fca6d61505adc20d3"), 
+    "field_name" : "镇远县", 
+    "field_value" : "522626 ", 
+    "field_status" : NumberInt(1), 
+    "field_checked" : NumberInt(0), 
+    "field_order" : NumberInt(1), 
+    "field_parent_id" : "5750f31eca6d61505adc20da", 
+    "field_parent_value" : "522600", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("58d35b0620a7b716b8ea955f"), 
+    "dict_id" : ObjectId("5750f23fca6d61505adc20d3"), 
+    "field_name" : "凯里市", 
+    "field_value" : "522601", 
+    "field_status" : NumberInt(1), 
+    "field_checked" : NumberInt(0), 
+    "field_order" : NumberInt(2), 
+    "field_parent_id" : "5750f31eca6d61505adc20da", 
+    "field_parent_value" : "522600", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("58d35b1a20a7b716b8ea9560"), 
+    "dict_id" : ObjectId("5750f23fca6d61505adc20d3"), 
+    "field_name" : "黄平县", 
+    "field_value" : "522622", 
+    "field_status" : NumberInt(1), 
+    "field_checked" : NumberInt(0), 
+    "field_order" : NumberInt(3), 
+    "field_parent_id" : "5750f31eca6d61505adc20da", 
+    "field_parent_value" : "522600", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("58d35b2f20a7b716b8ea9561"), 
+    "dict_id" : ObjectId("5750f23fca6d61505adc20d3"), 
+    "field_name" : "施秉县", 
+    "field_value" : "522623", 
+    "field_status" : NumberInt(1), 
+    "field_checked" : NumberInt(0), 
+    "field_order" : NumberInt(4), 
+    "field_parent_id" : "5750f31eca6d61505adc20da", 
+    "field_parent_value" : "522600", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("58d35b4220a7b716b8ea9562"), 
+    "dict_id" : ObjectId("5750f23fca6d61505adc20d3"), 
+    "field_name" : "三穗县", 
+    "field_value" : "522624", 
+    "field_status" : NumberInt(1), 
+    "field_checked" : NumberInt(0), 
+    "field_order" : NumberInt(5), 
+    "field_parent_id" : "5750f31eca6d61505adc20da", 
+    "field_parent_value" : "522600", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("58d35b5320a7b716b8ea9563"), 
+    "dict_id" : ObjectId("5750f23fca6d61505adc20d3"), 
+    "field_name" : "岑巩县", 
+    "field_value" : "522626", 
+    "field_status" : NumberInt(1), 
+    "field_checked" : NumberInt(0), 
+    "field_order" : NumberInt(6), 
+    "field_parent_id" : "5750f31eca6d61505adc20da", 
+    "field_parent_value" : "522600", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("58d35b6720a7b716b8ea9564"), 
+    "dict_id" : ObjectId("5750f23fca6d61505adc20d3"), 
+    "field_name" : "天柱县", 
+    "field_value" : "522627", 
+    "field_status" : NumberInt(1), 
+    "field_checked" : NumberInt(0), 
+    "field_order" : NumberInt(7), 
+    "field_parent_id" : "5750f31eca6d61505adc20da", 
+    "field_parent_value" : "522600", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("58d35b7a20a7b716b8ea9565"), 
+    "dict_id" : ObjectId("5750f23fca6d61505adc20d3"), 
+    "field_name" : "锦屏县", 
+    "field_value" : "522628", 
+    "field_status" : NumberInt(1), 
+    "field_checked" : NumberInt(0), 
+    "field_order" : NumberInt(8), 
+    "field_parent_id" : "5750f31eca6d61505adc20da", 
+    "field_parent_value" : "522600", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("58d35b9220a7b716b8ea9566"), 
+    "dict_id" : ObjectId("5750f23fca6d61505adc20d3"), 
+    "field_name" : "剑河县", 
+    "field_value" : "522629", 
+    "field_status" : NumberInt(1), 
+    "field_checked" : NumberInt(0), 
+    "field_order" : NumberInt(9), 
+    "field_parent_id" : "5750f31eca6d61505adc20da", 
+    "field_parent_value" : "522600", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("58d35bae20a7b716b8ea9567"), 
+    "dict_id" : ObjectId("5750f23fca6d61505adc20d3"), 
+    "field_name" : "台江县", 
+    "field_value" : "522630", 
+    "field_status" : NumberInt(1), 
+    "field_checked" : NumberInt(0), 
+    "field_order" : NumberInt(10), 
+    "field_parent_id" : "5750f31eca6d61505adc20da", 
+    "field_parent_value" : "522600", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("58d35bc120a7b716b8ea9568"), 
+    "dict_id" : ObjectId("5750f23fca6d61505adc20d3"), 
+    "field_name" : "黎平县", 
+    "field_value" : "522631", 
+    "field_status" : NumberInt(1), 
+    "field_checked" : NumberInt(0), 
+    "field_order" : NumberInt(11), 
+    "field_parent_id" : "5750f31eca6d61505adc20da", 
+    "field_parent_value" : "522600", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("58d35bda20a7b716b8ea9569"), 
+    "dict_id" : ObjectId("5750f23fca6d61505adc20d3"), 
+    "field_name" : "榕江县", 
+    "field_value" : "522632", 
+    "field_status" : NumberInt(1), 
+    "field_checked" : NumberInt(0), 
+    "field_order" : NumberInt(12), 
+    "field_parent_id" : "5750f31eca6d61505adc20da", 
+    "field_parent_value" : "522600", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("58d35c1c20a7b716b8ea956a"), 
+    "dict_id" : ObjectId("5750f23fca6d61505adc20d3"), 
+    "field_name" : "从江县", 
+    "field_value" : "522633", 
+    "field_status" : NumberInt(1), 
+    "field_checked" : NumberInt(0), 
+    "field_order" : NumberInt(13), 
+    "field_parent_id" : "5750f31eca6d61505adc20da", 
+    "field_parent_value" : "522600", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("58d35c2f20a7b716b8ea956b"), 
+    "dict_id" : ObjectId("5750f23fca6d61505adc20d3"), 
+    "field_name" : "雷山县", 
+    "field_value" : "522634", 
+    "field_status" : NumberInt(1), 
+    "field_checked" : NumberInt(0), 
+    "field_order" : NumberInt(14), 
+    "field_parent_id" : "5750f31eca6d61505adc20da", 
+    "field_parent_value" : "522600", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("58d35c4220a7b716b8ea956c"), 
+    "dict_id" : ObjectId("5750f23fca6d61505adc20d3"), 
+    "field_name" : "麻江县", 
+    "field_value" : "522635", 
+    "field_status" : NumberInt(1), 
+    "field_checked" : NumberInt(0), 
+    "field_order" : NumberInt(15), 
+    "field_parent_id" : "5750f31eca6d61505adc20da", 
+    "field_parent_value" : "522600", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("58d35c5520a7b716b8ea956d"), 
+    "dict_id" : ObjectId("5750f23fca6d61505adc20d3"), 
+    "field_name" : "丹寨县", 
+    "field_value" : "522636", 
+    "field_status" : NumberInt(1), 
+    "field_checked" : NumberInt(0), 
+    "field_order" : NumberInt(16), 
+    "field_parent_id" : "5750f31eca6d61505adc20da", 
+    "field_parent_value" : "522600", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("58d35c7220a7b716b8ea956e"), 
+    "dict_id" : ObjectId("5750f23fca6d61505adc20d3"), 
+    "field_name" : "都匀市", 
+    "field_value" : "522701", 
+    "field_status" : NumberInt(1), 
+    "field_checked" : NumberInt(0), 
+    "field_order" : NumberInt(1), 
+    "field_parent_id" : "5750f2fdca6d61505adc20d8", 
+    "field_parent_value" : "522700", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("58d35c8320a7b716b8ea956f"), 
+    "dict_id" : ObjectId("5750f23fca6d61505adc20d3"), 
+    "field_name" : "福泉市", 
+    "field_value" : "522702", 
+    "field_status" : NumberInt(1), 
+    "field_checked" : NumberInt(0), 
+    "field_order" : NumberInt(2), 
+    "field_parent_id" : "5750f2fdca6d61505adc20d8", 
+    "field_parent_value" : "522700", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("58d35c9620a7b716b8ea9570"), 
+    "dict_id" : ObjectId("5750f23fca6d61505adc20d3"), 
+    "field_name" : "荔波县", 
+    "field_value" : "522722", 
+    "field_status" : NumberInt(1), 
+    "field_checked" : NumberInt(0), 
+    "field_order" : NumberInt(3), 
+    "field_parent_id" : "5750f2fdca6d61505adc20d8", 
+    "field_parent_value" : "522700", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("58d35cc920a7b716b8ea9571"), 
+    "dict_id" : ObjectId("5750f23fca6d61505adc20d3"), 
+    "field_name" : "贵定县", 
+    "field_value" : "522723", 
+    "field_status" : NumberInt(1), 
+    "field_checked" : NumberInt(0), 
+    "field_order" : NumberInt(4), 
+    "field_parent_id" : "5750f2fdca6d61505adc20d8", 
+    "field_parent_value" : "522700", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("58d35cda20a7b716b8ea9572"), 
+    "dict_id" : ObjectId("5750f23fca6d61505adc20d3"), 
+    "field_name" : "瓮安县", 
+    "field_value" : "522725", 
+    "field_status" : NumberInt(1), 
+    "field_checked" : NumberInt(0), 
+    "field_order" : NumberInt(5), 
+    "field_parent_id" : "5750f2fdca6d61505adc20d8", 
+    "field_parent_value" : "522700", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("58d35cf020a7b716b8ea9573"), 
+    "dict_id" : ObjectId("5750f23fca6d61505adc20d3"), 
+    "field_name" : "独山县", 
+    "field_value" : "522726", 
+    "field_status" : NumberInt(1), 
+    "field_checked" : NumberInt(0), 
+    "field_order" : NumberInt(6), 
+    "field_parent_id" : "5750f2fdca6d61505adc20d8", 
+    "field_parent_value" : "522700", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("58d35d0520a7b716b8ea9574"), 
+    "dict_id" : ObjectId("5750f23fca6d61505adc20d3"), 
+    "field_name" : "平塘县", 
+    "field_value" : "522727", 
+    "field_status" : NumberInt(1), 
+    "field_checked" : NumberInt(0), 
+    "field_order" : NumberInt(7), 
+    "field_parent_id" : "5750f2fdca6d61505adc20d8", 
+    "field_parent_value" : "522700", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("58d35d1720a7b716b8ea9575"), 
+    "dict_id" : ObjectId("5750f23fca6d61505adc20d3"), 
+    "field_name" : "罗甸县", 
+    "field_value" : "522728", 
+    "field_status" : NumberInt(1), 
+    "field_checked" : NumberInt(0), 
+    "field_order" : NumberInt(8), 
+    "field_parent_id" : "5750f2fdca6d61505adc20d8", 
+    "field_parent_value" : "522700", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("58d35d2d20a7b716b8ea9576"), 
+    "dict_id" : ObjectId("5750f23fca6d61505adc20d3"), 
+    "field_name" : "罗甸县", 
+    "field_value" : "522728", 
+    "field_status" : NumberInt(1), 
+    "field_checked" : NumberInt(0), 
+    "field_order" : NumberInt(9), 
+    "field_parent_id" : "5750f2fdca6d61505adc20d8", 
+    "field_parent_value" : "522700", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("58d35d4520a7b716b8ea9577"), 
+    "dict_id" : ObjectId("5750f23fca6d61505adc20d3"), 
+    "field_name" : "长顺县", 
+    "field_value" : "522729", 
+    "field_status" : NumberInt(1), 
+    "field_checked" : NumberInt(0), 
+    "field_order" : NumberInt(10), 
+    "field_parent_id" : "5750f2fdca6d61505adc20d8", 
+    "field_parent_value" : "522700", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("58d35d5c20a7b716b8ea9578"), 
+    "dict_id" : ObjectId("5750f23fca6d61505adc20d3"), 
+    "field_name" : "龙里县", 
+    "field_value" : "522730", 
+    "field_status" : NumberInt(1), 
+    "field_checked" : NumberInt(0), 
+    "field_order" : NumberInt(11), 
+    "field_parent_id" : "5750f2fdca6d61505adc20d8", 
+    "field_parent_value" : "522700", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("58d35d6e20a7b716b8ea9579"), 
+    "dict_id" : ObjectId("5750f23fca6d61505adc20d3"), 
+    "field_name" : "惠水县", 
+    "field_value" : "522731", 
+    "field_status" : NumberInt(1), 
+    "field_checked" : NumberInt(0), 
+    "field_order" : NumberInt(12), 
+    "field_parent_id" : "5750f2fdca6d61505adc20d8", 
+    "field_parent_value" : "522700", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("58d35d8320a7b716b8ea957a"), 
+    "dict_id" : ObjectId("5750f23fca6d61505adc20d3"), 
+    "field_name" : "三都县", 
+    "field_value" : "522732", 
+    "field_status" : NumberInt(1), 
+    "field_checked" : NumberInt(0), 
+    "field_order" : NumberInt(13), 
+    "field_parent_id" : "5750f2fdca6d61505adc20d8", 
+    "field_parent_value" : "522700", 
+    "__v" : NumberInt(0)
+}

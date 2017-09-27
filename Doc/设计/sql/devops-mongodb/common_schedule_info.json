@@ -1,0 +1,30 @@
+{ 
+    "_id" : ObjectId("59c36968629780388c132be2"), 
+    "schedule_name" : "9月巡检任务", 
+    "schedule_content" : "<p>请在9月结束之前完成巡检任务。</p>", 
+    "schedule_creator" : ObjectId("56d67d83a6fb090cead52968"), 
+    "schedule_executor" : "李某某", 
+    "schedule_create_time" : ISODate("2017-09-22T00:00:00.000+0000"), 
+    "schedule_complete_time" : ISODate("2017-09-30T00:00:00.000+0000"), 
+    "schedule_grade" : "1"
+}
+{ 
+    "_id" : ObjectId("59c37367629780388c132be8"), 
+    "schedule_name" : "十月巡检任务", 
+    "schedule_content" : "<p>请在10月结束之前完成巡检</p>", 
+    "schedule_creator" : ObjectId("56d67d83a6fb090cead52968"), 
+    "schedule_executor" : "孙某某", 
+    "schedule_create_time" : ISODate("2017-09-25T01:32:09.943+0000"), 
+    "schedule_complete_time" : ISODate("2017-10-31T07:54:51.840+0000"), 
+    "schedule_grade" : "1"
+}
+{ 
+    "_id" : ObjectId("59c37408629780388c132bf1"), 
+    "schedule_name" : "11月巡检任务", 
+    "schedule_content" : "请在11月结束之前完成巡检", 
+    "schedule_creator" : ObjectId("56d67d83a6fb090cead52968"), 
+    "schedule_executor" : "张某某", 
+    "schedule_create_time" : ISODate("2017-11-01T07:54:51.840+0000"), 
+    "schedule_complete_time" : ISODate("2017-11-30T07:54:51.840+0000"), 
+    "schedule_grade" : "2"
+}

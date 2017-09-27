@@ -1,0 +1,268 @@
+{ 
+    "_id" : ObjectId("56d67d83a6fb090cead52968"), 
+    "login_account" : "admin", 
+    "login_password" : "e10adc3949ba59abbe56e057f20f883e", 
+    "user_no" : "00001", 
+    "user_name" : "系统管理员", 
+    "user_gender" : NumberInt(1), 
+    "user_phone" : "18885000000", 
+    "user_tel" : "18885000000", 
+    "user_email" : "18885000000@139.com", 
+    "user_status" : NumberInt(1), 
+    "user_org" : ObjectId("56d6850ea6fb090cead5296a"), 
+    "theme_name" : "themes/beyond/", 
+    "theme_skin" : "deepblue", 
+    "user_photo" : "1", 
+    "user_sys" : ObjectId("56d7df43a6fbe05a1394ad6c"), 
+    "user_roles" : [
+        ObjectId("56d7e358a6fbe05a1394ad6e")
+    ]
+}
+{ 
+    "_id" : ObjectId("56f25a3bf6fbd099ba70d540"), 
+    "login_account" : "sysadmin", 
+    "login_password" : "e10adc3949ba59abbe56e057f20f883e", 
+    "user_no" : "00000", 
+    "user_name" : "超级管理员", 
+    "user_gender" : NumberInt(1), 
+    "user_phone" : "18885000000", 
+    "user_tel" : "18885000000", 
+    "user_email" : "18885000000@139.com", 
+    "user_status" : NumberInt(1), 
+    "user_org" : ObjectId("56d6850ea6fb090cead5296a"), 
+    "theme_name" : "themes/beyond/", 
+    "theme_skin" : "deepblue", 
+    "user_photo" : "1", 
+    "user_sys" : ObjectId("56d7df43a6fbe05a1394ad6c"), 
+    "user_roles" : [
+        ObjectId("56d7e358a6fbe05a1394ad6e"), 
+        ObjectId("56d80e3ca6fbe05a1394ad93")
+    ]
+}
+{ 
+    "_id" : ObjectId("56f4babdbc225ba4c91a0a92"), 
+    "login_account" : "shihukui", 
+    "user_status" : NumberInt(1), 
+    "user_no" : "00007", 
+    "user_name" : "石胡奎", 
+    "user_gender" : NumberInt(1), 
+    "user_phone" : "18885027897", 
+    "user_email" : "18885027897@139.com", 
+    "login_password" : "e10adc3949ba59abbe56e057f20f883e", 
+    "user_sys" : ObjectId("56f0a1441e9fa07c0bbee3f9"), 
+    "user_org" : ObjectId("56d6850ea6fb090cead5296a"), 
+    "user_roles" : [
+        ObjectId("56f2484f4ff9835843f7d5d9")
+    ], 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("56f4ede38ebd84f824cfcad2"), 
+    "login_account" : "wuqingfa", 
+    "user_status" : NumberInt(1), 
+    "user_no" : "45100633", 
+    "user_name" : "吴青发", 
+    "user_gender" : NumberInt(1), 
+    "user_phone" : "13595049575", 
+    "user_email" : "wuqingfa@139.com", 
+    "login_password" : "e10adc3949ba59abbe56e057f20f883e", 
+    "user_sys" : ObjectId("56f0a1441e9fa07c0bbee3f9"), 
+    "user_org" : ObjectId("56d6850ea6fb090cead5296a"), 
+    "user_roles" : [
+        ObjectId("56f4f7865a406ee41ffabe42"), 
+        ObjectId("56f2484f4ff9835843f7d5d9")
+    ], 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("56f4f15c08d4ef302d0a15c1"), 
+    "login_account" : "gongli", 
+    "user_status" : NumberInt(1), 
+    "user_no" : "gongli", 
+    "user_name" : "龚利", 
+    "user_gender" : NumberInt(1), 
+    "user_phone" : "13908518609", 
+    "login_password" : "e10adc3949ba59abbe56e057f20f883e", 
+    "user_sys" : ObjectId("56f0a1441e9fa07c0bbee3f9"), 
+    "user_org" : ObjectId("56d6850ea6fb090cead5296a"), 
+    "user_roles" : [
+        ObjectId("56f4f7865a406ee41ffabe42")
+    ], 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("56f4f8f26d7364a8369c01dd"), 
+    "login_account" : "yangtongquan", 
+    "user_status" : NumberInt(1), 
+    "user_no" : "yangtongquan", 
+    "user_name" : "杨通全", 
+    "user_gender" : NumberInt(1), 
+    "login_password" : "e10adc3949ba59abbe56e057f20f883e", 
+    "user_sys" : ObjectId("56f0a1441e9fa07c0bbee3f9"), 
+    "user_org" : ObjectId("56d6850ea6fb090cead5296a"), 
+    "user_roles" : [
+        ObjectId("56f61908405b34dc3a8f4921")
+    ], 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("56f4face6d7364a8369c0328"), 
+    "login_account" : "zhouyuanhong", 
+    "user_status" : NumberInt(1), 
+    "user_no" : "zhouyuanhong", 
+    "user_name" : "周袁弘", 
+    "user_gender" : NumberInt(1), 
+    "login_password" : "e10adc3949ba59abbe56e057f20f883e", 
+    "user_sys" : ObjectId("56f0a1441e9fa07c0bbee3f9"), 
+    "user_org" : ObjectId("56d6850ea6fb090cead5296a"), 
+    "user_roles" : [
+        ObjectId("56f4fa3e6d7364a8369c02cb")
+    ], 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("56f4fae86d7364a8369c032e"), 
+    "login_account" : "sunjijun", 
+    "user_status" : NumberInt(1), 
+    "user_no" : "sunjijun", 
+    "user_name" : "孙继军", 
+    "user_gender" : NumberInt(1), 
+    "login_password" : "e10adc3949ba59abbe56e057f20f883e", 
+    "user_sys" : ObjectId("56f0a1441e9fa07c0bbee3f9"), 
+    "user_org" : ObjectId("56d6850ea6fb090cead5296a"), 
+    "user_roles" : [
+        ObjectId("56f4f7865a406ee41ffabe42")
+    ], 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("571edf51ce184c503d4ed1b5"), 
+    "login_account" : "daiwei", 
+    "user_status" : NumberInt(1), 
+    "user_no" : "D0001", 
+    "user_name" : "代维人员", 
+    "user_gender" : NumberInt(1), 
+    "login_password" : "e10adc3949ba59abbe56e057f20f883e", 
+    "user_sys" : ObjectId("56f20ec0c2b4db9c2a7dfe7a"), 
+    "user_org" : ObjectId("56e66d4de36520368cb4f64e"), 
+    "user_roles" : [
+        ObjectId("571edf17ce184c503d4ed1b4")
+    ], 
+    "__v" : NumberInt(0), 
+    "user_phone" : "18888888888"
+}
+{ 
+    "_id" : ObjectId("57344d083a256bf91e524f63"), 
+    "login_account" : "demo", 
+    "user_status" : NumberInt(1), 
+    "user_no" : "50001", 
+    "user_name" : "演示用户", 
+    "user_gender" : NumberInt(1), 
+    "user_phone" : "18885027897", 
+    "login_password" : "e10adc3949ba59abbe56e057f20f883e", 
+    "user_sys" : ObjectId("573448be3a256bf91e524f5d"), 
+    "user_org" : ObjectId("56d6850ea6fb090cead5296a"), 
+    "user_roles" : [
+        ObjectId("57344c2f3a256bf91e524f60")
+    ], 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("57568c49a96f8ec727d3ad71"), 
+    "login_account" : "aaaaa", 
+    "login_password" : "e10adc3949ba59abbe56e057f20f883e", 
+    "user_no" : "99999", 
+    "user_name" : "测试数据", 
+    "user_gender" : NumberInt(1), 
+    "user_phone" : "18885000000", 
+    "user_tel" : "18885000000", 
+    "user_email" : "18885000000@139.com", 
+    "user_status" : NumberInt(1), 
+    "user_org" : ObjectId("575127a1a96f314de41264e4"), 
+    "theme_name" : "themes/beyond/", 
+    "theme_skin" : "deepblue", 
+    "user_photo" : "1", 
+    "user_sys" : ObjectId("56d7df43a6fbe05a1394ad6c"), 
+    "user_roles" : [
+        ObjectId("56d7e358a6fbe05a1394ad6e"), 
+        ObjectId("56d80e3ca6fbe05a1394ad93")
+    ]
+}
+{ 
+    "_id" : ObjectId("575e1f97f32d29fc33248470"), 
+    "login_account" : "xxxxx", 
+    "user_status" : NumberInt(1), 
+    "user_no" : "878787", 
+    "user_name" : "厂家C人员a", 
+    "user_gender" : NumberInt(1), 
+    "login_password" : "e10adc3949ba59abbe56e057f20f883e", 
+    "user_sys" : ObjectId("56d7df43a6fbe05a1394ad6c"), 
+    "user_org" : ObjectId("575d2e8f62064a6c1096f4d3"), 
+    "user_roles" : [
+        ObjectId("56d7e358a6fbe05a1394ad6e"), 
+        ObjectId("56d80e3ca6fbe05a1394ad93")
+    ], 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("575e202bf32d29fc33248471"), 
+    "login_account" : "yyy", 
+    "user_status" : NumberInt(1), 
+    "user_no" : "686868", 
+    "user_name" : "yyy", 
+    "user_gender" : NumberInt(1), 
+    "login_password" : "e10adc3949ba59abbe56e057f20f883e", 
+    "user_sys" : ObjectId("56d7df43a6fbe05a1394ad6c"), 
+    "user_org" : ObjectId("575128c0a96f314de41264ee"), 
+    "user_roles" : [
+        ObjectId("56d7e358a6fbe05a1394ad6e"), 
+        ObjectId("56d80e3ca6fbe05a1394ad93")
+    ], 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("575e222bf32d29fc33248472"), 
+    "login_account" : "98989", 
+    "user_status" : NumberInt(1), 
+    "user_no" : "98989", 
+    "user_name" : "98989", 
+    "user_gender" : NumberInt(1), 
+    "user_phone" : "123xxxxxx", 
+    "login_password" : "822f768416011e6dcf5ebb532e5ed650", 
+    "user_sys" : ObjectId("56d7df43a6fbe05a1394ad6c"), 
+    "user_org" : ObjectId("575127a1a96f314de41264e4"), 
+    "user_roles" : [
+        ObjectId("56d80e3ca6fbe05a1394ad93")
+    ], 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5833af661f6f447482f4e895"), 
+    "login_account" : "wenanguo", 
+    "user_status" : NumberInt(1), 
+    "user_no" : "100001", 
+    "user_name" : "文安国", 
+    "user_gender" : NumberInt(1), 
+    "login_password" : "8101303aff367a7d9a8cfc7e8bb86989", 
+    "user_sys" : ObjectId("56f20ec0c2b4db9c2a7dfe7a"), 
+    "user_org" : ObjectId("56d6850ea6fb090cead5296a"), 
+    "user_roles" : [
+        ObjectId("571edf17ce184c503d4ed1b4")
+    ], 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("591a83e4f9ee91237c7afbb6"), 
+    "login_account" : "xiangyong", 
+    "user_status" : NumberInt(1), 
+    "user_no" : "xy", 
+    "user_name" : "xy", 
+    "user_gender" : NumberInt(1), 
+    "login_password" : "76d86c479f1da762d518457af164f88a", 
+    "user_sys" : ObjectId("56d7df43a6fbe05a1394ad6c"), 
+    "user_org" : ObjectId("56d6850ea6fb090cead5296a"), 
+    "user_roles" : [
+        ObjectId("56d7e358a6fbe05a1394ad6e")
+    ], 
+    "__v" : NumberInt(0)
+}
