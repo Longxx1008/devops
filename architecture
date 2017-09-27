@@ -12,7 +12,7 @@
     "type": "DOCKER",
     "volumes": [],
     "docker": {
-      "image": "117.187.12.236:15000/develop-base:v1.4.8",
+      "image": "192.168.9.69:5000/develop-base:v1.5.1",
       "network": "BRIDGE",
       "portMappings": [
         {

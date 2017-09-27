@@ -9,7 +9,7 @@ variables:
   LS_CMD: 'ls $FLAGS $$TMP_DIR'
   FLAGS: '-al'
   FLAGST: 'echo $CI_RUNNER_ID'
-  MY_CI_REGISTRY_IMAGE: 117.187.12.236:15000/${CI_PROJECT_NAME}:$CI_BUILD_TAG
+  MY_CI_REGISTRY_IMAGE: 192.168.9.69:5000/${CI_PROJECT_NAME}:$CI_BUILD_TAG
   MY_MARATHON_URL: 192.168.9.61:8080
 # 定义编译阶段
 build_stages:
@@ -43,7 +43,7 @@ release_image:
     - dockerin
   stage: deploy
   script:
-    - ping -c 5 117.187.12.236
+#    - ping -c 5 117.187.12.236
     - ping -c 5 192.168.9.69
     - if [ "$CI_BUILD_TAG" ]; then docker push $MY_CI_REGISTRY_IMAGE ;fi
     - if [ "$CI_BUILD_TAG" ]; then  curl -X POST http://$MY_MARATHON_URL/v2/apps -d @architecture.json -H 'Content-type:application/json' ;fi
