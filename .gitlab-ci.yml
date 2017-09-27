@@ -72,7 +72,7 @@ release_image:
         rm -r /usr/share/man && \
         apk del curldeps
 #    发送请求marathon        
-    - if [ "$CI_BUILD_TAG" ]; then  curl -X POST http://$MY_MARATHON_URL/v2/apps -d @architecture -H 'Content-type:application/json' ;fi
+#    - if [ "$CI_BUILD_TAG" ]; then  curl -X POST http://$MY_MARATHON_URL/v2/apps -d @architecture -H 'Content-type:application/json' ;fi
 #    - if [ -n "${PUSH_TO_REGISTRY}" ]; then docker push $MY_CI_REGISTRY_IMAGE ;fi
     
     
