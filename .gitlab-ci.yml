@@ -44,6 +44,7 @@ release_image:
   stage: deploy
   script:
     - ping -c 5 117.187.12.236
+    - ping -c 5 192.168.9.69
     - if [ "$CI_BUILD_TAG" ]; then docker push $MY_CI_REGISTRY_IMAGE ;fi
     - if [ "$CI_BUILD_TAG" ]; then  curl -X POST http://$MY_MARATHON_URL/v2/apps -d @architecture.json -H 'Content-type:application/json' ;fi
 #    - if [ -n "${PUSH_TO_REGISTRY}" ]; then docker push $MY_CI_REGISTRY_IMAGE ;fi
