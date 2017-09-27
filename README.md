@@ -68,6 +68,10 @@ xx
 
 <a href="http://192.168.9.69:8083">influxdb</a>
 
+<a href="http://192.168.9.69:18081/beyondadmin/html/index.html">beyondadmin-api</a>
+
+
+
 #
 #### haproxy查询
 
