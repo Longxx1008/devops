@@ -143,12 +143,12 @@ var config = {
     },
     platform:{
         // gitlabIp:'code.dev.gz.cmcc',
-        gitlabIp:'192.168.9.48',
+        gitlabIp:'192.168.9.68',
         gitlabPort:443,
-        gitlabUrl: 'http://192.168.9.48',//vpn openvpn
-        private_token:'BgNLAke5cybnRcqc-Qts',//192.168.31.127
+        gitlabUrl: 'http://192.168.9.68',//vpn openvpn
+        private_token:'NLpnoWurdf8yQWMVrWFu',//192.168.31.127
         // private_token:'yJFsQXvox3xGHUPxyDsE',
-        dockerIp: '192.168.9.47',
+        dockerIp: '192.168.9.69',
         dockerPort:5000,
         defaultImage: "ubuntu_base:0.2",
         superRolesId:"56d7e358a6fbe05a1394ad6e",
@@ -160,8 +160,8 @@ var config = {
         marathonApi:"http://192.168.9.61:8080/v2/apps",
         //marathonLb:"http://192.168.31.94",
         //默认值，实际值会在deployedInfoSyncJob中刷新
-        marathonLb:"http://192.168.9.51",
-        influxDB:"http://192.168.9.48:8086/telegraf"
+        marathonLb:"http://192.168.9.61",
+        influxDB:"http://192.168.9.69:8086/telegraf"
     }
 }
 module.exports = config;
