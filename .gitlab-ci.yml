@@ -48,29 +48,31 @@ release_image:
     - if [ "$CI_BUILD_TAG" ]; then docker push $MY_CI_REGISTRY_IMAGE ;fi
     
 #    安装crul
-    - apk add --update --no-cache openssl openssl-dev nghttp2-dev ca-certificates
-    - apk add --update --no-cache --virtual curldeps g++ make perl && \
-        wget https://curl.haxx.se/download/curl-7.50.1.tar.bz2 && \
-        tar xjvf curl-7.50.1.tar.bz2 && \
-        rm curl-7.50.1.tar.bz2 && \
-        cd curl-7.50.1 && \
-        ./configure \
-            --with-nghttp2=/usr \
-            --prefix=/usr \
-            --with-ssl \
-            --enable-ipv6 \
-            --enable-unix-sockets \
-            --without-libidn \
-            --disable-static \
-            --disable-ldap \
-            --with-pic && \
-        make && \
-        make install && \
-        cd / && \
-        rm -r curl-7.50.1 && \
-        rm -r /var/cache/apk && \
-        rm -r /usr/share/man && \
-        apk del curldeps
+#    - apk add --update --no-cache openssl openssl-dev nghttp2-dev ca-certificates
+#    - apk add --update --no-cache --virtual curldeps g++ make perl && \
+#        wget https://curl.haxx.se/download/curl-7.50.1.tar.bz2 && \
+#        tar xjvf curl-7.50.1.tar.bz2 && \
+#        rm curl-7.50.1.tar.bz2 && \
+#        cd curl-7.50.1 && \
+#        ./configure \
+#            --with-nghttp2=/usr \
+#            --prefix=/usr \
+#            --with-ssl \
+#            --enable-ipv6 \
+#            --enable-unix-sockets \
+#            --without-libidn \
+#            --disable-static \
+#            --disable-ldap \
+#            --with-pic && \
+#        make && \
+#        make install && \
+#        cd / && \
+#        rm -r curl-7.50.1 && \
+#        rm -r /var/cache/apk && \
+#        rm -r /usr/share/man && \
+#        apk del curldeps
+
+
 #    发送请求marathon        
 #    - if [ "$CI_BUILD_TAG" ]; then  curl -X POST http://$MY_MARATHON_URL/v2/apps -d @architecture -H 'Content-type:application/json' ;fi
 #    - if [ -n "${PUSH_TO_REGISTRY}" ]; then docker push $MY_CI_REGISTRY_IMAGE ;fi
