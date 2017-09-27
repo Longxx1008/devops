@@ -12,7 +12,7 @@
         <column name="Notes" width="20"/>
         <column name="Title" width="256"/>
         <column name="Effort" width="70"/>
-        <expanded-items idrefs="t30 t35 t55 t27 t56 t45 t28 t40 t59 t54 t46 t41"/>
+        <expanded-items idrefs="t30 t35 t55 t27 t56 t45 t40 t28 t59 t54 t46 t41"/>
         <selected-items-at-filter-time idrefs="t58 t45 t32 t51 t59 t27 t46 t65 t33 t52 t28 t47 t66 t40 t48 t67 t35 t54 t41 t49 t60 t68 t36 t55 t42 t61 t37 t56 t62 t30 t38 t57 t44 t63 t31 t39 t50"/>
       </outline>
       <gantt-view x="9818" y="0" w="1179" h="958">
@@ -136,7 +136,7 @@ End:</group-table-style>
     </network-view>
   </window>
   <project>
-    <next-task-id>74</next-task-id>
+    <next-task-id>79</next-task-id>
     <next-resource-id>8</next-resource-id>
     <scenario id="c5HIdJV_jGL" name="Actual" filename="Actual.xml"/>
     <date-display dates="true" times="true" seconds="false"/>

@@ -412,6 +412,40 @@
     <change idref="t61" attribute="internalAssignments" type="string" from="" to="1" resolved="yes"/>
     <change idref="t62" attribute="internalAssignments" type="string" from="" to="1" resolved="yes"/>
   </task-change-set>
+  <task-change-set user="文安国" date="2017-09-26T07:48:13.567Z" timestamp="2017-09-26T07:48:13.567Z">
+    <change idref="t66" attribute="internalAssignments" type="string" from="4" to="1" resolved="yes"/>
+    <change idref="t67" attribute="internalAssignments" type="string" from="4" to="1" resolved="yes"/>
+    <change idref="t68" attribute="internalAssignments" type="string" from="4" to="1" resolved="yes"/>
+  </task-change-set>
+  <task-change-set user="文安国" date="2017-09-26T07:49:58.250Z" timestamp="2017-09-26T07:49:58.250Z">
+    <change idref="t31" attribute="internalAssignments" type="string" from="3" to="4" resolved="yes"/>
+    <change idref="t63" attribute="internalAssignments" type="string" from="3" to="4" resolved="yes"/>
+  </task-change-set>
+  <task-change-set user="文安国" date="2017-09-26T09:03:46.112Z" timestamp="2017-09-26T09:03:46.112Z">
+    <change idref="t61" from="t59" from-position="0" to="t40" to-position="4" resolved="yes"/>
+    <change idref="t60" from="t59" from-position="1" to="t40" to-position="5" resolved="yes"/>
+    <change idref="t67" from="t40" from-position="5" to="t59" to-position="1" resolved="yes"/>
+    <change idref="t62" attribute="noEarlierThanConstraintDate" type="date" from="2017-09-26T00:00:00.000Z" to="2017-10-13T07:00:00.000Z" resolved="yes"/>
+    <change idref="t67" attribute="internalPrerequisitesString" type="string" from="66FS" resolved="yes"/>
+    <change idref="t68" attribute="internalPrerequisitesString" type="string" from="67FS" resolved="yes"/>
+    <change idref="t68" attribute="title" type="string" from="回滚" to="部署回滚" resolved="yes"/>
+  </task-change-set>
+  <task-change-set user="文安国" date="2017-09-26T09:05:16.859Z" timestamp="2017-09-26T09:05:16.859Z">
+    <change idref="t52" from="t46" from-position="2" resolved="yes">
+      <change idref="t52" attribute="noEarlierThanConstraintDate" type="date" to="2017-09-26T00:00:00.000Z"/>
+      <change idref="t52" attribute="title" type="string" to="负载均衡"/>
+    </change>
+    <change idref="t60" attribute="effort" type="real" from="28800" to="86400" resolved="yes"/>
+    <change idref="t60" attribute="internalPrerequisitesString" type="string" to="61FS" resolved="yes"/>
+    <change idref="t60" attribute="internalDuration" type="string" to="86400s" resolved="yes"/>
+    <change idref="t61" attribute="internalDuration" type="string" to="28800s" resolved="yes"/>
+    <change idref="t66" attribute="internalPrerequisitesString" type="string" from="63FS" to="60FS" resolved="yes"/>
+    <change idref="t66" attribute="effort" type="real" from="28800" to="86400" resolved="yes"/>
+    <change idref="t66" attribute="internalDuration" type="string" to="86400s" resolved="yes"/>
+    <change idref="t68" attribute="effort" type="real" from="28800" to="86400" resolved="yes"/>
+    <change idref="t68" attribute="internalPrerequisitesString" type="string" to="66FS" resolved="yes"/>
+    <change idref="t68" attribute="internalDuration" type="string" to="86400s" resolved="yes"/>
+  </task-change-set>
   <resource-change-set user="文安国" date="2017-09-26T01:52:18.247Z" timestamp="2017-09-26T01:52:18.247Z">
     <change idref="r6" to="r-1" to-position="4" resolved="yes">
       <change idref="r6" attribute="name" type="string" from="" to="明亚兰"/>

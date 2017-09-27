@@ -111,7 +111,7 @@
   <task id="t31">
     <title>灰度环境监控</title>
     <effort>115200</effort>
-    <assignment idref="r3"/>
+    <assignment idref="r4"/>
   </task>
   <task id="t32">
     <title>正式环境监控</title>
@@ -174,8 +174,9 @@
     <child-task idref="t65"/>
     <child-task idref="t31"/>
     <child-task idref="t63"/>
+    <child-task idref="t61"/>
+    <child-task idref="t60"/>
     <child-task idref="t66"/>
-    <child-task idref="t67"/>
     <child-task idref="t68"/>
     <child-task idref="t33"/>
     <prerequisite-task idref="t28"/>
@@ -221,7 +222,6 @@
     <start-constraint-date>2017-10-09T00:00:00.000Z</start-constraint-date>
     <child-task idref="t50"/>
     <child-task idref="t51"/>
-    <child-task idref="t52"/>
     <prerequisite-task idref="t40"/>
     <start-no-earlier-than>2017-10-09T00:00:00.000Z</start-no-earlier-than>
   </task>
@@ -259,12 +259,6 @@
     <effort>86400</effort>
     <start-constraint-date>2017-09-26T00:00:00.000Z</start-constraint-date>
     <prerequisite-task idref="t50"/>
-    <start-no-earlier-than>2017-09-26T00:00:00.000Z</start-no-earlier-than>
-  </task>
-  <task id="t52">
-    <title>负载均衡</title>
-    <effort>28800</effort>
-    <start-constraint-date>2017-09-26T00:00:00.000Z</start-constraint-date>
     <start-no-earlier-than>2017-09-26T00:00:00.000Z</start-no-earlier-than>
   </task>
   <task id="t54">
@@ -315,15 +309,15 @@
     <title>运维监控</title>
     <type>group</type>
     <start-constraint-date>2017-09-26T00:00:00.000Z</start-constraint-date>
-    <child-task idref="t61"/>
-    <child-task idref="t60"/>
     <child-task idref="t62"/>
+    <child-task idref="t67"/>
     <start-no-earlier-than>2017-09-26T00:00:00.000Z</start-no-earlier-than>
   </task>
   <task id="t60">
     <title>动态扩缩容</title>
-    <effort>28800</effort>
+    <effort>86400</effort>
     <start-constraint-date>2017-09-26T00:00:00.000Z</start-constraint-date>
+    <prerequisite-task idref="t61"/>
     <assignment idref="r1"/>
     <start-no-earlier-than>2017-09-26T00:00:00.000Z</start-no-earlier-than>
   </task>
@@ -337,16 +331,16 @@
   <task id="t62">
     <title>负载均衡</title>
     <effort>28800</effort>
-    <start-constraint-date>2017-09-26T00:00:00.000Z</start-constraint-date>
+    <start-constraint-date>2017-10-13T07:00:00.000Z</start-constraint-date>
     <assignment idref="r1"/>
-    <start-no-earlier-than>2017-09-26T00:00:00.000Z</start-no-earlier-than>
+    <start-no-earlier-than>2017-10-13T07:00:00.000Z</start-no-earlier-than>
   </task>
   <task id="t63">
     <title>灰度环境发布</title>
     <effort>28800</effort>
     <start-constraint-date>2017-09-26T00:00:00.000Z</start-constraint-date>
     <prerequisite-task idref="t31"/>
-    <assignment idref="r3"/>
+    <assignment idref="r4"/>
     <start-no-earlier-than>2017-09-26T00:00:00.000Z</start-no-earlier-than>
   </task>
   <task id="t65">
@@ -359,26 +353,25 @@
   </task>
   <task id="t66">
     <title>蓝绿部署</title>
-    <effort>28800</effort>
+    <effort>86400</effort>
     <start-constraint-date>2017-09-26T00:00:00.000Z</start-constraint-date>
-    <prerequisite-task idref="t63"/>
-    <assignment idref="r4"/>
+    <prerequisite-task idref="t60"/>
+    <assignment idref="r1"/>
     <start-no-earlier-than>2017-09-26T00:00:00.000Z</start-no-earlier-than>
   </task>
   <task id="t67">
     <title>流量分配</title>
     <effort>28800</effort>
     <start-constraint-date>2017-09-26T00:00:00.000Z</start-constraint-date>
-    <prerequisite-task idref="t66"/>
-    <assignment idref="r4"/>
+    <assignment idref="r1"/>
     <start-no-earlier-than>2017-09-26T00:00:00.000Z</start-no-earlier-than>
   </task>
   <task id="t68">
-    <title>回滚</title>
-    <effort>28800</effort>
+    <title>部署回滚</title>
+    <effort>86400</effort>
     <start-constraint-date>2017-09-26T00:00:00.000Z</start-constraint-date>
-    <prerequisite-task idref="t67"/>
-    <assignment idref="r4"/>
+    <prerequisite-task idref="t66"/>
+    <assignment idref="r1"/>
     <start-no-earlier-than>2017-09-26T00:00:00.000Z</start-no-earlier-than>
   </task>
   <critical-path root="-1" enabled="false" resources="false">
