@@ -1,0 +1,48 @@
+{ 
+    "_id" : ObjectId("575f87deae4d6f702e0981f3"), 
+    "org_id" : ObjectId("575127a1a96f314de41264e4"), 
+    "start_time" : ISODate("2015-12-31T16:00:00.000+0000"), 
+    "end_time" : ISODate("2016-12-30T16:00:00.000+0000"), 
+    "status" : NumberInt(1), 
+    "attr_items" : [
+        "520100", 
+        "520300"
+    ], 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("575f87ebae4d6f702e0981f4"), 
+    "org_id" : ObjectId("57512889a96f314de41264ec"), 
+    "start_time" : ISODate("2015-12-31T16:00:00.000+0000"), 
+    "end_time" : ISODate("2016-12-30T16:00:00.000+0000"), 
+    "status" : NumberInt(1), 
+    "attr_items" : [
+        "520400", 
+        "520200"
+    ], 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("575fb09e50f349286a4b6f17"), 
+    "org_id" : ObjectId("575127d7a96f314de41264e6"), 
+    "start_time" : ISODate("2015-12-31T16:00:00.000+0000"), 
+    "end_time" : ISODate("2016-12-30T16:00:00.000+0000"), 
+    "status" : NumberInt(1), 
+    "attr_items" : [
+        "520100", 
+        "520300"
+    ], 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("575fb2bdfd6a55506bbdf2ca"), 
+    "org_id" : ObjectId("575d2e8f62064a6c1096f4d3"), 
+    "start_time" : ISODate("2016-12-31T16:00:00.000+0000"), 
+    "end_time" : ISODate("2017-12-30T16:00:00.000+0000"), 
+    "status" : NumberInt(1), 
+    "attr_items" : [
+        "522700", 
+        "522200"
+    ], 
+    "__v" : NumberInt(0)
+}

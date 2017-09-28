@@ -1,0 +1,88 @@
+{ 
+    "_id" : ObjectId("573d8de765bc024c68c68ff9"), 
+    "accessToken" : "d50b85024caee4ed872ebbd9227bdd764695a557", 
+    "clientId" : "s6BhdRkqt3", 
+    "userId" : "573bd202825e773a37bebb20", 
+    "expires" : ISODate("2016-05-19T10:56:55.454+0000"), 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("573d901865bc024c68c68ffb"), 
+    "accessToken" : "c44d00284dd46a9394362798f6e966e9775306f8", 
+    "clientId" : "s6BhdRkqt3", 
+    "userId" : "W;Ò\u0002\u0082^w:7¾» ", 
+    "expires" : ISODate("2016-05-19T11:06:15.548+0000"), 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("573d928265bc024c68c68ffd"), 
+    "accessToken" : "5b7aacdf7ad1247181523fad5365282e0dd3bc98", 
+    "clientId" : "s6BhdRkqt3", 
+    "userId" : "573bd202825e773a37bebb20", 
+    "expires" : ISODate("2016-05-19T11:16:33.980+0000"), 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("573d929365bc024c68c68fff"), 
+    "accessToken" : "271f732c28a39359f209515cfa6e71cf9814e63f", 
+    "clientId" : "s6BhdRkqt3", 
+    "userId" : "573bd202825e773a37bebb20", 
+    "expires" : ISODate("2016-05-19T11:16:51.475+0000"), 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("573d978d435d565463beef91"), 
+    "accessToken" : "5ab04ff53ac25b4a10b92b490ccb3f12863e3061", 
+    "clientId" : "s6BhdRkqt3", 
+    "userId" : "573bd202825e773a37bebb20", 
+    "expires" : ISODate("2016-05-19T11:38:04.715+0000"), 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("573d97a1435d565463beef93"), 
+    "accessToken" : "2adbdb597ce14ccb2af304c533701f43d6b4c8bf", 
+    "clientId" : "s6BhdRkqt3", 
+    "userId" : "573bd202825e773a37bebb20", 
+    "expires" : ISODate("2016-05-19T11:38:25.170+0000"), 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("573d97da9f2a828471715719"), 
+    "accessToken" : "2666ad63e4ca573a3bf15fc4a3c98b21592e8f2f", 
+    "clientId" : "s6BhdRkqt3", 
+    "userId" : "573bd202825e773a37bebb20", 
+    "expires" : ISODate("2016-05-19T11:39:22.364+0000"), 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("573d98dc9f2a82847171571b"), 
+    "accessToken" : "1ef723bc0c49c24ee3a4fa7fae4f537b8e85ac51", 
+    "clientId" : "s6BhdRkqt3", 
+    "userId" : "573bd202825e773a37bebb20", 
+    "expires" : ISODate("2016-05-19T11:43:39.586+0000"), 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("573d9f089f2a82847171571d"), 
+    "accessToken" : "780ec9b19651f80dbea44b9e0059a11481e0aaec", 
+    "clientId" : "s6BhdRkqt3", 
+    "userId" : "573bd202825e773a37bebb20", 
+    "expires" : ISODate("2016-05-19T12:09:59.934+0000"), 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("573d9fcf9f2a82847171571f"), 
+    "accessToken" : "464fc22833e6b7149f8137f029c581a1f7c0669e", 
+    "clientId" : "s6BhdRkqt3", 
+    "userId" : "573bd202825e773a37bebb20", 
+    "expires" : ISODate("2016-05-19T12:13:18.919+0000"), 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("573d9ff79f2a828471715721"), 
+    "accessToken" : "dc871e9b8016dc5388070199cdd8676451380951", 
+    "clientId" : "s6BhdRkqt3", 
+    "userId" : "573bd202825e773a37bebb20", 
+    "expires" : ISODate("2016-05-19T12:13:59.048+0000"), 
+    "__v" : NumberInt(0)
+}

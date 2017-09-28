@@ -67,3 +67,14 @@ xx
 <a href="http://192.168.9.69:3000">granafa</a>
 
 <a href="http://192.168.9.69:8083">influxdb</a>
+
+<a href="http://192.168.9.69:18081/beyondadmin/html/index.html">beyondadmin-api</a>
+
+
+
+#
+#### haproxy查询
+
+<a href="http://192.168.9.61:9090/haproxy?stats">haproxy</a>
+
+<a href="http://192.168.9.61:9090/_haproxy_getconfig">haproxy_getconfig</a>

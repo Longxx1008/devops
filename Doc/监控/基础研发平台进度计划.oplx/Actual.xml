@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <scenario xmlns="http://www.omnigroup.com/namespace/OmniPlan/v2" xmlns:opns="http://www.omnigroup.com/namespace/OmniPlan/v2" id="c5HIdJV_jGL">
   <start-date>2017-04-20T00:00:00.000Z</start-date>
   <prototype-task>
@@ -47,18 +47,21 @@
   </prototype-resource>
   <top-resource idref="r-1"/>
   <resource id="r-1">
+    <name/>
     <type>Group</type>
     <child-resource idref="r1"/>
     <child-resource idref="r2"/>
     <child-resource idref="r3"/>
     <child-resource idref="r4"/>
+    <child-resource idref="r6"/>
+    <child-resource idref="r7"/>
   </resource>
   <resource id="r1">
     <name>文安国</name>
     <type>Staff</type>
   </resource>
   <resource id="r2">
-    <name>罗亚东</name>
+    <name>吴海涛</name>
     <type>Staff</type>
   </resource>
   <resource id="r3">
@@ -69,230 +72,307 @@
     <name>向勇</name>
     <type>Staff</type>
   </resource>
+  <resource id="r6">
+    <name>明亚兰</name>
+    <type>Staff</type>
+  </resource>
+  <resource id="r7">
+    <name>宋子秀</name>
+    <type>Staff</type>
+  </resource>
   <top-task idref="t-1"/>
   <task id="t-1">
     <type>group</type>
-    <child-task idref="t1"/>
-    <child-task idref="t2"/>
+    <child-task idref="t35"/>
   </task>
-  <task id="t1">
+  <task id="t27">
     <title>编码</title>
     <type>group</type>
-    <child-task idref="t3"/>
-    <child-task idref="t4"/>
-    <child-task idref="t5"/>
-    <child-task idref="t21"/>
-    <child-task idref="t14"/>
-    <child-task idref="t15"/>
+    <start-constraint-date>2017-09-25T00:00:00.000Z</start-constraint-date>
+    <child-task idref="t54"/>
+    <child-task idref="t55"/>
+    <start-no-earlier-than>2017-09-25T00:00:00.000Z</start-no-earlier-than>
   </task>
-  <task id="t2">
-    <title>测试</title>
-    <effort>28800</effort>
-  </task>
-  <task id="t3">
-    <title>阶段一：开放能力开发</title>
+  <task id="t28">
+    <title>集群管理</title>
     <type>group</type>
-    <child-task idref="t6"/>
-    <child-task idref="t8"/>
-    <child-task idref="t7"/>
+    <start-constraint-date>2017-09-25T00:00:00.000Z</start-constraint-date>
+    <child-task idref="t38"/>
+    <child-task idref="t36"/>
+    <child-task idref="t37"/>
+    <start-no-earlier-than>2017-09-25T00:00:00.000Z</start-no-earlier-than>
   </task>
-  <task id="t4">
-    <title>阶段二：整体流程测试</title>
+  <task id="t30">
+    <title>开发管理</title>
     <type>group</type>
-    <child-task idref="t10"/>
-    <child-task idref="t11"/>
-    <child-task idref="t12"/>
-    <child-task idref="t13"/>
+    <child-task idref="t39"/>
+    <prerequisite-task idref="t28"/>
   </task>
-  <task id="t5">
-    <title>阶段三：项目管理开发</title>
-    <effort>28800</effort>
+  <task id="t31">
+    <title>灰度环境监控</title>
+    <effort>115200</effort>
+    <assignment idref="r3"/>
   </task>
-  <task id="t6">
-    <title>镜像管理</title>
-    <effort>28800</effort>
-    <effort-done>28800</effort-done>
-    <start-constraint-date>2017-05-03T01:00:00.000Z</start-constraint-date>
-    <note>
-      <text>
-        <p>
-          <run>
-            <lit>包括镜像的展现，信息编辑等</lit>
-          </run>
-        </p>
-        <p>
-          <run>
-            <lit>周一完成，镜像展现，服务展现，首页，项目创建，部署等</lit>
-          </run>
-        </p>
-      </text>
-    </note>
-    <assignment idref="r4"/>
-    <start-no-earlier-than>2017-05-03T01:00:00.000Z</start-no-earlier-than>
+  <task id="t32">
+    <title>正式环境监控</title>
+    <effort>86400</effort>
+    <start-constraint-date>2017-09-27T00:00:00.000Z</start-constraint-date>
+    <assignment idref="r3"/>
+    <start-no-earlier-than>2017-09-27T00:00:00.000Z</start-no-earlier-than>
   </task>
-  <task id="t7">
-    <title>服务管理</title>
-    <effort>57600</effort>
-    <effort-done>57600</effort-done>
-    <start-constraint-date>2017-05-04T00:00:00.000Z</start-constraint-date>
-    <note>
-      <text>
-        <p>
-          <run>
-            <lit>服务的展现，服务详情的编辑</lit>
-          </run>
-        </p>
-      </text>
-    </note>
-    <assignment idref="r4"/>
-    <start-no-earlier-than>2017-05-04T00:00:00.000Z</start-no-earlier-than>
-  </task>
-  <task id="t8">
-    <title>镜像操作流程测试</title>
-    <effort>28800</effort>
-    <effort-done>28800</effort-done>
-    <start-constraint-date>2017-05-03T01:00:00.000Z</start-constraint-date>
-    <note>
-      <text>
-        <p>
-          <run>
-            <lit>包括镜像的打推送到仓库，删除，下载使用等流程</lit>
-          </run>
-        </p>
-      </text>
-    </note>
-    <assignment idref="r1"/>
-    <start-no-earlier-than>2017-05-03T01:00:00.000Z</start-no-earlier-than>
-  </task>
-  <task id="t10">
-    <title>CI/CD持续集成</title>
-    <effort>57600</effort>
-    <effort-done>57600</effort-done>
-    <start-constraint-date>2017-05-02T00:00:00.000Z</start-constraint-date>
-    <note>
-      <text>
-        <p>
-          <run>
-            <lit>包括项目的开发，代码提交，单元测试，镜像打包</lit>
-          </run>
-        </p>
-      </text>
-    </note>
-    <assignment idref="r1"/>
-    <start-no-earlier-than>2017-05-02T00:00:00.000Z</start-no-earlier-than>
-  </task>
-  <task id="t11">
-    <title>mesos+marathon部署测试</title>
-    <effort>57600</effort>
-    <effort-done>57600</effort-done>
-    <start-constraint-date>2017-05-04T00:00:00.000Z</start-constraint-date>
+  <task id="t33">
+    <title>策略配置</title>
+    <effort>86400</effort>
+    <start-constraint-date>2017-09-25T00:00:00.000Z</start-constraint-date>
     <assignment idref="r2"/>
-    <start-no-earlier-than>2017-05-04T00:00:00.000Z</start-no-earlier-than>
+    <start-no-earlier-than>2017-09-25T00:00:00.000Z</start-no-earlier-than>
   </task>
-  <task id="t12">
-    <title>日志收集流程测试</title>
-    <effort>57600</effort>
-    <effort-done>57600</effort-done>
-    <start-constraint-date>2017-05-04T00:00:00.000Z</start-constraint-date>
-    <prerequisite-task idref="t10"/>
-    <assignment idref="r1"/>
-    <start-no-earlier-than>2017-05-04T00:00:00.000Z</start-no-earlier-than>
-  </task>
-  <task id="t13">
-    <title>性能监控流程测试</title>
-    <effort>57600</effort>
-    <effort-done>57600</effort-done>
-    <start-constraint-date>2017-05-04T00:00:00.000Z</start-constraint-date>
-    <prerequisite-task idref="t12"/>
-    <assignment idref="r1"/>
-    <start-no-earlier-than>2017-05-04T00:00:00.000Z</start-no-earlier-than>
-  </task>
-  <task id="t14">
-    <title>阶段五：mesos应用部署</title>
-    <effort>28800</effort>
-    <start-constraint-date>2017-05-05T00:00:00.000Z</start-constraint-date>
-    <start-no-earlier-than>2017-05-05T00:00:00.000Z</start-no-earlier-than>
-  </task>
-  <task id="t15">
-    <title>阶段六：整体集成</title>
-    <effort>28800</effort>
-    <start-constraint-date>2017-05-05T00:00:00.000Z</start-constraint-date>
-    <start-no-earlier-than>2017-05-05T00:00:00.000Z</start-no-earlier-than>
-  </task>
-  <task id="t21">
-    <title>阶段四：第一轮优化</title>
+  <task id="t35">
+    <title>DevOps项目二期</title>
     <type>group</type>
-    <start-constraint-date>2017-05-15T00:00:00.000Z</start-constraint-date>
-    <child-task idref="t22"/>
-    <child-task idref="t23"/>
-    <child-task idref="t24"/>
-    <child-task idref="t25"/>
-    <child-task idref="t26"/>
-    <start-no-earlier-than>2017-05-15T00:00:00.000Z</start-no-earlier-than>
+    <start-constraint-date>2017-09-21T07:15:00.000Z</start-constraint-date>
+    <child-task idref="t56"/>
+    <child-task idref="t27"/>
+    <start-no-earlier-than>2017-09-21T07:15:00.000Z</start-no-earlier-than>
   </task>
-  <task id="t22">
-    <title>项目阶段情况页面开发</title>
-    <effort>28800</effort>
-    <start-constraint-date>2017-05-15T00:00:00.000Z</start-constraint-date>
-    <start-no-earlier-than>2017-05-15T00:00:00.000Z</start-no-earlier-than>
+  <task id="t36">
+    <title>主机列表</title>
+    <effort>86400</effort>
+    <effort-done>86400</effort-done>
+    <prerequisite-task idref="t38"/>
+    <assignment idref="r2"/>
   </task>
-  <task id="t23">
-    <title>首页项目阶段展现</title>
-    <effort>28800</effort>
-    <start-constraint-date>2017-05-15T00:00:00.000Z</start-constraint-date>
-    <start-no-earlier-than>2017-05-15T00:00:00.000Z</start-no-earlier-than>
+  <task id="t37">
+    <title>主机详情</title>
+    <effort>115200</effort>
+    <effort-done>115200</effort-done>
+    <start-constraint-date>2017-09-25T03:00:00.000Z</start-constraint-date>
+    <prerequisite-task idref="t36"/>
+    <assignment idref="r4"/>
+    <start-no-earlier-than>2017-09-25T03:00:00.000Z</start-no-earlier-than>
   </task>
-  <task id="t24">
-    <title>首页镜像仓库取收藏TOP10展现</title>
-    <effort>28800</effort>
-    <start-constraint-date>2017-05-15T00:00:00.000Z</start-constraint-date>
-    <note>
-      <text>
-        <p>
-          <run>
-            <lit>点击收藏加入收藏夹</lit>
-          </run>
-        </p>
-      </text>
-    </note>
-    <start-no-earlier-than>2017-05-15T00:00:00.000Z</start-no-earlier-than>
+  <task id="t38">
+    <title>集群概览</title>
+    <effort>57600</effort>
+    <effort-done>57600</effort-done>
+    <start-constraint-date>2017-09-25T06:15:00.000Z</start-constraint-date>
+    <assignment idref="r3"/>
+    <start-no-earlier-than>2017-09-25T06:15:00.000Z</start-no-earlier-than>
   </task>
-  <task id="t25">
-    <title>集群管理界面优化</title>
+  <task id="t39">
+    <title>项目管理</title>
     <effort>28800</effort>
-    <start-constraint-date>2017-05-15T00:00:00.000Z</start-constraint-date>
-    <note>
-      <text>
-        <p>
-          <run>
-            <lit>加入</lit>
-          </run>
-          <run>
-            <lit>mesos</lit>
-          </run>
-          <run>
-            <lit>资源情况</lit>
-          </run>
-        </p>
-        <p>
-          <run>
-            <lit>加入集群拓扑图</lit>
-          </run>
-        </p>
-        <p>
-          <run>
-            <lit>加入主机资源情况</lit>
-          </run>
-        </p>
-      </text>
-    </note>
-    <start-no-earlier-than>2017-05-15T00:00:00.000Z</start-no-earlier-than>
+    <start-constraint-date>2017-09-25T07:15:00.000Z</start-constraint-date>
+    <assignment idref="r4"/>
+    <start-no-earlier-than>2017-09-25T07:15:00.000Z</start-no-earlier-than>
   </task>
-  <task id="t26">
-    <title>项目部署管理和项目运维整合</title>
+  <task id="t40">
+    <title>运维监控</title>
+    <type>group</type>
+    <start-constraint-date>2017-09-25T00:00:00.000Z</start-constraint-date>
+    <child-task idref="t32"/>
+    <child-task idref="t65"/>
+    <child-task idref="t31"/>
+    <child-task idref="t63"/>
+    <child-task idref="t61"/>
+    <child-task idref="t60"/>
+    <child-task idref="t66"/>
+    <child-task idref="t68"/>
+    <child-task idref="t33"/>
+    <prerequisite-task idref="t28"/>
+    <start-no-earlier-than>2017-09-25T00:00:00.000Z</start-no-earlier-than>
+  </task>
+  <task id="t41">
+    <title>首页</title>
+    <type>group</type>
+    <child-task idref="t44"/>
+    <child-task idref="t42"/>
+  </task>
+  <task id="t42">
+    <title>资料文库</title>
+    <effort>144000</effort>
+    <start-constraint-date>2017-09-22T05:45:00.000Z</start-constraint-date>
+    <prerequisite-task idref="t44"/>
+    <assignment idref="r7"/>
+    <assignment idref="r6"/>
+    <start-no-earlier-than>2017-09-22T05:45:00.000Z</start-no-earlier-than>
+  </task>
+  <task id="t44">
+    <title>待办任务</title>
+    <effort>144000</effort>
+    <effort-done>144000</effort-done>
+    <start-constraint-date>2017-09-25T00:00:00.000Z</start-constraint-date>
+    <assignment idref="r6"/>
+    <assignment idref="r7"/>
+    <start-no-earlier-than>2017-09-25T00:00:00.000Z</start-no-earlier-than>
+  </task>
+  <task id="t45">
+    <title>能力开放</title>
+    <type>group</type>
+    <start-constraint-date>2017-10-09T00:00:00.000Z</start-constraint-date>
+    <child-task idref="t47"/>
+    <child-task idref="t48"/>
+    <child-task idref="t49"/>
+    <prerequisite-task idref="t40"/>
+    <start-no-earlier-than>2017-10-09T00:00:00.000Z</start-no-earlier-than>
+  </task>
+  <task id="t46">
+    <title>服务管理</title>
+    <type>group</type>
+    <start-constraint-date>2017-10-09T00:00:00.000Z</start-constraint-date>
+    <child-task idref="t50"/>
+    <child-task idref="t51"/>
+    <prerequisite-task idref="t40"/>
+    <start-no-earlier-than>2017-10-09T00:00:00.000Z</start-no-earlier-than>
+  </task>
+  <task id="t47">
+    <title>镜像仓库</title>
     <effort>28800</effort>
-    <start-constraint-date>2017-05-15T00:00:00.000Z</start-constraint-date>
-    <start-no-earlier-than>2017-05-15T00:00:00.000Z</start-no-earlier-than>
+    <start-constraint-date>2017-09-26T00:00:00.000Z</start-constraint-date>
+    <assignment idref="r2"/>
+    <start-no-earlier-than>2017-09-26T00:00:00.000Z</start-no-earlier-than>
+  </task>
+  <task id="t48">
+    <title>镜像详情</title>
+    <effort>28800</effort>
+    <start-constraint-date>2017-09-26T00:00:00.000Z</start-constraint-date>
+    <prerequisite-task idref="t47"/>
+    <assignment idref="r2"/>
+    <start-no-earlier-than>2017-09-26T00:00:00.000Z</start-no-earlier-than>
+  </task>
+  <task id="t49">
+    <title>应用市场</title>
+    <effort>28800</effort>
+    <start-constraint-date>2017-10-11T00:00:00.000Z</start-constraint-date>
+    <prerequisite-task idref="t48"/>
+    <assignment idref="r2"/>
+    <start-no-earlier-than>2017-10-11T00:00:00.000Z</start-no-earlier-than>
+  </task>
+  <task id="t50">
+    <title>资源概览</title>
+    <effort>86400</effort>
+    <start-constraint-date>2017-09-26T00:00:00.000Z</start-constraint-date>
+    <start-no-earlier-than>2017-09-26T00:00:00.000Z</start-no-earlier-than>
+  </task>
+  <task id="t51">
+    <title>资源列表</title>
+    <effort>86400</effort>
+    <start-constraint-date>2017-09-26T00:00:00.000Z</start-constraint-date>
+    <prerequisite-task idref="t50"/>
+    <start-no-earlier-than>2017-09-26T00:00:00.000Z</start-no-earlier-than>
+  </task>
+  <task id="t54">
+    <title>第一阶段</title>
+    <type>group</type>
+    <start-constraint-date>2017-09-26T00:00:00.000Z</start-constraint-date>
+    <child-task idref="t28"/>
+    <child-task idref="t41"/>
+    <child-task idref="t30"/>
+    <child-task idref="t40"/>
+    <child-task idref="t45"/>
+    <child-task idref="t46"/>
+    <start-no-earlier-than>2017-09-26T00:00:00.000Z</start-no-earlier-than>
+  </task>
+  <task id="t55">
+    <title>第二阶段</title>
+    <type>group</type>
+    <start-constraint-date>2017-09-26T00:00:00.000Z</start-constraint-date>
+    <child-task idref="t59"/>
+    <prerequisite-task idref="t54"/>
+    <start-no-earlier-than>2017-09-26T00:00:00.000Z</start-no-earlier-than>
+  </task>
+  <task id="t56">
+    <title>设计</title>
+    <type>group</type>
+    <start-constraint-date>2017-09-22T00:45:00.000Z</start-constraint-date>
+    <child-task idref="t57"/>
+    <child-task idref="t58"/>
+    <start-no-earlier-than>2017-09-22T00:45:00.000Z</start-no-earlier-than>
+  </task>
+  <task id="t57">
+    <title>架构设计</title>
+    <effort>28800</effort>
+    <effort-done>28800</effort-done>
+    <start-constraint-date>2017-09-22T00:45:00.000Z</start-constraint-date>
+    <assignment idref="r1"/>
+    <start-no-earlier-than>2017-09-22T00:45:00.000Z</start-no-earlier-than>
+  </task>
+  <task id="t58">
+    <title>原型设计</title>
+    <effort>115200</effort>
+    <effort-done>115200</effort-done>
+    <start-constraint-date>2017-09-26T00:00:00.000Z</start-constraint-date>
+    <assignment idref="r1"/>
+    <start-no-earlier-than>2017-09-26T00:00:00.000Z</start-no-earlier-than>
+  </task>
+  <task id="t59">
+    <title>运维监控</title>
+    <type>group</type>
+    <start-constraint-date>2017-09-26T00:00:00.000Z</start-constraint-date>
+    <child-task idref="t62"/>
+    <child-task idref="t67"/>
+    <start-no-earlier-than>2017-09-26T00:00:00.000Z</start-no-earlier-than>
+  </task>
+  <task id="t60">
+    <title>动态扩缩容</title>
+    <effort>86400</effort>
+    <start-constraint-date>2017-09-26T00:00:00.000Z</start-constraint-date>
+    <prerequisite-task idref="t61"/>
+    <assignment idref="r1"/>
+    <start-no-earlier-than>2017-09-26T00:00:00.000Z</start-no-earlier-than>
+  </task>
+  <task id="t61">
+    <title>流量监控</title>
+    <effort>28800</effort>
+    <start-constraint-date>2017-09-26T00:00:00.000Z</start-constraint-date>
+    <assignment idref="r1"/>
+    <start-no-earlier-than>2017-09-26T00:00:00.000Z</start-no-earlier-than>
+  </task>
+  <task id="t62">
+    <title>负载均衡</title>
+    <effort>28800</effort>
+    <start-constraint-date>2017-10-13T07:00:00.000Z</start-constraint-date>
+    <assignment idref="r1"/>
+    <start-no-earlier-than>2017-10-13T07:00:00.000Z</start-no-earlier-than>
+  </task>
+  <task id="t63">
+    <title>灰度环境发布</title>
+    <effort>28800</effort>
+    <start-constraint-date>2017-09-26T00:00:00.000Z</start-constraint-date>
+    <prerequisite-task idref="t31"/>
+    <assignment idref="r3"/>
+    <start-no-earlier-than>2017-09-26T00:00:00.000Z</start-no-earlier-than>
+  </task>
+  <task id="t65">
+    <title>正式环境部署</title>
+    <effort>28800</effort>
+    <start-constraint-date>2017-09-26T00:00:00.000Z</start-constraint-date>
+    <prerequisite-task idref="t32"/>
+    <assignment idref="r3"/>
+    <start-no-earlier-than>2017-09-26T00:00:00.000Z</start-no-earlier-than>
+  </task>
+  <task id="t66">
+    <title>蓝绿部署</title>
+    <effort>86400</effort>
+    <start-constraint-date>2017-09-26T00:00:00.000Z</start-constraint-date>
+    <prerequisite-task idref="t60"/>
+    <assignment idref="r1"/>
+    <start-no-earlier-than>2017-09-26T00:00:00.000Z</start-no-earlier-than>
+  </task>
+  <task id="t67">
+    <title>流量分配</title>
+    <effort>28800</effort>
+    <start-constraint-date>2017-09-26T00:00:00.000Z</start-constraint-date>
+    <assignment idref="r1"/>
+    <start-no-earlier-than>2017-09-26T00:00:00.000Z</start-no-earlier-than>
+  </task>
+  <task id="t68">
+    <title>部署回滚</title>
+    <effort>86400</effort>
+    <start-constraint-date>2017-09-26T00:00:00.000Z</start-constraint-date>
+    <prerequisite-task idref="t66"/>
+    <assignment idref="r1"/>
+    <start-no-earlier-than>2017-09-26T00:00:00.000Z</start-no-earlier-than>
   </task>
   <critical-path root="-1" enabled="false" resources="false">
     <color r="1" g="0.5" b="0.5"/>

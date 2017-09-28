@@ -36,6 +36,7 @@ exports.projectVersionJobRun = function(){
 function httpsGetVersion(gitProjectId,projectId,projectCode){
     //获取pipelines的Tags--status为success的版本数据
     var url = config.platform.gitlabUrl + '/api/v3/projects/' + gitProjectId + '/pipelines?private_token=' + config.platform.private_token + '&scope=tags';
+    console.log('---gitlab url----',url);
     nodeGrass.get(url,function(data,status,headers){
         var info = JSON.parse(data);//将拼接好的响应数据转换为json对象
         if (info) {
@@ -66,6 +67,8 @@ function forVersionInfo(versions,i,projectId,projectCode){
                     }
                 }
             });
+        }else{
+            forVersionInfo(versions, ++i, projectId, projectCode);
         }
     }
 }
