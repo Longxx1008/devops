@@ -1,0 +1,136 @@
+
+    <link rel="stylesheet" href="{{projcfg.appurl}}/static/css/style1.css">
+    <link rel="stylesheet" href="{{projcfg.appurl}}/static/css/index.css">
+    <link rel="stylesheet" href="{{projcfg.appurl}}/static/css/layui.css" type="text/css"/>
+    <script src="{{projcfg.appurl}}/static/css/layui.all.js"></script>
+    <script src="{{projcfg.appurl}}/static/css/index.js"></script>
+    <div class="row">
+        <div class="col-xs-12 col-md-12">
+            <div class="widget">
+                <div class="widget-body">
+<div class="banner">
+    <div id="banner-main" class="carousel slide" data-ride="carousel" data-interval="3000">
+        <!-- 轮播（Carousel）指标 -->
+        <ol class="carousel-indicators">
+            <li data-target="#banner-main" data-slide-to="0" class="active"></li>
+            <li data-target="#banner-main" data-slide-to="1"></li>
+            <li data-target="#banner-main" data-slide-to="2"></li>
+        </ol>
+        <!-- 轮播（Carousel）项目 -->
+        <div class="carousel-inner">
+            <div class="item active" style="background: url('{{projcfg.appurl}}/static/images/banner.jpg') no-repeat center center;"></div>
+            <div class="item" style="background: url('{{projcfg.appurl}}/static/images/banner2.jpg') no-repeat center center;"></div>
+            <div class="item" style="background: url('{{projcfg.appurl}}/static/images/banner3.jpg') no-repeat center center;"></div>
+        </div>
+    </div>
+    <div class="search-wrap text-center">
+        <img src="{{projcfg.appurl}}/static/images/ad-text.png" alt="">
+        <p>
+            <input type="text" class="text-seacher" placeholder="搜索您要的应用">
+            <a href="#" class="btn-search"><img src="{{projcfg.appurl}}/static/images/btn-search.png" alt=""></a>
+        </p>
+    </div>
+</div>
+
+<div class="list-tab">
+    <ul>
+        <li value="db" class="ll"><a href="javascript:void(0);" >数据库</a></li>
+        <li value="tool" class="ll"><a href="javascript:void(0);" >运维工具</a></li>
+        <li value="mq" class="ll"><a href="javascript:void(0);" >消息队列</a></li>
+        <li value="pl" class="ll"><a href="javascript:void(0);" >编程语言</a></li>
+        <li value="service" class="ll"><a href="javascript:void(0);" >服务器</a></li>
+        <li value="web" class="ll"><a href="javascript:void(0);" >web框架</a></li>
+        <li value="sys" class="ll"><a href="javascript:void(0);" >系统平台</a></li>
+    </ul>
+</div>
+<section class="hotApplication wrap-1200">
+    <div class="list-top">
+        <h2>推荐应用</h2>
+    </div>
+    <ul id="imageul" class="soft-box">
+
+    </ul>
+    <div class="list-top">
+        <h2>热门应用</h2>
+    </div>
+    <ul id="imageuls" class="soft-box">
+
+    </ul>
+</section>
+<footer>
+    <p>版权所有:中国移动通信集团贵州有限公司</p>
+    <p>技术支持:贵州移动公司网络部 &nbsp;&nbsp;贵州中移通信技术工程有限公司<p>
+</footer>
+                </div>
+            </div></div></div>
+<script>
+    $(".ll").click(function(){
+        alert($(this).attr("value"));
+        $.ajax({
+            
+        })
+    })
+    $(function(){
+        $.ajax({
+            url:'{{projcfg.appurl}}/api/project/ability/appmarket/getRecommend',
+            type:'get',
+            success:function(data){
+                if(data.data){
+                   /* $("ul li[id]").remove();*/
+                    console.log(data.path);
+                    console.log("数据加载成功，请封装div",data.data);
+                    var liindex = 0;
+                    for(var i=0;i<data.data.length;i++){
+                        var desc = '';
+                        if(data.data[i].simpleIntroduction){
+                            desc = data.data[i].simpleIntroduction.length>30?data.data[i].simpleIntroduction.substr(0,29)+"...":data.data[i].simpleIntroduction;
+                            var html = '<li id = "'+liindex+'">';
+                                var p = 'data:'+data.data[i].pictureType+';base64 ,'+data.data[i].picture;
+                                html += '<img src="'+p+'" alt="">';
+                            html += '<h1>'+data.data[i].imageName+'</h1><br/>';
+                            html += '<h1>'+data.data[i].channels+'</h1>';
+                            html += '<div style=""><p>'+desc+'</p></div>';
+                            html += '<form action="/image/detail?id='+data.data[i].id+'" method="post" id="formId'+data.data[i].id+'"><a href="javascript:void(0);" onclick="submitBtnClick('+data.data[i].id+')">查看详情</a></form>';
+
+                            html += '</li>';
+                            liindex++;
+                            $("#imageul").append(html);
+                        }
+
+                    }
+                }
+            }
+        });
+        $.ajax({
+            url:'{{projcfg.appurl}}/api/project/ability/appmarket/getHot',
+            type:'get',
+            success:function(data) {
+                if (data.data) {
+                    /*$("ul li[id]").remove();*/
+                    console.log(data.path);
+                    console.log("数据加载成功，请封装div", data.data);
+                    var liindex = 0;
+                    for (var i = 0; i < data.data.length; i++) {
+                        var desc = '';
+                        if (data.data[i].simpleIntroduction) {
+                            desc = data.data[i].simpleIntroduction.length > 30 ? data.data[i].simpleIntroduction.substr(0, 29) + "..." : data.data[i].simpleIntroduction;
+                            var html = '<li id = "' + liindex + '">';
+                            var p = 'data:' + data.data[i].pictureType + ';base64 ,' + data.data[i].picture;
+                            html += '<img src="' + p + '" alt="">';
+                            html += '<h1>' + data.data[i].imageName + '</h1><br/>';
+                            html += '<h1>' + data.data[i].channels + '</h1>';
+                            html += '<div style=""><p>' + desc + '</p></div>';
+                            html += '<form action="/image/detail?id=' + data.data[i].id + '" method="post" id="formId' + data.data[i].id + '"><a href="javascript:void(0);" onclick="submitBtnClick(' + data.data[i].id + ')">查看详情</a></form>';
+
+                            html += '</li>';
+                            liindex++;
+                            $("#imageuls").append(html);
+                        }
+
+                    }
+                }
+            }
+        });
+
+    })
+</script>

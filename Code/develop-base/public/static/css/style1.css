@@ -1,0 +1,365 @@
+html, body, div, span, h1, h2, h3, h4, h5, h6, p, pre, a, code, em, img, small, strong, sub, sup, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    outline: 0;
+    font-size: 100%;
+    vertical-align: baseline;
+    background: transparent;
+}
+
+a {
+    color: #666;
+    text-decoration: none;
+    outline: none;
+    cursor: pointer;
+}
+
+a:hover {
+    color: #4186f6;
+    text-decoration: none;
+}
+
+a:link {
+    text-decoration: none;
+}
+
+a:visited {
+    text-decoration: none;
+}
+
+a:active {
+    text-decoration: none;
+}
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+p {
+    word-wrap: break-word;
+}
+
+em, i {
+    font-style: normal;
+    font-weight: normal;
+}
+
+img {
+    border: none;
+    outline: none;
+}
+
+ul, li {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+
+input[type=button], input[type=text], input[type=password], button {
+    -webkit-appearance: none;
+    outline: none;
+}
+
+input::-webkit-input-placeholder, textarea::-webkit-input-placeholder {
+    color: #999;
+}
+
+body {
+    color: #666;
+    font-size: 14px;
+    background: #f9f9f9;
+    font-family: 'Microsoft Yahei';
+}
+
+.clearfix:after {
+    content: ".";
+    display: block;
+    height: 0;
+    visibility: hidden;
+    clear: both;
+}
+
+.f-l {
+    float: left;
+}
+
+.f-r {
+    float: right;
+}
+
+/*以上是初始化代码*/
+.wrap-1200 {
+    width: 1200px;
+    margin: 0 auto;
+}
+
+/*头部*/
+header {
+    height: 64px;
+    background: #ffffff;
+    box-shadow: 0 1px 3px #dbdbdb;
+}
+
+.logo {
+    padding: 16px 0;
+}
+
+header .nav {
+    margin-left: 100px;
+}
+
+header .nav li {
+    float: left;
+}
+
+header .nav li a {
+    display: inline-block;
+    padding: 20px;
+    color: #000003;
+    font-size: 16px;
+}
+
+header .nav li a.current,
+header .nav li a:hover {
+    color: #4186f6;
+}
+
+header .btn-login {
+    display: inline-block;
+    padding: 4px 15px;
+    border: 1px solid #4186f6;
+    border-radius: 5px;
+    font-size: 14px;
+    margin-top: 16px;
+    color: #4186f6;
+    transition: all 0.5s;
+}
+
+header .btn-login:hover {
+    background-color: #4186f6;
+    color: #ffffff;
+}
+/*.user-infm-box{*/
+    /*padding-top: 16px;*/
+/*}*/
+.user-infm-box span{
+    color: #4186f6;
+    margin-right: 10px;
+}
+.user-infm-box .btn-close{
+    display: inline-block;
+    padding: 4px 15px;
+    border: 1px solid #fb6262;
+    border-radius: 5px;
+    font-size: 14px;
+    margin-top: 16px;
+    color: #fb6262;
+    transition: all 0.5s;
+}
+.user-infm-box .btn-close:hover {
+    background-color: #fb6262;
+    color: #ffffff;
+}
+/*banner*/
+.banner {
+    position: relative;
+}
+.banner #banner-main > .carousel-inner > .item {
+    height: 225px;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+}
+
+.banner .search-wrap {
+    width: 490px;
+    position: absolute;
+    left: 50%;
+    margin-left: -245px;
+    top: 56px;
+}
+
+.banner .search-wrap p {
+    position: relative;
+    margin-top: 20px;
+}
+
+.banner .search-wrap input[type=text] {
+    width: 486px;
+    height: 38px;
+    border: 1px solid #ffffff;
+    box-sizing: border-box;
+    padding: 5px 38px 5px 20px;
+    border-radius: 100px;
+    background-color: transparent;
+    color: #ffffff;
+}
+
+.banner .search-wrap .btn-search {
+    position: absolute;
+    right: 2px;
+    top: 0;
+}
+
+input.text-seacher::-webkit-input-placeholder {
+    color: rgba(255,255,255,.8);
+}
+
+input.text-seacher:-moz-placeholder {
+    color: rgba(255,255,255,.8);
+}
+
+input.text-seacher::-moz-placeholder {
+    color: rgba(255,255,255,.8);
+}
+
+input.text-seacher:-ms-input-placeholder {
+    color: rgba(255,255,255,.8);
+}
+
+
+/*单个应用*/
+.list-top h2{
+    font-size: 22px;
+    color: #333333;
+    padding: 5px;
+    padding-bottom:40px;
+
+}
+.soft-box{
+    display:-moz-box;
+    display:-webkit-box;
+    display:-ms-flexbox;
+    display:-webkit-flex;
+    display:flex;
+    justify-content: space-between;
+    padding: 5px;
+}
+.soft-box li{
+    float: left;
+    width: 218px;
+    height: 315px;
+    box-sizing: border-box;
+    border: 1px solid #f1f1f1;
+    background-color: #ffffff;
+    text-align:left;
+    padding: 10px;
+    transition: all ease-in 0.5s ;
+    color: #777777;
+}
+.soft-box li:hover{
+    box-shadow :0 2px 15px  rgba(0,0,0,.1);
+}
+.soft-box li h1{
+    font-size: 14px;
+    font-weight: bolder;
+    padding: 12px 0;
+    display: inline-block;
+}
+.soft-box li p{
+    font-size: 12px;
+    display: inline-block;
+    line-height: 20px;
+}
+.soft-box li a{
+    height: 25px;
+    font-size: 14px;
+    color: #4186f6;
+    display: block;
+    margin-top: 12px;
+    font-weight: bolder;
+    background: url("../img/go.png") no-repeat right center;
+}
+.soft-box li a:hover{
+    background: url("../img/go-hover.png") no-repeat right center;
+}
+.arrow-box{
+    position: absolute;
+    right: 7px;
+    top: 10px;
+}
+.arrow-box .left,
+.arrow-box .right{
+    border: 1px solid #dddddd;
+    padding: 0  20px;
+    margin-left: 10px;
+    font-size: 18px;
+    color: #999;
+}
+.arrow-box .left:hover,
+.arrow-box .right:hover{
+    color: #4186f6;
+    border: 1px solid #4186f6;
+}
+footer{
+    height: 80px;
+    /*line-height: 80px;*/
+    color: #8a8a8a;
+    font-size: 14px;
+    text-align: center;
+    background-color: #25282d;
+    padding-top: 20px;
+}
+
+.box {
+    box-sizing: border-box;
+    border: 1px solid #f1f1f1;
+    background-color: #ffffff;
+    overflow: hidden;
+    padding: 50px;
+    margin-top: 20px;
+    margin-bottom: 30px;
+}
+
+/*登录*/
+
+@media (min-width: 768px){
+    .modal-dialog2{
+        width: 450px;
+        margin: 150px auto;
+    }
+}
+#modal-body-login{
+    padding: 30px;
+}
+#modal-body-login  p{
+    margin-bottom: 15px;
+    position: relative;
+}
+#modal-body-login  p span{
+    display: inline-block;
+    width: 46px;
+    height: 46px;
+    background: url("../img/user.png") no-repeat;
+    position: absolute;
+    top:0;
+    left: 0;
+    background-color: #4186f6;
+    border-radius: 5px 0 0 5px;
+}
+#modal-body-login  p input{
+    width: 360px;
+    height: 46px;
+    border: 1px solid #dddddd;
+    padding: 5px 55px;
+    border-radius: 5px;
+}
+#modal-body-login   a{
+    margin-top: 10px;
+    background-color: #4186f6;
+    width: 360px;
+    height: 46px;
+    line-height: 46px;
+    border-radius: 5px;
+    color: #ffffff;
+    display: inline-block;
+    text-align: center;
+    font-size: 16px;
+    transition:  all 2s;
+}
+#modal-body-login   a:hover{
+    background-color: #3a70d9;
+}
+
