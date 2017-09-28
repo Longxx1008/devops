@@ -40,7 +40,7 @@ exports.getHostInfo = function(cb){
 
 exports.monitor = function(cb){
     var p = new Promise(function(resolve, reject) {
-        var sql = "select * from pass_operation_colony_monitor where createDate=DATE_FORMAT(date_add(CURDATE(), interval 8 hour),'%Y-%m-%d')";
+        var sql = "select * from pass_operation_colony_monitor where DATE_FORMAT(updateDate,'%Y-%m-%d')=DATE_FORMAT(date_add(CURTIME(), interval 8 hour),'%Y-%m-%d')";
         mysqlPool.query(sql, function (err, results) {
             if (err) {
                 cb(utils.returnMsg(false, '1000', '查询监控信息出错', null, err));

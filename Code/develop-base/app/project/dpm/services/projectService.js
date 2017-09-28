@@ -712,3 +712,5 @@ function syncData2InfluxDB(appName,hostName,hostIp,containerId,containerName){
         .then(console.info('write point success'))
         .catch(console.error);
 }
+
+
