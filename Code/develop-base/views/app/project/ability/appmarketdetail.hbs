@@ -1,0 +1,118 @@
+<link rel="stylesheet" href="{{projcfg.appurl}}/static/css/style1.css">
+<link rel="stylesheet" href="{{projcfg.appurl}}/static/css/index.css">
+<link rel="stylesheet" href="{{projcfg.appurl}}/static/css/appdetails.css">
+<link rel="stylesheet" href="{{projcfg.appurl}}/static/css/layui.css" type="text/css"/>
+<script src="{{projcfg.appurl}}/static/css/layui.all.js"></script>
+<script src="{{projcfg.appurl}}/static/css/index.js"></script>
+<div class="row">
+    <div class="col-xs-12 col-md-12">
+        <div class="widget">
+            <div class="widget-body">
+    <div class="box wrap-1200 clearfix">
+
+        <ul class="soft-box f-l">
+
+            <li>
+                <!--<img src="image/logo0.png" alt="">-->
+                <h1 id="title" style="display: block"></h1>
+                <p style="display: block;margin-top: 30px">系统类别：<span id="type"></span></p>
+                <p style="display: block;margin-top: 30px">收藏数：<span id="collection"></span></p>
+                <p style="display: block;margin-top: 30px">下载数：<span id="download"></span></p>
+            </li>
+        </ul>
+        <div class="f-l soft-content">
+            <h2 id="title1"></h2>
+            <p class="concent" id="content">
+               		  </p>
+         <!--   <section>
+                <h3>展示内容：</h3>
+                <p>*商圈人流量展示 </p>
+                <p>*商圈人流量人流量展示 </p>
+                <p>*商圈人流量展示 </p>
+                <p>*商圈人流量圈人流量圈人流量展示 </p>
+                <p>*商圈人流量圈人流量展示 </p>
+                <p>*商圈人量展示 </p>
+                <p>......</p>
+                <p>&nbsp;</p>
+                <p>&nbsp;</p>
+            </section>-->
+        </div>
+
+        <div class="scal-img" style="margin-top: 150px">
+
+            <h2 style="padding-left:10px;">应用图标</h2>
+            <div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="2000" style="margin-left: 10px;">
+                <!-- 轮播（Carousel）指标 -->
+                <ol class="carousel-indicators">
+                    <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                    <li data-target="#myCarousel" data-slide-to="1"></li>
+                    <li data-target="#myCarousel" data-slide-to="2"></li>
+                </ol>
+                <!-- 轮播（Carousel）项目 -->
+                <div class="carousel-inner">
+                    <div class="item active">
+                        <img src="" alt="" id="img">
+                    </div>
+                <!--    <div class="item">
+                        <img src="img/yulan.jpg" alt="">
+                    </div>
+                    <div class="item">
+                        <img src="img/yulan.jpg" alt="">
+                    </div>-->
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer>
+	    <p>版权所有:中国移动通信集团贵州有限公司</p>
+	    <p>技术支持:贵州移动公司网络部 &nbsp;&nbsp;贵州中移通信技术工程有限公司<p>
+	</footer>
+            </div>
+        </div></div></div>
+    <script>
+        //页面直接跳转页面带参数时，获取url参数值
+        function GetRequest() {
+            var values = [];
+            var url = location.search; //获取url中"?"符后的字串
+            if (url.indexOf("?") != -1) {    //判断是否有参数
+                var str = url.substr(1); //从第一个字符开始 因为第0个是?号 获取所有除问号的所有符串
+                //用等号进行分隔 （因为知道只有一个参数 所以直接用等号进分隔 如果有多个参数 要用&号分隔 再用等号进行分隔）
+                if(str.indexOf("&") >= 0){
+                    var strs = str.split("&");
+                    for(var i=0;i<strs.length;i++){
+                        var vals = strs[i].split("=");
+                        if(i==0){
+                            values.push(decodeURI(vals[1]));
+                        }else{
+                            values.push(vals[1]);
+                        }
+                    }
+                }else{
+                    var strs = str.split("=");
+                    values.push(decodeURI(strs[1]));
+                }
+                return values;
+            }
+        }
+        $(function(){
+            var paramsValues = GetRequest();
+            console.log("======paramsValues=====",paramsValues);
+            var id =paramsValues[0];
+            $.ajax({
+                url:'{{projcfg.appurl}}/api/project/ability/appmarketdetail/'+id,
+                type:'get',
+                success:function (data) {
+                    $("#title").html(data.data[0].imageName);
+                    $("#type").html(data.data[0].catagory);
+                    $("#collection").html(data.data[0].collectionNumber);
+                    $("#download").html(data.data[0].downloadNumber);
+                    $("#title1").html(data.data[0].imageName);
+                    $("#content").html(data.data[0].simpleIntroduction);
+                    var p = 'data:'+data.data[0].pictureType+';base64 ,'+data.data[0].picture;
+                    $("#img").attr("src",p);
+                }
+            })
+        })
+    </script>
+
+

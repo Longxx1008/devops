@@ -64,12 +64,9 @@
                 </div>
             </div></div></div>
 <script>
-    $(".ll").click(function(){
-        alert($(this).attr("value"));
-        $.ajax({
-            
-        })
-    })
+    function submitBtnClick(imageCode){
+        window.location.href="{{projcfg.appurl}}/appmarketdetail?imageCode="+imageCode;
+    }
     $(function(){
         $.ajax({
             url:'{{projcfg.appurl}}/api/project/ability/appmarket/getRecommend',
@@ -90,7 +87,7 @@
                             html += '<h1>'+data.data[i].imageName+'</h1><br/>';
                             html += '<h1>'+data.data[i].channels+'</h1>';
                             html += '<div style=""><p>'+desc+'</p></div>';
-                            html += '<form action="/image/detail?id='+data.data[i].id+'" method="post" id="formId'+data.data[i].id+'"><a href="javascript:void(0);" onclick="submitBtnClick('+data.data[i].id+')">查看详情</a></form>';
+                            html += '<form action="/image/detail?id='+data.data[i].id+'" method="post" id="formId'+data.data[i].id+'"><a href="javascript:void(0);" onclick="submitBtnClick('+data.data[i].imageCode+')">查看详情</a></form>';
 
                             html += '</li>';
                             liindex++;
@@ -120,7 +117,7 @@
                             html += '<h1>' + data.data[i].imageName + '</h1><br/>';
                             html += '<h1>' + data.data[i].channels + '</h1>';
                             html += '<div style=""><p>' + desc + '</p></div>';
-                            html += '<form action="/image/detail?id=' + data.data[i].id + '" method="post" id="formId' + data.data[i].id + '"><a href="javascript:void(0);" onclick="submitBtnClick(' + data.data[i].id + ')">查看详情</a></form>';
+                            html += '<form action="/image/detail?id=' + data.data[i].id + '" method="post" id="formId' + data.data[i].id + '"><a href="javascript:void(0);" onclick="submitBtnClick(' + data.data[i].imageCode+ ')">查看详情</a></form>';
 
                             html += '</li>';
                             liindex++;
