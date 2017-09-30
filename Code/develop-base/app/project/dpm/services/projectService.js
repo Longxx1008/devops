@@ -17,7 +17,7 @@ var pool = mysql.createPool($util.extend({}, config.mysql));
  * @param cb
  */
 exports.pageList = function(page, size, conditionMap, cb) {
-    var sql = " select t1.*,d.version,d.gray_version as deployVersion from pass_develop_project_resources t1 left join pass_develop_project_deploy d on t1.id=d.projectId where 1=1";
+    var sql = " select t1.*,d.version as deployVersion,d.gray_version from pass_develop_project_resources t1 left join pass_develop_project_deploy d on t1.id=d.projectId where 1=1";
     var conditions = [];
     if(conditionMap) {
         if(conditionMap.projectCode) {

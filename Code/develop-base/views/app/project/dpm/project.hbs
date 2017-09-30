@@ -59,9 +59,12 @@
                                     <button type="button" class="btn btn-default" onclick="showProjectMembers()" data-title="项目成员">
                                         <i class="fa fa-user"></i> 项目成员
                                     </button>
-                                    <button type="button" class="btn btn-default" onclick="toDeploy('deployDialog','一键部署','',doDeploy)"  data-title="一键部署">
-                                        <i class="fa fa-edit"></i> 一键部署
+                                    <button type="button" class="btn btn-default" onclick="toDeploy('deployDialog','灰度部署','',doDeploy)"  data-title="一键部署">
+                                        <i class="fa fa-edit"></i> 灰度部署
                                     </button>
+                                    <!--<button type="button" class="btn btn-default" onclick="toDeploy('deployDialog','一键部署','',doDeploy)"  data-title="一键部署">-->
+                                        <!--<i class="fa fa-edit"></i> 一键部署-->
+                                    <!--</button>-->
                                     <!--<button type="button" class="btn btn-default" onclick="to_servicewarehouse()" data-title="发布到服务仓库">-->
                                         <!--<i class="fa fa-edit"></i> 发布到服务仓库-->
                                     <!--</button>-->
@@ -230,7 +233,8 @@
                     "formatter":function (value, rowData,rowIndex) {
                         return getVerData(rowData.id,rowData.gitlabProjectId,rowIndex);
                     }},
-                {"field": "deployVersion","title":"上线版本","width":80,align:"center"},
+                {"field": "gray_version","title":"灰度版本","width":80,align:"center"},
+                {"field": "deployVersion","title":"正式版本","width":80,align:"center"},
                 {"field": "type","title":"项目类型","width":100,align:"center",
                     "formatter":function (value, rowData,rowIndex) {
                         if(value == 1){
@@ -558,7 +562,7 @@
         window.location.href = "{{projcfg.appurl}}/deployed";
     }
     function showProjectMembers(){
-        var rowdata = $('#projectDataTable').datagrid("getSelections");
+        var rowdata = $('#projectDataTable').datagrid("getChecked");
         if(rowdata.length !=1){
             msgError("请选择一条项目数据！");
             return false;

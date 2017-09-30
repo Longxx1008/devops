@@ -60,6 +60,8 @@ exports.getSalve=function(){
                             sql_insert+=",(?)";
                         }
 
+                    var sql_delete="delete from pass_operation_host_info";
+
                     // console.log(sql_insert);
                     pool.getConnection(function (err, connection){
                         if(err){
@@ -68,27 +70,31 @@ exports.getSalve=function(){
                             resolve({"error":err,"message":"获取数据库连接失败","success":false,"code":1001,"data":null})
 
                         }else{
-                            connection.query(sql_insert,datas,function(errs,rs){
-                                if(errs){
-                                    console.log(errs);
-                                    resolve({"error":errs,"message":"插入数据失败 sql :"+sql_insert ,"success":false,"code":1001,"data":null})
+                            connection.query(sql_delete,function(e){
+                                if(e){
+                                    consoel.log(e);
+                                    resolve({"error":e,"message":"数据删除失败 " ,"success":false,"code":1001,"data":null})
+                                }else{
+                                    connection.query(sql_insert,datas,function(errs,rs){
+                                        if(errs){
+                                            console.log(errs);
+                                            resolve({"error":errs,"message":"插入数据失败 sql :"+sql_insert ,"success":false,"code":1001,"data":null})
 
-                                }else {
-                                    resolve({
-                                        "error": null,
-                                        "message": "插入数据成功 :",
-                                        "success": true,
-                                        "code": 0000,
-                                        "data":rs
+                                        }else {
+                                            resolve({
+                                                "error": null,
+                                                "message": "插入数据成功 :",
+                                                "success": true,
+                                                "code": 0000,
+                                                "data":rs
+                                            })
+                                        }
+
                                     })
-
                                 }
 
                             })
-
                         }
-
-
                     });
                     // mysql.createQuery(sql_insert,datas,function(errs,results){
                     //     if(errs){
