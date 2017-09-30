@@ -17,6 +17,6 @@ exports.$ = function() {
         // deployedInfoSyncJob.doJob();
         // projectService.refreshMarathonLbInfo();
         colonyManageService.syncColonyInfo();
-        updateHostInfo.getSalve();
+        // updateHostInfo.getSalve();
     },1000*60*10);
 }

@@ -26,6 +26,14 @@ router.route('/').get(function(req,res){
 
 
 });
+router.route('/getHostName').get(function(req,res){
+    // 调用查询
+    console.log("getHostName---------------");
+    slaveDetailService.getHostName().then(function(rs){
+        utils.respJsonData(res,rs)
+    });
+
+});
 
 router.route('/getHostInfo').get(function(req,res){
     // 调用查询

@@ -9,6 +9,42 @@ var https = require('https');
 var nodegrass=require("nodegrass");
 var Promise=require("bluebird");
 
+exports.getHostName=function(){
+    var content_type="application/x-www-form-urlencoded";
+    var p= new Promise(function(resolve,reject){
+        nodegrass.get('http://192.168.9.69:8086/query?q=SHOW+TAG+VALUES+FROM+%22cpu%22+WITH+KEY+%3D+%22host%22&db=telegraf',
+            function (res, status, headers) {
+                if (res) {
+                    var result=JSON.parse(res);
+                    var results=result.results[0].series[0].values;
+                    // console.log(results);
+                    if(results){
+                        var arr=[];
+                        for(var i in results){
+                            arr.push(results[i][1])
+                        }
+
+                        resolve({"data":arr,"success":true,"error":null,"message":null});
+                    }else{
+
+                        resolve({"data":null,"success":false,"error":null,"message":null});
+                    }
+
+                }else {
+                    resolve({"data":null,"success":false,"error":null,"message":null});
+                }
+            },
+            content_type,
+            null,
+            'utf8').
+        on('error', function (e) {
+            console.log("Got error: " + e.message);
+            resolve({"data":null,"success":false,"error":e,"message":null});
+        });
+    });
+    return p;
+}
+
 exports.getResourceBySlave = function(name) {
     var p = new Promise(function(resolve, reject){
         var sql = "select * from pass_operation_host_info a where 1=1 and a.name='" + name + "'  ORDER BY a.updateTime;"

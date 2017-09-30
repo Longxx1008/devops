@@ -1,78 +1,93 @@
 
 <script type="text/javascript" src="{{projcfg.appurl}}/static/js/echart/v3.1.3/echarts.min.js"></script>
 <link rel="stylesheet" href="{{projcfg.appurl}}/static/css/base.css">
-    <style>
-        .header-box h2{
-            font-size: 16px;
-            font-weight: bold;
-            float: left;
-            margin-top: 15px;
-        }
-        .header-box button{
-            background-color: #2dc3e8;
-            border-radius: 3px;
-            float: right;
-            width: 90px;
-            height: 28px;
-            line-height: 28px;
-            color: #ffffff;
-            transition: background-color 2s;
-            margin-top: 10px;
-        }
-        .header-box button:hover{
-            background-color: #2b89ad;
-        }
-        .main-box{
-            margin-top: 15px;
-            overflow: hidden;
-        }
-        .main-box .infom-table{
-            width: 250px;
-        }
-        .main-box .infom-table ul{
-            border: 1px solid #dddddd;
-            width: 100%;
-        }
-        .main-box .infom-table li{
-            height: 30px;
-            line-height: 30px;
-            border-bottom: 1px solid #dddddd;
-            padding: 0 5px;
-        }
-        .main-box .infom-table li .infom-title{
-            font-size: 14px;
-            font-weight: bold;
-        }
-        .main-box .infom-table li label{
-            margin-right: 5px;
-        }
-        .main-box .monitoring-box{
-            width: 735px;
-        }
-        .main-box .monitoring-box h2{
-            font-size: 14px;
-            border-left: 2px #2dc3e8 solid;
-            padding-left: 5px;
-        }
-        .main-box .monitoring-box li{
-            border: 1px solid #dddddd;
-            padding: 10px;
-            margin-top: 10px;
+<style>
+    .header-box h2{
+        font-size: 16px;
+        font-weight: bold;
+        float: left;
+        margin-top: 15px;
+    }
+    .header-box button{
+        background-color: #2dc3e8;
+        border-radius: 3px;
+        float: right;
+        width: 90px;
+        height: 28px;
+        line-height: 28px;
+        color: #ffffff;
+        transition: background-color 2s;
+        margin-top: 10px;
+    }
+    .header-box button:hover{
+        background-color: #2b89ad;
+    }
+    .main-box{
+        margin-top: 15px;
+        overflow: hidden;
+    }
+    .main-box .infom-table{
+        width: 100%;
+        border: 1px solid #dddddd;
 
-        }
-        .main-box .monitoring-box li span{
-            font-weight: bold;
-            margin-bottom: 10px;
-            display: block;
-        }
-        .monitoring-pic{
-            width: 100%;
-            height: 200px;
-        }
-        .page-body{
-            background-color: #ffffff;
-        }
-    </style>
+    }
+    .main-box .infom-table ul{
+        width: 100%;
+        overflow: hidden;
+    }
+    .main-box .infom-table li:first-child{
+        width: 100%;
+        line-height: 24px;
+    }
+    .main-box .infom-table li{
+        float: left;
+        width: 50%;
+        height: 24px;
+        line-height: 24px;
+        border-bottom: 1px solid #dddddd;
+        border-left: 1px solid #dddddd;
+        padding: 0 5px;
+    }
+    .main-box .infom-table li .infom-title{
+        font-size: 14px;
+        font-weight: bold;
+    }
+    .main-box .infom-table li label{
+        margin-right: 5px;
+    }
+    .main-box .monitoring-box{
+        width: 735px;
+    }
+    .main-box .monitoring-box h2{
+        font-size: 14px;
+        border-left: 2px #2dc3e8 solid;
+        padding-left: 5px;
+    }
+    .main-box .monitoring-box li{
+        border: 1px solid #dddddd;
+        padding: 10px;
+        margin-top: 10px;
+
+    }
+    .main-box .monitoring-box li span{
+        font-weight: bold;
+        margin-bottom: 10px;
+        display: block;
+    }
+    .monitoring-pic{
+        width: 100%;
+        height: 300px;
+    }
+    .page-body{
+        background-color: #ffffff;
+    }
+    .title-box h4{
+        margin-bottom: 10px;
+    }
+    .-boxmonitoring{
+        width: 100%;
+    }
+</style>
 
 <header class="header-box wrap clearfix">
     <h2>主机详情 </h2>
@@ -81,7 +96,11 @@
 </header>
 
 <div class="main-box wrap">
-    <section class="f-l infom-table">
+    <section class="title-box">
+        <h4 ><span id="id">&nbsp; &nbsp;</span> 主机监控信息 </h4>
+
+    </section>
+    <section class="infom-table">
         <ul>
             <li><h2 class="infom-title">基本信息</h2></li>
             <!--<li><label>ID：</label><span id="id"></span></li>-->
@@ -94,12 +113,13 @@
             <li><label>状态：</label><span class="state" id="state"></span></li>
         </ul>
     </section>
-    <section class="f-r monitoring-box">
-        <h2 ><span id="id">&nbsp; &nbsp;</span> <b>主机监控信息 </b>  </h2>
+    <section class="f-r -boxmonitoring">
+
 
         <ul>
             <li>
                 <div id="cpu" class="monitoring-pic" >
+
 
                 </div>
             </li> <li>
@@ -110,6 +130,10 @@
             <div id="disk" class="monitoring-pic"  >
             </div>
         </li>
+            <li>
+                <div id="net" class="monitoring-pic"  >
+                </div>
+            </li>
         </ul>
     </section>
 </div>
@@ -121,182 +145,37 @@
 
 
 <script  type="text/javascript">
-    var paramsValues = GetRequest();
+
+    // <IFRAME NAME="content_frame" width=100% height=30 marginwidth=0 marginheight=0 SRC="20120118152411.html" ></IFRAME>
+
+
     $(function(){
-        console.log("======paramsValues=====",paramsValues);
-//        $("master_ip").html(paramsValues[0]);
-//        $("#master_id").val(paramsValues[1]);
-        console.info(paramsValues);
-        $.ajax({
-            url:'{{projcfg.appurl}}/api/project/operation/slavedetail/',
-            data:{"id":paramsValues[0],"name":paramsValues[1]},
-            type:'get',
-            success:function(data){
-//                console.log(data);
-                var data=data.data;
-//                console.info(data);
-                var cpu_percent_line=[];
-                var memory_percent_line=[];
-                var disk_percent_line=[];
-                for(var i in data){
-                    var map={};
-                    var cpu=data[i].cpu ;
-                    var cpu_used=data[i].cpu_used;
-                    var updateTime=data[i].updateTime;
-                    var percent_cpu=(cpu_used/cpu*100).toFixed(2);
-                    var date = new Date(updateTime);
-                    var time =date.getFullYear()+"/"+date.getMonth()+"/"+date.getDay()+" "+date.getHours()+":"+date.getMinutes()+":"+date.getSeconds();
-                    map.name=time;
-                    var value=[];
-                    value.push(time);
-                    value.push(percent_cpu);
-                    map.value=value;
-                    cpu_percent_line.push(map)
-                }
-
-                for(var i in data){
-                    var map={};
-                    var disk=data[i].disk ;
-                    var disk_used=data[i].disk_used;
-                    var updateTime=data[i].updateTime;
-                    var percent_disk=(disk_used/disk*100).toFixed(2);
-                    var date = new Date(updateTime);
-                    var time =date.getFullYear()+"/"+date.getMonth()+"/"+date.getDay()+" "+date.getHours()+":"+date.getMinutes()+":"+date.getSeconds();
-                    map.name=time;
-                    var value=[];
-                    value.push(time);
-                    value.push(percent_disk);
-                    map.value=value;
-                    disk_percent_line.push(map)
-                }
-                for(var i in data){
-                    var map={};
-                    var memory=data[i].memory ;
-                    var memory_used=data[i].memory_used;
-                    var updateTime=data[i].updateTime;
-                    var percent_memory=(memory_used/memory*100).toFixed(2);
-                    var date = new Date(updateTime);
-                    var time =date.getFullYear()+"/"+date.getMonth()+"/"+date.getDay()+" "+date.getHours()+":"+date.getMinutes()+":"+date.getSeconds();
-                    map.name=time;
-                    var value=[];
-                    value.push(time);
-                    value.push(percent_memory);
-                    map.value=value;
-                    memory_percent_line.push(map)
-                }
-                console.log(cpu_percent_line);
-                console.log(memory_percent_line);
-
-                echart_init("cpu",cpu_percent_line);
-                echart_init("memory",memory_percent_line);
-                echart_init("disk",disk_percent_line);
-            }
-        });
-
-    });
-
-
-    function echart_init(id,data){
-        var anchor = [];
-        var date= new Date();
-        var tomorrow = new Date();
-        tomorrow.setTime(tomorrow.getTime()+24*60*60*1000);
-        var start=date.getFullYear()+"/"+date.getMonth()+"/"+date.getDay()+" 00:00:00";
-        var end=tomorrow.getFullYear()+"/"+tomorrow.getMonth()+"/"+tomorrow.getDay()+" 00:00:00";
-        for(var i =0;i<2;i++){
-            if(i==1){
-                start=end;
-            }
-            var map={};
-            map.name=start;
-            var value=[];
-            value.push(start);
-            value.push(0);
-            map.value=value;
-            anchor.push(map);
-        }
-
-        var myCpuChart = echarts.init(document.getElementById(id));
-        var option_cpu = {
-            title : {
-                text : id.toUpperCase()+"使用率(%)",
-                subtext : '24小时'
-            },
-            tooltip: {
-                trigger: 'axis',
-                formatter: function (params) {
-                    params = params[0];
-                    var date = new Date(params.name);
-                    return date.getDate() + '/' + (date.getMonth() + 1) + '/' + date.getFullYear() + ' : ' + params.value[1];
-                },
-                axisPointer: {
-                    animation: false
-                }
-            },
-
-            xAxis: {
-                type: 'time',
-                splitLine: {
-                    show: false
-                }
-            },
-            yAxis: {
-                type: 'value',
-                boundaryGap: [0, '100%'],
-                max:100,
-                min:0,
-                splitLine: {
-                    show: false
-                }
-            },
-            series: [{
-                name: id+'使用率',
-                type: 'line',
-                showSymbol: false,
-                hoverAnimation: false,
-                data: data
-            }, {
-                name:'.anchor',
-                type:'line',
-                showSymbol:false,
-                data:anchor,
-                itemStyle:{normal:{opacity:0}},
-                lineStyle:{normal:{opacity:0}}
-            }]
-
-        };
-        myCpuChart.setOption(option_cpu);
-
-    }
-    //页面直接跳转页面带参数时，获取url参数值
-    function GetRequest() {
-        var values = [];
-        var url = location.search; //获取url中"?"符后的字串-->
-        if (url.indexOf("?") != -1) {    //判断是否有参数
-            var str = url.substr(1); //从第一个字符开始 因为第0个是?号 获取所有除问号的所有符串-->
-            //用等号进行分隔 （因为知道只有一个参数 所以直接用等号进分隔 如果有多个参数 要用&号分隔 再用等号进行分隔）-->
-            if(str.indexOf("&") >= 0){
-                var strs = str.split("&");
-                for(var i=0;i<strs.length;i++){
-                    var vals = strs[i].split("=");
-                    if(i==0){
-                        values.push(decodeURI(vals[1]));
-                    }else{
-                        values.push(vals[1]);
+        var paramsValues=GetRequest();
+//        var ip ;
+        function GetRequest() {
+            var values = [];
+            var url = location.search; //获取url中"?"符后的字串-->
+            if (url.indexOf("?") != -1) {    //判断是否有参数
+                var str = url.substr(1); //从第一个字符开始 因为第0个是?号 获取所有除问号的所有符串-->
+                //用等号进行分隔 （因为知道只有一个参数 所以直接用等号进分隔 如果有多个参数 要用&号分隔 再用等号进行分隔）-->
+                if(str.indexOf("&") >= 0){
+                    var strs = str.split("&");
+                    for(var i=0;i<strs.length;i++){
+                        var vals = strs[i].split("=");
+                        if(i==0){
+                            values.push(decodeURI(vals[1]));
+                        }else{
+                            values.push(vals[1]);
+                        }
                     }
+                }else{
+                    var strs = str.split("=");
+                    values.push(decodeURI(strs[1]));
                 }
-            }else{
-               var strs = str.split("=");
-                values.push(decodeURI(strs[1]));
+                return values;
             }
-            return values;
         }
-    }
 
-
-    getHostInfo();
-
-    function getHostInfo(){
         $.ajax({
             url: '{{projcfg.appurl}}/api/project/operation/slavedetail/getHostInfo',
             data: {"id": paramsValues[0], "name": paramsValues[1]},
@@ -311,19 +190,49 @@
                 $("#memory_info").html((data.resources.mem/1024).toFixed(2)+"GB");
                 $("#state").html(data.active?'<img id=\"u56_img\" class=\"img \" src=\"{{projcfg.appurl}}/static/images/u56.png\">'+'运行中':'<img id="u58_img" class="img " src="{{projcfg.appurl}}/static/images/u58.png">'+'失效中');
                 $("#id").html("<b> ID : "+data.id+"</b>");
-//
-
-
+                var ip=data.hostname;
+                addMetric(ip)
             }
 
         })
+        function addMetric(ip){
+            $.ajax({
+                url: '{{projcfg.appurl}}/api/project/operation/slavedetail/getHostName',
+                type:"get",
+                success:function(results){
+                    if(results.success){
+                        var arr=results.data;
+                        console.log(arr);
+                        for(var i in arr){
+                            var hostName=arr[i];
+                            console.log(hostName);
+                            console.log(ip);
+                            console.log(hostName.indexOf(ip));
+                            if(hostName.indexOf(ip)!=-1){
+
+                                $("#cpu").html('<iframe src="http://192.168.9.69:3000/dashboard-solo/db/telegraf-host-metrics?refresh=1m&orgId=1&panelId=2&from=1506668047935&to=1506754417935&var-host='+hostName+'&var-interval=1m" width="100%" height="100%" frameborder="0"></iframe>');
+                                $("#disk").html('<iframe src="http://192.168.9.69:3000/dashboard-solo/db/telegraf-host-metrics?refresh=1m&orgId=1&panelId=4&from=1506668354475&to=1506754724475&var-host='+hostName+'&var-interval=1m" width="100%" height="100%" frameborder="0"></iframe>');
+                                $("#memory").html('<iframe src="http://192.168.9.69:3000/dashboard-solo/db/telegraf-host-metrics?refresh=1m&orgId=1&panelId=1&from=1506668607027&to=1506754977027&var-host='+hostName+'&var-interval=1m&theme=light" width="100%" height="100%" frameborder="0"></iframe>');
+                                $("#net").html('<iframe src="http://192.168.9.69:3000/dashboard-solo/db/telegraf-host-metrics?refresh=1m&orgId=1&panelId=11&from=1506669738179&to=1506756108179&var-host='+hostName+'&var-interval=1m&theme=light" width="100%" height="100%" frameborder="0"></iframe>');
+                            }
 
 
-    }
+                        }
+
+
+                    }
+
+                }
+            })
+        }
+
+
+
+    })
 
 
     <!--function hm_list(slave_id){-->
-        <!--window.location.href = "{{projcfg.appurl}}/colonydetail?master_ip="+encodeURI(slave_id)-->
+    <!--window.location.href = "{{projcfg.appurl}}/colonydetail?master_ip="+encodeURI(slave_id)-->
     <!--}-->
 
 
