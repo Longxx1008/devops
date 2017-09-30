@@ -276,25 +276,28 @@
                                     <div class="widget-header bordered-bottom bordered-themeprimary">
                                         <i class="widget-icon fa fa-tags themeprimary"></i>
                                         <span class="widget-caption themeprimary">资料文库</span>
+                                        <div class="widget-buttons">
+
+                                            <div  style="cursor:pointer "  onclick="more_info_list()">
+                                                more
+                                            </div>
+
+                                        </div>
                                     </div><!--Widget Header-->
+
                                     <div class="widget-body">
                                         <div style="">
                                             <div class="box-list-content">
                                                 <!--<div class="panel-box">-->
-                                                <div class="product-box">
-                                                    <ul class="data-ul">
-                                                        <li>
-                                                            <div class="left-img">
-                                                                <img src="static/images/img/img1.png">
-                                                            </div>
-                                                            <div class="data-content">
-                                                                <h1>DevOps：让开发和运维走到一起</h1>
-                                                                <h2>在互联网的浪潮下，各类业务发展变化很快，“ always beta”成为现代IT产品的迭代特征，这就要求更频繁的进行产品发布：先把东西做出来，发布给用户使用，收集用户反馈，进行下一次的迭代。而过快的产品发布，对产品的质量控制、部署交付、运行保障等带来了巨大的挑战。典型的价值流在业务（定义需求）和客户（交付价值）之间，这其中主要是开发和运维工作。绝大多数的企业将开发和运维划分成不同的部门，开发部门的驱动力通常是“频繁交付新特性”，而运维部门则更关注IT服务的可靠性。开发部门和运维部门的目标不同，就导致两者之间在协作和配合上存在较大的问题，从而减慢了IT交付业务价值的速度。</h2>
-                                                                <a href="https://my.oschina.net/babeler/blog/355580" target="_blank">查看详情</a>
-                                                            </div>
-                                                        </li>
-                                                    </ul>
+
+
+
+                                                <div class="product-box" id="informationList" style="height:100%;padding-left: 40px;padding-right: 40px">
+
                                                 </div>
+
+
+
                                             </div>
                                             <!--</div>-->
                                         </div>
@@ -323,7 +326,7 @@
 <div id="schedule_Modal" style="padding-top:0px;">
     <div class="easyui-layout" data-options="fit:true,border:false">
         <div data-options="region:'center',border:false,fit:true" style="overflow-x:scroll;overflow-y:hidden">
-            <table id="moreScheduleTablelist">
+            <table  id="moreScheduleTablelist">
 
             </table>
         </div>
@@ -385,7 +388,91 @@
         projectProcess();
 //        initView();
 //        initChartData();
+
+            informationPageList();
+
     });
+
+    //资料文库显示
+    function  informationPageList() {
+
+
+        $.ajax({
+            url: '{{projcfg.appurl}}/api/project/ability/informationBank/develop/info/pageListDemo',
+            type: 'get',
+            data: {"page": 1, "rows": 100},
+            success: function (data) {
+                var rows = data.rows;
+                if (data.total > 0) {
+                    listcontent=rows;
+                    var html = "";
+                    for (var i = 0; i < 3; i++) {
+                        var itemInfo = rows[i];
+                        var item = ' <div class="row clearfix" style="border:1px solid rgba(102,102,102,0.3);">' +
+                                '<div class="col-md-12 column" style="margin-top: 16px;margin-bottom: 16px">' +
+                                '<div class="media">' +
+                                '<a href="#" class="pull-left">' +
+                                '<img src="data:' + itemInfo.information_picture_type + ';base64 ,' + itemInfo.information_picture + '"' +
+                                'class="media-object" style="width: 80px;height: 80px" alt=""/>' +
+                                '</a>' +
+                                ' <div class="media-body">' +
+                                '<h4 class="media-heading">' +
+                                itemInfo.information_title +
+                                '<span style="font-size: 14px;margin-left: 40px">' +
+                                itemInfo.information_issuer +
+                                '</span>' +
+                                '<span style="font-size: 14px;margin-left: 40px">' +
+                                itemInfo.information_create_time +
+                                '</span>' +
+                                '<span style="font-size: 14px;margin-left: 40px">' +
+                                itemInfo.information_type +
+                                '</span>' +
+                                '<span style="font-size: 12px;margin-right: 40px" class="pull-right">' +
+                                itemInfo.information_view_count +
+                                '</span>' +
+                                '</h4>' +
+                                '<h5 style="margin-top: 10px">' +
+                                itemInfo.information_introduce+' <a href="javascript:void(0);"  onclick="informationPageShow(\'' + i + '\') " >查看详情</a>' +
+                                '</h5>' +
+                                '</div>' +
+                                '</div>' +
+                                '</div>' +
+                                '</div>';
+                        html += item;
+                    }
+                    $('#informationList').append(html);
+
+                }
+                else {
+                    msgError('该类别资料文库');
+                }
+            }
+        });
+    }
+    //more资料文库
+    function more_info_list(){
+        window.location.href = "{{projcfg.appurl}}/informationBank";
+    }
+
+    //点击查看详情，跳转到informationShow这个页面的ajax，将id作为参数请求到相应路由获取文章详情。
+    function informationPageShow(i) {
+        console.log(i);
+        console.log("listcontent",listcontent[i]);
+        if(listcontent[i].information_content!=null&&listcontent[i].information_content!=""){
+            window.location.href = "{{projcfg.appurl}}/informationShow?id="+listcontent[i].id;
+        }else {
+            window.open(listcontent[i].information_link);
+        }
+    }
+
+
+
+    //资料文库查看文章详情
+
+    var listcontent;  //全局变量。用来存储文章数据，传递到查看详情的那个函数。
+
+
+
 
     //告警数据
     function showOperateData(){
@@ -696,7 +783,7 @@
 
 
 
-                        var temp = '<li  onclick="systemScheduleDetails(\''
+                        var temp = '<li style="cursor:pointer " onclick="systemScheduleDetails(\''
                                 + n._id
                                 + '\')">'
                                 + (i + 1) + "、" + n.schedule_name +'&nbsp&nbsp&nbsp&nbsp'+'&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp'+'&nbsp&nbsp&nbsp&nbsp'+'&nbsp&nbsp&nbsp&nbsp'+'&nbsp&nbsp&nbsp&nbsp'+'&nbsp&nbsp&nbsp&nbsp'+'&nbsp&nbsp&nbsp&nbsp'+'&nbsp&nbsp&nbsp&nbsp'+'&nbsp&nbsp&nbsp&nbsp'+'&nbsp&nbsp&nbsp&nbsp'+'&nbsp&nbsp&nbsp&nbsp'+'&nbsp&nbsp&nbsp&nbsp'+'&nbsp&nbsp&nbsp&nbsp'+'&nbsp&nbsp&nbsp&nbsp'+'&nbsp&nbsp&nbsp&nbsp'+'&nbsp&nbsp&nbsp&nbsp'+'&nbsp&nbsp&nbsp&nbsp'+'&nbsp&nbsp&nbsp&nbsp'+'&nbsp&nbsp&nbsp&nbsp'+'&nbsp&nbsp&nbsp&nbsp'+
@@ -856,8 +943,6 @@
             }
         });
     }
-
-
 
 
     //更多公告列表
