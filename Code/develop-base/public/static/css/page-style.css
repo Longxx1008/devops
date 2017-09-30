@@ -672,6 +672,8 @@ input[type=button], input[type=text], input[type=password], button {
     width:30%;
     float: left;
     overflow: hidden;
+    padding-right: 5px;
+    padding-left: 3px;
 }
 
 .warning-icon{

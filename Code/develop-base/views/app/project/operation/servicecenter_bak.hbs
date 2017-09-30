@@ -5,7 +5,7 @@
         <div class="widget">
             <div class="widget-body">
                 <div class="row" >
-                    <div class="col-xs-12 col-md-12" style="padding-left: 5px;padding-right: 5px;">
+                    <div class="col-xs-12 col-md-12">
 
                         <div class="left">
                             <div class="col-xs-8 col-md-8" style="width:100%">
@@ -298,7 +298,7 @@
             ]
         };
         memoryChart.setOption(memoryoption);
-        $('#memorydesc').html("共计:" + (memTotal / 1024).toFixed(3) + "G,已使用:" + (memUsed / 1024).toFixed(3) + "G");
+        $('#memorydesc').html("共计" + (memTotal / 1024).toFixed(3) + "G,已使用" + (memUsed / 1024).toFixed(3) + "G");
     }
 
     //显示Disk饼图
@@ -320,18 +320,7 @@
             ]
         };
         diskChart.setOption(diskoption);
-        var total = '',usetotal='';
-        if((diskTotal / 1024) >= 1000){
-            total = ((diskTotal / 1024)/1024).toFixed(3)+'T';
-        }else{
-            total = (diskTotal / 1024).toFixed(3)+'G';
-        }
-        if((diskUsed / 1024) >= 1000){
-            usetotal = ((diskUsed / 1024)/1024).toFixed(3)+'T';
-        }else{
-            usetotal = (diskUsed / 1024).toFixed(3)+'G';
-        }
-        $('#diskdesc').html("共计:" + total + ",已使用:" + usetotal);
+        $('#diskdesc').html("共计" + (diskTotal / 1024).toFixed(3) + "G,已使用" + (diskUsed / 1024).toFixed(3) + "G");
     }
 
     function showRingChart() {

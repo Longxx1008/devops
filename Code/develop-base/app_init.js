@@ -9,8 +9,8 @@ var updateHostInfo=require("./app/project/operation/services/updateHostInfo");
 exports.$ = function() {
     //启动健康检查定时任务
     setInterval(function(){
-        deployedInfoSyncJob.doJob();
-        projectService.refreshMarathonLbInfo();
+        // deployedInfoSyncJob.doJob();
+        // projectService.refreshMarathonLbInfo();
     },10000);
     //启动健康检查定时任务
     setInterval(function(){
