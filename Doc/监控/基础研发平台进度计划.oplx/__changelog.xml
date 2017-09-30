@@ -446,6 +446,10 @@
     <change idref="t68" attribute="internalPrerequisitesString" type="string" to="66FS" resolved="yes"/>
     <change idref="t68" attribute="internalDuration" type="string" to="86400s" resolved="yes"/>
   </task-change-set>
+  <task-change-set user="文安国" date="2017-09-27T06:34:17.517Z" timestamp="2017-09-27T06:34:17.517Z">
+    <change idref="t31" attribute="internalAssignments" type="string" from="4" to="3"/>
+    <change idref="t63" attribute="internalAssignments" type="string" from="4" to="3"/>
+  </task-change-set>
   <resource-change-set user="文安国" date="2017-09-26T01:52:18.247Z" timestamp="2017-09-26T01:52:18.247Z">
     <change idref="r6" to="r-1" to-position="4" resolved="yes">
       <change idref="r6" attribute="name" type="string" from="" to="明亚兰"/>

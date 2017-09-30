@@ -21,12 +21,12 @@ exports.pageList = function(page,size,ids,cb){
     var conditions = [];
     if(ids){
         sql += " and id in  ("+ids.toString()+")  "
-        var orderSql = " order by id desc ";
+        var orderSql = " order by slave_ip asc ";
         console.log("查询集群主机信息sql ====",sql);
         utils.pagingQuery4Eui_mysql(sql,orderSql,page,size,conditions,cb);
     }else{
         sql += " and 1=0 "
-        var orderSql = " order by id desc ";
+        var orderSql = " order by slave_ip asc ";
         console.log("查询集群主机信息sql ====",sql);
         utils.pagingQuery4Eui_mysql(sql,orderSql,page,size,conditions,cb);
     }

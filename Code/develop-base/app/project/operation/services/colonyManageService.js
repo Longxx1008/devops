@@ -150,7 +150,7 @@ exports.syncColonyInfo = function(){
                         }
                     }
                     //容器时间要晚8小时，所以时间加了8小时
-                    var sql = "update pass_operation_colony_info set totalCpu='"+cpuTotal+"',usedCpu='"+cpuUsed+"',totalMemory='"+memTotal+"',usedMemory='"+memUsed+"',totalDisk='"+diskTotal+"',usedDisk='"+diskUsed+"',`cputool`='" + cputool + "',`disktool`='" + disktool + "',`memorytool`='" + memorytool + "',createDate=DATE_FORMAT(date_add(CURDATE(), interval 8 hour),'%Y-%m-%d'),createTime=DATE_FORMAT(date_add(CURTIME(), interval 8 hour),'%H:%i:%s') where 1=1";
+                    var sql = "update pass_operation_colony_info set totalCpu='"+cpuTotal+"',usedCpu='"+cpuUsed+"',totalMemory='"+memTotal+"',usedMemory='"+memUsed+"',totalDisk='"+diskTotal+"',usedDisk='"+diskUsed+"',`cputool`='" + cputool + "',`disktool`='" + disktool + "',`memorytool`='" + memorytool + "',updateDate=DATE_FORMAT(date_add(CURTIME(), interval 8 hour),'%Y-%m-%d %H:%i:%s'),updateTime=DATE_FORMAT(date_add(CURTIME(), interval 8 hour),'%H:%i:%s') where 1=1";
                     console.log(sql);
                     mysqlPool.query(sql,[],function(err,result) {
                         if(err) {

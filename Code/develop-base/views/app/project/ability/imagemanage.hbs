@@ -169,6 +169,12 @@
                 }},
                 {"field": "collectionNumber","title":"收藏数","width":50,align:"center"},
                 {"field": "downloadNumber","title":"下载数","width":50,align:"center"},
+                {"field": "recommend","title":"是否推荐","width":50,align:"center","formatter":function(value,rowData,rowIndex){
+                   if(value==1)
+                    return "推荐";
+                   else
+                       return "不推荐";
+                }},
                 {"field":"imageTime","title":"创建时间","width":100,align:"center"},
                 {"field": "imageResource",hidden:'true'}
             ]],

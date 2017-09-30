@@ -111,7 +111,7 @@
   <task id="t31">
     <title>灰度环境监控</title>
     <effort>115200</effort>
-    <assignment idref="r4"/>
+    <assignment idref="r3"/>
   </task>
   <task id="t32">
     <title>正式环境监控</title>
@@ -340,7 +340,7 @@
     <effort>28800</effort>
     <start-constraint-date>2017-09-26T00:00:00.000Z</start-constraint-date>
     <prerequisite-task idref="t31"/>
-    <assignment idref="r4"/>
+    <assignment idref="r3"/>
     <start-no-earlier-than>2017-09-26T00:00:00.000Z</start-no-earlier-than>
   </task>
   <task id="t65">

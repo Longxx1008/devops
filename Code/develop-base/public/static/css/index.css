@@ -1,0 +1,41 @@
+/*section{
+    padding:50px 0 80px 0;
+}*/
+
+.list-tab{
+    height: 70px;
+    line-height: 70px;
+    background-color: #ffffff;
+    box-shadow: 0 1px 3px #dbdbdb;
+}
+.list-tab ul{
+    width: 1200px;
+    margin: 0 auto;
+}
+.list-tab ul li{
+    margin-right: 50px;
+    float: left;
+
+}
+.list-tab ul li a{
+    font-size: 16px;
+    display: inline-block;
+    padding: 10px 30px;
+    line-height: 18px;
+}
+.list-tab ul li a:hover{
+    background-color: #4186f6;
+    color: #ffffff;
+    border-radius: 100px;
+}
+.list-tab ul li a.current
+{
+    background-color: #4186f6;
+    color: #ffffff;
+    border-radius: 100px;
+    transition: background-color 2s;
+}
+.list-tab ul li a.current:hover{
+    background-color: #3564c6;
+}
+
