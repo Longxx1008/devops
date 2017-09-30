@@ -120,6 +120,19 @@
 
                     </div>
 
+                    <div class="form-group">
+                        <label for="appPicture" class="col-sm-2 control-label no-padding-right">应用截图上传:</label>
+                        <div class="col-sm-10">
+                            <input  type="text" id="appPicture" name="appPicture"  style="width:260px;height:25px;" >
+
+                        </div>
+
+                    </div>
+
+                    <div id="showappimg" class="form-group" hidden="true">
+
+                    </div>
+
                     <div class="form-group" >
                         <label for="simpleIntroduction" class="col-sm-2 control-label no-padding-right">简介:</label>
                         <div class="col-sm-10" >
@@ -266,6 +279,12 @@
             accept:'image/*',
             multiple:'false'
         });
+        $("#appPicture").filebox({
+            buttonText:'选择图片',
+            buttonAlign:'left',
+            accept:'image/*',
+            multiple:'multiple'
+        });
         $('#'+id).mydialog({
             title:title,
             width: 650,
@@ -300,10 +319,16 @@
         $('#addimage').form("clear");
         var modal=$('#addimage');
         $("#showimg").show().html('<label for="picture" class="col-sm-2 control-label no-padding-right">原图:</label><div class="col-sm-10"><img src="data:'+rows[0].pictureType+";base64 ,"+rows[0].picture+'"  style="height:35px;width:35px"></div>');
+        if(rows[0].pictureNames==null||rows[0].pictureNames==""||rows[0].pictureNames==undefined) {
+            $("#showappimg").show().html('<label for="appPicture" class="col-sm-2 control-label no-padding-right">应用截图:</label><div class="col-sm-10">暂无</div>');
+        }else{
+
+            $("#showappimg").show().html('<label for="appPicture" class="col-sm-2 control-label no-padding-right">应用截图:</label><a class="col-sm-10">' + rows[0].pictureNames + '</a>');
+        }
         delete rows[0].picture;
         delete rows[0].pictureName;
         delete rows[0].pictureType;
-
+        delete rows[0].appPicture;
         console.info(rows[0]);
         console.log(typeof rows[0]);
 //        var ue1=UE.getEditor('simpleIntroduction');

@@ -43,7 +43,7 @@ exports.versionList = function(conditionMap, cb) {
  * @param cb
  */
 exports.add = function(data,data_map,cb) {
-    var sql = "insert into pass_develop_image_info(imageResource,imageName,channels,pictureName,pictureType,picture,simpleIntroduction,catagory) values(?,?,?,?,?,?,?,?)";
+    var sql = "insert into pass_develop_image_info(imageResource,imageName,channels,pictureName,pictureType,picture,appPicture,simpleIntroduction,catagory) values(?,?,?,?,?,?,?,?,?)";
     var sql_map="insert into pass_develop_image_mapping(userCode,imageCode) values(?,?)"
     var sql_version="insert into pass_develop_image_version(imageCode,imageVersion) values(?,'V 1.0.0')"
     var data_version=[];

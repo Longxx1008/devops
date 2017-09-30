@@ -13,7 +13,7 @@
         <ul class="soft-box f-l">
 
             <li>
-                <!--<img src="image/logo0.png" alt="">-->
+                <img src="" alt="" id="ititle">
                 <h1 id="title" style="display: block"></h1>
                 <p style="display: block;margin-top: 30px">系统类别：<span id="type"></span></p>
                 <p style="display: block;margin-top: 30px">收藏数：<span id="collection"></span></p>
@@ -40,7 +40,7 @@
 
         <div class="scal-img" style="margin-top: 150px">
 
-            <h2 style="padding-left:10px;">应用图标</h2>
+            <h2 style="padding-left:10px;">应用截图</h2>
             <div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="2000" style="margin-left: 10px;">
                 <!-- 轮播（Carousel）指标 -->
                 <ol class="carousel-indicators">
@@ -51,9 +51,9 @@
                 <!-- 轮播（Carousel）项目 -->
                 <div class="carousel-inner">
                     <div class="item active">
-                        <img src="" alt="" id="img">
+                        <img src="" alt="" class="images">
                     </div>
-                <!--    <div class="item">
+                    <!--<div class="item">
                         <img src="img/yulan.jpg" alt="">
                     </div>
                     <div class="item">
@@ -109,7 +109,9 @@
                     $("#title1").html(data.data[0].imageName);
                     $("#content").html(data.data[0].simpleIntroduction);
                     var p = 'data:'+data.data[0].pictureType+';base64 ,'+data.data[0].picture;
-                    $("#img").attr("src",p);
+                    $("#ititle").attr("src",p);
+                    var p1='data:'+data.data[0].pictureType+';base64 ,'+data.data[0].appPicture;
+                    $(".images").attr("src",p1);
                 }
             })
         })

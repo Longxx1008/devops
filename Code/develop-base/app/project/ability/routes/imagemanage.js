@@ -48,24 +48,32 @@ router.route('/develop/im/add').post(function(req,res) {
     var imageName = ''
     var channels = '';
     var pictureName = "";
+    var pictureNames = "";
     var pictureType = '';
     var picture = '';
+    var appPicture='';
     var simpleIntroduction = '';
     var catagory = '';
     var updateBy = req.session.current_user.login_account;
 
     var data_map = [];//新增Map 存到另外一张表的数据专用数组
     var data_add = [];//新增 info表数据
-    var data_update_pic = [];//更新info表带有图片数据的更新
+    var data_update_pic = [];//更新info表带有图标图片和应用截图数据的更新
     var data_update = [];//更新info表不带图片的数据
-
+    var data_update_apppic=[] ; //更新info表带有应用图片数据的更新
+    var data_update_logopic = [];//更新info表带有图标图片数据的更新
     var form = new formidable.IncomingForm();
     var path = "";
     var buf = "";
-    var sqlUpdatePicture = "update pass_develop_image_info set imageResource = ?,imageName = ?,channels = ?,pictureName=?,pictureType = ?,picture=?," +
+    var bufs="";
+    var sqlUpdatePicture = "update pass_develop_image_info set imageResource = ?,imageName = ?,channels = ?,pictureName=?,pictureType = ?,picture=?,appPicture=?,pictureNames=?," +
         "simpleIntroduction=?,catagory=?,updateBy=?,updateDate=now() where imageCode = ?";
     var sqlUpdate = 'update pass_develop_image_info set imageResource = ?,imageName = ?,channels = ?,simpleIntroduction = ?,catagory=?,updateBy=?' +
         ',updateDate = now() where imageCode = ?';
+    var sqlUpateAppPicture='update pass_develop_image_info set appPicture=?,pictureNames=?,imageResource = ?,imageName = ?,channels = ?,simpleIntroduction = ?,catagory=?,updateBy=?' +
+        ',updateDate = now() where imageCode = ?';
+    var sqlUpdatelogoPicture="update pass_develop_image_info set imageResource = ?,imageName = ?,channels = ?,pictureName=?,pictureType = ?,picture=?," +
+        "simpleIntroduction=?,catagory=?,updateBy=?,updateDate=now() where imageCode = ?";
     form.parse(req, function (error, fields, files) {
         if (error) {
             return console.log(error);
@@ -74,8 +82,15 @@ router.route('/develop/im/add').post(function(req,res) {
             pictureType = files.picture.type;
             path = files.picture.path;
             picture = fs.readFileSync(path);
+            pictureNames=files.appPicture.name;
+            paths = files.appPicture.path;
+            appPicture=fs.readFileSync(paths);
             buf = new Buffer(picture);
+            bufs=new Buffer(appPicture);
             picture = buf.toString("base64");
+            appPicture=bufs.toString("base64");
+            console.log(pictureName);
+            console.log("apppppppppppppppppp"+appPicture);
             imageResource = fields.imageResource;
             imageCode = fields.imageCode;
             imageName = fields.imageName;
@@ -85,13 +100,15 @@ router.route('/develop/im/add').post(function(req,res) {
 
             if (imageCode) {
                 //更新 用imageCode判断是否需要更新
-                if (pictureName) {
+                if (pictureName&&pictureNames) {//图标截图都更新
                     data_update_pic.push(imageResource);
                     data_update_pic.push(imageName);
                     data_update_pic.push(channels);
                     data_update_pic.push(pictureName);
                     data_update_pic.push(pictureType);
                     data_update_pic.push(picture);
+                    data_update_pic.push(appPicture);
+                    data_update_pic.push(pictureNames);
                     data_update_pic.push(simpleIntroduction);
                     data_update_pic.push(catagory);
                     data_update_pic.push(updateBy);
@@ -99,7 +116,35 @@ router.route('/develop/im/add').post(function(req,res) {
                     imageService.update(sqlUpdatePicture, data_update_pic, function (result) {
                         utils.respJsonData(res, result);
                     });
-                } else {
+                }else if(pictureNames){//更新截图
+                    data_update_apppic.push(appPicture);
+                    data_update_apppic.push(pictureNames);
+                    data_update_apppic.push(imageResource);
+                    data_update_apppic.push(imageName);
+                    data_update_apppic.push(channels);
+                    data_update_apppic.push(simpleIntroduction);
+                    data_update_apppic.push(catagory);
+                    data_update_apppic.push(updateBy);
+                    data_update_apppic.push(imageCode);
+                    imageService.update(sqlUpateAppPicture, data_update_apppic, function (result) {
+                        utils.respJsonData(res, result);
+                    });
+                }else if(pictureName) {//更新图标
+                    data_update_logopic.push(imageResource);
+                    data_update_logopic.push(imageName);
+                    data_update_logopic.push(channels);
+                    data_update_logopic.push(pictureName);
+                    data_update_logopic.push(pictureType);
+                    data_update_logopic.push(picture);
+                    data_update_logopic.push(simpleIntroduction);
+                    data_update_logopic.push(catagory);
+                    data_update_logopic.push(updateBy);
+                    data_update_logopic.push(imageCode);
+                    imageService.update(sqlUpdatelogoPicture, data_update_logopic, function (result) {
+                        utils.respJsonData(res, result);
+                    });
+                }
+                else {
                     data_update.push(imageResource);
                     data_update.push(imageName);
                     data_update.push(channels);
@@ -121,6 +166,7 @@ router.route('/develop/im/add').post(function(req,res) {
                 data_add.push(pictureName);
                 data_add.push(pictureType);
                 data_add.push(picture);
+                data_add.push(appPicture);
                 data_add.push(simpleIntroduction);
                 data_add.push(catagory);
                 imageService.add(data_add, data_map, function (result) {
