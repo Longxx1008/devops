@@ -7,6 +7,8 @@ var config = require('../../../../config');
 var $util = require('../../../common/util/util');
 var DateUtils = require('../../../common/core/utils/DateUtils');
 var projectService = require('../../../project/dpm/services/projectService');
+
+
 // 使用连接池，提升性能
 var pool = mysql.createPool($util.extend({}, config.mysql));
 exports.doJob = function(){
