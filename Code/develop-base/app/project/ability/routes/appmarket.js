@@ -26,7 +26,21 @@ router.route('/getHot').get(function(req,res){
     });
 });
 
+//获取筛选推荐应用
+router.route('/getAppByCon').get(function(req,res){
+    var category=req.query.category;
+    appmarketService.getAppByCon(category,function(result){
+        utils.respJsonData(res, result);
+    });
+});
 
+//获取筛选热门应用
+router.route('/getAppByCon2').get(function(req,res){
+    var category=req.query.category;
+    appmarketService.getAppByCon2(category,function(result){
+        utils.respJsonData(res, result);
+    });
+});
 
 
 module.exports = router;

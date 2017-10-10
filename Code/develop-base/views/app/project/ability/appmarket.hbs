@@ -41,6 +41,7 @@
         <li value="service" class="ll"><a href="javascript:void(0);" >服务器</a></li>
         <li value="web" class="ll"><a href="javascript:void(0);" >web框架</a></li>
         <li value="sys" class="ll"><a href="javascript:void(0);" >系统平台</a></li>
+        <li id="reset"><a href="javascript:void(0);" >重置</a></li>
     </ul>
 </div>
 <section class="hotApplication wrap-1200">
@@ -67,6 +68,141 @@
     function submitBtnClick(imageCode){
         window.location.href="{{projcfg.appurl}}/appmarketdetail?imageCode="+imageCode;
     }
+    $(".ll").click(function(){
+        /*alert($(this).attr("value"));*/
+        $.ajax({
+            url:'{{projcfg.appurl}}/api/project/ability/appmarket/getAppByCon',
+            type:'get',
+            data:{
+                'category':$(this).attr("value"),
+            },
+            success:function (data) {
+                if(data.data.length!=0) {
+                    $("#imageul").empty();
+                    var liindex = 0;
+                    for (var i = 0; i < data.data.length; i++) {
+                        var desc = '';
+                        if (data.data[i].simpleIntroduction) {
+                            desc = data.data[i].simpleIntroduction.length > 30 ? data.data[i].simpleIntroduction.substr(0, 29) + "..." : data.data[i].simpleIntroduction;
+                            var html = '<li id = "' + liindex + '">';
+                            var p = 'data:' + data.data[i].pictureType + ';base64 ,' + data.data[i].picture;
+                            html += '<img src="' + p + '" alt="">';
+                            html += '<h1>' + data.data[i].imageName + '</h1><br/>';
+                            html += '<h1>' + data.data[i].channels + '</h1>';
+                            html += '<div style=""><p>' + desc + '</p></div>';
+                            html += '<form action="/image/detail?id=' + data.data[i].id + '" method="post" id="formId' + data.data[i].id + '"><a href="javascript:void(0);" onclick="submitBtnClick(' + data.data[i].imageCode + ')">查看详情</a></form>';
+
+                            html += '</li>';
+                            liindex++;
+                            $("#imageul").append(html);
+                        }
+
+                    }
+                }else{
+                    $("#imageul").empty();
+                    $("#imageul").append("暂时没有数据");
+                }
+            }
+        });
+        $.ajax({
+            url:'{{projcfg.appurl}}/api/project/ability/appmarket/getAppByCon2',
+            type:'get',
+            data:{
+                'category':$(this).attr("value"),
+            },
+            success:function(data) {
+                if (data.data.length != 0) {
+                    $("#imageuls").empty();
+                    var liindex = 0;
+                    for (var i = 0; i < data.data.length; i++) {
+                        var desc = '';
+                        if (data.data[i].simpleIntroduction) {
+                            desc = data.data[i].simpleIntroduction.length > 30 ? data.data[i].simpleIntroduction.substr(0, 29) + "..." : data.data[i].simpleIntroduction;
+                            var html = '<li id = "' + liindex + '">';
+                            var p = 'data:' + data.data[i].pictureType + ';base64 ,' + data.data[i].picture;
+                            html += '<img src="' + p + '" alt="">';
+                            html += '<h1>' + data.data[i].imageName + '</h1><br/>';
+                            html += '<h1>' + data.data[i].channels + '</h1>';
+                            html += '<div style=""><p>' + desc + '</p></div>';
+                            html += '<form action="/image/detail?id=' + data.data[i].id + '" method="post" id="formId' + data.data[i].id + '"><a href="javascript:void(0);" onclick="submitBtnClick(' + data.data[i].imageCode + ')">查看详情</a></form>';
+
+                            html += '</li>';
+                            liindex++;
+                            $("#imageuls").append(html);
+                        }
+
+                    }
+                }else{
+                    $("#imageuls").empty();
+                    $("#imageuls").append("暂时没有数据");
+                }
+            }
+        });
+
+    });
+    $("#reset").click(function(){
+        $("#imageuls").empty();
+        $("#imageul").empty();
+        $.ajax({
+            url:'{{projcfg.appurl}}/api/project/ability/appmarket/getRecommend',
+            type:'get',
+            success:function(data){
+                if(data.data){
+                    /* $("ul li[id]").remove();*/
+                    console.log(data.path);
+                    console.log("数据加载成功，请封装div",data.data);
+                    var liindex = 0;
+                    for(var i=0;i<data.data.length;i++){
+                        var desc = '';
+                        if(data.data[i].simpleIntroduction){
+                            desc = data.data[i].simpleIntroduction.length>30?data.data[i].simpleIntroduction.substr(0,29)+"...":data.data[i].simpleIntroduction;
+                            var html = '<li id = "'+liindex+'">';
+                            var p = 'data:'+data.data[i].pictureType+';base64 ,'+data.data[i].picture;
+                            html += '<img src="'+p+'" alt="">';
+                            html += '<h1>'+data.data[i].imageName+'</h1><br/>';
+                            html += '<h1>'+data.data[i].channels+'</h1>';
+                            html += '<div style=""><p>'+desc+'</p></div>';
+                            html += '<form action="/image/detail?id='+data.data[i].id+'" method="post" id="formId'+data.data[i].id+'"><a href="javascript:void(0);" onclick="submitBtnClick('+data.data[i].imageCode+')">查看详情</a></form>';
+
+                            html += '</li>';
+                            liindex++;
+                            $("#imageul").append(html);
+                        }
+
+                    }
+                }
+            }
+        });
+        $.ajax({
+            url:'{{projcfg.appurl}}/api/project/ability/appmarket/getHot',
+            type:'get',
+            success:function(data) {
+                if (data.data) {
+                    console.log(data.path);
+                    console.log("数据加载成功，请封装div", data.data);
+                    var liindex = 0;
+                    for (var i = 0; i < data.data.length; i++) {
+                        var desc = '';
+                        if (data.data[i].simpleIntroduction) {
+                            desc = data.data[i].simpleIntroduction.length > 30 ? data.data[i].simpleIntroduction.substr(0, 29) + "..." : data.data[i].simpleIntroduction;
+                            var html = '<li id = "' + liindex + '">';
+                            var p = 'data:' + data.data[i].pictureType + ';base64 ,' + data.data[i].picture;
+                            html += '<img src="' + p + '" alt="">';
+                            html += '<h1>' + data.data[i].imageName + '</h1><br/>';
+                            html += '<h1>' + data.data[i].channels + '</h1>';
+                            html += '<div style=""><p>' + desc + '</p></div>';
+                            html += '<form action="/image/detail?id=' + data.data[i].id + '" method="post" id="formId' + data.data[i].id + '"><a href="javascript:void(0);" onclick="submitBtnClick(' + data.data[i].imageCode+ ')">查看详情</a></form>';
+
+                            html += '</li>';
+                            liindex++;
+                            $("#imageuls").append(html);
+                        }
+
+                    }
+                }
+            }
+        });
+    })
     $(function(){
         $.ajax({
             url:'{{projcfg.appurl}}/api/project/ability/appmarket/getRecommend',
@@ -103,7 +239,6 @@
             type:'get',
             success:function(data) {
                 if (data.data) {
-                    /*$("ul li[id]").remove();*/
                     console.log(data.path);
                     console.log("数据加载成功，请封装div", data.data);
                     var liindex = 0;
