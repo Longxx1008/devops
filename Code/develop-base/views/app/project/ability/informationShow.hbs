@@ -1,0 +1,224 @@
+<style>
+    body {
+        background-color: #f1f2f7;
+    }
+
+    .clearfix:after {
+        content: ".";
+        display: block;
+        height: 0;
+        visibility: hidden;
+        clear: both;
+    }
+
+    .left-nav {
+        width: 16%;
+        background-color: #ccc;
+        height: 800px;
+        float: left;
+    }
+
+    .main {
+        width: 100%;
+        padding: 1%;
+
+        float: left;
+    }
+
+    @media (max-width: 1440px) {
+        .main .box {
+            width: 24%;
+            /*显示四个*/
+        }
+    }
+
+    @media (min-width: 1441px) {
+        .main .box {
+            width: 18.9%;
+            /*显示6个*/
+        }
+    }
+
+    .main .box {
+        float: left;
+        height: 250px;
+        background-color: #ffffff;
+
+
+        margin-left: 1%;
+        margin-bottom: 15px;
+        box-sizing: border-box;
+        border: 1px solid #e9eaf0;
+        padding: 15px;
+        position: relative;
+    }
+
+    .name-box img {
+        float: left;
+        width: 25%;
+    }
+
+    .name-box h3 {
+        float: right;
+        font-size: 14px;
+        font-weight: bold;
+        color: #777777;
+        width: 70%
+    }
+
+    .name-box span {
+        width: 70%;
+        display: inline-block;
+        font-size: 12px;
+        color: #bbbbbb;
+        float: right;
+        text-align: justify;
+    }
+
+    .miaoshu {
+        margin-top: 10px;
+        font-size: 12px;
+        line-height: 20px;
+        color: #828282;
+        text-align: justify;
+        height: 100px;
+        overflow: hidden;
+    }
+
+    .image-type {
+        margin-top: 5px;
+        margin-left: 5px;
+        font-size: 12px;
+        line-height: 20px;
+        color: #828282;
+        text-align: justify;
+        overflow: hidden;
+    }
+
+    .box-bottom {
+        position: absolute;
+        left: 0;
+        padding-left: 20px;
+        bottom: 10px;
+        width: 100%;
+    }
+
+    .box-bottom i {
+        font-size: 12px;
+        text-decoration: none;
+        float: right;
+        display: inline-block;
+        margin-left: 10px;
+        margin-right: 25px;
+        color: #828282;
+    }
+</style>
+
+
+
+
+<div class="row">
+    <div class="col-xs-12 col-md-12">
+        <div class="widget">
+            <div class="widget-body"  >
+
+                <div id="cc" class="easyui-layout" data-options="fit:true,border:false"
+                     style="width: 800px; height:5005px;background-color: #fbfbfb;">
+                    <div  data-options="region:'center',border:false"
+                         style="overflow-x:hidden;overflow-y:hidden; padding-left:120px;padding-right:120px;padding-bottom:80px;padding-top:20px;background-image: url('http://pic2.ooopic.com/12/00/27/08bOOOPICcd_1024.jpg');">
+
+                        <div style="width:100%;height: 100%;background-color: #fbfbfb">
+
+                            <div style="margin-right: 20px">
+                                <p>
+                                <a href="javascript:void(0);" onclick="getListByType()">
+                                    <span class="glyphicon glyphicon-chevron-left" style=" font-size: 12px">文章列表</span>
+
+                                </a>
+                                </p>
+                            </div>
+                            <div style="width:100%;text-align: center;margin-top: 1px;margin-left: 20px;margin-right: 20px" >
+                                <h2 id="title"  style="padding-top: 20px" ></h2>
+                            </div>
+                            <div style="width:100%; text-align: center;margin-top: 40px;">
+                                <h5>
+                                    <span id="information_type"></span>
+                                    <span id="information_issuer" style="margin-left: 20px"></span>
+                                    <span id="information_create_time" style="margin-left: 20px"></span>
+                                    <span id="information_view_count" style="margin-left: 20px">阅读量：</span>
+                                </h5>
+                            </div>
+
+                            <div class="main" id="infoDetail"
+                                 style="height:100%;padding-left: 80px;padding-right: 80px;margin-top: 40px ">
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function GetRequest() {
+        var url = location.search; //获取url中"?"符后的字串
+        var theRequest = new Object();
+        if (url.indexOf("?") != -1) {
+            var str = url.substr(1);
+            strs = str.split("&");
+            for (var i = 0; i < strs.length; i++) {
+                theRequest[strs[i].split("=")[0]] = decodeURIComponent(strs[i].split("=")[1]);
+            }
+        }
+        return theRequest;
+    }
+    var msg = GetRequest();
+    var id = msg['id'];
+    //alert(id);
+
+    $.ajax({
+        url: '{{projcfg.appurl}}/api/project/ability/informationBank/develop/info/getDetailById',
+        type: 'get',
+        data: {"id": id},
+        success: function (data) {
+            var rows = data.rows;
+            if (data.total > 0) {
+                console.log("msg", data);
+                var item = rows[0];
+                $('#infoDetail').append(item.information_content);
+                $('#title').append(item.information_title);
+                $('#information_issuer').append(item.information_issuer);
+                $('#information_create_time').append(item.information_create_time);
+                $('#information_view_count').append(item.information_view_count);
+            }
+            else {
+                msgError('该类别无镜像数据');
+            }
+        }
+    });
+
+
+    Date.prototype.Format = function (fmt) { //author: meizz
+        var o = {
+            "M+": this.getMonth() + 1, //月份
+            "d+": this.getDate(), //日
+            "h+": this.getHours(), //小时
+            "m+": this.getMinutes(), //分
+            "s+": this.getSeconds(), //秒
+            "q+": Math.floor((this.getMonth() + 3) / 3), //季度
+            "S": this.getMilliseconds() //毫秒
+        };
+        if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
+        for (var k in o)
+            if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+        return fmt;
+    }
+
+function getListByType() {
+    window.location.href = "{{projcfg.appurl}}/informationBank";
+}
+
+</script>

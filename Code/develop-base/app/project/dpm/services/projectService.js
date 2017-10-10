@@ -5,7 +5,10 @@ var config = require('../../../../config');
 var alertService = require('./alertService');
 var http = require('http');
 var mysql = require('mysql');
+var ng=require("nodegrass");
 var $util = require('../../../common/util/util');
+var marathon_add="192.168.9.61";
+var marathon_port="8080";
 // 使用连接池，提升性能
 var pool = mysql.createPool($util.extend({}, config.mysql));
 
@@ -507,93 +510,166 @@ function addParent(pv,j,parentId,projectId,cb){
 }
 
 exports.refreshDeployedInfo = function(id, mesosId){
-    var url = config.platform.marathonApi  + "/" + mesosId;
-    console.log('marathon-url ---',url);
-    http.get(url, function(res) {
-        console.log("Got response: " + res.statusCode);
-        res.setEncoding('utf8');
-        var chtmlJson = '';
-        res.on('data', function (chunk) {//拼接响应数据
-            chtmlJson += chunk;
-        });
-        res.on('end', function () {
-            console.log(mesosId + "返回数据为:" + chtmlJson);
-            var json = JSON.parse(chtmlJson);//将拼接好的响应数据转换为json对象
-            if (json && json.app && json.app.tasks) {
-                //实例数为0 或者健康数为0
-                if(json.app.tasks.length == 0 || json.app.tasksHealthy == 0){
-                    pool.getConnection(function (err, conn) {
-                        if (err != null) {
-                            console.log(err.message);
-                        } else {
-                            //更新应用状态为不正常
-                            var resources  = "实例:0个<br>CPU:0个<br>内存:0M";
-                            var params = [];
-                            params.push("0");
-                            params.push(resources);
-                            params.push("");
-                            params.push("");
-                            params.push("");
-                            params.push("");
-                            params.push(id);
-                            var sql = "update pass_develop_project_deploy set healthStatus=?,resources=?,hostName=?,hostIp=?,containerId=?,containerName=? where id=?";
-                            conn.query(sql,params,function (err, result) {
-                                if(err){
-                                    console.log(err);
-                                    console.log("更新已部署应用健康度等信息异常");
-                                }else {
-                                    console.log("更新已部署应用健康度等信息成功");
-                                }
-                                conn.release();
-                            });
-                        }
-                    });
-                    //写入告警信息到告警表
-                    var title = "marathon告警信息";
-                    var ruleId = "";
-                    var ruleName = "";
-                    var ruleUrl = "";
-                    var state = "";
-                    var imageUrl = "";
-                    var message = mesosId + "健康检查结果为：服务不可用";
-                    var appId = mesosId.replace("/","");
-                    var params = [];
-                    params.push(appId);
-                    params.push("2");// 1 grafana 告警 2 应用监控告警
-                    params.push(title);
-                    params.push(ruleId);
-                    params.push(ruleName);
-                    params.push(ruleUrl);
-                    params.push(state);
-                    params.push(imageUrl);
-                    params.push(message);
-                    params.push("1");//1 有效 0 无效
-                    alertService.save(params,function(result){
-                        if(!result.success){
-                            console.log("同步告警信息到高竞标失败");
-                        }else{
-                            console.log("同步告警信息到高竞标成功");
-                        }
-                    });
-                }else{//应用健康
-                    var resources = "";
-                    var instances = json.app.instances;
-                    var cpus = json.app.cpus;
-                    var mem = json.app.mem;
-                    var disk = json.app.disk;
-                    resources  = "实例:" + instances + "个<br>CPU:" + instances * cpus + "个<br>内存:" + mem * instances + "M";
-                    //默认只读取第一个实例
-                    var taskId = json.app.tasks[0].id;
-                    var host = json.app.tasks[0].host;
-                    exports.httpGetContainerInfo(id, mesosId, "1", resources, taskId, host);
+    var content_type="application/x-www-form-urlencoded";
+    ng.get("http"+"://"+marathon_add+":"+marathon_port+"/v2/apps/"+mesosId,
+        function (res_deploy, status, headers) {
+            // console.log(protocol+"://"+marathon_add+":"+marathon_port+"/v2/apps");
+            console.log(status);
+            if (status=="200") {
+                console.log(mesosId + "返回数据为:" + res_deploy);
+                var json = JSON.parse(res_deploy);//将拼接好的响应数据转换为json对象
+                // console.log(json);
+                if (json && json.app && json.app.tasks) {
+                    //实例数为0 或者健康数为0
+                    if(json.app.tasks.length == 0 || json.app.tasksHealthy == 0){
+                        pool.getConnection(function (err, conn) {
+                            if (err != null) {
+                                console.log(err.message);
+                            } else {
+                                //更新应用状态为不正常
+                                var healthStatus=json.app.tasksHealthy;
+                                var cpus=json.app.cpus;
+                                var mem=json.app.mem;
+                                var instances=json.app.instances;
+
+
+                                var resources  = "实例:"+instances+"个<br>CPU:"+cpus+"个<br>内存:"+mem+"M";
+                                // var params = [];
+                                params.push(json.app.tasksHealthy);
+                                params.push(resources);
+                                params.push("");
+                                params.push("");
+                                params.push("");
+                                params.push("");
+                                params.push(id);
+                                var sql = "update pass_develop_project_deploy set healthStatus=?,resources=?,hostName=?,hostIp=?,containerId=?,containerName=? where id=?";
+                                conn.query(sql,params,function (err, result) {
+                                    if(err){
+                                        console.log(err);
+                                        console.log("更新已部署应用健康度等信息异常");
+                                    }else {
+                                        console.log(result);
+                                        console.log("更新已部署应用健康度等信息成功");
+                                    }
+                                    conn.release();
+                                });
+                            }
+                        });
+                        //写入告警信息到告警表
+                        var title = "marathon告警信息";
+                        var ruleId = "";
+                        var ruleName = "";
+                        var ruleUrl = "";
+                        var state = "";
+                        var imageUrl = "";
+                        var message = mesosId + "健康检查结果为：服务不可用";
+                        var appId = mesosId.replace("/","");
+                        var params = [];
+                        params.push(appId);
+                        params.push("2");// 1 grafana 告警 2 应用监控告警
+                        params.push(title);
+                        params.push(ruleId);
+                        params.push(ruleName);
+                        params.push(ruleUrl);
+                        params.push(state);
+                        params.push(imageUrl);
+                        params.push(message);
+                        params.push("1");//1 有效 0 无效
+                        alertService.save(params,function(result){
+                            if(!result.success){
+                                console.log("同步告警信息到高竞标失败");
+                            }else{
+                                console.log("同步告警信息到高竞标成功");
+                            }
+                        });
+                    }else{//应用健康
+                        var resources = "";
+                        var instances = json.app.instances;
+                        var cpus = json.app.cpus;
+                        var mem = json.app.mem;
+                        var disk = json.app.disk;
+                        resources  = "实例:" + instances + "个<br>CPU:" + instances * cpus + "个<br>内存:" + mem * instances + "M";
+                        //默认只读取第一个实例
+                        var taskId = json.app.tasks[0].id;
+                        var host = json.app.tasks[0].host;
+                        exports.httpGetContainerInfo(id, mesosId, "1", resources, taskId, host);
+                    }
+                } else {
+                    console.log(mesosId + "接口数据异常");
                 }
-            } else {
-                console.log(mesosId + "接口数据异常");
+
+            }else if(status=="404") {
+                ng.get("http"+"://"+marathon_add+":"+marathon_port+"/v2/groups/"+mesosId,
+                    function (res, status, headers) {
+                        // console.log(protocol+"://"+marathon_add+":"+marathon_port+"/v2/groups/"+mesosId);
+                        console.log(status);
+                        pool.getConnection(function (err, conn) {
+                            if (status == "200") {
+                                console.log(mesosId + "返回数据为:" + res);
+                                var json = JSON.parse(res);//将拼接好的响应数据转换为json对象
+                                // console.log(json);
+                                var apps = json.apps;
+                                var tasksHealthy = "0";
+                                var cpus = 0;
+                                var mem = 0;
+                                var disk = 0;
+                                var instances = 0;
+                                for (var i in apps) {
+
+                                    var app = apps[i];
+                                    console.log("=====================>  ", app);
+                                    instances += app.instances;
+                                    cpus += (app.cpus)*(app.instances);
+                                    mem +=(app.mem)*(app.instances);
+                                    disk += (app.disk)*(app.instances);
+
+                                    tasksHealthy = app.tasksHealthy
+                                }
+
+                                var resources = "实例:" + instances + "个<br>CPU:" + cpus + "个<br>内存:" + mem + "M";
+                                var params = [];
+                                params.push(tasksHealthy);
+                                params.push(resources);
+                                params.push("");
+                                params.push("");
+                                params.push("");
+                                params.push("");
+                                params.push(id);
+                                var sql = "update pass_develop_project_deploy set healthStatus=?,resources=?,hostName=?,hostIp=?,containerId=?,containerName=? where id=?";
+                                conn.query(sql, params, function (err, result) {
+                                    if (err) {
+                                        console.log(err);
+                                        console.log("更新已部署应用健康度等信息异常");
+                                    } else {
+                                        console.log(result);
+                                        console.log("更新已部署应用健康度等信息成功");
+                                    }
+                                    conn.release();
+                                });
+
+
+                            }
+                        })
+                    },
+                    content_type,
+                    null,
+                    'utf8').
+                on('error', function (e) {
+                    console.log("Got error: " + e.message);
+                });
+
+
+                // console.log("登录失败。");
             }
-        });
-    }).on('error', function(e) {
+        },
+        content_type,
+        null,
+        'utf8').
+    on('error', function (e) {
         console.log("Got error: " + e.message);
     });
+
+
 }
 
 exports.httpGetContainerInfo = function(id, mesosId, status, resources,taskId, hostName){

@@ -1,0 +1,414 @@
+<div class="row">
+    <div class="col-xs-12 col-md-12">
+        <div class="widget">
+            <div class="widget-body">
+                <div id="systemInformation_toolbar" class="row tbRow">
+                    <div class="col-xs-6 col-md-6">
+                        <div class="btn-group" role="group" aria-label="...">
+                            <button type="button" class="btn btn-default" onclick="toAdd()">
+                                <i class="glyphicon glyphicon-plus"></i> 增加
+                            </button>
+                            <button type="button" class="btn btn-default" onclick="toEdit()">
+                                <i class="glyphicon glyphicon-pencil"></i> 修改
+                            </button>
+                            <button type="button" class="btn btn-default" onclick="toDelete()">
+                                <i class="glyphicon glyphicon-cog"></i> 删除
+                            </button>
+                        </div>
+                    </div>
+                    <div class="col-xs-6 col-md-6 text-right">
+                        <form class="form-inline">
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <label for="inputSystemInformationIssuer">发布人：</label>
+                                    <select class="easyui-combobox" id="inputSystemInformationIssuer" style="width:100px;height:34px;">
+                                        <option value="0">--请选择--</option>
+                                        <option value="1">xiaoming</option>
+                                        <option value="2">xiaoming</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <label for="inputSystemInformationTitle">文章标题：</label>
+                                    <input id="inputSystemInformationTitle" style="width:200px;height:34px;" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-default" type="button" onclick="doSearch()">
+                                            <i class="glyphicon glyphicon-search"></i> 查询
+                                        </button>
+                                    </span>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="easyui-layout" data-options="fit:true,border:false" style="width: 800px; height:650px;">
+                    <div data-options="region:'center',border:false,fit:true" style="overflow-x:hidden;overflow-y:hidden">
+                        <table id="systemInformation_datatable">
+
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div id="systemInformation_Modal" style="display:none;overflow:hidden;padding-top:15px;padding-bottom: 15px;">
+    <div class="row">
+        <div class="col-md-12">
+            <div>
+                <!-- 下面的enctype属性-->
+                <form enctype="multipart/form-data" class="form-horizontal form-bordered" id="systemInformation_Form" role="form" method="post">
+                    <div class="form-group">
+                            <label for="Information" class="col-sm-2 control-label no-padding-right">上传形式：</label>
+                            <select class="easyui-combobox" id="Information" style="width:100px;height:34px;margin-right: 5px; display: none" onchange="change();">
+                                <option value="1">手动编辑</option>
+                                <option value="2">链接分享</option>
+                            </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputInformationTitle" class="col-sm-2 control-label no-padding-right">文章标题</label>
+                        <div class="col-sm-10">
+                            <input id="inputInformationTitle" style="width:60%;height:31px;" type="text" name="inputInformationTitle" class="easyui-validatebox form-control" data-options="required:true" placeholder="文章标题不超过16个字符">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputInformationType" class="col-sm-2 control-label no-padding-right">文章类型</label>
+                        <div class="col-sm-10">
+                            <input id="inputInformationType" style="width:60%;height:31px;" type="text" name="inputInformationType" class="easyui-validatebox form-control" data-options="required:true" placeholder="请选择文章类型">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputInformationImage" class="col-sm-2 control-label no-padding-right">封面图片</label>
+                        <div class="col-sm-10">
+                            <input id="inputInformationImage" style="width:60%;height:31px;" type="text" name="inputInformationImage" placeholder="请输入图片路径">
+                        </div>
+                    </div>
+                    <div id="inputInformationImageShow" class="form-group" hidden="true">
+
+                    </div>
+                    <div class="form-group" id="Info">
+                        <label for="inputInformationLink" class="col-sm-2 control-label no-padding-right">文章链接</label>
+                        <div class="col-sm-10">
+                            <input id="inputInformationLink" style="width:60%;height:31px;" type="text" name="inputInformationLink" class="easyui-validatebox form-control" data-options="required:true" placeholder="请输入文章链接">
+                        </div>
+                    </div>
+                    <!--<div class="form-group">
+                    <label for="inputInformationFile" class="col-sm-2 control-label no-padding-right">文档</label>
+                    <div class="col-sm-10">
+                        <input id="inputInformationFile" style="width:60%;height:31px;" type="file" name="inputInformationFile" class="easyui-validatebox form-control" data-options="required:true" placeholder="">
+                    </div>
+                </div>-->
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label no-padding-right">文章内容</label>
+                        <div class="col-sm-10" id="edit">
+                            <!-- 加载编辑器的容器-->
+                            <script id="container" type="text/plain"></script>
+                            <!-- 配置文件-->
+                            <script type="text/javascript" src="{{projcfg.appurl}}/static/js/ueditor/ueditor.config.js"></script>
+                            <!-- 编辑器源码文件-->
+                            <script type="text/javascript" src="{{projcfg.appurl}}/static/js/ueditor/ueditor.all.js"></script>
+                            <!-- 实例化编辑器-->
+                            <script type="text/javascript">
+                                var ue = UE.getEditor('container',{
+                                    initialFrameWidth : 600,
+                                    initialFrameHeight: 400
+                                });
+                            </script>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script >
+    function initInformationManage(){
+
+            $('#systemInformation_datatable').datagrid({
+                method:'get',
+                url: '{{projcfg.appurl}}/api/project/ability/informationManage',
+                rownumbers:true,
+                striped:true,
+                fitColumns:true,
+                toolbar: '#systemInformation_toolbar',
+                fit:true,
+                border:false,
+                singleSelect:true,
+                selectOnCheck:false,
+                columns:[[
+                    {"field":'_id',checkbox:true},
+                    {"field": "information_title","title":"文章名称","width":80},
+                    {"field": "information_picture","title":"图片","width":40,align:"center","formatter":function(value,rowDate,rowIndex){
+                        return '<img src="data:'+rowDate.information_type+";base64 ,"+rowDate.information_picture+'"  style="height:35px;width:35px">';
+                    }},
+                    {"field": "information_issuer","title":"发布人","width":40},
+                    {"field": "information_view_count","title":"浏览量","width":40},
+                    {"field": "information_status","title":"审核状态","width":40},
+                    {"field": "information_create_time","title":"创建时间","width":60,
+                        formatter : function(value, rowData, rowIndex) {
+                            return new Date(value).format();
+                        }
+                    }
+                ]],
+                onLoadSuccess:function(data) {
+                    if(data.success) {
+                        msgSuccess('提示,'+data.msg + ','+'代码:' + data);
+                    }
+                },
+                onLoadError:function() {
+                    msgError('提示,加载数据出现时发生错误,请稍候重试...');
+                },
+                pagination:true,
+                loadMsg:'正在加载...'
+            });
+    };
+
+    $(document).ready(function(){
+        initInformationManage();
+    });
+    function toAdd(){
+        openPage("新增文章",null,doAddtest);
+    }
+    // 打开页面
+    function openPage(title, value, callback) {
+        $('#systemInformation_Modal').show();
+
+        $("#inputInformationImage").filebox({
+            buttonText:'选择图片',
+            buttonAlign:'left',
+            accept:'image/*',
+            multiple:'false'
+        });
+
+        $('#systemInformation_Modal').mydialog({
+            title:title,
+            width: 850,
+            height: 720,
+            top:80,
+            modal: true,
+            myButtons:[
+                {
+                    text:'确定',
+                    btnCls:'btn btn-blue',
+                    handler:function(){
+                        callback(value);
+//                        closeDialog();
+                    }
+
+                },
+                {
+                    text:'关闭',
+                    btnCls:'btn btn-danger',
+                    handler:function(){
+                        closeDialog();
+                    }
+                }
+            ]
+        });
+    }
+
+    function doAdd(){
+     var inputInformationTitle=$('#inputInformationTitle').val();
+     var inputInformationType=$('#inputInformationType').val();
+    // var inputInformationImage=$('#inputInformationImage').val();
+     //   var inputInformationFile
+        if (inputInformationTitle == '' || inputInformationTitle.length > 16) {
+            msgError('提示，文章标题长度不能小于1也不能大于16');
+            return;
+        }
+        if (inputInformationType == '' || inputInformationType.length > 16) {
+            msgError('提示，文章类型名称长度不能小于1也不能大于16');
+            return;
+        }
+        if (!ue.hasContents()) {
+            msgError('提示，文章内容不能为空');
+            return;
+        }
+        bootbox.confirm('确定添加该条数据？',function(result){
+            if(result){
+                $.ajax({
+                    url: '{{projcfg.appurl}}/api/project/ability/informationManage',
+                    type: 'post',
+                    data: {
+                        information_title: inputInformationTitle,
+                        information_content: ue.getContent(),
+                        information_type: inputInformationType
+                    },
+                    success: function (data) {
+                        if (data.success) {
+                            msgSuccess('事项添加成功');
+
+                         //   $('#systemInformation_datatable').datagrid('load', {})
+                        }
+                        else {
+                            msgError(data.msg + ',错误代码:' + data.code);
+                        }
+                    }
+                });
+            }
+        })
+    }
+
+
+//    // 清空表单数据
+//    function clear() {
+//        $('#inputNoticeTitle').val('');
+//        ue.setContent('');
+//    }
+    // 关闭窗口
+    function closeDialog() {
+        $('#systemInformation_Form').dialog('close');
+    }
+
+    function doAddtest() {
+        var id=$('#systemInformation_Modal');
+        $('#systemInformation_Form').form("submit",{
+            url: '{{projcfg.appurl}}/api/project/ability/informationManage',
+            onSubmit:function(){
+                var validate = $(this).form('validate');
+                console.log(validate)
+                if(!validate) {
+                    return false;
+                }
+                if($('#inputInformationImage').filebox('getValue').trim()==''){
+                    console.log('请选择图片')
+                    $('#inputInformationImage').focus()
+                    return false;
+                }
+                else
+                    console.log('已经选择图片')
+            },
+            success:function(data){
+//                data = JSON.parse(data)
+//                if(data.success){
+//                    msgSuccess(data.msg);
+//              //      $('#myImageDataTable').datagrid("reload");
+//                    closeDialog(id);
+//                }else{
+//                    msgError(data.msg+',错误代码:'+data.code);
+//                }
+            }
+        });
+
+    };
+
+    function toEdit(){
+        // 获得选择行
+        var rows = $('#systemInformation_datatable').datagrid('getChecked');
+        if (rows.length != 1) {
+            msgError('提示,请选择一条数据再进行修改');
+            return;
+        }
+        var id=rows[0].id;
+        openPage("修改文章", rows[0].id, doEdit);
+        // 获取远程数据
+        $.ajax({
+            url: '{{projcfg.appurl}}/api/project/ability/informationManage/'+rows[0].id,
+            type: 'get',
+            data: {},
+            success: function (data) {
+                console.log('-------------成功返回-------'+data.rows[0].information_type);
+                if(data.success) {
+                    //------显示打开的页面数据----
+                    $('#inputInformationTitle').val(data.rows[0].information_title);
+                    $('#inputInformationType').val(data.rows[0].information_type);
+                    $("#inputInformationImageShow").show().html('<label for="inputInformationImageShow" class="col-sm-2 control-label no-padding-right">原图:</label><div class="col-sm-10"><img src="data:'+data.rows[0].pictureType+";base64 ,"+data.rows[0].information_picture+'"  style="height:35px;width:35px"></div>');
+//                    $('#inputScheduleName').val(data.data[0].schedule_name);
+//                    $('#inputScheduleGrade').combobox('setValue',data.data[0].schedule_grade);
+//                    $('#inputScheduleExecutor').val(data.data[0].schedule_executor);
+//                    $('#inputScheduleCompleteTime').datetimebox(data.data[0].schedule_complete_time);
+//                    ue.setContent(data.data[0].schedule_content);
+                }else{
+                    msgError(data.msg+',错误代码:'+data.code);
+                }
+            }
+        });
+    };
+
+    function doEdit(value){
+//        var edit=ue.getContent();
+        var id=$('#systemInformation_Modal');
+        $('#systemInformation_Form').form("submit",{
+            url: '{{projcfg.appurl}}/api/project/ability/informationManage',
+            queryParams: {
+                information_content:ue.getContent(),
+                value: value
+            },
+            onSubmit:function(){
+                var validate = $(this).form('validate');
+                console.log(validate)
+                if(!validate) {
+                    return false;
+                }
+                if($('#inputInformationImage').filebox('getValue').trim()==''){
+                    console.log('请选择图片')
+                    $('#inputInformationImage').focus()
+                    return false;
+                }
+                else
+                    console.log('已经选择图片')
+            },
+            success:function(data){
+                data = JSON.parse(data)
+                if(data.success){
+                    msgSuccess(data.msg);
+                    //      $('#myImageDataTable').datagrid("reload");
+                    closeDialog(id);
+                }else{
+                    msgError(data.msg+',错误代码:'+data.code);
+                }
+            }
+        });
+    }
+
+function change() {
+        console.log('--------');
+    var myselect=document.getElementById("Information");
+    var index=myselect.selectedIndex;
+    if(myselect.options[index].value==1){
+        document.getElementById('Info').style.display='none';
+    }else document.getElementById('edit').style.display='none';
+}
+
+    //删除数据
+    function toDelete(){
+        var rows = $('#systemInformation_datatable').datagrid('getChecked');
+        if (rows.length != 1) {
+            msgError('提示,请选择一条数据再进行删除');
+            return;
+        }
+        bootbox.confirm('确定删除该事项？',function (result){
+            if(result){
+                $.ajax({
+                    url: '{{projcfg.appurl}}/api/project/ability/informationManage/'+rows[0].id,
+                    type: 'delete',
+                    data: {
+                        id:rows[0]._id
+                    },
+                    success: function (data) {
+                        if(data.success) {
+                            msgSuccess(data.msg);
+                            $('#systemInformation_datatable').datagrid('load',{});
+                        }
+                        else {
+                            msgError(data.msg+',错误代码:'+data.code);
+                        }
+                    }
+                });
+            }
+        });
+    }
+
+
+
+
+</script>

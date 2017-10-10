@@ -68,7 +68,7 @@ exports.getScheduleInfo = function(id, fields, cb) {
  * @param cb
  */
 exports.deleteSchedule = function(id, cb) {
-   console.log("**********************************"+id+"**************************************");
+
     model.$CommonCoreSchedule.remove({_id:id},function(err,docs){
         if(err) {
             cb(utils.returnMsg(false, '1002', '删除信息时出现异常。', null, error));
