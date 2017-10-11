@@ -14,11 +14,18 @@ var users=require('../../../common/core/models/user_model');
 
 router.route('/')
     .get(function(req,res){
-     var page=req.query.page;
-     var size=req.query.rows;
+        var page=req.query.page;
+        var size=req.query.rows;
+        var information_title='';
+        var conditionMap=utils.getCurrentUser(req)._id;
+        var title=req.query.information_title;
+        if(title){
+            information_title=title;
+        }
+        var sql='select * from pass_develop_information_info t where information_issuer_id="'+conditionMap+'" ' +
+            'and information_title like "'+"%"+information_title+"%"+'"';
 
-     var conditionMap=utils.getCurrentUser(req)._id;
-     informationManageService.getInformationManage(page,size,conditionMap,function(result){
+     informationManageService.getInformationManage(sql,page,size,conditionMap,function(result){
          // console.log('====================',result);
          utils.respJsonData(res,result);
      });
@@ -40,6 +47,8 @@ router.route('/')
             var information_title='';
             var information_type='';
             var information_picture_name='';
+            var information_link='';
+            var information_introduce='';
             var information_picture='';
             var information_picture_type='';
             var information_content='';
@@ -56,7 +65,7 @@ router.route('/')
                 console.log("1",doc[0]["user_name"]);
                 console.log('3',doc);
 
-                var sqlUpdatePicture = 'update pass_develop_information_info set information_title = ?,information_type = ?,information_content=?,information_picture_name = ?,information_picture_type=?,information_picture=? where id =? ';
+                var sqlUpdatePicture = 'update pass_develop_information_info set information_title = ?,information_type = ?,information_content=?,information_link=?,information_introduce=?,information_picture_name = ?,information_picture_type=?,information_picture=? where id =? ';
 
                 //------------------下面为上传图片内容------//
             form.parse(req, function (error, fields, files) {
@@ -67,8 +76,11 @@ router.route('/')
                     //进到这里了，能拿到文件
                     information_title=fields.inputInformationTitle;
                     information_type=fields.inputInformationType;
+                    console.log('========类型测试======',fields);
                     information_content=fields.information_content;
                     id=fields.value;
+                    information_link=fields.inputInformationLink;
+                    information_introduce=fields.inputInformationBrief;
                     information_picture_name=files.inputInformationImage['name'];
                     information_picture_type=files.inputInformationImage['type'];
                     // information_picture='/tmp/'+information_picture_name;
@@ -95,28 +107,30 @@ router.route('/')
                             data_add.push(information_type);
                             data_add.push(information_content);//information_content
                             data_add.push(information_picture_name);
+                            data_add.push(information_link);
                             data_add.push('0');
-                            data_add.push('0');
-                            data_add.push('0');
+                            data_add.push(information_introduce);
                             data_add.push(information_picture_type);
                             data_add.push(information_picture);
-                            res.send('yes');
+                            // res.send('yes');
                             if(id){
                                 data_update.push(information_title);
                                 data_update.push(information_type);
                                 data_update.push(information_content);
+                                data_update.push(information_link);
+                                data_update.push(information_introduce);
                                 data_update.push(information_picture_name);
                                 data_update.push(information_picture_type);
                                 data_update.push(information_picture);
                                 data_update.push(id);
-                                informationManageService.update(sqlUpdatePicture,data_update,function(){
+                                informationManageService.update(sqlUpdatePicture,data_update,function(result){
                                     // console.log('=============-更新成功-------',result);
-                                    // utils.respJsonData(res,result);
+                                    utils.respJsonData(res,result);
                                 });
                             }
                             else{
-                                informationManageService.add(data_add,function(){
-
+                                informationManageService.add(data_add,function(result){
+                                    utils.respJsonData(res,result);
                                 });
                             }
                         }
@@ -145,7 +159,6 @@ router.route('/:id')
     if (!id) {
         utils.respMsg(res, false, '2004', 'id不能为空。', null, null);
     }
-
     informationManageService.deleteInfo(id,function(result){
         utils.respJsonData(res, result);
     });
