@@ -3,100 +3,131 @@
     <div class="col-xs-12 col-md-12">
         <div class="widget">
             <div class="widget-body">
-                <div id="toolbar" class="row tbRow" style="margin-bottom: 1.1rem;border-bottom: 1px solid #ccc;">
-                    <div class="col-xs-6 col-md-6" style="width:100%">
-                        <font size="3.5rem" style="margin-left: 1.2rem;margin-right: 2.5rem;"> <b>主机管理</b></font>
-                        <div>
-                            <!--<div class="btn-group" role="group" aria-label="...">-->
-                                <!--<button type="button" class="btn btn-default" onclick="" data-title="花溪机房">-->
-                                    <!--花溪机房-->
-                                <!--</button>-->
-                                <!--<button type="button" class="btn btn-default" onclick="toEdit()" data-title="金阳机房">-->
-                                    <!--金阳机房-->
-                                <!--</button>-->
-                                <!--<button type="button" class="btn btn-default" onclick="doDel()" data-title="远通大厦">-->
-                                    <!--远通大厦-->
-                                <!--</button>-->
-                            <!--</div>-->
-                            <div class="btn-group" role="group" aria-label="..." style="float: right;margin-right: 4rem;">
-                                <button type="button" class="btn btn-default" onclick='javascript:history.back(-1);' data-title="返回">
-                                    返回
-                                </button>
+                <div class="row">
+                    <div class="col-xs-12 col-md-12" style="padding-left: 5px;padding-right: 5px;">
+
+                        <div class="widget-header bordered-bottom bordered-themeprimary">
+                            <i class="widget-icon fa fa-tags themeprimary"></i>
+                            <span class="widget-caption themeprimary">集群资源概览</span>
+                            <div class="widget-buttons">
+                                <a id="btnBack" style="    color: #337ab7;" href="javascript:void(0)"
+                                   onclick='javascript:history.back(-1);'>
+                                    <i class="fa fa-reply"></i> 返回
+                                </a>
                             </div>
-                        </div>
 
-                        <!--<div style="margin-top:10px"><hr style="height:1px;border:none;border-top:1px solid #555555;" /></div>-->
-                        <!--<div class="btn-group" role="group" aria-label="..." style="margin-top:10px">-->
-                            <!--<button type="button" class="btn btn-default" onclick="openPage('新增主机','',doAdd)" data-title="新增">-->
-                                <!--<i class="fa fa-plus"></i> 新增-->
-                            <!--</button>-->
-                            <!--<button type="button" class="btn btn-default" onclick="toEdit()" data-title="修改">-->
-                                <!--<i class="fa fa-edit"></i> 修改-->
-                            <!--</button>-->
-                            <!--<button type="button" class="btn btn-default" onclick="doDel()" data-title="删除">-->
-                                <!--<i class="fa fa-remove"></i> 删除-->
-                            <!--</button>-->
-                        <!--</div>-->
-
-                    </div>
-                    <!--<div class="col-xs-6 col-md-6 " style="float: left;width: 100%;margin-left: 1rem;margin-top: 0.5rem;margin-bottom: 0.5rem;">-->
-                        <!--所属集群：<span id="colonyname" style="margin-left: 1rem;"></span>-->
-                    <!--</div>-->
-                </div>
-                <div id="cc" class="easyui-layout" data-options="fit:true,border:false" style="width: 800px; height:575px;background-color: #fbfbfb;">
-                    <div id="images" data-options="region:'center',border:false" style="overflow-x:hidden;overflow-y:hidden">
-                        <div id="privatediv" style="width:100%;height: 100%;">
-                            <div style="width:100%;height:100%; ">
-                                <table id="hostDataTable">
-                                </table>
-
+                        </div><!--Widget Header-->
+                        <div class="widget-body">
+                            <div style="">
+                                <div class="box-list-content">
+                                    <div id="cc" class="easyui-layout" data-options="fit:true,border:false"
+                                         style="width: 800px; height:575px;background-color: #fbfbfb;">
+                                        <div id="images" data-options="region:'center',border:false"
+                                             style="overflow-x:hidden;overflow-y:hidden">
+                                            <div id="privatediv" style="width:100%;height: 100%;">
+                                                <div style="width:100%;height:100%; ">
+                                                    <table id="hostDataTable">
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
-
                 </div>
+                <!--<div id="toolbar" class="row tbRow" style="margin-bottom: 1.1rem;border-bottom: 1px solid #ccc;">-->
+                <!--<div class="col-xs-6 col-md-6" style="width:100%">-->
+                <!--<font size="3.5rem" style="margin-left: 1.2rem;margin-right: 2.5rem;"> <b>主机管理</b></font>-->
+                <!--<div>-->
+                <!--&lt;!&ndash;<div class="btn-group" role="group" aria-label="...">&ndash;&gt;-->
+                <!--&lt;!&ndash;<button type="button" class="btn btn-default" onclick="" data-title="花溪机房">&ndash;&gt;-->
+                <!--&lt;!&ndash;花溪机房&ndash;&gt;-->
+                <!--&lt;!&ndash;</button>&ndash;&gt;-->
+                <!--&lt;!&ndash;<button type="button" class="btn btn-default" onclick="toEdit()" data-title="金阳机房">&ndash;&gt;-->
+                <!--&lt;!&ndash;金阳机房&ndash;&gt;-->
+                <!--&lt;!&ndash;</button>&ndash;&gt;-->
+                <!--&lt;!&ndash;<button type="button" class="btn btn-default" onclick="doDel()" data-title="远通大厦">&ndash;&gt;-->
+                <!--&lt;!&ndash;远通大厦&ndash;&gt;-->
+                <!--&lt;!&ndash;</button>&ndash;&gt;-->
+                <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                <!--<div class="btn-group" role="group" aria-label="..."-->
+                <!--style="float: right;margin-right: 4rem;">-->
+                <!--<button type="button" class="btn btn-default" onclick='javascript:history.back(-1);'-->
+                <!--data-title="返回">-->
+                <!--返回-->
+                <!--</button>-->
+                <!--</div>-->
+                <!--</div>-->
+
+                <!--&lt;!&ndash;<div style="margin-top:10px"><hr style="height:1px;border:none;border-top:1px solid #555555;" /></div>&ndash;&gt;-->
+                <!--&lt;!&ndash;<div class="btn-group" role="group" aria-label="..." style="margin-top:10px">&ndash;&gt;-->
+                <!--&lt;!&ndash;<button type="button" class="btn btn-default" onclick="openPage('新增主机','',doAdd)" data-title="新增">&ndash;&gt;-->
+                <!--&lt;!&ndash;<i class="fa fa-plus"></i> 新增&ndash;&gt;-->
+                <!--&lt;!&ndash;</button>&ndash;&gt;-->
+                <!--&lt;!&ndash;<button type="button" class="btn btn-default" onclick="toEdit()" data-title="修改">&ndash;&gt;-->
+                <!--&lt;!&ndash;<i class="fa fa-edit"></i> 修改&ndash;&gt;-->
+                <!--&lt;!&ndash;</button>&ndash;&gt;-->
+                <!--&lt;!&ndash;<button type="button" class="btn btn-default" onclick="doDel()" data-title="删除">&ndash;&gt;-->
+                <!--&lt;!&ndash;<i class="fa fa-remove"></i> 删除&ndash;&gt;-->
+                <!--&lt;!&ndash;</button>&ndash;&gt;-->
+                <!--&lt;!&ndash;</div>&ndash;&gt;-->
+
+                <!--</div>-->
+                <!--&lt;!&ndash;<div class="col-xs-6 col-md-6 " style="float: left;width: 100%;margin-left: 1rem;margin-top: 0.5rem;margin-bottom: 0.5rem;">&ndash;&gt;-->
+                <!--&lt;!&ndash;所属集群：<span id="colonyname" style="margin-left: 1rem;"></span>&ndash;&gt;-->
+                <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                <!--</div>-->
+
 
             </div>
         </div>
     </div>
 </div>
 
-<div id="hostDialog" class="mydialog"  data-options="iconCls:'icon-save'">
+<div id="hostDialog" class="mydialog" data-options="iconCls:'icon-save'">
     <div class="row">
         <div class="col-md-12">
             <div>
-                <form id="hostForm" class="form-horizontal form-bordered" role="form" method="post" enctype="multipart/form-data">
+                <form id="hostForm" class="form-horizontal form-bordered" role="form" method="post"
+                      enctype="multipart/form-data">
                     <input type="hidden" id="colonyId" name="colonyId"/>
                     <input type="hidden" id="id" name="id"/>
                     <div class="form-group">
                         <label for="imageName" class="col-sm-2 control-label no-padding-right">主机名称:</label>
                         <div class="col-sm-10">
-                            <input type="text" class="easyui-validatebox form-control" data-options="required:true" name="name" id="name" placeholder="请输入主机名称" style="width:60%">
+                            <input type="text" class="easyui-validatebox form-control" data-options="required:true"
+                                   name="name" id="name" placeholder="请输入主机名称" style="width:60%">
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="imageName" class="col-sm-2 control-label no-padding-right">操作系统:</label>
                         <div class="col-sm-10">
-                            <input type="text" class="easyui-validatebox form-control" data-options="required:true" name="os" id="os" placeholder="请输入操作系统" style="width:60%">
+                            <input type="text" class="easyui-validatebox form-control" data-options="required:true"
+                                   name="os" id="os" placeholder="请输入操作系统" style="width:60%">
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="imageName" class="col-sm-2 control-label no-padding-right">IP:</label>
                         <div class="col-sm-10">
-                            <input type="text" class="easyui-validatebox form-control" data-options="required:true" name="ip" id="ip" placeholder="请输入IP" style="width:60%">
+                            <input type="text" class="easyui-validatebox form-control" data-options="required:true"
+                                   name="ip" id="ip" placeholder="请输入IP" style="width:60%">
                         </div>
                     </div>
 
                     <div class="form-group">
                         <label for="inputProjectRemark" class="col-sm-2 control-label no-padding-right">配置:</label>
                         <div class="col-sm-10">
-                            <textarea class="form-control" rows="3" name="configure" id="configure" placeholder="请输入配置信息"></textarea>
+                            <textarea class="form-control" rows="3" name="configure" id="configure"
+                                      placeholder="请输入配置信息"></textarea>
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="inputProjectRemark" class="col-sm-2 control-label no-padding-right">备注:</label>
                         <div class="col-sm-10">
-                            <textarea class="form-control" rows="5" name="remark" id="remark" placeholder="请输入备注" style="background:#ff0000"></textarea>
+                            <textarea class="form-control" rows="5" name="remark" id="remark" placeholder="请输入备注"
+                                      style="background:#ff0000"></textarea>
                         </div>
                     </div>
                 </form>
@@ -107,154 +138,230 @@
     </div>
 </div>
 
-<script  type="text/javascript">
+<script type="text/javascript">
 
-    $(function(){
+    $(function() {
         var paramsValues = GetRequest();
-        console.log("======paramsValues=====",paramsValues);
-        $("master_ip").html(paramsValues[0]);
-        $("#master_id").val(paramsValues[1]);
+        console.log('======paramsValues=====', paramsValues);
+        $('master_ip').html(paramsValues[0]);
+        $('#master_id').val(paramsValues[1]);
         $('#hostDataTable').datagrid({
-            url:'{{projcfg.appurl}}/api/project/operation/hostmanage',
-            method:'get',
-            queryParams:{'master_id':paramsValues[1]},
-            rownumbers:false,
-            striped:true,
-            fitColumns:true,
+            url: '{{projcfg.appurl}}/api/project/operation/hostmanage',
+            method: 'get',
+            queryParams: {'master_id': paramsValues[1]},
+            rownumbers: false,
+            striped: true,
+            fitColumns: true,
             //toolbar: '#toolbar',
-            fit:true,
-            border:true,
-            singleSelect:true,
-            selectOnCheck:false,
-            columns:[[
-                {"field":'id',checkbox:true},
-                {"field":'colonyId',hidden:true},
-                {"field": "name","title":"编号","width":70,align:"center"},
-                {"field": "CPU","title":"CPU","width":25,align:"center","formatter":function(value,rowData,rowIndex){
-                    var cpu_precent=(rowData.cpu_used/rowData.cpu*100).toFixed(2);
-                    var cpu_uesd_percent=100-cpu_precent;
-                    var str="";
-                    str+= '<div title="总CPU数：'+　rowData.cpu+'  已使用： '+rowData.cpu_used+' (使用率 '+cpu_precent+'%)">' ;
+            fit: true,
+            border: true,
+            singleSelect: true,
+            selectOnCheck: false,
+            columns: [
+                [
+                    {
+                        'field': 'id',
+                        checkbox: true,
+                    },
+                    {
+                        'field': 'colonyId',
+                        hidden: true,
+                    },
+                    {
+                        'field': 'name',
+                        'title': '编号',
+                        'width': 70,
+                        align: 'center',
+                    },
+                    {
+                        'field': 'CPU',
+                        'title': 'CPU',
+                        'width': 25,
+                        align: 'center',
+                        'formatter': function(value, rowData, rowIndex) {
+                            var cpu_precent = (rowData.cpu_used / rowData.cpu * 100).toFixed(2);
+                            var cpu_uesd_percent = 100 - cpu_precent;
+                            var str = '';
+                            str += '<div title="总CPU数：' + rowData.cpu + '  已使用： ' + rowData.cpu_used + ' (使用率 ' +
+                                    cpu_precent + '%)">';
 
-                    if(cpu_precent<=30){
-                        str += '<div style=\"height:20px;width:' + cpu_precent +'%;background:#4cff00; float:left;\"></div>';
-                        str += '<div style=\"height:20px;width:' + cpu_uesd_percent +'%;background:#2fdae5; float:right;\"></div></div>'
+                            if (cpu_precent <= 30) {
+                                str += '<div style=\"height:20px;width:' + cpu_precent +
+                                        '%;background:#4cff00; float:left;\"></div>';
+                                str += '<div style=\"height:20px;width:' + cpu_uesd_percent +
+                                        '%;background:#2fdae5; float:right;\"></div></div>';
 
-                    }else if(cpu_precent<=75){
-                        str += '<div style=\"height:20px;width:' + cpu_precent +'%;background:#ffd800; float:left;\"></div>';
-                        str += '<div style=\"height:20px;width:' + cpu_uesd_percent +'%;background:#2fdae5; float:right;\"></div></div>'
+                            } else if (cpu_precent <= 75) {
+                                str += '<div style=\"height:20px;width:' + cpu_precent +
+                                        '%;background:#ffd800; float:left;\"></div>';
+                                str += '<div style=\"height:20px;width:' + cpu_uesd_percent +
+                                        '%;background:#2fdae5; float:right;\"></div></div>';
 
+                            } else if (cpu_precent > 75) {
+                                str += '<div style=\"height:20px;width:' + cpu_precent +
+                                        '%;background:#ff0000; float:left;\"></div>';
+                                str += '<div style=\"height:20px;width:' + cpu_uesd_percent +
+                                        '%;background:#2fdae5; float:right;\"></div></div>';
+                            }
 
+                            return str;
 
-                    }else if(cpu_precent>75){
-                        str+= '<div style=\"height:20px;width:'+cpu_precent+'%;background:#ff0000; float:left;\"></div>';
-                        str += '<div style=\"height:20px;width:' + cpu_uesd_percent +'%;background:#2fdae5; float:right;\"></div></div>'
-                    }
+                        },
+                    },
+                    {
+                        'field': 'Memory',
+                        'title': 'Memory',
+                        'width': 25,
+                        align: 'center',
+                        'formatter': function(value, rowData, rowIndex) {
+                            var memory_precent = (rowData.memory_used / rowData.memory * 100).toFixed(2);
+                            var memory_uesd_percent = 100 - memory_precent;
+                            var str = '';
+                            var data_g = (rowData.memory / 1024).toFixed(2);
+                            var data_u = (rowData.memory_used / 1024).toFixed(2);
+                            str += '<div title="总内存数：' + data_g + 'G  已经使用： ' + data_u + ' G (使用率 ' + memory_precent +
+                                    '%)\">';
+                            if (memory_precent <= 30) {
+                                str += '<div style=\"height:20px;width:' + memory_precent +
+                                        '%;background:#4cff00; float:left;\"></div>';
+                                str += '<div style=\"height:20px;width:' + memory_uesd_percent +
+                                        '%;background:#2fdae5; float:right;\"></div></div>';
+                            } else if (memory_precent <= 75) {
+                                str += '<div style=\"height:20px;width:' + memory_precent +
+                                        '%;background:#ffd800; float:left;\"></div>';
+                                str += '<div style=\"height:20px;width:' + memory_uesd_percent +
+                                        '%;background:#2fdae5; float:right;\"></div></div>';
+                            } else if (memory_precent > 75) {
+                                str += '<div style=\"height:20px;width:' + memory_precent +
+                                        '%;background:#ff0000; float:left;\"></div>';
+                                str += '<div style=\"height:20px;width:' + memory_uesd_percent +
+                                        '%;background:#2fdae5; float:right;\"></div></div>';
+                            }
 
-                    return str;
+                            return str;
 
-                }},
-                {"field": "Memory","title":"Memory","width":25,align:"center","formatter":function(value,rowData,rowIndex){
-                    var memory_precent=(rowData.memory_used/rowData.memory*100).toFixed(2);
-                    var memory_uesd_percent=100-memory_precent;
-                    var str="";
-                    var data_g=(rowData.memory/1024).toFixed(2);
-                    var data_u=(rowData.memory_used/1024).toFixed(2);
-                    str+= '<div title="总内存数：'+　data_g+'G  已经使用： '+data_u+' G (使用率 '+memory_precent+'%)\">' ;
-                    if(memory_precent<=30){
-                        str += '<div style=\"height:20px;width:' + memory_precent +'%;background:#4cff00; float:left;\"></div>';
-                        str += '<div style=\"height:20px;width:' + memory_uesd_percent +'%;background:#2fdae5; float:right;\"></div></div>';
-                    }else if(memory_precent<=75){
-                        str += '<div style=\"height:20px;width:' + memory_precent +'%;background:#ffd800; float:left;\"></div>';
-                        str += '<div style=\"height:20px;width:' + memory_uesd_percent +'%;background:#2fdae5; float:right;\"></div></div>';
-                    }else if(memory_precent>75){
-                        str+= '<div style=\"height:20px;width:'+memory_precent+'%;background:#ff0000; float:left;\"></div>';
-                        str += '<div style=\"height:20px;width:' + memory_uesd_percent +'%;background:#2fdae5; float:right;\"></div></div>';
-                    }
+                        },
+                    },
+                    {
+                        'field': 'Disk',
+                        'title': 'Disk',
+                        'width': 25,
+                        align: 'center',
+                        'formatter': function(value, rowData, rowIndex) {
+                            var disk_precent = (rowData.disk_used / rowData.disk * 100).toFixed(2);
+                            var disk_uesd_percent = 100 - disk_precent;
+                            var str = '';
+                            var data_g = (rowData.disk / 1024 / 1024).toFixed(2);
+                            var data_u = (rowData.disk_used / 1024).toFixed(2);
+                            str += '<div title="总硬盘数：' + data_g + 'TB  已经使用： ' + data_u + ' B (使用率 ' + disk_precent +
+                                    '%)">';
+                            if (disk_precent <= 30) {
+                                str += '<div style=\"height:20px;width:' + disk_precent +
+                                        '%;background:#4cff00; float:left;\"></div>';
+                                str += '<div style=\"height:20px;width:' + disk_uesd_percent +
+                                        '%;background:#2fdae5; float:right;\"></div></div>';
+                            } else if (disk_precent <= 75) {
+                                str += '<div style=\"height:20px;width:' + disk_precent +
+                                        '%;background:#ffd800; float:left;\"></div>';
+                                str += '<div style=\"height:20px;width:' + disk_uesd_percent +
+                                        '%;background:#2fdae5; float:right;\"></div></div>';
+                            } else if (disk_precent > 75) {
+                                str += '<div style=\"height:20px;width:' + disk_precent +
+                                        '%;background:#ff0000; float:left;\"></div>';
+                                str += '<div style=\"height:20px;width:' + disk_uesd_percent +
+                                        '%;background:#2fdae5; float:right;\"></div></div>';
+                            }
 
-                    return str;
+                            return str;
+                        },
+                    },
 
-                }},
-                {"field": "Disk","title":"Disk","width":25,align:"center","formatter":function(value,rowData,rowIndex){
-                    var disk_precent=(rowData.disk_used/rowData.disk*100).toFixed(2);
-                    var disk_uesd_percent=100-disk_precent;
-                    var str="";
-                    var data_g=(rowData.disk/1024/1024).toFixed(2);
-                    var data_u=(rowData.disk_used/1024).toFixed(2);
-                    str+= '<div title="总硬盘数：'+　data_g+'TB  已经使用： '+data_u+' B (使用率 '+disk_precent+'%)">' ;
-                    if(disk_precent<=30){
-                        str += '<div style=\"height:20px;width:' + disk_precent +'%;background:#4cff00; float:left;\"></div>';
-                        str += '<div style=\"height:20px;width:' + disk_uesd_percent +'%;background:#2fdae5; float:right;\"></div></div>';
-                    }else if(disk_precent<=75){
-                        str += '<div style=\"height:20px;width:' + disk_precent +'%;background:#ffd800; float:left;\"></div>';
-                        str += '<div style=\"height:20px;width:' + disk_uesd_percent +'%;background:#2fdae5; float:right;\"></div></div>';
-                    }else if(disk_precent>75){
-                        str+= '<div style=\"height:20px;width:'+disk_precent+'%;background:#ff0000; float:left;\"></div>';
-                        str += '<div style=\"height:20px;width:' + disk_uesd_percent +'%;background:#2fdae5; float:right;\"></div></div>';
-                    }
+                    {
+                        'field': 'os',
+                        'title': '操作系统',
+                        'width': 30,
+                        align: 'center',
+                        'formatter': function(value, rowData, rowIndex) {
+                            return '<img id="linux" class="img " style="width:30px;height:30px;" src="{{projcfg.appurl}}/static/images/linux.png">' +
+                                    'Linux';
+                        },
+                    },
+                    {
+                        'field': 'slave_ip',
+                        'title': 'IP',
+                        'width': 40,
+                        align: 'center',
+                    },
 
+                    {
+                        'field': 'status',
+                        'title': '状态',
+                        'width': 30,
+                        align: 'center',
+                        'formatter': function(value, rowData, rowIndex) {
+                            if (value == 'true') {
+                                return '<img id="u56_img" class="img " src="{{projcfg.appurl}}/static/images/u56.png">' +
+                                        '运行中';
 
-
-                    return str;
-                }},
-
-                {"field": "os","title":"操作系统","width":30,align:"center","formatter":function(value,rowData,rowIndex){
-                    return '<img id="linux" class="img " style="width:30px;height:30px;" src="{{projcfg.appurl}}/static/images/linux.png">'+'Linux';
-                }},
-                {"field": "slave_ip","title":"IP","width":40,align:"center"},
-
-                {"field": "status","title":"状态","width":30,align:"center",
-                    "formatter":function (value, rowData,rowIndex) {
-                        if(value=="true"){
-                            return '<img id="u56_img" class="img " src="{{projcfg.appurl}}/static/images/u56.png">'+'运行中';
-
-                        }else{
-                            return '<img id="u58_img" class="img " src="{{projcfg.appurl}}/static/images/u58.png">'+'故障';
-                        }
-                    }
-                },
+                            } else {
+                                return '<img id="u58_img" class="img " src="{{projcfg.appurl}}/static/images/u58.png">' +
+                                        '故障';
+                            }
+                        },
+                    },
 //
-                {"field": "oper","title":"操作","width":30,align:"center",
-                    "formatter":function (value, rowData,rowIndex) {
-                        return "<span class=\"label label-info\" style='height:26px;line-height:16px;font-weight:600;margin-top: 0.5rem;margin-left: 0.5rem;cursor: pointer;' onclick='hm_list("+rowData.id+",\""+rowData.name+"\")'>主机详情</span>"
-                    }},
-                {"field": "remark","title":"备注","width":30,align:"center"}
-            ]],
-            onLoadError:function() {
+                    {
+                        'field': 'oper',
+                        'title': '操作',
+                        'width': 30,
+                        align: 'center',
+                        'formatter': function(value, rowData, rowIndex) {
+                            return '<span class="label label-info" style=\'height:26px;line-height:16px;font-weight:600;margin-top: 0.5rem;margin-left: 0.5rem;cursor: pointer;\' onclick=\'hm_list(' +
+                                    rowData.id + ',"' + rowData.name + '")\'>主机详情</span>';
+                        },
+                    },
+                    {
+                        'field': 'remark',
+                        'title': '备注',
+                        'width': 30,
+                        align: 'center',
+                    },
+                ]],
+            onLoadError: function() {
                 msgError('加载数据出现时发生错误,请稍候重试...');
             },
-            pagination:true,
-            loadMsg:'正在加载...'
+            pagination: true,
+            loadMsg: '正在加载...',
         });
     });
+
     //页面直接跳转页面带参数时，获取url参数值
     function GetRequest() {
         var values = [];
         var url = location.search; //获取url中"?"符后的字串
-        if (url.indexOf("?") != -1) {    //判断是否有参数
+        if (url.indexOf('?') != -1) {    //判断是否有参数
             var str = url.substr(1); //从第一个字符开始 因为第0个是?号 获取所有除问号的所有符串
             //用等号进行分隔 （因为知道只有一个参数 所以直接用等号进分隔 如果有多个参数 要用&号分隔 再用等号进行分隔）
-            if(str.indexOf("&") >= 0){
-                var strs = str.split("&");
-                for(var i=0;i<strs.length;i++){
-                    var vals = strs[i].split("=");
-                    if(i==0){
+            if (str.indexOf('&') >= 0) {
+                var strs = str.split('&');
+                for (var i = 0; i < strs.length; i++) {
+                    var vals = strs[i].split('=');
+                    if (i == 0) {
                         values.push(decodeURI(vals[1]));
-                    }else{
+                    } else {
                         values.push(vals[1]);
                     }
                 }
-            }else{
-                var strs = str.split("=");
+            } else {
+                var strs = str.split('=');
                 values.push(decodeURI(strs[1]));
             }
             return values;
         }
     }
 
-
-    function hm_list(id,name){
-        window.location.href = "{{projcfg.appurl}}/slavedetail?id="+encodeURI(id)+"&name="+name;
+    function hm_list(id, name) {
+        window.location.href = '{{projcfg.appurl}}/slavedetail?id=' + encodeURI(id) + '&name=' + name;
     }
 
 
