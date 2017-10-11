@@ -82,11 +82,15 @@
                         <label for="inputInformationType" class="col-sm-2 control-label no-padding-right">文章类型 </label>
                         <select class="easyui-combobox" id="inputInformationType" style="width:45%;height:31px;">
                             <option value="1">项目资料</option>
-                            <option value="2">数据库</option>
-                            <option value="3">编程语言</option>
-                            <option value="4">需求</option>
-                            <option value="5">测试</option>
-                            <option value="6">运维</option>
+                            <option value="2">热门技术</option>
+                            <option value="3">数据库</option>
+                            <option value="4">编程语言</option>
+                            <option value="5">大数据</option>
+                            <option value="6">移动端</option>
+                            <option value="7">开发工具</option>
+                            <option value="8">需求</option>
+                            <option value="9">测试</option>
+                            <option value="10">运维</option>
                         </select>
                     </div>
                     <!--<div class="form-group">-->
@@ -173,14 +177,22 @@
                         if(value==1){
                             return  information_type ="项目资料"; //$('#inputInformationType').val("项目资料");
                         }else if(value==2){
-                            return information_type ="数据库";
+                            return information_type ="热门技术";
                         }else if(value==3){
-                            return information_type ="编程语言";
+                            return information_type ="数据库";
                         }else if(value==4){
-                            return $information_type ="需求";
+                            return information_type ="编程语言";
                         }else if(value==5){
-                            return information_type ="测试";
+                            return information_type ="大数据";
                         }else if(value==6){
+                            return information_type ="移动端";
+                        }else if(value==7){
+                            return information_type ="开发工具";
+                        }else if(value==8){
+                            return information_type ="需求";
+                        }else if(value==9){
+                            return information_type ="测试";
+                        }else if(value==10){
                             return information_type ="运维";
                         }
                     }},
