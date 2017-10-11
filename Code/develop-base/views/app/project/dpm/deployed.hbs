@@ -108,10 +108,11 @@
                     "formatter":function(value, rowData, rowIndex){
                         var returnValue = "";
                         if(rowData.type != 1){
-                            returnValue = "<a class=\"label label-info\" style='height:26px;line-height:16px;font-weight:600;cursor: pointer;margin-top: 0.5rem;margin-bottom: 0.5rem;' href='" + value + "' target='_blank'>性能情况</a>";
+                            returnValue = "<a class=\"label label-info\" style='height:26px;line-height:16px;font-weight:600;cursor: pointer;margin-top: 0.5rem;margin-bottom: 0.5rem;' href='" + value + "' target='_blank'>应用详情</a>";
                         }else{
                             if(rowData.status == "1"){
-                                returnValue =  "<span class=\"label label-warning\" style=\"height:26px;line-height:16px;font-weight:600;margin-top: 0.5rem;cursor: pointer;\" onclick=\"to_serviceDetail("+rowData.projectId+")\">服务详情</span>   "+
+                                returnValue = ""+
+//                                        "<span class=\"label label-warning\" style=\"height:26px;line-height:16px;font-weight:600;margin-top: 0.5rem;cursor: pointer;\" onclick=\"to_serviceDetail("+rowData.projectId+")\">服务详情</span>   "+
                                         "<span class=\"label label-danger\" style=\"height:26px;line-height:16px;font-weight:600;margin-top: 0.5rem;margin-left: 0.5rem;cursor: pointer;\" data-id='" + rowData.id + "' data-name='" + rowData.projectName + "' data-pid='" + rowData.projectId + "' onclick=\"doStop(this)\">停止</span></br>"+
                                         "<span class=\"label label-info\" style='height:26px;line-height:16px;font-weight:600;cursor: pointer;margin-top: 0.5rem;margin-bottom: 0.5rem;' data-host='" + rowData.hostName + "' data-name='" + rowData.containerName + "' data-mesos='"+rowData.mesosId+"' onclick=\"doNature(this)\">性能情况</span>" +
                                         "<span class=\"label label-info\" style='height:26px;line-height:16px;font-weight:600;cursor: pointer;margin-left:0.6rem;' data-id='" + rowData.id + "' data-name='" + rowData.projectName + "' onclick='logsCenter(this)'>日志</span>";
@@ -284,8 +285,9 @@
         var host = $(thisObj).data("host");
         var name = $(thisObj).data("name");
         var mesosId = $(thisObj).data("mesos");
+        console.info(mesosId);
         //window.open("http://192.168.9.48:3000/dashboard/db/ying-yong-guan-li?orgId=1&var-app_name="+mesosId.substring(1));
-        window.open("http://192.168.9.48:3000/dashboard/db/dockerdan-ge-rong-qi-jian-kong?theme=light&orgId=1&var-host=" + host + "&var-container_name=" + name);
+//        window.open("http://192.168.9.48:3000/dashboard/db/dockerdan-ge-rong-qi-jian-kong?theme=light&orgId=1&var-host=" + host + "&var-container_name=" + name);
     }
     //日志中心
     function logsCenter(thisObj){

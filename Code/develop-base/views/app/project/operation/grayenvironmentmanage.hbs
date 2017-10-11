@@ -1,0 +1,121 @@
+
+<link rel="stylesheet" href="{{projcfg.appurl}}/static/css/base.css">
+<link rel="stylesheet" href="{{projcfg.appurl}}/static/css/monitoring.css">
+
+
+<header class="header-box header-box-moni clearfix">
+    <h2 class="f-l">灰度应用监控</h2>
+    <div class="f-r clearfix">
+        <select class="f-l">
+            <option>
+                全部
+            </option>
+            <option>
+                运行中
+            </option>
+            <option>
+                故障
+            </option>
+        </select>
+        <button class="f-l">查询</button>
+    </div>
+</header>
+<div class="content-box">
+    <section class="basic-infom-box">
+        <div class="basic-infom clearfix">
+            <h3>
+                <label>项目名称：</label><span>贵州移动DevOps平台</span>
+            </h3>
+            <p>
+                <label>镜像：</label><span>117.187.12.236:15000/develop-base:v1.4.4</span>
+            </p>
+            <p>
+                <label>外网地址：</label><span>117.187.12.236:10003</span>
+            </p>
+        </div>
+        <div class="rongqi-box clearfix">
+            <p class="f-l"><label>运行容器：</label>
+                <button class="btn-fuhao">-</button>
+                <input class="rongqi-shuzhi" type="text" placeholder="0">
+                <button class="btn-fuhao">+</button>
+            </p>
+            <div class="f-r">
+                <button class="btn-fabu btn-huidu-fabu">
+                    灰度环境发布
+                </button>
+                <button class="btn-fabu btn-zhengshi-fabu">
+                    正式环境发布
+                </button>
+            </div>
+        </div>
+    </section>
+    <section class="tubiao-box">
+        <div class="tab" id="tab">
+            <ul class="dd clearfix">
+                <li class="current">流量监控</li>
+                <li>容器监控</li>
+                <li>服务监控</li>
+            </ul>
+            <div class="dt">
+                <ul class="clearfix">
+                    <li class="show">
+                        <div class="">
+                            <img src="{{projcfg.appurl}}/static/image/img2.png" height="240px">
+                        </div>
+                    </li>
+                    <li>
+                        <div>
+                            <img src="{{projcfg.appurl}}/static/image/img3.png">
+                        </div>
+                        <div class="clearfix">
+                            <div class="f-l"><img src="{{projcfg.appurl}}/static/image/img4.png"></div>
+                            <div class="f-l"><img src="{{projcfg.appurl}}/static/image/img5.png"></div>
+                            <div class="f-l"><img src="{{projcfg.appurl}}/static/image/img6.png"></div>
+                        </div>
+                        <div>
+                            <img src="{{projcfg.appurl}}/static/image/img7.png">
+                        </div>
+                        <div>
+                            <img src="{{projcfg.appurl}}/static/image/img8.png">
+                        </div>
+                        <div class="clearfix">
+                            <div class="f-l"><img src="{{projcfg.appurl}}/static/image/img9.png"></div>
+                            <div class="f-l"><img src="{{projcfg.appurl}}/static/image/img10.png"></div>
+                        </div>
+                    </li>
+                    <li>
+                        <div>
+                            <img src="{{projcfg.appurl}}/static/image/img11.png">
+                        </div>
+                    </li>
+                </ul>
+
+            </div>
+        </div>
+    </section>
+</div>
+
+<script>
+    window.onload = function () {
+        tab("tab");
+        function tab(id) {
+            var obj = document.getElementById(id);
+            var spans = obj.children[0].children;
+            var lis = obj.children[1].children[0].children;
+            for (var i = 0, len = spans.length; i < len; i++) {
+
+                spans[i].onclick = function (num) {
+                    return function () {
+                        for (var j = 0, len = spans.length; j < len; j++) {
+                            spans[j].className = "";
+                            lis[j].className = "";
+                        }
+                        spans[num].className = "current";
+                        lis[num].className = "show";
+                    }
+                }(i);
+            }
+        }
+    }
+
+</script>

@@ -511,17 +511,18 @@ function addParent(pv,j,parentId,projectId,cb){
 
 exports.refreshDeployedInfo = function(id, mesosId){
     var content_type="application/x-www-form-urlencoded";
+    console.log(mesosId);
     ng.get("http"+"://"+marathon_add+":"+marathon_port+"/v2/apps/"+mesosId,
         function (res_deploy, status, headers) {
             // console.log(protocol+"://"+marathon_add+":"+marathon_port+"/v2/apps");
-            console.log(status);
+            // console.log(status);
             if (status=="200") {
-                console.log(mesosId + "返回数据为:" + res_deploy);
+                // console.log(mesosId + "返回数据为:" + res_deploy);
                 var json = JSON.parse(res_deploy);//将拼接好的响应数据转换为json对象
                 // console.log(json);
                 if (json && json.app && json.app.tasks) {
                     //实例数为0 或者健康数为0
-                    if(json.app.tasks.length == 0 || json.app.tasksHealthy == 0){
+                    if(json.app.tasks.length != 0 || json.app.tasksHealthy == 0){
                         pool.getConnection(function (err, conn) {
                             if (err != null) {
                                 console.log(err.message);
@@ -531,8 +532,6 @@ exports.refreshDeployedInfo = function(id, mesosId){
                                 var cpus=json.app.cpus;
                                 var mem=json.app.mem;
                                 var instances=json.app.instances;
-
-
                                 var resources  = "实例:"+instances+"个<br>CPU:"+cpus+"个<br>内存:"+mem+"M";
                                 // var params = [];
                                 params.push(json.app.tasksHealthy);
@@ -548,7 +547,7 @@ exports.refreshDeployedInfo = function(id, mesosId){
                                         console.log(err);
                                         console.log("更新已部署应用健康度等信息异常");
                                     }else {
-                                        console.log(result);
+                                        // console.log(result);
                                         console.log("更新已部署应用健康度等信息成功");
                                     }
                                     conn.release();
@@ -580,6 +579,7 @@ exports.refreshDeployedInfo = function(id, mesosId){
                                 console.log("同步告警信息到高竞标失败");
                             }else{
                                 console.log("同步告警信息到高竞标成功");
+                                exports.httpGetContainerInfo(id, mesosId, "1", resources, taskId, host);
                             }
                         });
                     }else{//应用健康
@@ -605,7 +605,7 @@ exports.refreshDeployedInfo = function(id, mesosId){
                         console.log(status);
                         pool.getConnection(function (err, conn) {
                             if (status == "200") {
-                                console.log(mesosId + "返回数据为:" + res);
+                                // console.log(mesosId + "返回数据为:" + res);
                                 var json = JSON.parse(res);//将拼接好的响应数据转换为json对象
                                 // console.log(json);
                                 var apps = json.apps;
@@ -617,7 +617,7 @@ exports.refreshDeployedInfo = function(id, mesosId){
                                 for (var i in apps) {
 
                                     var app = apps[i];
-                                    console.log("=====================>  ", app);
+                                    // console.log("=====================>  ", app);
                                     instances += app.instances;
                                     cpus += (app.cpus)*(app.instances);
                                     mem +=(app.mem)*(app.instances);
@@ -674,6 +674,8 @@ exports.refreshDeployedInfo = function(id, mesosId){
 
 exports.httpGetContainerInfo = function(id, mesosId, status, resources,taskId, hostName){
     var params = [];
+    console.log(id,mesosId,status,resources,taskId,hostName);
+
     params.push(hostName);
     /*mysqlPool.query("select * from pass_operation_host_info where name=?",params,function(err,result){
         if(err || result == null || result.length == 0){
@@ -689,6 +691,7 @@ exports.httpGetContainerInfo = function(id, mesosId, status, resources,taskId, h
                 port:2375,
                 path:path
             };
+            console.log(options);
             http.get(options, function(res) {
                 console.log("Got response: " + res.statusCode);
                 res.setEncoding('utf8');
