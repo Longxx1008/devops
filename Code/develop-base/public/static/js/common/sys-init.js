@@ -166,6 +166,9 @@ function msgError(msg) {
 function msgSuccess(msg) {
     Notify(msg, 'bottom-right', '5000', 'success', 'fa-check', true);
 }
+function msgWarning(msg) {
+    Notify(msg, 'bottom-right', '5000', 'warning', 'fa-check', true);
+}
 function msgConfirm(msg, cb) {
     $.messager.confirm('提示', msg, function(result) {
         cb(result);
