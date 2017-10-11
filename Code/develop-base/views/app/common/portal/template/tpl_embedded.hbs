@@ -408,6 +408,28 @@
                     var html = "";
                     for (var i = 0; i < 3; i++) {
                         var itemInfo = rows[i];
+                        var value=itemInfo.information_type;
+                        if(value==1){
+                            itemInfo.information_type ="项目资料";
+                        }else if(value==2){
+                            itemInfo.information_type ="热门技术";
+                        }else if(value==3){
+                            itemInfo.information_type ="数据库";
+                        }else if(value==4){
+                            itemInfo.information_type ="编程语言";
+                        }else if(value==5){
+                            itemInfo.information_type ="大数据";
+                        }else if(value==6){
+                            itemInfo.information_type ="移动端";
+                        }else if(value==7){
+                            itemInfo.information_type ="开发工具";
+                        }else if(value==8){
+                            itemInfo.information_type ="需求";
+                        }else if(value==9){
+                            itemInfo.information_type ="测试";
+                        }else if(value==10){
+                            itemInfo.information_type ="运维";
+                        }
                         var item = ' <div class="row clearfix" style="border:1px solid rgba(102,102,102,0.3);">' +
                                 '<div class="col-md-12 column" style="margin-top: 16px;margin-bottom: 16px">' +
                                 '<div class="media">' +
@@ -416,24 +438,24 @@
                                 'class="media-object" style="width: 80px;height: 80px" alt=""/>' +
                                 '</a>' +
                                 ' <div class="media-body">' +
-                                '<h4 class="media-heading">' +
+                                '<h5 class="media-heading">' +
                                 itemInfo.information_title +
-                                '<span style="font-size: 14px;margin-left: 40px">' +
+                                '<span style="font-size: 12px;margin-left: 40px">' +
                                 itemInfo.information_issuer +
                                 '</span>' +
-                                '<span style="font-size: 14px;margin-left: 40px">' +
-                                itemInfo.information_create_time +
+                                '<span style="font-size: 12px;margin-left: 40px">' +
+                                itemInfo.information_create_time.replace(/T/,' ').replace('.000Z','') +
                                 '</span>' +
-                                '<span style="font-size: 14px;margin-left: 40px">' +
+                                '<span style="font-size: 12px;margin-left: 40px">' +
                                 itemInfo.information_type +
                                 '</span>' +
-                                '<span style="font-size: 12px;margin-right: 40px" class="pull-right">' +
+                                '<span style="font-size: 10px;margin-right: 40px" class="pull-right">' +"阅读量："+
                                 itemInfo.information_view_count +
                                 '</span>' +
-                                '</h4>' +
-                                '<h5 style="margin-top: 10px">' +
-                                itemInfo.information_introduce+' <a href="javascript:void(0);"  onclick="informationPageShow(\'' + i + '\') " >查看详情</a>' +
                                 '</h5>' +
+                                '<h6 style= " margin-top: 10px">' +
+                                itemInfo.information_introduce+' <a href="javascript:void(0);"  onclick="informationPageShow(\'' + i + '\') " >查看详情</a>' +
+                                '</h6>' +
                                 '</div>' +
                                 '</div>' +
                                 '</div>' +
@@ -449,10 +471,13 @@
             }
         });
     }
-    //more资料文库
+    //more更多资料文库
     function more_info_list(){
         window.location.href = "{{projcfg.appurl}}/informationBank";
     }
+    //资料文库查看文章详情
+
+    var listcontent;  //全局变量。用来存储文章数据，传递到查看详情的那个函数。
 
     //点击查看详情，跳转到informationShow这个页面的ajax，将id作为参数请求到相应路由获取文章详情。
     function informationPageShow(i) {
@@ -467,9 +492,6 @@
 
 
 
-    //资料文库查看文章详情
-
-    var listcontent;  //全局变量。用来存储文章数据，传递到查看详情的那个函数。
 
 
 
@@ -786,7 +808,8 @@
                         var temp = '<li style="cursor:pointer " onclick="systemScheduleDetails(\''
                                 + n._id
                                 + '\')">'
-                                + (i + 1) + "、" + n.schedule_name +'&nbsp&nbsp&nbsp&nbsp'+'&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp'+'&nbsp&nbsp&nbsp&nbsp'+'&nbsp&nbsp&nbsp&nbsp'+'&nbsp&nbsp&nbsp&nbsp'+'&nbsp&nbsp&nbsp&nbsp'+'&nbsp&nbsp&nbsp&nbsp'+'&nbsp&nbsp&nbsp&nbsp'+'&nbsp&nbsp&nbsp&nbsp'+'&nbsp&nbsp&nbsp&nbsp'+'&nbsp&nbsp&nbsp&nbsp'+'&nbsp&nbsp&nbsp&nbsp'+'&nbsp&nbsp&nbsp&nbsp'+'&nbsp&nbsp&nbsp&nbsp'+'&nbsp&nbsp&nbsp&nbsp'+'&nbsp&nbsp&nbsp&nbsp'+'&nbsp&nbsp&nbsp&nbsp'+'&nbsp&nbsp&nbsp&nbsp'+'&nbsp&nbsp&nbsp&nbsp'+'&nbsp&nbsp&nbsp&nbsp'+
+                                + (i + 1) + "、" + n.schedule_name
+                                +'&nbsp&nbsp&nbsp&nbsp'+'&nbsp&nbsp&nbsp&nbsp'+'&nbsp&nbsp&nbsp&nbsp'+'&nbsp&nbsp&nbsp&nbsp'+'&nbsp&nbsp&nbsp&nbsp'+'&nbsp&nbsp&nbsp&nbsp'+'&nbsp&nbsp&nbsp&nbsp'+'&nbsp&nbsp&nbsp&nbsp'+'&nbsp&nbsp&nbsp&nbsp'+'&nbsp&nbsp&nbsp&nbsp'+'&nbsp&nbsp&nbsp&nbsp'+'&nbsp&nbsp&nbsp&nbsp'+'&nbsp&nbsp&nbsp&nbsp'+'&nbsp&nbsp&nbsp&nbsp'+'&nbsp&nbsp&nbsp&nbsp'+
                                 new Date(n.schedule_create_time).format()+
                                 '</li>';
                         html += temp;

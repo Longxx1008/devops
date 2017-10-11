@@ -1,6 +1,7 @@
 <style>
     body {
         background-color: #f1f2f7;
+
     }
 
     .clearfix:after {
@@ -53,65 +54,16 @@
         position: relative;
     }
 
-    .name-box img {
-        float: left;
-        width: 25%;
-    }
+#backgroundSet {
 
-    .name-box h3 {
-        float: right;
-        font-size: 14px;
-        font-weight: bold;
-        color: #777777;
-        width: 70%
-    }
+    background: url('http://pic2.ooopic.com/12/00/27/08bOOOPICcd_1024.jpg')fixed center center no-repeat;
+    background-size: cover;
+    width: 100%;
+}
 
-    .name-box span {
-        width: 70%;
-        display: inline-block;
-        font-size: 12px;
-        color: #bbbbbb;
-        float: right;
-        text-align: justify;
-    }
 
-    .miaoshu {
-        margin-top: 10px;
-        font-size: 12px;
-        line-height: 20px;
-        color: #828282;
-        text-align: justify;
-        height: 100px;
-        overflow: hidden;
-    }
 
-    .image-type {
-        margin-top: 5px;
-        margin-left: 5px;
-        font-size: 12px;
-        line-height: 20px;
-        color: #828282;
-        text-align: justify;
-        overflow: hidden;
-    }
 
-    .box-bottom {
-        position: absolute;
-        left: 0;
-        padding-left: 20px;
-        bottom: 10px;
-        width: 100%;
-    }
-
-    .box-bottom i {
-        font-size: 12px;
-        text-decoration: none;
-        float: right;
-        display: inline-block;
-        margin-left: 10px;
-        margin-right: 25px;
-        color: #828282;
-    }
 </style>
 
 
@@ -124,8 +76,8 @@
 
                 <div id="cc" class="easyui-layout" data-options="fit:true,border:false"
                      style="width: 800px; height:5005px;background-color: #fbfbfb;">
-                    <div  data-options="region:'center',border:false"
-                         style="overflow-x:hidden;overflow-y:hidden; padding-left:120px;padding-right:120px;padding-bottom:80px;padding-top:20px;background-image: url('http://pic2.ooopic.com/12/00/27/08bOOOPICcd_1024.jpg');">
+                    <div id="backgroundSet" data-options="region:'center',border:false"
+                         style="overflow-x:hidden;overflow-y:hidden; padding-left:140px;padding-right:140px;padding-bottom:80px;padding-top:20px;">
 
                         <div style="width:100%;height: 100%;background-color: #fbfbfb">
 
@@ -191,7 +143,8 @@
                 $('#infoDetail').append(item.information_content);
                 $('#title').append(item.information_title);
                 $('#information_issuer').append(item.information_issuer);
-                $('#information_create_time').append(item.information_create_time);
+                $('#information_create_time').append(item.information_create_time.replace(/T/,' ').replace('.000Z','')
+            );
                 $('#information_view_count').append(item.information_view_count);
             }
             else {
@@ -201,21 +154,7 @@
     });
 
 
-    Date.prototype.Format = function (fmt) { //author: meizz
-        var o = {
-            "M+": this.getMonth() + 1, //月份
-            "d+": this.getDate(), //日
-            "h+": this.getHours(), //小时
-            "m+": this.getMinutes(), //分
-            "s+": this.getSeconds(), //秒
-            "q+": Math.floor((this.getMonth() + 3) / 3), //季度
-            "S": this.getMilliseconds() //毫秒
-        };
-        if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
-        for (var k in o)
-            if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
-        return fmt;
-    }
+
 
 function getListByType() {
     window.location.href = "{{projcfg.appurl}}/informationBank";

@@ -209,17 +209,17 @@
                         <div>
                             <ul class="nav navbar-nav">
                                 <li><a href="javascript:void(0);" onclick="getListByType('')">全部</a></li>
-                                <li><a href="javascript:void(0);" onclick="getListByType('项目资料')">项目资料</a></li>
-                                <li><a href="javascript:void(0);" onclick="getListByType('热门技术')">热门技术</a></li>
-                                <li><a href="javascript:void(0);" onclick="getListByType('数据库')">数据库</a></li>
-                                <li><a href="javascript:void(0);" onclick="getListByType('编程语言')">编程语言</a></li>
-                                <li><a href="javascript:void(0);" onclick="getListByType('大数据')">大数据</a></li>
-                                <li><a href="javascript:void(0);" onclick="getListByType('移动端')">移动端</a></li>
+                                <li><a href="javascript:void(0);" onclick="getListByType('1')">项目资料</a></li>
+                                <li><a href="javascript:void(0);" onclick="getListByType('2')">热门技术</a></li>
+                                <li><a href="javascript:void(0);" onclick="getListByType('3')">数据库</a></li>
+                                <li><a href="javascript:void(0);" onclick="getListByType('4')">编程语言</a></li>
+                                <li><a href="javascript:void(0);" onclick="getListByType('5')">大数据</a></li>
+                                <li><a href="javascript:void(0);" onclick="getListByType('6')">移动端</a></li>
 
-                                <li><a href="javascript:void(0);" onclick="getListByType('开发工具')">开发工具</a></li>
-                                <li><a href="javascript:void(0);" onclick="getListByType('需求')">需求</a></li>
-                                <li><a href="javascript:void(0);" onclick="getListByType('测试')">测试</a></li>
-                                <li><a href="javascript:void(0);" onclick="getListByType('运维')">运维</a></li>
+                                <li><a href="javascript:void(0);" onclick="getListByType('7')">开发工具</a></li>
+                                <li><a href="javascript:void(0);" onclick="getListByType('8')">需求</a></li>
+                                <li><a href="javascript:void(0);" onclick="getListByType('9')">测试</a></li>
+                                <li><a href="javascript:void(0);" onclick="getListByType('10')">运维</a></li>
                             </ul>
 
                             <form class="navbar-form navbar-right" role="search">
@@ -336,7 +336,29 @@
                     var html = "";
                     for (var i = 0; i < rows.length; i++) {
                         var itemInfo = rows[i];
-                        var item = '<div class="row clearfix" style="border:1px solid rgba(102,102,102,0.3);">' +
+                        var value=itemInfo.information_type;
+                        if(value==1){
+                            itemInfo.information_type ="项目资料";
+                        }else if(value==2){
+                            itemInfo.information_type ="热门技术";
+                        }else if(value==3){
+                            itemInfo.information_type ="数据库";
+                        }else if(value==4){
+                            itemInfo.information_type ="编程语言";
+                        }else if(value==5){
+                            itemInfo.information_type ="大数据";
+                        }else if(value==6){
+                            itemInfo.information_type ="移动端";
+                        }else if(value==7){
+                            itemInfo.information_type ="开发工具";
+                        }else if(value==8){
+                            itemInfo.information_type ="需求";
+                        }else if(value==9){
+                            itemInfo.information_type ="测试";
+                        }else if(value==10){
+                            itemInfo.information_type ="运维";
+                        }
+                        var item = '<div class="row clearfix" style="border:1px solid rgba(102,102,102,0.3); margin-left: 70px; margin-right: 70px">' +
                                 '<div class="col-md-12 column" style="margin-top: 16px;margin-bottom: 16px">' +
                                 '<h5 style="font-size: 14px;margin-left: 10px;color: rgba(10,10,10,0.5)">' +
                                 '文章分类：' + itemInfo.information_type +
@@ -347,7 +369,7 @@
                                 '<div class="media">' +
                                 '<a href="#" class="pull-left">' +
                                 '<img src="data:' + itemInfo.information_picture_type + ';base64 ,' + itemInfo.information_picture + '"' +
-                                'class="media-object" style="width: 140px;height: 100px" alt=""/>' +
+                                'class="media-object" style="width: 78px;height: 78px" alt=""/>' +
                                 '</a>' +
                                 '<div class="media-body">' +
                                 '<h4 class="media-heading">' +
@@ -363,8 +385,7 @@
                                 ' </div>' +
                                 '</div>' +
                                 ' <h5 style="vertical-align: bottom;margin-bottom: 10px;margin-right: 40px" class="pull-right">' +
-                                '<span style="font-size: 14px;">' + itemInfo.information_create_time +
-                                '</span>' +
+                                '<span style="font-size: 14px;">' + itemInfo.information_create_time.replace(/T/,' ').replace('.000Z','')+ '</span>' +
                                 '<span style="font-size: 12px;margin-left: 80px" class="pull-right">' + '浏览数：' + itemInfo.information_view_count +
                                 '</span>' +
                                 ' </h5>' +
@@ -385,7 +406,7 @@
     //点击查看详情，跳转到informationShow这个页面的ajax，将id作为参数请求到相应路由获取文章详情。
     function informationPageShow(i) {
 
-        if(listcontent[i].information_link!=null&&listcontent[i].information_link!=""){
+        if((listcontent[i].information_link!=null&&listcontent[i].information_link!="")||listcontent[i].information_link!=0){
             window.open(listcontent[i].information_link);
         }else {
             window.location.href = "{{projcfg.appurl}}/informationShow?id="+listcontent[i].id;
