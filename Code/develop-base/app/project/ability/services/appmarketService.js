@@ -6,7 +6,7 @@ var mysqlPool = require('../../utils/mysql_pool');
  * @param cb
  */
 exports.getRecommend = function(cb) {
-    var sql = " SELECT * from pass_develop_image_info where recommend=1";
+    var sql = " SELECT * from pass_develop_image_info where catagory='sys'";
     console.log("获取推荐应用 ====",sql);
     mysqlPool.query(sql, function(err,results) {
         if(err) {
@@ -22,7 +22,7 @@ exports.getRecommend = function(cb) {
  * @param cb
  */
 exports.getHot = function(cb) {
-    var sql = " SELECT * from pass_develop_image_info where collectionNumber>10";
+    var sql = " SELECT * from pass_develop_image_info where catagory='web'";
     console.log("获取热门应用 ====",sql);
     mysqlPool.query(sql, function(err,results) {
         if(err) {

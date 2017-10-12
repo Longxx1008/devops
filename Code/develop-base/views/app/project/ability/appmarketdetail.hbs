@@ -14,33 +14,28 @@
 
             <li>
                 <img src="" alt="" id="ititle">
-                <h1 id="title" style="display: block"></h1>
-                <p style="display: block;margin-top: 30px">系统类别：<span id="type"></span></p>
-                <p style="display: block;margin-top: 30px">收藏数：<span id="collection"></span></p>
-                <p style="display: block;margin-top: 30px">下载数：<span id="download"></span></p>
+                <h1 id="title" style="display: block;font-size: 12px;color: #444444"></h1>
+                <p style="display: block;margin-top: 30px;font-size: 12px;color: #444444">系统类别：<span id="type"></span></p>
+                <p style="display: block;margin-top: 50px;font-size: 12px;color: #444444">收藏数：<span id="collection"></span></p>
+                <p style="display: block;margin-top: 50px;font-size: 12px;color: #444444">下载数：<span id="download"></span></p>
+                <p style="display: block;margin-top: 50px" id="jietu"><a href="javascript:void(0)" style="font-size: 12px;color: #444444;font-weight: normal">应用截图</a></p>
+                <p style="display: block;margin-top: 50px" id="shuoming"><a href="javascript:void(0)" style="font-size: 12px;color: #444444;font-weight: normal">安装说明</a></p>
+                <p style="display: block;margin-top: 50px" id="wendang"><a href="javascript:void(0)" style="font-size: 12px;color: #444444;font-weight: normal">接口文档</a></p>
+                <p style="display: block;margin-top: 50px" id="gengxin"><a href="javascript:void(0)" style="font-size: 12px;color: #444444;font-weight: normal">版本更新</a></p>
             </li>
         </ul>
         <div class="f-l soft-content">
             <h2 id="title1"></h2>
+            <h2>供应商:贵州中移通信技术工程有限公司</h2>
             <p class="concent" id="content">
-               		  </p>
-         <!--   <section>
-                <h3>展示内容：</h3>
-                <p>*商圈人流量展示 </p>
-                <p>*商圈人流量人流量展示 </p>
-                <p>*商圈人流量展示 </p>
-                <p>*商圈人流量圈人流量圈人流量展示 </p>
-                <p>*商圈人流量圈人流量展示 </p>
-                <p>*商圈人量展示 </p>
-                <p>......</p>
-                <p>&nbsp;</p>
-                <p>&nbsp;</p>
-            </section>-->
-        </div>
+            </p>
+            </div>
 
-        <div class="scal-img" style="margin-top: 150px">
 
-            <h2 style="padding-left:10px;">应用截图</h2>
+
+        <div class="scal-img" style="margin-top: 150px" id="display">
+            <a href="javascript:void(0)"><img src="{{projcfg.appurl}}/static/css/dianzan.png" />点赞</a><a href="javascript:void(0)"><img src="{{projcfg.appurl}}/static/css/shoucang.png" />收藏</a>
+            <h2 style="padding-left:10px;margin-top: 20px">应用截图</h2>
             <div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="2000" style="margin-left: 10px;">
                 <!-- 轮播（Carousel）指标 -->
                 <ol class="carousel-indicators">
@@ -63,13 +58,17 @@
             </div>
         </div>
     </div>
-    <footer>
-	    <p>版权所有:中国移动通信集团贵州有限公司</p>
-	    <p>技术支持:贵州移动公司网络部 &nbsp;&nbsp;贵州中移通信技术工程有限公司<p>
-	</footer>
             </div>
         </div></div></div>
     <script>
+        var p1,shuoming;
+        $("#shuoming").click(function(){
+            $("#display").html('<a href="javascript:void(0)"><img src="{{projcfg.appurl}}/static/css/dianzan.png" />点赞</a><a href="javascript:void(0)"><img src="{{projcfg.appurl}}/static/css/shoucang.png" />收藏</a><h2 style="padding-left:10px;margin-top:20px">安装说明</h2><div style="padding-left:10px;">'+shuoming+'</div>');
+        });
+        $("#jietu").click(function(){
+            $("#display").html('<a href="javascript:void(0)"><img src="{{projcfg.appurl}}/static/css/dianzan.png" />点赞</a><a href="javascript:void(0)"><img src="{{projcfg.appurl}}/static/css/shoucang.png" />收藏</a><h2 style="padding-left:10px;margin-top:20px">应用截图</h2><div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="2000" style="margin-left: 10px;"><ol class="carousel-indicators"><li data-target="#myCarousel" data-slide-to="0" class="active"></li><li data-target="#myCarousel" data-slide-to="1"></li><li data-target="#myCarousel" data-slide-to="2"></li></ol><div class="carousel-inner"><div class="item active"><img src="" alt="" class="images"></div></div></div>')
+            $(".images").attr("src",p1);
+        })
         //页面直接跳转页面带参数时，获取url参数值
         function GetRequest() {
             var values = [];
@@ -110,8 +109,9 @@
                     $("#content").html(data.data[0].simpleIntroduction);
                     var p = 'data:'+data.data[0].pictureType+';base64 ,'+data.data[0].picture;
                     $("#ititle").attr("src",p);
-                    var p1='data:'+data.data[0].pictureType+';base64 ,'+data.data[0].appPicture;
+                    p1='data:'+data.data[0].pictureType+';base64 ,'+data.data[0].appPicture;
                     $(".images").attr("src",p1);
+                    shuoming=data.data[0].installnotify;
                 }
             })
         })
