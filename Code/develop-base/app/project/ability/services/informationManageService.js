@@ -6,7 +6,7 @@ var mysqlPool = require('../../utils/mysql_pool');
 
 
 exports.add=function(data,cb){
-    var sql="insert into pass_develop_information_info(information_title,information_issuer_id,information_issuer,information_create_time,information_view_count,information_type,information_content,information_picture_name,information_link,information_status,information_introduce,information_picture_type,information_picture) values(?,?,?,?,?,?,?,?,?,?,?,?) ";
+    var sql="insert into pass_develop_information_info(information_title,information_issuer_id,information_issuer,information_create_time,information_view_count,information_type,information_content,information_picture_name,information_link,information_status,information_introduce,information_picture_type,information_picture) values(?,?,?,?,?,?,?,?,?,?,?,?,?) ";
     mysqlPool.query(sql,data,function(err){
         if(err) {
             cb(utils.returnMsg(false, '1000', '上传文章失败', null, err));
@@ -81,5 +81,4 @@ exports.getInformationManageUpdate=function(page, size, data, cb) {
                     cb({'rows':results,'success':"成功查询"});
                 }
             });
-    // utils.pagingQuery4Eui_mysql(sql,orderBy, page, size, conditions, cb);
 };

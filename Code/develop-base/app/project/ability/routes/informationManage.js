@@ -76,7 +76,6 @@ router.route('/')
                     //进到这里了，能拿到文件
                     information_title=fields.inputInformationTitle;
                     information_type=fields.inputInformationType;
-                    console.log('========类型测试======',fields);
                     information_content=fields.information_content;
                     id=fields.value;
                     information_link=fields.inputInformationLink;
@@ -112,7 +111,6 @@ router.route('/')
                             data_add.push(information_introduce);
                             data_add.push(information_picture_type);
                             data_add.push(information_picture);
-                            // res.send('yes');
                             if(id){
                                 data_update.push(information_title);
                                 data_update.push(information_type);
