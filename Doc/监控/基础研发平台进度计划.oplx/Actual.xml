@@ -55,6 +55,7 @@
     <child-resource idref="r4"/>
     <child-resource idref="r6"/>
     <child-resource idref="r7"/>
+    <child-resource idref="r8"/>
   </resource>
   <resource id="r1">
     <name>文安国</name>
@@ -78,6 +79,10 @@
   </resource>
   <resource id="r7">
     <name>宋子秀</name>
+    <type>Staff</type>
+  </resource>
+  <resource id="r8">
+    <name>刘佳莉</name>
     <type>Staff</type>
   </resource>
   <top-task idref="t-1"/>
@@ -209,12 +214,12 @@
   <task id="t45">
     <title>能力开放</title>
     <type>group</type>
-    <start-constraint-date>2017-10-09T00:00:00.000Z</start-constraint-date>
+    <start-constraint-date>2017-10-07T16:00:00.000Z</start-constraint-date>
     <child-task idref="t47"/>
     <child-task idref="t48"/>
     <child-task idref="t49"/>
-    <prerequisite-task idref="t40"/>
-    <start-no-earlier-than>2017-10-09T00:00:00.000Z</start-no-earlier-than>
+    <child-task idref="t84"/>
+    <start-no-earlier-than>2017-10-07T16:00:00.000Z</start-no-earlier-than>
   </task>
   <task id="t46">
     <title>服务管理</title>
@@ -227,14 +232,14 @@
   </task>
   <task id="t47">
     <title>镜像仓库</title>
-    <effort>28800</effort>
+    <effort>86400</effort>
     <start-constraint-date>2017-09-26T00:00:00.000Z</start-constraint-date>
     <assignment idref="r2"/>
     <start-no-earlier-than>2017-09-26T00:00:00.000Z</start-no-earlier-than>
   </task>
   <task id="t48">
     <title>镜像详情</title>
-    <effort>28800</effort>
+    <effort>86400</effort>
     <start-constraint-date>2017-09-26T00:00:00.000Z</start-constraint-date>
     <prerequisite-task idref="t47"/>
     <assignment idref="r2"/>
@@ -242,7 +247,7 @@
   </task>
   <task id="t49">
     <title>应用市场</title>
-    <effort>28800</effort>
+    <effort>86400</effort>
     <start-constraint-date>2017-10-11T00:00:00.000Z</start-constraint-date>
     <prerequisite-task idref="t48"/>
     <assignment idref="r2"/>
@@ -278,6 +283,7 @@
     <type>group</type>
     <start-constraint-date>2017-09-26T00:00:00.000Z</start-constraint-date>
     <child-task idref="t59"/>
+    <child-task idref="t79"/>
     <prerequisite-task idref="t54"/>
     <start-no-earlier-than>2017-09-26T00:00:00.000Z</start-no-earlier-than>
   </task>
@@ -373,6 +379,40 @@
     <prerequisite-task idref="t66"/>
     <assignment idref="r1"/>
     <start-no-earlier-than>2017-09-26T00:00:00.000Z</start-no-earlier-than>
+  </task>
+  <task id="t79">
+    <title>实时流处理</title>
+    <type>group</type>
+    <start-constraint-date>2017-09-29T00:00:00.000Z</start-constraint-date>
+    <child-task idref="t81"/>
+    <child-task idref="t80"/>
+    <child-task idref="t82"/>
+    <start-no-earlier-than>2017-09-29T00:00:00.000Z</start-no-earlier-than>
+  </task>
+  <task id="t80">
+    <title>storm安装调试</title>
+    <effort>28800</effort>
+    <start-constraint-date>2017-09-29T00:00:00.000Z</start-constraint-date>
+    <start-no-earlier-than>2017-09-29T00:00:00.000Z</start-no-earlier-than>
+  </task>
+  <task id="t81">
+    <title>HDFS安装调试</title>
+    <effort>28800</effort>
+    <start-constraint-date>2017-09-29T00:00:00.000Z</start-constraint-date>
+    <start-no-earlier-than>2017-09-29T00:00:00.000Z</start-no-earlier-than>
+  </task>
+  <task id="t82">
+    <title>spark安装调试</title>
+    <effort>28800</effort>
+    <start-constraint-date>2017-09-29T00:00:00.000Z</start-constraint-date>
+    <start-no-earlier-than>2017-09-29T00:00:00.000Z</start-no-earlier-than>
+  </task>
+  <task id="t84">
+    <title>网站首页</title>
+    <effort>86400</effort>
+    <start-constraint-date>2017-10-11T00:00:00.000Z</start-constraint-date>
+    <assignment idref="r8"/>
+    <start-no-earlier-than>2017-10-11T00:00:00.000Z</start-no-earlier-than>
   </task>
   <critical-path root="-1" enabled="false" resources="false">
     <color r="1" g="0.5" b="0.5"/>
