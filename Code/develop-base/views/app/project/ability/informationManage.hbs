@@ -18,7 +18,7 @@
                     </div>
                     <div class="col-xs-6 col-md-6 text-right">
                         <form class="form-inline">
-                            <div class="form-group">
+                            <div class="form-group" style="display: none">
                                 <div class="input-group">
                                     <label for="inputSystemInformationIssuer">发布人：</label>
                                     <select class="easyui-combobox" id="inputSystemInformationIssuer" style="width:100px;height:34px;">
@@ -65,70 +65,72 @@
             <div>
                 <!-- 下面的enctype属性-->
                 <form enctype="multipart/form-data" class="form-horizontal form-bordered" id="systemInformation_Form" role="form" method="post">
-                    <div class="form-group">
-                            <label for="Information" class="col-sm-2 control-label no-padding-right">上传形式：</label>
-                            <select class="easyui-combobox" id="Information" style="width:100px;height:34px;margin-right: 5px;">
-                                <option value="1">手动编辑</option>
-                                <option value="2">链接分享</option>
+                    <div class="form-group"  >
+                        <div class="col-sm-4">
+                            <label for="inputInformationTitle" class="col-sm-2 control-label no-padding-right">标题</label>
+                            <div class="col-sm-10 " >
+                            <input id="inputInformationTitle" style="width:100%;height:31px;" type="text" name="inputInformationTitle" class="easyui-validatebox easyui-textbox form-control" data-options="required:true,validType:'length[1,16]'">
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <label for="inputInformationType" class="col-sm-2 control-label no-padding-right">类型 </label>
+                            <div class="col-sm-10">
+                                <select class="easyui-combobox" id="inputInformationType" style="height: 31px;width:100%;">
+                                    <option value="1">项目资料</option>
+                                    <option value="2">热门技术</option>
+                                    <option value="3">数据库</option>
+                                    <option value="4">编程语言</option>
+                                    <option value="5">大数据</option>
+                                    <option value="6">移动端</option>
+                                    <option value="7">开发工具</option>
+                                    <option value="8">需求</option>
+                                    <option value="9">测试</option>
+                                    <option value="10">运维</option>
                             </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="inputInformationTitle" class="col-sm-2 control-label no-padding-right">文章标题</label>
-                        <div class="col-sm-10">
-                            <input id="inputInformationTitle" style="width:60%;height:31px;" type="text" name="inputInformationTitle" class="easyui-validatebox form-control" data-options="required:true" placeholder="文章标题不超过16个字符">
                         </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="inputInformationType" class="col-sm-2 control-label no-padding-right">文章类型 </label>
-                        <select class="easyui-combobox" id="inputInformationType" style="width:45%;height:31px;">
-                            <option value="1">项目资料</option>
-                            <option value="2">热门技术</option>
-                            <option value="3">数据库</option>
-                            <option value="4">编程语言</option>
-                            <option value="5">大数据</option>
-                            <option value="6">移动端</option>
-                            <option value="7">开发工具</option>
-                            <option value="8">需求</option>
-                            <option value="9">测试</option>
-                            <option value="10">运维</option>
-                        </select>
-                    </div>
-                    <!--<div class="form-group">-->
-                        <!--<label for="inputInformationType" class="col-sm-2 control-label no-padding-right">文章类型</label>-->
-                        <!--<div class="col-sm-10">-->
-                            <!--<input id="inputInformationType" style="width:60%;height:31px;" type="text" name="inputInformationType" class="easyui-validatebox form-control" data-options="required:true" placeholder="请选择文章类型">-->
-                        <!--</div>-->
-                    <!--</div>-->
-                    <div class="form-group">
-                        <label for="inputInformationImage" class="col-sm-2 control-label no-padding-right">封面图片</label>
-                        <div class="col-sm-10">
-                            <input id="inputInformationImage" style="width:60%;height:31px;" type="text" name="inputInformationImage" placeholder="请输入图片路径">
                         </div>
-                    </div>
-                    <div id="inputInformationImageShow" class="form-group" hidden="true">
-
+                        <div class="col-sm-4">
+                            <label for="inputInformationImage" class="col-sm-2 control-label no-padding-right">图片</label>
+                            <div class="col-sm-10">
+                                <input id="inputInformationImage" style="width:100%;height:31px;" type="text" name="inputInformationImage" placeholder="封面图片">
+                            </div>
+                        </div>
                     </div>
                     <div class="form-group" >
-                        <label for="inputInformationBrief" class="col-sm-2 control-label no-padding-right">文章简介</label>
-                        <div class="col-sm-10">
-                            <input id="inputInformationBrief" style="width:60%;height:31px;" type="text" name="inputInformationBrief" class="easyui-validatebox form-control" data-options="required:true" placeholder="请编辑文章简介">
+                        <div class="col-sm-4">
+                            <!--<label for="Information" class="col-sm-4" style="margin-top: 8px">上传形式</label>-->
+                            <label for="Information" class="col-sm-2 no-padding-right" >上传形式</label>
+                            <div class="col-sm-10" >
+                                <select class="easyui-combobox" id="Information" style="width:100%;height:31px;">
+                                    <option value="1">手动编辑</option>
+                                    <option value="2">链接分享</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div id="inputInformationImageShow" class="col-sm-4" hidden="true">
+
+                        </div>
+                        <div class="col-sm-4">
+                            <label for="inputInformationBrief" class="col-sm-2 control-label no-padding-right">简介</label>
+                            <div class="col-sm-10">
+                                <input id="inputInformationBrief" style="width:100%;height:31px;" type="text" name="inputInformationBrief" class="easyui-validatebox easyui-textbox form-control" data-options="required:true,validType:'length[1,250]'">
+                            </div>
                         </div>
                     </div>
-                    <div class="form-group" id="Info" style="display: none">
-                        <label for="inputInformationLink" class="col-sm-2 control-label no-padding-right">文章链接</label>
+                    <div  id="Info" style="display: none;">
+                        <label for="inputInformationLink" class="col-sm-2" style="margin-top: 5px;margin-left: 5px">文章链接</label>
+                    <div class="form-group">
                         <div class="col-sm-10">
-                            <input id="inputInformationLink" style="width:60%;height:31px;" type="text" name="inputInformationLink" class="easyui-validatebox form-control" placeholder="请输入文章链接">
+                            <input id="inputInformationLink" style="width:100%;height:31px;margin-left: 60px;" type="text" name="inputInformationLink" class="easyui-validatebox form-control" data-options="validType:'url'">
                         </div>
                     </div>
-                    <!--<div class="form-group">
-                    <label for="inputInformationFile" class="col-sm-2 control-label no-padding-right">文档</label>
-                    <div class="col-sm-10">
-                        <input id="inputInformationFile" style="width:60%;height:31px;" type="file" name="inputInformationFile" class="easyui-validatebox form-control" data-options="required:true" placeholder="">
                     </div>
-                </div>-->
-                    <div class="form-group" id="edit">
-                        <label class="col-sm-2 control-label no-padding-right">文章内容</label>
-                        <div class="col-sm-10" >
+                    <div  id="edit">
+                    <label class="col-sm-2 no-padding-right" style="padding-top: 5px">文章内容</label>
+                    <div class="form-group" >
+                        <!--<div class="col-sm-2">-->
+                    <!--</div>-->
+                        <div class="col-sm-12" >
                             <!-- 加载编辑器的容器-->
                             <script id="container" type="text/plain"></script>
                             <!-- 配置文件-->
@@ -138,18 +140,23 @@
                             <!-- 实例化编辑器-->
                             <script type="text/javascript">
                                 var ue = UE.getEditor('container',{
-                                    initialFrameWidth : 600,
-                                    initialFrameHeight: 400
+                                    initialFrameWidth : null,
+                                    initialFrameHeight: 450
                                 });
                             </script>
                         </div>
+                    </div>
                     </div>
                 </form>
             </div>
         </div>
     </div>
 </div>
-
+<style>
+    .form-1{
+    margin-left:-15px;
+}
+</style>
 
 <script >
     function initInformationManage(){
@@ -220,13 +227,15 @@
     });
     function toAdd(){
         clear();
+//        $('#inputInformationType').combobox('setValue',1);
         ue.setContent('');
-        openPage("新增文章",null,doAddtest);
+        openPage("新增文章",null,doAdd);
     }
     // 打开页面
     function openPage(title, value, callback) {
         $('#systemInformation_Modal').show();
-        change();
+//        $('#Information').combobox('setValue',1);
+        change();//该方法将会影响此处赋值$('#Information').combobox('setValue',1);
         $("#inputInformationImage").filebox({
             buttonText:'选择图片',
             buttonAlign:'left',
@@ -246,7 +255,7 @@
                     btnCls:'btn btn-blue',
                     handler:function(){
                         callback(value);
-                        closeDialog();
+//                        closeDialog();
                     }
 
                 },
@@ -269,14 +278,15 @@
     function closeDialog() {
         $('#systemInformation_Modal').dialog('close');
     }
-    function doAddtest() {
+    function doAdd() {
         var id=$('#systemInformation_Modal');
-        bootbox.confirm('确定添加该条数据？',function(result) {
-            if(result) {
+//        bootbox.confirm('确定添加该条数据？',function(result) {
+//            if(result) {
                 $('#systemInformation_Form').form("submit", {
                     url: '{{projcfg.appurl}}/api/project/ability/informationManage',
                     queryParams: {
-                        inputInformationType:$('#inputInformationType').combobox('getValue')
+                        inputInformationType:$('#inputInformationType').combobox('getValue'),
+                        information_content: ue.getContent(),
                     },
                     onSubmit: function () {
                         var validate = $(this).form('validate');
@@ -284,15 +294,44 @@
                         if (!validate) {
                             return false;
                         }
-                        if ($('#inputInformationImage').filebox('getValue').trim() == '') {
-                            console.log('请选择图片')
-                            $('#inputInformationImage').focus()
+//                        var title=$('#inputInformationTitle').val();
+//                        if(title.length>16){
+//                            msgError("标题不能超过16个字符");
+//                            $('#inputInformationTitle').focus();
+//                            return false;
+//                        }
+                        if(!$('#inputInformationType').combobox('getValue')){
+                            msgError("请选择文章类型");
+                            $('#inputInformationType').combobox().next('span').find('input').focus();
                             return false;
                         }
-                        else
+                        if ($('#inputInformationImage').filebox('getValue').trim() == '') {
+                            console.log('请选择图片')
+                            $('#inputInformationImage').filebox().next('span').find('input').focus().css("background-color","#FF0000");
+                            return false;
+                        }
+                        else {
                             console.log('已经选择图片')
+                        }
+//                        var introduce=$('#inputInformationBrief').val();
+//                        if(introduce.length>250){
+//                            msgError("简介不能超过250个字符");
+//                            $('#inputInformationBrief').focus();
+//                            return false;
+//                        }
+//                        对需要隐藏的元素单独做验证处理
+                        var selected=$('#Information').combobox('getValue');
+                        if(selected==1 && ue.getContent()==''){
+                            msgError("请输入文章内容");
+                            return false;
+                        }else if(selected==2 && $('#inputInformationLink').val()==''){
+                            msgError("请输入分享的文章链接");
+                            $('#inputInformationLink').focus();
+                            return false;
+                        }
                     },
                     success: function (data) {
+                        console.log('===',data);
                         data = JSON.parse(data)
                         if (data.success) {
                             msgSuccess(data.msg);
@@ -303,8 +342,8 @@
                         }
                     }
                 });
-            }
-        });
+//            }
+//        });
     };
     function toEdit(){
         // 获得选择行
@@ -326,7 +365,7 @@
                     //------显示打开的页面数据----
                     $('#inputInformationTitle').val(data.rows[0].information_title);
                     $('#inputInformationType').combobox('setValue',data.rows[0].information_type);
-                    $("#inputInformationImageShow").show().html('<label for="inputInformationImageShow" class="col-sm-2 control-label no-padding-right">原图:</label><div class="col-sm-10"><img src="data:'+data.rows[0].pictureType+";base64 ,"+data.rows[0].information_picture+'"  style="height:35px;width:35px"></div>');
+                    $("#inputInformationImageShow").show().html('<label for="inputInformationImageShow" class="col-sm-2 control-label no-padding-right">原图</label><div class="col-sm-4"><img src="data:'+data.rows[0].pictureType+";base64 ,"+data.rows[0].information_picture+'"  style="height:35px;width:35px"></div>');
                     $('#inputInformationBrief') .val(data.rows[0].information_introduce);
                     console.log('========================',data.rows[0].information_link);
                     if(data.rows[0].information_link){
@@ -362,6 +401,20 @@
                         if (!validate) {
                             return false;
                         }
+                        if(!$('#inputInformationType').combobox('getValue')){
+                            msgError("请选择文章类型");
+                            $('#inputInformationType').combobox().next('span').find('input').focus();
+                            return false;
+                        }
+
+                        if ($('#inputInformationImage').filebox('getValue').trim() == '') {
+                            console.log('请选择图片')
+                            $('#inputInformationImage').filebox().next('span').find('input').focus().css("background-color","#FF0000");
+                            return false;
+                        }
+                        else {
+                            console.log('已经选择图片')
+                        }
 //                        对需要隐藏的元素单独做验证处理
                         var selected=$('#Information').combobox('getValue');
                         if(selected==1 && ue.getContent()==''){
@@ -369,16 +422,10 @@
                             return false;
                         }else if(selected==2 && $('#inputInformationLink').val()==''){
                             msgError("请输入分享的文章链接");
+                            $('#inputInformationLink').focus();
                             return false;
                         }
 
-                        if ($('#inputInformationImage').filebox('getValue').trim() == '') {
-                            console.log('请选择图片')
-                            $('#inputInformationImage').focus()
-                            return false;
-                        }
-                        else
-                            console.log('已经选择图片')
                     },
                     success: function (data) {
                         data = JSON.parse(data)
@@ -438,20 +485,18 @@
         });
     }
     function change(){
-        $('#Information').combobox({
+        $('#Information').combobox(
+            {
             onSelect: function(date){
+                console.log('=====date=',date);
                 var beBaptized=$('#Information').combobox('getValue');
                 if(beBaptized!='2'){
                     //1 未受洗 2 已受洗 3 未填
                     console.log('=====================');
-                    $('#addBaptizedDate').combobox('disable');
-                    $('#addBaptizedChurch').combobox('disable');
                     document.getElementById('Info').style.display='none';
                     document.getElementById('edit').style.display='block';
 
                 }else{
-                    $('#addBaptizedDate').combobox('enable');
-                    $('#addBaptizedChurch').combobox('enable');
                     document.getElementById('Info').style.display='block';
                     document.getElementById('edit').style.display='none';
                 }

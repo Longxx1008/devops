@@ -59,8 +59,9 @@
                                     <button type="button" class="btn btn-default" onclick="showProjectMembers()" data-title="项目成员">
                                         <i class="fa fa-user"></i> 项目成员
                                     </button>
-                                    <button type="button" class="btn btn-default" onclick="toDeploy('deployDialog','灰度部署','',doDeploy)"  data-title="一键部署">
+                                    <button type="button" class="btn btn-default" onclick="toDeployDetail()"  data-title="一键部署">
                                         <i class="fa fa-edit"></i> 灰度部署
+                                        <!--onclick="toDeploy('deployDialog','灰度部署','',doDeploy)"-->
                                     </button>
                                     <!--<button type="button" class="btn btn-default" onclick="toDeploy('deployDialog','一键部署','',doDeploy)"  data-title="一键部署">-->
                                         <!--<i class="fa fa-edit"></i> 一键部署-->
@@ -431,7 +432,18 @@
         });
         openPage('deployDialog','deployForm','应用部署', '', doDeploy);
     }
-
+    function toDeployDetail(){
+        var rowdata = $('#projectDataTable').datagrid("getChecked");
+        console.info(rowdata);
+        if(rowdata.length != 1){
+            msgError("请选择一条项目数据！");
+        }else{
+            //row
+            var address=rowdata[0].projectCode;
+            console.info(rowdata);
+            window.location.href = "{{projcfg.appurl}}/grayenvironmentm";//?DeployDetail_id=
+        }
+    }
     function doDeploy(value) {
         var validate = $('#deployForm').form('validate');
         if(!validate) {

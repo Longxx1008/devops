@@ -240,11 +240,11 @@ input.text-seacher:-ms-input-placeholder {
 .soft-box li{
     float: left;
     width: 218px;
-    height: 315px;
+    height: 715px;
     box-sizing: border-box;
-    border: 1px solid #f1f1f1;
+    /*border: 1px solid #f1f1f1;*/
     background-color: #ffffff;
-    text-align:left;
+    text-align:center;
     padding: 10px;
     transition: all ease-in 0.5s ;
     color: #777777;
