@@ -1,6 +1,6 @@
 {
   "id": "/marathon-lb",
-  "cmd": "/marathon-lb/run sse --marathon http://192.168.9.45:8080 --group external",
+  "cmd": "/marathon-lb/run sse --marathon http://192.168.9.61:8080 --group external",
   "cpus": 1,
   "mem": 256,
   "disk": 0,
