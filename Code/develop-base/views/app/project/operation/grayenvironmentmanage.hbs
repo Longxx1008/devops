@@ -6,6 +6,10 @@
 <header class="header-box header-box-moni clearfix">
     <h2 class="f-l">灰度应用监控</h2>
     <div class="f-r clearfix">
+        <table id="colonyDataTable">
+        </table>
+    </div>
+    <div class="f-r clearfix">
         <select class="f-l">
             <option>
                 全部
@@ -24,13 +28,13 @@
     <section class="basic-infom-box">
         <div class="basic-infom clearfix">
             <h3>
-                <label>项目名称：</label><span>贵州移动DevOps平台</span>
+                <label>项目名称：</label><span id="projectName"></span>
             </h3>
             <p>
-                <label>镜像：</label><span>117.187.12.236:15000/develop-base:v1.4.4</span>
+                <label>镜像：</label><span id="gitAddress"></span>
             </p>
             <p>
-                <label>外网地址：</label><span>117.187.12.236:10003</span>
+                <label>外网地址：</label><span id="netadd"> </span>
             </p>
         </div>
         <div class="rongqi-box clearfix">
@@ -59,16 +63,17 @@
             <div class="dt">
                 <ul class="clearfix">
                     <li class="show">
-                        <div class="">
-                            <img src="{{projcfg.appurl}}/static/image/img2.png" height="240px">
-                        </div>
+                        <iframe src="http://192.168.9.69:3000/dashboard-solo/db/dockercontainernetio?orgId=1&panelId=1&from=1507852248537&to=1507873848537" width="700" height="350" frameborder="0"></iframe>
+
                     </li>
                     <li>
-                        <div>
-                            <img src="{{projcfg.appurl}}/static/image/img3.png">
+                        <div id="camkmpdeploy" >
+
                         </div>
                         <div class="clearfix">
-                            <div class="f-l"><img src="{{projcfg.appurl}}/static/image/img4.png"></div>
+                            <div class="f-l">
+
+                            </div>
                             <div class="f-l"><img src="{{projcfg.appurl}}/static/image/img5.png"></div>
                             <div class="f-l"><img src="{{projcfg.appurl}}/static/image/img6.png"></div>
                         </div>
@@ -94,6 +99,62 @@
         </div>
     </section>
 </div>
+<script>
+    $(function(){
+        $.ajax({
+            url: '{{projcfg.appurl}}/api/project/operation/grayenvironmentmanage/platform/info',
+            type: 'get',
+            success: function (result) {
+                var data=result.data;
+                var projectName=data[0].projectName;
+                var gitAddress=data[0].gitAddress;
+                $("#projectName").html(projectName);
+                $("#gitAddress").html(gitAddress);
+
+//                console.log(data);
+            }
+        });
+//        $("#colonyDataTable").html("sdfksadlfkas;ldfksdl;kf");
+
+        $('#camkmpdeploy').datagrid({
+            url:'{{projcfg.appurl}}/api/project/operation/grayenvironmentmanage/deploy/info',
+            method:'get',
+            rownumbers:false,
+            striped:true,
+            fitColumns:true,
+            //toolbar: '#toolbar',
+            fit:true,
+            border:true,
+            singleSelect:true,
+            selectOnCheck:false,
+            columns:[[
+                {"field":'id',checkbox:true},
+//                {"field": "","title":"编号","width":80,align:"center"},
+                {"field": "containerName","title":"容器名称","width":130,align:"center"},
+//                {"field": "deploy","title":"所属项目","width":130,align:"center"},
+                {"field": "hostname","title":"运行环境","width":130,align:"center"},
+                {"field": "image","title":"所属镜像","width":150,align:"center"},
+//                {"field": "status","title":"状态","width":80,align:"center",
+//                    "formatter":function (value, rowData,rowIndex) {
+//                        return '运行中';
+//                    }},
+//                {"field": "remark","title":"备注","width":150,align:"center"},
+                {"field": "oper","title":"操作","width":120,align:"center",
+                    "formatter":function (value, rowData,rowIndex) {
+                        return "<span class=\"label label-info\" style='height:26px;line-height:16px;font-weight:600;margin-top: 0.5rem;margin-left: 0.5rem;cursor: pointer;' onclick='hm_list(\""+rowData.master_id+"\",\""+rowData.master_ip+"\")'>主机管理</span><span class=\"label label-success\" style='height:26px;line-height:16px;font-weight:600;margin-top: 0.5rem;margin-left: 0.5rem;cursor: pointer;' onclick='colonymanage(\""+rowData.id+"\")'>集群概览</span>";
+                    }}
+            ]],
+            onLoadError:function() {
+                msgError('加载数据出现时发生错误,请稍候重试...');
+            },
+            pagination:true,
+            loadMsg:'正在加载...'
+        });
+
+    })
+
+
+</script>
 
 <script>
     window.onload = function () {
