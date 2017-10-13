@@ -23,7 +23,7 @@
     </div>
     <hr style="height:1px;border:none;border-top:1px solid #555555;" />
     <ul id="imageul" class="soft-box clear">
-        <li>
+        <li style="height: 300px;">
             <div style="background-color: #2dc3e8;text-align: center;height: 200px">
             <img src="{{projcfg.appurl}}/static/css/AppMarket2_icon_software.png" style="margin-top: 20px"><br/>
             <h1 style="color: #ffffff">系统应用</h1><br/>
@@ -36,7 +36,7 @@
         </li>
     </ul>
     <ul id="imageuls" class="soft-box">
-        <li>
+        <li style="height: 300px;">
             <div style="background-color: #2dc3e8;text-align: center;height: 200px">
                 <img src="{{projcfg.appurl}}/static/css/AppMarket2_icon_software.png" style="margin-top: 20px"><br/>
                 <h1 style="color: #ffffff">web应用</h1><br/>
@@ -69,7 +69,7 @@
                         var desc = '';
                         if(data.data[i].simpleIntroduction){
                             desc = data.data[i].simpleIntroduction.length>30?data.data[i].simpleIntroduction.substr(0,29)+"...":data.data[i].simpleIntroduction;
-                            var html = '<li id = "'+liindex+'" style="text-align: center">';
+                            var html = '<li id = "'+liindex+'" style="text-align: center;height: 300px;">';
                             html += '<h1>'+data.data[i].imageName+'</h1><br/>';
                             html += '<h1>'+data.data[i].channels+'</h1>';
                             html += '<div style=""><p>'+desc+'</p></div>';
@@ -98,7 +98,7 @@
                         var desc = '';
                         if (data.data[i].simpleIntroduction) {
                             desc = data.data[i].simpleIntroduction.length > 30 ? data.data[i].simpleIntroduction.substr(0, 29) + "..." : data.data[i].simpleIntroduction;
-                            var html = '<li id = "' + liindex + '" style="text-align: center">';
+                            var html = '<li id = "' + liindex + '" style="text-align: center;height: 300px;">';
                             html += '<h1>' + data.data[i].imageName + '</h1><br/>';
                             html += '<h1>' + data.data[i].channels + '</h1>';
                             html += '<div style=""><p>' + desc + '</p></div>';
