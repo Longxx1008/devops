@@ -1,13 +1,128 @@
 <link type="text/css" rel="stylesheet" href="{{projcfg.appurl}}/static/css/page-style.css">
+<link rel="stylesheet" href="{{projcfg.appurl}}/static/css/base.css">
+
+<style>
+    .product-box{
+        overflow: hidden;
+        border: 1px solid #ddd;
+        -webkit-border-radius: 6px;
+        -moz-border-radius: 6px;
+        border-radius: 6px;
+        margin-right: 20px;
+    }
+    .header-box h2 {
+        font-size: 16px;
+        font-weight: bold;
+        float: left;
+        margin-top: 15px;
+    }
+
+    .header-box button {
+        background-color: #2dc3e8;
+        border-radius: 3px;
+        float: right;
+        width: 90px;
+        height: 28px;
+        line-height: 28px;
+        color: #ffffff;
+        transition: background-color 2s;
+        margin-top: 10px;
+    }
+
+    .header-box button:hover {
+        background-color: #2b89ad;
+    }
+
+    .main-box {
+        margin-top: 15px;
+        overflow: hidden;
+    }
+
+
+    .main-box .infom-table {
+        width: 100%;
+        border: 1px solid #dddddd;
+
+    }
+
+    .main-box .infom-table ul {
+        width: 100%;
+        overflow: hidden;
+    }
+
+    .main-box .infom-table li:first-child {
+        width: 100%;
+        line-height: 24px;
+    }
+
+    .main-box .infom-table li {
+        float: left;
+        width: 50%;
+        height: 24px;
+        line-height: 24px;
+        border-bottom: 1px solid #dddddd;
+        border-left: 1px solid #dddddd;
+        padding: 0 5px;
+    }
+
+    .main-box .infom-table li .infom-title {
+        font-size: 14px;
+        font-weight: bold;
+    }
+
+    .main-box .infom-table li label {
+        margin-right: 5px;
+    }
+
+    .main-box .monitoring-box {
+        width: 735px;
+    }
+
+    .main-box .monitoring-box h2 {
+        font-size: 14px;
+        border-left: 2px #2dc3e8 solid;
+        padding-left: 5px;
+    }
+
+    .main-box .monitoring-box li {
+        border: 1px solid #dddddd;
+        padding: 10px;
+        margin-top: 10px;
+
+    }
+
+    .main-box .monitoring-box li span {
+        font-weight: bold;
+        margin-bottom: 10px;
+        display: block;
+    }
+
+    .monitoring-pic {
+        width: 100%;
+        height: 300px;
+    }
+
+    .page-body {
+        background-color: #ffffff;
+    }
+
+    .title-box h4 {
+        margin-bottom: 10px;
+    }
+
+    .-boxmonitoring {
+        width: 100%;
+    }
+</style>
 <div class="row">
     <div class="col-xs-12 col-md-12">
         <div class="widget">
             <div class="widget-body">
                 <div class="row">
-                    <div class="col-xs-12 col-md-12" style="padding-left: 5px;padding-right: 5px;">
+                    <div class="col-xs-12 col-md-12">
                         <div class="widget-header bordered-bottom bordered-themeprimary">
                             <i class="widget-icon fa fa-tags themeprimary"></i>
-                            <span class="widget-caption themeprimary">集群资源概览</span>
+                            <span class="widget-caption themeprimary" >基础信息</span>
                             <div class="widget-buttons">
                                 <a id="btnBack" href="javascript:void(0)">
                                     返回
@@ -22,22 +137,36 @@
                         <div class="widget-body">
                             <div style="">
                                 <div class="box-list-content">
-                                    <div class="col-xs-6 col-md-6" style="width:100%;margin-top: 30px">
-                                        <font size="3.5rem" style=""> <b>基础信息</b></font>
+                                    <div class="product-box">
+                                        <!--<div style="display: inline;font-size: 16px;margin-top: 20px"-->
+                                             <!--class="col-xs-6 col-md-6">-->
+                                            <!--&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp名称-->
+                                            <!--: <span id="name"></span></div>-->
+                                        <!--<div class="col-xs-6 col-md-6" style="font-size: 16px;margin-top: 20px">-->
+                                            <!--&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp位置-->
+                                            <!--: <span id="position"></span></div>-->
+                                        <!--<div class="col-xs-6 col-md-6" style="font-size: 16px;margin-top: 20px">-->
+                                            <!--&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp管理员-->
+                                            <!--: <span id="user"></span></div>-->
+                                        <!--<div class="col-xs-6 col-md-6" style="font-size: 16px;margin-top: 20px">-->
+                                            <!--&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp状态-->
+                                            <!--: <span id="status"></span></div>-->
+
+
+                                        <div class="main-box wrap">
+                                            <section class="infom-table">
+                                                <ul>
+                                                    <li ><h2 class="infom-title" style="line-height: 25px">基本信息</h2></li>
+                                                    <!--<li><label>ID：</label><span id="id"></span></li>-->
+                                                    <li><label>名称：</label><span id="name"></span></li>
+                                                    <li><label>位置：</label><span id="position"></span></li>
+                                                    <li><label>管理员：</label><span id="user"></span></li>
+                                                    <li><label>状态：</label><span id="status"></span></li>
+                                                </ul>
+                                            </section>
+                                        </div>
+
                                     </div>
-                                    <div style="display: inline;font-size: 16px;margin-top: 20px"
-                                         class="col-xs-6 col-md-6">
-                                        &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp名称
-                                        : <span id="name"></span></div>
-                                    <div class="col-xs-6 col-md-6" style="font-size: 16px;margin-top: 20px">
-                                        &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp位置
-                                        : <span id="position"></span></div>
-                                    <div class="col-xs-6 col-md-6" style="font-size: 16px;margin-top: 20px">
-                                        &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp管理员
-                                        : <span id="user"></span></div>
-                                    <div class="col-xs-6 col-md-6" style="font-size: 16px;margin-top: 20px">
-                                        &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp状态
-                                        : <span id="status"></span></div>
                                 </div>
                             </div>
                         </div>
@@ -45,29 +174,33 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-xs-12 col-md-12" style="padding-left: 5px;padding-right: 5px;">
+                    <div class="col-xs-12 col-md-12">
                         <div class="widget-header bordered-bottom bordered-themeprimary">
                             <i class="widget-icon fa fa-tags themeprimary"></i>
                             <span class="widget-caption themeprimary">资源使用情况</span>
                         </div><!--Widget Header-->
                         <div class="widget-body">
                             <div style="">
+
                                 <div class="box-list-content">
-                                    <table style="width: 100%;height: 200px;margin-top: 10px"
-                                           class="col-xs-12 col-md-12">
-                                        <tr>
-                                            <td id="cpu" style="width:33%; height: 300px;"></td>
-                                            <td id="neicun" style="width:33%; height: 300px;"></td>
-                                            <td id="disk" style="width:33%; height: 300px;"></td>
-                                        </tr>
-                                    </table>
+                                    <div class="product-box">
+
+                                        <table style="width: 100%;height: 200px;margin-top: 10px"
+                                               class="col-xs-12 col-md-12">
+                                            <tr>
+                                                <td id="cpu" style="width:33%; height: 300px;"></td>
+                                                <td id="neicun" style="width:33%; height: 300px;"></td>
+                                                <td id="disk" style="width:33%; height: 300px;"></td>
+                                            </tr>
+                                        </table>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-xs-12 col-md-12" style="padding-left: 5px;padding-right: 5px;">
+                    <div class="col-xs-12 col-md-12">
                         <div class="widget-header bordered-bottom bordered-themeprimary">
                             <i class="widget-icon fa fa-tags themeprimary"></i>
                             <span class="widget-caption themeprimary">系统信息</span>
@@ -75,13 +208,16 @@
                         <div class="widget-body">
                             <div style="">
                                 <div class="box-list-content">
-                                    <div id="runStatus" style="width:40%; height: 300px;margin-top: 50px;"
-                                         class="col-xs-6 col-md-6"></div>
-                                    <div id="ringChart" style="width:60%; height: 600px;margin-top: 50px"
-                                         class="col-xs-6 col-md-6"></div>
-                                    <div id="operationSystem"
-                                         style="width:40%; height: 300px;margin-top: -290px;margin-left: 17px"
-                                         class="col-xs-6 col-md-6"></div>
+                                    <div class="product-box">
+
+                                        <div id="runStatus" style="width:40%; height: 300px;margin-top: 50px;"
+                                             class="col-xs-6 col-md-6"></div>
+                                        <div id="ringChart" style="width:60%; height: 600px;margin-top: 50px"
+                                             class="col-xs-6 col-md-6"></div>
+                                        <div id="operationSystem"
+                                             style="width:40%; height: 300px;margin-top: -290px;margin-left: 17px"
+                                             class="col-xs-6 col-md-6"></div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -91,33 +227,28 @@
 
 
                 <div class="row">
-                    <div class="col-xs-12 col-md-12" style="padding-left: 5px;padding-right: 5px;">
+                    <div class="col-xs-12 col-md-12">
                         <div class="widget-header bordered-bottom bordered-themeprimary">
                             <i class="widget-icon fa fa-tags themeprimary"></i>
-                            <span class="widget-caption themeprimary">资源使用情况</span>
+                            <span class="widget-caption themeprimary">集群拓扑图</span>
                         </div><!--Widget Header-->
                         <div class="widget-body">
                             <div style="">
                                 <div class="box-list-content">
-                                    <table style="width: 100%;height: 1000px;margin-top: 10px"
-                                           class="col-xs-12 col-md-12">
-                                        <tr>
-                                            <td>
-                                                <div class="col-xs-6 col-md-6" style="width:100%;margin-top: 30px">
-                                                    <font size="3.0rem" style=""> <b>集群拓扑图</b></font>
+                                    <div class="product-box">
 
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>&nbsp</td>
-                                        </tr>
-                                        <tr>
-                                            <td colspan="2" style="width:20%; height: 500px;"><img
-                                                    src="{{projcfg.appurl}}/static/images/netWork.png"
-                                                    style="width: 100%"></td>
-                                        </tr>
-                                    </table>
+                                        <table style="width: 100%;height: 1000px;margin-top: 10px"
+                                               class="col-xs-12 col-md-12">
+                                            <tr>
+                                                <td>&nbsp</td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="2" style="width:20%; height: 500px;"><img
+                                                        src="{{projcfg.appurl}}/static/images/netWork.png"
+                                                        style="width: 100%"></td>
+                                            </tr>
+                                        </table>
+                                    </div>
                                 </div>
                             </div>
                         </div>

@@ -19,4 +19,4 @@ exports.$ = function() {
         colonyManageService.syncColonyInfo();
         // updateHostInfo.getSalve();
     },1000*60*10);
-}
+};

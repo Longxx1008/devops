@@ -1,6 +1,14 @@
 <script type="text/javascript" src="{{projcfg.appurl}}/static/js/echart/v3.1.3/echarts.min.js"></script>
 <link rel="stylesheet" href="{{projcfg.appurl}}/static/css/base.css">
 <style>
+    .product-box{
+        overflow: hidden;
+        border: 1px solid #ddd;
+        -webkit-border-radius: 6px;
+        -moz-border-radius: 6px;
+        border-radius: 6px;
+        margin-right: 20px;
+    }
     .header-box h2 {
         font-size: 16px;
         font-weight: bold;
@@ -109,14 +117,15 @@
         <div class="widget">
             <div class="widget-body">
                 <div class="row">
-                    <div class="col-xs-12 col-md-12" style="padding-left: 5px;padding-right: 5px;">
+                    <div class="col-xs-12 col-md-12">
                         <div class="widget-header bordered-bottom bordered-themeprimary">
                             <i class="widget-icon fa fa-tags themeprimary"></i>
                             <span class="widget-caption themeprimary">
             主机详情
             </span>
                             <div class="widget-buttons">
-                                <a id="btnBack" style="color: #337ab7" href="javascript:void(0)" onclick="javascript:history.back(-1);">
+                                <a id="btnBack" style="color: #337ab7" href="javascript:void(0)"
+                                   onclick="javascript:history.back(-1);">
                                     <i class="fa fa-reply"></i> 返回
                                 </a>
                             </div>
@@ -125,53 +134,186 @@
                         <div class="widget-body">
                             <div style="">
                                 <div class="box-list-content">
+                                    <div class="product-box">
 
-                                    <div class="main-box wrap">
-                                        <section class="title-box">
-                                            <h4><span id="id">&nbsp; &nbsp;</span> 主机监控信息 </h4>
+                                        <div class="main-box wrap">
+                                            <section class="title-box">
+                                                <h4><span id="id">&nbsp; &nbsp;</span> 主机监控信息 </h4>
 
-                                        </section>
-                                        <section class="infom-table">
-                                            <ul>
-                                                <li><h2 class="infom-title">基本信息</h2></li>
-                                                <!--<li><label>ID：</label><span id="id"></span></li>-->
-                                                <li><label>名称：</label><span id="name"></span></li>
-                                                <li><label>CPU：</label><span id="cpu_info"></span></li>
-                                                <li><label>内存：</label><span id="memory_info"></span></li>
-                                                <li><label>操作系统：</label><span>Linux</span></li>
-                                                <li><label>磁盘：</label><span id="disk_info"></span></li>
-                                                <li><label>内网IP：</label><span id="ip"></span></li>
-                                                <li><label>状态：</label><span class="state" id="state"></span></li>
-                                            </ul>
-                                        </section>
-                                        <section class="f-r -boxmonitoring">
+                                            </section>
+                                            <section class="infom-table">
+                                                <ul>
+                                                    <li><h2 class="infom-title">基本信息</h2></li>
+                                                    <!--<li><label>ID：</label><span id="id"></span></li>-->
+                                                    <li><label>名称：</label><span id="name"></span></li>
+                                                    <li><label>CPU：</label><span id="cpu_info"></span></li>
+                                                    <li><label>内存：</label><span id="memory_info"></span></li>
+                                                    <li><label>操作系统：</label><span>Linux</span></li>
+                                                    <li><label>磁盘：</label><span id="disk_info"></span></li>
+                                                    <li><label>内网IP：</label><span id="ip"></span></li>
+                                                    <li><label>状态：</label><span class="state" id="state"></span></li>
+                                                </ul>
+                                            </section>
+                                        </div>
 
-
-                                            <ul>
-                                                <li>
-                                                    <div id="cpu" class="monitoring-pic">
-
-
-                                                    </div>
-                                                </li>
-                                                <li>
-                                                    <div id="memory" class="monitoring-pic" s>
-
-                                                    </div>
-                                                </li>
-                                                <li>
-                                                    <div id="disk" class="monitoring-pic">
-                                                    </div>
-                                                </li>
-                                                <li>
-                                                    <div id="net" class="monitoring-pic">
-                                                    </div>
-                                                </li>
-                                            </ul>
-                                        </section>
                                     </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--cpu-->
+                <div class="row">
+                    <div class="col-xs-12 col-md-12" >
+                        <div class="widget-header bordered-bottom bordered-themeprimary">
+                            <i class="widget-icon fa fa-tags themeprimary"></i>
+                            <span class="widget-caption themeprimary">
+                            cpu信息
+                            </span>
+
+                        </div><!--Widget Header-->
+                        <div class="widget-body">
+                            <div style="">
+                                <div class="box-list-content">
+                                    <div class="product-box">
+
+                                        <div class="main-box wrap">
+                                            <section class="title-box">
+                                                <h4><span id="id">&nbsp; &nbsp;</span> 主机监控信息 </h4>
+
+                                            </section>
+                                            <section class="f-r -boxmonitoring">
 
 
+                                                <ul>
+                                                    <li>
+                                                        <div id="cpu" class="monitoring-pic">
+
+
+                                                        </div>
+                                                    </li>
+                                                </ul>
+                                            </section>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--内存-->
+                <div class="row">
+                    <div class="col-xs-12 col-md-12" >
+                        <div class="widget-header bordered-bottom bordered-themeprimary">
+                            <i class="widget-icon fa fa-tags themeprimary"></i>
+                            <span class="widget-caption themeprimary">
+                                内存信息
+                            </span>
+
+
+                        </div><!--Widget Header-->
+                        <div class="widget-body">
+                            <div style="">
+                                <div class="box-list-content">
+                                    <div class="product-box">
+
+                                        <div class="main-box wrap">
+                                            <section class="title-box">
+                                                <h4><span id="id">&nbsp; &nbsp;</span> 主机监控信息 </h4>
+
+                                            </section>
+
+                                            <section class="f-r -boxmonitoring">
+
+
+                                                <ul>
+                                                    <li>
+                                                        <div id="memory" class="monitoring-pic" s>
+
+                                                        </div>
+                                                    </li>
+                                                </ul>
+                                            </section>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--操作系统-->
+                <div class="row">
+                    <div class="col-xs-12 col-md-12" >
+                        <div class="widget-header bordered-bottom bordered-themeprimary">
+                            <i class="widget-icon fa fa-tags themeprimary"></i>
+                            <span class="widget-caption themeprimary">
+                                硬盘信息
+                            </span>
+
+                        </div><!--Widget Header-->
+                        <div class="widget-body">
+                            <div style="">
+                                <div class="box-list-content">
+                                    <div class="product-box">
+
+                                        <div class="main-box wrap">
+                                            <section class="title-box">
+                                                <h4><span id="id">&nbsp; &nbsp;</span> 主机监控信息 </h4>
+
+                                            </section>
+
+                                            <section class="f-r -boxmonitoring">
+
+
+                                                <ul>
+                                                    <li>
+                                                        <div id="disk" class="monitoring-pic">
+                                                        </div>
+                                                    </li>
+                                                </ul>
+                                            </section>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--磁盘-->
+                <div class="row">
+                    <div class="col-xs-12 col-md-12" >
+                        <div class="widget-header bordered-bottom bordered-themeprimary">
+                            <i class="widget-icon fa fa-tags themeprimary"></i>
+                            <span class="widget-caption themeprimary">
+                                网络情况
+                            </span>
+
+                        </div><!--Widget Header-->
+                        <div class="widget-body">
+                            <div style="">
+                                <div class="box-list-content">
+                                    <div class="product-box">
+                                        <div class="main-box wrap">
+                                            <section class="title-box">
+                                                <h4><span id="id">&nbsp; &nbsp;</span> 主机监控信息 </h4>
+
+                                            </section>
+                                            <section class="f-r -boxmonitoring">
+
+
+                                                <ul>
+                                                    <li>
+                                                        <div id="net" class="monitoring-pic">
+                                                        </div>
+                                                    </li>
+                                                </ul>
+                                            </section>
+                                        </div>
+
+
+                                    </div>
                                 </div>
                             </div>
                         </div>
