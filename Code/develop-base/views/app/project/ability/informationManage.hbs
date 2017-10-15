@@ -72,22 +72,8 @@
                             <input id="inputInformationTitle" style="width:100%;height:31px;" type="text" name="inputInformationTitle" class="easyui-validatebox easyui-textbox form-control" data-options="required:true,validType:'length[1,16]'">
                             </div>
                         </div>
-                        <div class="col-sm-4">
-                            <label for="inputInformationType" class="col-sm-2 control-label no-padding-right">类型 </label>
-                            <div class="col-sm-10">
-                                <select class="easyui-combobox" id="inputInformationType" style="height: 31px;width:100%;">
-                                    <option value="1">项目资料</option>
-                                    <option value="2">热门技术</option>
-                                    <option value="3">数据库</option>
-                                    <option value="4">编程语言</option>
-                                    <option value="5">大数据</option>
-                                    <option value="6">移动端</option>
-                                    <option value="7">开发工具</option>
-                                    <option value="8">需求</option>
-                                    <option value="9">测试</option>
-                                    <option value="10">运维</option>
-                            </select>
-                        </div>
+                        <div id="inputInformationImageShow" class="col-sm-4" hidden="true">
+
                         </div>
                         <div class="col-sm-4">
                             <label for="inputInformationImage" class="col-sm-2 control-label no-padding-right">图片</label>
@@ -102,18 +88,32 @@
                             <label for="Information" class="col-sm-2 no-padding-right" >上传形式</label>
                             <div class="col-sm-10" >
                                 <select class="easyui-combobox" id="Information" style="width:100%;height:31px;">
-                                    <option value="1">手动编辑</option>
-                                    <option value="2">链接分享</option>
+                                    <option value="手动编辑" >手动编辑</option>
+                                    <option value="链接分享" >链接分享</option>
                                 </select>
                             </div>
                         </div>
-                        <div id="inputInformationImageShow" class="col-sm-4" hidden="true">
-
+                        <div class="col-sm-4">
+                            <label for="inputInformationType" class="col-sm-2 control-label no-padding-right">类型 </label>
+                            <div class="col-sm-10">
+                                <select class="easyui-combobox" id="inputInformationType" style="height: 31px;width:100%;">
+                                    <option value="1">项目资料</option>
+                                    <option value="2">热门技术</option>
+                                    <option value="3">数据库</option>
+                                    <option value="4">编程语言</option>
+                                    <option value="5">大数据</option>
+                                    <option value="6">移动端</option>
+                                    <option value="7">开发工具</option>
+                                    <option value="8">需求</option>
+                                    <option value="9">测试</option>
+                                    <option value="10">运维</option>
+                                </select>
+                            </div>
                         </div>
                         <div class="col-sm-4">
                             <label for="inputInformationBrief" class="col-sm-2 control-label no-padding-right">简介</label>
                             <div class="col-sm-10">
-                                <input id="inputInformationBrief" style="width:100%;height:31px;" type="text" name="inputInformationBrief" class="easyui-validatebox easyui-textbox form-control" data-options="required:true,validType:'length[1,250]'">
+                                <input id="inputInformationBrief" style="width:100%;height:31px;" type="text" name="inputInformationBrief" class="easyui-validatebox easyui-textbox form-control" data-options="required:true,validType:'length[1,120]'">
                             </div>
                         </div>
                     </div>
@@ -227,14 +227,17 @@
     });
     function toAdd(){
         clear();
-//        $('#inputInformationType').combobox('setValue',1);
+//        图片要单独clear
+        $('#inputInformationImageShow').hide();
+        //页面打开增加因为clear(),上传方式默认回手动编辑，所以要同步
+        document.getElementById('Info').style.display='none';
+        document.getElementById('edit').style.display='block';
         ue.setContent('');
         openPage("新增文章",null,doAdd);
     }
     // 打开页面
     function openPage(title, value, callback) {
         $('#systemInformation_Modal').show();
-//        $('#Information').combobox('setValue',1);
         change();//该方法将会影响此处赋值$('#Information').combobox('setValue',1);
         $("#inputInformationImage").filebox({
             buttonText:'选择图片',
@@ -279,7 +282,6 @@
         $('#systemInformation_Modal').dialog('close');
     }
     function doAdd() {
-        var id=$('#systemInformation_Modal');
 //        bootbox.confirm('确定添加该条数据？',function(result) {
 //            if(result) {
                 $('#systemInformation_Form').form("submit", {
@@ -294,12 +296,6 @@
                         if (!validate) {
                             return false;
                         }
-//                        var title=$('#inputInformationTitle').val();
-//                        if(title.length>16){
-//                            msgError("标题不能超过16个字符");
-//                            $('#inputInformationTitle').focus();
-//                            return false;
-//                        }
                         if(!$('#inputInformationType').combobox('getValue')){
                             msgError("请选择文章类型");
                             $('#inputInformationType').combobox().next('span').find('input').focus();
@@ -313,18 +309,13 @@
                         else {
                             console.log('已经选择图片')
                         }
-//                        var introduce=$('#inputInformationBrief').val();
-//                        if(introduce.length>250){
-//                            msgError("简介不能超过250个字符");
-//                            $('#inputInformationBrief').focus();
-//                            return false;
-//                        }
 //                        对需要隐藏的元素单独做验证处理
                         var selected=$('#Information').combobox('getValue');
-                        if(selected==1 && ue.getContent()==''){
+                        console.log('ceshi',selected);
+                        if(selected=="手动编辑" && ue.getContent()==''){
                             msgError("请输入文章内容");
                             return false;
-                        }else if(selected==2 && $('#inputInformationLink').val()==''){
+                        }else if(selected=="链接分享" && $('#inputInformationLink').val()==''){
                             msgError("请输入分享的文章链接");
                             $('#inputInformationLink').focus();
                             return false;
@@ -332,7 +323,8 @@
                     },
                     success: function (data) {
                         console.log('===',data);
-                        data = JSON.parse(data)
+                        data = JSON.parse(data);
+                        console.log(typeof data);console.log(data.success);
                         if (data.success) {
                             msgSuccess(data.msg);
                             $('#systemInformation_datatable').datagrid('load', {});
@@ -352,7 +344,6 @@
             msgError('提示,请选择一条数据再进行修改');
             return;
         }
-        var id=rows[0].id;
         openPage("修改文章", rows[0].id, doEdit);
         // 获取远程数据
         $.ajax({
@@ -363,17 +354,23 @@
                 console.log('-------------成功返回-------'+data.rows[0]);
                 if(data.success) {
                     //------显示打开的页面数据----
-                    $('#inputInformationTitle').val(data.rows[0].information_title);
+//                    $('#inputInformationTitle').val(data.rows[0].information_title);
+                    $("#inputInformationTitle").textbox("setValue",data.rows[0].information_title);
                     $('#inputInformationType').combobox('setValue',data.rows[0].information_type);
                     $("#inputInformationImageShow").show().html('<label for="inputInformationImageShow" class="col-sm-2 control-label no-padding-right">原图</label><div class="col-sm-4"><img src="data:'+data.rows[0].pictureType+";base64 ,"+data.rows[0].information_picture+'"  style="height:35px;width:35px"></div>');
-                    $('#inputInformationBrief') .val(data.rows[0].information_introduce);
+//                    $('#inputInformationBrief') .val(data.rows[0].information_introduce);
+                    $("#inputInformationBrief").textbox("setValue",data.rows[0].information_introduce);
                     console.log('========================',data.rows[0].information_link);
                     if(data.rows[0].information_link){
-                        $('#Information').combobox('setValue',2);
+                        $('#Information').combobox('setValue','链接分享');
                         document.getElementById('Info').style.display='block';
                         document.getElementById('edit').style.display='none';
                         $('#inputInformationLink').val(data.rows[0].information_link);
+                    }else{
+                        document.getElementById('Info').style.display='none';
+                        document.getElementById('edit').style.display='block';
                     }
+                    //在这里要让
                     ue.setContent(data.rows[0].information_content);
                 }else{
                     msgError(data.msg+',错误代码:'+data.code);
@@ -473,14 +470,9 @@
 
     //查询方法
     function doSearch() {
-//        var informationIssuer = $('#inputSystemInformationIssuer').combobox('getValue');
         var informationTitle = $('#inputSystemInformationTitle').val();
-//        if(informationIssuer == '0'){
-//            informationIssuer = '';
-//        }
         console.log('=============search=============',informationTitle);
         $('#systemInformation_datatable').datagrid('load',{
-//            information_issuer: informationIssuer,
             information_title: informationTitle
         });
     }
@@ -490,9 +482,9 @@
             onSelect: function(date){
                 console.log('=====date=',date);
                 var beBaptized=$('#Information').combobox('getValue');
-                if(beBaptized!='2'){
+                console.log("test",beBaptized);
+                if(beBaptized!='链接分享'){
                     //1 未受洗 2 已受洗 3 未填
-                    console.log('=====================');
                     document.getElementById('Info').style.display='none';
                     document.getElementById('edit').style.display='block';
 
