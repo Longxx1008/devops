@@ -496,11 +496,20 @@
     //点击查看详情，跳转到informationShow这个页面的ajax，将id作为参数请求到相应路由获取文章详情。
     function informationPageShow(i) {
 
-        if((listcontent[i].information_link!=null&&listcontent[i].information_link!="")||listcontent[i].information_link!=0){
-            window.open(listcontent[i].information_link);
-        }else {
-            window.location.href = "{{projcfg.appurl}}/informationShow?id="+listcontent[i].id;
-        }
+        $.ajax({
+            url: '{{projcfg.appurl}}/api/project/ability/informationBank/develop/info/addViewCountById',
+            type: 'get',
+            data: {"id": listcontent[i].id},
+            success: function (data) {
+                console.log("update",data);
+                if ((listcontent[i].information_link != null && listcontent[i].information_link != "") || listcontent[i].information_link != 0) {
+                    window.open(listcontent[i].information_link);
+                } else {
+                    window.location.href = "{{projcfg.appurl}}/informationShow?id=" + listcontent[i].id;
+                }
+            }
+        });
+
     }
 
 

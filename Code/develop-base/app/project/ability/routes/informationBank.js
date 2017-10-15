@@ -57,6 +57,17 @@ router.route('/develop/info/pageListDemo').get(function(req,res){
     });
 });
 
+
+//增加阅读量
+router.route('/develop/info/addViewCountById').get(function(req,res){
+    var id=req.query.id;
+    informationBankService.addCount(id,function (result) {
+        utils.respJsonData(res, result);
+    });
+});
+
+
+
 //文章详情Controller
 router.route('/develop/info/getDetailById').get(function(req,res){
     var conditionMap = {};
@@ -64,7 +75,6 @@ router.route('/develop/info/getDetailById').get(function(req,res){
     informationBankService.getDetailMsgById(0, 10, conditionMap,function(result){
         utils.respJsonData(res, result);
     });
-    informationBankService.addCount(conditionMap.id);
 });
 
 

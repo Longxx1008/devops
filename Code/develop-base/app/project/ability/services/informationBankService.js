@@ -78,9 +78,13 @@ exports.getDetailMsgById = function (page, size, conditionMap, cb) {
 };
 
 
-exports.addCount = function(id) {
+exports.addCount = function(id,cb) {
     var sql="UPDATE pass_develop_information_info SET information_view_count=information_view_count+1 where id="+id;
-    mysqlPool.query(sql, null, function(err,results) {
-
+    mysqlPool.query(sql,null,function(err,result) {
+        if(err) {
+           console.log("更新浏览量失败");
+        } else {
+            cb({'rows':result});
+        }
     });
 };
