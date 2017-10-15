@@ -4,6 +4,8 @@
 var utils = require('../../../common/core/utils/app_utils');
 var mysqlPool = require('../../utils/mysql_pool');
 
+
+
 /**
  * 获取项目的分页数据
  * @param page
@@ -17,6 +19,19 @@ exports.pageList = function (page, size, conditionMap, cb) {
     var orderBy = " order by information_view_count desc ";
     var conditions = [];
     utils.pagingQuery4Eui_mysql(sql, orderBy, page, size, conditions, cb);
+};
+
+
+//查询文章总条数
+exports.searchAllCount = function ( cb) {
+    var sql = "SELECT Count(1) as allCount from pass_develop_information_info ";
+    mysqlPool.query(sql,function(err,result) {
+        if(err) {
+            cb({'rows':{},'total': 0});
+        } else {
+            cb({'rows':result});
+        }
+    });
 };
 
 
