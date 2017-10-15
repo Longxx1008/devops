@@ -26,11 +26,12 @@ router.route('/develop/info/pageListSearchByName').get(function(req,res){
     });
 });
 
-router.route('/develop/info/getAllCount').get(function(req,res){
-    informationBankService.searchAllCount(function(result){
-        utils.respJsonData(res, result);
-    });
-});
+// router.route('/develop/info/getAllCount').get(function(req,res){
+//     var information_type=req.query.typeStr;
+//     informationBankService.searchAllCount(function(result){
+//         utils.respJsonData(res, result);
+//     });
+// });
 
 router.route('/develop/info/pageList').get(function(req,res){
 

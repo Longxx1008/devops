@@ -22,17 +22,17 @@ exports.pageList = function (page, size, conditionMap, cb) {
 };
 
 
-//查询文章总条数
-exports.searchAllCount = function ( cb) {
-    var sql = "SELECT Count(1) as allCount from pass_develop_information_info ";
-    mysqlPool.query(sql,function(err,result) {
-        if(err) {
-            cb({'rows':{},'total': 0});
-        } else {
-            cb({'rows':result});
-        }
-    });
-};
+// //查询文章总条数
+// exports.searchAllCount = function ( cb) {
+//     var sql = "SELECT Count(1) as allCount from pass_develop_information_info ";
+//     mysqlPool.query(sql,function(err,result) {
+//         if(err) {
+//             cb({'rows':{},'total': 0});
+//         } else {
+//             cb({'rows':result});
+//         }
+//     });
+// };
 
 
 //  标题/发布人/类型查询
