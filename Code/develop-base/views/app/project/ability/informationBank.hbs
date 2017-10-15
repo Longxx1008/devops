@@ -260,7 +260,7 @@
                                 <div class="form-group">
                                     <input type="text" class="form-control" placeholder="Search" id="searchInfo">
                                 </div>
-                                <button type="button" class="btn btn-default" onclick="getListBySearch('')">搜索</button>
+                                <button type="button" class="btn btn-default" onclick="getListByTitle()">搜索</button>
                             </form>
 
                         </div>
@@ -344,39 +344,50 @@
 
 <script type="text/javascript">
     $(document).ready(function () {
-        getAllCount(pagination);
-        getListBySearch('');
+        getListBySearch('','');
     });
 
 
     //类型选择时，先清空input标题和文本搜索框
     function getListByType(typeStr) {
         $("#searchInfo").val("");
-        getListBySearch(typeStr);
+        typeSstr=typeStr;
+        pagenum=0;
+        getListBySearch(typeStr,'');
+    }
+    function getListByTitle() {
+        typeSstr='';
+        pagenum=0;
+       var titleStr=$("#searchInfo").val();
+       titleSstr=titleStr;
+        getListBySearch('',titleStr);
     }
 
     var listcontent;   //全局变量。用来存储文章数据，传递到查看详情的那个函数。
     var pagenum=0;
     var rowsnum =5;
+    var typeSstr;
+    var titleSstr;
 
-    function getAllCount(cb){
-        $.ajax({
-            url: '{{projcfg.appurl}}/api/project/ability/informationBank/develop/info/getAllCount',
-            type: 'get',
-            success: function (data) {
-                var  rows = data.rows;
-                var allrows=rows[0].allCount;
-                cb(allrows);
-                console.log("getAllCountData", data);
-                console.log("allrows", allrows);
-            }
-        });
+    <!--function getAllCount(cb,typeStr){-->
+        <!--$.ajax({-->
+            <!--url: '{{projcfg.appurl}}/api/project/ability/informationBank/develop/info/getAllCount',-->
+            <!--type: 'get',-->
+            <!--data: { "typeStr": typeStr},-->
+            <!--success: function (data) {-->
+                <!--var  rows = data.rows;-->
+                <!--var allrows=rows[0].allCount;-->
+                <!--cb(allrows);-->
+                <!--console.log("getAllCountData", data);-->
+                <!--console.log("allrows", allrows);-->
+            <!--}-->
+        <!--});-->
 
-    }
+    <!--}-->
 
     function handlePaginationClick(new_page_index, pagination_container) {
         pagenum=new_page_index;
-        getListBySearch('');
+        getListBySearch(typeSstr,titleSstr);
         return false;
     }
 
@@ -398,8 +409,8 @@
 
 
     //类型查询、标题查询
-    function getListBySearch(typeStr) {
-        var infoName = $("#searchInfo").val();
+    function getListBySearch(typeStr,titleStr) {
+        var infoName =titleStr;
         var typeStr = typeStr;
         $.ajax({
             url: '{{projcfg.appurl}}/api/project/ability/informationBank/develop/info/pageListSearchByName',
@@ -473,11 +484,10 @@
                     }
 
                     $('#informationList').append(html);
-
+                    pagination(data.total);
                 }
                 else {
-                    msgWarning('该类别无文章数据');
-                }
+                    msgError('该类别无镜像数据');                }
             }
         });
 
