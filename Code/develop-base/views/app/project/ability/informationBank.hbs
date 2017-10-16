@@ -112,7 +112,8 @@
         color: #828282;
     }
 </style>
-<script src="{{projcfg.appurl}}/static/js/containerlistingdata.js" type="text/javascript"></script>
+
+<script src="{{projcfg.appurl}}/static/js/informationBank/jquery.pagination.js" type="text/javascript"></script>
 <style>
     .div-bor {
         position: relative;
@@ -186,6 +187,39 @@
         right: 0;
     }
 
+
+    .pagination {
+        font-size: 100%;
+    }
+
+    .pagination a {
+        text-decoration: none;
+        border: solid 1px #AAE;
+        color: #15B;
+    }
+
+    .pagination a, .pagination span {
+        display: block;
+        float: left;
+        padding: 0.2em 0.4em;
+        margin-right: 8px;
+        margin-bottom: 5px;
+        min-width:1em;
+        text-align:center;
+    }
+
+    .pagination .current {
+        background: #2dc3e8;
+        color: #fff;
+        border: solid 1px #AAE;
+    }
+
+    .pagination .current.prev, .pagination .current.next{
+        color:#999;
+        border-color:#999;
+        background:#fff;
+    }
+
     /*ul li {*/
     /*margin-left: 20px;*/
     /*height: 100%;*/
@@ -226,7 +260,7 @@
                                 <div class="form-group">
                                     <input type="text" class="form-control" placeholder="Search" id="searchInfo">
                                 </div>
-                                <button type="button" class="btn btn-default" onclick="getListBySearch('')">搜索</button>
+                                <button type="button" class="btn btn-default" onclick="getListByTitle()">搜索</button>
                             </form>
 
                         </div>
@@ -235,7 +269,7 @@
 
                 </nav>
                 <div id="cc" class="easyui-layout" data-options="fit:true,border:false"
-                     style="width: 800px; height:575px;background-color: #fbfbfb;">
+                     style="width: 800px; height:1160px;background-color: #fbfbfb;">
                     <div id="images" data-options="region:'center',border:false"
                          style="overflow-x:hidden;overflow-y:hidden">
                         <div id="datagridPanel" style="width:100%;height: 100%;display:none;">
@@ -258,7 +292,7 @@
                             </div>
 
                             <div class="main" id="informationList"
-                                 style="overflow-y:scroll;height:100%;padding-left: 40px;padding-right: 40px">
+                                 style="height:80%;padding-left: 40px;padding-right: 40px">
 
                                 <!--<div class="row clearfix" style="border:1px solid rgba(102,102,102,0.3);">-->
                                 <!--<div class="col-md-12 column" style="margin-top: 16px;margin-bottom: 16px">-->
@@ -293,6 +327,7 @@
                                 <!--</div>-->
                             </div>
 
+                            <div id="Pagination" class="pull-right" style="margin-right: 120px;margin-top: 50px"></div>
 
                         </div>
                     </div>
@@ -308,27 +343,82 @@
 </div>
 
 <script type="text/javascript">
+    $(document).ready(function () {
+        getListBySearch('','');
+    });
 
 
     //类型选择时，先清空input标题和文本搜索框
     function getListByType(typeStr) {
         $("#searchInfo").val("");
-        getListBySearch(typeStr);
+        typeSstr=typeStr;
+        pagenum=0;
+        getListBySearch(typeStr,'');
+    }
+    function getListByTitle() {
+        typeSstr='';
+        pagenum=0;
+        var titleStr=$("#searchInfo").val();
+        titleSstr=titleStr;
+        getListBySearch('',titleStr);
+    }
+
+    var listcontent;   //全局变量。用来存储文章数据，传递到查看详情的那个函数。
+    var pagenum=0;
+    var rowsnum =5;
+    var typeSstr;
+    var titleSstr;
+
+    <!--function getAllCount(cb,typeStr){-->
+    <!--$.ajax({-->
+    <!--url: '{{projcfg.appurl}}/api/project/ability/informationBank/develop/info/getAllCount',-->
+    <!--type: 'get',-->
+    <!--data: { "typeStr": typeStr},-->
+    <!--success: function (data) {-->
+    <!--var  rows = data.rows;-->
+    <!--var allrows=rows[0].allCount;-->
+    <!--cb(allrows);-->
+    <!--console.log("getAllCountData", data);-->
+    <!--console.log("allrows", allrows);-->
+    <!--}-->
+    <!--});-->
+
+    <!--}-->
+
+    function handlePaginationClick(new_page_index, pagination_container) {
+        pagenum=new_page_index;
+        getListBySearch(typeSstr,titleSstr);
+        return false;
     }
 
 
-    var listcontent;   //全局变量。用来存储文章数据，传递到查看详情的那个函数。
+    function pagination(allrows){
+        $("#Pagination").pagination(allrows, {
+            items_per_page:rowsnum, // 每页显示多少条记录
+            current_page: pagenum,  //当前页
+            num_display_entries:2, // 分页显示的条目数
+            next_text:"下一页",
+            prev_text:"上一页",
+            num_edge_entries:2, // 连接分页主体，显示的条目数
+            callback:handlePaginationClick
+        });
+    }
+
+
+
+
 
     //类型查询、标题查询
-    function getListBySearch(typeStr) {
-        var infoName = $("#searchInfo").val();
+    function getListBySearch(typeStr,titleStr) {
+        var infoName =titleStr;
         var typeStr = typeStr;
         $.ajax({
             url: '{{projcfg.appurl}}/api/project/ability/informationBank/develop/info/pageListSearchByName',
             type: 'get',
-            data: {"page": 1, "rows": 100, "infoName": infoName, "typeStr": typeStr},
+            data: {"page": pagenum+1, "rows": rowsnum, "infoName": infoName, "typeStr": typeStr},
             success: function (data) {
                 var rows = data.rows;
+                allrows=data.total;
                 if (data.total > 0) {
                     $('#informationList').empty();
                     console.log("msg", data);
@@ -392,12 +482,12 @@
                                 '</div>';
                         html += item;
                     }
-                    $('#informationList').append(html);
 
+                    $('#informationList').append(html);
+                    pagination(data.total);
                 }
                 else {
-                    msgWarning('该类别无镜像数据');
-                }
+                    msgError('该类别无镜像数据');                }
             }
         });
 
@@ -406,18 +496,58 @@
     //点击查看详情，跳转到informationShow这个页面的ajax，将id作为参数请求到相应路由获取文章详情。
     function informationPageShow(i) {
 
-        if((listcontent[i].information_link!=null&&listcontent[i].information_link!="")||listcontent[i].information_link!=0){
-            window.open(listcontent[i].information_link);
-        }else {
-            window.location.href = "{{projcfg.appurl}}/informationShow?id="+listcontent[i].id;
-        }
+        $.ajax({
+            url: '{{projcfg.appurl}}/api/project/ability/informationBank/develop/info/addViewCountById',
+            type: 'get',
+            data: {"id": listcontent[i].id},
+            success: function (data) {
+                console.log("update",data);
+                if ((listcontent[i].information_link != null && listcontent[i].information_link != "") || listcontent[i].information_link != 0) {
+                    window.open(listcontent[i].information_link);
+                } else {
+                    window.location.href = "{{projcfg.appurl}}/informationShow?id=" + listcontent[i].id;
+                }
+            }
+        });
+
     }
 
 
 
-    $(document).ready(function () {
 
-        getListBySearch('');
-    });
+
+    Date.prototype.format = function(format){
+        if(isNaN(this.getMonth())){
+            return '';
+        }
+        if(!format){
+            format = 'yyyy-MM-dd hh:mm:ss';
+        }
+        var o = {
+            //month
+            "M+" : this.getMonth() + 1,
+            //day
+            "d+" : this.getDate(),
+            //hour
+            "h+" : this.getHours(),
+            //minute
+            "m+" : this.getMinutes(),
+            //second
+            "s+" : this.getSeconds(),
+            //quarter
+            "q+" : Math.floor((this.getMonth() + 3) / 3),
+            //millisecond
+            "s" : this.getMilliseconds()
+        };
+        if(/(y+)/.test(format)){
+            format = format.replace(RegExp.$1,(this.getFullYear() + "").substr(4 - RegExp.$1.length));
+        }
+        for(var k in o){
+            if(new RegExp("(" + k + ")").test(format)){
+                format = format.replace(RegExp.$1,RegExp.$1.length == 1 ? o[k] : ("00" + o[k]).substr(("" + o[k]).length));
+            }
+        }
+        return format;
+    };
 
 </script>
