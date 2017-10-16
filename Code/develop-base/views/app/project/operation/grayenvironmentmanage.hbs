@@ -63,30 +63,33 @@
             <div class="dt">
                 <ul class="clearfix">
                     <li class="show">
-                        <iframe src="http://192.168.9.69:3000/dashboard-solo/db/dockercontainernetio?orgId=1&panelId=1&from=1507852248537&to=1507873848537" width="700" height="350" frameborder="0"></iframe>
+                        <iframe src="http://192.168.9.69:3000/dashboard-solo/db/dockercontainernetio?orgId=1&panelId=1&from=1507852248537&to=1507873848537" width="100%" height="350" frameborder="0"></iframe>
 
                     </li>
                     <li>
-                        <div id="camkmpdeploy" >
+                        <div  >
+
 
                         </div>
                         <div class="clearfix">
-                            <div class="f-l">
+                            <div class="f-l" style="width:100%;">
+                                <table id="camkmpdeploy">
 
+                                </table>
                             </div>
-                            <div class="f-l"><img src="{{projcfg.appurl}}/static/image/img5.png"></div>
-                            <div class="f-l"><img src="{{projcfg.appurl}}/static/image/img6.png"></div>
+                            <!--<div class="f-l"><img src="{{projcfg.appurl}}/static/image/img5.png"></div>-->
+                            <!--<div class="f-l"><img src="{{projcfg.appurl}}/static/image/img6.png"></div>-->
                         </div>
-                        <div>
-                            <img src="{{projcfg.appurl}}/static/image/img7.png">
+                        <div id="grafana_show">
+                            <!--<img src="{{projcfg.appurl}}/static/image/img7.png">-->
                         </div>
-                        <div>
-                            <img src="{{projcfg.appurl}}/static/image/img8.png">
-                        </div>
-                        <div class="clearfix">
-                            <div class="f-l"><img src="{{projcfg.appurl}}/static/image/img9.png"></div>
-                            <div class="f-l"><img src="{{projcfg.appurl}}/static/image/img10.png"></div>
-                        </div>
+                        <!--<div>-->
+                        <!--<img src="{{projcfg.appurl}}/static/image/img8.png">-->
+                        <!--</div>-->
+                        <!--<div class="clearfix">-->
+                        <!--<div class="f-l"><img src="{{projcfg.appurl}}/static/image/img9.png"></div>-->
+                        <!--<div class="f-l"><img src="{{projcfg.appurl}}/static/image/img10.png"></div>-->
+                        <!--</div>-->
                     </li>
                     <li>
                         <div>
@@ -116,42 +119,70 @@
         });
 //        $("#colonyDataTable").html("sdfksadlfkas;ldfksdl;kf");
 
-        $('#camkmpdeploy').datagrid({
-            url:'{{projcfg.appurl}}/api/project/operation/grayenvironmentmanage/deploy/info',
-            method:'get',
-            rownumbers:false,
-            striped:true,
-            fitColumns:true,
-            //toolbar: '#toolbar',
-            fit:true,
-            border:true,
-            singleSelect:true,
-            selectOnCheck:false,
-            columns:[[
-                {"field":'id',checkbox:true},
-//                {"field": "","title":"编号","width":80,align:"center"},
-                {"field": "containerName","title":"容器名称","width":130,align:"center"},
-//                {"field": "deploy","title":"所属项目","width":130,align:"center"},
-                {"field": "hostname","title":"运行环境","width":130,align:"center"},
-                {"field": "image","title":"所属镜像","width":150,align:"center"},
-//                {"field": "status","title":"状态","width":80,align:"center",
-//                    "formatter":function (value, rowData,rowIndex) {
-//                        return '运行中';
-//                    }},
-//                {"field": "remark","title":"备注","width":150,align:"center"},
-                {"field": "oper","title":"操作","width":120,align:"center",
-                    "formatter":function (value, rowData,rowIndex) {
-                        return "<span class=\"label label-info\" style='height:26px;line-height:16px;font-weight:600;margin-top: 0.5rem;margin-left: 0.5rem;cursor: pointer;' onclick='hm_list(\""+rowData.master_id+"\",\""+rowData.master_ip+"\")'>主机管理</span><span class=\"label label-success\" style='height:26px;line-height:16px;font-weight:600;margin-top: 0.5rem;margin-left: 0.5rem;cursor: pointer;' onclick='colonymanage(\""+rowData.id+"\")'>集群概览</span>";
-                    }}
-            ]],
-            onLoadError:function() {
-                msgError('加载数据出现时发生错误,请稍候重试...');
-            },
-            pagination:true,
-            loadMsg:'正在加载...'
+
+
+        $.ajax({
+            url: '{{projcfg.appurl}}/api/project/operation/grayenvironmentmanage/deploy/info',
+            type: 'get',
+            success: function (result) {
+                var data=result.data;
+                var html="";
+                html+="<tr>\n" +
+                        "    <th>编号</th>" +
+                        "    <th>容器名称</th>" +
+                        "    <th>所属项目</th>" +
+                        "    <th>运行环境</th>" +
+                        "    <th>状态</th>" +
+                        "    <th>所属镜像</th>" +
+                        "    <th>备注</th>" +
+                        "    <th>操作</th>" +
+                        " </tr>" ;
+                for(var i in data){
+                    console.log(data[i]);
+
+                    html+=" <tr>" +
+                            "     <td>"+i+"</td>" + "" +
+                            "     <td>"+data[i].containerName+"</td>" +
+                            "     <td>"+"amd"+"</td>" +
+                            "     <td>"+data[i].hostname+"</td>" +
+                            "     <td>运行中</td>" +
+                            "     <td>"+data[i].image+"</td>" +
+                            "     <td>$100</td>" +
+                            "     <td>$100</td>" +
+                            " </tr>";
+
+
+
+                }
+
+
+                $("#camkmpdeploy").html(html)
+                show_grafana()
+
+            }
+
+//            $("#camkmpdeploy")
+//                var data = result.data;
+//                var projectName = data[0].projectName;
+//                var gitAddress = data[0].gitAddress;
+//                $("#projectName").html(projectName);
+//                $("#gitAddress").html(gitAddress);
+//            }
+
+
         });
 
+
     })
+
+
+    function show_grafana(container_id){
+        var html="<iframe src='http://192.168.9.69:3000/dashboard/db/dockerdan-ge-rong-qi-jian-kong?orgId=1&var-host=mesos-node2_192.168.9.67&var-container_name=mesos-97627646-54be-4777-9223-faecde8f8cdf-S6.11d0ac3c-3b5a-4e07-b342-b5f341dd8502' width=\"100%\" height=\"900px\" frameborder=\"0\"></iframe>\n";
+
+        $("#grafana_show").html(html)
+
+
+    }
 
 
 </script>
