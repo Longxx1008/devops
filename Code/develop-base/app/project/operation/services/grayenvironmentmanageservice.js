@@ -44,49 +44,49 @@ exports.getDeploy=function(){
     var data=[];
     var p=new Promise(function(resolve,reject){
         ng.get(protocol+"://"+mesos_add+":"+mesos_port+"/master/state.json",
-            function (res, status, headers) {
-                if (res) {
-                    var results = JSON.parse(res);
-                    var slaves=results.slaves;
-                    var unreachable_tasks=results.frameworks[0].unreachable_tasks;
-                    // console.log(unreachable_tasks);
-                    var completed_tasks=results.frameworks[0].completed_tasks;
-                    var tasks=results.frameworks[0].tasks;
-                    // console.log("============================================>  ",results.frameworks[0].tasks);
-                    var k =0;
-                    for(var i in tasks){
-                        var map={};
-                        var slave_id=tasks[i].slave_id;
-                        var docker_container_id="mesos-"+tasks[i].slave_id+"."+tasks[i].framework_id;
-                        var containers=tasks[i].container;
-                        // console.log(containers.docker);
-                        map.image=containers.docker.image;
-                        map.containerName=tasks[i].name;
-                        map.containerId=docker_container_id;
-                        map.id=k;
-                        k++;
-                        for(var slave in slaves){
-                            if(slaves[slave].id==slave_id){
-                                map.hostname=slaves[slave].hostname
-                            }
+        function (res, status, headers) {
+            if (res) {
+                var results = JSON.parse(res);
+                var slaves=results.slaves;
+                var unreachable_tasks=results.frameworks[0].unreachable_tasks;
+                // console.log(unreachable_tasks);
+                var completed_tasks=results.frameworks[0].completed_tasks;
+                var tasks=results.frameworks[0].tasks;
+                // console.log("============================================>  ",results.frameworks[0].tasks);
+                var k =0;
+                for(var i in tasks){
+                    var map={};
+                    var slave_id=tasks[i].slave_id;
+                    var docker_container_id="mesos-"+tasks[i].slave_id+"."+tasks[i].framework_id;
+                    var containers=tasks[i].container;
+                    // console.log(containers.docker);
+                    map.image=containers.docker.image;
+                    map.containerName=tasks[i].name;
+                    map.containerId=docker_container_id;
+                    map.id=k;
+                    k++;
+                    for(var slave in slaves){
+                        if(slaves[slave].id==slave_id){
+                            map.hostname=slaves[slave].hostname
                         }
-
-                        data.push(map);
                     }
-                    resolve({"data":data,"success":true,"message":"获取数据成功","error":null,"code":0000})
 
-
+                    data.push(map);
                 }
-            },
-            content_type,
-            null,
-            'utf8').
-        on('error', function (e) {
-            resolve({"data":null,"success":false,"message":"获取数据失败！","error":e,"code":1001})
+                resolve({"data":data,"success":true,"message":"获取数据成功","error":null,"code":0000})
 
 
-        })
+            }
+        },
+        content_type,
+        null,
+        'utf8').
+    on('error', function (e) {
+        resolve({"data":null,"success":false,"message":"获取数据失败！","error":e,"code":1001})
+
+
     })
+})
     return p ;
 
 }
