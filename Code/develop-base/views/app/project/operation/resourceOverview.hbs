@@ -1,0 +1,619 @@
+<link type="text/css" rel="stylesheet" href="{{projcfg.appurl}}/static/css/page-style.css">
+<link rel="stylesheet" href="{{projcfg.appurl}}/static/css/base.css">
+
+<style>
+    .product-box{
+        overflow: hidden;
+        border: 1px solid #ddd;
+        -webkit-border-radius: 6px;
+        -moz-border-radius: 6px;
+        border-radius: 6px;
+        margin-right: 20px;
+    }
+    .header-box h2 {
+        font-size: 16px;
+        font-weight: bold;
+        float: left;
+        margin-top: 15px;
+    }
+
+    .header-box button {
+        background-color: #2dc3e8;
+        border-radius: 3px;
+        float: right;
+        width: 90px;
+        height: 28px;
+        line-height: 28px;
+        color: #ffffff;
+        transition: background-color 2s;
+        margin-top: 10px;
+    }
+
+    .header-box button:hover {
+        background-color: #2b89ad;
+    }
+
+    .main-box {
+        margin-top: 15px;
+        overflow: hidden;
+    }
+
+
+    .main-box .infom-table {
+        width: 100%;
+        border: 1px solid #dddddd;
+
+    }
+
+    .main-box .infom-table ul {
+        width: 100%;
+        overflow: hidden;
+    }
+
+    .main-box .infom-table li:first-child {
+        width: 100%;
+        line-height: 24px;
+    }
+
+    .main-box .infom-table li {
+        float: left;
+        width: 50%;
+        height: 24px;
+        line-height: 24px;
+        border-bottom: 1px solid #dddddd;
+        border-left: 1px solid #dddddd;
+        padding: 0 5px;
+    }
+
+    .main-box .infom-table li .infom-title {
+        font-size: 14px;
+        font-weight: bold;
+    }
+
+    .main-box .infom-table li label {
+        margin-right: 5px;
+    }
+
+    .main-box .monitoring-box {
+        width: 735px;
+    }
+
+    .main-box .monitoring-box h2 {
+        font-size: 14px;
+        border-left: 2px #2dc3e8 solid;
+        padding-left: 5px;
+    }
+
+    .main-box .monitoring-box li {
+        border: 1px solid #dddddd;
+        padding: 10px;
+        margin-top: 10px;
+
+    }
+
+    .main-box .monitoring-box li span {
+        font-weight: bold;
+        margin-bottom: 10px;
+        display: block;
+    }
+
+    .monitoring-pic {
+        width: 100%;
+        height: 300px;
+    }
+
+    .page-body {
+        background-color: #ffffff;
+    }
+
+    .title-box h4 {
+        margin-bottom: 10px;
+    }
+
+    .-boxmonitoring {
+        width: 100%;
+    }
+</style>
+<div class="row">
+    <div class="col-xs-12 col-md-12">
+        <div class="widget">
+            <div class="widget-body">
+                <div class="row">
+                    <div class="col-xs-12 col-md-12">
+                        <h4>服务资源概览</h4>
+                        <div id="toolbar" class="row tbRow" style="">
+                            <div class="col-xs-12 col-md-12 text-right" style="padding-right:28px;">
+                                <form id="searchFrom" class="form-inline" style="margin-top: -30px">
+                                    <div class="form-group">
+                                        <div class="input-group">
+                                            <select class="form-control">
+                                                <option>全部</option>
+                                            </select>
+                                            <span class="input-group-btn">
+                                                <button class="btn btn-default" type="button" onclick="doSearch()"><i class="fa fa-search"></i>查询</button>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <div style="margin-top: 10px"><hr style="height:1px;border:none;border-top:1px solid #555555;" /></div>
+                        <h4 style="margin-top: 20px">数据库</h4>
+
+                        <style>
+                            .box-fuwu{
+                                margin-left: 150px;
+                                overflow: hidden;
+                            }
+                            .box-fuwu li img{
+                                width: 80px;
+                                height: 80px;
+                                float: left;
+                            }
+                            .box-fuwu  li{
+                                overflow: hidden;
+                                margin-top: 20px;
+                            }
+                            .box-fuwu li .li-right-box{
+                                float: left;
+                                border-bottom: 1px dashed #d3d3d3;
+                                margin-left: 10px;
+                                width: 900px;
+                                overflow: hidden;
+                                height: 80px;
+                            }
+                            .box-fuwu li .li-right-box  p{
+                                width: 200px;
+                                float: left;
+                                text-align: center;
+                                padding-top: 10px;
+                                margin-left: 100px;
+                            }
+                            .box-fuwu li .li-right-box  p span{
+                                display: block;
+                                color: #666;
+
+                            }
+                            .box-fuwu li .li-right-box p button{
+                                    margin-top: 10px;
+                            }
+                        </style>
+                        <ul class="box-fuwu">
+                            <li>
+                                <img src="{{projcfg.appurl}}/static/images/mysql.png">
+                                <div class="li-right-box">
+
+                                <p>
+                                       <span>服务器名称</span>
+                                       <span>版本：v0.1</span>
+                                   </p>
+                                   <p>
+                                       <span>IP:192.165.1.1</span>
+                                       <span>实例：39</span>
+                                   </p>
+                                   <p>
+                                       <button class="btn btn-primary">创建服务</button>
+                                   </p>
+                               </div>
+                            </li>
+                            <li>
+                                <img src="{{projcfg.appurl}}/static/images/mysql.png">
+                              <div class="li-right-box">
+                                  <p>
+                                      <span>服务器名称</span>
+                                      <span>版本：v0.1</span>
+                                  </p>
+                                  <p>
+                                      <span>IP:192.165.1.1</span>
+                                      <span>实例：39</span>
+                                  </p>
+                                 <p>
+                                     <button class="btn btn-primary">创建服务</button>
+                                 </p>
+                              </div>
+                            </li>
+                            <li>
+                                <img src="{{projcfg.appurl}}/static/images/mysql.png">
+                                <div class="li-right-box">
+                                    <p>
+                                        <span>服务器名称</span>
+                                        <span>版本：v0.1</span>
+                                    </p>
+                                    <p>
+                                        <span>IP:192.165.1.1</span>
+                                        <span>实例：39</span>
+                                    </p>
+                                    <p>
+                                        <button class="btn btn-primary">创建服务</button>
+                                    </p>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script type="text/javascript" src="{{projcfg.appurl}}/static/js/echart/v3.1.3/echarts.min.js"></script>
+<script type="text/javascript">
+    //页面直接跳转页面带参数时，获取url参数值
+    var master_ip, master_id;
+
+    function GetRequest() {
+        var values = [];
+        var url = location.search; //获取url中"?"符后的字串
+        if (url.indexOf('?') != -1) {    //判断是否有参数
+            var str = url.substr(1); //从第一个字符开始 因为第0个是?号 获取所有除问号的所有符串
+            //用等号进行分隔 （因为知道只有一个参数 所以直接用等号进分隔 如果有多个参数 要用&号分隔 再用等号进行分隔）
+            if (str.indexOf('&') >= 0) {
+                var strs = str.split('&');
+                for (var i = 0; i < strs.length; i++) {
+                    var vals = strs[i].split('=');
+                    if (i == 0) {
+                        values.push(decodeURI(vals[1]));
+                    } else {
+                        values.push(vals[1]);
+                    }
+                }
+            } else {
+                var strs = str.split('=');
+                values.push(decodeURI(strs[1]));
+            }
+            return values;
+        }
+    }
+
+    $('#btnList').click(function() {
+        window.location.href = '{{projcfg.appurl}}/hostmanage?master_ip=' + encodeURI(master_ip) + '&master_id=' +
+                master_id;
+    });
+    $('#btnBack').click(function() {
+        window.location.href = '{{projcfg.appurl}}/colonym';
+    });
+    $(function() {
+        var paramsValues = GetRequest();
+        console.log('======paramsValues=====', paramsValues);
+        var id = paramsValues[0];
+        $.ajax({
+            url: '{{projcfg.appurl}}/api/project/operation/colonymanage/' + id,
+            type: 'get',
+            success: function(data) {
+                master_ip = data.data[0].master_ip;
+                master_id = data.data[0].master_id;
+                $('#name').html(data.data[0].name);
+                $('#position').html(data.data[0].position);
+                $('#user').html(data.data[0].createUser);
+                if (data.data[0].status == 1)
+                    $('#status').
+                            html('<img id="u56_img" class="img " src="{{projcfg.appurl}}/static/images/u56.png">运行中');
+                else
+                    $('#status').
+                            html('<img id="u58_img" class="img " src="{{projcfg.appurl}}/static/images/u58.png">失效');
+            },
+        });
+        //初始化echarts实例
+        var cpuChart = echarts.init(document.getElementById('cpu'));
+        var memoryChart = echarts.init(document.getElementById('neicun'));
+        var diskChart = echarts.init(document.getElementById('disk'));
+        var runStatusChart = echarts.init(document.getElementById('runStatus'));
+        var operationSystemChart = echarts.init(document.getElementById('operationSystem'));
+        var ringChart = echarts.init(document.getElementById('ringChart'));
+        var usedCpu, totalCpu, usedDisk, totalDisk, usedMemory, totalMemory;
+        $.ajax({
+            url: '{{projcfg.appurl}}/api/project/operation/colonydetail/' + id,
+            type: 'post',
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            success: function(data) {
+                var usedCpus = parseFloat(data.data[0].usedCpu);
+                totalCpu = parseFloat(data.data[0].totalCpu);
+                usedCpu = usedCpus / totalCpu * 100;
+                var usedDisks = parseFloat(data.data[0].usedDisk);
+                totalDisk = parseFloat(data.data[0].totalDisk);
+                usedDisk = usedDisks / totalDisk * 100;
+                var usedMemorys = parseFloat(data.data[0].usedMemory);
+                totalMemory = parseFloat(data.data[0].totalMemory);
+                usedMemory = usedMemorys / totalMemory * 100;
+                cpuChart.setOption({
+                    title: {
+                        text: 'CPU',
+                        subtext: '共计' + totalCpu + ',已使用' + usedCpus,
+                        x: 'center',
+                        y: 'bottom',
+                    },
+                    tooltip: {
+                        trigger: 'item',
+                        formatter: '{a} <br/>{d}%',
+                    },
+                    legend: {},
+                    series: [
+                        {
+                            name: '使用情况',
+                            type: 'pie',
+                            radius: '60%',
+                            center: ['50%', '40%'],
+                            data: [
+                                {value: usedCpu, name: '已使用'},
+                                {value: (100 - usedCpu), name: '未使用'},
+                            ],
+                            itemStyle: {
+                                emphasis: {
+                                    shadowBlur: 20,
+                                    shadowOffsetX: 0,
+                                    shadowColor: 'rgba(0, 0, 0, 0.5)',
+                                },
+                            },
+                        },
+                    ],
+                });
+                memoryChart.setOption({
+                    title: {
+                        text: '内存',
+                        subtext: '共计' + (totalMemory / 1024).toFixed(3) + 'G,已使用' + (usedMemorys / 1024).toFixed(3) +
+                        'G',
+                        x: 'center',
+                        y: 'bottom',
+                    },
+                    tooltip: {
+                        trigger: 'item',
+                        formatter: '{a} <br/>{d}%',
+                    },
+                    legend: {},
+                    series: [
+                        {
+                            name: '使用情况',
+                            type: 'pie',
+                            radius: '60%',
+                            center: ['50%', '40%'],
+                            data: [
+                                {value: usedMemory, name: '已使用'},
+                                {value: (100 - usedMemory), name: '未使用'},
+                            ],
+                            itemStyle: {
+                                emphasis: {
+                                    shadowBlur: 20,
+                                    shadowOffsetX: 0,
+                                    shadowColor: 'rgba(0, 0, 0, 0.5)',
+                                },
+                            },
+                        },
+                    ],
+                });
+                diskChart.setOption({
+                    title: {
+                        text: '磁盘',
+                        subtext: '共计' + (totalDisk / 1024).toFixed(3) + 'G,已使用' + (usedDisks / 1024).toFixed(3) + 'G',
+                        x: 'center',
+                        y: 'bottom',
+                    },
+                    tooltip: {
+                        trigger: 'item',
+                        formatter: '{a} <br/>{d}%',
+                    },
+                    legend: {},
+                    series: [
+                        {
+                            name: '使用情况',
+                            type: 'pie',
+                            radius: '60%',
+                            center: ['50%', '40%'],
+                            data: [
+                                {value: usedDisk, name: '已使用'},
+                                {value: (100 - usedDisk), name: '未使用'},
+                            ],
+                            itemStyle: {
+                                emphasis: {
+                                    shadowBlur: 20,
+                                    shadowOffsetX: 0,
+                                    shadowColor: 'rgba(0, 0, 0, 0.5)',
+                                },
+                            },
+                        },
+                    ],
+                });
+            },
+        });
+        $.ajax({
+            url: '{{projcfg.appurl}}/api/project/operation/colonydetail/getHostInfo',
+            type: 'get',
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            success: function(data) {
+                var xAxis = new Array();//获取主机列表
+                var status = new Array();//获取运行状态使用情况
+                var running = 0, stopping = 0;
+                var operationSystem = new Array();//获取操作系统情况
+                for (var i in data.data) {
+                    xAxis.push(data.data[i].slave_ip);
+                    if (data.data[i].status) {
+                        running++;
+                    } else {
+                        stopping++;
+                    }
+                    if (operationSystem.indexOf(data.data[i].os) == -1) {
+                        operationSystem.push(data.data[i].os);
+                    }
+
+                }
+                status.push(running);
+                status.push(stopping);
+                runStatusChart.setOption({
+                    title: {
+                        text: '系统类型',
+                        x: 20,
+                    },
+                    tooltip: {
+                        trigger: 'axis',
+                        axisPointer: {
+                            type: 'shadow',
+                        },
+                    },
+                    legend: {},
+                    grid: {
+                        left: '5%',
+                        right: '4%',
+                        bottom: '3%',
+                        containLabel: true,
+                    },
+                    xAxis: {
+                        type: 'value',
+                        splitLine: {
+
+                            show: false,
+
+                        },
+                        boundaryGap: [0, 0.01],
+                    },
+                    yAxis: {
+                        type: 'category',
+                        splitLine: {
+
+                            show: false,
+
+                        },
+                        data: ['运行中: ' + status[0] + '台', '失效: ' + status[1] + '台'],
+                    },
+                    color: ['green'],
+                    series: [
+                        {
+                            name: '数量',
+                            type: 'bar',
+                            data: status,
+                        },
+                    ],
+                });
+                operationSystemChart.setOption({
+                    title: {
+                        text: '操作系统',
+                        subtext: '',
+                    },
+                    tooltip: {
+                        trigger: 'axis',
+                        axisPointer: {
+                            type: 'shadow',
+                        },
+                    },
+                    legend: {},
+                    grid: {
+                        left: '3%',
+                        right: '4%',
+                        bottom: '3%',
+                        containLabel: true,
+                    },
+                    xAxis: {
+                        type: 'value',
+                        splitLine: {
+
+                            show: false,
+
+                        },
+                        boundaryGap: [0, 1],
+                    },
+                    yAxis: {
+                        type: 'category',
+                        splitLine: {
+
+                            show: false,
+
+                        },
+                        data: operationSystem,
+                    },
+                    color: ['green'],
+                    series: [
+                        {
+                            name: '数量',
+                            type: 'bar',
+                            data: status,
+                        },
+                    ],
+                });
+                ringChart.setOption({
+                    tooltip: {
+                        trigger: 'item',
+                        formatter: '{a} <br/>{b}: {c} ({d}%)',
+                    },
+                    legend: {},
+                    series: [
+                        {
+                            name: '数量',
+                            type: 'pie',
+                            selectedMode: 'single',
+                            radius: [0, '30%'],
+
+                            label: {
+                                normal: {
+                                    position: 'inner',
+                                },
+                            },
+                            labelLine: {
+                                normal: {
+                                    show: false,
+                                },
+                            },
+                            data: [
+                                {value: stopping, name: '失效', selected: false},
+                                {value: running, name: '运行中'},
+                            ],
+                        },
+                        {
+                            name: '操作系统数量',
+                            type: 'pie',
+                            radius: ['40%', '55%'],
+                            label: {
+                                normal: {
+                                    backgroundColor: '#eee',
+                                    borderColor: '#aaa',
+                                    borderWidth: 1,
+                                    borderRadius: 4,
+                                    rich: {
+                                        a: {
+                                            color: '#999',
+                                            lineHeight: 22,
+                                            align: 'center',
+                                        },
+                                        hr: {
+                                            borderColor: '#aaa',
+                                            width: '100%',
+                                            borderWidth: 0.5,
+                                            height: 0,
+                                        },
+                                        b: {
+                                            fontSize: 16,
+                                            lineHeight: 33,
+                                        },
+                                        per: {
+                                            color: '#eee',
+                                            backgroundColor: '#334455',
+                                            padding: [2, 4],
+                                            borderRadius: 2,
+                                        },
+                                    },
+                                },
+                            },
+                            data: [
+                                {value: 7, name: 'Linux'},
+                                /*    {value:310, name:'ubuntu16'},
+                                    {value:234, name:'centos6'},
+                                    {value:135, name:'centos7'},
+                                    {value:1048, name:'redhat5.5'}*/
+                            ],
+                        },
+                    ],
+                });
+            },
+        });
+        // 去掉  资源使用情况时序图,网络出入时序图
+//        $('#cpuStatus').
+//                append('<iframe src="http://192.168.9.69:3000/dashboard-solo/db/xi-tong-xin-xi-1111?orgId=1&panelId=1&from=1506671538692&to=1506757938692&theme=light" width="100%" height="100%" frameborder="0"></iframe>');
+//        $('#memoryStatus').
+//                append('<iframe src="http://192.168.9.69:3000/dashboard-solo/db/xi-tong-xin-xi-1111?orgId=1&panelId=2&from=1506671677335&to=1506758077335&theme=light" width="100%" height="100%" frameborder="0"></iframe>');
+//        $('#diskStatus').
+//                append('<iframe src="http://192.168.9.69:3000/dashboard-solo/db/xi-tong-xin-xi-1111?orgId=1&panelId=3&from=1506671785003&to=1506758185004&theme=light" width="100%" height="100%" frameborder="0"></iframe>');
+//        $('#netStatus').
+//                append('<iframe src="http://192.168.9.69:3000/dashboard-solo/db/xi-tong-xin-xi-1111?orgId=1&from=1506672310786&to=1506758710787&theme=light&panelId=7" width="100%" height="100%" frameborder="0"></iframe>');
+
+    });
+</script>
