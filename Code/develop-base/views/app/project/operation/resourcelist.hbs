@@ -1,0 +1,159 @@
+{{!-- 服务列表 --}}
+<div class="row">
+    <div class="col-xs-12 col-md-12">
+        <div class="widget">
+            <div class="widget-body">
+                <div class="row">
+                    <div class="col-cs-12 col-md-12">
+                        <div class="widget-header bordered-bottom bordered-themeprimary">
+                            <i class="widget-icon fa fa-tags themeprimary"></i>
+                            <span class="widget-caption themeprimary">资源列表</span>
+                            {{!--
+                            <div class="widget-buttons">
+                                <a id="btnBack" style="    color: #337ab7;" href="javascript:void(0)" onclick='javascript:history.back(-1);'>
+                                    <i class="fa fa-reply"></i>
+                                </a>
+                            </div> --}}
+                        </div>
+                        <div class="widget-body">
+                            <div style="">
+                                <div class="box-list-content">
+                                    <div class="product-box">
+                                        <div id="resourcelist" class="easyui-layout" data-options="fit:true,border:false" style="width: 800px; height:575px;background-color: #fbfbfb;">
+                                            <div id="images" data-options="region:'center',border:false" style="overflow-x:hidden;overflow-y:hidden">
+                                                <div id="privatediv" style="width:100%;height: 100%;">
+                                                    <div style="width:100%;height:100%; ">
+                                                        <table id="resourceListTable">
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $('#resourceListTable').datagrid({
+        url: '{{projcfg.appurl}}/api/project/operation/resourcelist',
+        method: 'get',
+        queryParams: {},
+        rownumbers: false,
+        striped: true,
+        fitColumns: true,
+        fit: true,
+        border: true,
+        singleSelect: true,
+        selectOnCheck: false,
+        columns: [
+            [
+                {
+                    'field': 'id',
+                    checkbox: true,
+                },
+                {
+                    'field': 'resource_number',
+                    'title': '编号',
+                    'width': 35,
+                    align: 'center',
+                },
+                {
+                    'field': 'resource_name',
+                    'title': '服务名称',
+                    'width': 30,
+                    align: 'center',
+                },
+                {
+                    'field': 'resource_state',
+                    'title': '状态',
+                    'width': 25,
+                    align: 'center',
+                    'formatter': function (value, rowData, rowIndex) {
+                        if (value == 1) {
+                            return '<img id="u56_img" class="img " src="{{projcfg.appurl}}/static/images/u56.png">' +
+                                '运行中';
+
+                        } else {
+                            return '<img id="u58_img" class="img " src="{{projcfg.appurl}}/static/images/u58.png">' +
+                                '故障';
+                        }
+                    },
+                },
+                {
+                    'field': 'resource_apply',
+                    'title': '实例名称',
+                    'width': 25,
+                    align: 'center',
+                },
+                {
+                    'field': 'resource_count',
+                    'title': '资源占用情况',
+                    'width': 25,
+                    align: 'center',
+                    'formatter': function (value, rowData, rowIndex) {
+                        var occupy_precent = (rowData.occupy_use / rowData.occupy * 100).toFixed(2);
+                        var occupy_uesd_percent = 100 - occupy_precent;
+                        var str = '';
+                        var data_g = (rowData.occupy / 1024).toFixed(2);
+                        var data_u = (rowData.occupy_use / 1024).toFixed(2);
+                        str += '<div title="30GB' + data_g + 'G  已经使用： ' + data_u + ' G (使用率 ' + occupy_precent +
+                            '%)\">';
+                        if (occupy_precent <= 30) {
+                            str += '<div style=\"height:20px;width:' + occupy_precent +
+                                '%;background:#4cff00; float:left;\"></div>';
+                            str += '<div style=\"height:20px;width:' + occupy_uesd_percent +
+                                '%;background:#2fdae5; float:right;\"></div></div>';
+                        } else if (occupy_precent <= 75) {
+                            str += '<div style=\"height:20px;width:' + occupy_precent +
+                                '%;background:#ffd800; float:left;\"></div>';
+                            str += '<div style=\"height:20px;width:' + occupy_uesd_percent +
+                                '%;background:#2fdae5; float:right;\"></div></div>';
+                        } else if (occupy_precent > 75) {
+                            str += '<div style=\"height:20px;width:' + occupy_precent +
+                                '%;background:#ff0000; float:left;\"></div>';
+                            str += '<div style=\"height:20px;width:' + occupy_uesd_percent +
+                                '%;background:#2fdae5; float:right;\"></div></div>';
+                        }
+
+                        return str;
+
+                    },
+                },
+                {
+                    'field': 'resource_remark',
+                    'title': '备注',
+                    'width': 30,
+                    align: 'center',
+                },
+                {
+                    'field': 'resource_operate',
+                    'title': '操作',
+                    'width': 50,
+                    align: 'center',
+                    'formatter': function (value, rowData, rowIndex) {
+                        return `<span class="label label-info" style="height:26px;line-height:16px;font-weight:600;margin-top: 0.5rem;margin-left: 0.5rem;cursor: pointer;" onclick="hm_list(
+                            ${rowData.id}','${rowData.name}')">创建备份</span>
+                            <span class="label label-info" style="height:26px;line-height:16px;font-weight:600;margin-top: 0.5rem;margin-left: 0.5rem;cursor: pointer;" onclick="hm_list(
+                            ${rowData.id}','${rowData.name}')">监控</span>
+                            <span class="label label-info" style="height:26px;line-height:16px;font-weight:600;margin-top: 0.5rem;margin-left: 0.5rem;cursor: pointer;" onclick="hm_list(
+                            ${rowData.id}','${rowData.name}')">日志</span>
+                            `;
+                    },
+                }
+
+
+            ]
+        ],
+        onLoadError: function () {
+            msgError('加载数据出现时发生错误,请稍候重试...');
+        },
+        pagination: true,
+        loadMsg: '正在加载...',
+    })
+</script>
