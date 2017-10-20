@@ -8,7 +8,7 @@ var ng = require('nodegrass');
 var mesos_add = '192.168.9.65';
 var mesos_port = '5050';
 var content_type = 'Content-Type: application/json';
-var async = require('async');
+// var async = require('async');
 test().then(res => {
   console.log(res);
 }).catch(eror => {

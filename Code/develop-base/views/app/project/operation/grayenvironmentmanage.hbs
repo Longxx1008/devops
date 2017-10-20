@@ -120,46 +120,54 @@
 //        $("#colonyDataTable").html("sdfksadlfkas;ldfksdl;kf");
 
 
+        $('#camkmpdeploy').datagrid({
+            url:'{{projcfg.appurl}}/api/project/operation/grayenvironmentmanage/deploy/info',
+            method:'get',
+//            rownumbers:false,
+            striped:true,
+//            fitColumns:true,
+            //toolbar: '#toolbar',
+//            fit:true,
+//            border:true,
+            singleSelect:true,
+//            selectOnCheck:false,
+            columns:[[
+                {"field":'service_id',checkbox:true},
+                {"field": "service_tag","title":"名称","width":80,align:"center"},
+                /* {"field": "totalCpu","title":"cpu总资源","width":130,align:"center"},
+                 {"field": "usedCpu","title":"cpu使用情况","width":130,align:"center"},
+                 {"field": "totalDisk","title":"硬盘总资源","width":130,align:"center"},
+                 {"field": "usedDisk","title":"硬盘使用情况","width":130,align:"center"},
+                 {"field": "totalMemory","title":"内存总资源","width":130,align:"center"},
+                 {"field": "usedMemory","title":"内存使用情况","width":130,align:"center"},*/
+                {"field": "image_id","title":"CPU","width":130,align:"center"},
+                {"field": "container_id","title":"硬盘","width":130,align:"center"},
+                {"field": "memorytool","title":"内存","width":130,align:"center"},
+                {"field": "","title":"状态","width":80,align:"center",
+                    "formatter":function (value, rowData,rowIndex) {
+                        return '运行中';
+                    }},
+                {"field": "remark","title":"备注","width":150,align:"center"},
+                {"field": "oper","title":"操作","width":120,align:"center",
+                    "formatter":function (value, rowData,rowIndex) {
+                        return "<span class=\"label label-info\" style='height:26px;line-height:16px;font-weight:600;margin-top: 0.5rem;margin-left: 0.5rem;cursor: pointer;' onclick='hm_list(\""+rowData.master_id+"\",\""+rowData.master_ip+"\")'>主机管理</span><span class=\"label label-success\" style='height:26px;line-height:16px;font-weight:600;margin-top: 0.5rem;margin-left: 0.5rem;cursor: pointer;' onclick='colonymanage(\""+rowData.id+"\")'>集群概览</span>";
+                    }}
+            ]],
+            onLoadError:function() {
+                msgError('加载数据出现时发生错误,请稍候重试...');
+            },
+            pagination:true,
+            loadMsg:'正在加载...'
+        });
+    });
 
-        $.ajax({
-            url: '{{projcfg.appurl}}/api/project/operation/grayenvironmentmanage/deploy/info',
-            type: 'get',
-            success: function (result) {
-                var data=result.data;
-                var html="";
-                html+="<tr>\n" +
-                        "    <th>编号</th>" +
-                        "    <th>容器名称</th>" +
-                        "    <th>所属项目</th>" +
-                        "    <th>运行环境</th>" +
-                        "    <th>状态</th>" +
-                        "    <th>所属镜像</th>" +
-                        "    <th>备注</th>" +
-                        "    <th>操作</th>" +
-                        " </tr>" ;
-                for(var i in data){
-                    console.log(data[i]);
-
-                    html+=" <tr>" +
-                            "     <td>"+i+"</td>" + "" +
-                            "     <td>"+data[i].containerName+"</td>" +
-                            "     <td>"+"amd"+"</td>" +
-                            "     <td>"+data[i].hostname+"</td>" +
-                            "     <td>运行中</td>" +
-                            "     <td>"+data[i].image+"</td>" +
-                            "     <td>$100</td>" +
-                            "     <td>$100</td>" +
-                            " </tr>";
 
 
 
-                }
+//                $("#camkmpdeploy").html(html)
 
 
-                $("#camkmpdeploy").html(html)
-                show_grafana()
-
-            }
+//            }
 
 //            $("#camkmpdeploy")
 //                var data = result.data;
@@ -169,11 +177,11 @@
 //                $("#gitAddress").html(gitAddress);
 //            }
 
-
-        });
-
-
-    })
+//
+//        });
+//
+//
+//    })
 
 
     function show_grafana(container_id){
