@@ -1,0 +1,102 @@
+{{!-- 负载均衡 --}}
+<div class="row">
+    <div class="col-xs-12 col-md-12">
+        <div class="widget">
+            <div class="widget-body">
+                <div class="row">
+                    <div class="col-cs-12 col-md-12">
+                        <div class="widget-header bordered-bottom bordered-themeprimary">
+                            <i class="widget-icon fa fa-tags themeprimary"></i>
+                            <span class="widget-caption themeprimary">负载均衡</span>
+                            {{!--
+                            <div class="widget-buttons">
+                                <a id="btnBack" style="    color: #337ab7;" href="javascript:void(0)" onclick='javascript:history.back(-1);'>
+                                    <i class="fa fa-reply"></i>
+                                </a>
+                            </div> --}}
+                        </div>
+                        <div class="widget-body">
+                            <div style="">
+                                <div class="box-list-content">
+                                    <div class="product-box">
+                                        <div id="resourcelist" class="easyui-layout" data-options="fit:true,border:false" style="width: 800px; height:575px;background-color: #fbfbfb;">
+                                            <div id="images" data-options="region:'center',border:false" style="overflow-x:hidden;overflow-y:hidden">
+                                                <div id="privatediv" style="width:100%;height: 100%;">
+                                                    <div style="width:100%;height:100%; ">
+                                                        <table id="resourceBalanceTable">
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $('#resourceBalanceTable').datagrid({
+        url: '{{projcfg.appurl}}/api/project/operation/resourceBalance',
+        method: 'get',
+        queryParams: {},
+        rownumbers: false,
+        striped: true,
+        fitColumns: true,
+        fit: true,
+        border: true,
+        singleSelect: true,
+        selectOnCheck: false,
+        columns: [
+            [
+                {
+                    'field': 'public_ip',
+                    'title': '公网IP',
+                    'width': 50,
+                    align: 'center',
+                },
+                {
+                    'field': 'service_ip',
+                    'title': '服务地址',
+                    'width': 50,
+                    align: 'center',
+                },
+                {
+                    'field': 'status',
+                    'title': '状态',
+                    'width': 50,
+                    align: 'center',
+                    'formatter': function (value, rowData, rowIndex) {
+                        if (value == 1) {
+                            return '<img id="u56_img" class="img " src="{{projcfg.appurl}}/static/images/u56.png">' +
+                                    '运行中';
+
+                        } else {
+                            return '<img id="u58_img" class="img " src="{{projcfg.appurl}}/static/images/u58.png">' +
+                                    '故障';
+                        }
+                    },
+                },
+                {
+                    'field': 'remark',
+                    'title': '备注',
+                    'width': 50,
+                    align: 'center',
+                },
+                {"field": "oper","title":"操作","width":120,align:"center",
+                    "formatter":function (value, rowData,rowIndex) {
+                        return "<span  style='height:26px;line-height:16px;margin-top: 0.5rem;margin-left: 0.5rem;cursor: pointer;' onclick=''>健康检查</span>  | <span  style='height:26px;line-height:16px;margin-top: 0.5rem;margin-left: 0.5rem;cursor: pointer;' onclick=''>日志</span>";
+                    }}
+            ]
+        ],
+        onLoadError: function () {
+            msgError('加载数据出现时发生错误,请稍候重试...');
+        },
+        pagination: true,
+        loadMsg: '正在加载...',
+    })
+</script>

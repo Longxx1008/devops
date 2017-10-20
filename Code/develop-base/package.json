@@ -44,6 +44,7 @@
     "iconv-lite": "0.2.5",
     "influxdb-nodejs": "*",
     "nodegrass": "*",
-    "bluebird": "*"
+    "bluebird": "*",
+    "csv": "^1.1.1"
   }
 }
