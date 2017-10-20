@@ -48,6 +48,8 @@ router.route("/admin/api/portal/layout/:id").put(function (a, c) {
         })
     } else utils.respMsg(c, !1, "2001", "\u9875\u9762id\u4e0d\u80fd\u4e3a\u7a7a\u3002", null, null)
 });
+
+
 router.route("/portal/module/:id").get(function (a, c) {
     var d = a.params.id;
     if (d) {
@@ -74,6 +76,13 @@ router.route("/portal/module/:id").get(function (a, c) {
         msg: "\u6a21\u5757\u4e0d\u5b58\u5728"
     })
 });
+
+
+router.route("/nIndex").get(function (a,c) {
+    "cas" == config.auth.auth_type ? c.redirect(config.project.appurl): c.render(config.project.template + "homePage",
+        {   message: null});
+});
+
 function toLogin(a, c) {
     a.render(config.project.theme + "layout_login", {
         key_1: config.auth.password.key_1,
@@ -82,6 +91,7 @@ function toLogin(a, c) {
         message: c
     })
 }
+
 router.route("/login").get(function (a, c) {
     "cas" == config.auth.auth_type ? c.redirect(config.project.appurl) : toLogin(c, "")
 }).post(function (a, c) {

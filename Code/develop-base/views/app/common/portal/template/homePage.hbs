@@ -1,0 +1,809 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no">
+    <link type="text/css" rel="stylesheet" href="{{projcfg.appurl}}/static/css/homePage/bootstrap.css">
+    <link rel="stylesheet" href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">
+    <!--<link href="{{projcfg.appurl}}/static/css/homePage/App Market.css" rel="stylesheet" type="text/css">-->
+    <script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script language="javascript" src="{{projcfg.appurl}}/static/js/homePage/bootstrap.js"></script>
+    <script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <title>贵州移动DevOps自研平台</title>
+
+
+<style>
+    html, body, div, span, h1, h2, h3, h4, h5, h6, p, pre, a, code, em, img, small, strong, sub, sup, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label {
+        margin: 0;
+        padding: 0;
+        border: 0;
+        outline: 0;
+        font-size: 12px;
+        vertical-align: baseline;
+        background: transparent;
+        font-weight: normal;
+    }
+
+    a {
+        text-decoration: none;
+        outline: none
+    }
+
+    a:hover {
+        text-decoration: none;
+    }
+
+    table {
+        border-collapse: collapse;
+        border-spacing: 0
+    }
+
+    img {
+        border: none;
+        outline: none
+    }
+
+    ul, li {
+        padding: 0;
+        margin: 0;
+        list-style: none
+    }
+
+    input[type=button], input[type=text], input[type=password], button {
+        -webkit-appearance: none;
+        outline: none
+    }
+
+
+
+    .navbar-default {
+        padding:0.1% 0;
+        background-color: #2dc3e8;
+        -webkit-border-radius: 0 ;
+        -moz-border-radius: 0 ;
+        border-radius: 0 ;
+
+    }
+    .navbar-default .navbar-nav > li > a {
+        color: #ecf0f1;
+        font-size:13px;
+    }
+
+    .navbar-default .navbar-nav > li > a:hover {
+        color: black;
+    }
+
+    .container{
+        width: 100%;
+        padding: 0;
+        height: auto;
+        overflow: hidden;
+    }
+
+    .banner-top{
+        margin-top:-21px;
+        width: 100%;
+        height: auto;
+        background:#28bfe4;
+        overflow: hidden;
+        position: relative;
+    }
+
+
+
+    .banner-top-carousel{
+        width: 100%;
+        height: auto;
+        overflow: hidden;
+        text-align: center;
+
+    }
+    .banner-top-carousel #carousel-example-generic .carousel-control{
+        background: none;
+    }
+
+    .carousel-indicators{
+        padding: 0 0 5% 0;
+    }
+
+    .banner-top-carousel .carousel-inner .carousel-caption{
+        margin: 0 0 10% -10%;
+        text-align: left;
+    }
+    .banner-top-carousel .carousel-inner .item a{
+        color: #fff;
+        font-size: 14px;
+        border: 1px solid #fff;
+        padding: 1% 3%;
+    }
+    .banner-top-menu{
+        width: 100%;
+        height: auto;
+        padding: 0 10%;
+        overflow: hidden;
+        text-align: center;
+        box-sizing: border-box;
+        position:absolute;
+        bottom: 0;
+        background: rgba(255,255,255,0.05);
+    }
+    .banner-top-menu .row{
+        margin: 0;
+        padding: 0;
+    }
+
+    .banner-top-menu .part {
+        margin: 0;
+        padding: 1% 0;
+        box-sizing: border-box;
+        border-collapse: collapse;
+    }
+
+    .banner-top-menu .part:hover{
+        background: rgba(255,255,255,0.1);
+    }
+    .banner-top-menu .part_l{
+        text-align: right;
+        overflow: hidden;
+    }
+
+    .banner-top-menu .part_r{
+        padding: 1% 0 0 0;
+        text-align: left;
+        overflow: hidden;
+    }
+    .banner-top-menu .part_l .bg_img{
+        display: inline-block;
+    }
+
+    .banner-top-menu .part_l .bg_img_1{
+        width: 42px;
+        height: 36px;
+        background:url("{{projcfg.appurl}}/static/images/homePage/AppMarket_banner_icon.png") no-repeat 0 0;
+    }
+
+    .banner-top-menu .part_l .bg_img_2{
+        width: 42px;
+        height: 36px;
+        background:url("{{projcfg.appurl}}/static/images/homePage/AppMarket_banner_icon.png") no-repeat 0 -36px;
+    }
+
+    .banner-top-menu .part_l .bg_img_3{
+        width: 42px;
+        height: 36px;
+        background:url("{{projcfg.appurl}}/static/images/homePage/AppMarket_banner_icon.png") no-repeat 0 -72px;
+    }
+
+    .banner-top-menu .part_l .bg_img_4{
+        width: 42px;
+        height: 36px;
+        background:url("{{projcfg.appurl}}/static/images/homePage/AppMarket_banner_icon.png") no-repeat 0 -108px;
+    }
+
+    .banner-top-menu .part_r h1{
+        color: #ffffff;
+        font-size: 16px;
+    }
+
+    .banner-top-menu .part_r p{
+        color: #ffffff;
+    }
+
+    .board{
+        width: 100%;
+        height: auto;
+        overflow: hidden;
+        text-align: center;
+        padding: 3% 10%;
+        background: #fff;
+    }
+
+    .board .col-md-4{
+        overflow: hidden;
+        border-collapse:collapse;
+        box-sizing: border-box;
+        padding: 6% 0;
+        background: #ffffff;
+    }
+
+    .board .col-md-4:hover{
+        background: #fafafc;
+    }
+
+    .board .col-md-4 .board-icon{
+        text-align: center;
+        display: inline-block;
+    }
+
+    .board .col-md-4 a h1{
+        font-size: 20px;
+        color: #1f1f1f;
+        font-weight: bold;
+    }
+
+    .board .col-md-4 a h1:hover{
+        color: #2dc3e8;
+    }
+
+    .board .col-md-4 .board-href{
+        color: #a7a7a7;
+        margin: 1px 0;
+    }
+
+    .board .col-md-4 a{
+        font-size: 12px;
+        color: #a7a7a7;
+        padding: 2px;
+    }
+
+    .board .col-md-4 a:hover{
+        color: #2dc3e8;
+    }
+
+    .board .col-md-4 .board-icon_1{
+        width: 36px;
+        height: 36px;
+        background:url("{{projcfg.appurl}}/static/images/homePage/AppMarket_board2.png") no-repeat 0 0;
+    }
+
+    .board .col-md-4 .board-icon_2{
+        width: 36px;
+        height: 36px;
+        background:url("{{projcfg.appurl}}/static/images/homePage/AppMarket_board2.png") no-repeat 0 -36px;
+    }
+
+    .board .col-md-4 .board-icon_3{
+        width: 36px;
+        height: 36px;
+        background:url("{{projcfg.appurl}}/static/images/homePage/AppMarket_board2.png") no-repeat 0 -72px;
+    }
+
+    .board .col-md-4 .board-icon_4{
+        width: 36px;
+        height: 36px;
+        background:url("{{projcfg.appurl}}/static/images/homePage/AppMarket_board2.png") no-repeat 0 -108px;
+    }
+
+    .board .col-md-4 .board-icon_5{
+        width: 36px;
+        height: 36px;
+        background:url("{{projcfg.appurl}}/static/images/homePage/AppMarket_board2.png") no-repeat 0 -144px;
+    }
+
+    .board .col-md-4 .board-icon_6{
+        width: 36px;
+        height: 36px;
+        background:url("{{projcfg.appurl}}/static/images/homePage/AppMarket_board2.png") no-repeat 0 -180px;
+    }
+
+    .solution{
+        width: 100%;
+        height:auto;
+        overflow: hidden;
+    }
+
+    .solution .col-md-4{
+        padding: 0;
+    }
+
+    .solution .solution-box_1{
+        background:url("{{projcfg.appurl}}/static/images/homePage/AppMarket_board3_pic1.png") no-repeat;
+        background-size: cover;
+    }
+
+    .solution .solution-box_2{
+        background:url("{{projcfg.appurl}}/static/images/homePage/AppMarket_board3_pic2.png") no-repeat;
+        background-size: cover;
+    }
+
+    .solution .solution-box_3{
+        background:url("{{projcfg.appurl}}/static/images/homePage/AppMarket_board3_pic3.png") no-repeat;
+        background-size: cover;
+    }
+
+    .solution .solution-box_4{
+        background:url("{{projcfg.appurl}}/static/images/homePage/AppMarket_board3_pic4.png") no-repeat;
+        background-size: cover;
+    }
+
+    .solution .solution-box_5{
+        background:url("{{projcfg.appurl}}/static/images/homePage/AppMarket_board3_pic5.png") no-repeat;
+        background-size: cover;
+    }
+
+    .solution .solution-box_6{
+        background:url("{{projcfg.appurl}}/static/images/homePage/AppMarket_board3_pic6.png") no-repeat;
+        background-size: cover;
+    }
+
+    .solution .solution-bg:hover{
+        background-color: rgba(45,195,232,0.9);
+    }
+
+    .solution .solution-bg .solution-content{
+        width: 100%;
+        height:auto;
+        text-align: center;
+        padding: 15% 0;
+    }
+
+    .solution .solution-bg .solution-icon{
+        display: inline-block;
+    }
+
+    .solution .solution-bg .solution-icon_1{
+        width: 60px;  height: 60px;
+        background:url("{{projcfg.appurl}}/static/images/homePage/AppMarket_board3_icon.png") no-repeat 0 0;
+    }
+
+    .solution .solution-bg .solution-icon_2{
+        width: 60px;  height: 60px;
+        background:url("{{projcfg.appurl}}/static/images/homePage/AppMarket_board3_icon.png") no-repeat 0 -60px;
+    }
+
+    .solution .solution-bg .solution-icon_3{
+        width: 60px;  height: 60px;
+        background:url("{{projcfg.appurl}}/static/images/homePage/AppMarket_board3_icon.png") no-repeat 0 -120px;
+    }
+
+    .solution .solution-bg .solution-icon_4{
+        width: 60px;  height: 60px;
+        background:url("{{projcfg.appurl}}/static/images/homePage/AppMarket_board3_icon.png") no-repeat 0 -180px;
+    }
+
+    .solution .solution-bg .solution-icon_5{
+        width: 60px;  height: 60px;
+        background:url("{{projcfg.appurl}}/static/images/homePage/AppMarket_board3_icon.png") no-repeat 0 -240px;
+    }
+
+    .solution .solution-bg .solution-icon_6{
+        width: 60px;  height: 60px;
+        background:url("{{projcfg.appurl}}/static/images/homePage/AppMarket_board3_icon.png") no-repeat 0 -300px;
+    }
+
+    .solution .solution-bg .solution-icon_7{
+        width: 60px;  height: 60px;
+        background:url("{{projcfg.appurl}}/static/images/homePage/AppMarket_board3_icon.png") no-repeat 0 -60px;
+    }
+
+    .solution.solution-bg .solution-icon_8{
+        width: 60px;  height: 60px;
+        background:url("{{projcfg.appurl}}/static/images/homePage/AppMarket_board3_icon.png") no-repeat 0 0;
+    }
+
+    .solution .solution-bg h1{
+        margin: 2% 0 0 0;
+        font-size: 20px;
+        color: #ffffff;
+        font-weight: bold;
+    }
+    .share{
+        width: 100%;
+        height: auto;
+        padding: 5% 0;
+        text-align: center;
+        overflow: hidden;
+        background: #eeeeee;
+        display: inline-block;
+        color: #1f1f1f;
+    }
+
+    .share h1{
+        font-size: 26px;
+        letter-spacing:8px;
+    }
+
+    .share h2{
+        font-size: 14px;
+        margin: 1% 0 2% 0;
+    }
+
+    .share .share_area{
+        text-align: left;
+        margin: 0 0 1% 0;
+    }
+
+    .share .share_area .share-box .share-box-banner{
+        width: 100%;
+        height: auto;
+        border: 1px solid #2578a9;
+        background: #ffffff;
+    }
+
+    .share .share_area .share-box .share-box-banner img{
+        width: 100%;
+        height: auto;
+        margin: 0 0 1% 0;
+        overflow: hidden;
+    }
+
+    .share .share_area .share-box a h3{
+        font-size: 14px;
+        color: #1f1f1f;
+        display: inline-block;
+    }
+
+    .share .share_area .share-box a h3:hover{
+        color: #2dc3e8;
+    }
+
+    .share .share_area .share-box .share-box-banner a h3{
+        margin: 2%;
+    }
+
+    .share .share_area .share-box .share-box-title a h3{
+        margin: 0 0 0 1%;
+    }
+
+    .share .share_area .share-box .share-box-title a>h3:nth-child(1){
+        margin: 2% 0 0 1%;
+    }
+
+
+
+</style>
+
+
+</head>
+<body>
+
+
+    <div class="container">
+
+<form>
+    <nav class="navbar navbar-default " role="navigation" >
+        <div>
+            <ul class="nav navbar-nav ">
+                <li> <img src="{{projcfg.appurl}}/static/images/homePage/logo1.png" class="media-object"   style="width: 132px;height: 45px" /> </li>
+                <li><p style="font-size:22px;margin-left:15px;margin-top:8px; ">  <font color="#ecf0f1">贵州移动DevOps自研平台</font>  </p></li>
+            </ul>
+
+            <ul class="nav navbar-nav navbar-right">
+
+                <li style="margin-right:15px ;display: none;"><a href="#"> <span id="loginIdFirst" >{{currentUser.user_name}} </span> </a></li>
+                <li style="margin-right:15px "><a href="#"   onclick="loopToLoginPage()"><span class="glyphicon glyphicon-user" ></span> <span id="loginId"> </span> </a></li>
+                <li id ="controlHidden" style="margin-right:15px;display: none; " ><a href="#" onclick="loopToControlPage()"><span  style="margin-right:5px" class="glyphicon glyphicon-log-in" ></span><span id="controlId">控制台</span> </a></li>
+                <li id ="logoutHidden" style="margin-right:15px;display: none; " ><a href="#" onclick="logoutPage()"><span  style="margin-right:5px" class="glyphicon glyphicon-off" ></span><span id="logoutId">退出</span> </a></li>
+            </ul>
+        </div>
+    </nav>
+</form>
+
+    <div class="banner-top">
+
+        <div class="banner-top-carousel">
+            <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+                <!-- 轮播指标-->
+                <ol class="carousel-indicators">
+                    <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+                    <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+                    <li data-target="#carousel-example-generic" data-slide-to="2"></li>
+                </ol>
+                <!-- 轮播内容 -->
+                <div class="carousel-inner" role="listbox">
+                    <div class="item active">
+                        <img src="{{projcfg.appurl}}/static/images/homePage/banner.png" alt="...">
+                        <div class="carousel-caption">
+                            <a href="">查看详情</a>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <img src="{{projcfg.appurl}}/static/images/homePage/banner.png" alt="...">
+                        <div class="carousel-caption">
+                            <a href="">查看详情</a>
+                        </div>
+                    </div>
+                </div>
+                <!-- 轮播导航-->
+                <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
+                    <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                    <span class="sr-only">Previous</span>
+                </a>
+                <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
+                    <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                    <span class="sr-only">Next</span>
+                </a>
+            </div>
+        </div>
+        <div class="banner-top-menu">
+            <div class="row">
+                <div class="col-md-3 col-sm-3 part">
+                    <div class="col-md-4 col-sm-4 part_l">
+                        <div class="bg_img"><p class="bg_img_1"></p></div>
+                    </div>
+                    <div class="col-md-8 col-sm-8 part_r">
+                        <h1>全民云计算</h1>
+                        <p>低门槛上云捷径</p>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-3 part">
+                    <div class="col-md-4 col-sm-4 part_l">
+                        <div class="bg_img"><p class="bg_img_2"></p></div>
+                    </div>
+                    <div class="col-md-8 col-sm-8 part_r">
+                        <h1>校园扶持</h1>
+                        <p>玩转云计算校园</p>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-3 part">
+                    <div class="col-md-4 col-sm-4 part_l">
+                        <div class="bg_img"><p class="bg_img_3"></p></div>
+                    </div>
+                    <div class="col-md-8 col-sm-8 part_r">
+                        <h1>云计算玩法</h1>
+                        <p>打造个人专属网盘</p>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-3 part">
+                    <div class="col-md-4 col-sm-4 part_l">
+                        <div class="bg_img"><p class="bg_img_4"></p></div>
+                    </div>
+                    <div class="col-md-8 col-sm-8 part_r">
+                        <h1>杭州云栖大会</h1>
+                        <p>限时特惠门票</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="board">
+        <div class="row">
+            <div class="col-md-4 col-sm-6">
+                <div class="board-icon"><p class="board-icon_1"></p></div>
+                <a href=""><h1>基础软件</h1></a>
+                <div class="board-href">
+                    <a href="">网站模板</a>&nbsp&#124&nbsp
+                    <a href="">预装ASP/.NET</a>&nbsp&#124
+                    <a href="">预装JAVA</a>
+                </div>
+                <div class="board-href">
+                    <a href="">预装建站网站</a>&nbsp&#124&nbsp
+                    <a href="">服务器软件</a>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-6">
+                <div class="board-icon"><p class="board-icon_2"></p></div>
+                <a href=""><h1>网站建设</h1></a>
+                <div class="board-href">
+                    <a href="">网站模板</a>&nbsp&#124&nbsp
+                    <a href="">企业官网</a>&nbsp&#124
+                    <a href="">电子商务</a>
+                </div>
+                <div class="board-href">
+                    <a href="">预装建站网站</a>&nbsp&#124&nbsp
+                    <a href="">服务器软件</a>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-6">
+                <div class="board-icon"><p class="board-icon_3"></p></div>
+                <a href=""><h1>服务与培训</h1></a>
+                <div class="board-href">
+                    <a href="">故障排查</a>&nbsp&#124&nbsp
+                    <a href="">数据迁移</a>&nbsp&#124
+                    <a href="">环境配置</a>
+                </div>
+                <div class="board-href">
+                    <a href="">预装建站网站</a>&nbsp&#124&nbsp
+                    <a href="">服务器软件</a>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-6">
+                <div class="board-icon"><p class="board-icon_4"></p></div>
+                <a href=""><h1>企业应用</h1></a>
+                <div class="board-href">
+                    <a href="">阿里云办公</a>&nbsp&#124&nbsp
+                    <a href="">销售管理</a>&nbsp&#124
+                    <a href="">企业服务</a>
+                </div>
+                <div class="board-href">
+                    <a href="">协同办公</a>&nbsp&#124&nbsp
+                    <a href="">人事管理</a>&nbsp&#124
+                    <a href="">财务管理</a>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-6">
+                <div class="board-icon"><p class="board-icon_5"></p></div>
+                <a href=""><h1>安全市场</h1></a>
+                <div class="board-href">
+                    <a href="">网络安全</a>&nbsp&#124&nbsp
+                    <a href="">主机安全</a>&nbsp&#124
+                    <a href="">应用安全</a>
+                </div>
+                <div class="board-href">
+                    <a href="">数据安全</a>&nbsp&#124&nbsp
+                    <a href="">安全管理</a>&nbsp&#124
+                    <a href="">安全服务</a>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-6">
+                <div class="board-icon"><p class="board-icon_6"></p></div>
+                <a href=""><h1>API市场</h1></a>
+                <div class="board-href">
+                    <a href="">API服务</a>&nbsp&#124&nbsp
+                    <a href="">电子商务</a>&nbsp&#124
+                    <a href="">金融管理</a>
+                </div>
+                <div class="board-href">
+                    <a href="">企业管理</a>&nbsp&#124&nbsp
+                    <a href="">交通地理</a>&nbsp&#124
+                    <a href="">气象水利</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="solution">
+        <div class="row">
+            <div class="col-md-4 col-sm-4">
+                <div class="solution-box_1">
+                    <div class="solution-bg">
+                        <a href="">
+                            <div class="solution-content">
+                                <div class="solution-icon"><p class="solution-icon_1"></p></div>
+                                <h1>电商解决方案</h1>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-4">
+                <div class="solution-box_2">
+                    <div class="solution-bg">
+                        <a href="">
+                            <div class="solution-content">
+                                <div class="solution-icon"><p class="solution-icon_2"></p></div>
+                                <h1>APP解决方案</h1>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-4">
+                <div class="solution-box_3">
+                    <div class="solution-bg">
+                        <a href="">
+                            <div class="solution-content">
+                                <div class="solution-icon"><p class="solution-icon_3"></p></div>
+                                <h1>金融解决方案</h1>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-4">
+                <div class="solution-box_4">
+                    <div class="solution-bg">
+                        <a href="">
+                            <div class="solution-content">
+                                <div class="solution-icon"><p class="solution-icon_4"></p></div>
+                                <h1>游戏解决方案</h1>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-4">
+                <div class="solution-box_5">
+                    <div class="solution-bg">
+                        <a href="">
+                            <div class="solution-content">
+                                <div class="solution-icon"><p class="solution-icon_5"></p></div>
+                                <h1>医疗解决方案</h1>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-4">
+                <div class="solution-box_6">
+                    <div class="solution-bg">
+                        <a href="">
+                            <div class="solution-content">
+                                <div class="solution-icon"><p class="solution-icon_6"></p></div>
+                                <h1>网站解决方案</h1>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="share">
+        <div class="row">
+            <div class="col-md-12">
+                <h1>大咖云集，知识分享的开发者技术社区</h1>
+                <h2>开发干货、在线直播、专家问答、技术论坛、学习、成长、分享、共建</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-2 col-sm-1"></div>
+            <div class="col-md-4 col-sm-5">
+                <div class="share_area">
+                    <div class="share-box">
+                        <div class="share-box-banner">
+                            <a href=""><img src="{{projcfg.appurl}}/static/images/homePage/AppMarket_board4_pic1.png" alt=""></a>
+                            <a href=""><h3>【解读】零门槛上云教程，全方位解读企业上云实践</h3></a>
+                        </div>
+                        <div class="share-box-title">
+                            <a href=""><h3>【深度】从理论到实践，GPU深度学习的正确打开姿势</h3></a>
+                            <a href=""><h3>【揭秘】阿里云专家全是持续继承与云端交付的正确姿势</h3></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-5">
+                <div class="share_area">
+                    <div class="share-box">
+                        <div class="share-box-banner">
+                            <a href=""><img src="{{projcfg.appurl}}/static/images/homePage/AppMarket_board4_pic2.png" alt=""></a>
+                            <a href=""><h3>【解读】零门槛上云教程，全方位解读企业上云实践</h3></a>
+                        </div>
+                        <div class="share-box-title">
+                            <a href=""><h3>【深度】从理论到实践，GPU深度学习的正确打开姿势</h3></a>
+                            <a href=""><h3>【揭秘】阿里云专家全是持续继承与云端交付的正确姿势</h3></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-2 col-sm-1"></div>
+        </div>
+    </div>
+</div>
+
+
+</body>
+
+
+    <form id="loopToLoginPageForm" action="{{projcfg.appurl}}/login" method="get"></form>
+
+<script type="text/javascript">
+
+
+    var userName = $('#loginIdFirst').text();
+
+
+    $( function () {
+      if(userName.length>1){
+          $("#loginId").text(userName);
+          $("#controlHidden:hidden").show();
+          $("#logoutHidden:hidden").show();
+
+      } else {
+          $('#loginId').text("登录");
+
+      }
+    });
+
+    function loopToLoginPage() {
+      $("#loopToLoginPageForm").submit();
+    }
+    
+    function logoutPage() {
+        $.ajax({
+            url:'{{projcfg.appurl}}/logout',
+            type:'get',
+            data:{},
+            success:function (data) {
+                if(data){
+                    $('#controlHidden').hide();
+                    $('#logoutHidden').hide();
+                    location.reload();
+                }
+            }
+        });
+    }
+    
+    
+   function loopToControlPage() {
+       window.location.href = "{{projcfg.appurl}}/home";
+   }
+    
+    
+    
+</script>
+
+
+</html>

@@ -39,7 +39,7 @@ module.exports = function (b, e, d) {
                         d() : exports.toRenderNoPermission(b, e)
                 }
             }
-        } else console.log("return to login:" + b.session.current_user), e.redirect(config.project.appurl + "/login")
+        } else console.log("return to login:" + b.session.current_user), e.redirect(config.project.appurl + "/nIndex")
     }
 };
 exports.toRenderNoPermission = function (b, e) {
