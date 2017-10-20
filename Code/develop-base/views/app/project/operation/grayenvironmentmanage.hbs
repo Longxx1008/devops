@@ -1,8 +1,131 @@
-
 <link rel="stylesheet" href="{{projcfg.appurl}}/static/css/base.css">
 <link rel="stylesheet" href="{{projcfg.appurl}}/static/css/monitoring.css">
+<div class="row">
+    <div class="col-xs-12 col-md-12">
+        <div class="widget">
+            <div class="widget-body">
+                <div class="row">
+                    <div class="col-cs-12 col-md-12">
+                        <div class="widget-header header-box-moni bordered-bottom bordered-themeprimary">
+                            <i class="widget-icon fa fa-tags themeprimary"></i>
+                            <span class="widget-caption themeprimary">灰度应用监控</span>
+                            <div class="widget-buttons " style="">
+                                <div class="f-r ">
+                                    <select style="margin:0px">
+                                        <option>
+                                            全部
+                                        </option>
+                                        <option>
+                                            运行中
+                                        </option>
+                                        <option>
+                                            故障
+                                        </option>
+                                    </select>
+                                    <button style="margin:0px;float:initial">查询</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="widget-body">
+                            <div style="">
+                                <div class="box-list-content">
+                                    <div class="product-box">
+                                        <div class="content-box">
+                                            <section class="basic-infom-box">
+                                                <div class="basic-infom clearfix">
+                                                    <h3>
+                                                        <label>项目名称：</label>
+                                                        <span id="projectName"></span>
+                                                    </h3>
+                                                    <p>
+                                                        <label>镜像：</label>
+                                                        <span id="gitAddress"></span>
+                                                    </p>
+                                                    <p>
+                                                        <label>外网地址：</label>
+                                                        <span id="netadd"> </span>
+                                                    </p>
+                                                </div>
+                                                <div class="rongqi-box clearfix">
+                                                    <p class="f-l">
+                                                        <label>运行容器：</label>
+                                                        <button class="btn-fuhao">-</button>
+                                                        <input class="rongqi-shuzhi" type="text" placeholder="0">
+                                                        <button class="btn-fuhao">+</button>
+                                                    </p>
+                                                    <div class="f-r">
+                                                        <button class="btn-fabu btn-huidu-fabu" onclick="gray_publish()">
+                                                            灰度环境发布
+                                                        </button>
+                                                        <button class="btn-fabu btn-zhengshi-fabu" onclick="prod_publish()">
+                                                            正式环境发布
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </section>
+                                            <section class="tubiao-box">
+                                                <div class="tab" id="tab">
+                                                    <ul class="dd clearfix">
+                                                        <li class="current">流量监控</li>
+                                                        <li>容器监控</li>
+                                                        <li>服务监控</li>
+                                                    </ul>
+                                                    <div class="dt">
+                                                        <ul class="clearfix">
+                                                            <li class="show">
+                                                                <iframe src="http://192.168.9.69:3000/dashboard-solo/db/dockercontainernetio?orgId=1&panelId=1&from=1507852248537&to=1507873848537"
+                                                                    width="100%" height="350" frameborder="0"></iframe>
+
+                                                            </li>
+                                                            <li>
+                                                                <div>
 
 
+                                                                </div>
+                                                                <div class="clearfix">
+                                                                    <div class="f-l" style="width:100%;">
+                                                                        <table id="camkmpdeploy">
+
+                                                                        </table>
+                                                                    </div>
+                                                                    <!--<div class="f-l"><img src="{{projcfg.appurl}}/static/image/img5.png"></div>-->
+                                                                    <!--<div class="f-l"><img src="{{projcfg.appurl}}/static/image/img6.png"></div>-->
+                                                                </div>
+                                                                <div id="grafana_show">
+                                                                    <!--<img src="{{projcfg.appurl}}/static/image/img7.png">-->
+                                                                </div>
+                                                                <!--<div>-->
+                                                                <!--<img src="{{projcfg.appurl}}/static/image/img8.png">-->
+                                                                <!--</div>-->
+                                                                <!--<div class="clearfix">-->
+                                                                <!--<div class="f-l"><img src="{{projcfg.appurl}}/static/image/img9.png"></div>-->
+                                                                <!--<div class="f-l"><img src="{{projcfg.appurl}}/static/image/img10.png"></div>-->
+                                                                <!--</div>-->
+                                                            </li>
+                                                            <li>
+                                                                <div>
+                                                                    <img src="{{projcfg.appurl}}/static/image/img11.png">
+                                                                </div>
+                                                            </li>
+                                                        </ul>
+
+                                                    </div>
+                                                </div>
+                                            </section>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{{!--
 <header class="header-box header-box-moni clearfix">
     <h2 class="f-l">灰度应用监控</h2>
     <div class="f-r clearfix">
@@ -23,169 +146,138 @@
         </select>
         <button class="f-l">查询</button>
     </div>
-</header>
-<div class="content-box">
-    <section class="basic-infom-box">
-        <div class="basic-infom clearfix">
-            <h3>
-                <label>项目名称：</label><span id="projectName"></span>
-            </h3>
-            <p>
-                <label>镜像：</label><span id="gitAddress"></span>
-            </p>
-            <p>
-                <label>外网地址：</label><span id="netadd"> </span>
-            </p>
-        </div>
-        <div class="rongqi-box clearfix">
-            <p class="f-l"><label>运行容器：</label>
-                <button class="btn-fuhao">-</button>
-                <input class="rongqi-shuzhi" type="text" placeholder="0">
-                <button class="btn-fuhao">+</button>
-            </p>
-            <div class="f-r">
-                <button class="btn-fabu btn-huidu-fabu">
-                    灰度环境发布
-                </button>
-                <button class="btn-fabu btn-zhengshi-fabu">
-                    正式环境发布
-                </button>
+</header> --}}
+{{!-- 弹窗灰度发布 --}}
+<div id="gray_publish" class="mydialog" style="padding-top:0px;">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="widget flat radius-bordered">
+                <div class="widget-body" style="background-color: #fff;">
+                    <div id="registration-form">
+                        <div class="form-title bordered-bottom bordered-blue">
+                            <pre style="width: 960px;height: 470px;" id="logPre">
+
+                            </pre>
+                        </div>
+                        <div class="row" style="padding: 0px 20px;height: auto;">
+                            <span id="ccdetail"></span>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-    </section>
-    <section class="tubiao-box">
-        <div class="tab" id="tab">
-            <ul class="dd clearfix">
-                <li class="current">流量监控</li>
-                <li>容器监控</li>
-                <li>服务监控</li>
-            </ul>
-            <div class="dt">
-                <ul class="clearfix">
-                    <li class="show">
-                        <iframe src="http://192.168.9.69:3000/dashboard-solo/db/dockercontainernetio?orgId=1&panelId=1&from=1507852248537&to=1507873848537" width="100%" height="350" frameborder="0"></iframe>
-
-                    </li>
-                    <li>
-                        <div  >
-
-
-                        </div>
-                        <div class="clearfix">
-                            <div class="f-l" style="width:100%;">
-                                <table id="camkmpdeploy">
-
-                                </table>
-                            </div>
-                            <!--<div class="f-l"><img src="{{projcfg.appurl}}/static/image/img5.png"></div>-->
-                            <!--<div class="f-l"><img src="{{projcfg.appurl}}/static/image/img6.png"></div>-->
-                        </div>
-                        <div id="grafana_show">
-                            <!--<img src="{{projcfg.appurl}}/static/image/img7.png">-->
-                        </div>
-                        <!--<div>-->
-                        <!--<img src="{{projcfg.appurl}}/static/image/img8.png">-->
-                        <!--</div>-->
-                        <!--<div class="clearfix">-->
-                        <!--<div class="f-l"><img src="{{projcfg.appurl}}/static/image/img9.png"></div>-->
-                        <!--<div class="f-l"><img src="{{projcfg.appurl}}/static/image/img10.png"></div>-->
-                        <!--</div>-->
-                    </li>
-                    <li>
-                        <div>
-                            <img src="{{projcfg.appurl}}/static/image/img11.png">
-                        </div>
-                    </li>
-                </ul>
-
-            </div>
-        </div>
-    </section>
+    </div>
 </div>
+{{!-- 弹窗 正式环境发布 --}}
+<div id="prod_publish" class="mydialog" style="padding-top:0px;">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="widget flat radius-bordered">
+                <div class="widget-body" style="background-color: #fff;">
+                    <div id="registration-form">
+                        <div class="form-title bordered-bottom bordered-blue">
+                            <pre style="width: 960px;height: 470px;" id="logPre">
+
+                            </pre>
+                        </div>
+                        <div class="row" style="padding: 0px 20px;height: auto;">
+                            <span id="ccdetail"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script>
-    $(function(){
+    $(function () {
         $.ajax({
             url: '{{projcfg.appurl}}/api/project/operation/grayenvironmentmanage/platform/info',
             type: 'get',
             success: function (result) {
-                var data=result.data;
-                var projectName=data[0].projectName;
-                var gitAddress=data[0].gitAddress;
+                var data = result.data;
+                var projectName = data[0].projectName;
+                var gitAddress = data[0].gitAddress;
                 $("#projectName").html(projectName);
                 $("#gitAddress").html(gitAddress);
 
-//                console.log(data);
+                //                console.log(data);
             }
         });
-//        $("#colonyDataTable").html("sdfksadlfkas;ldfksdl;kf");
+        //        $("#colonyDataTable").html("sdfksadlfkas;ldfksdl;kf");
 
 
         $('#camkmpdeploy').datagrid({
-            url:'{{projcfg.appurl}}/api/project/operation/grayenvironmentmanage/deploy/info',
-            method:'get',
-//            rownumbers:false,
-            striped:true,
-//            fitColumns:true,
+            url: '{{projcfg.appurl}}/api/project/operation/grayenvironmentmanage/deploy/info',
+            method: 'get',
+            //            rownumbers:false,
+            striped: true,
+            //            fitColumns:true,
             //toolbar: '#toolbar',
-//            fit:true,
-//            border:true,
-            singleSelect:true,
-//            selectOnCheck:false,
-            columns:[[
-                {"field":'service_id',checkbox:true},
-                {"field": "service_tag","title":"名称","width":80,align:"center"},
+            //            fit:true,
+            //            border:true,
+            singleSelect: true,
+            //            selectOnCheck:false,
+            columns: [[
+                { "field": 'service_id', checkbox: true },
+                { "field": "service_tag", "title": "名称", "width": 80, align: "center" },
                 /* {"field": "totalCpu","title":"cpu总资源","width":130,align:"center"},
                  {"field": "usedCpu","title":"cpu使用情况","width":130,align:"center"},
                  {"field": "totalDisk","title":"硬盘总资源","width":130,align:"center"},
                  {"field": "usedDisk","title":"硬盘使用情况","width":130,align:"center"},
                  {"field": "totalMemory","title":"内存总资源","width":130,align:"center"},
                  {"field": "usedMemory","title":"内存使用情况","width":130,align:"center"},*/
-                {"field": "image_id","title":"CPU","width":130,align:"center"},
-                {"field": "container_id","title":"硬盘","width":130,align:"center"},
-                {"field": "memorytool","title":"内存","width":130,align:"center"},
-                {"field": "","title":"状态","width":80,align:"center",
-                    "formatter":function (value, rowData,rowIndex) {
+                { "field": "image_id", "title": "CPU", "width": 130, align: "center" },
+                { "field": "container_id", "title": "硬盘", "width": 130, align: "center" },
+                { "field": "memorytool", "title": "内存", "width": 130, align: "center" },
+                {
+                    "field": "", "title": "状态", "width": 80, align: "center",
+                    "formatter": function (value, rowData, rowIndex) {
                         return '运行中';
-                    }},
-                {"field": "remark","title":"备注","width":150,align:"center"},
-                {"field": "oper","title":"操作","width":120,align:"center",
-                    "formatter":function (value, rowData,rowIndex) {
-                        return "<span class=\"label label-info\" style='height:26px;line-height:16px;font-weight:600;margin-top: 0.5rem;margin-left: 0.5rem;cursor: pointer;' onclick='hm_list(\""+rowData.master_id+"\",\""+rowData.master_ip+"\")'>主机管理</span><span class=\"label label-success\" style='height:26px;line-height:16px;font-weight:600;margin-top: 0.5rem;margin-left: 0.5rem;cursor: pointer;' onclick='colonymanage(\""+rowData.id+"\")'>集群概览</span>";
-                    }}
+                    }
+                },
+                { "field": "remark", "title": "备注", "width": 150, align: "center" },
+                {
+                    "field": "oper", "title": "操作", "width": 120, align: "center",
+                    "formatter": function (value, rowData, rowIndex) {
+                        return "<span class=\"label label-info\" style='height:26px;line-height:16px;font-weight:600;margin-top: 0.5rem;margin-left: 0.5rem;cursor: pointer;' onclick='hm_list(\"" + rowData.master_id + "\",\"" + rowData.master_ip + "\")'>主机管理</span><span class=\"label label-success\" style='height:26px;line-height:16px;font-weight:600;margin-top: 0.5rem;margin-left: 0.5rem;cursor: pointer;' onclick='colonymanage(\"" + rowData.id + "\")'>集群概览</span>";
+                    }
+                }
             ]],
-            onLoadError:function() {
+            onLoadError: function () {
                 msgError('加载数据出现时发生错误,请稍候重试...');
             },
-            pagination:true,
-            loadMsg:'正在加载...'
+            pagination: true,
+            loadMsg: '正在加载...'
         });
     });
 
 
 
 
-//                $("#camkmpdeploy").html(html)
+    //                $("#camkmpdeploy").html(html)
 
 
-//            }
+    //            }
 
-//            $("#camkmpdeploy")
-//                var data = result.data;
-//                var projectName = data[0].projectName;
-//                var gitAddress = data[0].gitAddress;
-//                $("#projectName").html(projectName);
-//                $("#gitAddress").html(gitAddress);
-//            }
+    //            $("#camkmpdeploy")
+    //                var data = result.data;
+    //                var projectName = data[0].projectName;
+    //                var gitAddress = data[0].gitAddress;
+    //                $("#projectName").html(projectName);
+    //                $("#gitAddress").html(gitAddress);
+    //            }
 
-//
-//        });
-//
-//
-//    })
+    //
+    //        });
+    //
+    //
+    //    })
 
 
-    function show_grafana(container_id){
-        var html="<iframe src='http://192.168.9.69:3000/dashboard/db/dockerdan-ge-rong-qi-jian-kong?orgId=1&var-host=mesos-node2_192.168.9.67&var-container_name=mesos-97627646-54be-4777-9223-faecde8f8cdf-S6.11d0ac3c-3b5a-4e07-b342-b5f341dd8502' width=\"100%\" height=\"900px\" frameborder=\"0\"></iframe>\n";
+    function show_grafana(container_id) {
+        var html = "<iframe src='http://192.168.9.69:3000/dashboard/db/dockerdan-ge-rong-qi-jian-kong?orgId=1&var-host=mesos-node2_192.168.9.67&var-container_name=mesos-97627646-54be-4777-9223-faecde8f8cdf-S6.11d0ac3c-3b5a-4e07-b342-b5f341dd8502' width=\"100%\" height=\"900px\" frameborder=\"0\"></iframe>\n";
 
         $("#grafana_show").html(html)
 
@@ -217,5 +309,47 @@
             }
         }
     }
+
+</script>
+
+<script>
+    function gray_publish() {
+        $('#gray_publish').show();
+        $('#gray_publish').mydialog({
+            title: "灰度版本更新",
+            width: 1000,
+            height: 560,
+            top: 20,
+            modal: true,
+
+        });
+    };
+    function prod_publish() {
+        $('#prod_publish').show();
+        $('#prod_publish').mydialog({
+            title: "正式版本更新",
+            width: 1000,
+            height: 560,
+            top: 20,
+            modal: true,
+            myButtons: [
+                {
+                    text: '关闭',
+                    btnCls: 'btn btn-danger',
+                    handler: function () {
+                        $('#containerLogModal').dialog('close');
+                    }
+                }, {
+                    text: '刷新',
+                    btnCls: 'btn btn-danger',
+                    handler: function () {
+                        $("#logPre").html("加载中...");
+                        logs(id);
+                    }
+                }
+            ]
+        });
+    };
+
 
 </script>
