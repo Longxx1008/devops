@@ -79,16 +79,13 @@
 
                                                             </li>
                                                             <li>
-                                                                <div>
-
+                                                                <div id="camkmpdeploy" style="height:350px;width:100%">
 
                                                                 </div>
                                                                 <div class="clearfix">
-                                                                    <div class="f-l" style="width:100%;">
-                                                                        <table id="camkmpdeploy">
-
-                                                                        </table>
-                                                                    </div>
+                                                                    <!--<div class="f-l" style="width:100%;">-->
+                                                                       <!---->
+                                                                    <!--</div>-->
                                                                     <!--<div class="f-l"><img src="{{projcfg.appurl}}/static/image/img5.png"></div>-->
                                                                     <!--<div class="f-l"><img src="{{projcfg.appurl}}/static/image/img6.png"></div>-->
                                                                 </div>
@@ -211,35 +208,35 @@
         $('#camkmpdeploy').datagrid({
             url: '{{projcfg.appurl}}/api/project/operation/grayenvironmentmanage/deploy/info',
             method: 'get',
-            //            rownumbers:false,
+            rownumbers:false,
             striped: true,
-            //            fitColumns:true,
-            //toolbar: '#toolbar',
-            //            fit:true,
-            //            border:true,
+            fitColumns:true,
+            toolbar: '#toolbar',
+            fit:true,
+            border:true,
             singleSelect: true,
             //            selectOnCheck:false,
             columns: [[
                 { "field": 'service_id', checkbox: true },
-                { "field": "service_tag", "title": "名称", "width": 80, align: "center" },
+                { "field": "service_tag", "title": "名称", "width": 50, align: "center" },
                 /* {"field": "totalCpu","title":"cpu总资源","width":130,align:"center"},
                  {"field": "usedCpu","title":"cpu使用情况","width":130,align:"center"},
                  {"field": "totalDisk","title":"硬盘总资源","width":130,align:"center"},
                  {"field": "usedDisk","title":"硬盘使用情况","width":130,align:"center"},
                  {"field": "totalMemory","title":"内存总资源","width":130,align:"center"},
                  {"field": "usedMemory","title":"内存使用情况","width":130,align:"center"},*/
-                { "field": "image_id", "title": "CPU", "width": 130, align: "center" },
-                { "field": "container_id", "title": "硬盘", "width": 130, align: "center" },
-                { "field": "memorytool", "title": "内存", "width": 130, align: "center" },
+                { "field": "image_id", "title": "CPU", "width": 50, align: "center" },
+                { "field": "container_id", "title": "硬盘", "width": 50, align: "center" },
+                { "field": "memorytool", "title": "内存", "width": 50, align: "center" },
                 {
-                    "field": "", "title": "状态", "width": 80, align: "center",
+                    "field": "", "title": "状态", "width": 50, align: "center",
                     "formatter": function (value, rowData, rowIndex) {
                         return '运行中';
                     }
                 },
-                { "field": "remark", "title": "备注", "width": 150, align: "center" },
+                { "field": "remark", "title": "备注", "width": 50, align: "center" },
                 {
-                    "field": "oper", "title": "操作", "width": 120, align: "center",
+                    "field": "oper", "title": "操作", "width": 50, align: "center",
                     "formatter": function (value, rowData, rowIndex) {
                         return "<span class=\"label label-info\" style='height:26px;line-height:16px;font-weight:600;margin-top: 0.5rem;margin-left: 0.5rem;cursor: pointer;' onclick='hm_list(\"" + rowData.master_id + "\",\"" + rowData.master_ip + "\")'>主机管理</span><span class=\"label label-success\" style='height:26px;line-height:16px;font-weight:600;margin-top: 0.5rem;margin-left: 0.5rem;cursor: pointer;' onclick='colonymanage(\"" + rowData.id + "\")'>集群概览</span>";
                     }
