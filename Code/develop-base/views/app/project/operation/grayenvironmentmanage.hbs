@@ -1,5 +1,5 @@
-<script src="{{projcfg.appurl}}/static/js/step/jquery.steps.min.js"></script>
-<link rel="stylesheet" href="{{projcfg.appurl}}/static/css/base.css">
+<script src="{{projcfg.appurl}}/static/js/step/jquery.steps.min.js"></script> {{!--
+<link rel="stylesheet" href="{{projcfg.appurl}}/static/css/base.css"> --}}
 <link rel="stylesheet" href="{{projcfg.appurl}}/static/css/monitoring.css">
 <div class="row">
     <div class="col-xs-12 col-md-12">
@@ -80,29 +80,8 @@
 
                                                             </li>
                                                             <li>
-                                                                <div>
-
-
+                                                                <div id="camkmpdeploy">
                                                                 </div>
-                                                                <div class="clearfix">
-                                                                    <div class="f-l" style="width:100%;">
-                                                                        <table id="camkmpdeploy">
-
-                                                                        </table>
-                                                                    </div>
-                                                                    <!--<div class="f-l"><img src="{{projcfg.appurl}}/static/image/img5.png"></div>-->
-                                                                    <!--<div class="f-l"><img src="{{projcfg.appurl}}/static/image/img6.png"></div>-->
-                                                                </div>
-                                                                <div id="grafana_show">
-                                                                    <!--<img src="{{projcfg.appurl}}/static/image/img7.png">-->
-                                                                </div>
-                                                                <!--<div>-->
-                                                                <!--<img src="{{projcfg.appurl}}/static/image/img8.png">-->
-                                                                <!--</div>-->
-                                                                <!--<div class="clearfix">-->
-                                                                <!--<div class="f-l"><img src="{{projcfg.appurl}}/static/image/img9.png"></div>-->
-                                                                <!--<div class="f-l"><img src="{{projcfg.appurl}}/static/image/img10.png"></div>-->
-                                                                <!--</div>-->
                                                             </li>
                                                             <li>
                                                                 <div>
@@ -115,6 +94,9 @@
                                                 </div>
                                             </section>
                                         </div>
+
+
+
                                     </div>
                                 </div>
                             </div>
@@ -147,8 +129,10 @@
         </select>
         <button class="f-l">查询</button>
     </div>
-</header> --}}
-{{!-- 弹窗灰度发布 --}}
+</header> --}} {{!-- 弹窗灰度发布 --}}
+
+
+
 <div id="gray_publish" class="mydialog" style="padding-top:0px;">
     <div class="row">
         <div class="col-md-12">
@@ -189,55 +173,40 @@
 </div>
 
 <script>
-    $(function () {
-        $.ajax({
-            url: '{{projcfg.appurl}}/api/project/operation/grayenvironmentmanage/platform/info',
-            type: 'get',
-            success: function (result) {
-                var data = result.data;
-                var projectName = data[0].projectName;
-                var gitAddress = data[0].gitAddress;
-                $("#projectName").html(projectName);
-                $("#gitAddress").html(gitAddress);
-
-                //                console.log(data);
-            }
-        });
-        //        $("#colonyDataTable").html("sdfksadlfkas;ldfksdl;kf");
-
-
+    resize()
+    function resize() {
         $('#camkmpdeploy').datagrid({
             url: '{{projcfg.appurl}}/api/project/operation/grayenvironmentmanage/deploy/info',
             method: 'get',
-            //            rownumbers:false,
+            queryParams: {},
+            rownumbers: false,
             striped: true,
-            //            fitColumns:true,
-            //toolbar: '#toolbar',
-            //            fit:true,
-            //            border:true,
+            fitColumns: true,
+            fit: true,
+            border: true,
             singleSelect: true,
-            //            selectOnCheck:false,
+            selectOnCheck: false,
             columns: [[
                 { "field": 'service_id', checkbox: true },
-                { "field": "service_tag", "title": "名称", "width": 80, align: "center" },
+                { "field": "service_tag", "title": "名称", "width": 25, align: "center" },
                 /* {"field": "totalCpu","title":"cpu总资源","width":130,align:"center"},
                  {"field": "usedCpu","title":"cpu使用情况","width":130,align:"center"},
                  {"field": "totalDisk","title":"硬盘总资源","width":130,align:"center"},
                  {"field": "usedDisk","title":"硬盘使用情况","width":130,align:"center"},
                  {"field": "totalMemory","title":"内存总资源","width":130,align:"center"},
                  {"field": "usedMemory","title":"内存使用情况","width":130,align:"center"},*/
-                { "field": "image_id", "title": "CPU", "width": 130, align: "center" },
-                { "field": "container_id", "title": "硬盘", "width": 130, align: "center" },
-                { "field": "memorytool", "title": "内存", "width": 130, align: "center" },
+                { "field": "image_id", "title": "CPU", "width": 25, align: "center" },
+                { "field": "container_id", "title": "硬盘", "width": 25, align: "center" },
+                { "field": "memorytool", "title": "内存", "width": 25, align: "center" },
                 {
-                    "field": "", "title": "状态", "width": 80, align: "center",
+                    "field": "", "title": "状态", "width": 30, align: "center",
                     "formatter": function (value, rowData, rowIndex) {
                         return '运行中';
                     }
                 },
-                { "field": "remark", "title": "备注", "width": 150, align: "center" },
+                { "field": "remark", "title": "备注", "width": 25, align: "center" },
                 {
-                    "field": "oper", "title": "操作", "width": 120, align: "center",
+                    "field": "oper", "title": "操作", "width": 25, align: "center",
                     "formatter": function (value, rowData, rowIndex) {
                         return "<span class=\"label label-info\" style='height:26px;line-height:16px;font-weight:600;margin-top: 0.5rem;margin-left: 0.5rem;cursor: pointer;' onclick='hm_list(\"" + rowData.master_id + "\",\"" + rowData.master_ip + "\")'>主机管理</span><span class=\"label label-success\" style='height:26px;line-height:16px;font-weight:600;margin-top: 0.5rem;margin-left: 0.5rem;cursor: pointer;' onclick='colonymanage(\"" + rowData.id + "\")'>集群概览</span>";
                     }
@@ -249,6 +218,25 @@
             pagination: true,
             loadMsg: '正在加载...'
         });
+
+
+
+    }
+    $(function () {
+        $.ajax({
+            url: '{{projcfg.appurl}}/api/project/operation/grayenvironmentmanage/platform/info',
+            type: 'get',
+            success: function (result) {
+                var data = result.data;
+                var projectName = data[0].projectName;
+                var gitAddress = data[0].gitAddress;
+                $("#projectName").html(projectName);
+                $("#gitAddress").html(gitAddress);
+                //                console.log(data);
+            }
+        });
+        //        $("#colonyDataTable").html("sdfksadlfkas;ldfksdl;kf");
+
     });
 
 
@@ -276,10 +264,7 @@
 
     function show_grafana(container_id) {
         var html = "<iframe src='http://192.168.9.69:3000/dashboard/db/dockerdan-ge-rong-qi-jian-kong?orgId=1&var-host=mesos-node2_192.168.9.67&var-container_name=mesos-97627646-54be-4777-9223-faecde8f8cdf-S6.11d0ac3c-3b5a-4e07-b342-b5f341dd8502' width=\"100%\" height=\"900px\" frameborder=\"0\"></iframe>\n";
-
         $("#grafana_show").html(html)
-
-
     }
 
 
@@ -302,9 +287,14 @@
                         }
                         spans[num].className = "current";
                         lis[num].className = "show";
+                        if (num === 1) {
+                            resize()
+                        }
                     }
                 }(i);
+
             }
+
         }
     }
 
