@@ -465,9 +465,9 @@
             <ul class="nav navbar-nav navbar-right">
 
                 <li style="margin-right:15px ;display: none;"><a href="#"> <span id="loginIdFirst" >{{currentUser.user_name}} </span> </a></li>
-                <li style="margin-right:15px "><a href="#"   onclick="loopToLoginPage()"><span class="glyphicon glyphicon-user" ></span> <span id="loginId"> </span> </a></li>
-                <li id ="controlHidden" style="margin-right:15px;display: none; " ><a href="#" onclick="loopToControlPage()"><span  style="margin-right:5px" class="glyphicon glyphicon-log-in" ></span><span id="controlId">控制台</span> </a></li>
-                <li id ="logoutHidden" style="margin-right:15px;display: none; " ><a href="#" onclick="logoutPage()"><span  style="margin-right:5px" class="glyphicon glyphicon-off" ></span><span id="logoutId">退出</span> </a></li>
+                <li style=""><a href="#"   onclick="loopToLoginPage()"><span class="glyphicon glyphicon-user" ></span> <span id="loginId"> </span> </a></li>
+                <li id ="controlHidden" style="display: none; " ><a href="#" onclick="loopToControlPage()"><span  style="margin-right:5px" class="glyphicon glyphicon-log-in" ></span><span id="controlId">控制台</span> </a></li>
+                <li id ="logoutHidden" style="margin-right:15px;display: none; " ><a href="#" onclick="logoutPage()"><span  style="margin-right:5px" class="glyphicon glyphicon-off" ></span><span id="logoutId">注销</span> </a></li>
             </ul>
         </div>
     </nav>
@@ -478,25 +478,16 @@
         <div class="banner-top-carousel">
             <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
                 <!-- 轮播指标-->
-                <ol class="carousel-indicators">
-                    <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
-                    <li data-target="#carousel-example-generic" data-slide-to="1"></li>
-                    <li data-target="#carousel-example-generic" data-slide-to="2"></li>
+                <ol class="carousel-indicators" id="carouselList">
+
+
                 </ol>
                 <!-- 轮播内容 -->
-                <div class="carousel-inner" role="listbox">
-                    <div class="item active">
-                        <img src="{{projcfg.appurl}}/static/images/homePage/banner.png" alt="...">
-                        <div class="carousel-caption">
-                            <a href="">查看详情</a>
-                        </div>
-                    </div>
-                    <div class="item">
-                        <img src="{{projcfg.appurl}}/static/images/homePage/banner.png" alt="...">
-                        <div class="carousel-caption">
-                            <a href="">查看详情</a>
-                        </div>
-                    </div>
+
+                <div class="carousel-inner" role="listbox" id="carouselBox">
+
+
+
                 </div>
                 <!-- 轮播导航-->
                 <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
@@ -724,12 +715,12 @@
                 <div class="share_area">
                     <div class="share-box">
                         <div class="share-box-banner">
-                            <a href=""><img src="{{projcfg.appurl}}/static/images/homePage/AppMarket_board4_pic1.png" alt=""></a>
-                            <a href=""><h3>【解读】零门槛上云教程，全方位解读企业上云实践</h3></a>
+                            <a href="javascript:void(0);" ><img src="{{projcfg.appurl}}/static/images/homePage/AppMarket_board4_pic1.png" alt=""></a>
+                            <a href="javascript:void(0);" onclick="informationShow(0)"><h3> <div id="articleOne" style="font-size: 14px"> </div></h3></a>
                         </div>
                         <div class="share-box-title">
-                            <a href=""><h3>【深度】从理论到实践，GPU深度学习的正确打开姿势</h3></a>
-                            <a href=""><h3>【揭秘】阿里云专家全是持续继承与云端交付的正确姿势</h3></a>
+                            <a href="javascript:void(0);" onclick="informationShow(2)"><h3> <div id="articleThree" style="font-size: 14px"> </div></h3></a><br>
+                            <a href="javascript:void(0);" onclick="informationShow(4)"><h3> <div id="articleFive" style="font-size: 14px"> </div></h3></a>
                         </div>
                     </div>
                 </div>
@@ -738,12 +729,12 @@
                 <div class="share_area">
                     <div class="share-box">
                         <div class="share-box-banner">
-                            <a href=""><img src="{{projcfg.appurl}}/static/images/homePage/AppMarket_board4_pic2.png" alt=""></a>
-                            <a href=""><h3>【解读】零门槛上云教程，全方位解读企业上云实践</h3></a>
+                            <a href="javascript:void(0);" ><img src="{{projcfg.appurl}}/static/images/homePage/AppMarket_board4_pic2.png" alt=""></a>
+                            <a href="javascript:void(0);" onclick="informationShow(1)"><h3> <div id="articleTwo" style="font-size: 14px"> </div></h3></a>
                         </div>
                         <div class="share-box-title">
-                            <a href=""><h3>【深度】从理论到实践，GPU深度学习的正确打开姿势</h3></a>
-                            <a href=""><h3>【揭秘】阿里云专家全是持续继承与云端交付的正确姿势</h3></a>
+                            <a href="javascript:void(0);" onclick="informationShow(3)" ><h3> <div id="articleFour" style="font-size: 14px"> </div></h3></a><br>
+                            <a href="javascript:void(0);" onclick="informationShow(5)"><h3> <div id="articleSix" style="font-size: 14px"> </div></h3></a>
                         </div>
                     </div>
                 </div>
@@ -756,15 +747,13 @@
 
 </body>
 
-
-    <form id="loopToLoginPageForm" action="{{projcfg.appurl}}/login" method="get"></form>
+       <!-- 空表单，用于登录系统用-->
+    <form id="loopToLoginPageForm" action="{{projcfg.appurl}}/login"  method="get"></form>
 
 <script type="text/javascript">
 
-
     var userName = $('#loginIdFirst').text();
-
-
+    //通过Session值是否为空判断是否已经登录，如果已经登录，则显示用户名、控制台等信息，如果未登录，则显示登录。
     $( function () {
       if(userName.length>1){
           $("#loginId").text(userName);
@@ -773,14 +762,17 @@
 
       } else {
           $('#loginId').text("登录");
+          $('#loginId').css("margin-right", "25px");
 
       }
     });
 
+    //跳转到登录界面
     function loopToLoginPage() {
       $("#loopToLoginPageForm").submit();
     }
-    
+
+    //点击注销，退出登录
     function logoutPage() {
         $.ajax({
             url:'{{projcfg.appurl}}/logout',
@@ -796,12 +788,135 @@
         });
     }
     
-    
+    //点击控制台，进入系统。
    function loopToControlPage() {
        window.location.href = "{{projcfg.appurl}}/home";
    }
-    
-    
+
+  //通过数据库的轮播类型图片数，动态增加展示页轮播的内容数。
+    $(function () {
+        //通过ajax获取轮播图片数，然后for，将每一个图片放上去，及添加上面轮播的div.可以试试 apend 上去。
+        $.ajax({
+            url: '{{projcfg.appurl}}/api/project/ability/homePageShow/getCarousel',
+            type: 'get',
+            data: {"page": 1, "rows": 100, "theShowType": 1},
+            success: function (data) {
+
+                var rows = data.rows;
+                if (data.total > 0) {
+                    var htmlList = "";
+                    var htmlBox = "";
+                    for (var i = 0; i < rows.length; i++) {
+                        var itemInfo = rows[i];
+                        var itemList="";
+                        var itemBox="";
+                        console.log("打印"+itemInfo.imageType+itemInfo.imageName);
+                        if(i==0){
+                            itemList='<li data-target="#carousel-example-generic" data-slide-to="' + i + '" class="active"  style="margin-right: 5px"></li>';
+                            itemBox=' <div class="item active">'+
+                                    '<img src="data:' + itemInfo.imageType + ';base64 ,' + itemInfo.imagePath + '"alt="..."/>' +
+                                    '<div class="carousel-caption">'+
+                                    '<a href="">查看详情</a>'+
+                                     '</div>' +
+                                    '</div>';
+                        }else {
+                            itemList='<li data-target="#carousel-example-generic" data-slide-to="' + i + '" class="" style="margin-right: 5px"></li>';
+                            itemBox=' <div class="item ">'+
+                                    '<img src="data:' + itemInfo.imageType + ';base64 ,' + itemInfo.imagePath + '"alt="..."/>' +
+                                    '<div class="carousel-caption">'+
+                                    '<a href="">查看详情</a>'+
+                                    '</div>' +
+                                    '</div>';
+                        }
+                        htmlList+=itemList;
+                        htmlBox+=itemBox;
+                    }
+                   $('#carouselList').append(htmlList);
+                    $('#carouselBox').append(htmlBox);
+                }
+            }
+        });
+
+
+
+
+
+            });
+
+
+
+    var informationRows;
+   //大咖云集模块
+    $( function () {
+        $.ajax({
+            url: '{{projcfg.appurl}}/api/project/ability/informationBank/develop/info/pageListDemo',
+            type: 'get',
+            data: {"page": 1, "rows": 10},
+            success: function (data) {
+                var rows = data.rows;
+                informationRows=data.rows;
+                if (data.total > 0) {
+                    var html = "";
+                    for (var i = 0; i < 6; i++) {
+                        var itemInfo = rows[i];
+                        var value=itemInfo.information_type;
+                        if(value==1){
+                            itemInfo.information_type ="项目资料";
+                        }else if(value==2){
+                            itemInfo.information_type ="热门技术";
+                        }else if(value==3){
+                            itemInfo.information_type ="数据库";
+                        }else if(value==4){
+                            itemInfo.information_type ="编程语言";
+                        }else if(value==5){
+                            itemInfo.information_type ="大数据";
+                        }else if(value==6){
+                            itemInfo.information_type ="移动端";
+                        }else if(value==7){
+                            itemInfo.information_type ="开发工具";
+                        }else if(value==8){
+                            itemInfo.information_type ="需求";
+                        }else if(value==9){
+                            itemInfo.information_type ="测试";
+                        }else if(value==10){
+                            itemInfo.information_type ="运维";
+                        }
+                        var html = '【'+itemInfo.information_type+'】'+itemInfo.information_title;
+
+                        if(i==0){
+                            $('#articleOne').append(html);
+                        }else if(i==1){
+                            $('#articleTwo').append(html);
+                        }else if(i==2){
+                            $('#articleThree').append(html);
+                        }else if(i==3){
+                            $('#articleFour').append(html);
+                        }else if(i==4){
+                            $('#articleFive').append(html);
+                        }else if(i==5){
+                            $('#articleSix').append(html);
+                        }
+                    }
+                }
+            }
+        });
+    });
+
+    //大咖云集模块，点击文章链接，跳转到文章详情。
+function informationShow(i) {
+
+    if(informationRows[i].information_content!=null&&informationRows[i].information_content!=""){
+        window.location.href = "{{projcfg.appurl}}/informationShow?id="+informationRows[i].id;
+    }else {
+        window.open(informationRows[i].information_link);
+    }
+}
+
+
+
+
+
+
     
 </script>
 

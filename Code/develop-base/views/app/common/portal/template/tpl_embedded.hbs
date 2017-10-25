@@ -481,8 +481,7 @@
 
     //点击查看详情，跳转到informationShow这个页面的ajax，将id作为参数请求到相应路由获取文章详情。
     function informationPageShow(i) {
-        console.log(i);
-        console.log("listcontent",listcontent[i]);
+
         if(listcontent[i].information_content!=null&&listcontent[i].information_content!=""){
             window.location.href = "{{projcfg.appurl}}/informationShow?id="+listcontent[i].id;
         }else {
