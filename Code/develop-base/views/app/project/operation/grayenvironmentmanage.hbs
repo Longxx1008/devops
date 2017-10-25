@@ -51,7 +51,7 @@
                                                     <p class="f-l">
                                                         <label>运行容器：</label>
                                                         <button class="btn-fuhao">-</button>
-                                                        <input class="rongqi-shuzhi" type="text" placeholder="0">
+                                                        <input id="instance_number" class="rongqi-shuzhi" type="text" disabled="disabled" >
                                                         <button class="btn-fuhao">+</button>
                                                     </p>
                                                     <div class="f-r">
@@ -193,11 +193,13 @@
             url: '{{projcfg.appurl}}/api/project/operation/grayenvironmentmanage/platform/info',
             type: 'get',
             success: function (result) {
+              console.log(result)
                 var data = result.data;
                 var projectName = data[0].projectName;
                 var gitAddress = data[0].gitAddress;
                 $("#projectName").html(projectName);
                 $("#gitAddress").html(gitAddress);
+                $("#instance_number").val(data[0].formalInstance+data[0].gradationInstance);
 
                 //                console.log(data);
             }

@@ -8,6 +8,7 @@ var ng = require('nodegrass');
 var mesos_add = '192.168.9.65';
 var mesos_port = '5050';
 var content_type = 'Content-Type: application/json';
+var version ;
 
 
 
@@ -24,8 +25,8 @@ function getInfo(){
         resolve({"data":null,"error":e,"message":"failure sql?"})
       }else{
         if(r.length>0){
-          asyncControl(0,r);
-          // asyncControlUpdateVersion(0,r)
+          // asyncControl(0,r);
+          asyncControlUpdateVersion(0,r)
 
         }
       }
@@ -33,24 +34,92 @@ function getInfo(){
   })
 }
 
-function asyncControlUpdateVersion(k,array){
-  if()
-  ng.get("http://192.168.9.65:5050/master/state",function(data,status,headers){
-    console.log(status);
-    console.log(headers);
-    var tasks=JSON.parse(data).frameworks[0].tasks
-    for(var i in tasks){
-      var task=tasks[i];
-      var name = task.name ;
-      if(name=)
-      console.log(task.name)
-      console.log("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
-      // console.log(task)
-    }
-  },null,'utf8').on('error', function(e) {
-    console.log("Got error: " + e.message);
-  });
+function asyncControlUpdateVersion(k,arrays){
+  if(arrays.length>k&&arrays){
+    var array=arrays[k];
+    var id =array.id;
+    var projectCode=array.projectCode;
+    var gradationName=array.gradationName;
+    var formalName=array.formalName;
+    ng.get("http://192.168.9.65:5050/master/state",function(data,status,headers){
+      // console.log(status);
+      // console.log(headers);
+      var tasks=JSON.parse(data).frameworks[0].tasks
+      for(var i in tasks){
+        var task=tasks[i];
+        var name = task.name ;
+        var image =task.container.docker.image
+        // var version ;
+        // console.log(task.container.docker.image)
+        if(name.indexOf(".")!=-1){
+          name=name.substr(name.indexOf(".")+1)+"/"+name.substr(0,name.indexOf("."));
+        }
+        name="/"+name;
+        console.log(name)
+        console.log(gradationName)
+        console.log(formalName);
+        console.log(image)
+        if(name==gradationName){
+
+          console.log("ok ---------------------------------");
+          if(image.indexOf(":")!=-1){
+             strAns(image,":");
+          }else{
+            version ="lasten"
+          }
+          let sql = "update pass_develop_project_resources set gradationVersion=? where id =?";
+          console.log(version);
+          mysqlPool.query(sql,[version,id],function(es, rs){
+            if(es){
+              console.log(es);
+            }else{
+              k++;
+              asyncControlUpdateVersion(k,arrays)
+            }
+          })
+
+        }else if(name==formalName){
+          console.log("ok    ++++++++++++++++++++++++++++++");
+          if(image.lastIndexOf(":")!=-1){
+            strAns(image,":");
+          }else{
+            version="lasten"
+          }
+          console.log("version   ",version);
+          let sql = "update pass_develop_project_resources set formalVersion=? where id =?";
+          mysqlPool.query(sql,[version,id],function(es, rs){
+            if(es){
+              console.log(es);
+            }else{
+              k++;
+              asyncControlUpdateVersion(k,arrays)
+            }
+          })
+        }
+        // console.log(task)
+      }
+    },null,'utf8').on('error', function(e) {
+      console.log("Got error: " + e.message);
+    });
+
+  }else{
+   return ;
+  }
 }
+
+
+function strAns(str,char){
+  if(str.indexOf(char)!=-1){
+    version=str.substr(str.indexOf(char)+1);
+    if(version.indexOf(char)!=-1){
+      strAns(version,char);
+    }else{
+      console.log("str      ",str);
+      return version;
+    }
+  }
+}
+
 function asyncControl(k,arrays){
   if(arrays.length>k){
     var array=arrays[k];
