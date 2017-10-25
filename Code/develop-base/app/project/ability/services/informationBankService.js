@@ -65,6 +65,10 @@ exports.pageListDemo = function (page, size, conditionMap, cb) {
     utils.pagingQuery4Eui_mysql(sql, orderBy, page, size, null, cb);
 };
 
+
+
+
+
 exports.getDetailMsgById = function (page, size, conditionMap, cb) {
     var sql = "SELECT id,information_title,information_issuer,information_create_time,information_view_count,information_content from pass_develop_information_info ";
     var conditions = [];

@@ -44,11 +44,7 @@
     "iconv-lite": "0.2.5",
     "influxdb-nodejs": "*",
     "nodegrass": "*",
-    "bluebird": "*"
-  },
-  "devDependencies": {
-    "mocha": "4.0.1",
-    "supertest": "3.0.0",
-    "power-assert": "1.4.4"
+    "bluebird": "*",
+    "csv": "^1.1.1"
   }
 }

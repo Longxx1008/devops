@@ -22,21 +22,20 @@ var protocol="http";
  * @param cb
  */
 exports.getPlatfrom = function(){
-    var p = new Promise(function(resolve,reject){
-        var sql = "select a.* from pass_develop_project_resources a ";
+    return  new Promise(function(resolve,reject){
+        var sql = "select * from pass_develop_project_resources  ";
         mysqlPool.query(sql,function(e,r){
             if(e){
                 console.log(e);
                 resolve({"data":null,"error":e,"message":"查询数据失败！","success":false,"code":"1001"})
             }else{
-
                 resolve({"data":r,"error":null,"message":"查询数据成功！","success":true,"code":"0000"})
             }
 
         })
 
     });
-    return p;
+
 
 };
 

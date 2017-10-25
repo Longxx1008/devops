@@ -1,3 +1,9 @@
+部署名称规范
+项目：develop-base 
+生产名称：项目名称_日期   develop-base/develop-base-09-28
+灰度名称：项目名称-gatedlaunch  develop-base-gatedlaunch
+蓝绿部署临时: 项目名称-bule   develop-base-bule
+
 
 
 ## 蓝绿部署

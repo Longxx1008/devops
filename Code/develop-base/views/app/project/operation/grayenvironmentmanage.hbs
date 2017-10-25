@@ -112,7 +112,7 @@
                                                     <div class="pull-left">
                                                         <label>运行容器：</label>
                                                         <button class="btn-fuhao">-</button>
-                                                        <input class="rongqi-shuzhi" type="text" placeholder="0">
+                                                        <input id="instance_number" class="rongqi-shuzhi" type="text" disabled="disabled">
                                                         <button class="btn-fuhao">+</button>
                                                     </div>
                                                     <div class="pull-right">
@@ -303,7 +303,7 @@
 {{!-- 弹窗 正式环境发布 --}}
 <div id="prod_publish" class="mydialog" style="padding-top:0px;">
     <div class="row">
-<div class="col-sm-12" id="prod_step">
+        <div class="col-sm-12" id="prod_step">
             <div class="col-md-4 no-padding active">
                 <div class="gray_circle ">版本设置</div>
                 <hr class="gray_circle_line_right">
@@ -460,10 +460,29 @@
             pagination: true,
             loadMsg: '正在加载...'
         });
-
-
-
     }
+    $(function () {
+        $.ajax({
+            url: '{{projcfg.appurl}}/api/project/operation/grayenvironmentmanage/platform/info',
+            type: 'get',
+            success: function (result) {
+                console.log(result)
+                var data = result.data;
+                var projectName = data[0].projectName;
+                var gitAddress = data[0].gitAddress;
+                $("#projectName").html(projectName);
+                $("#gitAddress").html(gitAddress);
+                $("#instance_number").val(data[0].formalInstance + data[0].gradationInstance);
+
+                //                console.log(data);
+            }
+        });
+        //        $("#colonyDataTable").html("sdfksadlfkas;ldfksdl;kf");
+
+
+
+
+    })
     $(function () {
         $.ajax({
             url: '{{projcfg.appurl}}/api/project/operation/grayenvironmentmanage/platform/info',
@@ -552,7 +571,7 @@
         });
     };
     function prod_publish() {
-         // 重置步骤
+        // 重置步骤
         $("#prod_step>div").each(function (index) {
             if (index == 0) {
                 $(this).addClass("active")
