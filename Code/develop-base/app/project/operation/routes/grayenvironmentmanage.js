@@ -16,9 +16,11 @@ router.route("/platform/info").get(function(req,res){
 });
 
 router.route("/deploy/info").get(function(req,res){
-    greyenvironmtneService.getDeploy().then(function(rs){
-        greyenvironmtneService.getDeploy()
+    var page=req.query.page;
+    var rows=req.query.rows;
+  var conditionMap = {};
 
+    greyenvironmtneService.getDeploy(page, rows, conditionMap,function(rs){
         utils.respJsonData(res,rs)
     })
 })
