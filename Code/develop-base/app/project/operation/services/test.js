@@ -34,7 +34,6 @@ function getInfo(){
 }
 
 function asyncControlUpdateVersion(k,array){
-  if()
   ng.get("http://192.168.9.65:5050/master/state",function(data,status,headers){
     console.log(status);
     console.log(headers);
@@ -42,7 +41,6 @@ function asyncControlUpdateVersion(k,array){
     for(var i in tasks){
       var task=tasks[i];
       var name = task.name ;
-      if(name=)
       console.log(task.name)
       console.log("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
       // console.log(task)
