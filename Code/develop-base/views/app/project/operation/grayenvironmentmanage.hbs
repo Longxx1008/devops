@@ -1,6 +1,66 @@
-<script src="{{projcfg.appurl}}/static/js/step/jquery.steps.min.js"></script> {{!--
+ {{!--
 <link rel="stylesheet" href="{{projcfg.appurl}}/static/css/base.css"> --}}
 <link rel="stylesheet" href="{{projcfg.appurl}}/static/css/monitoring.css">
+
+<style>
+    .current {
+        display: block;
+        visibility: visible;
+    }
+
+    .gray_pub_p {
+        font-size: 20px;
+    }
+
+    .gray_ul {
+        font-size: 16px
+    }
+
+    .gray_ul li {
+        padding: 10px 0px;
+    }
+
+    .gray_circle {
+        border: 1px solid black;
+        border-radius: 50%;
+        width: 86px;
+        text-align: center;
+        height: 55px;
+        line-height: 55px;
+        margin: 0 auto;
+    }
+
+    .gray_circle_line_right {
+        border: 1px solid black;
+        width: 36.5%;
+        position: relative;
+        top: -28px;
+        float: right;
+    }
+
+    .gray_circle_line_left {
+        border: 1px solid black;
+        width: 36.5%;
+        position: relative;
+        top: 27px;
+        float: left;
+    }
+
+    .active hr {
+        border-color: green;
+
+    }
+
+    .active .gray_circle {
+        background-color: green;
+        color: white;
+    }
+
+    .active {
+        display: block !important;
+    }
+</style>
+
 <div class="row">
     <div class="col-xs-12 col-md-12">
         <div class="widget">
@@ -49,13 +109,13 @@
                                                     </p>
                                                 </div>
                                                 <div class="rongqi-box clearfix">
-                                                    <p class="f-l">
+                                                    <div class="pull-left">
                                                         <label>运行容器：</label>
                                                         <button class="btn-fuhao">-</button>
                                                         <input class="rongqi-shuzhi" type="text" placeholder="0">
                                                         <button class="btn-fuhao">+</button>
-                                                    </p>
-                                                    <div class="f-r">
+                                                    </div>
+                                                    <div class="pull-right">
                                                         <button class="btn-fabu btn-huidu-fabu" onclick="gray_publish()">
                                                             灰度环境发布
                                                         </button>
@@ -77,11 +137,9 @@
                                                             <li class="show">
                                                                 <iframe src="http://192.168.9.69:3000/dashboard-solo/db/dockercontainernetio?orgId=1&panelId=1&from=1507852248537&to=1507873848537"
                                                                     width="100%" height="350" frameborder="0"></iframe>
-
                                                             </li>
-                                                            <li>
-                                                                <div id="camkmpdeploy">
-                                                                </div>
+                                                            <li style="height:400px;width:100%">
+                                                                <div id="camkmpdeploy"></div>
                                                             </li>
                                                             <li>
                                                                 <div>
@@ -135,45 +193,225 @@
 
 <div id="gray_publish" class="mydialog" style="padding-top:0px;">
     <div class="row">
-        <div class="col-md-12">
-            <div class="widget flat radius-bordered">
-                <div class="widget-body" style="background-color: #fff;">
-                    <div class="col-md-5">
-                        <p>灰度运行版本</p>
-                        <p>项目名称：贵州移动DEVOPS</p>
-                        <p>灰度运行版本</p>
-                    </div>
-                    <div class="col-md-2"></div>
-                    <div class="col-md-5"></div>
-                </div>
+        <div class="col-sm-12" id="gray_step">
+            <div class="col-md-4 no-padding active">
+                <div class="gray_circle ">版本设置</div>
+                <hr class="gray_circle_line_right">
             </div>
+            <div class="col-md-4  no-padding">
+                <hr class="gray_circle_line_left">
+                <div class="gray_circle">健康检查</div>
+                <hr class="gray_circle_line_right">
+
+            </div>
+            <div class="col-md-4  no-padding">
+                <hr class="gray_circle_line_left">
+                <div class="gray_circle">版本更新</div>
+
+            </div>
+        </div>
+
+        <div class="col-md-12">
+            <div id="gray_body" class="widget flat radius-bordered">
+                <div style="display:none" class="widget-body active" style="background-color: #fff;">
+                    <div class="col-md-4" style="padding:30px">
+                        <div style="border:1px #000 solid">
+                            <p class="text-center gray_pub_p">灰度现运行版本</p>
+                            <div class="text-center">
+                                <ul class="gray_ul">
+                                    <li>
+                                        <label for="">项目名称:</label>
+                                        <span id="gray_pro"></span>
+                                    </li>
+                                    <li>
+                                        <label for="">项目编号:</label>
+                                        <span id="gray_num">贵州移动DEVOPS</span>
+                                    </li>
+                                    <li>
+                                        <label for="">运行版本:</label>
+                                        <span id="gray_dev">贵州移动DEVOPS</span>
+                                    </li>
+                                    <li>
+                                        <label for="">镜像名称:</label>
+                                        <span id="gray_img">贵州移动DEVOPS</span>
+                                    </li>
+                                    <li>
+                                        <label for="">已运行时间:</label>
+                                        <span id="gray_run_time">贵州移动DEVOPS</span>
+                                    </li>
+                                    <li>
+                                        <label for="">访问地址:</label>
+                                        <span id="gray_req_ip">贵州移动DEVOPS</span>
+                                    </li>
+                                </ul>
+
+                            </div>
+                        </div>
+
+
+                    </div>
+                    <div class="col-md-4"> 箭头</div>
+                    <div class="col-md-4" style="padding:30px">
+                        <div style="border:1px #000 solid">
+                            <p class="text-center gray_pub_p">新版本</p>
+                            <div class="text-center">
+                                <ul class="gray_ul">
+                                    <li>
+                                        <label for="">项目名称:</label>
+                                        <span>贵州移动DEVOPS</span>
+                                    </li>
+                                    <li>
+                                        <label for="">项目编号:</label>
+                                        <span>贵州移动DEVOPS</span>
+                                    </li>
+                                    <li>
+                                        <label for="">运行版本:</label>
+                                        <span>贵州移动DEVOPS</span>
+                                    </li>
+                                    <li>
+                                        <label for="">镜像名称:</label>
+                                        <span>贵州移动DEVOPS</span>
+                                    </li>
+                                    <li>
+                                        <label for="">已运行时间:</label>
+                                        <span>贵州移动DEVOPS</span>
+                                    </li>
+                                    <li>
+                                        <label for="">访问地址:</label>
+                                        <span>贵州移动DEVOPS</span>
+                                    </li>
+                                </ul>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div style="display:none" class="widget-body" style="background-color: #fff;">
+                    内容2
+                </div>
+                <div style="display:none" class="widget-body" style="background-color: #fff;">
+                    内容3
+                </div>
+
+            </div>
+        </div>
+        <div class="col-md-12 text-center">
+            <button id="gray_next" onclick="gray_next()">下一步</button>
         </div>
     </div>
 </div>
 {{!-- 弹窗 正式环境发布 --}}
 <div id="prod_publish" class="mydialog" style="padding-top:0px;">
     <div class="row">
-        <div class="col-md-12">
-            <div class="widget flat radius-bordered">
-                <div class="widget-body" style="background-color: #fff;">
-                    <div id="registration-form">
-                        <div class="form-title bordered-bottom bordered-blue">
-                            <pre style="width: 960px;height: 470px;" id="logPre">
+<div class="col-sm-12" id="prod_step">
+            <div class="col-md-4 no-padding active">
+                <div class="gray_circle ">版本设置</div>
+                <hr class="gray_circle_line_right">
+            </div>
+            <div class="col-md-4  no-padding">
+                <hr class="gray_circle_line_left">
+                <div class="gray_circle">健康检查</div>
+                <hr class="gray_circle_line_right">
 
-                            </pre>
+            </div>
+            <div class="col-md-4  no-padding">
+                <hr class="gray_circle_line_left">
+                <div class="gray_circle">版本更新</div>
+
+            </div>
+        </div>
+
+        <div class="col-md-12">
+            <div id="prod_body" class="widget flat radius-bordered">
+                <div style="display:none" class="widget-body active" style="background-color: #fff;">
+                    <div class="col-md-4" style="padding:30px">
+                        <div style="border:1px #000 solid">
+                            <p class="text-center prod_pub_p">灰度现运行版本</p>
+                            <div class="text-center">
+                                <ul class="gray_ul">
+                                    <li>
+                                        <label for="">项目名称:</label>
+                                        <span id="prod_pro"></span>
+                                    </li>
+                                    <li>
+                                        <label for="">项目编号:</label>
+                                        <span id="prod_num">贵州移动DEVOPS</span>
+                                    </li>
+                                    <li>
+                                        <label for="">运行版本:</label>
+                                        <span id="prod_dev">贵州移动DEVOPS</span>
+                                    </li>
+                                    <li>
+                                        <label for="">镜像名称:</label>
+                                        <span id="prod_img">贵州移动DEVOPS</span>
+                                    </li>
+                                    <li>
+                                        <label for="">已运行时间:</label>
+                                        <span id="prod_run_time">贵州移动DEVOPS</span>
+                                    </li>
+                                    <li>
+                                        <label for="">访问地址:</label>
+                                        <span id="prod_req_ip">贵州移动DEVOPS</span>
+                                    </li>
+                                </ul>
+
+                            </div>
                         </div>
-                        <div class="row" style="padding: 0px 20px;height: auto;">
-                            <span id="ccdetail"></span>
+
+
+                    </div>
+                    <div class="col-md-4"> 箭头</div>
+                    <div class="col-md-4" style="padding:30px">
+                        <div style="border:1px #000 solid">
+                            <p class="text-center gray_pub_p">新版本</p>
+                            <div class="text-center">
+                                <ul class="prod_ul">
+                                    <li>
+                                        <label for="">项目名称:</label>
+                                        <span>贵州移动DEVOPS</span>
+                                    </li>
+                                    <li>
+                                        <label for="">项目编号:</label>
+                                        <span>贵州移动DEVOPS</span>
+                                    </li>
+                                    <li>
+                                        <label for="">运行版本:</label>
+                                        <span>贵州移动DEVOPS</span>
+                                    </li>
+                                    <li>
+                                        <label for="">镜像名称:</label>
+                                        <span>贵州移动DEVOPS</span>
+                                    </li>
+                                    <li>
+                                        <label for="">已运行时间:</label>
+                                        <span>贵州移动DEVOPS</span>
+                                    </li>
+                                    <li>
+                                        <label for="">访问地址:</label>
+                                        <span>贵州移动DEVOPS</span>
+                                    </li>
+                                </ul>
+
+                            </div>
                         </div>
                     </div>
                 </div>
+                <div style="display:none" class="widget-body" style="background-color: #fff;">
+                    内容2
+                </div>
+                <div style="display:none" class="widget-body" style="background-color: #fff;">
+                    内容3
+                </div>
+
             </div>
+        </div>
+        <div class="col-md-12 text-center">
+            <button id="prod_next" onclick="prod_next()">下一步</button>
         </div>
     </div>
 </div>
 
 <script>
-    resize()
     function resize() {
         $('#camkmpdeploy').datagrid({
             url: '{{projcfg.appurl}}/api/project/operation/grayenvironmentmanage/deploy/info',
@@ -188,25 +426,29 @@
             selectOnCheck: false,
             columns: [[
                 { "field": 'service_id', checkbox: true },
-                { "field": "service_tag", "title": "名称", "width": 25, align: "center" },
+                { "field": "service_tag", "title": "名称", "width": 50, align: "center" },
                 /* {"field": "totalCpu","title":"cpu总资源","width":130,align:"center"},
                  {"field": "usedCpu","title":"cpu使用情况","width":130,align:"center"},
                  {"field": "totalDisk","title":"硬盘总资源","width":130,align:"center"},
                  {"field": "usedDisk","title":"硬盘使用情况","width":130,align:"center"},
                  {"field": "totalMemory","title":"内存总资源","width":130,align:"center"},
                  {"field": "usedMemory","title":"内存使用情况","width":130,align:"center"},*/
-                { "field": "image_id", "title": "CPU", "width": 25, align: "center" },
-                { "field": "container_id", "title": "硬盘", "width": 25, align: "center" },
-                { "field": "memorytool", "title": "内存", "width": 25, align: "center" },
+                { "field": "image_id", "title": "CPU", "width": 40, align: "center" },
+                { "field": "container_id", "title": "硬盘", "width": 50, align: "center" },
                 {
-                    "field": "", "title": "状态", "width": 30, align: "center",
+                    "field": "memorytool", "title": "内存", "width": 20, align: "center", formatter: function () {
+                        return 100
+                    }
+                },
+                {
+                    "field": "status", "title": "状态", "width": 25, align: "center",
                     "formatter": function (value, rowData, rowIndex) {
                         return '运行中';
                     }
                 },
                 { "field": "remark", "title": "备注", "width": 25, align: "center" },
                 {
-                    "field": "oper", "title": "操作", "width": 25, align: "center",
+                    "field": "oper", "title": "操作", "width": 40, align: "center",
                     "formatter": function (value, rowData, rowIndex) {
                         return "<span class=\"label label-info\" style='height:26px;line-height:16px;font-weight:600;margin-top: 0.5rem;margin-left: 0.5rem;cursor: pointer;' onclick='hm_list(\"" + rowData.master_id + "\",\"" + rowData.master_ip + "\")'>主机管理</span><span class=\"label label-success\" style='height:26px;line-height:16px;font-weight:600;margin-top: 0.5rem;margin-left: 0.5rem;cursor: pointer;' onclick='colonymanage(\"" + rowData.id + "\")'>集群概览</span>";
                     }
@@ -232,42 +474,20 @@
                 var gitAddress = data[0].gitAddress;
                 $("#projectName").html(projectName);
                 $("#gitAddress").html(gitAddress);
-                //                console.log(data);
+                $("#gray_pro").html(projectName);
+                $("#gray_num").html(gitAddress);
+                $("#gray_img").html(gitAddress);
+                $("#gray_dev").html(gitAddress);
+                $("#gray_run_time").html(gitAddress);
+                $("#gray_req_ip").html(gitAddress);
+
             }
         });
-        //        $("#colonyDataTable").html("sdfksadlfkas;ldfksdl;kf");
-
     });
-
-
-
-
-    //                $("#camkmpdeploy").html(html)
-
-
-    //            }
-
-    //            $("#camkmpdeploy")
-    //                var data = result.data;
-    //                var projectName = data[0].projectName;
-    //                var gitAddress = data[0].gitAddress;
-    //                $("#projectName").html(projectName);
-    //                $("#gitAddress").html(gitAddress);
-    //            }
-
-    //
-    //        });
-    //
-    //
-    //    })
-
-
     function show_grafana(container_id) {
         var html = "<iframe src='http://192.168.9.69:3000/dashboard/db/dockerdan-ge-rong-qi-jian-kong?orgId=1&var-host=mesos-node2_192.168.9.67&var-container_name=mesos-97627646-54be-4777-9223-faecde8f8cdf-S6.11d0ac3c-3b5a-4e07-b342-b5f341dd8502' width=\"100%\" height=\"900px\" frameborder=\"0\"></iframe>\n";
         $("#grafana_show").html(html)
     }
-
-
 </script>
 
 <script>
@@ -287,8 +507,9 @@
                         }
                         spans[num].className = "current";
                         lis[num].className = "show";
-                        if (num === 1) {
+                        if (num == 1) {
                             resize()
+
                         }
                     }
                 }(i);
@@ -302,42 +523,88 @@
 
 <script>
     function gray_publish() {
+        // 重置步骤
+        $("#gray_step>div").each(function (index) {
+            if (index == 0) {
+                $(this).addClass("active")
+                return
+            }
+            $(this).removeClass("active")
+        })
+        $("#gray_body>div").each(function (index) {
+            if (index == 0) {
+                $(this).addClass("active")
+                return
+            }
+            $(this).removeClass("active")
+        })
+        $("#gray_next").show()
+        // 打开弹窗
+
         $('#gray_publish').show();
         $('#gray_publish').mydialog({
             title: "灰度版本更新",
             width: 1000,
-            height: 560,
+            height: 800,
             top: 20,
             modal: true,
 
         });
     };
     function prod_publish() {
+         // 重置步骤
+        $("#prod_step>div").each(function (index) {
+            if (index == 0) {
+                $(this).addClass("active")
+                return
+            }
+            $(this).removeClass("active")
+        })
+        $("#prod_body>div").each(function (index) {
+            if (index == 0) {
+                $(this).addClass("active")
+                return
+            }
+            $(this).removeClass("active")
+        })
+        $("#prod_next").show()
+        //
         $('#prod_publish').show();
         $('#prod_publish').mydialog({
             title: "正式版本更新",
             width: 1000,
-            height: 560,
+            height: 800,
             top: 20,
             modal: true,
-            myButtons: [
-                {
-                    text: '关闭',
-                    btnCls: 'btn btn-danger',
-                    handler: function () {
-                        $('#containerLogModal').dialog('close');
-                    }
-                }, {
-                    text: '刷新',
-                    btnCls: 'btn btn-danger',
-                    handler: function () {
-                        $("#logPre").html("加载中...");
-                        logs(id);
-                    }
-                }
-            ]
         });
     };
-
+    function gray_next() {
+        $("#gray_step>div:not(.active)").eq(0).addClass("active");
+        var index;
+        $("#gray_body>div").each(function (item) {
+            if ($(this).hasClass("active")) {
+                index = item
+            }
+        })
+        if (index == $("#gray_body>div").length - 2) {
+            $("#gray_next").hide()
+        }
+        $("#gray_body>div.active").eq(0).removeClass("active")
+        $("#gray_body>div:not(.active)").eq(index + 1).addClass("active")
+    }
+    function prod_next() {
+        $("#prod_step>div:not(.active)").eq(0).addClass("active");
+        var index;
+        $("#prod_body>div").each(function (item) {
+            if ($(this).hasClass("active")) {
+                index = item
+            }
+        })
+        if (index == $("#prod_body>div").length - 2) {
+            $("#prod_next").hide()
+        }
+        $("#prod_body>div.active").eq(0).removeClass("active")
+        $("#prod_body>div:not(.active)").eq(index + 1).addClass("active")
+    }
 
 </script>
