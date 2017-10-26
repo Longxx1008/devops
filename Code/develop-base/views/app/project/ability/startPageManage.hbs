@@ -1,0 +1,447 @@
+<div class="row" xmlns:data-options="http://www.w3.org/1999/xhtml">
+    <div class="col-xs-12 col-md-12">
+        <div class="widget">
+            <div class="widget-body">
+                <div id="startPage_toolbar" class="row tbRow">
+                    <div class="col-xs-6 col-md-6">
+                        <div class="btn-group" role="group" aria-label="...">
+                            <button type="button" class="btn btn-default" onclick="toAdd()">
+                                <i class="glyphicon glyphicon-plus"></i> 增加
+                            </button>
+                            <button type="button" class="btn btn-default" onclick="toEdit()">
+                                <i class="glyphicon glyphicon-pencil"></i> 修改
+                            </button>
+                            <button type="button" class="btn btn-default" onclick="toDelete()">
+                                <i class="glyphicon glyphicon-cog"></i> 删除
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="easyui-layout" data-options="fit:true,border:false" style="width: 800px; height:650px;">
+                    <div data-options="region:'center',border:false,fit:true" style="overflow-x:hidden;overflow-y:hidden">
+                        <table id="startPage_datatable">
+
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div id="startPage_Modal" style="display:none;overflow:hidden;padding-top:15px;padding-bottom: 15px;" >
+    <div class="row">
+        <div class="col-md-12">
+            <div>
+                <!-- 下面的enctype属性-->
+                <form enctype="multipart/form-data" class="form-horizontal form-bordered" id="startPage_Form" role="form" method="post">
+                    <div class="form-group"  >
+                        <div class="col-sm-2 col-xs-2" style="margin-left: 18px">
+                            <select class="easyui-combobox" id="startPage" style="width:100%;height:31px;">
+                                <option value="导航图片" >导航图片</option>
+                                <option value="项目内容" >项目内容</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group"  >
+                        <!--<div class="col-sm-4 col-xs-4">-->
+                            <!--<img id="ImageShow" src="" style="width: 40px;height: 40px">-->
+                        <!--</div>-->
+                        <div class="col-sm-12 col-xs-12">
+                            <!--<label for="startPageImage" class="col-sm-2 control-label no-padding-right">图片</label>-->
+                            <div class="col-sm-10 col-xs-10" id="preview">
+                                <!--<input id="startPageImage" style="width:100%;height:31px;" name="startPageImage">-->
+                                <!--<fieldset>-->
+                                <!--<input type="file" name="startPageImage" id="startPageImage" onchange="changes()" multiple="multiple"-->
+                                       <!--accept="image/x-png, image/jpg, image/jpeg, image/gif">-->
+                                <!--</fieldset>-->
+                                <!--<input type="button" value="上传">-->
+
+                                <div class="input-group image-preview" style="width: 100%">
+                                    <input type="text" class="form-control image-preview-filename" disabled="disabled"> <!-- don't give a name === doesn't send on POST/GET -->
+                                    <span class="input-group-btn">
+
+                                 <!-- image-preview-clear button -->
+                                        <button type="button" class="btn btn-default image-preview-clear" style="display:none;">
+                                           <span class="glyphicon glyphicon-remove"></span> Clear
+                                        </button>
+
+                                 <!-- image-preview-input -->
+                                        <div class="btn btn-default image-preview-input">
+                                            <span class="glyphicon glyphicon-folder-open"></span>
+                                            <span class="image-preview-input-title">Browse</span>
+                                            <input type="file" accept="image/png, image/jpeg, image/gif" name="input-file-preview" id="input-file-preview"/> <!-- rename it -->
+
+                                        </div>
+                                      </span>
+                                </div>
+                                <!--<div style="width: 400px;height: 400px">-->
+                                    <!--<img src="" id="image">-->
+                                <!--</div>-->
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<style>
+    .container{
+        margin-top:20px;
+    }
+    .image-preview-input {
+        position: relative;
+        overflow: hidden;
+        margin: 0px;
+        color: #333;
+        background-color: #fff;
+        border-color: #ccc;
+    }
+    .image-preview-input input[type=file] {
+        position: absolute;
+        top: 0;
+        right: 0;
+        margin: 0;
+        padding: 0;
+        font-size: 20px;
+        cursor: pointer;
+        opacity: 0;
+        filter: alpha(opacity=0);
+    }
+    .image-preview-input-title {
+        margin-left:2px;
+    }
+</style>
+<script >
+    $(document).ready(function(){
+        initStartPageManage();
+    });
+    function initStartPageManage(){
+
+        $('#startPage_datatable').datagrid({
+            method:'get',
+            url: '{{projcfg.appurl}}/api/project/ability/startPageManage',
+            rownumbers:true,
+            striped:true,
+            fitColumns:true,
+            toolbar: '#startPage_toolbar',
+            fit:true,
+            border:false,
+            singleSelect:true,
+            selectOnCheck:false,
+            columns:[[
+                {"field":'_id',checkbox:true},
+                {"field": "showType","title":"图片类型","width":50},
+                {"field": "imageName","title":"图片名称","width":40},
+                {"field": "image","title":"图片","width":40,align:"center","formatter":function(value,rowDate,rowIndex){
+                    return '<img src="data:'+rowDate.imageType+";base64 ,"+rowDate.imagePath+'"  style="height:35px;width:35px">';
+                }},
+                {"field": "imageType","title":"图片类型","width":40},
+                {"field": "imagePath","title":"图片路径","width":40}
+            ]],
+            onLoadSuccess:function(data) {
+                console.log('data',data)
+                if(data.success) {
+                    msgSuccess('提示,'+data.msg + ','+'代码:' + data);
+                }
+            },
+            onLoadError:function() {
+                msgError('提示,加载数据出现时发生错误,请稍候重试...');
+            },
+            pagination:true,
+            loadMsg:'正在加载...'
+        });
+    };
+
+
+    function toAdd(){
+        $('.image-preview').attr("data-content","").popover('hide');
+        $('.image-preview-filename').val("");
+        $('.image-preview-clear').hide();
+        $('.image-preview-input input:file').val("");
+        $(".image-preview-input-title").text("Browse");
+
+        document.getElementById('preview').style.display='block';
+        $('#startPage').combobox('setValue',"导航图片");
+        openPage("新增图片",null,doAdd);
+    };
+    function toEdit() {
+        var rows = $('#startPage_datatable').datagrid('getChecked');
+        if (rows.length != 1) {
+            msgError('提示,请选择一条数据再进行修改');
+            return;
+        }
+        openPage("修改图片", rows[0].id, doEdit);
+        // 获取远程数据
+        $.ajax({
+            url: '{{projcfg.appurl}}/api/project/ability/startPageManage/'+rows[0].id,
+            type: 'get',
+            data: {},
+            success: function (data) {
+                console.log('-------------成功返回-------'+data.success);
+                if(data.success) {
+                    msgSuccess(data.success);
+                    if(data.rows[0].showType=='1'){
+                        $('#startPage').combobox('setValue',"导航图片");
+                    }else if(data.rows[0].showType=='2'){
+                        $('#startPage').combobox('setValue',"项目内容");
+                    }else{
+                        msgError("数据获取错误");
+                    }
+
+                    var path="./static/images/image_information/"+data.rows[0].imageName;
+//                    $('#ImageShow').attr("src",path);
+                    var img = $('<img/>', {
+                        id: 'dynamic',
+                        width:250,
+                        height:200
+                    });
+                    $(".image-preview-clear").show();
+                    $(".image-preview-filename").val(data.rows[0].imageName);
+                    img.attr('src', path);
+                    $(".image-preview").attr("data-content",$(img)[0].outerHTML).popover("show");
+                }else{
+                    msgError(data.msg+',错误代码:'+data.code);
+                }
+            }
+        });
+    }
+    function openPage(title, value, callback) {
+        $('#startPage_Modal').show();
+        typeChange();
+
+        $(document).on('click', '#close-preview', function(){
+            $('.image-preview').popover('hide');
+            // Hover befor close the preview
+            $('.image-preview').hover(
+                    function () {
+                        $('.image-preview').popover('show');
+                    },
+                    function () {
+                        $('.image-preview').popover('hide');
+                    }
+            );
+        });
+
+        $(function() {
+            // Create the close button
+            var closebtn = $('<button/>', {
+                type:"button",
+                text: 'x',
+                id: 'close-preview',
+                style: 'font-size: initial;',
+            });
+            closebtn.attr("class","close pull-right");
+            // Set the popover default content
+            $('.image-preview').popover({
+                trigger:'manual',
+                html:true,
+                title: "<strong>Preview</strong>"+$(closebtn)[0].outerHTML,
+                content: "There's no image",
+                placement:'bottom'
+            });
+            // Clear event
+            $('.image-preview-clear').click(function(){
+                $('.image-preview').attr("data-content","").popover('hide');
+                $('.image-preview-filename').val("");
+                $('.image-preview-clear').hide();
+                $('.image-preview-input input:file').val("");
+                $(".image-preview-input-title").text("Browse");
+            });
+            // Create the preview image
+            $(".image-preview-input input:file").change(function (){
+                var img = $('<img/>', {
+                    id: 'dynamic',
+                    width:250,
+                    height:200
+                });
+                $('#preview').css("border", "1px solid black");
+                var file = this.files[0];
+                var reader = new FileReader();
+                // Set preview image into the popover data-content
+                reader.onload = function (e) {
+                    $(".image-preview-input-title").text("Change");
+                    $(".image-preview-clear").show();
+                    $(".image-preview-filename").val(file.name);
+                    img.attr('src', e.target.result);
+//                    $('#image').attr('src',e.target.result);
+                    $(".image-preview").attr("data-content",$(img)[0].outerHTML).popover("show");
+                }
+                reader.readAsDataURL(file);
+            });
+        });
+
+        $('#startPage_Modal').mydialog({
+            title:title,
+            width: 850,
+            height: 720,
+            top:80,
+            modal: true,
+            myButtons:[
+                {
+                    text:'确定',
+                    btnCls:'btn btn-blue',
+                    handler:function(){
+                        callback(value);
+//                        closeDialog();
+                    }
+                },
+                {
+                    text:'关闭',
+                    btnCls:'btn btn-danger',
+                    handler:function(){
+                        closeDialog();
+                    }
+                }
+            ]
+        });
+    };
+function doAdd(){
+    var select=$('#startPage').combobox('getValue');
+    if(select=="导航图片"){
+        selected='1';
+    }else{
+        selected='2';}
+    $('#startPage_Form').form("submit",{
+            url:'{{projcfg.appurl}}/api/project/ability/startPageManage',
+        queryParams:{
+                type:selected
+        },
+            onSubmit:function () {
+        //验证
+//                var select=$('#startPage').combobox('getValue');
+//                if(select=="导航图片"){
+////                    selected='1';
+//                }else if(select=="项目内容"){
+////                    selected='2';
+//                }else{
+//                    msgWarning('请选择类型');
+//                }
+
+                if($('#input-file-preview').val()==''){
+                    document.getElementById('input-file-preview').focus();
+                    msgWarning("请上传图片");
+                    return false;
+                }else{
+                    console.log('已经选择图片')
+                }
+    },
+        success:function (data) {
+                data = JSON.parse(data);
+                console.log("====",data.success,"====",data.msg);
+                if(data.success){
+                    msgSuccess(data.msg);
+                    $('#startPage_datatable').datagrid('load', {});
+                    closeDialog();
+                }else{
+                    msgError(data.msg);
+                }
+        }
+})
+};
+
+function doEdit(value) {
+    var select=$('#startPage').combobox('getValue');
+    if(select=="导航图片"){
+        selected='1';
+    }else{
+        selected='2';}
+    $('#startPage_Form').form("submit",{
+        url:'{{projcfg.appurl}}/api/project/ability/startPageManage',
+        queryParams:{
+            value:value,
+            type:selected
+        },
+        onSubmit:function () {
+            //验证
+            if($('#input-file-preview').val()==''){
+                document.getElementById('input-file-preview').focus();//$('#preview').css("border", "1px solid red")
+                return false;
+            }else{
+                console.log('已经选择图片')
+            }
+        },
+        success:function (data) {
+            data = JSON.parse(data);
+            if(data.success){
+                msgSuccess(data.msg);
+                $('#startPage_datatable').datagrid('load', {});
+                closeDialog();
+            }else{
+                msgError(data.msg);
+            }
+        }
+    });
+}
+
+    //删除数据
+    function toDelete(){
+        var rows = $('#startPage_datatable').datagrid('getChecked');
+        if (rows.length != 1) {
+            msgError('提示,请选择一条数据再进行删除');
+            return;
+        }
+        bootbox.confirm('确定删除该数据？',function (result){
+            if(result){
+                $.ajax({
+                    url: '{{projcfg.appurl}}/api/project/ability/startPageManage/'+rows[0].id,
+                    type: 'delete',
+                    data: {
+                        id:rows[0]._id
+                    },
+                    success: function (data) {
+                        if(data.success) {
+                            msgSuccess(data.msg);
+                            $('#startPage_datatable').datagrid('load',{});
+                        }
+                        else {
+                            msgError(data.msg+',错误代码:'+data.code);
+                        }
+                    }
+                });
+            }
+        });
+    }
+    function typeChange(){
+        $('#startPage').combobox(
+                {
+                    onSelect: function(date){
+                        console.log('=====date=',date);
+                        var beBaptized=$('#startPage').combobox('getValue');
+                        console.log("test",beBaptized);
+                        if(beBaptized!='项目内容'){
+                            //1 未受洗 2 已受洗 3 未填
+                            document.getElementById('preview').style.display='block';
+                        }else{
+                            document.getElementById('preview').style.display='none';
+//                            document.getElementById('Info').style.display='block';
+//                            document.getElementById('edit').style.display='none';
+                        }
+                    }
+                });
+    }
+
+//function changes() {
+//    console.log("====预览===f===");
+//    var image= $('#startPageImage').val();
+//    var strFileName=image.replace(/^.+?\\([^\\]+?)(\.[^\.\\]*?)?$/gi,"$1");  //正则表达式获取文件名，不带后缀
+//    var FileExt=image.replace(/.+\./,"");   //正则表达式获取后缀
+//     image=strFileName+"."+FileExt;
+//    console.log("====预览======",image);
+//     var path="./static/images/image_information/"+image;
+////    var path=""
+//    console.log(strFileName);
+//    $('#ImageShow').attr("src",path);
+//}
+    // 清空表单数据
+    function clear() {
+        $('#startPage_Modal').form('clear');
+    }
+    // 关闭窗口
+    function closeDialog() {
+        $('#startPage_Modal').dialog('close');
+    }
+
+</script>
