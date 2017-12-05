@@ -40,8 +40,8 @@ router.route('/getHostInfo').get(function(req,res){
     var id=req.query.id;
     var name=req.query.name;
     if(id&&name){
-        slaveDetailService.getSyncHostInfo(id).then(function(rs){
-            utils.respJsonData(res,rs)
+        slaveDetailService.getSyncHostInfo(id,function(result){
+            utils.respJsonData(res,result)
 
         });
     }else{

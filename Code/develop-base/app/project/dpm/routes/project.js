@@ -190,22 +190,27 @@ router.route('/develop/pm/deploy/logs/:id').get(function(req, res){
 router.route('/develop/pm/deploy/stop/:id').put(function(req, res){
     var id = req.params.id;
     var projectId = req.body.projectId;
-    projectService.getDeployedInfo(id,function(result){
-        if(result.success && result.data.length != 0){
-            var request = require('request');
-            var scaleJson = {"instances": 0};
-            var options = {
-                headers : {"Connection": "close"},
-                url : config.platform.marathonApi + result.data[0].mesosId,
-                method : 'put',
-                json : true,
-                body : scaleJson
-            };
-            function callback(error, response, data) {
-                console.log(response);
-                if (!error && (response.statusCode == 200 || response.statusCode == 201)) {
-                    console.log('停止应用成功----info------',data);
-                    var params = [];
+    var request = require('request');
+    var scaleJson = {"instances": 0};
+    var options = {
+        headers : {"Connection": "close"},
+        url : config.platform.marathonApi + projectId,
+        method : 'put',
+        json : true,
+        body : scaleJson
+    };
+    function callback(error, response, data) {
+        console.log(response);
+        if (!error && (response.statusCode == 200 || response.statusCode == 201)) {
+            console.log('停止应用成功----info------',data);
+            projectService.refreshDeployed(function (result) {
+                if(result.success){
+                    utils.respMsg(res, true, '0000', '停止应用成功', null, null);
+                }else{
+                    utils.respMsg(res, false, '1000', '停止应用失败', null, null);
+                }
+            });
+                 /*   var params = [];
                     params.push("0");
                     params.push("0");
                     params.push("实例:0个<br>CPU:0个<br>内存:0M");
@@ -229,17 +234,13 @@ router.route('/develop/pm/deploy/stop/:id').put(function(req, res){
                                 }
                             });
                         }
-                    });
+                    });*/
                 }else{
                     console.log("停止应用失败，" + error);
                     utils.respMsg(res, false, '10000', '停止应用操作失败', null, null);
                 }
             }
             request(options, callback);
-        }else{
-            utils.respMsg(res, false, '10000', '停止失败，所选应用不存在', null, null);
-        }
-    })
 });
 
 router.route('/develop/pm/deploy/delete/:id').put(function(req, res){
@@ -290,62 +291,58 @@ router.route('/develop/pm/deploy/delete/:id').put(function(req, res){
 router.route('/develop/pm/deploy/start/:id').post(function(req, res){
     var id = req.params.id;
     var projectId = req.body.projectId;
-    projectService.getDeployedInfo(id,function(result){
-        if(result.success && result.data.length != 0){
-            var request = require('request');
-            var mesosId = result.data[0].mesosId;
-            //默认只启动一个实例
-            var scaleJson = {"instances": 1};
-            var options = {
-                headers : {"Connection": "close"},
-                url : config.platform.marathonApi + mesosId,
-                method : 'put',
-                json : true,
-                body : scaleJson
-            };
-            function callback(error, response, data) {
-                if (!error && (response.statusCode == 200 || response.statusCode == 201)) {
-                    console.log('启动应用成功----info------',data);
-                    //更新应用状态
-                    var params = [];
-                    params.push("1");
-                    params.push("1");
-                    params.push("实例:0个<br>CPU:0个<br>内存:0M");
-                    params.push("");
-                    params.push("");
-                    params.push("");
-                    params.push("");
-                    params.push(id);
-                    projectService.updateDeployStatus(params,function(result){
-                        if(!result.success){
-                            utils.respMsg(res, false, '10000', '启动应用成功，但更新应用状态失败', null, null);
-                        }else{
-                            var stepData = [];
-                            stepData.push(4);
-                            stepData.push(projectId);
-                            projectService.updateStep(stepData,function(result){
-                                if(!result.success){
-                                    utils.respMsg(res, false, '10000', '启动应用成功，但更新应用状态失败', null, null);
-                                }else{
-                                    utils.respMsg(res, true, '10000', '启动应用成功', null, null);
-                                }
-                            });
-                            //刷新应用状态
-                            setTimeout(function(){
-                                projectService.refreshDeployedInfo(id, mesosId);
-                            },10 * 1000);
-                        }
-                    });
+    var instance = req.body.instance;
+    var request = require('request');
+    var scaleJson = {"instances": parseInt(instance)};
+    var options = {
+        headers : {"Connection": "close"},
+        url : config.platform.marathonApi + projectId,
+        method : 'put',
+        json : true,
+        body : scaleJson
+    };
+    function callback(error, response, data) {
+        console.log(response);
+        if (!error && (response.statusCode == 200 || response.statusCode == 201)) {
+            console.log('开启应用成功----info------',data);
+            projectService.refreshDeployed(function (result) {
+                if(result.success){
+                    utils.respMsg(res, true, '0000', '开启应用成功', null, null);
                 }else{
-                    console.log("启动应用操作失败，" + error);
-                    utils.respMsg(res, false, '10000', '启动应用操作失败', null, null);
+                    utils.respMsg(res, false, '1000', '开启应用失败', null, null);
                 }
-            }
-            request(options, callback);
+            });
+            /*   var params = [];
+               params.push("0");
+               params.push("0");
+               params.push("实例:0个<br>CPU:0个<br>内存:0M");
+               params.push("");
+               params.push("");
+               params.push("");
+               params.push("");
+               params.push(id);
+               projectService.updateDeployStatus(params,function(result){
+                   if(!result.success){
+                       utils.respMsg(res, false, '10000', '停止应用成功，但更新应用状态失败', null, null);
+                   }else{
+                       var stepData = [];
+                       stepData.push(2);
+                       stepData.push(projectId);
+                       projectService.updateStep(stepData,function(result){
+                           if(!result.success){
+                               utils.respMsg(res, false, '10000', '停止应用失败', null, null);
+                           }else{
+                               utils.respMsg(res, true, '10000', '停止应用成功', null, null);
+                           }
+                       });
+                   }
+               });*/
         }else{
-            utils.respMsg(res, false, '10000', '启动失败，所选应用不存在', null, null);
+            console.log("开启应用失败，" + error);
+            utils.respMsg(res, false, '10000', '开启应用操作失败', null, null);
         }
-    })
+    }
+    request(options, callback);
 });
 router.route('/develop/pm/deploy/status').get(function(req, res){
     var id = req.query.projectId;

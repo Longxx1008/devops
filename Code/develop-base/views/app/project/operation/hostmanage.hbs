@@ -164,15 +164,13 @@
                 [
                     {
                         'field': 'id',
-                        checkbox: true,
-                    },
-                    {
-                        'field': 'colonyId',
-                        hidden: true,
+                        'title': '主机编号',
+                        'width': 100,
+                        align: 'center',
                     },
                     {
                         'field': 'name',
-                        'title': '编号',
+                        'title': '主机IP',
                         'width': 70,
                         align: 'center',
                     },
@@ -289,12 +287,12 @@
                                     'Linux';
                         },
                     },
-                    {
+                 /*   {
                         'field': 'slave_ip',
                         'title': 'IP',
                         'width': 40,
                         align: 'center',
-                    },
+                    },*/
 
                     {
                         'field': 'status',
@@ -319,8 +317,8 @@
                         'width': 30,
                         align: 'center',
                         'formatter': function(value, rowData, rowIndex) {
-                            return '<span class="label label-info" style=\'height:26px;line-height:16px;font-weight:600;margin-top: 0.5rem;margin-left: 0.5rem;cursor: pointer;\' onclick=\'hm_list(' +
-                                    rowData.id + ',"' + rowData.name + '")\'>主机详情</span>';
+                            return '<span class="label label-info" style=\'height:26px;line-height:16px;font-weight:600;margin-top: 0.5rem;margin-left: 0.5rem;cursor: pointer;\' onclick="hm_list(\'' +
+                                    rowData.id + '\',\'' + rowData.name + '\')">主机详情</span>';
                         },
                     },
                     {
@@ -364,6 +362,7 @@
     }
 
     function hm_list(id, name) {
+        alert(id);
         window.location.href = '{{projcfg.appurl}}/slavedetail?id=' + encodeURI(id) + '&name=' + name;
     }
 

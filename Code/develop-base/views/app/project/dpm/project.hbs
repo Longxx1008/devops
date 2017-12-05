@@ -230,32 +230,29 @@
                 {"field": "resourceUse",hidden:true},
                 {"field": "projectCode","title":"编号","width":80,align:"center"},
                 {"field": "projectName","title":"项目名称","width":100,align:"center"},
-                {"field": "proVersions","title":"开发版本","width":120,align:"center",
+                {"field": "gitLabVersion","title":"gitLab开发版本","width":120,align:"center",
                     "formatter":function (value, rowData,rowIndex) {
                         return getVerData(rowData.id,rowData.gitlabProjectId,rowIndex);
                     }},
                 {"field": "gray_version","title":"灰度版本","width":80,align:"center"},
-                {"field": "deployVersion","title":"正式版本","width":80,align:"center"},
+                {"field": "blue_version","title":"蓝绿版本","width":80,align:"center"},
+                {"field": "formal_version","title":"正式版本","width":80,align:"center"},
                 {"field": "type","title":"项目类型","width":100,align:"center",
                     "formatter":function (value, rowData,rowIndex) {
-                        if(value == 1){
-                            return "自主研发";
-                        }else{
-                            return "第三方";
-                        }
+                        return "自主研发"
                     }},
                 {"field": "step","title":"项目阶段","width":180,align:"center",
                     "formatter":function (value, rowData,rowIndex) {
-                        return setProjectStepValue(value);
+                        return setProjectStepValue(rowData);
                     }}
 //                {"field": "remark","title":"备注","width":200,align:"center"}
             ]],
-            rowStyler: function(index,row){
+      /*      rowStyler: function(index,row){
                 //如果type!=1时，该行隐藏
                  if (row.type!=1){
                      return 'display:none';
                  }
-            },
+            },*/
 //            onDblClickRow:function(rowIndex, rowData){
 //                toQueryProject(rowData);
 //            },
@@ -299,14 +296,16 @@
         window.open("http://192.168.31.127");
     }
 
-   function setProjectStepValue(value){
-       var teststyle = "background-color:#CCCCCC",deploystyle = "background-color:#CCCCCC",opstyle="background-color:#CCCCCC";
-       if(value == 2){
-           teststyle = "";
-       }else if(value == 3 || value == 4){
-           teststyle = "";
-           deploystyle = "background-color:#009933";
-           opstyle = "background-color:#009966";
+   function setProjectStepValue(rowData){
+       var teststyle = "background-color:#009930",deploystyle = "background-color:#009933",opstyle="background-color:#009966";
+       if(rowData.gray_version==null){
+           teststyle = "background-color:#CCCCCC";
+       }
+       if(rowData.blue_version==null){
+           deploystyle = "background-color:#CCCCCC";
+       }
+       if(rowData.formal_version==null){
+           opstyle = "background-color:#CCCCCC";
        }
        var devepsp = "<span class=\"label label-success\" style=\"margin-right:0.5rem;width:3.5rem;cursor: pointer;\"  onclick=\"to_gitlab()\">开发</span>";
        var testsp = "<span class=\"label label-success\" style=\"margin-right:0.5rem;margin-left: 0.5rem;"+teststyle+"\" ><a target=\"_blank\" href=\"javascript:void(0);\" style=\"padding:3px 3px;color:#fff;cursor: pointer;\">测试</a></span>";
@@ -323,7 +322,7 @@
                 url: '{{projcfg.appurl}}/api/project/dpm/project/develop/pm/verList',
                 type: 'get',
                 async:false,
-                data: {'projectId':projectId,'gitProjectId':gitProjectId},
+                data: {'projectId':gitProjectId},
                 success: function (data) {
                     console.log(data);
                     if(data.success) {

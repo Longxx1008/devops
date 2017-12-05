@@ -156,7 +156,7 @@ var config = {
         userRoot:'/mnt/dockerts/',
         LableKey:'index',
         lableValue:'create',
-        mesosHost:"http://192.168.9.65:5050",
+        mesosHost:"http://192.168.9.63:5050",
         //marathonApi:"http://192.168.31.92:8080/v2/apps",
         marathonApi:"http://192.168.9.61:8080/v2/apps",
         //marathonLb:"http://192.168.31.94",

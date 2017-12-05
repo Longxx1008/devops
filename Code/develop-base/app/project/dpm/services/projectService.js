@@ -9,6 +9,8 @@ var ng=require("nodegrass");
 var $util = require('../../../common/util/util');
 var marathon_add="192.168.9.61";
 var marathon_port="8080";
+var superagent=require("superagent");
+var Promise=require("bluebird");
 // 使用连接池，提升性能
 var pool = mysql.createPool($util.extend({}, config.mysql));
 
@@ -20,24 +22,25 @@ var pool = mysql.createPool($util.extend({}, config.mysql));
  * @param cb
  */
 exports.pageList = function(page, size, conditionMap, cb) {
-    var sql = " select t1.*,d.version as deployVersion,d.gray_version from pass_develop_project_resources t1 left join pass_develop_project_deploy d on t1.id=d.projectId where 1=1";
+    //var sql = " select t1.*,d.version as deployVersion,d.gray_version from pass_develop_project_resources t1 left join pass_develop_project_deploy d on t1.id=d.projectId where 1=1";
+    var sql="select p.gitlabProjectId,p.id,p.projectCode,p.projectName,d.gray_version,d.blue_version,d.formal_version from pass_develop_project_resources_copy2 p left join (select formal_version,gray_version,blue_version,projectName from pass_develop_project_deploy_copy2 where formal_version is not null) d on d.projectName=p.projectName where 1=1"
     var conditions = [];
     if(conditionMap) {
         if(conditionMap.projectCode) {
-            sql += " and (t1.projectCode like '%" + conditionMap.projectCode + "%')";
+            sql += " and (p.projectCode like '%" + conditionMap.projectCode + "%')";
         }
         if(conditionMap.projectName) {
-            sql += " and (t1.projectName like '%" + conditionMap.projectName + "%')";
+            sql += " and (p.projectName like '%" + conditionMap.projectName + "%')";
         }
     }
-    var orderBy = " order by d.version desc";
+    var orderBy = " order by gitlabProjectId desc";
     console.log("查询项目信息sql ====",sql);
     utils.pagingQuery4Eui_mysql(sql,orderBy, page, size, conditions, cb);
 };
 
 //获取项目版本数据
 exports.versionList = function(conditionMap, cb) {
-    var sql = " select t.* from pass_develop_project_versions t where 1=1 ";
+    var sql = " select t.* from pass_develop_project_versions_copy2 t where 1=1 ";
     var condition = [];
     if(conditionMap) {
         if(conditionMap.projectId) {
@@ -46,6 +49,7 @@ exports.versionList = function(conditionMap, cb) {
         }
     }
     sql += " order by t.id desc";
+    console.log(sql);
     // 查询数据库默认版本数据
     mysqlPool.query(sql,condition,function(err,results) {
         if(err) {
@@ -97,15 +101,16 @@ exports.projectProcess = function(cb) {
 }
 
 exports.deployedPageList = function(page, size, conditionMap, cb) {
-    var sql = "select a.*,case  when da.alertNum is NULL then 0 else da.alertNum end alertNum from ( select t1.*,\"" + config.platform.marathonLb + "\" as marathonLB, t2.projectCode,t2.projectName from pass_develop_project_deploy t1,pass_develop_project_resources t2 where t1.projectId = t2.id"+
-        " ) a LEFT JOIN (select appId,count(appId) as alertNum from pass_develop_deploy_alert where status = '1' GROUP BY appId) da ON a.projectCode = da.appId where 1=1 ";
-    var conditions = [];
+  /*  var sql = "select a.*,case  when da.alertNum is NULL then 0 else da.alertNum end alertNum from ( select t1.*,\"" + config.platform.marathonLb + "\" as marathonLB, t2.projectCode,t2.projectName from pass_develop_project_deploy t1,pass_develop_project_resources t2 where t1.projectId = t2.id"+
+        " ) a LEFT JOIN (select appId,count(appId) as alertNum from pass_develop_deploy_alert where status = '1' GROUP BY appId) da ON a.projectCode = da.appId where 1=1 ";*/
+  var sql="select * from pass_develop_project_deploy_copy2 where projectName is not null and id<>3"
+  var conditions = [];
     if(conditionMap) {
         if(conditionMap.projectName) {
-            sql += " and (a.projectName like '%" + conditionMap.projectName + "%')";
+            sql += " and (projectName like '%" + conditionMap.projectName + "%')";
         }
     }
-    var orderBy = " order by a.createTime desc";
+    var orderBy = " order by id desc";
     utils.pagingQuery4Eui_mysql(sql,orderBy, page, size, conditions, cb);
 };
 
@@ -796,3 +801,202 @@ function syncData2InfluxDB(appName,hostName,hostIp,containerId,containerName){
 }
 
 
+/**
+ * 刷新mesos leader地址
+ */
+exports.refreshMesosInfo = function(){
+    var url = config.platform.mesosHost + "/state";
+    superagent.get(url).end(function(error,data){
+        if(error){
+            console.log("error exception occured while refresh mesos leader!");
+            return next(error);
+        }
+        console.log("mesos leader地址为:!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"+data.body.hostname);
+        config.platform.mesosHost=data.body.hostname;
+    });
+}
+
+/**
+ * 更新marathon部署的项目到表，并根据部署项目id更新项目具体信息
+ */
+exports.refreshDeployed =function(cb){
+    var projectId=new Array();//装marathon上面的项目id
+    var projectName=new Array();//获取gitlab上面的项目名
+    var project_id=new Array();//判断gitlab上面的项目名在marathon上是否部署
+    var url = config.platform.marathonApi;
+    //获取gitlab所有项目
+    var url_git = config.platform.gitlabUrl+'/api/v3/projects?private_token='+config.platform.private_token;
+    //读取gitlab部署信息
+    //var url = config.platform.gitlabUrl + '/cmcc/' + projectCode + '/raw/dev/architecture?private_token=' + config.platform.private_token;
+    //获取marathon上面的项目id
+    var p = new Promise(function(resolve, reject) {
+        nodeGrass.get(url, function (data) {
+            data = eval('(' + data + ')');
+            for (let i in data.apps) {
+                projectId.push(data.apps[i].id);
+            }
+            //获取gitlab上项目名，并判断与marathon上是否对应
+            nodeGrass.get(url_git, function (data) {
+                data = eval('(' + data + ')');
+                for (let i in data) {
+                    for (let j in projectId) {
+                        if (projectId[j].indexOf(data[i].name) >= 0) {
+                            projectName.push(data[i].description);
+                            project_id.push(parseInt(j));//marathon上有几个该项目部署，就要更新几次或者插入几次
+                        }
+                    }
+
+                }
+                console.log(projectName);
+                console.log(project_id);
+                for (let i in project_id) {
+                    (function (i) {//用自执行函数传参，这样自执行函数内部形成了局部作用域，不受外部变量变化的影响，解决了js中for循环是同步任务的问题
+                        var ifsql="select * from pass_develop_project_deploy_copy2 where projectId = '" + projectId[project_id[i]]+"'";
+                        mysqlPool.query(ifsql, [], function (err, result) {
+                            if (err) {
+                                console.log(err);
+                            } else {
+                                if(result.length!=0){
+                                    var sql = "update pass_develop_project_deploy_copy2 set projectId = '" + projectId[project_id[i]] + "',projectName='" + projectName[i] + "' where projectId = '" + projectId[project_id[i]]+"'"
+                                    console.log(sql);
+                                    mysqlPool.query(sql, [], function (err, result) {
+                                        if (err) {
+                                            console.log("更新部署项目id失败");
+                                        } else {
+                                            console.log("更新部署项目id成功");
+                                        }
+                                    });
+                                }else{
+                                    var sql="insert into pass_develop_project_deploy_copy2(projectId,projectName) values('"+projectId[project_id[i]]+"','"+ projectName[i]+"')";
+                                    console.log(sql);
+                                    mysqlPool.query(sql, [], function (err, result) {
+                                        if (err) {
+                                            console.log("更新部署项目id失败");
+                                        } else {
+                                            console.log("更新部署项目id成功");
+                                        }
+                                    });
+                                }
+                            }
+                        });
+                        //根据对应id获取marathon上的具体项目信息
+                        var uri = config.platform.marathonApi + "/" + projectId[project_id[i]];
+                        console.log(projectId[project_id[i]]);
+                        nodeGrass.get(uri, function (data) {
+                            data = eval('(' + data + ')');
+                            var sql = "update pass_develop_project_deploy_copy2 set healthStatus='" + data.app.tasksHealthy + "',cpu='" + data.app.cpus + "',instance='" + data.app.instances + "',mem='" + data.app.mem + "',version='" + data.app.container.docker.image + "' where projectId='" + projectId[project_id[i]] + "'";
+                            console.log(sql);
+                            mysqlPool.query(sql, [], function (err, result) {
+                                if (err) {
+                                    console.log("更新部署项目id失败");
+                                } else {
+                                    console.log("更新部署项目id成功");
+                                }
+                            });
+                        })
+                    })(i);
+
+                }
+            })
+
+        })
+    })
+}
+
+/**
+ * 项目管理页面，取得所有gitlab上的项目并且和marathon上做对比，判断是否部署在了marathon上面
+ */
+exports.refreshResource=function(){
+    //获取gitlab上所有项目
+    var url_git = config.platform.gitlabUrl+'/api/v3/projects?private_token='+config.platform.private_token;
+    /*//marathon获取项目
+    var url = config.platform.marathonApi;*/
+    var names=new Array();//记录gitlab上面的项目名
+    var projectCode=new Array();//项目编号
+    var projectId=new Array();//项目id
+    nodeGrass.get(url_git, function (data) {
+        data = eval('(' + data + ')');
+        for (let i in data) {
+            (function (i) {
+                names.push(data[i].description);
+                projectCode.push(data[i].name);
+                projectId.push(data[i].id);
+                //判断resourse表是否有该项目
+                var ifsql_resourse = "select * from pass_develop_project_resources_copy2 where projectName = '" + names[i] + "'";
+                console.log(ifsql_resourse)
+                mysqlPool.query(ifsql_resourse, [], function (err, result) {
+                    if (err) {
+                        console.log(err);
+                    } else {
+                        if (result.length != 0) {
+                            var sql = "update pass_develop_project_resources_copy2 set projectCode = '" + projectCode[i] + "',projectName='" + names[i] + "',gitlabProjectId='" + projectId[i] + "' where projectName = '" + names[i] + "'"
+                            console.log(sql + i);
+                            mysqlPool.query(sql, [], function (err, result) {
+                                if (err) {
+                                    console.log("更新gitlab项目失败");
+                                } else {
+                                    console.log("更新gitlab项目成功");
+                                }
+                            });
+                        } else {
+                            var sql = "insert into pass_develop_project_resources_copy2(projectCode,projectName,gitlabProjectId) values('" + projectCode[i] + "','" + names[i] + "','" + projectId[i] + "')";
+                            console.log(sql);
+                            mysqlPool.query(sql, [], function (err, result) {
+                                if (err) {
+                                    console.log("插入gitlab项目失败");
+                                } else {
+                                    console.log("插入gitlab项目成功");
+                                }
+                            });
+                        }
+
+                    }
+                }) //判断resourse表是否有该项目 end
+
+                //读取gitlab部署版本信息,插入版本表或者更新版本表
+                var url_git_version = config.platform.gitlabUrl + '/api/v3/projects/' + projectId[i] + '/repository/tags?private_token=' + config.platform.private_token;
+                nodeGrass.get(url_git_version, function (data) {
+                    console.log(url_git_version);
+                    data = eval('(' + data + ')');
+                    let version=new Array();//项目版本
+                    for (let j in data) {
+                        (function (j) {
+                            version.push(data[j].name);
+                            //判断版本表是否有该版本
+                            var ifsql_version = "select * from pass_develop_project_versions_copy2 where versionNo = '" + version[j] + "' and projectId='" + projectId[i] + "'";
+                            console.log(ifsql_version+i+j)
+                            mysqlPool.query(ifsql_version, [], function (err, result) {
+                                if (err) {
+                                    console.log(err);
+                                } else {
+                                    if (result.length != 0) {
+                                        var sql = "update pass_develop_project_versions_copy2 set versionNo = '" + version[j] + "',projectId='" + projectId[i] + "' where projectId = '" + projectId[i] + "' and versionNo = '" + version[j] + "'";
+                                        console.log(sql);
+                                        mysqlPool.query(sql, [], function (err, result) {
+                                            if (err) {
+                                                console.log("更新gitlab项目版本失败");
+                                            } else {
+                                                console.log("更新gitlab项目版本成功");
+                                            }
+                                        });
+                                    } else {
+                                        var sql = "insert into pass_develop_project_versions_copy2(versionNo,projectId) values('" + version[j] + "','" + projectId[i] + "')";
+                                        console.log(sql);
+                                        mysqlPool.query(sql, [], function (err, result) {
+                                            if (err) {
+                                                console.log("插入gitlab项目版本失败");
+                                            } else {
+                                                console.log("插入gitlab项目版本成功");
+                                            }
+                                        });
+                                    }
+
+                                }
+                            })//判断版本表是否有该项目 end
+                        })(j)
+                    }
+                })
+            })(i)
+        }
+    })
+}

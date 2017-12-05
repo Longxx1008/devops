@@ -19,35 +19,9 @@ router.route('/').get(function(req,res){
         conditionMap.master_id = master_id;
     }
     // 调用分页
-    updateHostInfo.getSalve().then(function(rs){
-        console.log(rs);
-        if(rs.success){
-            var ids=[];
-            for(var i in rs.data){
-                if(i=="affectedRows"){
-                    var affectedRows= rs.data[i];
-                }else if(i=="insertId"){
-                    var insertId=rs.data[i];
-                }
-
-            }
-
-            console.log("affect ?????????",affectedRows)
-            for(var i=0;affectedRows>i;i++){
-                console.log(insertId+i);
-                ids.push(insertId+i);
-            }
-
-            console.log("ids  ---------",ids)
-            hostManageService.pageList(page, length, ids,function(result){
-                utils.respJsonData(res, result);
-            });
-
-        }else{
-            utils.respJsonData(res, rs);
-        }
-
-    })
+    hostManageService.pageList(page, length, conditionMap,function(result){
+        utils.respJsonData(res, result);
+    });
 
 })
 //新增集群主机数据

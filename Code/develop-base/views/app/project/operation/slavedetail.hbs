@@ -399,22 +399,20 @@
             url: '{{projcfg.appurl}}/api/project/operation/slavedetail/getHostInfo',
             data: {'id': paramsValues[0], 'name': paramsValues[1]},
             type: 'get',
-            success: function(result) {
-                var data = result.data;
-                console.info(data);
-                $('#ip').html(data.hostname);
-                $('#name').html(data.pid);
-                $('#disk_info').html((data.resources.disk / 1024).toFixed(2) + 'GB');
-                $('#cpu_info').html(data.resources.cpus + '核');
-                $('#memory_info').html((data.resources.mem / 1024).toFixed(2) + 'GB');
+            success: function(data) {
+                data=data.data[0];
+                $('#ip').html(data.name);
+                $('#name').html(data.id);
+                $('#disk_info').html((parseFloat(data.disk) / 1024).toFixed(2) + 'GB');
+                $('#cpu_info').html(data.cpu + '核');
+                $('#memory_info').html((parseFloat(data.memory) / 1024).toFixed(2) + 'GB');
                 $('#state').
-                        html(data.active ?
+                        html(data.status ?
                                 '<img id=\"u56_img\" class=\"img \" src=\"{{projcfg.appurl}}/static/images/u56.png\">' +
                                 '运行中' :
                                 '<img id="u58_img" class="img " src="{{projcfg.appurl}}/static/images/u58.png">' +
                                 '失效中');
-                $('#id').html('<b> ID : ' + data.id + '</b>');
-                var ip = data.hostname;
+                var ip = data.name;
                 addMetric(ip);
             },
 

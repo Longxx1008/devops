@@ -4,7 +4,7 @@
             <div class="widget-body">
                 <div id="cc" class="easyui-layout" data-options="fit:true,border:false" style="width: 800px; height:575px;background-color: #fbfbfb;">
                     <div data-options="region:'center',border:false" style="overflow-x:hidden;overflow-y:hidden">
-                        <div id="toolbar" class="row tbRow" style="">
+                        <!--<div id="toolbar" class="row tbRow" style="">
                             <div class="col-xs-12 col-md-12 text-right" style="padding-right:28px;">
                                 <form id="searchFrom" class="form-inline">
                                     <div class="form-group">
@@ -17,7 +17,7 @@
                                     </div>
                                 </form>
                             </div>
-                        </div>
+                        </div>-->
                         <table id="dataTable">
                         </table>
                     </div>
@@ -47,7 +47,26 @@
         </div>
     </div>
 </div>
+<div id="containerLogModal" class="mydialog" style="padding-top:0px;">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="widget flat radius-bordered">
+                <div class="widget-body" style="background-color: #fff;">
+                    <div id="registration-form">
+                        <div class="form-title bordered-bottom bordered-blue">
+                            <pre style="width: 960px;height: 470px;" id="logPre">
 
+                            </pre>
+                        </div>
+                        <div class="row" style="padding: 0px 20px;height: auto;">
+                            <span id="ccdetail"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 <script  type="text/javascript">
     $(function(){
         $('#dataTable').datagrid({
@@ -63,64 +82,67 @@
             selectOnCheck:false,
             columns:[[
                 {"field":'id',checkbox:true},
-                {"field":'projectId',hidden:true},
-                {"field":'mesosId',hidden:true},
-                {"field": "projectCode","title":"应用编号","width":120,align:"center"},
+                /* {"field":'projectId',hidden:true},
+                 {"field":'mesosId',hidden:true},*/
+                {"field": "projectId","title":"应用编号","width":300,align:"center"},
                 {"field": "projectName","title":"应用名称","width":150,align:"center"},
                 {"field": "type","title":"应用类型","width":150,align:"center",
                     "formatter":function (value, rowData,rowIndex) {
 //                        return value == "1" ? "自主研发":"第三方应用";
-                        return value == "1" ? "<span class=\"label label-success\" style=\"height:26px;line-height:16px;font-weight:600;margin-top: 0.5rem;margin-left: 0.5rem;\">自主研发</span>":"<span class=\"label label-info\" style=\"height:26px;line-height:16px;font-weight:600;margin-top: 0.5rem;margin-left: 0.5rem;\">第三方应用</span>";
+                        //return value == "1" ? "<span class=\"label label-success\" style=\"height:26px;line-height:16px;font-weight:600;margin-top: 0.5rem;margin-left: 0.5rem;\">自主研发</span>":"<span class=\"label label-info\" style=\"height:26px;line-height:16px;font-weight:600;margin-top: 0.5rem;margin-left: 0.5rem;\">第三方应用</span>";
+                        return   "<span class=\"label label-success\" style=\"height:26px;line-height:16px;font-weight:600;margin-top: 0.5rem;margin-left: 0.5rem;\">自主研发</span>"
+                }
+                },
+                {"field": "version","title":"部署版本","width":100,align:"center",
+                    "formatter":function (value, rowData,rowIndex) {
+                         var res=value.substring(value.lastIndexOf(":")+1)
+                         return res;
                     }
                 },
-                {"field": "version","title":"部署版本","width":100,align:"center"},
-                {"field": "clusterId","title":"运行集群","width":100,align:"center",
+                {"field": "deployType","title":"部署类型","width":100,align:"center",
                     "formatter":function (value, rowData,rowIndex) {
-                        return '测试集群';
+                       if(value==1){
+                           return "正式版本"
+                       }
+                       if(value==2){
+                           return "蓝绿版本"
+                       }
+                       if(value==3)
+                           return "灰度版本"
                     }
                 },
                 {"field": "healthStatus","title":"健康状况","width":120,align:"center",
                     "formatter":function(value, rowData, rowIndex){
-                        if(value == 1){
+                        if(value != 0){
                             return "<span class=\"label label-success\"><a href=\"javascript:void(0);\" style=\"padding:3px 3px;color:#fff;\">正常</a></span>"
                         }else{
+                            if(rowData.instance!=0)
                             return "<span class=\"label label-warning\"><a href=\"javascript:void(0);\" style=\"padding:3px 3px;color:#fff;\">不正常</a></span>"
+                            else
+                                return "<span class=\"label label-warning\"><a href=\"javascript:void(0);\" style=\"padding:3px 3px;color:yellow;\">未启动</a></span>"
                         }
                     }},
-                {"field": "resources","title":"资源使用","width":150,align:"center",
+                {"field": "cpu","title":"资源使用","width":150,align:"center",
                     "formatter":function(value, rowData, rowIndex){
-                        return "<span style='display:block;padding-left:20px;text-align:left;'>" + value + "</span>";
+                        return "<span style='display:block;padding-left:20px;text-align:center;'>cpu:" + value + "<br>实例:"+rowData.instance+"<br>内存:"+rowData.mem+"</span>";
                     }},
-                {"field": "webSite","title":"部署地址","width":100,align:"center",
-                    "formatter":function(value, rowData, rowIndex){
-                        if(rowData.type != "1"){
-                            return "<span class=\"label label-info\" style=\"height:26px;line-height:18px;font-weight:600;\"><a target=\"_blank\" href=\"" + value + "\" style=\"padding:0 10px;color:#fff;\">访问</a></span>";
-                        }else{
-                            if(rowData.healthStatus == "1"){
-                                return "<span class=\"label label-info\" style=\"height:26px;line-height:18px;font-weight:600;\"><a target=\"_blank\" href=\"" + rowData.marathonLB + ":" + value + "\" style=\"padding:0 10px;color:#fff;\">访问</a></span>"
-                            }else{
-                                return "";
-                            }
-                        }
-                    }
-                },
                 {"field": "operation","title":"操作","width":200,align:"center",
                     "formatter":function(value, rowData, rowIndex){
                         var returnValue = "";
-                        if(rowData.type != 1){
+                       /* if(rowData.type != 1){
                             returnValue = "<a class=\"label label-info\" style='height:26px;line-height:16px;font-weight:600;cursor: pointer;margin-top: 0.5rem;margin-bottom: 0.5rem;' href='" + value + "' target='_blank'>应用详情</a>";
-                        }else{
-                            if(rowData.status == "1"){
+                        }else{*/
+                            if(rowData.healthStatus >= "1"){
                                 returnValue = ""+
 //                                        "<span class=\"label label-warning\" style=\"height:26px;line-height:16px;font-weight:600;margin-top: 0.5rem;cursor: pointer;\" onclick=\"to_serviceDetail("+rowData.projectId+")\">服务详情</span>   "+
                                         "<span class=\"label label-danger\" style=\"height:26px;line-height:16px;font-weight:600;margin-top: 0.5rem;margin-left: 0.5rem;cursor: pointer;\" data-id='" + rowData.id + "' data-name='" + rowData.projectName + "' data-pid='" + rowData.projectId + "' onclick=\"doStop(this)\">停止</span></br>"+
                                         "<span class=\"label label-info\" style='height:26px;line-height:16px;font-weight:600;cursor: pointer;margin-top: 0.5rem;margin-bottom: 0.5rem;' data-host='" + rowData.hostName + "' data-name='" + rowData.containerName + "' data-mesos='"+rowData.mesosId+"' onclick=\"doNature(this)\">性能情况</span>" +
                                         "<span class=\"label label-info\" style='height:26px;line-height:16px;font-weight:600;cursor: pointer;margin-left:0.6rem;' data-id='" + rowData.id + "' data-name='" + rowData.projectName + "' onclick='logsCenter(this)'>日志</span>";
                             }else{
-                                returnValue = "<span class=\"label label-info\" style=\"height:26px;line-height:16px;font-weight:600;margin-top: 0.5rem;margin-left: 0.5rem;cursor: pointer;\" data-id='" + rowData.id + "' data-name='" + rowData.projectName + "' data-pid='" + rowData.projectId + "' onclick=\"doStart(this)\">启动</span>" +
-                                        "<span class=\"label label-danger\" style=\"height:26px;line-height:16px;font-weight:600;margin-top: 0.5rem;margin-left: 0.5rem;cursor: pointer;\" data-id='" + rowData.id + "' data-name='" + rowData.projectName + "' data-pid='" + rowData.projectId + "' onclick=\"doDelete(this)\">删除</span></br>";
+                                returnValue = "<span class=\"label label-info\" style=\"height:26px;line-height:16px;font-weight:600;margin-top: 0.5rem;margin-left: 0.5rem;cursor: pointer;\" data-id='" + rowData.id + "' data-name='" + rowData.projectName + "' data-pid='" + rowData.projectId + "' onclick=\"doStart(this)\">启动</span>" /*+*/
+                                        /*"<span class=\"label label-danger\" style=\"height:26px;line-height:16px;font-weight:600;margin-top: 0.5rem;margin-left: 0.5rem;cursor: pointer;\" data-id='" + rowData.id + "' data-name='" + rowData.projectName + "' data-pid='" + rowData.projectId + "' onclick=\"doDelete(this)\">删除</span></br>"*/;
                             }
-                        }
+                        /*}*/
                         return returnValue;
                     }
                 }
@@ -135,7 +157,7 @@
 
     setInterval(function(){
         doSearch();
-    },5000);
+    },20000);
 
     function doSearch() {
         $('#dataTable').datagrid('reload');
@@ -148,7 +170,7 @@
         var id = $(thisObj).data("id");
         var name = $(thisObj).data("name");
         var projectId = $(thisObj).data("pid");
-        msgConfirm('确定要启动【 ' + name + '】应用么？',function(result) {
+        $.messager.prompt('请输入启动实例数',name,function(result) {
             if(result){
                 $.ajax({
                     url:'{{projcfg.appurl}}/api/project/dpm/project/develop/pm/deploy/start/' + id,
@@ -156,6 +178,7 @@
                     dataType:"json",
                     data:{
                         projectId:projectId,
+                        instance:result,
                         time : Math.random()
                     },
                     success: function (data) {
@@ -171,7 +194,8 @@
                         $("#logPre").html("日志加载失败：" + err.statusCode);
                     }
                 });
-            }
+            }else
+                alert("请输入实例数");
         });
     }
 
@@ -187,12 +211,11 @@
                     dataType:"json",
                     data:{
                         projectId:projectId,
-                        time : Math.random()
                     },
                     success: function (data) {
                         if(data.success){
-                            msgSuccess(data.msg);
                             doSearch();
+                            msgSuccess(data.msg);
                         }else{
                             msgError(data.msg);
                         }
@@ -288,6 +311,7 @@
         console.info(mesosId);
         //window.open("http://192.168.9.48:3000/dashboard/db/ying-yong-guan-li?orgId=1&var-app_name="+mesosId.substring(1));
 //        window.open("http://192.168.9.48:3000/dashboard/db/dockerdan-ge-rong-qi-jian-kong?theme=light&orgId=1&var-host=" + host + "&var-container_name=" + name);
+        window.open("http://192.168.9.69:3000/dashboard/db/marathonying-yong-liu-liang-jian-kong?refresh=5s&orgId=1");
     }
     //日志中心
     function logsCenter(thisObj){
