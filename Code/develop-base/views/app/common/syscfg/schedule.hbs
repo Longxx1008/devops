@@ -1,0 +1,426 @@
+<div class="row">
+    <div class="col-xs-12 col-md-12">
+        <div class="widget">
+            <div class="widget-body">
+                <div id="jkSystemSchedule_toolbar" class="row tbRow">
+                    <div class="col-xs-6 col-md-6">
+                        <div class="btn-group" role="group" aria-label="...">
+                            <button type="button" class="btn btn-default" onclick="toAdd()">
+                                <i class="glyphicon glyphicon-plus"></i> 添加
+                            </button>
+                            <button type="button" class="btn btn-default" onclick="toEdit()">
+                                <i class="glyphicon glyphicon-pencil"></i> 修改
+                            </button>
+                            <button type="button" class="btn btn-default" onclick="toDelete()">
+                                <i class="glyphicon glyphicon-trash"></i> 删除
+                            </button>
+
+                        </div>
+                    </div>
+                    <div class="col-xs-6 col-md-6 text-right">
+                        <form class="form-inline">
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <label for="inputJkSystemScheduleGrade">紧急程度：</label>
+                                    <select class="easyui-combobox" id="inputJkSystemScheduleGrade" style="width:100px;height:34px;">
+                                        <option value="0">--请选择--</option>
+                                        <option value="1">紧急</option>
+                                        <option value="2">一般</option>
+
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <label for="inputJkSystemScheduleName">事项名称：</label>
+                                    <input id="inputJkSystemScheduleName" style="width:200px;height:34px;" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-default" type="button" onclick="doSearch()">
+                                            <i class="glyphicon glyphicon-search"></i> 查询
+                                        </button>
+                                    </span>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="easyui-layout" data-options="fit:true,border:false" style="width: 800px; height:650px;">
+                    <div data-options="region:'center',border:false,fit:true" style="overflow-x:hidden;overflow-y:hidden">
+                        <table id="jkSystemSchedule_datatable">
+
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal -->
+<div id="jkSystemSchedule_Modal" style="display:none;overflow:hidden;padding-top:15px;padding-bottom: 15px;">
+    <div class="row">
+        <div class="col-md-12">
+            <div>
+                <form class="form-horizontal form-bordered" id="jkSystemSchedule_Form" role="form">
+                    <div class="form-group">
+                        <label for="inputScheduleName" class="col-sm-2 control-label no-padding-right">事务名称</label>
+                        <div class="col-sm-10">
+                            <input id="inputScheduleName" style="width:60%;height:31px;" type="text" name="inputScheduleName" class="easyui-validatebox form-control" data-options="required:true" placeholder="事务名称不超过16个字符">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputScheduleType" class="col-sm-2 control-label no-padding-right">紧急程度</label>
+                        <div class="col-sm-10">
+                            <select class="easyui-combobox" id="inputScheduleGrade" style="width:60%;height:31px;">
+                                <option value="1">紧急</option>
+                                <option value="2">一般</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputScheduleExecutor" class="col-sm-2 control-label no-padding-right">执行者</label>
+                        <div class="col-sm-10">
+                            <input id="inputScheduleExecutor" style="width:60%;height:31px;" type="text" name="inputScheduleExecutor" class="easyui-validatebox form-control" data-options="required:true" >
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputScheduleCompleteTime" class="col-sm-2 control-label no-padding-right">事务截止时间</label>
+                        <div class="col-sm-10">
+                            <input id="inputScheduleCompleteTime" style="width:60%;height:31px;" type="date"  name="inputScheduleCompleteTime" class="easyui-validatebox form-control" data-options="required:true" >
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label no-padding-right">事务内容</label>
+                        <div class="col-sm-10">
+                            <!-- 加载编辑器的容器 -->
+                            <script id="container" type="text/plain"></script>
+                            <!-- 配置文件 -->
+                            <script type="text/javascript" src="{{projcfg.appurl}}/static/js/ueditor/ueditor.config.js"></script>
+                            <!-- 编辑器源码文件 -->
+                            <script type="text/javascript" src="{{projcfg.appurl}}/static/js/ueditor/ueditor.all.js"></script>
+                            <!-- 实例化编辑器 -->
+                            <script type="text/javascript">
+                                var ue = UE.getEditor('container',{
+                                    initialFrameWidth : 600,
+                                    initialFrameHeight: 400
+                                });
+                            </script>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+
+    var user_roles = [];
+        {{#each currentUser.user_roles}}
+        user_roles.push('{{_id}}');
+        {{/each}}
+
+    //初始化datagrid
+    function initTable(){
+        $('#jkSystemSchedule_datatable').datagrid({
+            method:'get',
+            url: '{{projcfg.appurl}}/admin/api/common/syscfg/schedule',
+            rownumbers:true,
+            striped:true,
+            fitColumns:true,
+            toolbar: '#jkSystemSchedule_toolbar',
+            fit:true,
+            border:false,
+            singleSelect:true,
+            selectOnCheck:false,
+            columns:[[
+                {"field":'_id',checkbox:true},
+                {"field": "schedule_name","title":"事务名称","width":100},
+                {"field": "schedule_grade","title":"紧急程度","width":50,
+                    formatter : function(value, rowData, rowIndex) {
+                        if(value == 1){
+                            return '<span class="label label-danger">紧急</span>';
+                        }else if(value == 2){
+                            return '<span class="label label-azure">一般</span>';
+                        }
+                    }
+                },
+                {"field": "schedule_creator","title":"发布人","width":40,
+                    formatter : function(value, rowData, rowIndex) {
+                        if(value){
+                            return value.user_name;
+                        }
+                    }
+                },
+                {"field": "schedule_executor","title":"执行者","width":100},
+                {"field": "schedule_create_time","title":"发布日期","width":100,
+                    formatter : function(value, rowData, rowIndex) {
+                        return new Date(value).format();
+                    }
+                },
+                {"field": "schedule_complete_time","title":"截止日期","width":100,
+                    formatter : function(value, rowData, rowIndex) {
+                        return new Date(value).format();
+                    }
+                }
+
+            ]],
+            onLoadSuccess:function(json) {
+                if(!json.success) {
+                    msgError('提示,'+json.msg + ',错误代码:' + json.code);
+                }
+            },
+            onLoadError:function() {
+                msgError('提示,加载数据出现时发生错误,请稍候重试...');
+            },
+            pagination:true,
+            loadMsg:'正在加载...'
+        });
+    };
+
+    $(document).ready(function(){
+        initTable();
+    });
+
+    //查询方法
+    function doSearch() {
+        var scheduleGrade = $('#inputJkSystemScheduleGrade').combobox('getValue');
+        var scheduleName = $('#inputJkSystemScheduleName').val();
+        if(scheduleGrade == '0'){
+            scheduleGrade = '';
+        }
+
+        $('#jkSystemSchedule_datatable').datagrid('load',{
+            schedule_name:scheduleName,
+            schedule_grade: scheduleGrade
+        });
+    }
+
+    //打开新增页面
+    function toAdd(){
+        openPage('添加待办事项', null, doAdd);
+    }
+
+    // 打开页面
+    function openPage(title, value, callback) {
+        $('#jkSystemSchedule_Modal').show();
+        $('#jkSystemSchedule_Modal').mydialog({
+            title:title,
+            width: 850,
+            height: 720,
+            top:80,
+            modal: true,
+            myButtons:[
+                {
+                    text:'确定',
+                    btnCls:'btn btn-blue',
+                    handler:function(){
+                        callback(value);
+                    }
+                },
+                {
+                    text:'关闭',
+                    btnCls:'btn btn-danger',
+                    handler:function(){
+                        closeDialog();
+                    }
+                }
+            ]
+        });
+    }
+
+    // 关闭窗口
+    function closeDialog() {
+        $('#jkSystemSchedule_Modal').dialog('close');
+    }
+
+    // 清空表单数据
+    function clear() {
+        $('#inputScheduleName').val('');
+        ue.setContent('');
+    }
+
+    // 新增数据
+    function doAdd(value) {
+        var schedule_name = $('#inputScheduleName').val();
+        if(schedule_name == ''){
+            msgError('提示,公告标题不能为空');
+            return;
+        }
+
+        if(schedule_name.length>16){
+            msgError('提示,公告标题不能超过16个字符');
+            return;
+        }
+
+        if(!ue.hasContents()){
+            msgError('提示,公告内容不能为空');
+            return;
+        }
+        $.ajax({
+            url: '{{projcfg.appurl}}/admin/api/common/syscfg/schedule',
+            type: 'post',
+            data: {
+                schedule_name:schedule_name,
+                schedule_grade:$('#inputScheduleGrade').combobox('getValue'),
+                schedule_content:ue.getContent(),
+                schedule_executor:$('#inputScheduleExecutor').val(),
+                schedule_complete_time:$('#inputScheduleCompleteTime').val()
+            },
+            success: function (data) {
+                if(data.success) {
+                    msgSuccess(data.msg);
+                    clear();
+                    closeDialog();
+                    $('#jkSystemSchedule_datatable').datagrid('load',{});
+                }
+                else {
+                    msgError(data.msg+',错误代码:'+data.code);
+                }
+            }
+        });
+    }
+
+    // 打开修改页面
+    function toEdit() {
+        // 获得选择行
+        var rows = $('#jkSystemSchedule_datatable').datagrid('getChecked');
+        if (rows.length != 1) {
+            msgError('提示,请选择一条数据再进行修改');
+            return;
+        }
+        openPage("修改待办事项", rows[0]._id, doEdit);
+        // 获取远程数据
+        $.ajax({
+            url: '{{projcfg.appurl}}/admin/api/common/syscfg/schedule/'+rows[0]._id,
+            type: 'get',
+            data: {},
+            success: function (data) {
+                if(data.success) {
+                    $('#inputScheduleName').val(data.data[0].schedule_name);
+                    $('#inputScheduleGrade').combobox('setValue',data.data[0].schedule_grade);
+                    $('#inputScheduleExecutor').val(data.data[0].schedule_executor);
+                    $('#inputScheduleCompleteTime').val(data.data[0].schedule_complete_time);
+                    ue.setContent(data.data[0].schedule_content);
+                }else{
+                    msgError(data.msg+',错误代码:'+data.code);
+                }
+            }
+        });
+    }
+
+    // 修改数据
+    function doEdit(value) {
+        var schedule_name = $('#inputScheduleName').val();
+        if(schedule_name == ''){
+            msgError('提示,事务名称不能为空');
+            return;
+        }
+
+        if(schedule_name.length>16){
+            msgError('提示,事务名称不能超过16个字符');
+            return;
+        }
+
+        if(!ue.hasContents()){
+            msgError('提示,事务内容不能为空');
+            return;
+        }
+
+
+
+
+        $.ajax({
+            url: '{{projcfg.appurl}}/admin/api/common/syscfg/schedule/'+value,
+            type: 'put',
+            data: {
+                schedule_name:schedule_name,
+                schedule_grade:$('#inputScheduleGrade').combobox('getValue'),
+                schedule_content:ue.getContent(),
+                schedule_executor:$('#inputScheduleExecutor').val(),
+                schedule_complete_time:$('#inputScheduleCompleteTime').val()
+            },
+            success: function (data) {
+                if (data.success) {
+                    msgSuccess(data.msg);
+                    clear();
+                    closeDialog();
+                    $('#jkSystemSchedule_datatable').datagrid('load',{});
+                }
+                else {
+                    msgError(data.msg + ',错误代码:' + data.code);
+                }
+            }
+        });
+    }
+
+
+    //删除数据
+    function toDelete(){
+        var rows = $('#jkSystemSchedule_datatable').datagrid('getChecked');
+        if (rows.length != 1) {
+            msgError('提示,请选择一条数据再进行删除');
+            return;
+        }
+        bootbox.confirm('确定删除该事项？',function (result){
+            if(result){
+                $.ajax({
+                    url: '{{projcfg.appurl}}/admin/api/common/syscfg/schedule/'+rows[0]._id,
+                    type: 'delete',
+                    data: {
+                        id:rows[0]._id
+                    },
+                    success: function (data) {
+                        if(data.success) {
+                            msgSuccess(data.msg);
+                            $('#jkSystemSchedule_datatable').datagrid('load',{});
+                        }
+                        else {
+                            msgError(data.msg+',错误代码:'+data.code);
+                        }
+                    }
+                });
+            }
+        });
+    }
+
+    /**
+     * 扩展javaScriptDate类型工具js
+     * 实现格式化日期功能
+     */
+    Date.prototype.format = function(format){
+        if(isNaN(this.getMonth())){
+            return '';
+        }
+        if(!format){
+            format = 'yyyy-MM-dd hh:mm:ss';
+        }
+        var o = {
+            //month
+            "M+" : this.getMonth() + 1,
+            //day
+            "d+" : this.getDate(),
+            //hour
+            "h+" : this.getHours(),
+            //minute
+            "m+" : this.getMinutes(),
+            //second
+            "s+" : this.getSeconds(),
+            //quarter
+            "q+" : Math.floor((this.getMonth() + 3) / 3),
+            //millisecond
+            "s" : this.getMilliseconds()
+        };
+        if(/(y+)/.test(format)){
+            format = format.replace(RegExp.$1,(this.getFullYear() + "").substr(4 - RegExp.$1.length));
+        }
+        for(var k in o){
+            if(new RegExp("(" + k + ")").test(format)){
+                format = format.replace(RegExp.$1,RegExp.$1.length == 1 ? o[k] : ("00" + o[k]).substr(("" + o[k]).length));
+            }
+        }
+        return format;
+    };
+</script>
