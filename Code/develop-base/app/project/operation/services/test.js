@@ -1,3 +1,4 @@
+/*
 // var ng = require("nodegrass");
 // var Promise=require("bluebird");
 var utils = require('../../../common/core/utils/app_utils');
@@ -907,4 +908,4 @@ function remove (arr,value) {
 //     });
 //   });
 //   return p;
-// }
+// }*/

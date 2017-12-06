@@ -26,6 +26,7 @@
     "log4js": "^0.6.33",
     "log4js-node-mongodb": "^1.0.0",
     "memcached": "*",
+    "mesos": "^0.7.0",
     "mongoose": "*",
     "mongoose-pages": "*",
     "morgan": "~1.6.1",
