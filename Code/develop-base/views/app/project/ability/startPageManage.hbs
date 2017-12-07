@@ -136,6 +136,7 @@
                 {"field": "showType","title":"图片类型","width":50},
                 {"field": "imageName","title":"图片名称","width":40},
                 {"field": "image","title":"图片","width":40,align:"center","formatter":function(value,rowDate,rowIndex){
+
                     return '<img src="data:'+rowDate.imageType+";base64 ,"+rowDate.imagePath+'"  style="height:35px;width:35px">';
                 }},
                 {"field": "imageType","title":"图片类型","width":40},
@@ -191,16 +192,19 @@
                         msgError("数据获取错误");
                     }
 
-                    var path="./static/images/image_information/"+data.rows[0].imageName;
+//                    var path="./static/images/image_information/"+data.rows[0].imageName;
+//                    console.log("data.rows[0]",data.rows[0]);
+//                    console.log("data.images",data.rows[0].imagePath);
+
 //                    $('#ImageShow').attr("src",path);
-                    var img = $('<img/>', {
+                    var img = $('<img src="data:'+data.rows[0].imageType+";base64 ,"+data.rows[0].imagePath+'"/>', {
                         id: 'dynamic',
                         width:250,
                         height:200
                     });
                     $(".image-preview-clear").show();
                     $(".image-preview-filename").val(data.rows[0].imageName);
-                    img.attr('src', path);
+//                    img.attr('src', path);
                     $(".image-preview").attr("data-content",$(img)[0].outerHTML).popover("show");
                 }else{
                     msgError(data.msg+',错误代码:'+data.code);
