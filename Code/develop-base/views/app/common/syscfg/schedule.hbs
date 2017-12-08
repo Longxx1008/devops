@@ -138,7 +138,7 @@
             columns:[[
                 {"field":'_id',checkbox:true},
                 {"field": "schedule_name","title":"事务名称","width":100},
-                {"field": "schedule_grade","title":"紧急程度","width":50,
+                {"field": "schedule_grade","title":"紧急程度","width":100,
                     formatter : function(value, rowData, rowIndex) {
                         if(value == 1){
                             return '<span class="label label-danger">紧急</span>';
@@ -147,7 +147,7 @@
                         }
                     }
                 },
-                {"field": "schedule_creator","title":"发布人","width":40,
+                {"field": "schedule_creator","title":"发布人","width":100,
                     formatter : function(value, rowData, rowIndex) {
                         if(value){
                             return value.user_name;
@@ -157,12 +157,12 @@
                 {"field": "schedule_executor","title":"执行者","width":100},
                 {"field": "schedule_create_time","title":"发布日期","width":100,
                     formatter : function(value, rowData, rowIndex) {
-                        return new Date(value).format();
+                        return new Date(value).format('yyyy-MM-dd');
                     }
                 },
                 {"field": "schedule_complete_time","title":"截止日期","width":100,
                     formatter : function(value, rowData, rowIndex) {
-                        return new Date(value).format();
+                        return new Date(value).format('yyyy-MM-dd');
                     }
                 }
 
@@ -245,6 +245,10 @@
     // 新增数据
     function doAdd(value) {
         var schedule_name = $('#inputScheduleName').val();
+        var schedule_executor=$('#inputScheduleExecutor').val();
+        var schedule_complete_time=$('#inputScheduleCompleteTime').val();
+
+
         if(schedule_name == ''){
             msgError('提示,公告标题不能为空');
             return;
@@ -252,6 +256,15 @@
 
         if(schedule_name.length>16){
             msgError('提示,公告标题不能超过16个字符');
+            return;
+        }
+
+        if(schedule_executor==''){
+            msgError('提示,执行者不能为空');
+            return;
+        }
+        if(schedule_complete_time.length<1){
+            msgError('提示,截止时间不能为空');
             return;
         }
 
@@ -302,7 +315,9 @@
                     $('#inputScheduleName').val(data.data[0].schedule_name);
                     $('#inputScheduleGrade').combobox('setValue',data.data[0].schedule_grade);
                     $('#inputScheduleExecutor').val(data.data[0].schedule_executor);
-                    $('#inputScheduleCompleteTime').val(data.data[0].schedule_complete_time);
+                    $('#inputScheduleCompleteTime').val(new Date(data.data[0].schedule_complete_time).format('yyyy-MM-dd'));
+                    var ttt=(data.data[0].schedule_complete_time);
+                    console.log("creat time"+ttt);
                     ue.setContent(data.data[0].schedule_content);
                 }else{
                     msgError(data.msg+',错误代码:'+data.code);
@@ -314,22 +329,33 @@
     // 修改数据
     function doEdit(value) {
         var schedule_name = $('#inputScheduleName').val();
+        var schedule_executor=$('#inputScheduleExecutor').val();
+        var schedule_complete_time=$('#inputScheduleCompleteTime').val();
+
+
         if(schedule_name == ''){
-            msgError('提示,事务名称不能为空');
+            msgError('提示,公告标题不能为空');
             return;
         }
 
         if(schedule_name.length>16){
-            msgError('提示,事务名称不能超过16个字符');
+            msgError('提示,公告标题不能超过16个字符');
+            return;
+        }
+
+        if(schedule_executor==''){
+            msgError('提示,执行者不能为空');
+            return;
+        }
+        if(schedule_complete_time==''){
+            msgError('提示,截止时间不能为空');
             return;
         }
 
         if(!ue.hasContents()){
-            msgError('提示,事务内容不能为空');
+            msgError('提示,公告内容不能为空');
             return;
         }
-
-
 
 
         $.ajax({

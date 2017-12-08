@@ -70,12 +70,13 @@
                                     </div><!--Widget Header-->
                                     <div class="widget-body">
                                         <div style="height:230px;">
-                                            <div class="box-list-content">
-                                                <ul class="ul-list" id="scheduleList">
-                                                </ul>
-                                            </div>
 
-                                        </div>
+                                            <table class="table table-striped">
+                                                <tbody id="scheduleList" >
+
+                                                </tbody>
+                                            </table>
+                                                </div>
                                     </div>
                                 </div>
                             </div>
@@ -802,17 +803,17 @@
                     var html = '';
                     $.each(data.data, function (i, n) {
 
-
-
-                        var temp = '<li style="cursor:pointer " onclick="systemScheduleDetails(\''
-                                + n._id
-                                + '\')">'
-                                + (i + 1) + "、" + n.schedule_name
-                                +'&nbsp&nbsp&nbsp&nbsp'+'&nbsp&nbsp&nbsp&nbsp'+'&nbsp&nbsp&nbsp&nbsp'+'&nbsp&nbsp&nbsp&nbsp'+'&nbsp&nbsp&nbsp&nbsp'+'&nbsp&nbsp&nbsp&nbsp'+'&nbsp&nbsp&nbsp&nbsp'+'&nbsp&nbsp&nbsp&nbsp'+'&nbsp&nbsp&nbsp&nbsp'+'&nbsp&nbsp&nbsp&nbsp'+'&nbsp&nbsp&nbsp&nbsp'+'&nbsp&nbsp&nbsp&nbsp'+'&nbsp&nbsp&nbsp&nbsp'+'&nbsp&nbsp&nbsp&nbsp'+'&nbsp&nbsp&nbsp&nbsp'+
-                                new Date(n.schedule_create_time).format()+
-                                '</li>';
-                        html += temp;
-                    });
+                    var temp = '<tr style="cursor:pointer;border:none;color: #9E9E9E" onclick="systemScheduleDetails(\''
+                            + n._id
+                            + '\')">'
+                            + '<td>'
+                            + (i+1)+"、"+n.schedule_name
+                            + '</td>'
+                            + '<td align="right" style="padding-right: 40px">'
+                            + new Date(n.schedule_create_time).format()+ '</td>'
+                    '</tr>';
+                    html += temp;
+                });
 
                     $('#scheduleList').append(html);
                 }
@@ -940,13 +941,13 @@
                                 + '<tr>'
                                 + '<td align="right" style="padding-right: 40px;">'
                                 + '<br>'
-                                + '发布时间：' + new Date(data.data[0].schedule_create_time).format("yyyy-MM-dd hh:mm")
+                                + '发布时间：' + new Date(data.data[0].schedule_create_time).format("yyyy-MM-dd ")
                                 + '</td>'
                                 + '</tr>'
                                 + '<tr>'
                                 + '<td align="right" style="padding-right: 40px;">'
                                 + '<br>'
-                                + '截止时间：' + new Date(data.data[0].schedule_complete_time).format("yyyy-MM-dd hh:mm")
+                                + '截止时间：' + new Date(data.data[0].schedule_complete_time).format("yyyy-MM-dd ")
                                 + '</td>'
                                 + '</tr>';
                         html += temp;
