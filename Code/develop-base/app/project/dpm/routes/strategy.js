@@ -26,10 +26,10 @@ router.route('/list').get(function(req,res){
     var data = [];
     data.push(req.body.strategy_name);
     console.log("name:"+req.body.strategy_name);
-    console.log("name:"+req.body.strategy_parameter);
+    console.log("name:"+req.body.strategy_params);
     console.log("name:"+req.body.trigger_shell);
     console.log("name:"+req.body.strategy_status);
-    data.push(req.body.strategy_parameter);
+    data.push(req.body.strategy_params);
     data.push(req.body.trigger_shell);
     data.push(req.body.remark);
     data.push(req.body.strategy_status);
@@ -39,11 +39,11 @@ router.route('/list').get(function(req,res){
 }).post(function (req,res) {
     var data = [];
     data.push(req.body.strategy_name);
-    data.push(req.body.strategy_parameter);
+    data.push(req.body.strategy_params);
     data.push(req.body.trigger_shell);
     data.push(req.body.remark);
     data.push(req.body.strategy_status);
-    data.push(req.body.id);
+    data.push(req.body.service_strategy_id);
     strategyService.update(data, function(result) {
         utils.respJsonData(res, result);
     });

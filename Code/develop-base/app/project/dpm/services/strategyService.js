@@ -13,11 +13,11 @@ exports.pageList = function(page, size, conditionMap, cb){
     var sql = "select * from pass_project_strategy_config where 1=1 ";
     var conditions = [];
     if(conditionMap) {
-        if(conditionMap.strategy_name) {
-            sql += " and (strategy_name like '%" + conditionMap.strategy_name + "%')";
+        if(conditionMap.projectName) {
+            sql += " and (strategy_name like '%" + conditionMap.projectName + "%')";
         }
     }
-    var orderBy = " order by id asc";
+    var orderBy = " order by service_strategy_id asc";
     console.log("sql++++++++++++++++="+sql)
     utils.pagingQuery4Eui_mysql(sql,orderBy,page, size, conditions, cb);
 
@@ -30,11 +30,11 @@ exports.pageList = function(page, size, conditionMap, cb){
  */
 exports.add = function(data,cb){
     var strategy_name=data[0];
-    var strategy_parameter=data[1];
-    var trigger_shell=data[2];
+    var strategy_params=data[1];
+    var strategy_shell=data[2];
     var remark=data[3];
     var status=data[4];
-    var sql = "insert into pass_project_strategy_config(strategy_name,strategy_parameter,trigger_shell,remark,strategy_status) values('"+strategy_name+"','"+strategy_parameter+"','"+trigger_shell+"','"+remark+"','"+status+"')";
+    var sql = "insert into pass_project_strategy_config(strategy_name,strategy_params,strategy_shell,remark,strategy_status) values('"+strategy_name+"','"+strategy_params+"','"+strategy_shell+"','"+remark+"','"+status+"')";
     mysqlPool.query(sql,data,function(err,result) {
         if(err) {
             cb(utils.returnMsg(false, '1000', '创建策略异常', null, err));
@@ -51,12 +51,13 @@ exports.add = function(data,cb){
  */
 exports.update = function(data,cb){
     var strategy_name=data[0];
-    var strategy_parameter=data[1];
+    var strategy_params=data[1];
     var trigger_shell=data[2];
     var remark=data[3];
     var status=data[4];
     var id=data[5];
-    var sql = "update pass_project_strategy_config set strategy_name='"+strategy_name+"',strategy_parameter='"+strategy_parameter+"',trigger_shell='"+trigger_shell+"',remark='"+remark+"',strategy_status='"+status+"' where id="+id;
+    console.log(data[0],data[1],data[2],data[3],data[4],'++++++++++++++++++++++++++++++++',data[5]+'+++++++++++++++++++++++++++++++++++++++++++++++99999999999999999999999999999999999999999999')
+    var sql = "update pass_project_strategy_config set strategy_name='"+strategy_name+"',strategy_params='"+strategy_params+"',strategy_shell='"+trigger_shell+"',remark='"+remark+"',strategy_status='"+status+"' where service_strategy_id='"+id+"'";
     mysqlPool.query(sql,data,function(err,result) {
         if(err) {
             cb(utils.returnMsg(false, '1000', '更新策略异常', null, err));
@@ -72,7 +73,7 @@ exports.update = function(data,cb){
  * @param cb
  */
 exports.getStrategy = function(id,cb){
-    var sql = "select * from pass_project_strategy_config where id = ? ";
+    var sql = "select * from pass_project_strategy_config where service_strategy_id = ? ";
     mysqlPool.query(sql,[id],function(err,result) {
         if(err) {
             cb(utils.returnMsg(false, '1000', '获取单个策略信息异常', null, err));
@@ -90,7 +91,7 @@ exports.getStrategy = function(id,cb){
  * @param cb
  */
 exports.delete = function(id, cb) {
-    var sql = "delete from pass_project_strategy_config where id = ?";
+    var sql = "delete from pass_project_strategy_config where service_strategy_id = ?";
     mysqlPool.query(sql,[id],function (err,result) {
         if(err){
             cb(utils.returnMsg(false,'1000','删除策略信息异常',null,err));
