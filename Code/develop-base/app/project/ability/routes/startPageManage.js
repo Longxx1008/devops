@@ -104,10 +104,12 @@ router.route('/')
 })
     .delete(function(req,res) {
         var id = req.body.id;
+        console.log("idarr",id);
+        id=JSON.parse(id);
         if (!id) {
             utils.respMsg(res, false, '2004', 'id不能为空。', null, null);
         }
-        startPageManageService.deleteInfo(id, function (result) {
+                startPageManageService.deleteInfo(id, function (result) {
             utils.respJsonData(res, result);
         });
     });
