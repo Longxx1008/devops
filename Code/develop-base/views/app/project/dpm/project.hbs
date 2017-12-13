@@ -438,9 +438,11 @@
             msgError("请选择一条项目数据！");
         }else{
             //row
-            var address=rowdata[0].projectCode;
+            var gitlabProjectId=rowdata[0].gitlabProjectId;
+            var projectName=rowdata[0].projectName;
+            var projectCode=rowdata[0].projectCode;
             console.info(rowdata);
-            window.location.href = "{{projcfg.appurl}}/grayenvironmentm";//?DeployDetail_id=
+            window.location.href = "{{projcfg.appurl}}/grayenvironmentm?projectName="+projectName+"&gitlabProjectId="+gitlabProjectId+"&projectCode="+projectCode;//?DeployDetail_id=
         }
     }
     function doDeploy(value) {

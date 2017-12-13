@@ -11,7 +11,7 @@ var mesos_add="192.168.9.65";
 var mesos_port="5050";
 var content_type="Content-Type: application/json";
 var protocol="http";
-
+var request = require('request');
 
 
 /**
@@ -39,62 +39,97 @@ exports.getPlatfrom = function(){
 
 };
 
-exports.getDeploy=function(page, rows, conditionMap,cb){
-    return new Promise(function(resolve,reject){
-        let sql="select * from pass_project_service_info where is_group<>1"
-        let orderBy = " order by service_id desc";
-        var conditions={};
-        utils.pagingQuery4Eui_mysql(sql,orderBy, page, rows, conditions, cb)
+exports.getDeploy=function(gitlabProjectId,cb){
+    var p = new Promise(function(resolve, reject) {
+        var sql = 'select * from pass_develop_project_resources_copy2 r,pass_develop_project_gray_deploy g where g.gitlabProjectId=r.gitlabProjectId and r.gitlabProjectId="'+gitlabProjectId+'"';
+        console.log(sql);
+        mysqlPool.query(sql, function (err, results) {
+            if (err) {
+                cb(utils.returnMsg(false, '1000', '查询灰度部署信息出错', null, err));
+            } else {
+                cb(utils.returnMsg(true, '0000', '查询灰度部署信息成功', results, null));
+            }
+        });
     })
-    // var data=[];
-    // var p=new Promise(function(resolve,reject){
-    //     ng.get(protocol+"://"+mesos_add+":"+mesos_port+"/master/state.json",
-    //     function (res, status, headers) {
-    //         if (res) {
-    //             var results = JSON.parse(res);
-    //             var slaves=results.slaves;
-    //             var unreachable_tasks=results.frameworks[0].unreachable_tasks;
-    //             // console.log(unreachable_tasks);
-    //             var completed_tasks=results.frameworks[0].completed_tasks;
-    //             var tasks=results.frameworks[0].tasks;
-    //             // console.log("============================================>  ",results.frameworks[0].tasks);
-    //             var k =0;
-    //             for(var i in tasks){
-    //                 var map={};
-    //                 var slave_id=tasks[i].slave_id;
-    //                 var docker_container_id="mesos-"+tasks[i].slave_id+"."+tasks[i].framework_id;
-    //                 var containers=tasks[i].container;
-    //                 // console.log(containers.docker);
-    //                 map.image=containers.docker.image;
-    //                 map.containerName=tasks[i].name;
-    //                 map.containerId=docker_container_id;
-    //                 map.id=k;
-    //                 k++;
-    //                 for(var slave in slaves){
-    //                     if(slaves[slave].id==slave_id){
-    //                         map.hostname=slaves[slave].hostname
-    //                     }
-    //                 }
-    //
-    //                 data.push(map);
-    //             }
-    //             resolve({"data":data,"success":true,"message":"获取数据成功","error":null,"code":0000})
-    //
-    //
-    //         }
-    //     },
-    //     content_type,
-    //     null,
-    //     'utf8').
-    // on('error', function (e) {
-    //     resolve({"data":null,"success":false,"message":"获取数据失败！","error":e,"code":1001})
-    //
-    //
-    // })
-// })
-    // return p ;
-
 }
 
+exports.start=function(instance,imageName,projectCode,cb){
+    var p = new Promise(function(resolve, reject) {
+        var scaleJson = {
+            "id": "/"+projectCode+"/"+projectCode+"-gatedlaunch",
+            "cpus": 1,
+            "mem": 1024,
+            "disk": 0,
+            "instances": parseInt(instance),
+            "acceptedResourceRoles": [
+                "*"
+            ],
+            "container": {
+                "type": "DOCKER",
+                "volumes": [],
+                "docker": {
+                    "image": imageName,
+                    "network": "BRIDGE",
+                    "portMappings": [
+                        {
+                            "containerPort": 0,
+                            "hostPort": 0,
+                            "servicePort": 10004,
+                            "protocol": "tcp",
+                            "labels": {}
+                        }
+                    ],
+                    "privileged": false,
+                    "parameters": [],
+                    "forcePullImage": false
+                }
+            },
+            "healthChecks": [
+                {
+                    "gracePeriodSeconds": 300,
+                    "intervalSeconds": 5,
+                    "timeoutSeconds": 20,
+                    "maxConsecutiveFailures": 3,
+                    "portIndex": 0,
+                    "path": "/",
+                    "protocol": "HTTP",
+                    "ignoreHttp1xx": false
+                }
+            ],
+            "labels": {
+                "HAPROXY_GROUP": "external"
+            },
+            "portDefinitions": [
+                {
+                    "port": 10007,
+                    "protocol": "tcp",
+                    "name": "default",
+                    "labels": {}
+                }
+            ]
+        };
+        var options = {
+            headers : {"Connection": "close"},
+            url : config.platform.marathonApi,
+            method : 'post',
+            json : true,
+            body : scaleJson
+        };
+        function callback(error, response, data) {
+            console.log(response);
+            if (!error && (response.statusCode == 200 || response.statusCode == 201)) {
+                console.log('创建应用成功----info------',data);
+                cb(utils.returnMsg(true, '0000', '启动灰度应用成功,进行健康检查', response, null));
+            }else{
+                console.log("创建应用失败，" + error);
+                cb(utils.returnMsg(false, '1000', '启动灰度应用失败', null, error));
+            }
+        }
+        request(options, callback);
+    })
+}
 
+exports.getHostInfo = function(cb){
+
+}
 

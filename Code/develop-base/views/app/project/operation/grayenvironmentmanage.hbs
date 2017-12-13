@@ -112,27 +112,27 @@
                                                         <label>项目名称：</label>
                                                         <span id="projectName"></span>
                                                     </h3>
-                                                    <p>
+                                                   <!-- <p>
                                                         <label>镜像：</label>
                                                         <span id="gitAddress"></span>
                                                     </p>
                                                     <p>
                                                         <label>外网地址：</label>
                                                         <span id="netadd"> </span>
-                                                    </p>
+                                                    </p>-->
                                                 </div>
                                                 <div class="rongqi-box clearfix">
                                                     <div class="pull-left">
-                                                        <label>运行容器：</label>
-                                                        <button class="btn-fuhao">-</button>
-                                                        <input id="instance_number" class="rongqi-shuzhi" type="text" disabled="disabled">
-                                                        <button class="btn-fuhao">+</button>
+                                                        <label>运行实例：</label>
+                                                        <button class="btn-fuhao" type="button" id="substract">-</button>
+                                                        <input id="instance_number" class="rongqi-shuzhi" type="text" value="1">
+                                                        <button class="btn-fuhao" type="button" id="plus">+</button>
                                                     </div>
                                                     <div class="pull-right">
                                                         <button class="btn-fabu btn-huidu-fabu" onclick="gray_publish()">
                                                             灰度环境发布
                                                         </button>
-                                                        <button class="btn-fabu btn-zhengshi-fabu" onclick="prod_publish()">
+                                                        <button class="btn-fabu btn-zhengshi-fabu" onclick="prod_publish()" id="formal_button">
                                                             正式环境发布
                                                         </button>
                                                     </div>
@@ -227,73 +227,34 @@
         <div class="col-md-12">
             <div id="gray_body" class="widget flat radius-bordered">
                 <div style="display:none" class="widget-body active" style="background-color: #fff;">
-                    <div class="col-md-5" style="padding:30px">
-                        <div style="border:1px #000 solid">
-                            <p class="text-center gray_pub_p"style="margin-bottom:30px">灰度现运行版本</p>
-                            <div class="text-left"style="padding-left: 24px;">
-                                <ul class="gray_ul">
-                                    <li>
-                                        <label for="">项目名称:</label>
-                                        <span id="gray_pro"></span>
-                                    </li>
-                                    <li>
-                                        <label for="">项目编号:</label>
-                                        <span id="gray_num">&nbsp&nbsp贵州移动DEVOPS</span>
-                                    </li>
-                                    <li>
-                                        <label for="">运行版本:</label>
-                                        <span id="gray_dev">&nbsp&nbsp贵州移动DEVOPS</span>
-                                    </li>
-                                    <li>
-                                        <label for="">镜像名称:</label>
-                                        <span id="gray_img">&nbsp&nbsp贵州移动DEVOPS</span>
-                                    </li>
-                                    <li>
-                                        <label for="">已运行时间:</label>
-                                        <span id="gray_run_time">&nbsp&nbsp贵州移动DEVOPS</span>
-                                    </li>
-                                    <li>
-                                        <label for="">访问地址:</label>
-                                        <span id="gray_req_ip">&nbsp&nbsp贵州移动DEVOPS</span>
-                                    </li>
-                                </ul>
-
-                            </div>
+                    <div class="col-md-5" style="padding:30px" id="if_gray_p">
+                        <div id="if_gray">
                         </div>
-
-
-                    </div>
-                    <div class="col-md-2"style="text-align: center;margin-top: 180px;">
-                        <img src="{{projcfg.appurl}}/static/images/u766.png" alt="">
                     </div>
                     <div class="col-md-5" style="padding:30px">
                         <div style="border:1px #000 solid">
-                            <p class="text-center gray_pub_p"style="margin-bottom:30px">新版本</p>
+                            <p class="text-center gray_pub_p"style="margin-bottom:30px">选择部署新版本</p>
                             <div class="text-left"style="padding-left: 24px;">
                                 <ul class="gray_ul">
                                     <li>
                                         <label for="">项目名称:</label>
-                                        <span>&nbsp&nbsp贵州移动DEVOPS</span>
+                                        <span id="new_gray_name"></span>
                                     </li>
                                     <li>
                                         <label for="">项目编号:</label>
-                                        <span>&nbsp&nbsp贵州移动DEVOPS</span>
+                                        <span id="new_gray_id"></span>
                                     </li>
                                     <li>
                                         <label for="">运行版本:</label>
-                                        <span>&nbsp&nbsp贵州移动DEVOPS</span>
+                                        <select id="new_gray_version"></select>
                                     </li>
                                     <li>
                                         <label for="">镜像名称:</label>
-                                        <span>&nbsp&nbsp贵州移动DEVOPS</span>
-                                    </li>
-                                    <li>
-                                        <label for="">已运行时间:</label>
-                                        <span>&nbsp&nbsp贵州移动DEVOPS</span>
+                                        <span id="new_gray_image"></span>
                                     </li>
                                     <li>
                                         <label for="">访问地址:</label>
-                                        <span>&nbsp&nbsp贵州移动DEVOPS</span>
+                                        <span id="new_gray_address"></span>
                                     </li>
                                 </ul>
 
@@ -302,8 +263,7 @@
                     </div>
                 </div>
                 <div style="display:none" class="widget-body" style="background-color: #fff;">
-                  <table id="medicalCheckup" >
-                        qqqqqqqqqqqq
+                  <table id="grayInstanceTable" >
                   </table>
                   <div class="record">
                      日志
@@ -470,61 +430,20 @@
 </div>
 
 <script>
-    $(document).ready(function() {
-        //定义table的列，并初始化查询。easy-ui写法
-        $('#userdatatable').datagrid({
-            url:'{{projcfg.appurl}}/admin/api/common/uum/user',
-            method:'get',
-            queryParams:{
-                'filter_sys':$('#filter_sys').combobox('getValue'),
-                'filter_org':$('#filter_org').combotree('getValue')
-            },
-            rownumbers:true,
-            //autoRowHeight:true,
-            striped:true,
-            fitColumns:false,
-            toolbar: '#toolbar',
-            fit:true,
-            border:true,
-            singleSelect:true,
-            selectOnCheck:false,
-            //checkOnSelect:true,
-            columns:[[
-                {"field": "user_no","title":"编号","width":'8%'},
-                {"field": "user_name","title":"容器名称","width":'15%'},
-                {"field": "login_account","title":"所属项目","width":'15%'},
-                {"field": "user_phone","title":"运行环境","width":'15%'},
-                {"field": "user_org","title":"状态","width":'8%'},
-                {"field": "user_roles","title":"所属镜像","width":'15%'},
-                {"field": "user_org","title":"健康检查","width":'15%',
-                    "formatter":function (data,rowData,rowIndex) {
-
-                        return data ? data.org_fullname : '';
-                    }
-                },
-                {"field": "user_status","title":"操作","width":'15%',
-                    "formatter":function (data,rowData,rowIndex) {
-                        if(data == 1){
-                            return '<span class="success">正常</span><span>日志</span>';
-                        }
-                    }
-                }
-            ]],
-            onDblClickRow:function(rowIndex, rowData){
-                //doEdit(1,rowIndex,rowData);
-            },
-            onLoadSuccess:function(json) {
-                if(!json.success) {
-                    msgError(json.msg + ',错误代码:' + json.code);
-                }
-            },
-            onLoadError:function() {
-                msgError('加载数据出现时发生错误,请稍候重试...');
-            },
-            pagination:true,
-            loadMsg:'正在加载...'
-        });
-    });
+    var gitlabProjectId;//项目gitlabId
+    var projectName;//项目名
+    var projectCode;//项目编码
+    var instance;//启动实例数
+    $("#substract").click(function(){
+        if($("#instance_number").val()==1){
+            $("#instance_number").val(1);
+        }else{
+            $("#instance_number").val(parseInt($("#instance_number").val())-1)
+        }
+    })
+    $("#plus").click(function(){
+        $("#instance_number").val(parseInt($("#instance_number").val())+1)
+    })
     function resize() {
         $('#camkmpdeploy').datagrid({
             url: '{{projcfg.appurl}}/api/project/operation/grayenvironmentmanage/deploy/info',
@@ -540,12 +459,6 @@
             columns: [[
                 { "field": 'service_id', checkbox: true },
                 { "field": "service_tag", "title": "名称", "width": 50, align: "center" },
-                /* {"field": "totalCpu","title":"cpu总资源","width":130,align:"center"},
-                 {"field": "usedCpu","title":"cpu使用情况","width":130,align:"center"},
-                 {"field": "totalDisk","title":"硬盘总资源","width":130,align:"center"},
-                 {"field": "usedDisk","title":"硬盘使用情况","width":130,align:"center"},
-                 {"field": "totalMemory","title":"内存总资源","width":130,align:"center"},
-                 {"field": "usedMemory","title":"内存使用情况","width":130,align:"center"},*/
                 { "field": "image_id", "title": "CPU", "width": 40, align: "center" },
                 { "field": "container_id", "title": "硬盘", "width": 50, align: "center" },
                 {
@@ -574,56 +487,15 @@
             loadMsg: '正在加载...'
         });
     }
-    $(function () {
-        $.ajax({
-            url: '{{projcfg.appurl}}/api/project/operation/grayenvironmentmanage/platform/info',
-            type: 'get',
-            success: function (result) {
-                console.log(result)
-                var data = result.data;
-                var projectName = data[0].projectName;
-                var gitAddress = data[0].gitAddress;
-                $("#projectName").html(projectName);
-                $("#gitAddress").html(gitAddress);
-                $("#instance_number").val(data[0].formalInstance + data[0].gradationInstance);
-
-                //                console.log(data);
-            }
-        });
-        //        $("#colonyDataTable").html("sdfksadlfkas;ldfksdl;kf");
-
-
-
-
-    })
-    $(function () {
-        $.ajax({
-            url: '{{projcfg.appurl}}/api/project/operation/grayenvironmentmanage/platform/info',
-            type: 'get',
-            success: function (result) {
-                var data = result.data;
-                var projectName = data[0].projectName;
-                var gitAddress = data[0].gitAddress;
-                $("#projectName").html(projectName);
-                $("#gitAddress").html(gitAddress);
-                $("#gray_pro").html(projectName);
-                $("#gray_num").html(gitAddress);
-                $("#gray_img").html(gitAddress);
-                $("#gray_dev").html(gitAddress);
-                $("#gray_run_time").html(gitAddress);
-                $("#gray_req_ip").html(gitAddress);
-
-            }
-        });
-    });
     function show_grafana(container_id) {
         var html = "<iframe src='http://192.168.9.69:3000/dashboard/db/dockerdan-ge-rong-qi-jian-kong?orgId=1&var-host=mesos-node2_192.168.9.67&var-container_name=mesos-97627646-54be-4777-9223-faecde8f8cdf-S6.11d0ac3c-3b5a-4e07-b342-b5f341dd8502' width=\"100%\" height=\"900px\" frameborder=\"0\"></iframe>\n";
         $("#grafana_show").html(html)
     }
-</script>
-
-<script>
     window.onload = function () {
+        gitlabProjectId=GetQueryString("gitlabProjectId");
+        projectName=GetQueryString("projectName");
+        projectCode=GetQueryString("projectCode");
+        $("#projectName").html(projectName);
         tab("tab");
         function tab(id) {
             var obj = document.getElementById(id);
@@ -649,11 +521,103 @@
             }
 
         }
+        //页面一加载就发送一个ajax,判断是否为第一次部署灰度，控制页面显示内容
+        $.ajax({
+            url:'{{projcfg.appurl}}/api/project/operation/grayenvironmentmanage/deploy/info',
+            type:'get',
+            data:{
+                gitlabProjectId:gitlabProjectId
+            },
+            success:function(data) {
+                $.ajax({
+                    url: '{{projcfg.appurl}}/api/project/dpm/project/develop/pm/verList',
+                    type: 'get',
+                    async: false,
+                    data: {'projectId': gitlabProjectId},
+                    success: function (data) {
+                        console.log(data);
+                        if (data.success) {
+                            var verdata = verAarry(data.data);
+                            console.log("==", verdata);
+                            for (var i = 0; i < verdata.length; i++) {
+                                $('#new_gray_version').append("<option value='" + verdata[i] + "'>" + verdata[i] + "</option>");
+                            }
+                        }
+                        else {
+                            msgError(data.msg + ',错误代码:' + data.code);
+                        }
+                    }
+                });
+                if(data.data.length>0){
+                    $("#if_gray").css("border","1px #000 solid");
+                    $("#if_gray").append(
+                            '<p class="text-center gray_pub_p"style="margin-bottom:30px">灰度现运行版本</p>'+
+                            '<div class="text-left"style="padding-left: 24px;">'+
+                            '<ul class="gray_ul">'+
+                            '<li>'+
+                            '<label for="">项目名称:</label>'+
+                            '<span id="gray_pro"></span>'+
+                            '</li>'+
+                            '<li>'+
+                            '<label for="">项目编号:</label>'+
+                            '<span id="gray_num"></span>'+
+                            '</li>'+
+                            '<li>'+
+                            '<label for="">运行版本:</label>'+
+                            '<span id="gray_dev"></span>'+
+                            '</li>'+
+                            '<li>'+
+                            '<label for="">镜像名称:</label>'+
+                            '<span id="gray_img"></span>'+
+                            '</li>'+
+                            '<li>'+
+                            '<label for="">运行时间:</label>'+
+                            '<span id="gray_run_time"></span>'+
+                            '</li>'+
+                            '<li>'+
+                            '<label for="">访问地址:</label>'+
+                            '<span id="gray_req_ip"></span>'+
+                            '</li>'+
+                            '</ul>'+
+                            '</div>')
+                    $("#if_gray_p").after('<div class="col-md-2"style="text-align: center;margin-top: 180px;">'+
+                            '<img src="{{projcfg.appurl}}/static/images/u766.png" alt="">'+
+                            '</div>');
+                    data = data.data[0];
+                    $("#gray_pro").html(data.projectName);
+                    $("#new_gray_name").html(data.projectName);
+                    $("#gray_num").html(data.projectCode);
+                    $("#new_gray_id").html(data.projectCode);
+                    $("#gray_dev").html(data.gray_version);
+                    $("#gray_img").html(data.version);
+                    $("#new_gray_image").html(data.version.substring(0, data.version.lastIndexOf("v")) + $('#new_gray_version').val());
+                    $("#new_gray_version").change(function () {
+                        $("#new_gray_image").html(data.version.substring(0, data.version.lastIndexOf("v")) + $('#new_gray_version').val());
+                    })
+                    $("#gray_run_time").html(toHourMinute(data.runtime));
+                    $("#gray_req_ip").html(data.address);
+                    $("#new_gray_address").html(data.address);
+                }else {
+                    $("#formal_button").attr("disabled",true);
+                    $("#formal_button").removeClass("btn-zhengshi-fabu");
+                    $("#new_gray_name").html(projectName);
+                    $("#new_gray_id").html(projectCode);
+                    $("#new_gray_image").html("192.168.9.69:5000/" + projectCode+":"+$('#new_gray_version').val());
+                    $("#new_gray_version").change(function () {
+                        $("#new_gray_image").html("192.168.9.69:5000/" + projectCode+":"+$('#new_gray_version').val());
+                    })
+                }
+            }
+        })
     }
-
-</script>
-
-<script>
+    //获取url参数
+    function GetQueryString(name)
+    {
+        var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+        var r = window.location.search.substr(1).match(reg);
+        if(r!=null)return  decodeURI(r[2]); return null;
+    }
+    //灰度环境发布
     function gray_publish() {
         // 重置步骤
         $("#gray_step>div").each(function (index) {
@@ -683,6 +647,30 @@
 
         });
     };
+    // 将分钟数量转换为小时和分钟字符串
+    function toHourMinute(minutes){
+        return (Math.floor(minutes/60/24)+"天"+Math.floor((minutes%(60*24))/60) + "小时" + (minutes%(60*24))%60 + "分" );
+    }
+    function verAarry(data){
+        var arr = [];
+        for(var i=0;i<data.length;i++){
+            arr.push(data[i].versionNo);
+        }
+        //进行倒序排序
+        arr.sort(function(o1,o2){
+            var a1 = o1.replace('v','').split('.');
+            var a2 = o2.replace('v','').split('.');
+            var length = Math.max(a1.length,a2.length);
+            for(var i = 0; i < length; i++){
+                var n1 = parseInt(a1[i] || 0);
+                var n2 = parseInt(a2[i] || 0);
+                if(n1 - n2 != 0){
+                    return n2 - n1;
+                }
+            }
+        });
+        return arr;
+    }
     function prod_publish() {
         // 重置步骤
         $("#prod_step>div").each(function (index) {
@@ -710,6 +698,7 @@
             modal: true,
         });
     };
+    //灰度部署下一步启动实例
     function gray_next() {
         $("#gray_step>div:not(.active)").eq(0).addClass("active");
         var index;
@@ -722,7 +711,22 @@
             $("#gray_next").hide()
         }
         $("#gray_body>div.active").eq(0).removeClass("active")
-        $("#gray_body>div:not(.active)").eq(index + 1).addClass("active")
+        $("#gray_body>div:not(.active)").eq(index + 1).addClass("active");
+        instance=$("#instance_number").val();
+        var imageName=$("#new_gray_image").html();
+        $.ajax({
+            url: '{{projcfg.appurl}}/api/project/operation/grayenvironmentmanage/start',
+            type:'get',
+            data:{
+                "instance":instance,//启动实例数
+                "imageName":imageName,//启动镜像名称
+                "projectCode":projectCode//项目编码
+            },
+            success:function(data){
+                console.log(data);
+                $("#grayInstanceTable")
+            }
+        })
     }
     function prod_next() {
         $("#prod_step>div:not(.active)").eq(0).addClass("active");
@@ -738,5 +742,4 @@
         $("#prod_body>div.active").eq(0).removeClass("active")
         $("#prod_body>div:not(.active)").eq(index + 1).addClass("active")
     }
-
 </script>
