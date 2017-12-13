@@ -260,8 +260,6 @@
 
                             </div>
                         </div>
-
-
                     </div>
                     <div class="col-md-2"style="text-align: center;margin-top: 180px;">
                         <img src="{{projcfg.appurl}}/static/images/u766.png" alt="">
@@ -382,71 +380,71 @@
         <div class="col-md-12">
             <div id="prod_body" class="widget flat radius-bordered">
                 <div style="display:none" class="widget-body active" style="background-color: #fff;">
-                    <div class="col-md-4" style="padding:30px">
+                    <div class="col-md-5" style="padding:30px">
                         <div style="border:1px #000 solid">
-                            <p class="text-center prod_pub_p">灰度现运行版本</p>
-                            <div class="text-center">
+                            <p class="text-center gray_pub_p"style="margin-bottom:30px">灰度现运行版本</p>
+                            <div class="text-left"style="padding-left: 24px;">
                                 <ul class="gray_ul">
                                     <li>
                                         <label for="">项目名称:</label>
-                                        <span id="prod_pro"></span>
+                                        <span id="gray_pro"></span>
                                     </li>
                                     <li>
                                         <label for="">项目编号:</label>
-                                        <span id="prod_num">贵州移动DEVOPS</span>
+                                        <span id="gray_num">&nbsp&nbsp贵州移动DEVOPS</span>
                                     </li>
                                     <li>
                                         <label for="">运行版本:</label>
-                                        <span id="prod_dev">贵州移动DEVOPS</span>
+                                        <span id="gray_dev">&nbsp&nbsp贵州移动DEVOPS</span>
                                     </li>
                                     <li>
                                         <label for="">镜像名称:</label>
-                                        <span id="prod_img">贵州移动DEVOPS</span>
+                                        <span id="gray_img">&nbsp&nbsp贵州移动DEVOPS</span>
                                     </li>
                                     <li>
                                         <label for="">已运行时间:</label>
-                                        <span id="prod_run_time">贵州移动DEVOPS</span>
+                                        <span id="gray_run_time">&nbsp&nbsp贵州移动DEVOPS</span>
                                     </li>
                                     <li>
                                         <label for="">访问地址:</label>
-                                        <span id="prod_req_ip">贵州移动DEVOPS</span>
+                                        <span id="gray_req_ip">&nbsp&nbsp贵州移动DEVOPS</span>
                                     </li>
                                 </ul>
 
                             </div>
                         </div>
-
-
                     </div>
-                    <div class="col-md-4"> 箭头</div>
-                    <div class="col-md-4" style="padding:30px">
+                    <div class="col-md-2"style="text-align: center;margin-top: 180px;">
+                        <img src="{{projcfg.appurl}}/static/images/u766.png" alt="">
+                    </div>
+                    <div class="col-md-5" style="padding:30px">
                         <div style="border:1px #000 solid">
-                            <p class="text-center gray_pub_p">新版本</p>
-                            <div class="text-center">
-                                <ul class="prod_ul">
+                            <p class="text-center gray_pub_p"style="margin-bottom:30px">新版本</p>
+                            <div class="text-left"style="padding-left: 24px;">
+                                <ul class="gray_ul">
                                     <li>
                                         <label for="">项目名称:</label>
-                                        <span>贵州移动DEVOPS</span>
+                                        <span>&nbsp&nbsp贵州移动DEVOPS</span>
                                     </li>
                                     <li>
                                         <label for="">项目编号:</label>
-                                        <span>贵州移动DEVOPS</span>
+                                        <span>&nbsp&nbsp贵州移动DEVOPS</span>
                                     </li>
                                     <li>
                                         <label for="">运行版本:</label>
-                                        <span>贵州移动DEVOPS</span>
+                                        <span>&nbsp&nbsp贵州移动DEVOPS</span>
                                     </li>
                                     <li>
                                         <label for="">镜像名称:</label>
-                                        <span>贵州移动DEVOPS</span>
+                                        <span>&nbsp&nbsp贵州移动DEVOPS</span>
                                     </li>
                                     <li>
                                         <label for="">已运行时间:</label>
-                                        <span>贵州移动DEVOPS</span>
+                                        <span>&nbsp&nbsp贵州移动DEVOPS</span>
                                     </li>
                                     <li>
                                         <label for="">访问地址:</label>
-                                        <span>贵州移动DEVOPS</span>
+                                        <span>&nbsp&nbsp贵州移动DEVOPS</span>
                                     </li>
                                 </ul>
 
@@ -454,17 +452,100 @@
                         </div>
                     </div>
                 </div>
+
                 <div style="display:none" class="widget-body" style="background-color: #fff;">
-                    内容2
+                   <div class="row">
+                       <div class="col-md-12">
+                           <label class="col-md-2 text-center"style="font-size: 16px;">部署进度:</label>
+                           <div class="progress ">
+                               <div class="progress-bar progress-bar-success" role="progressbar"
+                                    aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"
+                                    style="width: 90%;">
+                                   <span>90%</span>
+                               </div>
+                           </div>
+                       </div>
+                   </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label class="col-md-2 text-center"style="font-size: 16px;">部署时间:</label>
+                            <span style="font-size: 16px;">3分钟</span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12 text-right">
+                            <button class="button"style="color:#fff;">下一节点部署</button>
+                            <button class="button"style="background-color: rgba(204, 51, 0, 1);color:#fff;">全局部署</button>
+                            <button class="button"style="background-color: rgba(255, 204, 0, 1);color:#fff;">回滚</button>
+                        </div>
+                    </div>
+                    <div  style="height:300px;width:960px;">
+                        <table id="formalEnvironmentData" ></table>
+                    </div>
+                    <div style="height:300px;width:960px;">
+                        <div style="height:235px;width:232px;margin-right:10px;">
+                            <div id="cpuUsage"></div>
+                        </div>
+                        <div style="height:235px;width:232px;margin-right:10px;">
+                            <div id="memoryUsage"></div>
+                        </div>
+                        <div style="height:235px;width:232px;margin-right:10px;">
+                            <div id="memoryNum"></div>
+                        </div>
+                        <div style="height:235px;width:232px;">
+                            <div id="diskSpeed"></div>
+                        </div>
+                    </div>
+                    <div class="record">
+                        日志
+                    </div>
                 </div>
+
                 <div style="display:none" class="widget-body" style="background-color: #fff;">
-                    内容3
+                    <div class="col-md-6" style="padding:30px">
+                        <div class="text-center" style="  font-size: 28px;font-family: Tahoma;font-weight:800;">灰度环境版本更新成功</div>
+                        <div class="text-center" style="  font-size: 28px;font-family: Tahoma;font-weight:800;padding-top: 40px;"> <img src="{{projcfg.appurl}}/static/images/u889.png" alt=""></div>
+                    </div>
+                    <div class="col-md-6" style="padding:30px">
+                        <div style="border:1px #000 solid">
+                            <p class="text-center gray_pub_p"style="margin-bottom:30px">新版本</p>
+                            <div class="text-left"style="padding-left: 24px;">
+                                <ul class="gray_ul">
+                                    <li>
+                                        <label for="">项目名称:</label>
+                                        <span>&nbsp&nbsp贵州移动DEVOPS</span>
+                                    </li>
+                                    <li>
+                                        <label for="">项目编号:</label>
+                                        <span>&nbsp&nbsp贵州移动DEVOPS</span>
+                                    </li>
+                                    <li>
+                                        <label for="">运行版本:</label>
+                                        <span>&nbsp&nbsp贵州移动DEVOPS</span>
+                                    </li>
+                                    <li>
+                                        <label for="">镜像名称:</label>
+                                        <span>&nbsp&nbsp贵州移动DEVOPS</span>
+                                    </li>
+                                    <li>
+                                        <label for="">已运行时间:</label>
+                                        <span>&nbsp&nbsp贵州移动DEVOPS</span>
+                                    </li>
+                                    <li>
+                                        <label for="">访问地址:</label>
+                                        <span>&nbsp&nbsp贵州移动DEVOPS</span>
+                                    </li>
+                                </ul>
+
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
             </div>
         </div>
         <div class="col-md-12 text-center">
-            <button id="prod_next" onclick="prod_next()">下一步</button>
+            <button id="prod_next"class="button" onclick="prod_next()">下一步</button>
         </div>
     </div>
 </div>
@@ -708,6 +789,53 @@
             height: 800,
             top: 20,
             modal: true,
+        });
+        /***********正式环境发布数据查询**************/
+       $('#formalEnvironmentData').datagrid({
+            url:'{{projcfg.appurl}}/api/project/operation/grayenvironmentmanage/formaldeploy/info',
+            method:'get',
+            rownumbers:true,
+            //autoRowHeight:true,
+            striped:true,
+            fitColumns:false,
+            toolbar: '#toolbar',
+            fit:true,
+            border:true,
+            singleSelect:true,
+            selectOnCheck:false,
+            //checkOnSelect:true,
+            columns:[[
+                {"field": "projectCode","title":"编号","width":'8%'},
+                {"field": "projectId","title":"容器名称","width":'15%'},
+                {"field": "projectName","title":"所属项目","width":'15%'},
+                {"field": "hostIp","title":"运行环境","width":'15%'},
+                {"field": "state","title":"状态","width":'8%'},
+                {"field": "version","title":"所属镜像","width":'15%'},
+                {"field": "healthStatus","title":"健康检查","width":'15%',
+                    "formatter":function (data,rowData,rowIndex) {
+
+                        return data ? data.healthStatus : '';
+                    }
+                },
+                {"field": "oooo","title":"操作","width":'15%',
+                    "formatter":function (data,rowData,rowIndex) {
+                        return '<span class="success">导流</span>|<span>日志</span>';
+                    }
+                }
+            ]],
+            onDblClickRow:function(rowIndex, rowData){
+                //doEdit(1,rowIndex,rowData);
+            },
+            onLoadSuccess:function(json) {
+                if(!json.success) {
+                    msgError(json.msg + ',错误代码:' + json.code);
+                }
+            },
+            onLoadError:function() {
+                msgError('加载数据时发生错误,请重试...');
+            },
+            pagination:true,
+            loadMsg:'正在加载...'
         });
     };
     function gray_next() {

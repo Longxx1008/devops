@@ -44,6 +44,7 @@ exports.getDeploy=function(page, rows, conditionMap,cb){
         let sql="select * from pass_project_service_info where is_group<>1"
         let orderBy = " order by service_id desc";
         var conditions={};
+
         utils.pagingQuery4Eui_mysql(sql,orderBy, page, rows, conditions, cb)
     })
     // var data=[];
@@ -95,6 +96,35 @@ exports.getDeploy=function(page, rows, conditionMap,cb){
     // return p ;
 
 }
+
+exports.getProjectSituation=function(){
+    return  new Promise(function(resolve,reject){
+        var sql = "select * from pass_develop_project_resources  ";
+        mysqlPool.query(sql,function(err,res){
+            if(err){
+                console.log(err);
+                resolve({"data":null,"error":e,"message":"查询数据失败！","success":false})
+            }else{
+                resolve({"data":res,"error":null,"message":"查询数据成功！","success":true})
+            }
+
+        })
+
+    });
+}
+
+
+exports.getFormalDeploy=function(page, rows, conditionMap,cb) {
+    return new Promise(function (resolve, reject) {
+        var sql = "select a.id,a.projectId,a.version,a.healthStatus,a.gitlabProjectId,b.projectName,b.projectCode,c.hostIp,c.state from pass_develop_project_gray_deploy a,pass_develop_project_resources_copy2 b,pass_develop_project_deploy_instance c where a.gitlabProjectId=b.gitlabProjectId and a.projectId=c.projectId";
+        var orderBy =  " order by id desc";
+        var conditions = {};
+        console.log("________________________________________________________________")
+        utils.pagingQuery4Eui_mysql(sql, orderBy, page, rows, conditions, cb)
+    })
+}
+
+
 
 
 
