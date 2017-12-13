@@ -19,10 +19,10 @@ exports.$ = function() {
     setInterval(function(){
         // deployedInfoSyncJob.doJob();
         // projectService.refreshMarathonLbInfo();
-         colonyManageService.syncColonyInfo();//同步集群
-         hostManageService.syncHostInfo();//同步主机列表
+        /* colonyManageService.syncColonyInfo();//同步集群
+         hostManageService.syncHostInfo();//同步主机列表*/
         // updateHostInfo.getSalve();
-        projectService.refreshDeployed(function (result) {});//同步部署marathon信息
-        projectService.refreshResource();//同步gitlab上面项目信息
+        /*projectService.refreshDeployed(function (result) {});//同步部署marathon信息
+        projectService.refreshResource();//同步gitlab上面项目信息*/
     },10000);
 };
