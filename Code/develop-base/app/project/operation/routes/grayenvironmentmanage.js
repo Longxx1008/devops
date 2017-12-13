@@ -15,15 +15,26 @@ router.route("/platform/info").get(function(req,res){
     })
 });
 
+//获取灰度部署信息
 router.route("/deploy/info").get(function(req,res){
-    var page=req.query.page;
-    var rows=req.query.rows;
-    var conditionMap = {};
-
-    greyenvironmtneService.getDeploy(page, rows, conditionMap,function(rs){
+    var gitlabProjectId=req.query.gitlabProjectId;
+    //console.log("gitlabProjectIdgitlabProjectIdgitlabProjectId"+gitlabProjectId);
+    greyenvironmtneService.getDeploy(gitlabProjectId,function(rs){
         utils.respJsonData(res,rs)
     })
-})
+});
+
+//启动灰度部署
+router.route("/start").get(function(req,res){
+    var instance=req.query.instance;
+    var imageName=req.query.imageName;
+    var projectCode=req.query.projectCode;
+    console.log("ssss"+instance+imageName+projectCode);
+    greyenvironmtneService.start(instance,imageName,projectCode,function(rs){
+        utils.respJsonData(res,rs)
+    })
+});
+
 
 
 /***************运维中心-环境发布-获取项目健康情况*****************/
