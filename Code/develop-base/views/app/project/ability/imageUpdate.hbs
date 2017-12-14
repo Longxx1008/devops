@@ -1,0 +1,53 @@
+<div class="row">
+    <div class="col-xs-12 col-md-12">
+        <div class="widget">
+            <div class="widget-body">
+                <div>
+                    <form id="imageForm" class="form-horizontal form-bordered" role="form" method="post" enctype="multipart/form-data">
+                        <div class="form-group">
+                            <label for="imageName" class="col-sm-2 control-label no-padding-right">镜像名称:</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="easyui-validatebox form-control" data-options="required:true" name="imageName" id="imageName" placeholder="请输入镜像名称" style="width:60%">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="iamgeResource"  class="col-sm-2 control-label no-padding-right">镜像源:</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="easyui-validatebox form-control" data-options="required:true" name="imageResource" id="imageResource">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="channels" class="col-sm-2 control-label no-padding-right">渠道:</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="easyui-validatebox form-control" data-options="required:true" name="channels" id="channels" placeholder="请输入渠道" style="width:60%">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="catagory" class="col-sm-2 control-label no-padding-right">镜像类型:</label>
+                            <div class="col-sm-10">
+                                <select id="catagory" name="catagory" class="easyui-combobox easyui-validatebox" data-options="required:true" style="height: 30px;width: 300px;">
+                                    <option value="db">数据库</option>
+                                    <option value="service">服务器</option>
+                                    <option value="sys">系统平台</option>
+                                    <option value="pl">编程语言</option>
+                                    <option value="mq">消息队列</option>
+                                    <option value="tool">运维工具</option>
+                                    <option value="web">WEB框架</option>
+                                    <option value="other">其他</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group" >
+                            <label for="simpleIntroduction" class="col-sm-2 control-label no-padding-right">简介:</label>
+                            <div class="col-sm-10" >
+                                <input  class="easyui-textbox " name="simpleIntroduction" data-options="multiline:true" id="simpleIntroduction"   style="width:500px;height:300px;">
+                            </div>
+                        </div>
+                        <input class="easyui-validatebox form-control" type="hidden" name="imageCode" id="imageCode">
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
