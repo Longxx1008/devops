@@ -21,7 +21,7 @@ router.route('/')
         //     'and information_title like "'+"%"+information_title+"%"+'"';
 
         startPageManageService.getStartPageManage(page, size, conditionMap, function (result) {
-            // console.log('====================',result);
+             console.log('====================',result);
             utils.respJsonData(res, result);
         })
     })
@@ -46,7 +46,7 @@ router.route('/')
         var imagePath='';
         var id='';
 
-        var sqlUpdatePicture = 'update pass_develop_startPage_info set showType = ?,imageName= ?,imageType=?,imagePath=? where id =?';
+        var sqlUpdatePicture = 'update pass_develop_homepage_info set showType = ?,imageName= ?,imageType=?,imagePath=? where id =?';
 
         form.parse(req,function (error, fields, files) {
             console.log('==files==',files);
@@ -57,13 +57,14 @@ router.route('/')
                // imageName=files.startPageImage['name'];
                // imageType=files.startPageImage['type'];
                 showType=fields.type;
-                imageNamTe=files['input-file-preview']['name'];
+                imageName=files['input-file-preview']['name'];
                 imageType=files['input-file-preview']['type'];
                 path=filedir+imageName;
                 id=fields.value;
                 fs.rename(files['input-file-preview']['path'],path,function(err){
                     if(err){
-                        res.send('no rename');
+                        res.set({'Content-Type': 'text/json', 'Encodeing': 'utf8'});
+                        res.send({'msg':"no rename"});
                     }
                     else {
                         imagePath = fs.readFileSync(path);
@@ -84,7 +85,7 @@ router.route('/')
                             });
                         }else {
                             console.log("==id",id);
-                            data_add.push(showype);
+                            data_add.push(showType);
                             data_add.push(imageName);
                             data_add.push(imageType);
                             data_add.push(imagePath);
@@ -100,7 +101,18 @@ router.route('/')
 
 
     });
-});
+})
+    .delete(function(req,res) {
+        var id = req.body.id;
+        console.log("idarr",id);
+        id=JSON.parse(id);
+        if (!id) {
+            utils.respMsg(res, false, '2004', 'id不能为空。', null, null);
+        }
+                startPageManageService.deleteInfo(id, function (result) {
+            utils.respJsonData(res, result);
+        });
+    });
 router.route('/:id')
     .get(function(req,res){
         var id=req.params.id;
@@ -108,18 +120,9 @@ router.route('/:id')
         var size=req.query.rows;
         var conditionMap=id;
         startPageManageService.getStartPageManageUpdate(page,size,conditionMap,function(result) {
-
-            utils.respJsonData(res, result);
-        });
-    })
-    .delete(function(req,res){
-        var id = req.params.id;
-        if (!id) {
-            utils.respMsg(res, false, '2004', 'id不能为空。', null, null);
-        }
-        startPageManageService.deleteInfo(id,function(result){
             utils.respJsonData(res, result);
         });
     });
+
 
 module.exports=router;
