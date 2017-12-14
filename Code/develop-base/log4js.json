@@ -6,7 +6,7 @@
 
   ,{
       "type": "file",
-      "filename": "logs/request.log",
+      "filename": "../logs/request.log",
       "maxLogSize": "1024*1024",
       "backups":3,
       "layout": {
@@ -18,7 +18,7 @@
 
   ,{
       "type": "file",
-      "filename": "logs/service.log",
+      "filename": "../logs/service.log",
       "maxLogSize": "1024*1024",
       "backups":3,
       "category": "service_log"
