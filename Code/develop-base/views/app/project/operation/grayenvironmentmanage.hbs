@@ -830,53 +830,6 @@
             top: 20,
             modal: true,
         });
-        /***********正式环境发布数据查询**************/
-       $('#formalEnvironmentData').datagrid({
-            url:'{{projcfg.appurl}}/api/project/operation/grayenvironmentmanage/formaldeploy/info',
-            method:'get',
-            rownumbers:true,
-            //autoRowHeight:true,
-            striped:true,
-            fitColumns:false,
-            toolbar: '#toolbar',
-            fit:true,
-            border:true,
-            singleSelect:true,
-            selectOnCheck:false,
-            //checkOnSelect:true,
-            columns:[[
-                {"field": "projectCode","title":"编号","width":'8%'},
-                {"field": "projectId","title":"容器名称","width":'15%'},
-                {"field": "projectName","title":"所属项目","width":'15%'},
-                {"field": "hostIp","title":"运行环境","width":'15%'},
-                {"field": "state","title":"状态","width":'8%'},
-                {"field": "version","title":"所属镜像","width":'15%'},
-                {"field": "healthStatus","title":"健康检查","width":'15%',
-                    "formatter":function (data,rowData,rowIndex) {
-
-                        return data ? data.healthStatus : '';
-                    }
-                },
-                {"field": "oooo","title":"操作","width":'15%',
-                    "formatter":function (data,rowData,rowIndex) {
-                        return '<span class="success">导流</span>|<span>日志</span>';
-                    }
-                }
-            ]],
-            onDblClickRow:function(rowIndex, rowData){
-                //doEdit(1,rowIndex,rowData);
-            },
-            onLoadSuccess:function(json) {
-                if(!json.success) {
-                    msgError(json.msg + ',错误代码:' + json.code);
-                }
-            },
-            onLoadError:function() {
-                msgError('加载数据时发生错误,请重试...');
-            },
-            pagination:true,
-            loadMsg:'正在加载...'
-        });
     };
     //灰度部署下一步启动实例
     function gray_next() {
