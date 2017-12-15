@@ -74,6 +74,7 @@
                         </div>
                         <div id="inputInformationImageShow" class="col-sm-4 col-xs-4" hidden="true">
 
+
                         </div>
                         <div class="col-sm-4 col-xs-4">
                             <label for="inputInformationImage" class="col-sm-2 control-label no-padding-right">图片</label>
@@ -327,7 +328,7 @@
                         console.log(typeof data);console.log(data.success);
                         if (data.success) {
                             msgSuccess(data.msg);
-                            $('#systemInformation_datatable').datagrid('load', {});
+                            $('#systemInformation_datatable').datagrid('reload', {});
                             closeDialog();
                         } else {
                             msgError(data.msg);
@@ -344,7 +345,7 @@
             msgError('提示,请选择一条数据再进行修改');
             return;
         }
-        openPage("修改文章", rows[0].id, doEdit);
+        openPage("修改文章", rows[0], doEdit);
         // 获取远程数据
         $.ajax({
             url: '{{projcfg.appurl}}/api/project/ability/informationManage/'+rows[0].id,
@@ -381,6 +382,9 @@
 
     function doEdit(value){
 //        var edit=ue.getContent();
+
+        console.log("valuess",value);
+        console.log("valuess",value.id);
         var id=$('#systemInformation_Modal');
 
 //        bootbox.confirm('确定添加该条数据？',function(result) {
@@ -389,7 +393,7 @@
                     url: '{{projcfg.appurl}}/api/project/ability/informationManage',
                     queryParams: {
                         information_content: ue.getContent(),
-                        value: value,
+                        value: value.id,
                         inputInformationType:$('#inputInformationType').combobox('getValue')
                     },
                     onSubmit: function () {
@@ -403,15 +407,18 @@
                             $('#inputInformationType').combobox().next('span').find('input').focus();
                             return false;
                         }
-
-                        if ($('#inputInformationImage').filebox('getValue').trim() == '') {
-                            console.log('请选择图片')
-                            $('#inputInformationImage').filebox().next('span').find('input').focus().css("background-color","#FF0000");
-                            return false;
-                        }
-                        else {
-                            console.log('已经选择图片')
-                        }
+//                        var a = $("#inputInformationImageShow").css("display");
+//                        console.log("asdfghjk",a);
+                        //图片的判断，根据是否显示，如果显示了就不用把图片用作必须要传的值
+//                        if (a=='block') {
+//                            //$('#inputInformationImage').filebox('getValue').trim()== ''
+//                            console.log('请选择图片')
+//                            $('#inputInformationImage').filebox().next('span').find('input').focus().css("background-color","#FF0000");
+//                            return false;
+//                        }
+//                        else {
+//                            console.log('已经选择图片')
+//                        }
 //                        对需要隐藏的元素单独做验证处理
                         var selected=$('#Information').combobox('getValue');
                         if(selected==1 && ue.getContent()==''){
@@ -428,7 +435,7 @@
                         data = JSON.parse(data)
                         if (data.success) {
                             msgSuccess(data.msg);
-                            $('#systemInformation_datatable').datagrid('load', {});
+                            $('#systemInformation_datatable').datagrid('reload', {});
                             closeDialog();
                         } else {
                             msgError(data.msg);
@@ -457,7 +464,7 @@
                     success: function (data) {
                         if(data.success) {
                             msgSuccess(data.msg);
-                            $('#systemInformation_datatable').datagrid('load',{});
+                            $('#systemInformation_datatable').datagrid('reload',{});
                         }
                         else {
                             msgError(data.msg+',错误代码:'+data.code);

@@ -344,7 +344,7 @@
 //                console.log("====",data.success,"====",data.msg);
                 if(data.success){
                     msgSuccess(data.msg);
-                    $('#startPage_datatable').datagrid('load', {});
+                    $('#startPage_datatable').datagrid('reload', {});
                     closeDialog();
                 }else{
                     msgError(data.msg);
@@ -378,7 +378,7 @@
             data = JSON.parse(data);
             if(data.success){
                 msgSuccess(data.msg);
-                $('#startPage_datatable').datagrid('load', {});
+                $('#startPage_datatable').datagrid('reload', {});
                 closeDialog();
             }else{
                 msgError(data.msg);
@@ -411,7 +411,7 @@
                     success: function (data) {
                         if(data.success) {
                             msgSuccess(data.msg);
-                            $('#startPage_datatable').datagrid('load',{});
+                            $('#startPage_datatable').datagrid('reload',{});
                         }
                         else {
                             msgError(data.msg+',错误代码:'+data.code);
