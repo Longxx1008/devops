@@ -69,7 +69,7 @@ router.route("/getGrayDeploy").get(function(req,res){
 router.route("/environment/project").get(function(req,res){
    greyenvironmtneService.getProjectSituation().then(function(rs){
        utils.respJsonData(res,rs);
-       console.log(res+'=============='+rs);
+       console.log(res+'==============='+rs);
    })
 })
 module.exports = router;
