@@ -8,7 +8,7 @@ var path = require("path");
 
 
 // 加载配置文件
-var objConfig = JSON.parse(fs.readFileSync("../log4js.json", "utf8"));
+var objConfig = JSON.parse(fs.readFileSync("log4js.json", "utf8"));
 
 
 //log4js.configure('log4js.json',{ reloadSecs: 300 });
