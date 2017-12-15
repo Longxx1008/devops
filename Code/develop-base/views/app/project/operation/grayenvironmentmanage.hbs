@@ -254,6 +254,10 @@
                                         <span id="new_gray_image"></span>
                                     </li>
                                     <li>
+                                        <label for="">运行实例数:</label>
+                                        <span id="new_gray_num"></span>
+                                    </li>
+                                    <li>
                                         <label for="">访问地址:</label>
                                         <span id="new_gray_address"></span>
                                     </li>
@@ -265,12 +269,15 @@
                 </div>
 
                 <div style="display:none" class="widget-body" style="background-color: #fff;">
-                  <table id="grayInstanceTable" >
+                    <div style="width: 100%;height: 300px">
+                    <table id="grayInstanceTable" >
                   </table>
+                    </div>
                   <div class="record">
                      日志
 
                   </div>
+
                 </div>
 
                 <div style="display:none" class="widget-body" style="background-color: #fff;">
@@ -287,27 +294,27 @@
                                 <ul class="gray_ul">
                                     <li>
                                         <label for="">项目名称:</label>
-                                        <span>&nbsp&nbsp贵州移动DEVOPS</span>
+                                        <span id="projectNames"></span>
                                     </li>
                                     <li>
                                         <label for="">项目编号:</label>
-                                        <span>&nbsp&nbsp贵州移动DEVOPS</span>
+                                        <span id="projectCode"></span>
                                     </li>
                                     <li>
                                         <label for="">运行版本:</label>
-                                        <span>&nbsp&nbsp贵州移动DEVOPS</span>
+                                        <span id="version"></span>
                                     </li>
                                     <li>
                                         <label for="">镜像名称:</label>
-                                        <span>&nbsp&nbsp贵州移动DEVOPS</span>
+                                        <span id="imageName"></span>
                                     </li>
                                     <li>
                                         <label for="">已运行时间:</label>
-                                        <span>&nbsp&nbsp贵州移动DEVOPS</span>
+                                        <span id="runTime"></span>
                                     </li>
                                     <li>
                                         <label for="">访问地址:</label>
-                                        <span>&nbsp&nbsp贵州移动DEVOPS</span>
+                                        <span id="address"></span>
                                     </li>
                                 </ul>
 
@@ -522,68 +529,17 @@
     var projectName;//项目名
     var projectCode;//项目编码
     var instance;//启动实例数
-    $("#substract").click(function(){
-        if($("#instance_number").val()==1){
-            $("#instance_number").val(1);
-        }else{
-            $("#instance_number").val(parseInt($("#instance_number").val())-1)
-        }
-    })
-    $("#plus").click(function(){
-        $("#instance_number").val(parseInt($("#instance_number").val())+1)
-    })
-    function resize() {
-        $('#camkmpdeploy').datagrid({
-            url: '{{projcfg.appurl}}/api/project/operation/grayenvironmentmanage/deploy/info',
-            method: 'get',
-            queryParams: {},
-            rownumbers: false,
-            striped: true,
-            fitColumns: true,
-            fit: true,
-            border: true,
-            singleSelect: true,
-            selectOnCheck: false,
-            columns: [[
-                { "field": 'service_id', checkbox: true },
-                { "field": "service_tag", "title": "名称", "width": 50, align: "center" },
-                { "field": "image_id", "title": "CPU", "width": 40, align: "center" },
-                { "field": "container_id", "title": "硬盘", "width": 50, align: "center" },
-                {
-                    "field": "memorytool", "title": "内存", "width": 20, align: "center", formatter: function () {
-                        return 100
-                    }
-                },
-                {
-                    "field": "status", "title": "状态", "width": 25, align: "center",
-                    "formatter": function (value, rowData, rowIndex) {
-                        return '运行中';
-                    }
-                },
-                { "field": "remark", "title": "备注", "width": 25, align: "center" },
-                {
-                    "field": "oper", "title": "操作", "width": 40, align: "center",
-                    "formatter": function (value, rowData, rowIndex) {
-                        return "<span class=\"label label-info\" style='height:26px;line-height:16px;font-weight:600;margin-top: 0.5rem;margin-left: 0.5rem;cursor: pointer;' onclick='hm_list(\"" + rowData.master_id + "\",\"" + rowData.master_ip + "\")'>主机管理</span><span class=\"label label-success\" style='height:26px;line-height:16px;font-weight:600;margin-top: 0.5rem;margin-left: 0.5rem;cursor: pointer;' onclick='colonymanage(\"" + rowData.id + "\")'>集群概览</span>";
-                    }
-                }
-            ]],
-            onLoadError: function () {
-                msgError('加载数据出现时发生错误,请稍候重试...');
-            },
-            pagination: true,
-            loadMsg: '正在加载...'
-        });
-    }
-    function show_grafana(container_id) {
-        var html = "<iframe src='http://192.168.9.69:3000/dashboard/db/dockerdan-ge-rong-qi-jian-kong?orgId=1&var-host=mesos-node2_192.168.9.67&var-container_name=mesos-97627646-54be-4777-9223-faecde8f8cdf-S6.11d0ac3c-3b5a-4e07-b342-b5f341dd8502' width=\"100%\" height=\"900px\" frameborder=\"0\"></iframe>\n";
-        $("#grafana_show").html(html)
-    }
+    var length;//数据长度
+    var projectId;//marathon部署项目的id
     window.onload = function () {
-        gitlabProjectId=GetQueryString("gitlabProjectId");
-        projectName=GetQueryString("projectName");
-        projectCode=GetQueryString("projectCode");
-        $("#projectName").html(projectName);
+        //页面一加载就去更新灰度部署表
+        $.ajax({
+            url:'{{projcfg.appurl}}/api/project/operation/grayenvironmentmanage/refreshGrayDeploy',
+            type:'get',
+            success:function(data){
+                console.log(data);
+            }
+        })
         tab("tab");
         function tab(id) {
             var obj = document.getElementById(id);
@@ -609,7 +565,13 @@
             }
 
         }
-        //页面一加载就发送一个ajax,判断是否为第一次部署灰度，控制页面显示内容
+    }
+    $(document).ready(function (){
+        gitlabProjectId=GetQueryString("gitlabProjectId");
+        projectName=GetQueryString("projectName");
+        projectCode=GetQueryString("projectCode");
+        $("#projectName").html(projectName);
+        //页面一加载就发送一个ajax,判断是否为第一次部署灰度，控制页面显示内容与发送请求
         $.ajax({
             url:'{{projcfg.appurl}}/api/project/operation/grayenvironmentmanage/deploy/info',
             type:'get',
@@ -617,6 +579,7 @@
                 gitlabProjectId:gitlabProjectId
             },
             success:function(data) {
+                length=data.data.length;//长度为0表示第一次部署，新建灰度，否则更新灰度
                 $.ajax({
                     url: '{{projcfg.appurl}}/api/project/dpm/project/develop/pm/verList',
                     type: 'get',
@@ -685,6 +648,7 @@
                     $("#gray_run_time").html(toHourMinute(data.runtime));
                     $("#gray_req_ip").html(data.address);
                     $("#new_gray_address").html(data.address);
+                    projectId=data.projectId;
                 }else {
                     $("#formal_button").attr("disabled",true);
                     $("#formal_button").removeClass("btn-zhengshi-fabu");
@@ -697,6 +661,63 @@
                 }
             }
         })
+    })
+    $("#substract").click(function(){
+        if($("#instance_number").val()==1){
+            $("#instance_number").val(1);
+        }else{
+            $("#instance_number").val(parseInt($("#instance_number").val())-1)
+        }
+    })
+    $("#plus").click(function(){
+        $("#instance_number").val(parseInt($("#instance_number").val())+1)
+    })
+    function resize() {
+        $('#camkmpdeploy').datagrid({
+            url: '{{projcfg.appurl}}/api/project/operation/grayenvironmentmanage/deploy/info',
+            method: 'get',
+            queryParams: {},
+            rownumbers: false,
+            striped: true,
+            fitColumns: true,
+            fit: true,
+            border: true,
+            singleSelect: true,
+            selectOnCheck: false,
+            columns: [[
+                { "field": 'service_id', checkbox: true },
+                { "field": "service_tag", "title": "名称", "width": 50, align: "center" },
+                { "field": "image_id", "title": "CPU", "width": 40, align: "center" },
+                { "field": "container_id", "title": "硬盘", "width": 50, align: "center" },
+                {
+                    "field": "memorytool", "title": "内存", "width": 20, align: "center", formatter: function () {
+                        return 100
+                    }
+                },
+                {
+                    "field": "status", "title": "状态", "width": 25, align: "center",
+                    "formatter": function (value, rowData, rowIndex) {
+                        return '运行中';
+                    }
+                },
+                { "field": "remark", "title": "备注", "width": 25, align: "center" },
+                {
+                    "field": "oper", "title": "操作", "width": 40, align: "center",
+                    "formatter": function (value, rowData, rowIndex) {
+                        return "<span class=\"label label-info\" style='height:26px;line-height:16px;font-weight:600;margin-top: 0.5rem;margin-left: 0.5rem;cursor: pointer;' onclick='hm_list(\"" + rowData.master_id + "\",\"" + rowData.master_ip + "\")'>主机管理</span><span class=\"label label-success\" style='height:26px;line-height:16px;font-weight:600;margin-top: 0.5rem;margin-left: 0.5rem;cursor: pointer;' onclick='colonymanage(\"" + rowData.id + "\")'>集群概览</span>";
+                    }
+                }
+            ]],
+            onLoadError: function () {
+                msgError('加载数据出现时发生错误,请稍候重试...');
+            },
+            pagination: true,
+            loadMsg: '正在加载...'
+        });
+    }
+    function show_grafana(container_id) {
+        var html = "<iframe src='http://192.168.9.69:3000/dashboard/db/dockerdan-ge-rong-qi-jian-kong?orgId=1&var-host=mesos-node2_192.168.9.67&var-container_name=mesos-97627646-54be-4777-9223-faecde8f8cdf-S6.11d0ac3c-3b5a-4e07-b342-b5f341dd8502' width=\"100%\" height=\"900px\" frameborder=\"0\"></iframe>\n";
+        $("#grafana_show").html(html)
     }
     //获取url参数
     function GetQueryString(name)
@@ -728,12 +749,14 @@
         $('#gray_publish').show();
         $('#gray_publish').mydialog({
             title: "灰度版本更新",
-            width: 1000,
+            width: 1200,
             height: 800,
             top: 20,
             modal: true,
 
         });
+        instance=$("#instance_number").val();
+        $("#new_gray_num").html(instance);
     };
     // 将分钟数量转换为小时和分钟字符串
     function toHourMinute(minutes){
@@ -847,21 +870,147 @@
         }
         $("#gray_body>div.active").eq(0).removeClass("active")
         $("#gray_body>div:not(.active)").eq(index + 1).addClass("active");
-        instance=$("#instance_number").val();
         var imageName=$("#new_gray_image").html();
-        $.ajax({
-            url: '{{projcfg.appurl}}/api/project/operation/grayenvironmentmanage/start',
-            type:'get',
-            data:{
-                "instance":instance,//启动实例数
-                "imageName":imageName,//启动镜像名称
-                "projectCode":projectCode//项目编码
-            },
-            success:function(data){
-                console.log(data);
-                $("#grayInstanceTable")
-            }
-        })
+        if(length==0) {
+            $.ajax({
+                url: '{{projcfg.appurl}}/api/project/operation/grayenvironmentmanage/start',
+                type: 'get',
+                data: {
+                    "instance": instance,//启动实例数
+                    "imageName": imageName,//启动镜像名称
+                    "projectCode": projectCode//项目编码
+                },
+                success: function (data) {
+                    $.ajax({
+                        url:'{{projcfg.appurl}}/api/project/operation/grayenvironmentmanage/refreshGrayDeploy',
+                        type:'get',
+                    })
+                    //更新成功以后去显示列表
+                    $('#grayInstanceTable').datagrid({
+                        url:'{{projcfg.appurl}}/api/project/operation/grayenvironmentmanage/getGrayDeploy',
+                        method:'get',
+                        rownumbers:false,
+                        striped:true,
+                        fitColumns:true,
+                        queryParams: {'projectId': projectId},
+                        fit:true,
+                        border:true,
+                        singleSelect:true,
+                        selectOnCheck:false,
+                        columns:[[
+                            {"field":'id',checkbox:true},
+                            {"field": "instanceId","title":"容器名称","width":100,align:"center"},
+                            {"field": "projectName","title":"所属项目","width":100,align:"center"},
+                            {"field": "hostIp","title":"运行环境","width":100,align:"center"},
+                            {"field": "state","title":"状态","width":50,align:"center",
+                                "formatter":function (value, rowData,rowIndex) {
+                                    if(value=='TASK_RUNNING')
+                                        return '运行中';
+                                    else
+                                        return '故障';
+                                }},
+                            {"field": "version","title":"所属镜像","width":200,align:"center"},
+                            {"field": "health","title":"健康检查","width":50,align:"center",
+                                "formatter":function (value, rowData,rowIndex) {
+                                    if(rowData.state=='TASK_RUNNING')
+                                        return '<span class="glyphicon glyphicon-ok"></span>';
+                                    else
+                                        return '<span class="glyphicon glyphicon-remove"></span>';
+                                }},
+                            {"field": "caozuo","title":"操作","width":50,align:"center",
+                                "formatter":function (value, rowData,rowIndex) {
+                                    return "<span  style='height:26px;line-height:16px;margin-top: 0.5rem;margin-left: 0.5rem;cursor: pointer;' onclick=''>详情</span>   | <span  style='height:26px;line-height:16px;margin-top: 0.5rem;margin-left: 0.5rem;cursor: pointer;' onclick=''>日志</span>";
+                                }},
+                        ]],
+                        onLoadError:function() {
+                            msgError('加载数据出现时发生错误,请稍候重试...');
+                        },
+
+                        pagination:true,
+                        loadMsg:'正在加载...'
+                    });
+                }
+            })
+        }else{
+            $.ajax({
+                url: '{{projcfg.appurl}}/api/project/operation/grayenvironmentmanage/update',
+                type: 'get',
+                data: {
+                    "instance": instance,//启动实例数
+                    "imageName": imageName,//启动镜像名称
+                    "projectCode": projectCode//项目编码
+                },
+                success: function (data) {
+                    //更新成功过后去更新灰度部署表和实例表
+                    $.ajax({
+                        url:'{{projcfg.appurl}}/api/project/operation/grayenvironmentmanage/refreshGrayDeploy',
+                        type:'get',
+                    })
+                    //更新成功以后去显示列表
+                    $('#grayInstanceTable').datagrid({
+                        url:'{{projcfg.appurl}}/api/project/operation/grayenvironmentmanage/getGrayDeploy',
+                        method:'get',
+                        rownumbers:false,
+                        striped:true,
+                        fitColumns:true,
+                        queryParams: {'projectId': projectId},
+                        fit:true,
+                        border:true,
+                        singleSelect:true,
+                        selectOnCheck:false,
+                        columns:[[
+                            {"field":'id',checkbox:true},
+                            {"field": "projectId","title":"容器名称","width":100,align:"center"},
+                            {"field": "projectName","title":"所属项目","width":100,align:"center"},
+                            {"field": "hostIp","title":"运行环境","width":100,align:"center"},
+                            {"field": "state","title":"状态","width":50,align:"center",
+                                "formatter":function (value, rowData,rowIndex) {
+                                    if(value=='TASK_RUNNING')
+                                    return '运行中';
+                                    else
+                                        return '故障';
+                            }},
+                            {"field": "version","title":"所属镜像","width":200,align:"center"},
+                            {"field": "health","title":"健康检查","width":50,align:"center",
+                                "formatter":function (value, rowData,rowIndex) {
+                                if(rowData.state=='TASK_RUNNING')
+                                    return '<span class="glyphicon glyphicon-ok"></span>';
+                                else
+                                    return '<span class="glyphicon glyphicon-remove"></span>';
+                            }},
+                            {"field": "caozuo","title":"操作","width":50,align:"center",
+                                "formatter":function (value, rowData,rowIndex) {
+                                    return "<span  style='height:26px;line-height:16px;margin-top: 0.5rem;margin-left: 0.5rem;cursor: pointer;' onclick=''>详情</span>   | <span  style='height:26px;line-height:16px;margin-top: 0.5rem;margin-left: 0.5rem;cursor: pointer;' onclick=''>日志</span>";
+                            }},
+                        ]],
+                        onLoadError:function() {
+                            msgError('加载数据出现时发生错误,请稍候重试...');
+                        },
+                        onLoadSuccess:function () {
+                            $.ajax({
+                                url:'{{projcfg.appurl}}/api/project/operation/grayenvironmentmanage/deploy/info',
+                                type:'get',
+                                data:{
+                                    gitlabProjectId:gitlabProjectId
+                                },
+                                success:function(data) {
+                                    data=data.data[0];
+                                    $("#projectNames").html(data.projectName);
+                                    $("#projectCode").html(data.projectCode);
+                                    $("#version").html(data.gray_version);
+                                    $("#imageName").html(data.version);
+                                    $("#runTime").html(toHourMinute(data.runtime));
+                                    $("#address").html(data.address);
+                                }
+                            })
+                        },
+                        pagination:true,
+                        loadMsg:'正在加载...'
+                    });
+                }
+            })
+        }
+
     }
     function prod_next() {
         $("#prod_step>div:not(.active)").eq(0).addClass("active");
@@ -876,5 +1025,12 @@
         }
         $("#prod_body>div.active").eq(0).removeClass("active")
         $("#prod_body>div:not(.active)").eq(index + 1).addClass("active")
+    }
+
+    setInterval(function(){
+        reloadTable();
+    },5000);
+    function reloadTable(){
+        $("#grayInstanceTable").datagrid('reload');
     }
 </script>

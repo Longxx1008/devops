@@ -440,7 +440,7 @@
             //row
             var address=rowdata[0].projectCode;
             console.info(rowdata);
-            window.location.href = "{{projcfg.appurl}}/grayenvironmentm";//?DeployDetail_id=
+            window.location.href = "{{projcfg.appurl}}/grayenvironmentm?gitlabProjectId="+rowdata[0].gitlabProjectId+"&projectName="+rowdata[0].projectName+"&projectCode="+rowdata[0].projectCode;//?DeployDetail_id=
         }
     }
     function doDeploy(value) {
