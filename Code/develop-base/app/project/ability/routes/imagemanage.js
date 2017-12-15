@@ -53,6 +53,7 @@ router.route('/develop/im/add').post(function(req,res) {
     var picture = '';
     var appPicture='';
     var simpleIntroduction = '';
+    var detailIntroduction = '';
     var catagory = '';
     var updateBy = req.session.current_user.login_account;
 
@@ -67,13 +68,13 @@ router.route('/develop/im/add').post(function(req,res) {
     var buf = "";
     var bufs="";
     var sqlUpdatePicture = "update pass_develop_image_info set imageResource = ?,imageName = ?,channels = ?,pictureName=?,pictureType = ?,picture=?,appPicture=?,pictureNames=?," +
-        "simpleIntroduction=?,catagory=?,updateBy=?,updateDate=now() where imageCode = ?";
-    var sqlUpdate = 'update pass_develop_image_info set imageResource = ?,imageName = ?,channels = ?,simpleIntroduction = ?,catagory=?,updateBy=?' +
+        "simpleIntroduction=?,detailIntroduction=?,catagory=?,updateBy=?,updateDate=now() where imageCode = ?";
+    var sqlUpdate = 'update pass_develop_image_info set imageResource = ?,imageName = ?,channels = ?,simpleIntroduction = ?,detailIntroduction=?,catagory=?,updateBy=?' +
         ',updateDate = now() where imageCode = ?';
-    var sqlUpateAppPicture='update pass_develop_image_info set appPicture=?,pictureNames=?,imageResource = ?,imageName = ?,channels = ?,simpleIntroduction = ?,catagory=?,updateBy=?' +
+    var sqlUpateAppPicture='update pass_develop_image_info set appPicture=?,pictureNames=?,imageResource = ?,imageName = ?,channels = ?,simpleIntroduction = ?,detailIntroduction=?,catagory=?,updateBy=?' +
         ',updateDate = now() where imageCode = ?';
     var sqlUpdatelogoPicture="update pass_develop_image_info set imageResource = ?,imageName = ?,channels = ?,pictureName=?,pictureType = ?,picture=?," +
-        "simpleIntroduction=?,catagory=?,updateBy=?,updateDate=now() where imageCode = ?";
+        "simpleIntroduction=?,detailIntroduction=?,catagory=?,updateBy=?,updateDate=now() where imageCode = ?";
     form.parse(req, function (error, fields, files) {
         if (error) {
             return console.log(error);
@@ -82,9 +83,9 @@ router.route('/develop/im/add').post(function(req,res) {
             pictureType = files.picture.type;
             path = files.picture.path;
             picture = fs.readFileSync(path);
-            pictureNames=files.appPicture.name;
-            paths = files.appPicture.path;
-            appPicture=fs.readFileSync(paths);
+            // pictureNames=files.appPicture.name;
+            // paths = files.appPicture.path;
+            // appPicture=fs.readFileSync(paths);
             buf = new Buffer(picture);
             bufs=new Buffer(appPicture);
             picture = buf.toString("base64");
@@ -96,6 +97,7 @@ router.route('/develop/im/add').post(function(req,res) {
             imageName = fields.imageName;
             channels = fields.channels;
             simpleIntroduction = fields.simpleIntroduction;
+            detailIntroduction = fields.detailIntroduction;
             catagory = fields.catagory;
 
             if (imageCode) {
@@ -110,6 +112,7 @@ router.route('/develop/im/add').post(function(req,res) {
                     data_update_pic.push(appPicture);
                     data_update_pic.push(pictureNames);
                     data_update_pic.push(simpleIntroduction);
+                    data_update_pic.push(detailIntroduction);
                     data_update_pic.push(catagory);
                     data_update_pic.push(updateBy);
                     data_update_pic.push(imageCode);
@@ -123,6 +126,7 @@ router.route('/develop/im/add').post(function(req,res) {
                     data_update_apppic.push(imageName);
                     data_update_apppic.push(channels);
                     data_update_apppic.push(simpleIntroduction);
+                    data_update_apppic.push(detailIntroduction);
                     data_update_apppic.push(catagory);
                     data_update_apppic.push(updateBy);
                     data_update_apppic.push(imageCode);
@@ -137,6 +141,7 @@ router.route('/develop/im/add').post(function(req,res) {
                     data_update_logopic.push(pictureType);
                     data_update_logopic.push(picture);
                     data_update_logopic.push(simpleIntroduction);
+                    data_update_logopic.push(detailIntroduction);
                     data_update_logopic.push(catagory);
                     data_update_logopic.push(updateBy);
                     data_update_logopic.push(imageCode);
@@ -149,6 +154,7 @@ router.route('/develop/im/add').post(function(req,res) {
                     data_update.push(imageName);
                     data_update.push(channels);
                     data_update.push(simpleIntroduction);
+                    data_update.push(detailIntroduction);
                     data_update.push(catagory);
                     data_update.push(updateBy);
                     data_update.push(imageCode);
@@ -168,6 +174,7 @@ router.route('/develop/im/add').post(function(req,res) {
                 data_add.push(picture);
                 data_add.push(appPicture);
                 data_add.push(simpleIntroduction);
+                data_add.push(detailIntroduction);
                 data_add.push(catagory);
                 imageService.add(data_add, data_map, function (result) {
                     utils.respJsonData(res, result);

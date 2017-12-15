@@ -1,4 +1,6 @@
 <!--<script src="{{projcfg.appurl}}/static/js/containerlistingdata.js" type="text/javascript"></script>-->
+<link rel="stylesheet" href="{{projcfg.appurl}}/static/ability/editormd/css/editormd.min.css" />
+
 <style>
     .div-bor{
         position: relative;width: 100%;height: 35px;
@@ -70,10 +72,83 @@
 
 </div>
 
+
 <div id="addimage" class="mydialog"  data-options="iconCls:'icon-save'">
     <div class="row">
         <div class="col-md-12">
+            <div>
+                <form id="imageForm" class="form-horizontal form-bordered" role="form" method="post" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <div class="col-sm-4 col-xs-4">
+                            <label for="imageName" class="col-sm-3 control-label no-padding-right">镜像名称:</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="easyui-validatebox form-control" data-options="required:true" name="imageName" id="imageName" placeholder="请输入镜像名称" style="width:60%">
+                            </div>
+                        </div>
 
+                        <div class="col-sm-4 col-xs-4">
+                            <label for="iamgeResource"  class="col-sm-3 control-label no-padding-right">镜像源:</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="easyui-validatebox form-control" data-options="required:true" name="imageResource" id="imageResource">
+                            </div>
+                        </div>
+
+                        <div class="col-sm-4 col-xs-4">
+                            <label for="channels" class="col-sm-3 control-label no-padding-right">渠道:</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="easyui-validatebox form-control" data-options="required:true" name="channels" id="channels" placeholder="请输入渠道" style="width:60%">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-sm-4 col-xs-4">
+                            <label for="catagory" class="col-sm-3 control-label no-padding-right">镜像类型:</label>
+                            <div class="col-sm-9">
+                                <select id="catagory" name="catagory" class="easyui-combobox easyui-validatebox" data-options="required:true" style="height: 30px;width: 300px;">
+                                    <option value="db">数据库</option>
+                                    <option value="service">服务器</option>
+                                    <option value="sys">系统平台</option>
+                                    <option value="pl">编程语言</option>
+                                    <option value="mq">消息队列</option>
+                                    <option value="tool">运维工具</option>
+                                    <option value="web">WEB框架</option>
+                                    <option value="other">其他</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-4 col-xs-4">
+                            <label for="picture" class="col-sm-3 control-label no-padding-right">图片上传:</label>
+                            <div class="col-sm-9">
+                                <input  type="text" id="picture" name="picture"  style="width:260px;height:25px;" >
+
+                            </div>
+                        </div>
+
+                        <div id="showimg" class="form-group col-sm-4 col-xs-4" hidden="true">
+
+                        </div>
+                    </div>
+
+
+
+                    <div class="form-group" >
+                        <label for="simpleIntroduction" class="col-sm-1 control-label no-padding-right">简介:</label>
+                        <div class="col-sm-11" >
+                            <input  class="easyui-textbox " name="simpleIntroduction" data-options="multiline:true" id="simpleIntroduction"   style="width:100%;height:100px;">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="editormd" class="col-sm-1 control-label no-padding-right">详情:</label>
+                        <div class="col-sm-11" id="editormd" name="editormd" style="margin-left:20px;">
+                            <textarea id="detailIntroduction" name="detailIntroduction" style="display:none;"></textarea>
+                        </div>
+                    </div>
+
+                    <input class="easyui-validatebox form-control" type="hidden" name="imageCode" id="imageCode">
+                </form>
+            </div>
 
         </div>
     </div>
@@ -219,8 +294,8 @@
         });
         $('#'+id).mydialog({
             title:title,
-            width: 650,
-            height: 700,
+            width: '85%',
+            height: 950,
             top:100,
             modal: true,
             myButtons:[
@@ -250,13 +325,13 @@
         var imageCode=rows[0].imageCode;
         $('#addimage').form("clear");
         var modal=$('#addimage');
-        $("#showimg").show().html('<label for="picture" class="col-sm-2 control-label no-padding-right">原图:</label><div class="col-sm-10"><img src="data:'+rows[0].pictureType+";base64 ,"+rows[0].picture+'"  style="height:35px;width:35px"></div>');
-        if(rows[0].pictureNames==null||rows[0].pictureNames==""||rows[0].pictureNames==undefined) {
-            $("#showappimg").show().html('<label for="appPicture" class="col-sm-2 control-label no-padding-right">应用截图:</label><div class="col-sm-10">暂无</div>');
-        }else{
-
-            $("#showappimg").show().html('<label for="appPicture" class="col-sm-2 control-label no-padding-right">应用截图:</label><a class="col-sm-10">' + rows[0].pictureNames + '</a>');
-        }
+        $("#showimg").show().html('<label for="picture" class="col-sm-3 control-label no-padding-right">原图:</label><div class="col-sm-9"><img src="data:'+rows[0].pictureType+";base64 ,"+rows[0].picture+'"  style="height:35px;width:35px"></div>');
+//        if(rows[0].pictureNames==null||rows[0].pictureNames==""||rows[0].pictureNames==undefined) {
+//            $("#showappimg").show().html('<label for="appPicture" class="col-sm-3 control-label no-padding-right">应用截图:</label><div class="col-sm-9">暂无</div>');
+//        }else{
+//
+//            $("#showappimg").show().html('<label for="appPicture" class="col-sm-3 control-label no-padding-right">应用截图:</label><a class="col-sm-9">' + rows[0].pictureNames + '</a>');
+//        }
         delete rows[0].picture;
         delete rows[0].pictureName;
         delete rows[0].pictureType;
@@ -266,6 +341,9 @@
 //        var ue1=UE.getEditor('simpleIntroduction');
         if(rows[0].simpleIntroduction){
             $("#simpleIntroduction").attr("value",rows[0].simpleIntroduction);
+        }
+        if(rows[0].detailIntroduction){
+            $("#detailIntroduction").attr("value",rows[0].detailIntroduction);
         }
 
         modal.form('load',rows[0]);
@@ -354,4 +432,20 @@
     }
 
 
+</script>
+
+
+<!--<script src="{{projcfg.appurl}}/static/ability/editormd/js/jquery.min.js"></script>-->
+<script src="{{projcfg.appurl}}/static/ability/editormd/editormd.min.js"></script>
+<script type="text/javascript">
+    $(function() {
+        var editor = editormd("editormd", {
+            // editormd  lib路径配置
+            path : "{{projcfg.appurl}}/static/ability/editormd/lib/", // Autoload modules mode, codemirror, marked... dependents libs path
+            width: "95%",
+            height: 450,
+            imageUpload: true
+        });
+
+    });
 </script>
