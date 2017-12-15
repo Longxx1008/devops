@@ -217,18 +217,6 @@ exports.getProjectSituation=function(){
     });
 }
 
-
-exports.getFormalDeploy=function(page, rows, conditionMap,cb) {
-    return new Promise(function (resolve, reject) {
-        var sql = "select a.id,a.projectId,a.version,a.healthStatus,a.gitlabProjectId,b.projectName,b.projectCode,c.hostIp,c.state from pass_develop_project_gray_deploy a,pass_develop_project_resources_copy2 b,pass_develop_project_deploy_instance c where a.gitlabProjectId=b.gitlabProjectId and a.projectId=c.projectId";
-        var orderBy =  " order by id desc";
-        var conditions = {};
-        console.log("________________________________________________________________")
-        utils.pagingQuery4Eui_mysql(sql, orderBy, page, rows, conditions, cb)
-    })
-}
-
-
 //两个操作，分别更新或插入灰度表和灰度实例表
 // 更新或插入灰度表，判断项目是否存在灰度部署（更新时与resource表作关联）
 //更新或插入灰度实例表，与灰度表做关联，关联字段为projectId

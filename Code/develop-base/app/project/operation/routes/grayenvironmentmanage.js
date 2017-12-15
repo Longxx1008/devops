@@ -72,14 +72,4 @@ router.route("/environment/project").get(function(req,res){
        console.log(res+'=============='+rs);
    })
 })
-/***********************运维中心-正式环境发布-获取项目情况***************************************/
-
-router.route("/formaldeploy/info").get(function(req,res){
-    var page=req.query.page;
-    var length=req.query.rows;
-    var conditionMap = {};
-    greyenvironmtneService.getFormalDeploy(page, length, conditionMap,function(rs){
-        utils.respJsonData(res,rs)
-    })
-})
 module.exports = router;
