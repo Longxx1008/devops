@@ -361,27 +361,27 @@
                                 <ul class="gray_ul">
                                     <li>
                                         <label for="">项目名称:</label>
-                                        <span id="gray_pro"></span>
+                                        <span id="gray_prod"></span>
                                     </li>
                                     <li>
                                         <label for="">项目编号:</label>
-                                        <span id="gray_num">&nbsp&nbsp贵州移动DEVOPS</span>
+                                        <span id="gray_nums"></span>
                                     </li>
                                     <li>
                                         <label for="">运行版本:</label>
-                                        <span id="gray_dev">&nbsp&nbsp贵州移动DEVOPS</span>
+                                        <span id="gray_devs"></span>
                                     </li>
                                     <li>
                                         <label for="">镜像名称:</label>
-                                        <span id="gray_img">&nbsp&nbsp贵州移动DEVOPS</span>
+                                        <span id="gray_imgs"></span>
                                     </li>
                                     <li>
                                         <label for="">已运行时间:</label>
-                                        <span id="gray_run_time">&nbsp&nbsp贵州移动DEVOPS</span>
+                                        <span id="gray_run_times"></span>
                                     </li>
                                     <li>
                                         <label for="">访问地址:</label>
-                                        <span id="gray_req_ip">&nbsp&nbsp贵州移动DEVOPS</span>
+                                        <span id="gray_req_ips"></span>
                                     </li>
                                 </ul>
 
@@ -398,27 +398,27 @@
                                 <ul class="gray_ul">
                                     <li>
                                         <label for="">项目名称:</label>
-                                        <span>&nbsp&nbsp贵州移动DEVOPS</span>
+                                        <span id="new_projectName"></span>
                                     </li>
                                     <li>
                                         <label for="">项目编号:</label>
-                                        <span>&nbsp&nbsp贵州移动DEVOPS</span>
+                                        <span id="new_projectCode"></span>
                                     </li>
                                     <li>
                                         <label for="">运行版本:</label>
-                                        <span>&nbsp&nbsp贵州移动DEVOPS</span>
+                                        <span id="new_version"></span>
                                     </li>
                                     <li>
                                         <label for="">镜像名称:</label>
-                                        <span>&nbsp&nbsp贵州移动DEVOPS</span>
+                                        <span id="new_imageName"></span>
                                     </li>
                                     <li>
-                                        <label for="">已运行时间:</label>
-                                        <span>&nbsp&nbsp贵州移动DEVOPS</span>
+                                        <label for="">运行实例:</label>
+                                        <span id="new_instance"></span>
                                     </li>
                                     <li>
                                         <label for="">访问地址:</label>
-                                        <span>&nbsp&nbsp贵州移动DEVOPS</span>
+                                        <span id="new_address"></span>
                                     </li>
                                 </ul>
 
@@ -743,7 +743,7 @@
             }
             $(this).removeClass("active")
         })
-        $("#gray_next").show()
+        $("#gray_next").show();
         // 打开弹窗
 
         $('#gray_publish').show();
@@ -783,6 +783,28 @@
         return arr;
     }
     function prod_publish() {
+        $.ajax({
+            url: '{{projcfg.appurl}}/api/project/operation/grayenvironmentmanage/deploy/info',
+            type: 'get',
+            data: {
+                gitlabProjectId: gitlabProjectId
+            },
+            success: function (data) {
+                data = data.data[0];
+                $("#gray_prod").html(data.projectName);
+                $("#gray_nums").html(data.projectCode);
+                $("#gray_devs").html(data.gray_version);
+                $("#gray_imgs").html(data.version);
+                $("#gray_run_times").html(toHourMinute(data.runtime));
+                $("#gray_req_ips").html(data.address);
+                $("#new_projectName").html(data.projectName);
+                $("#new_projectCode").html(data.projectCode);
+                $("#new_version").html(data.gray_version);
+                $("#new_imageName").html(data.version);
+                $("#new_instance").html($("#instance_number").val());
+                $("#new_address").html(data.address);
+            }
+        })
         // 重置步骤
         $("#prod_step>div").each(function (index) {
             if (index == 0) {
@@ -870,6 +892,7 @@
         }
         $("#gray_body>div.active").eq(0).removeClass("active")
         $("#gray_body>div:not(.active)").eq(index + 1).addClass("active");
+
         var imageName=$("#new_gray_image").html();
         if(length==0) {
             $.ajax({
@@ -925,7 +948,24 @@
                         onLoadError:function() {
                             msgError('加载数据出现时发生错误,请稍候重试...');
                         },
-
+                        onLoadSuccess:function () {
+                            $.ajax({
+                                url:'{{projcfg.appurl}}/api/project/operation/grayenvironmentmanage/deploy/info',
+                                type:'get',
+                                data:{
+                                    gitlabProjectId:gitlabProjectId
+                                },
+                                success:function(data) {
+                                    data=data.data[0];
+                                    $("#projectNames").html(data.projectName);
+                                    $("#projectCode").html(data.projectCode);
+                                    $("#version").html(data.gray_version);
+                                    $("#imageName").html(data.version);
+                                    $("#runTime").html(toHourMinute(data.runtime));
+                                    $("#address").html(data.address);
+                                }
+                            })
+                        },
                         pagination:true,
                         loadMsg:'正在加载...'
                     });

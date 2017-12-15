@@ -281,7 +281,7 @@ exports.refreshGrayDeploy=function () {
                             var url_detail=url+projectId[i];//获取marathon部署项目详细信息
                             ng.get(url_detail,function (data) {
                                 data = eval('(' + data + ')');
-                                if(ins==data.app.tasks.length){//实例数相同就更新字段
+                                if(parseInt(ins)==parseInt(data.app.tasks.length)){//实例数相同就更新字段
                                     for(let j in data.app.tasks) {
                                         var sql = "update pass_develop_project_gray_deploy_instance set state='"+data.app.tasks[j].state+"',hostIp='"+data.app.tasks[j].host+"' where instanceId='" + data.app.tasks[j].id + "'";
                                         mysqlPool.query(sql, [], function (err, result) {
