@@ -464,8 +464,10 @@
 
             <ul class="nav navbar-nav navbar-right">
 
-                <li style="margin-right:15px ;display: none;"><a href="#"> <span id="loginIdFirst" >{{currentUser.user_name}} </span> </a></li>
-                <li style=""><a href="#"   onclick="loopToLoginPage()"><span class="glyphicon glyphicon-user" ></span> <span id="loginId"> </span> </a></li>
+                <li style="margin-right:15px ;display: none;"><a href=""> <span id="loginIdFirst" >{{currentUser.user_name}} </span> </a></li>
+                <li id="loginHidden" style="display: none;"><a href="#"   onclick="loopToLoginPage()"><span class="glyphicon glyphicon-user" ></span> <span id="loginId"> </span> </a></li>
+
+                <li id ="userHidden" style="display: none; " ><a href="#"><span  style="margin-right:5px" class="glyphicon glyphicon-user" ></span><span id="userId"></span> </a></li>
                 <li id ="controlHidden" style="display: none; " ><a href="#" onclick="loopToControlPage()"><span  style="margin-right:5px" class="glyphicon glyphicon-log-in" ></span><span id="controlId">控制台</span> </a></li>
                 <li id ="logoutHidden" style="margin-right:15px;display: none; " ><a href="#" onclick="logoutPage()"><span  style="margin-right:5px" class="glyphicon glyphicon-off" ></span><span id="logoutId">注销</span> </a></li>
             </ul>
@@ -756,12 +758,14 @@
     //通过Session值是否为空判断是否已经登录，如果已经登录，则显示用户名、控制台等信息，如果未登录，则显示登录。
     $( function () {
       if(userName.length>1){
-          $("#loginId").text(userName);
+          $("#userId").text(userName);
+          $("#userHidden:hidden").show();
           $("#controlHidden:hidden").show();
           $("#logoutHidden:hidden").show();
 
       } else {
           $('#loginId').text("登录");
+          $("#loginHidden:hidden").show();
           $('#loginId').css("margin-right", "25px");
 
       }
