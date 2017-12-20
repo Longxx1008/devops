@@ -34,6 +34,16 @@ router.route("/start").get(function(req,res){
         utils.respJsonData(res,rs)
     })
 });
+//启动正式部署
+router.route("/startFormal").get(function(req,res){
+    var instance=req.query.instance;
+    var imageName=req.query.imageName;
+    var projectCode=req.query.projectCode;
+    console.log("ssss"+instance+imageName+projectCode);
+    greyenvironmtneService.startFormal(instance,imageName,projectCode,function(rs){
+        utils.respJsonData(res,rs)
+    })
+});
 
 //更新灰度部署
 router.route("/update").get(function(req,res){
@@ -45,19 +55,39 @@ router.route("/update").get(function(req,res){
         utils.respJsonData(res,rs)
     })
 });
+
+//更新正式部署
+router.route("/updateFormal").get(function(req,res){
+    var instance=req.query.instance;
+    var imageName=req.query.imageName;
+    var projectCode=req.query.projectCode;
+    console.log("ssss"+instance+imageName+projectCode);
+    greyenvironmtneService.updateFormal(instance,imageName,projectCode,function(rs){
+        utils.respJsonData(res,rs)
+    })
+});
 //更新灰度部署表
 router.route("/refreshGrayDeploy").get(function(req,res){
     greyenvironmtneService.refreshGrayDeploy();
+});
+
+//更新正式部署表
+router.route("/refreshFormalDeploy").get(function(req,res){
+    var projectCode=req.query.projectCode;
+    console.log("projectCodeprojectCodeprojectCodeprojectCodeprojectCode:"+projectCode);
+    greyenvironmtneService.refreshFormalDeploy(projectCode,function(rs){
+        utils.respJsonData(res,rs)
+    })
 });
 
 //读取灰度表和实例表
 router.route("/getGrayDeploy").get(function(req,res){
     var page = req.query.page;
     var length = req.query.rows;
-    var projectId = req.query.projectId;
+    var gitlabProjectId = req.query.gitlabProjectId;
     var conditionMap = {};
-    if(projectId){
-        conditionMap.projectId = projectId;
+    if(gitlabProjectId){
+        conditionMap.gitlabProjectId = gitlabProjectId;
     }
     // 调用分页
     greyenvironmtneService.pageList(page, length, conditionMap,function(result){
@@ -65,11 +95,32 @@ router.route("/getGrayDeploy").get(function(req,res){
     });
 });
 
+//读取正式表和实例表
+router.route("/formaldeploy/info").get(function(req,res){
+    var page = req.query.page;
+    var length = req.query.rows;
+    var gitlabProjectId = req.query.gitlabProjectId;
+    var conditionMap = {};
+    if(gitlabProjectId){
+        conditionMap.gitlabProjectId = gitlabProjectId;
+    }
+    // 调用分页
+    greyenvironmtneService.pageListFormal(page, length, conditionMap,function(result){
+        utils.respJsonData(res, result);
+    });
+});
 /***************运维中心-环境发布-获取项目健康情况*****************/
 router.route("/environment/project").get(function(req,res){
    greyenvironmtneService.getProjectSituation().then(function(rs){
        utils.respJsonData(res,rs);
        console.log(res+'==============='+rs);
    })
+})
+//获取正式部署情况
+router.route("/getFormalDeploy").get(function(req,res){
+    var gitlabProjectId=req.query.gitlabProjectId;
+    greyenvironmtneService.getFormalDeploy(gitlabProjectId,function(rs){
+        utils.respJsonData(res,rs)
+    })
 })
 module.exports = router;

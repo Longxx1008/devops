@@ -123,7 +123,7 @@
                                                 </div>
                                                 <div class="rongqi-box clearfix">
                                                     <div class="pull-left">
-                                                        <label>运行实例：</label>
+                                                        <label>灰度运行实例：</label>
                                                         <button class="btn-fuhao" type="button" id="substract">-</button>
                                                         <input id="instance_number" class="rongqi-shuzhi" type="text" value="1">
                                                         <button class="btn-fuhao" type="button" id="plus">+</button>
@@ -412,10 +412,10 @@
                                         <label for="">镜像名称:</label>
                                         <span id="new_imageName"></span>
                                     </li>
-                                    <li>
+                                    <!--<li>
                                         <label for="">运行实例:</label>
                                         <span id="new_instance"></span>
-                                    </li>
+                                    </li>-->
                                     <li>
                                         <label for="">访问地址:</label>
                                         <span id="new_address"></span>
@@ -448,12 +448,13 @@
                     </div>
                     <div class="row">
                         <div class="col-md-12 text-right">
+                            <button class="button"style="background-color: greenyellow;color:#fff;" onclick="addInstance()">增加运行实例</button>
                             <button class="button"style="color:#fff;">下一节点部署</button>
                             <button class="button"style="background-color: rgba(204, 51, 0, 1);color:#fff;">全局部署</button>
                             <button class="button"style="background-color: rgba(255, 204, 0, 1);color:#fff;">回滚</button>
                         </div>
                     </div>
-                    <div  style="height:100%;width:960px;">
+                    <div  style="height:300px;width:100%;">
                         <table id="formalEnvironmentData" ></table>
                     </div>
                     <div style="height:300px;width:960px;">
@@ -530,7 +531,8 @@
     var projectCode;//项目编码
     var instance;//启动实例数
     var length;//数据长度
-    var projectId;//marathon部署项目的id
+    var projectId;//marathon灰度部署项目的id
+    var formalInstance=1;//正式启动实例数,默认是一次1个
     window.onload = function () {
         //页面一加载就去更新灰度部署表
         $.ajax({
@@ -753,7 +755,6 @@
             height: 800,
             top: 20,
             modal: true,
-
         });
         instance=$("#instance_number").val();
         $("#new_gray_num").html(instance);
@@ -783,6 +784,7 @@
         return arr;
     }
     function prod_publish() {
+        //获取项目运行相关信息
         $.ajax({
             url: '{{projcfg.appurl}}/api/project/operation/grayenvironmentmanage/deploy/info',
             type: 'get',
@@ -801,7 +803,7 @@
                 $("#new_projectCode").html(data.projectCode);
                 $("#new_version").html(data.gray_version);
                 $("#new_imageName").html(data.version);
-                $("#new_instance").html($("#instance_number").val());
+                /*$("#new_instance").html($("#instance_number").val());*/
                 $("#new_address").html(data.address);
             }
         })
@@ -825,7 +827,7 @@
         $('#prod_publish').show();
         $('#prod_publish').mydialog({
             title: "正式版本更新",
-            width: 1000,
+            width: 1200,
             height: 800,
             top: 20,
             modal: true,
@@ -846,21 +848,16 @@
         $("#gray_body>div.active").eq(0).removeClass("active")
         $("#gray_body>div:not(.active)").eq(index + 1).addClass("active");
 
-        var imageName=$("#new_gray_image").html();
         if(length==0) {
             $.ajax({
                 url: '{{projcfg.appurl}}/api/project/operation/grayenvironmentmanage/start',
                 type: 'get',
                 data: {
-                    "instance": instance,//启动实例数
-                    "imageName": imageName,//启动镜像名称
+                    "instance": $("#instance_number").val(),//启动实例数
+                    "imageName": $("#new_gray_image").html(),//启动镜像名称
                     "projectCode": projectCode//项目编码
                 },
                 success: function (data) {
-                    $.ajax({
-                        url:'{{projcfg.appurl}}/api/project/operation/grayenvironmentmanage/refreshGrayDeploy',
-                        type:'get',
-                    })
                     //更新成功以后去显示列表
                     $('#grayInstanceTable').datagrid({
                         url:'{{projcfg.appurl}}/api/project/operation/grayenvironmentmanage/getGrayDeploy',
@@ -868,7 +865,7 @@
                         rownumbers:false,
                         striped:true,
                         fitColumns:true,
-                        queryParams: {'projectId': projectId},
+                        queryParams: {'gitlabProjectId': gitlabProjectId},
                         fit:true,
                         border:true,
                         singleSelect:true,
@@ -929,16 +926,11 @@
                 url: '{{projcfg.appurl}}/api/project/operation/grayenvironmentmanage/update',
                 type: 'get',
                 data: {
-                    "instance": instance,//启动实例数
-                    "imageName": imageName,//启动镜像名称
+                    "instance": $("#instance_number").val(),//启动实例数
+                    "imageName": $("#new_gray_image").html(),//启动镜像名称
                     "projectCode": projectCode//项目编码
                 },
                 success: function (data) {
-                    //更新成功过后去更新灰度部署表和实例表
-                    $.ajax({
-                        url:'{{projcfg.appurl}}/api/project/operation/grayenvironmentmanage/refreshGrayDeploy',
-                        type:'get',
-                    })
                     //更新成功以后去显示列表
                     $('#grayInstanceTable').datagrid({
                         url:'{{projcfg.appurl}}/api/project/operation/grayenvironmentmanage/getGrayDeploy',
@@ -946,7 +938,7 @@
                         rownumbers:false,
                         striped:true,
                         fitColumns:true,
-                        queryParams: {'projectId': projectId},
+                        queryParams: {'gitlabProjectId': gitlabProjectId},
                         fit:true,
                         border:true,
                         singleSelect:true,
@@ -1017,13 +1009,93 @@
             $("#prod_next").hide();
         }
         $("#prod_body>div.active").eq(0).removeClass("active")
-        $("#prod_body>div:not(.active)").eq(index + 1).addClass("active")
+        $("#prod_body>div:not(.active)").eq(index + 1).addClass("active");
+        //在marathon上创建一个项目
+        $.ajax({
+            url: '{{projcfg.appurl}}/api/project/operation/grayenvironmentmanage/startFormal',
+            type: 'get',
+            data: {
+                "instance": 0,//启动实例数
+                "imageName": $("#new_imageName").html(),//启动镜像名称
+                "projectCode": projectCode//项目编码
+            },
+            success:function (data) {
+                $('#formalEnvironmentData').datagrid({
+
+                    url:'{{projcfg.appurl}}/api/project/operation/grayenvironmentmanage/formaldeploy/info',
+                    method:'get',
+                    rownumbers:false,
+                    striped:true,
+                    fitColumns:true,
+                    queryParams: {'gitlabProjectId': gitlabProjectId},
+                    fit:true,
+                    border:true,
+                    singleSelect:true,
+                    selectOnCheck:false,
+                    columns:[[
+                        {"field":'id',checkbox:true},
+                        {"field": "instanceId","title":"容器名称","width":100,align:"center"},
+                        {"field": "projectName","title":"所属项目","width":100,align:"center"},
+                        {"field": "hostIp","title":"运行环境","width":100,align:"center"},
+                        {"field": "state","title":"状态","width":50,align:"center",
+                            "formatter":function (value, rowData,rowIndex) {
+                                if(value=='TASK_RUNNING')
+                                    return '运行中';
+                                else
+                                    return '故障';
+                            }},
+                        {"field": "version","title":"所属镜像","width":200,align:"center"},
+                        {"field": "health","title":"健康检查","width":50,align:"center",
+                            "formatter":function (value, rowData,rowIndex) {
+                                if(rowData.state=='TASK_RUNNING')
+                                    return '<span class="glyphicon glyphicon-ok"></span>';
+                            else
+                                return '<span class="glyphicon glyphicon-remove"></span>';
+                            }},
+                        {"field": "caozuo","title":"操作","width":50,align:"center",
+                            "formatter":function (value, rowData,rowIndex) {
+                                return "<span  style='height:26px;line-height:16px;margin-top: 0.5rem;margin-left: 0.5rem;cursor: pointer;' onclick=''>详情</span> <span  style='height:26px;line-height:16px;margin-top: 0.5rem;margin-left:0.5rem;cursor: pointer;' onclick=''>日志</span>";
+                            }},
+                    ]],
+                    onLoadError:function() {
+                        msgError('加载数据出现时发生错误,请稍候重试...');
+                    },
+                    pagination:true,
+                    loadMsg:'正在加载...'
+                });
+            }
+        });
     }
 
     setInterval(function(){
         reloadTable();
-    },5000);
+    },10000);
     function reloadTable(){
         $("#grayInstanceTable").datagrid('reload');
     }
+
+    function reloadFormalTable(){
+        $("#formalEnvironmentData").datagrid('reload');
+    }
+    setInterval(function(){
+        reloadFormalTable();
+    },10000);
+   //下一节点部署
+  function addInstance(){
+      $.messager.progress();
+      formalInstance=$('#formalEnvironmentData').datagrid('getData').total;//获取表格总条数
+          $.ajax({
+              url: '{{projcfg.appurl}}/api/project/operation/grayenvironmentmanage/updateFormal',
+              type: 'get',
+              data: {
+                  "instance": parseInt(formalInstance) + 1,//启动实例数
+                  "imageName": $("#new_imageName").html(),//启动镜像名称
+                  "projectCode": projectCode//项目编码
+              },
+              success: function (data) {
+                  $.messager.progress("close");
+
+              }
+          })
+  }
 </script>
