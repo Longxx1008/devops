@@ -4,20 +4,6 @@
             <div class="widget-body">
                 <div id="cc" class="easyui-layout" data-options="fit:true,border:false" style="width: 800px; height:575px;background-color: #fbfbfb;">
                     <div data-options="region:'center',border:false" style="overflow-x:hidden;overflow-y:hidden">
-                        <!--<div id="toolbar" class="row tbRow" style="">
-                            <div class="col-xs-12 col-md-12 text-right" style="padding-right:28px;">
-                                <form id="searchFrom" class="form-inline">
-                                    <div class="form-group">
-                                        <div class="input-group">
-                                            <input type="input" class="form-control" id="projectName" name="projectName" placeholder="项目名称">
-                                            <span class="input-group-btn">
-                                                <button class="btn btn-default" type="button" onclick="doSearch()"><i class="fa fa-search"></i>查询</button>
-                                            </span>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>-->
                         <table id="dataTable">
                         </table>
                     </div>
@@ -101,25 +87,20 @@
                 },
                 {"field": "deployType","title":"部署类型","width":100,align:"center",
                     "formatter":function (value, rowData,rowIndex) {
-                       if(value==1){
-                           return "正式版本"
-                       }
-                       if(value==2){
-                           return "蓝绿版本"
-                       }
-                       if(value==3)
+                        if(rowData.projectId.indexOf("formal")>=0){
+                            return "正式版本"
+                        }else
                            return "灰度版本"
                     }
                 },
                 {"field": "healthStatus","title":"健康状况","width":120,align:"center",
                     "formatter":function(value, rowData, rowIndex){
-                        if(value != 0){
+                        if(value == rowData.instance&&rowData.instance!=0){
                             return "<span class=\"label label-success\"><a href=\"javascript:void(0);\" style=\"padding:3px 3px;color:#fff;\">正常</a></span>"
-                        }else{
-                            if(rowData.instance!=0)
+                        }else if(value != rowData.instance){
                             return "<span class=\"label label-warning\"><a href=\"javascript:void(0);\" style=\"padding:3px 3px;color:#fff;\">不正常</a></span>"
-                            else
-                                return "<span class=\"label label-warning\"><a href=\"javascript:void(0);\" style=\"padding:3px 3px;color:yellow;\">未启动</a></span>"
+                        }else if(rowData.instance==0){
+                            return "<span class=\"label label-warning\"><a href=\"javascript:void(0);\" style=\"padding:3px 3px;color:yellow;\">未启动</a></span>"
                         }
                     }},
                 {"field": "cpu","title":"资源使用","width":150,align:"center",

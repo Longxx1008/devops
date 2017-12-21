@@ -101,16 +101,30 @@ exports.projectProcess = function(cb) {
 }
 
 exports.deployedPageList = function(page, size, conditionMap, cb) {
-  /*  var sql = "select a.*,case  when da.alertNum is NULL then 0 else da.alertNum end alertNum from ( select t1.*,\"" + config.platform.marathonLb + "\" as marathonLB, t2.projectCode,t2.projectName from pass_develop_project_deploy t1,pass_develop_project_resources t2 where t1.projectId = t2.id"+
-        " ) a LEFT JOIN (select appId,count(appId) as alertNum from pass_develop_deploy_alert where status = '1' GROUP BY appId) da ON a.projectCode = da.appId where 1=1 ";*/
-  var sql="select * from pass_develop_project_deploy_copy2 where projectName is not null and id<>3"
+
+    var sql="select * from (SELECT r.projectName,g.* FROM pass_develop_project_gray_deploy g,pass_develop_project_resources_copy2 r WHERE g.gitlabProjectId = r.gitlabProjectId UNION ALL"+
+        " SELECT r.projectName,f.* FROM pass_develop_project_formal_deploy f,pass_develop_project_resources_copy2 r WHERE f.gitlabProjectId = r.gitlabProjectId) g";
   var conditions = [];
     if(conditionMap) {
         if(conditionMap.projectName) {
-            sql += " and (projectName like '%" + conditionMap.projectName + "%')";
+            sql += " and (g.projectName like '%" + conditionMap.projectName + "%')";
         }
     }
-    var orderBy = " order by id desc";
+    var orderBy = " order by g.id desc";
+    utils.pagingQuery4Eui_mysql(sql,orderBy, page, size, conditions, cb);
+};
+
+exports.fdeployedPageList = function(page, size, conditionMap, cb) {
+    /*  var sql = "select a.*,case  when da.alertNum is NULL then 0 else da.alertNum end alertNum from ( select t1.*,\"" + config.platform.marathonLb + "\" as marathonLB, t2.projectCode,t2.projectName from pass_develop_project_deploy t1,pass_develop_project_resources t2 where t1.projectId = t2.id"+
+          " ) a LEFT JOIN (select appId,count(appId) as alertNum from pass_develop_deploy_alert where status = '1' GROUP BY appId) da ON a.projectCode = da.appId where 1=1 ";*/
+    var sql="select r.projectName,g.* from pass_develop_project_formal_deploy g,pass_develop_project_resources_copy2 r where g.gitlabProjectId=r.gitlabProjectId"
+    var conditions = [];
+    if(conditionMap) {
+        if(conditionMap.projectName) {
+            sql += " and (r.projectName like '%" + conditionMap.projectName + "%')";
+        }
+    }
+    var orderBy = " order by r.id desc";
     utils.pagingQuery4Eui_mysql(sql,orderBy, page, size, conditions, cb);
 };
 

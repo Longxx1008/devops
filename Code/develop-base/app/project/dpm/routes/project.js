@@ -385,6 +385,21 @@ router.route('/develop/pm/deploy/status').get(function(req, res){
         utils.respMsg(res, false, '1000', '应用不健康', null, null);
     });
 });
+router.route('/develop/fm/deploy').get(function(req, res){
+    // 分页条件
+    var projectName = req.query.projectName;
+    // 分页参数
+    var page = req.query.page;
+    var length = req.query.rows;
+    var conditionMap = {};
+    if(projectName){
+        conditionMap.projectName = projectName;
+    }
+    // 调用分页
+    projectService.fdeployedPageList(page, length, conditionMap,function(result){
+        utils.respJsonData(res, result);
+    });
+})
 router.route('/develop/pm/deploy').get(function(req, res){
     // 分页条件
     var projectName = req.query.projectName;

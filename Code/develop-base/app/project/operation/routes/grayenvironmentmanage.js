@@ -44,6 +44,16 @@ router.route("/startFormal").get(function(req,res){
         utils.respJsonData(res,rs)
     })
 });
+//启动蓝绿部署
+router.route("/startBlueFormal").get(function(req,res){
+    var instance=req.query.instance;
+    var imageName=req.query.imageName;
+    var projectCode=req.query.projectCode;
+    console.log("ssss"+instance+imageName+projectCode);
+    greyenvironmtneService.startBlueFormal(instance,imageName,projectCode,function(rs){
+        utils.respJsonData(res,rs)
+    })
+});
 
 //更新灰度部署
 router.route("/update").get(function(req,res){
@@ -66,6 +76,16 @@ router.route("/updateFormal").get(function(req,res){
         utils.respJsonData(res,rs)
     })
 });
+
+//更新蓝绿部署
+router.route("/updateBlueFormal").get(function(req,res){
+    var instance=req.query.instance;
+    var imageName=req.query.imageName;
+    var projectCode=req.query.projectCode;
+    greyenvironmtneService.updateBlueFormal(instance,imageName,projectCode,function(rs){
+        utils.respJsonData(res,rs)
+    })
+});
 //更新灰度部署表
 router.route("/refreshGrayDeploy").get(function(req,res){
     greyenvironmtneService.refreshGrayDeploy();
@@ -73,8 +93,6 @@ router.route("/refreshGrayDeploy").get(function(req,res){
 
 //更新正式部署表
 router.route("/refreshFormalDeploy").get(function(req,res){
-    var projectCode=req.query.projectCode;
-    console.log("projectCodeprojectCodeprojectCodeprojectCodeprojectCode:"+projectCode);
     greyenvironmtneService.refreshFormalDeploy(projectCode,function(rs){
         utils.respJsonData(res,rs)
     })
@@ -123,4 +141,28 @@ router.route("/getFormalDeploy").get(function(req,res){
         utils.respJsonData(res,rs)
     })
 })
+router.route("/getFormalVersion").get(function(req,res){
+    var projectCode=req.query.projectCode;
+    greyenvironmtneService.getFormalVersion(projectCode,function(rs){
+        utils.respJsonData(res,rs)
+    })
+});
+router.route("/updateAllFormalFlag").get(function(req,res){
+    var projectCode=req.query.projectCode;
+    greyenvironmtneService.updateAllFormalFlag(projectCode,function(rs){
+        utils.respJsonData(res,rs)
+    })
+});
+router.route("/deleteBlue").get(function(req,res){
+    var projectCode=req.query.projectCode;
+    greyenvironmtneService.deleteBlue(projectCode,function(rs){
+        utils.respJsonData(res,rs)
+    })
+});
+router.route("/deleteBlueRecordFromTable").get(function(req,res){
+    var projectCode=req.query.projectCode;
+    greyenvironmtneService.deleteBlueRecordFromTable(projectCode,function(rs){
+        utils.respJsonData(res,rs)
+    })
+});
 module.exports = router;

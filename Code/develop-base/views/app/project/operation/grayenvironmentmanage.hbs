@@ -449,14 +449,20 @@
                     <div class="row">
                         <div class="col-md-12 text-right">
                             <button class="button"style="background-color: greenyellow;color:#fff;" onclick="addInstance()">增加运行实例</button>
-                            <button class="button"style="color:#fff;">下一节点部署</button>
-                            <button class="button"style="background-color: rgba(204, 51, 0, 1);color:#fff;">全局部署</button>
-                            <button class="button"style="background-color: rgba(255, 204, 0, 1);color:#fff;">回滚</button>
+                            <button class="button"style="color:#fff;" onclick="addNewInstance()">下一节点部署</button>
+                            <button class="button"style="background-color: rgba(204, 51, 0, 1);color:#fff;" onclick="allInstance()">全局部署</button>
+                            <button class="button"style="background-color: rgba(255, 204, 0, 1);color:#fff;" onclick="rollback()">回滚</button>
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div style="background-color: #fff;height: 300px;width:1200px" >
+                            <table id="formalEnvironmentData" >
+                            </table>
+
                         </div>
                     </div>
-                    <div  style="height:300px;width:100%;">
-                        <table id="formalEnvironmentData" ></table>
-                    </div>
+
                     <div style="height:300px;width:960px;">
                         <div style="height:235px;width:232px;margin-right:10px;">
                             <div id="cpuUsage"></div>
@@ -532,7 +538,8 @@
     var instance;//启动实例数
     var length;//数据长度
     var projectId;//marathon灰度部署项目的id
-    var formalInstance=1;//正式启动实例数,默认是一次1个
+    var formalInstance=0;//正式启动实例数,默认是一次1个
+    var old_version;//旧版本   蓝绿部署时增加实例用
     window.onload = function () {
         //页面一加载就去更新灰度部署表
         $.ajax({
@@ -663,6 +670,59 @@
                 }
             }
         })
+            //页面一加载就去请求正式表格数据，判断是否有数据
+        $('#formalEnvironmentData').datagrid({
+            url:'{{projcfg.appurl}}/api/project/operation/grayenvironmentmanage/formaldeploy/info',
+            method:'get',
+            rownumbers:false,
+            striped:true,
+            fitColumns:true,
+            queryParams: {'gitlabProjectId': gitlabProjectId},
+            fit:true,
+            border:true,
+            singleSelect:true,
+            selectOnCheck:false,
+            columns:[[
+                {"field":'id',checkbox:true},
+                {"field": "instanceId","title":"容器名称","width":200,align:"center"},
+                {"field": "projectName","title":"所属项目","width":200,align:"center"},
+                {"field": "hostIp","title":"运行环境","width":100,align:"center"},
+                {"field": "state","title":"状态","width":100,align:"center",
+                    "formatter":function (value, rowData,rowIndex) {
+                        if(value=='TASK_RUNNING')
+                            return '运行中';
+                        else
+                            return '故障';
+                    }},
+                {"field": "version","title":"所属镜像","width":300,align:"center"},
+                {"field": "health","title":"健康检查","width":100,align:"center",
+                    "formatter":function (value, rowData,rowIndex) {
+                        if(rowData.state=='TASK_RUNNING')
+                            return '<span class="glyphicon glyphicon-ok"></span>';
+                        else
+                            return '<span class="glyphicon glyphicon-remove"></span>';
+                    }},
+                {"field": "caozuo","title":"操作","width":200,align:"center",
+                    "formatter":function (value, rowData,rowIndex) {
+                        return "<span  style='height:26px;line-height:16px;margin-top: 0.5rem;margin-left: 0.5rem;cursor: pointer;' onclick=''>详情</span> <span  style='height:26px;line-height:16px;margin-top: 0.5rem;margin-left:0.5rem;cursor: pointer;' onclick=''>日志</span>";
+                    }},
+            ]],
+            onLoadError:function() {
+                msgError('加载数据出现时发生错误,请稍候重试...');
+            },
+            onLoadSuccess:function(){
+                formalInstance=$('#formalEnvironmentData').datagrid('getData').total;//获取表格总条数
+            },
+            rowStyler:function(index,row){
+                if (row.version==$("#new_imageName").html()){
+                    return 'background-color:#66CD00;';
+                }else{
+                    return 'background-color: #7EC0EE;';
+                }
+            },
+            pagination:true,
+            loadMsg:'正在加载...'
+        });
     })
     $("#substract").click(function(){
         if($("#instance_number").val()==1){
@@ -1010,61 +1070,36 @@
         }
         $("#prod_body>div.active").eq(0).removeClass("active")
         $("#prod_body>div:not(.active)").eq(index + 1).addClass("active");
-        //在marathon上创建一个项目
-        $.ajax({
-            url: '{{projcfg.appurl}}/api/project/operation/grayenvironmentmanage/startFormal',
-            type: 'get',
-            data: {
-                "instance": 0,//启动实例数
-                "imageName": $("#new_imageName").html(),//启动镜像名称
-                "projectCode": projectCode//项目编码
-            },
-            success:function (data) {
-                $('#formalEnvironmentData').datagrid({
+        if(formalInstance==0) {//表格没数据表示第一次进行正式部署
+            old_version=$("#new_imageName").html();
+            //在marathon上创建一个项目
+            $.ajax({
+                url: '{{projcfg.appurl}}/api/project/operation/grayenvironmentmanage/startFormal',
+                type: 'get',
+                data: {
+                    "instance": 0,//启动实例数
+                    "imageName": $("#new_imageName").html(),//启动镜像名称
+                    "projectCode": projectCode//项目编码
+                },
+                success: function (data) {
 
-                    url:'{{projcfg.appurl}}/api/project/operation/grayenvironmentmanage/formaldeploy/info',
-                    method:'get',
-                    rownumbers:false,
-                    striped:true,
-                    fitColumns:true,
-                    queryParams: {'gitlabProjectId': gitlabProjectId},
-                    fit:true,
-                    border:true,
-                    singleSelect:true,
-                    selectOnCheck:false,
-                    columns:[[
-                        {"field":'id',checkbox:true},
-                        {"field": "instanceId","title":"容器名称","width":100,align:"center"},
-                        {"field": "projectName","title":"所属项目","width":100,align:"center"},
-                        {"field": "hostIp","title":"运行环境","width":100,align:"center"},
-                        {"field": "state","title":"状态","width":50,align:"center",
-                            "formatter":function (value, rowData,rowIndex) {
-                                if(value=='TASK_RUNNING')
-                                    return '运行中';
-                                else
-                                    return '故障';
-                            }},
-                        {"field": "version","title":"所属镜像","width":200,align:"center"},
-                        {"field": "health","title":"健康检查","width":50,align:"center",
-                            "formatter":function (value, rowData,rowIndex) {
-                                if(rowData.state=='TASK_RUNNING')
-                                    return '<span class="glyphicon glyphicon-ok"></span>';
-                            else
-                                return '<span class="glyphicon glyphicon-remove"></span>';
-                            }},
-                        {"field": "caozuo","title":"操作","width":50,align:"center",
-                            "formatter":function (value, rowData,rowIndex) {
-                                return "<span  style='height:26px;line-height:16px;margin-top: 0.5rem;margin-left: 0.5rem;cursor: pointer;' onclick=''>详情</span> <span  style='height:26px;line-height:16px;margin-top: 0.5rem;margin-left:0.5rem;cursor: pointer;' onclick=''>日志</span>";
-                            }},
-                    ]],
-                    onLoadError:function() {
-                        msgError('加载数据出现时发生错误,请稍候重试...');
-                    },
-                    pagination:true,
-                    loadMsg:'正在加载...'
-                });
-            }
-        });
+                }
+            });
+        }else{//表格有数据表示进行蓝绿部署
+            //在marathon上创建一个项目
+            $.ajax({
+                url: '{{projcfg.appurl}}/api/project/operation/grayenvironmentmanage/startBlueFormal',
+                type: 'get',
+                data: {
+                    "instance": 0,//启动实例数
+                    "imageName": $("#new_imageName").html(),//启动镜像名称
+                    "projectCode": projectCode//项目编码
+                },
+                success: function (data) {
+
+                }
+            });
+        }
     }
 
     setInterval(function(){
@@ -1080,22 +1115,124 @@
     setInterval(function(){
         reloadFormalTable();
     },10000);
-   //下一节点部署
+   //增加运行实例
   function addInstance(){
       $.messager.progress();
-      formalInstance=$('#formalEnvironmentData').datagrid('getData').total;//获取表格总条数
-          $.ajax({
-              url: '{{projcfg.appurl}}/api/project/operation/grayenvironmentmanage/updateFormal',
-              type: 'get',
-              data: {
-                  "instance": parseInt(formalInstance) + 1,//启动实例数
-                  "imageName": $("#new_imageName").html(),//启动镜像名称
-                  "projectCode": projectCode//项目编码
-              },
-              success: function (data) {
-                  $.messager.progress("close");
+      $.ajax({
+          url: '{{projcfg.appurl}}/api/project/operation/grayenvironmentmanage/getFormalVersion',
+          type: 'get',
+          data:{
+              "projectCode":projectCode
+          },
+          success: function (data) {
+              $.ajax({
+                  url: '{{projcfg.appurl}}/api/project/operation/grayenvironmentmanage/updateFormal',
+                  type: 'get',
+                  data: {
+                      "instance": parseInt(formalInstance) + 1,//启动实例数
+                      "imageName": data.data[0].version,//启动镜像名称
+                      "projectCode": projectCode//项目编码
+                  },
+                  success: function (data) {
+                      $.messager.progress("close");
+                  }
+              })
+          }
+      })
 
-              }
-          })
   }
+  //下一节点部署
+    function addNewInstance(){
+        $.messager.progress();
+        $.ajax({
+            url: '{{projcfg.appurl}}/api/project/operation/grayenvironmentmanage/updateBlueFormal',
+            type: 'get',
+            data: {
+                "instance": 1,//启动实例数
+                "imageName": $("#new_imageName").html(),//启动镜像名称
+                "projectCode": projectCode//项目编码
+            },
+            success: function (data) {
+                $.messager.progress("close");
+                $.ajax({
+                    url: '{{projcfg.appurl}}/api/project/operation/grayenvironmentmanage/updateFormalFlag',
+                    type: 'get',
+                    data: {
+                        "projectCode": projectCode//项目编码
+                    },
+                    success: function (data) {
+
+
+                    }
+                })
+            }
+        })
+    }
+
+    //全局部署
+    function allInstance(){
+        $.messager.progress();
+        //更新正式部署版本
+        $.ajax({
+            url: '{{projcfg.appurl}}/api/project/operation/grayenvironmentmanage/updateFormal',
+            type: 'get',
+            data: {
+                "instance": formalInstance,//启动实例数
+                "imageName": $("#new_imageName").html(),//启动镜像名称
+                "projectCode": projectCode//项目编码
+            },
+            async:false,
+            success: function (data) {
+                //删除正式部署表蓝绿记录
+                $.ajax({
+                    url: '{{projcfg.appurl}}/api/project/operation/grayenvironmentmanage/deleteBlueRecordFromTable',
+                    type: 'get',
+                    data: {
+                        "projectCode": projectCode//项目编码
+                    },
+                    success: function (data) {
+
+                        //删除蓝绿版本
+                        $.ajax({
+                            url: '{{projcfg.appurl}}/api/project/operation/grayenvironmentmanage/deleteBlue',
+                            type: 'get',
+                            data: {
+                                "projectCode": projectCode//项目编码
+                            },
+                            success: function (data) {
+                                $.messager.progress("close");
+                            }
+                        })
+                    }
+                })
+
+            }
+        })
+    }
+
+    //回滚
+    function rollback(){
+        $.messager.progress();
+        $.ajax({
+            url: '{{projcfg.appurl}}/api/project/operation/grayenvironmentmanage/getFormalVersion',
+            type: 'get',
+            data: {
+                "projectCode": projectCode
+            },
+            success:function(data){
+                $.ajax({
+                    url: '{{projcfg.appurl}}/api/project/operation/grayenvironmentmanage/updateFormal',
+                    type: 'get',
+                    data: {
+                        "instance": formalInstance,//启动实例数
+                        "imageName": data.data[0].before_version,//启动镜像名称
+                        "projectCode": projectCode//项目编码
+                    },
+                    success: function (data) {
+                        $.messager.progress("close");
+                    }
+                })
+            }
+        })
+    }
 </script>
