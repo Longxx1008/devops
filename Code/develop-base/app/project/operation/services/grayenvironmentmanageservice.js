@@ -618,14 +618,16 @@ exports.refreshGrayDeploy= async function () {
                                                             }
                                                         } else if (parseInt(ins) > parseInt(ins_instance)) {//实例数大于之前就插入实例表
                                                             for (let j = ins_instance; j < ins; j++) {
-                                                                var sql = "insert into pass_develop_project_gray_deploy_instance(projectId,instanceId) values('" + projectId[i] + "','" + data.app.tasks[j].id + "')";
-                                                                mysqlPool.query(sql, [], function (err, result) {
-                                                                    if (err) {
-                                                                        console.log("插入灰度实例表失败");
-                                                                    } else {
-                                                                        console.log("插入灰度实例表成功");
-                                                                    }
-                                                                });
+                                                                if(data.app.tasks.length!=0) {
+                                                                    var sql = "insert into pass_develop_project_gray_deploy_instance(projectId,instanceId) values('" + projectId[i] + "','" + data.app.tasks[j].id + "')";
+                                                                    mysqlPool.query(sql, [], function (err, result) {
+                                                                        if (err) {
+                                                                            console.log("插入灰度实例表失败");
+                                                                        } else {
+                                                                            console.log("插入灰度实例表成功");
+                                                                        }
+                                                                    });
+                                                                }
                                                             }
                                                         } else if (parseInt(ins) < parseInt(ins_instance)) {//实例数小于之前就删除实例表记录
                                                             let record = parseInt(ins_instance) - parseInt(ins);
@@ -641,8 +643,9 @@ exports.refreshGrayDeploy= async function () {
                                                             }
                                                         }
                                                     }else{//启动实例失败
-                                                        if (parseInt(ins) == parseInt(ins_instance)) {//实例数相同就更新字段
-                                                                var sql = "update pass_develop_project_gray_deploy_instance set state='" + data.app.lastTaskFailure.state + "',hostIp='" + data.app.lastTaskFailure.host + "',log=\""+data.app.lastTaskFailure.message+"\",instanceId='"+data.app.lastTaskFailure.taskId+"' where projectId='" + projectId[i] + "'";
+                                                        if(data.app.lastTaskFailure) {
+                                                            if (parseInt(ins) == parseInt(ins_instance)) {//实例数相同就更新字段
+                                                                var sql = "update pass_develop_project_gray_deploy_instance set state='" + data.app.lastTaskFailure.state + "',hostIp='" + data.app.lastTaskFailure.host + "',log=\"" + data.app.lastTaskFailure.message + "\",instanceId='" + data.app.lastTaskFailure.taskId + "' where projectId='" + projectId[i] + "'";
                                                                 mysqlPool.query(sql, [], function (err, result) {
                                                                     if (err) {
                                                                         console.log("更新灰度实例表失败");
@@ -650,28 +653,29 @@ exports.refreshGrayDeploy= async function () {
                                                                         console.log("更新灰度实例表成功");
                                                                     }
                                                                 });
-                                                        } else if (parseInt(ins) > parseInt(ins_instance)) {//实例数大于之前就插入实例表
-                                                            for (let j = ins_instance; j < ins; j++) {
-                                                                var sql = "insert into pass_develop_project_gray_deploy_instance(projectId) values('" + projectId[i] + "')";
-                                                                mysqlPool.query(sql, [], function (err, result) {
-                                                                    if (err) {
-                                                                        console.log("插入灰度实例表失败");
-                                                                    } else {
-                                                                        console.log("插入灰度实例表成功");
-                                                                    }
-                                                                });
-                                                            }
-                                                        } else if (parseInt(ins) < parseInt(ins_instance)) {//实例数小于之前就删除实例表记录
-                                                            let record = parseInt(ins_instance) - parseInt(ins);
-                                                            for (let j = 0; j < record; j++) {
-                                                                var sql = "delete from pass_develop_project_gray_deploy_instance where 1 and projectId='" + projectId[i] + "' order by id desc limit 1";
-                                                                mysqlPool.query(sql, [], function (err, result) {
-                                                                    if (err) {
-                                                                        console.log("删除灰度实例表记录失败");
-                                                                    } else {
-                                                                        console.log("删除灰度实例表记录成功");
-                                                                    }
-                                                                });
+                                                            } else if (parseInt(ins) > parseInt(ins_instance)) {//实例数大于之前就插入实例表
+                                                                for (let j = ins_instance; j < ins; j++) {
+                                                                    var sql = "insert into pass_develop_project_gray_deploy_instance(projectId) values('" + projectId[i] + "')";
+                                                                    mysqlPool.query(sql, [], function (err, result) {
+                                                                        if (err) {
+                                                                            console.log("插入灰度实例表失败");
+                                                                        } else {
+                                                                            console.log("插入灰度实例表成功");
+                                                                        }
+                                                                    });
+                                                                }
+                                                            } else if (parseInt(ins) < parseInt(ins_instance)) {//实例数小于之前就删除实例表记录
+                                                                let record = parseInt(ins_instance) - parseInt(ins);
+                                                                for (let j = 0; j < record; j++) {
+                                                                    var sql = "delete from pass_develop_project_gray_deploy_instance where 1 and projectId='" + projectId[i] + "' order by id desc limit 1";
+                                                                    mysqlPool.query(sql, [], function (err, result) {
+                                                                        if (err) {
+                                                                            console.log("删除灰度实例表记录失败");
+                                                                        } else {
+                                                                            console.log("删除灰度实例表记录成功");
+                                                                        }
+                                                                    });
+                                                                }
                                                             }
                                                         }
                                                     }
@@ -701,16 +705,16 @@ exports.refreshGrayDeploy= async function () {
                                         });
                                     }
                                 }else{//实例启动失败
-                                    console.log(data);
-                                    console.log(data.app);
-                                    var sql = "insert into pass_develop_project_gray_deploy_instance(projectId) values('" + projectId[i] + "')";
-                                    mysqlPool.query(sql, [], function (err, result) {
-                                        if (err) {
-                                            console.log("插入灰度实例表失败");
-                                        } else {
-                                            console.log("插入灰度实例表成功");
-                                        }
-                                    });
+                                    if(data.app.lastTaskFailure.state) {
+                                        var sql = "insert into pass_develop_project_gray_deploy_instance(projectId) values('" + projectId[i] + "')";
+                                        mysqlPool.query(sql, [], function (err, result) {
+                                            if (err) {
+                                                console.log("插入灰度实例表失败");
+                                            } else {
+                                                console.log("插入灰度实例表成功");
+                                            }
+                                        });
+                                    }
                                 }
                             })
                             //插入marathon获取到灰度表
@@ -757,7 +761,7 @@ exports.refreshFormalDeploy=async function (cb) {
                     data = eval('(' + data + ')');
                     //循坏加入正式项目
                     for (let i in data.apps) {
-                        if ((data.apps[i].id).indexOf("formal") >=0) {
+                        if ((data.apps[i].id).indexOf("formal") >=0||(data.apps[i].id).indexOf("blue")>=0) {
                             projectId.push(data.apps[i].id);
                             version.push(data.apps[i].container.docker.image);
                             instance.push(data.apps[i].instances);
@@ -830,25 +834,27 @@ exports.refreshFormalDeploy=async function (cb) {
                                                                             }
                                                                         }
                                                                     }else{
-                                                                        if (parseInt(ins) == parseInt(ins_instance)) {
-                                                                            var sql = "update pass_develop_project_formal_deploy_instance set state='" + data.app.lastTaskFailure.state + "',hostIp='" + data.app.lastTaskFailure.host + "',log=\""+data.app.lastTaskFailure.message+"\" where projectId='" + projectId[i] + "'";
-                                                                            mysqlPool.query(sql, [], function (err, result) {
-                                                                                if (err) {
-                                                                                    console.log("更新正式实例表失败");
-                                                                                } else {
-                                                                                    console.log("更新正式实例表成功");
-                                                                                }
-                                                                            });
-                                                                        } else if (parseInt(ins) > parseInt(ins_instance)) {
-                                                                            for (let j = ins_instance; j < ins; j++) {
-                                                                                var sql = "insert into pass_develop_project_formal_deploy_instance(projectId) values('" + projectId[i] + "')";
+                                                                        if(data.app.lastTaskFailure) {
+                                                                            if (parseInt(ins) == parseInt(ins_instance)) {
+                                                                                var sql = "update pass_develop_project_formal_deploy_instance set state='" + data.app.lastTaskFailure.state + "',hostIp='" + data.app.lastTaskFailure.host + "',log=\"" + data.app.lastTaskFailure.message + "\" where projectId='" + projectId[i] + "'";
                                                                                 mysqlPool.query(sql, [], function (err, result) {
                                                                                     if (err) {
-                                                                                        console.log("插入正式实例表失败");
+                                                                                        console.log("更新正式实例表失败");
                                                                                     } else {
-                                                                                        console.log("插入正式实例表成功");
+                                                                                        console.log("更新正式实例表成功");
                                                                                     }
                                                                                 });
+                                                                            } else if (parseInt(ins) > parseInt(ins_instance)) {
+                                                                                for (let j = ins_instance; j < ins; j++) {
+                                                                                    var sql = "insert into pass_develop_project_formal_deploy_instance(projectId) values('" + projectId[i] + "')";
+                                                                                    mysqlPool.query(sql, [], function (err, result) {
+                                                                                        if (err) {
+                                                                                            console.log("插入正式实例表失败");
+                                                                                        } else {
+                                                                                            console.log("插入正式实例表成功");
+                                                                                        }
+                                                                                    });
+                                                                                }
                                                                             }
                                                                         }
                                                                     }
@@ -878,14 +884,16 @@ exports.refreshFormalDeploy=async function (cb) {
                                                 });
                                             }
                                         }else{
-                                            var sql = "insert into pass_develop_project_formal_deploy_instance(projectId) values('" + projectId[i] + "')";
-                                            mysqlPool.query(sql, [], function (err, result) {
-                                                if (err) {
-                                                    console.log("插入正式实例表失败");
-                                                } else {
-                                                    console.log("插入正式实例表成功");
-                                                }
-                                            });
+                                            if(data.app.lastTaskFailure) {
+                                                var sql = "insert into pass_develop_project_formal_deploy_instance(projectId) values('" + projectId[i] + "')";
+                                                mysqlPool.query(sql, [], function (err, result) {
+                                                    if (err) {
+                                                        console.log("插入正式实例表失败");
+                                                    } else {
+                                                        console.log("插入正式实例表成功");
+                                                    }
+                                                });
+                                            }
                                         }
                                     })
                                     //插入marathon获取到正式表
@@ -918,7 +926,7 @@ exports.refreshFormalDeploy=async function (cb) {
 }
 
 exports.pageList = function(page,size,conditionMap,cb){
-    var sql = "select i.id,i.projectId,i.instanceId,r.projectName,i.hostIp,i.state,g.version from pass_develop_project_gray_deploy g,pass_develop_project_gray_deploy_instance i,pass_develop_project_resources_copy2 r where g.projectId=i.projectId and r.gitlabProjectId = g.gitlabProjectId";
+    var sql = "select i.id,i.projectId,i.instanceId,r.projectName,i.hostIp,i.state,i.log,g.version from pass_develop_project_gray_deploy g,pass_develop_project_gray_deploy_instance i,pass_develop_project_resources_copy2 r where g.projectId=i.projectId and r.gitlabProjectId = g.gitlabProjectId";
     var condition = [];
     if(conditionMap) {
         if(conditionMap.gitlabProjectId) {
@@ -985,6 +993,63 @@ exports.updateAllFormalFlag=function(projectCode,cb){
                 cb(utils.returnMsg(true, '0000', '更新正式版本flag成功', results, null));
             }
         });
+    })
+}
+exports.updateFormalFlag=function(projectCode,cb){
+    var p = new Promise(function(resolve, reject) {
+        var sql = "select instance,clickNum from  pass_develop_project_formal_deploy where projectId='/"+projectCode+"/"+projectCode+"-formal'";
+        console.log(sql);
+        mysqlPool.query(sql, function (err, results) {
+            console.log(parseInt(results[0].instance)>parseInt(results[0].clickNum)+"parseInt(results[0].instance)>results[0].clickNum");
+            if (err) {
+            } else {
+                if(parseInt(results[0].instance)>parseInt(results[0].clickNum)){
+                    var sql = "update pass_develop_project_formal_deploy set clickNum=clickNum+1 where projectId='/"+projectCode+"/"+projectCode+"-formal'";
+                    console.log(sql);
+                    mysqlPool.query(sql, function (err, results) {
+                        if (err) {
+
+                        } else {
+                            var sql = "select instance,clickNum from  pass_develop_project_formal_deploy where projectId='/"+projectCode+"/"+projectCode+"-formal'";
+                            console.log(sql);
+                            mysqlPool.query(sql, function (err, results) {
+                                if (err) {
+                                } else {
+
+                                    var sqls="update pass_develop_project_formal_deploy_instance set flag=0 where projectId='/"+projectCode+"/"+projectCode+"-formal' limit "+results[0].clickNum+"";
+                                    console.log(sqls);
+                                    mysqlPool.query(sqls, function (err, result) {
+                                        if (err) {
+                                            cb(utils.returnMsg(false, '1000', '更新flag失败', null, err));
+                                        } else {
+                                            console.log("parseIntparseIntparseIntparseIntparseInt"+results[0].clickNum+results[0].instance)
+                                            for(let i=(parseInt(results[0].instance)-parseInt(results[0].clickNum));i<parseInt(results[0].instance);i++) {
+                                                console.log("parseIntparseIntparseIntparseIntparseInt"+i);
+                                                var sqlsss= "update pass_develop_project_formal_deploy_instance set flag=0 where projectId='/" + projectCode + "/" + projectCode + "-blue' limit " + i + "";
+                                                console.log(sql);
+                                                mysqlPool.query(sqlsss, function (err, results) {
+                                                    if (err) {
+
+                                                    } else {
+                                                        console.log("sssssssssssssssssssssssss");
+                                                    }
+                                                });
+                                            }
+                                            cb(utils.returnMsg(true, '0000', '更新flag成功', results, null));
+                                        }
+                                    });
+
+
+                                }
+                            });
+                        }
+                    });
+                }
+
+            }
+        });
+
+
     })
 }
 

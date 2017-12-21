@@ -84,7 +84,7 @@ var config = {
     },
     mysql:{
         host: '192.168.9.48',
-        port:3306,
+        port:32768,
         user: 'root',
         password: 'root',
         database: 'pass'

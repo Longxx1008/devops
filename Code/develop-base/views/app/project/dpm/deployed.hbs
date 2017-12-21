@@ -114,14 +114,19 @@
                             returnValue = "<a class=\"label label-info\" style='height:26px;line-height:16px;font-weight:600;cursor: pointer;margin-top: 0.5rem;margin-bottom: 0.5rem;' href='" + value + "' target='_blank'>应用详情</a>";
                         }else{*/
                             if(rowData.healthStatus >= "1"){
-                                returnValue = ""+
-//                                        "<span class=\"label label-warning\" style=\"height:26px;line-height:16px;font-weight:600;margin-top: 0.5rem;cursor: pointer;\" onclick=\"to_serviceDetail("+rowData.projectId+")\">服务详情</span>   "+
-                                        "<span class=\"label label-danger\" style=\"height:26px;line-height:16px;font-weight:600;margin-top: 0.5rem;margin-left: 0.5rem;cursor: pointer;\" data-id='" + rowData.id + "' data-name='" + rowData.projectName + "' data-pid='" + rowData.projectId + "' onclick=\"doStop(this)\">停止</span></br>"+
-                                        "<span class=\"label label-info\" style='height:26px;line-height:16px;font-weight:600;cursor: pointer;margin-top: 0.5rem;margin-bottom: 0.5rem;' data-host='" + rowData.hostName + "' data-name='" + rowData.containerName + "' data-mesos='"+rowData.mesosId+"' onclick=\"doNature(this)\">性能情况</span>" +
-                                        "<span class=\"label label-info\" style='height:26px;line-height:16px;font-weight:600;cursor: pointer;margin-left:0.6rem;' data-id='" + rowData.id + "' data-name='" + rowData.projectName + "' onclick='logsCenter(this)'>日志</span>";
-                            }else{
+//                                if(rowData.projectId.indexOf("formal")>=0) {
+                                    returnValue+=   "<span class=\"label label-info\" style=\"height:26px;line-height:16px;font-weight:600;margin-top: 0.5rem;margin-left: 0.5rem;cursor: pointer;\" data-id='" + rowData.id + "' data-name='" + rowData.projectName + "' data-pid='" + rowData.projectId + "'data-instance='" + rowData.instance + "' onclick=\"doAddCon(this)\">扩容</span>"
+                                    returnValue+=   "<span class=\"label label-info\" style=\"height:26px;line-height:16px;font-weight:600;margin-top: 0.5rem;margin-left: 0.5rem;cursor: pointer;\" data-id='" + rowData.id + "' data-name='" + rowData.projectName + "' data-pid='" + rowData.projectId + "' data-instance='" + rowData.instance + "'onclick=\"doSubCon(this)\">缩容</span></br>"
+//                                }
+                                returnValue+="<span class=\"label label-danger\" style=\"height:26px;line-height:16px;font-weight:600;margin-top: 0.5rem;margin-left: 0.5rem;cursor: pointer;\" data-id='" + rowData.id + "' data-name='" + rowData.projectName + "' data-pid='" + rowData.projectId + "' onclick=\"doStop(this)\">停止</span>&nbsp;"
+                                        returnValue+="<span class=\"label label-info\" style='height:26px;line-height:16px;font-weight:600;cursor: pointer;margin-top: 0.5rem;margin-bottom: 0.5rem;' data-host='" + rowData.hostName + "' data-name='" + rowData.containerName + "' data-mesos='"+rowData.mesosId+"' onclick=\"doNature(this)\">性能情况</span></br>"
+                                        /*returnValue+="<span class=\"label label-info\" style='height:26px;line-height:16px;font-weight:600;cursor: pointer;margin-left:0.6rem;' data-id='" + rowData.id + "' data-name='" + rowData.projectName + "' onclick='logsCenter(this)'>日志</span>";*/
+
+                            }else if(rowData.instance==0 ){
                                 returnValue = "<span class=\"label label-info\" style=\"height:26px;line-height:16px;font-weight:600;margin-top: 0.5rem;margin-left: 0.5rem;cursor: pointer;\" data-id='" + rowData.id + "' data-name='" + rowData.projectName + "' data-pid='" + rowData.projectId + "' onclick=\"doStart(this)\">启动</span>" /*+*/
                                         /*"<span class=\"label label-danger\" style=\"height:26px;line-height:16px;font-weight:600;margin-top: 0.5rem;margin-left: 0.5rem;cursor: pointer;\" data-id='" + rowData.id + "' data-name='" + rowData.projectName + "' data-pid='" + rowData.projectId + "' onclick=\"doDelete(this)\">删除</span></br>"*/;
+                            }else if(rowData.healthStatus !=rowData.instance ){
+                                returnValue+="<span class=\"label label-info\" style='height:26px;line-height:16px;font-weight:600;cursor: pointer;margin-left:0.6rem;' data-id='" + rowData.id + "' data-name='" + rowData.projectName + "' onclick='logsCenter(this)'>日志</span>";
                             }
                         /*}*/
                         return returnValue;
@@ -138,7 +143,7 @@
 
     setInterval(function(){
         doSearch();
-    },20000);
+    },10000);
 
     function doSearch() {
         $('#dataTable').datagrid('reload');
@@ -175,8 +180,75 @@
                         $("#logPre").html("日志加载失败：" + err.statusCode);
                     }
                 });
-            }else
-                alert("请输入实例数");
+            }
+        });
+    }
+
+    function doSubCon(thisObj){
+        var id = $(thisObj).data("id");
+        var name = $(thisObj).data("name");
+        var projectId = $(thisObj).data("pid");
+        var instance = $(thisObj).data("instance");
+        $.messager.prompt('请输入缩容实例数',name,function(result) {
+            if(result){
+                $.ajax({
+                    url:'{{projcfg.appurl}}/api/project/dpm/project/develop/pm/deploy/start/' + id,
+                    type: 'post',
+                    dataType:"json",
+                    data:{
+                        projectId:projectId,
+                        instance:(parseInt(instance)-parseInt(result))<0?0:(parseInt(instance)-parseInt(result)),
+                        time : Math.random()
+                    },
+                    success: function (data) {
+                        if(data.success){
+                            msgSuccess(data.msg);
+                            doSearch();
+                        }else{
+                            msgError(data.msg);
+                        }
+                    },
+                    error : function(err) {
+                        console.log(err);
+                        $("#logPre").html("日志加载失败：" + err.statusCode);
+                    }
+                });
+            }
+        });
+    }
+
+
+
+    function doAddCon(thisObj){
+        var id = $(thisObj).data("id");
+        var name = $(thisObj).data("name");
+        var projectId = $(thisObj).data("pid");
+        var instance = $(thisObj).data("instance");
+        $.messager.prompt('请输入扩容实例数',name,function(result) {
+            if(result){
+                $.ajax({
+                    url:'{{projcfg.appurl}}/api/project/dpm/project/develop/pm/deploy/start/' + id,
+                    type: 'post',
+                    dataType:"json",
+                    data:{
+                        projectId:projectId,
+                        instance:parseInt(result)+parseInt(instance),
+                        time : Math.random()
+                    },
+                    success: function (data) {
+                        if(data.success){
+                            msgSuccess(data.msg);
+                            doSearch();
+                        }else{
+                            msgError(data.msg);
+                        }
+                    },
+                    error : function(err) {
+                        console.log(err);
+                        $("#logPre").html("日志加载失败：" + err.statusCode);
+                    }
+                });
+            }
         });
     }
 
@@ -292,17 +364,19 @@
         console.info(mesosId);
         //window.open("http://192.168.9.48:3000/dashboard/db/ying-yong-guan-li?orgId=1&var-app_name="+mesosId.substring(1));
 //        window.open("http://192.168.9.48:3000/dashboard/db/dockerdan-ge-rong-qi-jian-kong?theme=light&orgId=1&var-host=" + host + "&var-container_name=" + name);
-        window.open("http://192.168.9.69:3000/dashboard/db/marathonying-yong-liu-liang-jian-kong?refresh=5s&orgId=1");
+        window.location.href="{{projcfg.appurl}}/formalenvironmentmanage";
+
     }
     //日志中心
     function logsCenter(thisObj){
         /*var url = "http://192.168.31.92:5601";
         window.open(url);*/
+        $("#logPre").html("Failed to launch container:<br/> Failed to run 'docker -H unix:///var/run/docker.sock pull 192.168.9.69:5000/yysc:v3.1.9': exited with status 1; stderr='Error response from daemon: manifest for 192.168.9.69:5000/yysc:v3.1.9 not found'");
         var id = $(thisObj).data("id");
         var name = $(thisObj).data("name");
         console.log(id);
         console.log(name);
-        logs(id);
+        /*logs(id);*/
         $('#containerLogModal').show();
         $('#containerLogModal').mydialog({
             title:name + "-运行日志",
@@ -310,22 +384,22 @@
             height: 560,
             top:20,
             modal: true,
-            myButtons:[
+            /*myButtons:[
                 {
                     text:'关闭',
                     btnCls:'btn btn-danger',
                     handler:function(){
-                        $('#containerLogModal').dialog('close');
+                        $('#containerLogModal').mydialog('close');
                     }
-                },{
+                }/!*{
                     text:'刷新',
                     btnCls:'btn btn-danger',
                     handler:function(){
-                        $("#logPre").html("加载中...");
-                        logs(id);
+                        $("#logPre").html("Failed to launch container: Failed to run 'docker -H unix:///var/run/docker.sock pull 192.168.9.69:5000/yysc:v3.1.9': exited with status 1; stderr='Error response from daemon: manifest for 192.168.9.69:5000/yysc:v3.1.9 not found'");
+                        /!*logs(id);*!/
                     }
-                }
-            ]
+                }*!/
+            ]*/
         });
     }
 

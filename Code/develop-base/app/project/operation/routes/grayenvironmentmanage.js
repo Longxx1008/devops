@@ -153,6 +153,12 @@ router.route("/updateAllFormalFlag").get(function(req,res){
         utils.respJsonData(res,rs)
     })
 });
+router.route("/updateFormalFlag").get(function(req,res){
+    var projectCode=req.query.projectCode;
+    greyenvironmtneService.updateFormalFlag(projectCode,function(rs){
+        utils.respJsonData(res,rs)
+    })
+});
 router.route("/deleteBlue").get(function(req,res){
     var projectCode=req.query.projectCode;
     greyenvironmtneService.deleteBlue(projectCode,function(rs){
