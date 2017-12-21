@@ -5,6 +5,7 @@ var express = require('express');
 var router = express.Router();
 var formidable=require("formidable");
 var fs=require("fs");
+var fss=require("fs-extra");
 
 var imageService = require('../services/imageManagerService');
 var utils = require('../../../common/core/utils/app_utils');
@@ -196,6 +197,59 @@ router.route('/develop/im/add').post(function(req,res) {
             utils.respJsonData(res, result);
         });
     });
+
+//获取图片
+router.route('/develop/im/base64Pic').post(function (req, res) {
+
+    var filedir = '../public/static/images/image_information/';
+    fss.ensureDir(filedir, function (err) { //改变上传文件夹的方法fs.ensureDir
+        if (err) {
+            console.log('ensureDir error')
+            res.send('no ensuredir');
+        }
+        console.log("s达到s","ss");
+        var name ='';
+        var path = '';
+        var picture = '';
+        var buf = '';
+        var form = new formidable.IncomingForm();
+        var result = '';
+        form.parse(req, function (error, fields, files) {
+            console.log("呜呜呜",files);
+
+            if (error) {
+                return console.log(error);
+            } else {
+
+                name=files['editormd-image-file'].name;
+                path=filedir+name;
+                //path = files['editormd-image-file'].path;
+                //picture = fs.readFileSync(path);
+                //buf = new Buffer(picture);
+                //picture = buf.toString("base64");
+                fss.rename(files['editormd-image-file'].path,path,function(err){
+                    if(err){
+                        res.send('no rename');
+                    }else{
+                        //并且存入数据库作为删除的备份
+
+                        result = {
+                            'success' : '1',
+                            'message': 'success',
+                            'url': path
+                        };
+                        res.send({'success' : '1','message': 'success','url': path});
+
+                    }
+                });
+
+            }
+        });
+
+    });
+});
+
+
 
 
 
