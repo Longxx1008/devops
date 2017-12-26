@@ -3,47 +3,110 @@
     <div class="col-xs-12 col-md-12">
         <div class="widget">
             <div class="widget-body">
-                <div class="row">
-                    <div class="col-cs-12 col-md-12">
-                        <div class="widget-header bordered-bottom bordered-themeprimary">
-                            <i class="widget-icon fa fa-tags themeprimary"></i>
-                            <span class="widget-caption themeprimary">资源列表</span>
-                            {{!--
-                            <div class="widget-buttons">
-                                <a id="btnBack" style="    color: #337ab7;" href="javascript:void(0)" onclick='javascript:history.back(-1);'>
-                                    <i class="fa fa-reply"></i>
-                                </a>
-                            </div> --}}
-                        </div>
-                        <div class="widget-body">
-                            <div style="">
-                                <div class="box-list-content">
-                                    <div class="product-box">
-                                        <div id="resourcelist" class="easyui-layout" data-options="fit:true,border:false" style="width: 800px; height:575px;background-color: #fbfbfb;">
-                                            <div id="images" data-options="region:'center',border:false" style="overflow-x:hidden;overflow-y:hidden">
-                                                <div id="privatediv" style="width:100%;height: 100%;">
-                                                    <div style="width:100%;height:100%; ">
-                                                        <table id="resourceListTable">
-                                                        </table>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
+                <div id="toolbar" class="row tbRow" style="margin-bottom: 1.1rem;border-bottom: 1px solid #ccc;">
+                    <div class="col-xs-6 col-md-6" style="width:100%">
+
+                        <div id="toolbar" class="row tbRow" style="">
+                            <div size="3.5rem" style="margin-left: 1.2rem;margin-right: 2.5rem"> <b>资源列表</b></div>
+                            <div class="btn-group" role="group" aria-label="...">
+                                <button type="button" class="btn btn-default" onclick="openPage('资源列表新增','',doAdd)" data-title="新增">
+                                    <i class="fa fa-plus"></i> 新增
+                                </button>
+                                <button type="button" class="btn btn-default" onclick="toEdit()" data-title="修改">
+                                    <i class="fa fa-edit"></i> 修改
+                                </button>
+                                <button type="button" class="btn btn-default" onclick="doDel()" data-title="删除">
+                                    <i class="fa fa-trash"></i> 删除
+                                </button>
+                            </div>
+                            <div class="col-xs-3 col-md-3 text-right" style="float: right">
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <input type="input" class="form-control" id="resource_number" name="resource_number" placeholder="编号">
+                                        <span class="input-group-btn">
+                                                <button class="btn btn-default" type="button" onclick="doSearch()"><i class="fa fa-search"></i>查询</button>
+                                            </span>
                                     </div>
                                 </div>
                             </div>
                         </div>
+
                     </div>
                 </div>
+                <div id="cc" class="easyui-layout" data-options="fit:true,border:false" style="width: 800px; height:340px;background-color: #fbfbfb;">
+                    <div id="images" data-options="region:'center',border:false" style="overflow-x:hidden;overflow-y:hidden">
+                        <div id="privatediv" style="width:100%;height: 100%;">
+                            <div style="width:100%;height:100%; ">
+                                <table id="resourceListTable">
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
             </div>
         </div>
     </div>
 </div>
+
+{{!-- 服务列表新增修改弹出框 --}}
+<div id="colonyDialog" class="mydialog"  data-options="iconCls:'icon-save'">
+    <div class="row">
+        <div class="col-md-12">
+            <div>
+                <form id="colonyForm" class="form-horizontal form-bordered" role="form" method="post" enctype="multipart/form-data">
+                    <input type="hidden" id="id" name="id"/>
+                    <div class="form-group">
+                        <label for="resource_number" class="col-sm-2 control-label no-padding-right" style="width: 21%">编号:</label>
+                        <div class="col-sm-10" style="width: 79%">
+                            <input type="text" class="easyui-validatebox form-control" data-options="required:true" name="resource_number" id="resource_number" placeholder="请输入策略名称" style="width:60%">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="resource_name" class="col-sm-2 control-label no-padding-right" style="width: 21%">服务名称:</label>
+                        <div class="col-sm-10" style="width: 79%">
+                            <input type="text" class="easyui-validatebox form-control" data-options="required:true" name="resource_name" id="resource_name" placeholder="请输入服务名称" style="width:60%">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="resource_state" class="col-sm-2 control-label no-padding-right" style="width: 21%">状态:</label>
+                        <div class="col-sm-10" style="width: 79%">
+                            <input type="text" class="easyui-validatebox form-control" data-options="required:true" name="resource_state" id="resource_state" placeholder="请输入状态" style="width:60%">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="resource_apply" class="col-sm-2 control-label no-padding-right" style="width: 21%">实例名称:</label>
+                        <div class="col-sm-10" style="width: 79%">
+                            <input type="text" class="easyui-validatebox form-control" data-options="required:true" name="resource_apply" id="resource_apply" placeholder="请输入实例名称" style="width:60%">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="resource_count" class="col-sm-2 control-label no-padding-right" style="width: 21%">资源占用情况:</label>
+                        <div class="col-sm-10" style="width: 79%">
+                            <input type="text" class="easyui-validatebox form-control" data-options="required:true" name="resource_count" id="resource_count" placeholder="请输入资源占用情况" style="width:60%">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="resource_remark" class="col-sm-2 control-label no-padding-right" style="width: 21%">备注:</label>
+                        <div class="col-sm-10" style="width: 79%">
+                            <input type="text" class="easyui-validatebox form-control" data-options="required:true" name="resource_remark" id="resource_remark" placeholder="请输入备注" style="width:60%">
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
 <script>
+    /*table查询*/
     $('#resourceListTable').datagrid({
         url: '{{projcfg.appurl}}/api/project/operation/resourcelist',
         method: 'get',
-        queryParams: {},
+        queryParams: {
+            resource_number:$('#resource_number').val()
+        },
         rownumbers: false,
         striped: true,
         fitColumns: true,
@@ -77,11 +140,11 @@
                     'formatter': function (value, rowData, rowIndex) {
                         if (value == 1) {
                             return '<img id="u56_img" class="img " src="{{projcfg.appurl}}/static/images/u56.png">' +
-                                '运行中';
+                                    '运行中';
 
                         } else {
                             return '<img id="u58_img" class="img " src="{{projcfg.appurl}}/static/images/u58.png">' +
-                                '故障';
+                                    '故障';
                         }
                     },
                 },
@@ -97,28 +160,30 @@
                     'width': 25,
                     align: 'center',
                     'formatter': function (value, rowData, rowIndex) {
-                        var occupy_precent = (rowData.occupy_use / rowData.occupy * 100).toFixed(2);
+                        console.log(value,rowData,rowIndex);
+                        var occupy_precent = (value*100).toFixed(2);
                         var occupy_uesd_percent = 100 - occupy_precent;
                         var str = '';
-                        var data_g = (rowData.occupy / 1024).toFixed(2);
-                        var data_u = (rowData.occupy_use / 1024).toFixed(2);
+                        var data_g =30 /*(rowData.occupy / 1024).toFixed(2)*/;
+                        var data_u =20 /*(rowData.occupy_use / 1024).toFixed(2)*/;
+                        console.log(occupy_precent,occupy_uesd_percent,data_g);
                         str += '<div title="30GB' + data_g + 'G  已经使用： ' + data_u + ' G (使用率 ' + occupy_precent +
-                            '%)\">';
+                                '%)\">';
                         if (occupy_precent <= 30) {
                             str += '<div style=\"height:20px;width:' + occupy_precent +
-                                '%;background:#4cff00; float:left;\"></div>';
+                                    '%;background:#4cff00; float:left;\"></div>';
                             str += '<div style=\"height:20px;width:' + occupy_uesd_percent +
-                                '%;background:#2fdae5; float:right;\"></div></div>';
+                                    '%;background:#2fdae5; float:right;\"></div></div>';
                         } else if (occupy_precent <= 75) {
                             str += '<div style=\"height:20px;width:' + occupy_precent +
-                                '%;background:#ffd800; float:left;\"></div>';
+                                    '%;background:#ffd800; float:left;\"></div>';
                             str += '<div style=\"height:20px;width:' + occupy_uesd_percent +
-                                '%;background:#2fdae5; float:right;\"></div></div>';
+                                    '%;background:#2fdae5; float:right;\"></div></div>';
                         } else if (occupy_precent > 75) {
                             str += '<div style=\"height:20px;width:' + occupy_precent +
-                                '%;background:#ff0000; float:left;\"></div>';
+                                    '%;background:#ff0000; float:left;\"></div>';
                             str += '<div style=\"height:20px;width:' + occupy_uesd_percent +
-                                '%;background:#2fdae5; float:right;\"></div></div>';
+                                    '%;background:#2fdae5; float:right;\"></div></div>';
                         }
 
                         return str;
@@ -156,4 +221,148 @@
         pagination: true,
         loadMsg: '正在加载...',
     })
+    //条件查询
+    function doSearch(){
+        $('#resourceListTable').datagrid('reload',{
+            resource_number:$('#resource_number').val()
+        });
+    }
+
+
+
+    // 打开弹出框
+    function openPage(title, value, callback) {
+        $('#colonyDialog').show();
+        $('#colonyDialog').mydialog({
+            title:title,
+            width: 600,
+            height: 480,
+            top:100,
+            modal: true,
+            myButtons:[
+                {
+                    text:'确定',
+                    btnCls:'btn btn-blue',
+                    handler:function(){
+                        callback(value);
+                    }
+                },
+                {
+                    text:'关闭',
+                    btnCls:'btn btn-danger',
+                    handler:function(){
+                        closeDialog();
+                    }
+                }
+            ]
+        });
+    }
+    function doAdd(value) {
+        var validate = $('#colonyForm').form('validate');
+        if(!validate) {
+            return false;
+        }
+        $.messager.progress({
+            title : '提示',
+            text : '正在提交数据，请稍后....'
+        });
+        $.ajax({
+            url: '{{projcfg.appurl}}/api/project/operation/resourcelist',
+            type: 'put',
+            data: $('#colonyForm').serializeJson(),
+            success: function (data) {
+                $.messager.progress('close');
+                if(data.success) {
+                    msgSuccess(data.msg);
+                    closeDialog();
+                    doSearch();
+                }
+                else {
+                    msgError(data.msg+',错误代码:'+data.code);
+                }
+            }
+        });
+    }
+
+    // 打开修改页面
+    function toEdit() {
+        // 获得选择行
+        var rows = $('#resourceListTable').datagrid('getChecked');
+        if (rows.length != 1) {
+            msgError('提示,请选择一条数据再进行修改');
+            return false;
+        }
+        var id = rows[0].id;
+        $("#colonyForm").form('load',rows[0]);
+        openPage("修改资源列表", id, doEdit);
+
+    }
+    // 修改数据
+    function doEdit(id) {
+        // 验证表单
+        var validate = $('#colonyForm').form('validate');
+        if(!validate) {
+            return false;
+        }
+        $.messager.progress({
+            title : '提示',
+            text : '正在提交数据，请稍后....'
+        });
+        $.ajax({
+            url: '{{projcfg.appurl}}/api/project/operation/resourcelist',
+            type: 'post',
+            data: $('#colonyForm').serializeJson(),
+            success: function (data) {
+                $.messager.progress('close');
+                if(data.success) {
+                    msgSuccess(data.msg);
+                    closeDialog();
+                    doSearch();
+                }
+                else {
+                    msgError(data.msg+',错误代码:'+data.code);
+                }
+            }
+        });
+    }
+
+    // 关闭窗口
+    function closeDialog() {
+        $('#colonyDialog').dialog('close');
+        clear();
+    }
+
+    // 清空新增表单数据
+    function clear() {
+        $('#colonyForm').form('clear');
+    }
+
+    /*******删除********/
+    function doDel() {
+        // 获得选择行
+        var rows = $('#resourceListTable').datagrid('getChecked');
+        if (rows.length != 1) {
+            msgError('提示,请选择一条数据再进行删除');
+            return false;
+        }
+        var id = rows[0].id;
+        msgConfirm('确定删除此条记录么？',function(result) {
+            if(result){
+                $.ajax({
+                    url: '{{projcfg.appurl}}/api/project/operation/resourcelist/'+id,
+                    type: 'delete',
+                    success: function (data) {
+                        if(data.success) {
+                            msgSuccess(data.msg);
+                            doSearch();
+                        }else{
+                            msgError(data.msg + ',错误代码:' + data.code);
+                        }
+                    }
+                });
+            }
+        });
+    }
+
+
 </script>
