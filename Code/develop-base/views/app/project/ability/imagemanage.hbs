@@ -104,34 +104,24 @@
         <div class="col-md-12">
             <div>
                 <form id="imageForm" class="form-horizontal form-bordered" role="form" method="post" enctype="multipart/form-data">
-                    <div class="form-group">
+
+
+
+
+
+                    <div class="form-group"  >
                         <div class="col-sm-4 col-xs-4">
                             <label for="imageName" class="col-sm-3 control-label no-padding-right">镜像名称:</label>
                             <div class="col-sm-9">
-                                <input type="text" class="easyui-validatebox form-control" data-options="required:true" name="imageName" id="imageName" placeholder="请输入镜像名称" style="width:60%">
+                                <input id="imageName" style="width:100%;height:31px;" type="text" name="imageName"  placeholder="请输入镜像名称" class="easyui-validatebox easyui-textbox form-control" data-options="required:true">
                             </div>
                         </div>
 
-                        <div class="col-sm-4 col-xs-4">
-                            <label for="iamgeResource"  class="col-sm-3 control-label no-padding-right">镜像源:</label>
-                            <div class="col-sm-9">
-                                <input type="text" class="easyui-validatebox form-control" data-options="required:true" name="imageResource" id="imageResource">
-                            </div>
-                        </div>
 
-                        <div class="col-sm-4 col-xs-4">
-                            <label for="channels" class="col-sm-3 control-label no-padding-right">渠道:</label>
-                            <div class="col-sm-9">
-                                <input type="text" class="easyui-validatebox form-control" data-options="required:true" name="channels" id="channels" placeholder="请输入渠道" style="width:60%">
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
                         <div class="col-sm-4 col-xs-4">
                             <label for="catagory" class="col-sm-3 control-label no-padding-right">镜像类型:</label>
                             <div class="col-sm-9">
-                                <select id="catagory" name="catagory" class="easyui-combobox easyui-validatebox" data-options="required:true" style="height: 30px;width: 300px;">
+                                <select id="catagory" name="catagory" class="easyui-combobox " data-options="required:true" style="height: 31px;width: 100%;">
                                     <option value="db">数据库</option>
                                     <option value="service">服务器</option>
                                     <option value="sys">系统平台</option>
@@ -144,17 +134,39 @@
                             </div>
                         </div>
 
-                        <div class="col-sm-4 col-xs-4">
-                            <label for="picture" class="col-sm-3 control-label no-padding-right">图片上传:</label>
-                            <div class="col-sm-9">
-                                <input  type="text" id="picture" name="picture"  style="width:260px;height:25px;" >
 
+
+                            <div class="col-sm-4 col-xs-4">
+                                <label for="iamgeResource" class="col-sm-3 control-label no-padding-right">镜像源:</label>
+                                <div class="col-sm-9">
+                                    <input id="imageResource" style="width:100%;height:31px;" type="text" name="imageResource"  placeholder="请输入镜像源" class="easyui-validatebox easyui-textbox form-control" data-options="required:true,validType:'length[1,16]'">
+                                </div>
+                            </div>
+
+
+                    </div>
+                    <div class="form-group" >
+                        <div class="col-sm-4 col-xs-4">
+                            <label for="channels" class="col-sm-3 control-label no-padding-right">镜像渠道:</label>
+                            <div class="col-sm-9">
+                                <input id="channels" style="width:100%;height:31px;" type="text" name="channels"  placeholder="请输入镜像渠道" class="easyui-validatebox easyui-textbox form-control" data-options="required:true,validType:'length[1,16]'">
                             </div>
                         </div>
 
-                        <div id="showimg" class="form-group col-sm-4 col-xs-4" hidden="true">
 
+
+                        <div class="col-sm-4 col-xs-4">
+                            <label for="picture" class="col-sm-3 control-label no-padding-right">图片上传</label>
+                            <div class="col-sm-9">
+                                <input id="picture" style="width:100%;height:31px;" type="text" name="picture">
+                            </div>
                         </div>
+
+
+                        <div id="showimg" class="col-sm-4 col-xs-4" hidden="true">
+                        </div>
+
+
                     </div>
 
 
@@ -220,7 +232,7 @@
                    else
                        return "不推荐";
                 }},
-                {"field":"imageTime","title":"创建时间","width":100,align:"center"},
+                {"field":"imageTime","title":"编辑时间","width":100,align:"center"},
                 {"field": "imageResource",hidden:'true'}
             ]],
             onLoadError:function() {
@@ -319,8 +331,8 @@
         });
         $('#'+id).mydialog({
             title:title,
-            width: '85%',
-            height: 650,
+            width: '80%',
+            height: "650",
             top:100,
             modal: true,
             myButtons:[
@@ -350,7 +362,7 @@
         var imageCode=rows[0].imageCode;
         $('#addimage').form("clear");
         var modal=$('#addimage');
-        $("#showimg").show().html('<label for="picture" class="col-sm-3 control-label no-padding-right">原图:</label><div class="col-sm-9"><img src="data:'+rows[0].pictureType+";base64 ,"+rows[0].picture+'"  style="height:35px;width:35px"></div>');
+        $("#showimg").show().html('<label for="picture" class="col-sm-3 control-label no-padding-right">原图片:</label><div class="col-sm-9"><img src="data:'+rows[0].pictureType+";base64 ,"+rows[0].picture+'"  style="height:35px;width:35px"></div>');
 //        if(rows[0].pictureNames==null||rows[0].pictureNames==""||rows[0].pictureNames==undefined) {
 //            $("#showappimg").show().html('<label for="appPicture" class="col-sm-3 control-label no-padding-right">应用截图:</label><div class="col-sm-9">暂无</div>');
 //        }else{
@@ -383,16 +395,16 @@
         $(function() {
            var edit=editormd("editormd", {
                 width   : "85%",
-                height  : 250,
+                height  : '250',
                 syncScrolling : "single",
                 //你的lib目录的路径，我这边用JSP做测试的
                 path    : "{{projcfg.appurl}}/static/ability/editormd/lib/",
                 //这个配置在simple.html中并没有，但是为了能够提交表单，使用这个配置可以让构造出来的HTML代码直接在第二个隐藏的textarea域中，方便post提交表单。
 //                saveHTMLToTextarea : true,
-               imageUpload : true,
-               imageFormats : ["jpg", "jpeg", "gif", "png", "bmp", "webp"],
-               imageUploadURL : '{{projcfg.appurl}}/api/project/ability/imagemanage/develop/im/base64Pic',
-//               saveHTMLToTextarea : true,
+                imageUpload : true,
+                imageFormats : ["jpg", "jpeg", "gif", "png", "bmp", "webp"],
+                imageUploadURL : '{{projcfg.appurl}}/api/project/ability/imagemanage/develop/im/base64Pic',
+               saveHTMLToTextarea : true,
 
             });
         });

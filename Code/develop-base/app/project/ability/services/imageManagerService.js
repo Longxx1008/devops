@@ -9,7 +9,7 @@ var mysqlPool = require('../../utils/mysql_pool');
  * @param cb
  */
 exports.pageList = function(page, size, conditionMap, cb) {
-    var sql = " SELECT t.*,DATE_FORMAT(date_add(t.createDate, interval 8 hour),'%Y-%m-%d %H:%i:%s') as imageTime from pass_develop_image_info t where 1=1";
+    var sql = " SELECT t.*,DATE_FORMAT(date_add(t.updateDate, interval 8 hour),'%Y-%m-%d %H:%i:%s') as imageTime from pass_develop_image_info t where 1=1";
     var conditions = [];
     var orderBy = " order by t.imageCode ";
     console.log("查询用户信息sql ====",sql);

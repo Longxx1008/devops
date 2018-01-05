@@ -2,119 +2,329 @@
 <link rel="stylesheet" href="{{projcfg.appurl}}/static/css/index.css">
 <link rel="stylesheet" href="{{projcfg.appurl}}/static/css/appdetails.css">
 <link rel="stylesheet" href="{{projcfg.appurl}}/static/css/layui.css" type="text/css"/>
+
+
+
+<link rel="stylesheet" type="text/css" href="{{projcfg.appurl}}/static/ability/markdownToc_files/github2-rightpart.css" media="all">
+<link rel="stylesheet" type="text/css" href="{{projcfg.appurl}}/static/ability/markdownToc_files/github1-contents.css">
+<link rel="stylesheet" href="{{projcfg.appurl}}/static/ability/markdownToc_files/zTreeStyle.css" type="text/css">
+
+<link rel="stylesheet" href="{{projcfg.appurl}}/static/ability/editormd/css/editormd.preview.css" />
+
+<script src="{{projcfg.appurl}}/static/ability/markdownToc_files/jquery-1.10.2.min.js"></script>
+<script src="{{projcfg.appurl}}/static/ability/markdownToc_files/jquery.ztree.all-3.5.min.js"></script>
+<script src="{{projcfg.appurl}}/static/ability/markdownToc_files/jquery.ztree_toc.min.js"></script>
+
+
+
+
 <script src="{{projcfg.appurl}}/static/css/layui.all.js"></script>
 <script src="{{projcfg.appurl}}/static/css/index.js"></script>
+
+
+
+
+
+<script src="{{projcfg.appurl}}/static/ability/editormd/js/jquery.min.js"></script>
+<script src="{{projcfg.appurl}}/static/ability/editormd/lib/marked.min.js"></script>
+<script src="{{projcfg.appurl}}/static/ability/editormd/lib/prettify.min.js"></script>
+<script src="{{projcfg.appurl}}/static/ability/editormd/lib/raphael.min.js"></script>
+<script src="{{projcfg.appurl}}/static/ability/editormd/lib/underscore.min.js"></script>
+<script src="{{projcfg.appurl}}/static/ability/editormd/lib/sequence-diagram.min.js"></script>
+<script src="{{projcfg.appurl}}/static/ability/editormd/lib/flowchart.min.js"></script>
+<script src="{{projcfg.appurl}}/static/ability/editormd/lib/jquery.flowchart.min.js"></script>
+<script src="{{projcfg.appurl}}/static/ability/editormd/editormd.min.js"></script>
+
+
+
+<style>
+    .ztree li a.curSelectedNode {
+        padding-top: 0px;
+        background-color: #FFE6B0;
+        color: black;
+        height: 16px;
+        border: 1px #FFB951 solid;
+        opacity: 0.8;
+    }
+    .ztree li a {
+        font-size: 14px;
+        font-family: STHeiti;
+        color: rgba(48, 48, 48, 0.99);
+    }
+    .ztree{
+        overflow: auto;
+        height:100%;
+        min-height: 200px;
+        top: 0px;
+    }
+
+    .depot-bottom{
+        overflow: hidden;
+        height: 25px;
+        position: relative;
+        margin-top: 0px;
+    }
+    .depot-bottom i{
+        font-size: 12px;
+        display: block;
+        float: left;
+        width:60px;
+        padding-left: 20px;
+        height: 20px;
+        color: #bbb;
+        font-style:normal;
+        position: absolute;
+        z-index:1;
+        top:0;
+    }
+    .depot-bottom i.point{
+        background: url("{{projcfg.appurl}}/static/images/img/like.png") no-repeat 0 -7px;
+        background-size: 24%;
+        right:60px;
+    }
+    .depot-bottom i.point.select{
+        background: url("{{projcfg.appurl}}/static/images/img/like.png") no-repeat 0 -31px;
+        background-size: 24%;
+    }
+    .depot-bottom i.collect{
+        background: url("{{projcfg.appurl}}/static/images/img/icon.png") no-repeat 0 -395px;
+        right:2px;
+    }
+    .depot-bottom i.collect.select{
+        background: url("{{projcfg.appurl}}/static/images/img/icon.png") no-repeat 0 -424px;
+    }
+</style>
+
+
+
 <div class="row">
     <div class="col-xs-12 col-md-12">
-        <div class="widget">
-            <div class="widget-body">
-    <div class="box wrap-1200 clearfix">
+    <div class="widget" style="margin-left: 15px;margin-right: 15px">
+        <div class="widget-body">
 
-        <ul class="soft-box f-l">
-
-            <li>
-                <img src="" alt="" id="ititle">
-                <h1 id="title" style="display: block;font-size: 12px;color: #444444"></h1>
-                <p style="display: block;margin-top: 30px;font-size: 12px;color: #444444">系统类别：<span id="type"></span></p>
-                <p style="display: block;margin-top: 50px;font-size: 12px;color: #444444">收藏数：<span id="collection"></span></p>
-                <p style="display: block;margin-top: 50px;font-size: 12px;color: #444444">下载数：<span id="download"></span></p>
-                <p style="display: block;margin-top: 50px" id="jietu"><a href="javascript:void(0)" style="font-size: 12px;color: #444444;font-weight: normal">应用截图</a></p>
-                <p style="display: block;margin-top: 50px" id="shuoming"><a href="javascript:void(0)" style="font-size: 12px;color: #444444;font-weight: normal">安装说明</a></p>
-                <p style="display: block;margin-top: 50px" id="wendang"><a href="javascript:void(0)" style="font-size: 12px;color: #444444;font-weight: normal">接口文档</a></p>
-                <p style="display: block;margin-top: 50px" id="gengxin"><a href="javascript:void(0)" style="font-size: 12px;color: #444444;font-weight: normal">版本更新</a></p>
-            </li>
-        </ul>
-        <div class="f-l soft-content">
-            <h2 id="title1"></h2>
-            <h2>供应商:贵州中移通信技术工程有限公司</h2>
-            <p class="concent" id="content">
-            </p>
-            </div>
-
-
-
-        <div class="scal-img" style="margin-top: 150px" id="display">
-            <a href="javascript:void(0)"><img src="{{projcfg.appurl}}/static/css/dianzan.png" />点赞</a><a href="javascript:void(0)"><img src="{{projcfg.appurl}}/static/css/shoucang.png" />收藏</a>
-            <h2 style="padding-left:10px;margin-top: 20px">应用截图</h2>
-            <div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="2000" style="margin-left: 10px;">
-                <!-- 轮播（Carousel）指标 -->
-                <ol class="carousel-indicators">
-                    <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-                    <li data-target="#myCarousel" data-slide-to="1"></li>
-                    <li data-target="#myCarousel" data-slide-to="2"></li>
-                </ol>
-                <!-- 轮播（Carousel）项目 -->
-                <div class="carousel-inner">
-                    <div class="item active">
-                        <img src="" alt="" class="images">
+                <!--头部内容,,计划用nav-->
+                <!--<nav class="navbar navbar-default" role="navigation">-->
+                <div class="row">
+                    <div class="col-md-2">
+                        <img src="" alt="" style="width: 130px;height: 130px;margin-left: 20%" id="ititle">
                     </div>
-                    <!--<div class="item">
-                        <img src="img/yulan.jpg" alt="">
+                    <div class="col-md-10">
+                        <h2 id="title1" style="font-size:20px;margin-top: 15px;color: rgba(68,68,68,0.6)"></h2>
+                        <h2 style="margin-top: 15px;font-size:16px;">供应商:贵州中移通信技术工程有限公司</h2>
+                        <p class="content" id="content" style="margin-top:15px;word-spacing:8px;font-size: 14px;color: rgba(68,68,68,0.6)"></p>
+                        <div class="col-md-offset-8 depot-bottom" style="margin-top: 15px;padding:0px;border:0px;">
+                            <!--<a href="javascript:void(0)" style="color: rgba(68,68,68,0.6)"><img src="{{projcfg.appurl}}/static/css/dianzan.png" />点赞</a>-->
+                            <!--&lt;!&ndash;<a href="javascript:void(0)" style="color: rgba(68,68,68,0.6)"><img src="{{projcfg.appurl}}/static/css/shoucang.png" />收藏</a>&ndash;&gt;-->
+                            <span style="margin-top: 10px;margin-left: 0px;font-size: 12px;color: rgba(68,68,68,0.6)">系统类别：<span id="type"></span></span>
+                            <span style="margin-top: 10px;margin-left: 15px;font-size: 12px;color: rgba(68,68,68,0.6)">收藏数：<span id="collection"></span></span>
+                            <span style="margin-top: 10px;margin-left: 15px;font-size: 12px;color: rgba(68,68,68,0.6)">点赞数：<span id="pointPitch"></span></span>
+                            <i href="javascript:void(0)" id="dz" class=" " style=" cursor: pointer;font-size: 12px;color: rgba(68,68,68,0.6)" onclick="do_point()">点赞</i>
+                            <i href="javascript:void(0)" id="sc" class=" " style=" cursor: pointer;font-size: 12px;color: rgba(68,68,68,0.6)" onclick="do_collect()">收藏</i>
+
+                        </div>
                     </div>
-                    <div class="item">
-                        <img src="img/yulan.jpg" alt="">
-                    </div>-->
                 </div>
+            <!--</nav>-->
+            <hr style="height:1px;margin-bottom:10px;border:none;border-top:1px solid rgba(68,68,68,0.6);" />
+
+            <div class="row">
+                <!--文档正文-->
+                <div class="col-md-2" id="contents">
+                    <!--目录-->
+                    <div clas="widget" style="margin-left: 2px">
+                        <div class="widget-body" data-spy="affix-top" data-offset-top="125">
+                            <h2>目录</h2>
+                            <ul class="ztree" id="ztree" >
+                                <p>目录</p>
+                                <p>目录</p>
+                                <p>目录</p>
+                                <p>目录</p>
+                                <p>目录</p>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-10">
+                    <!--正文-->
+                    <div class="text-scroll" id="doc-content"  data-target="#contents">
+                        <!--<textarea id="detail" style="display:block;"></textarea>-->
+                        <textarea id="detail" style="display:block;"></textarea>
+                    </div>
+                </div>
+
             </div>
+
+
         </div>
     </div>
-            </div>
-        </div></div></div>
-    <script>
-        var p1,shuoming;
-        $("#shuoming").click(function(){
-            $("#display").html('<a href="javascript:void(0)"><img src="{{projcfg.appurl}}/static/css/dianzan.png" />点赞</a><a href="javascript:void(0)"><img src="{{projcfg.appurl}}/static/css/shoucang.png" />收藏</a><h2 style="padding-left:10px;margin-top:20px">安装说明</h2><div style="padding-left:10px;">'+shuoming+'</div>');
-        });
-        $("#jietu").click(function(){
-            $("#display").html('<a href="javascript:void(0)"><img src="{{projcfg.appurl}}/static/css/dianzan.png" />点赞</a><a href="javascript:void(0)"><img src="{{projcfg.appurl}}/static/css/shoucang.png" />收藏</a><h2 style="padding-left:10px;margin-top:20px">应用截图</h2><div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="2000" style="margin-left: 10px;"><ol class="carousel-indicators"><li data-target="#myCarousel" data-slide-to="0" class="active"></li><li data-target="#myCarousel" data-slide-to="1"></li><li data-target="#myCarousel" data-slide-to="2"></li></ol><div class="carousel-inner"><div class="item active"><img src="" alt="" class="images"></div></div></div>')
-            $(".images").attr("src",p1);
-        })
-        //页面直接跳转页面带参数时，获取url参数值
-        function GetRequest() {
-            var values = [];
-            var url = location.search; //获取url中"?"符后的字串
-            if (url.indexOf("?") != -1) {    //判断是否有参数
-                var str = url.substr(1); //从第一个字符开始 因为第0个是?号 获取所有除问号的所有符串
-                //用等号进行分隔 （因为知道只有一个参数 所以直接用等号进分隔 如果有多个参数 要用&号分隔 再用等号进行分隔）
-                if(str.indexOf("&") >= 0){
-                    var strs = str.split("&");
-                    for(var i=0;i<strs.length;i++){
-                        var vals = strs[i].split("=");
-                        if(i==0){
-                            values.push(decodeURI(vals[1]));
-                        }else{
-                            values.push(vals[1]);
-                        }
+    </div>
+</div>
+
+
+
+
+
+
+<script>
+    var detailIntroduction;
+
+    //页面直接跳转页面带参数时，获取url参数值
+    function GetRequest() {
+        var values = [];
+        var url = location.search; //获取url中"?"符后的字串
+        if (url.indexOf("?") != -1) {    //判断是否有参数
+            var str = url.substr(1); //从第一个字符开始 因为第0个是?号 获取所有除问号的所有符串
+            //用等号进行分隔 （因为知道只有一个参数 所以直接用等号进分隔 如果有多个参数 要用&号分隔 再用等号进行分隔）
+            if(str.indexOf("&") >= 0){
+                var strs = str.split("&");
+                for(var i=0;i<strs.length;i++){
+                    var vals = strs[i].split("=");
+                    if(i==0){
+                        values.push(decodeURI(vals[1]));
+                    }else{
+                        values.push(vals[1]);
                     }
-                }else{
-                    var strs = str.split("=");
-                    values.push(decodeURI(strs[1]));
                 }
-                return values;
+            }else{
+                var strs = str.split("=");
+                values.push(decodeURI(strs[1]));
             }
+            return values;
         }
-        $(function(){
-            var paramsValues = GetRequest();
-            console.log("======paramsValues=====",paramsValues);
-            var id =paramsValues[0];
+    }
+
+
+    /**
+     * 记录点赞数
+     * @param id
+     * @param i
+     */
+    function do_point(){
+        var paramsValues = GetRequest();
+        var id =paramsValues[0];
+        var classvalue = $("#dz").attr("class");
+        var numvalue = parseInt($("#pointPitch").text());
+        var modifyvalue="point ";
+        var imagePoint =0;
+        if(classvalue.indexOf("select") >=0){
+            numvalue = numvalue - 1;
+        }else{
+            var modifyvalue="point select";
+            numvalue = numvalue + 1;
+            imagePoint = 1;
+        }
+
+        $.ajax({
+            url: '{{projcfg.appurl}}/api/project/ability/imagewarehouse/develop/im/collectOrDownload',
+            type: 'put',
+            async:false,
+            data: {'imageCode':id,"pointNum":numvalue,'imagePoint':imagePoint,'flag':0},
+            success: function (data) {
+                console.log(data);
+                if(data.success) {
+                    $("#dz").attr("class",modifyvalue);
+                    $("#pointPitch").text(numvalue);
+                }
+                else {
+                    msgError(data.msg+',错误代码:'+data.code);
+                }
+            }
+        });
+    }
+
+
+
+
+    /**
+     * 记录收藏数
+     * @param id
+     * @param i
+     */
+    function do_collect(){
+        var paramsValues = GetRequest();
+        console.log("======paramsValues====="+paramsValues);
+        var id =paramsValues[0];
+        var classvalue = $("#sc").attr("class");
+        var numvalue = parseInt($("#collection").text());
+        var modifyvalue="collect ";
+        var imagetype =0;
+        if(classvalue.indexOf("select") >=0){
+            numvalue = numvalue - 1;
+        }else{
+            var modifyvalue="collect select";
+            numvalue = numvalue + 1;
+            imagetype = 1;
+        }
+
+        $.ajax({
+            url: '{{projcfg.appurl}}/api/project/ability/imagewarehouse/develop/im/collectOrDownload',
+            type: 'put',
+            async:false,
+            data: {'imageCode':id,"collectNum":numvalue,'imagetype':imagetype,'flag':1},
+            success: function (data) {
+                console.log(data);
+                if(data.success) {
+                    $("#sc").attr("class",modifyvalue);
+                    $("#collection").text(numvalue);
+                }
+                else {
+                    msgError(data.msg+',错误代码:'+data.code);
+                }
+            }
+        });
+    }
+
+
+
+
+   $( function (){
+        var paramsValues = GetRequest();
+        var id =paramsValues[0];
+        if(id) {
             $.ajax({
-                url:'{{projcfg.appurl}}/api/project/ability/appmarketdetail/'+id,
-                type:'get',
-                success:function (data) {
+                url: '{{projcfg.appurl}}/api/project/ability/appmarketdetail/' + id,
+                type: 'get',
+                success: function (data) {
+                    var imagetype = data.data[0].imagetype;
+                    var imagePoint= data.data[0].imagePoint;
                     $("#title").html(data.data[0].imageName);
                     $("#type").html(data.data[0].catagory);
                     $("#collection").html(data.data[0].collectionNumber);
-                    $("#download").html(data.data[0].downloadNumber);
+                    $("#pointPitch").html(data.data[0].pointNumber);
                     $("#title1").html(data.data[0].imageName);
                     $("#content").html(data.data[0].simpleIntroduction);
-                    var p = 'data:'+data.data[0].pictureType+';base64 ,'+data.data[0].picture;
-                    $("#ititle").attr("src",p);
-                    p1='data:'+data.data[0].pictureType+';base64 ,'+data.data[0].appPicture;
-                    $(".images").attr("src",p1);
-                    shuoming=data.data[0].installnotify;
+                    $("#detail").val(data.data[0].detailIntroduction);
+                    var p = 'data:' + data.data[0].pictureType + ';base64 ,' + data.data[0].picture;
+                    $("#ititle").attr("src", p);
+                    console.log("aaa" + imagetype);
+                    if (imagePoint === '1')
+                        $("#dz").attr("class", 'point select');
+                    else {
+                        $("#dz").attr("class", 'point');
+                    }
+                    if (imagetype === '1')
+                        $("#sc").attr("class", 'collect select');
+                    else {
+                        $("#sc").attr("class", 'collect');
+                    }
+                    detailIntroduction = data.data[0].detailIntroduction;
+
+                    editormd.markdownToHTML("doc-content", {//注意：这里是上面DIV的id
+                        htmlDecode: "style,script,iframe",
+                        emoji: true,
+                        tocm: true,    // Using [TOCM]
+                        tocContainer: "#ztree", // 自定义 ToC 容器层
+                        taskList: true,
+                        tex: true, // 默认不解析
+                        flowChart: true, // 默认不解析
+                        sequenceDiagram: true, // 默认不解析
+                        codeFold: true
+                    });
                 }
             })
-        })
-    </script>
+        }
+    });
+</script>
+
 
 

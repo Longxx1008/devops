@@ -83,7 +83,7 @@ router.route('/develop/im/add').post(function(req,res) {
             pictureName = files.picture.name;
             pictureType = files.picture.type;
             path = files.picture.path;
-            if (pictureName != '') {
+            if(pictureName !=''){
                 picture = fs.readFileSync(path);
             }
             // pictureNames=files.appPicture.name;
@@ -192,54 +192,91 @@ router.route('/develop/im/add').post(function(req,res) {
 })
 
 //
-router.route('/develop/im/:id').delete(function(req,res) {
-    // 获取提交信息
-    var id = req.params.id;
-    imageService.delete(id, function(result) {
-        utils.respJsonData(res, result);
+    router.route('/develop/im/:id').delete(function(req,res) {
+        // 获取提交信息
+        var id = req.params.id;
+        imageService.delete(id, function(result) {
+            utils.respJsonData(res, result);
+        });
     });
-});
 
+////获取图片
+//router.route('/develop/im/base64Pic').post(function (req, res) {
+//
+//    var filedir = 'public/static/images/image_information/';
+//    fss.ensureDir(filedir, function (err) { //改变上传文件夹的方法fs.ensureDir
+//        if (err) {
+//            console.log('ensureDir error')
+//            res.send('no ensuredir');
+//        }
+//        console.log("s达到s","ss");
+//        var name ='';
+//        var path = '';
+//        var picture = '';
+//        var buf = '';
+//        var form = new formidable.IncomingForm();
+//        var result = '';
+//        form.parse(req, function (error, fields, files) {
+//            console.log("呜呜呜",files);
+//
+//            if (error) {
+//                return console.log(error);
+//            } else {
+//
+//                name=files['editormd-image-file'].name;
+//                path=filedir+name;
+//                //path = files['editormd-image-file'].path;
+//                //picture = fs.readFileSync(path);
+//                //buf = new Buffer(picture);
+//                //picture = buf.toString("base64");
+//                fss.rename(files['editormd-image-file'].path,path,function(err){
+//                    if(err){
+//                        res.send('no rename');
+//                    }else{
+//                        //并且存入数据库作为删除的备份
+//
+//                        result = {
+//                            'success' : 1,
+//                            'message': 'success',
+//                            'url': path
+//                        };
+//                        res.send(result);
+//
+//                    }
+//                });
+//
+//            }
+//        });
+//
+//    });
+//});
 //获取图片
 router.route('/develop/im/base64Pic').post(function (req, res) {
-    var result = {
-        'success' : 0,
-        'message': '',
-        'url': ''
-    };
+
     var filedir = 'public/static/images/image_information/';
     fss.ensureDir(filedir, function (err) { //改变上传文件夹的方法fs.ensureDir
         if (err) {
             console.log('ensureDir error');
-            result.success = 0;
-            result.message = '上传失败！';
-            result.url = '';
-            res.json(result);
+            res.send('no ensuredir');
         }
         var name ='';
         var path = '';
         var form = new formidable.IncomingForm();
+        var result = '';
         form.parse(req, function (error, fields, files) {
             if (error) {
-                console.log('form parse error! ',error);
-                result.success = 0;
-                result.message = '上传失败！';
-                result.url = '';
+                throw err;
             } else {
                 name=files['editormd-image-file'].name;
                 path=filedir+name;
                 var readStream=fs.createReadStream(files['editormd-image-file'].path);
                 var writeStream=fs.createWriteStream(path);
                 readStream.pipe(writeStream);
-
-                result.success = 1;
-                result.message = '上传成功！';
-                result.url = '/project' + path.substr(6,path.length);
+                res.send({'success' : 1,'message': 'success','url': '/project' + path.substr(6,path.length)});
             }
-            res.json(result);
         });
     });
 });
 
 
-module.exports = router;
+    module.exports = router;

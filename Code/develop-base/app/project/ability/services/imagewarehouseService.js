@@ -9,18 +9,22 @@ var mysqlPool = require('../../utils/mysql_pool');
  * @param cb
  */
 exports.pageList = function(page, size, conditionMap, cb) {
-    var sql = "SELECT t.*,DATE_FORMAT(date_add(t.createDate, interval 8 hour),'%Y-%m-%d %H:%i:%s') as imageTime " ;
+    var sql = "SELECT distinct t.*,DATE_FORMAT(date_add(t.createDate, interval 8 hour),'%Y-%m-%d %H:%i:%s') as imageTime " ;
     var conditions = [];
     if(conditionMap) {
         if(conditionMap.flag && conditionMap.flag == 'favorites'){
             sql += ",t2.imagetype ,t2.userCode from pass_develop_image_info t "+
-                "LEFT JOIN pass_develop_image_mapping t2 ON t.imageCode=t2.imageCode where t2.imagetype = 1 ";
+                "LEFT JOIN pass_develop_image_mapping t2 ON t.imageCode=t2.imageCode where t2.imagetype = 1 and t2.userCode = '"+conditionMap.loginUser+"'  ";
         }else if(conditionMap.flag && conditionMap.flag == 'myimage'){
-            sql += ",t2.imagetype ,t2.userCode from pass_develop_image_info t "+
-                "LEFT JOIN pass_develop_image_mapping t2 ON t.imageCode=t2.imageCode where t2.userCode = '"+conditionMap.loginUser+"' ";
+            sql += " from pass_develop_image_info t "+
+                " where t.updateBy = '"+conditionMap.loginUser+"' ";
         }else{
-            sql += ",t2.imagetype ,t2.userCode from pass_develop_image_info t "+
-                "LEFT JOIN pass_develop_image_mapping t2 ON t.imageCode=t2.imageCode and t2.imagetype = '1' where 1=1 " ;
+            sql += ",t2.imagetype ,t3.imagePoint from pass_develop_image_info t "+
+                "LEFT JOIN pass_develop_image_mapping t2 ON t.imageCode=t2.imageCode and t2.userCode = '"+conditionMap.loginUser+"' " ;
+            sql += " LEFT JOIN pass_develop_image_pointmapping t3 ON t.imageCode=t3.imageCode and t3.userCode = '"+conditionMap.loginUser+"'"+"where 1=1";
+            //sql += ",t2.imagetype ,t2.userCode, t3.imagePoint from pass_develop_image_info t "+
+            //    "LEFT JOIN pass_develop_image_mapping t2 ON t.imageCode=t2.imageCode and t2.imagetype = '1'" ;
+            //sql += " LEFT JOIN pass_develop_image_pointmapping t3 ON t.imageCode=t3.imageCode where 1=1";
         }
         if(conditionMap.type){
             sql += " and t.catagory = '"+conditionMap.type+"' ";
@@ -66,14 +70,28 @@ exports.add = function(data,data_map,cb) {
  * @param mapData
  * @param cb
  */
-exports.imageCollectOrDownload = function(conditionMap,data,mapData,cb){
+exports.imageCollectOrDownload = function(conditionMap,data,mapData,flag,cb){
     var sql = "update pass_develop_image_info set ";
-    var mapsql = "update pass_develop_image_mapping set imagetype =? where imageCode =? and userCode =?";
-    if(conditionMap && conditionMap.downloadNum){//记录下载数
-        sql += "downloadNumber =?"
-    }else{//收藏数
-        sql += "collectionNumber =?"
+    var mapsql = "";
+    var insertmapsql="";
+    console.log("",mapData.imagetype);
+    if(flag==0){
+        console.log("点赞部分sql");
+        console.log(mapData.imagePoint);
+        sql += "pointNumber =?";
+        mapsql = "update pass_develop_image_pointmapping set imagePoint =? where imageCode =? and userCode =?";
+        insertmapsql="insert into pass_develop_image_pointmapping(imagePoint,imageCode,userCode) values(?,?,?)";
+    }else if(flag==1){
+        console.log("收藏部分sql");
+        sql += "collectionNumber =?";
+        mapsql = "update pass_develop_image_mapping set imagetype =? where imageCode =? and userCode =?";
+        insertmapsql="insert into pass_develop_image_mapping(imagetype,imageCode,userCode) values(?,?,?)";
     }
+    //if(conditionMap && conditionMap.downloadNum){//记录下载数
+    //    sql += "downloadNumber =?";
+    //}else{//收藏数
+    //    // sql += "collectionNumber =?";
+    //}
     sql += " where imageCode =? ";
     mysqlPool.query(sql,data,function(err,result) {
         if(err) {
@@ -82,20 +100,37 @@ exports.imageCollectOrDownload = function(conditionMap,data,mapData,cb){
             if(conditionMap && conditionMap.downloadNum){
                 cb(utils.returnMsg(true, '0000', '修改记录数成功', result, null));
             }else{
+
+                console.log("mapsss",mapData);
                 mysqlPool.query(mapsql,mapData,function(error,mapresult){
                     if(error){
                         cb(utils.returnMsg(false, '1000', '修改类型异常', null, error));
                     } else{
-                        cb(utils.returnMsg(true, '0000', '修改类型成功', mapresult, null));
+                        console.log("更新映射表",mapresult);
+
+                        if(mapresult.changedRows){
+                            cb(utils.returnMsg(true, '0000', '修改类型成功', mapresult, null));
+                            console.log("更新成功");
+                        }
+                        else{
+                            console.log("镜像无数据实行插入");
+                            mysqlPool.query(insertmapsql,mapData,function(error,insertmapresult){
+                                if(error){
+                                    cb(utils.returnMsg(false, '1000', '修改类型异常', null, error));
+                                } else{
+                                    cb(utils.returnMsg(true, '0000', '修改类型成功', insertmapresult, null));
+                                    console.log("插入映射表成功");
+                                }
+                            });
+                        }
                     }
                 });
 
             }
-
-
         }
     });
 }
+
 
 /**
  * 更新项目信息

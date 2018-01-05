@@ -133,25 +133,36 @@ router.route('/develop/im/add').post(function(req,res) {
  */
 router.route('/develop/im/collectOrDownload').put(function(req,res){
     console.log(req.session.current_user.login_account);
-    var imageCode = req.body.imageCode;
-    var collectNum = req.body.collectNum;
-    var imagetype = req.body.imagetype;
-    var downloadNum = req.body.downloadNum;
-    var flag = req.body.flag;
+    console.log("req.bodys",req.body);
+
+    var currentUser =req.session.current_user;
     var conditionMap = {};
     var data = [],mapdata = [];
-    if(flag && flag == "download"){
-        conditionMap.downloadNum = downloadNum;
-        data.push(downloadNum);
-    }else{
+
+    var flag = req.body.flag;
+    if(flag==0){//点赞部分的
+        var imageCode = req.body.imageCode;
+        //var downloadNum = req.body.downloadNum;
+        var pointNum = req.body.pointNum; // 点赞数
+        var imagePoint = req.body.imagePoint; // 当前用户对镜像的点赞标记，存往pass_develop_image_pointmapping表
+        console.log("点赞部分");
+        data.push(pointNum);
+        mapdata.push(imagePoint);
+        mapdata.push(imageCode);
+        mapdata.push(currentUser.login_account);
+    }else if(flag==1){
+        var imageCode = req.body.imageCode;
+        var collectNum = req.body.collectNum; // 收藏数
+        var imagetype = req.body.imagetype; // 当前用户对镜像的收藏标记，存往pass_develop_image_mapping表
+        console.log("收藏部分",imagetype);
         data.push(collectNum);
         mapdata.push(imagetype);
         mapdata.push(imageCode);
-        var currentUser =req.session.current_user;
         mapdata.push(currentUser.login_account);
-    }
+    }else console.log(err);
+
     data.push(imageCode);
-    imageService.imageCollectOrDownload(conditionMap,data,mapdata, function(result) {
+    imageService.imageCollectOrDownload(conditionMap,data,mapdata,flag, function(result) {
         utils.respJsonData(res, result);
     });
 });
