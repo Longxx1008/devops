@@ -159,6 +159,12 @@ router.route("/updateFormalFlag").get(function(req,res){
         utils.respJsonData(res,rs)
     })
 });
+router.route("/finalFormalFlag").get(function(req,res){
+    var projectCode=req.query.projectCode;
+    greyenvironmtneService.finalFormalFlag(projectCode,function(rs){
+        utils.respJsonData(res,rs)
+    })
+});
 router.route("/deleteBlue").get(function(req,res){
     var projectCode=req.query.projectCode;
     greyenvironmtneService.deleteBlue(projectCode,function(rs){
@@ -168,6 +174,12 @@ router.route("/deleteBlue").get(function(req,res){
 router.route("/deleteBlueRecordFromTable").get(function(req,res){
     var projectCode=req.query.projectCode;
     greyenvironmtneService.deleteBlueRecordFromTable(projectCode,function(rs){
+        utils.respJsonData(res,rs)
+    })
+});
+router.route("/selectIfBlue").get(function(req,res){
+    var projectCode=req.query.projectCode;
+    greyenvironmtneService.selectIfBlue(projectCode,function(rs){
         utils.respJsonData(res,rs)
     })
 });

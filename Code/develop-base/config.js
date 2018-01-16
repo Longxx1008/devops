@@ -84,7 +84,7 @@ var config = {
     },
     mysql:{
         host: '192.168.9.48',
-        port:32768,
+        port:3306,
         user: 'root',
         password: 'root',
         database: 'pass'
@@ -158,10 +158,10 @@ var config = {
         lableValue:'create',
         mesosHost:"http://192.168.9.63:5050",
         //marathonApi:"http://192.168.31.92:8080/v2/apps",
-        marathonApi:"http://192.168.9.61:8080/v2/apps",
+        marathonApi:"http://192.168.9.62:8080/v2/apps",
         //marathonLb:"http://192.168.31.94",
         //默认值，实际值会在deployedInfoSyncJob中刷新
-        marathonLb:"http://192.168.9.61",
+        marathonLb:"http://192.168.9.62",
         influxDB:"http://192.168.9.69:8086/telegraf"
     }
 }

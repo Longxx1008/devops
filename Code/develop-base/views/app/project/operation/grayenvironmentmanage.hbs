@@ -449,7 +449,7 @@
                     <div class="row">
                         <div class="col-md-12 text-right">
                             <button class="button"style="background-color: greenyellow;color:#fff;" onclick="addInstance()">增加运行实例</button>
-                           <!-- <button class="button"style="color:#fff;" onclick="addNewInstance()">下一节点部署</button>-->
+                            <button class="button"style="color:#fff;" onclick="addNewInstance()">下一节点部署</button>
                             <button class="button"style="background-color: rgba(204, 51, 0, 1);color:#fff;" onclick="allInstance()">全局部署</button>
                             <button class="button"style="background-color: rgba(255, 204, 0, 1);color:#fff;" onclick="rollback()">回滚</button>
                         </div>
@@ -1109,6 +1109,7 @@
     setInterval(function(){
         reloadFormalTable();
     },10000);
+
    //增加运行实例
   function addInstance(){
       $.messager.progress();
@@ -1138,27 +1139,19 @@
     function addNewInstance(){
         if(formalInstance!=0) {
             $.messager.progress();
-         //表格有数据表示进行蓝绿部署,没数据不进行操作
+            /*clearInterval(reloadFormalTable());*/
+             //表格有数据表示进行蓝绿部署,没数据不进行操作
             //在marathon上创建一个项目
             $.ajax({
                 url: '{{projcfg.appurl}}/api/project/operation/grayenvironmentmanage/startBlueFormal',
                 type: 'get',
                 data: {
-                    "instance": 0,//启动实例数
+                    "instance": formalInstance,//启动实例数
                     "imageName": $("#new_imageName").html(),//启动镜像名称
                     "projectCode": projectCode//项目编码
                 },
                 success: function (data) {
-                    $.ajax({
-                        url: '{{projcfg.appurl}}/api/project/operation/grayenvironmentmanage/updateBlueFormal',
-                        type: 'get',
-                        data: {
-                            "instance": formalInstance,//启动实例数
-                            "imageName": $("#new_imageName").html(),//启动镜像名称
-                            "projectCode": projectCode//项目编码
-                        },
-                        success: function (data) {
-                            $.messager.progress("close");
+                    $.messager.progress("close");
                             $.ajax({
                                 url: '{{projcfg.appurl}}/api/project/operation/grayenvironmentmanage/updateFormalFlag',
                                 type: 'get',
@@ -1166,36 +1159,46 @@
                                     "projectCode": projectCode//项目编码
                                 },
                                 success: function (data) {
+                                    /*alert(JSON.stringify(data))*/
                                     if(parseInt(data.data[0].instance)==parseInt(data.data[0].clickNum)){
-                                        //更新正式部署版本
+                                        //删除正式实例表蓝绿记录，clickNum归0，正式版本flag改为1
                                         $.ajax({
-                                            url: '{{projcfg.appurl}}/api/project/operation/grayenvironmentmanage/updateFormal',
+                                            url: '{{projcfg.appurl}}/api/project/operation/grayenvironmentmanage/finalFormalFlag',
                                             type: 'get',
                                             data: {
-                                                "instance": formalInstance,//启动实例数
-                                                "imageName": $("#new_imageName").html(),//启动镜像名称
                                                 "projectCode": projectCode//项目编码
                                             },
-                                            async:false,
-                                            success: function (data) {
-                                                //删除正式部署表蓝绿记录
+                                            success:function(data){
+                                                //删除蓝绿版本
                                                 $.ajax({
-                                                    url: '{{projcfg.appurl}}/api/project/operation/grayenvironmentmanage/deleteBlueRecordFromTable',
+                                                    url: '{{projcfg.appurl}}/api/project/operation/grayenvironmentmanage/deleteBlue',
                                                     type: 'get',
                                                     data: {
                                                         "projectCode": projectCode//项目编码
                                                     },
                                                     success: function (data) {
-
-                                                        //删除蓝绿版本
+                                                        //删除正式部署表蓝绿记录
                                                         $.ajax({
-                                                            url: '{{projcfg.appurl}}/api/project/operation/grayenvironmentmanage/deleteBlue',
+                                                            url: '{{projcfg.appurl}}/api/project/operation/grayenvironmentmanage/deleteBlueRecordFromTable',
                                                             type: 'get',
                                                             data: {
                                                                 "projectCode": projectCode//项目编码
                                                             },
                                                             success: function (data) {
-                                                                $.messager.progress("close");
+                                                                //更新正式部署版本
+
+                                                                $.ajax({
+                                                                    url: '{{projcfg.appurl}}/api/project/operation/grayenvironmentmanage/updateFormal',
+                                                                    type: 'get',
+                                                                    data: {
+                                                                        "instance": formalInstance,//启动实例数
+                                                                        "imageName": $("#new_imageName").html(),//启动镜像名称
+                                                                        "projectCode": projectCode//项目编码
+                                                                    },
+                                                                    success: function (data) {
+                                                                        $.messager.progress("close");
+                                                                    }
+                                                                })
                                                             }
                                                         })
                                                     }
@@ -1203,11 +1206,10 @@
                                             }
                                         })
 
+
                                     }
 
                                 }
-                            })
-                        }
                     })
                 }
             });
@@ -1218,44 +1220,166 @@
     //全局部署
     function allInstance(){
         $.messager.progress();
-        //更新正式部署版本
         $.ajax({
-            url: '{{projcfg.appurl}}/api/project/operation/grayenvironmentmanage/updateFormal',
+            url: '{{projcfg.appurl}}/api/project/operation/grayenvironmentmanage/selectIfBlue',
             type: 'get',
             data: {
-                "instance": formalInstance,//启动实例数
-                "imageName": $("#new_imageName").html(),//启动镜像名称
                 "projectCode": projectCode//项目编码
             },
-            async:false,
             success: function (data) {
+                if(data.data.length==0){//尚未进行下一节点部署
+                    //更新正式部署版本
+                    $.ajax({
+                        url: '{{projcfg.appurl}}/api/project/operation/grayenvironmentmanage/updateFormal',
+                        type: 'get',
+                        data: {
+                            "instance": formalInstance,//启动实例数
+                            "imageName": $("#new_imageName").html(),//启动镜像名称
+                            "projectCode": projectCode//项目编码
+                        },
+                        async:false,
+                        success: function (data) {
+                            $.messager.progress("close");
+                        }
+                    })
+                }else{//进行了下一节点部署
+                    //删除正式实例表蓝绿记录，clickNum归0，正式版本flag改为1
+                    $.ajax({
+                        url: '{{projcfg.appurl}}/api/project/operation/grayenvironmentmanage/finalFormalFlag',
+                        type: 'get',
+                        data: {
+                            "projectCode": projectCode//项目编码
+                        },
+                        success:function(data){
+                            //删除蓝绿版本
+                            $.ajax({
+                                url: '{{projcfg.appurl}}/api/project/operation/grayenvironmentmanage/deleteBlue',
+                                type: 'get',
+                                data: {
+                                    "projectCode": projectCode//项目编码
+                                },
+                                success: function (data) {
+                                    //删除正式部署表蓝绿记录
+                                    $.ajax({
+                                        url: '{{projcfg.appurl}}/api/project/operation/grayenvironmentmanage/deleteBlueRecordFromTable',
+                                        type: 'get',
+                                        data: {
+                                            "projectCode": projectCode//项目编码
+                                        },
+                                        success: function (data) {
+                                            //更新正式部署版本
+
+                                            $.ajax({
+                                                url: '{{projcfg.appurl}}/api/project/operation/grayenvironmentmanage/updateFormal',
+                                                type: 'get',
+                                                data: {
+                                                    "instance": formalInstance,//启动实例数
+                                                    "imageName": $("#new_imageName").html(),//启动镜像名称
+                                                    "projectCode": projectCode//项目编码
+                                                },
+                                                success: function (data) {
+                                                    $.messager.progress("close");
+                                                }
+                                            })
+                                        }
+                                    })
+                                }
+                            })
+                        }
+                    })
+                }
                 $.messager.progress("close");
             }
         })
+
     }
 
     //回滚
     function rollback(){
         $.messager.progress();
         $.ajax({
-            url: '{{projcfg.appurl}}/api/project/operation/grayenvironmentmanage/getFormalVersion',
+            url: '{{projcfg.appurl}}/api/project/operation/grayenvironmentmanage/selectIfBlue',
             type: 'get',
             data: {
-                "projectCode": projectCode
+                "projectCode": projectCode//项目编码
             },
-            success:function(data){
-                $.ajax({
-                    url: '{{projcfg.appurl}}/api/project/operation/grayenvironmentmanage/updateFormal',
-                    type: 'get',
-                    data: {
-                        "instance": formalInstance,//启动实例数
-                        "imageName": data.data[0].before_version,//启动镜像名称
-                        "projectCode": projectCode//项目编码
-                    },
-                    success: function (data) {
-                        $.messager.progress("close");
-                    }
-                })
+            success: function (data) {
+                if(data.data.length==0){//尚未进行下一节点部署
+                    $.ajax({//回滚
+                        url: '{{projcfg.appurl}}/api/project/operation/grayenvironmentmanage/getFormalVersion',
+                        type: 'get',
+                        data: {
+                            "projectCode": projectCode
+                        },
+                        success:function(data){
+                            $.ajax({
+                                url: '{{projcfg.appurl}}/api/project/operation/grayenvironmentmanage/updateFormal',
+                                type: 'get',
+                                data: {
+                                    "instance": formalInstance,//启动实例数
+                                    "imageName": data.data[0].before_version,//启动镜像名称
+                                    "projectCode": projectCode//项目编码
+                                },
+                                success: function (data) {
+                                    $.messager.progress("close");
+                                }
+                            })
+                        }
+                    })
+                }else{//进行了下一节点部署
+                    //删除正式实例表蓝绿记录，clickNum归0，正式版本flag改为1
+                    $.ajax({
+                        url: '{{projcfg.appurl}}/api/project/operation/grayenvironmentmanage/finalFormalFlag',
+                        type: 'get',
+                        data: {
+                            "projectCode": projectCode//项目编码
+                        },
+                        success:function(data){
+                            //删除蓝绿版本
+                            $.ajax({
+                                url: '{{projcfg.appurl}}/api/project/operation/grayenvironmentmanage/deleteBlue',
+                                type: 'get',
+                                data: {
+                                    "projectCode": projectCode//项目编码
+                                },
+                                success: function (data) {
+                                    //删除正式部署表蓝绿记录
+                                    $.ajax({
+                                        url: '{{projcfg.appurl}}/api/project/operation/grayenvironmentmanage/deleteBlueRecordFromTable',
+                                        type: 'get',
+                                        data: {
+                                            "projectCode": projectCode//项目编码
+                                        },
+                                        success: function (data) {
+                                            $.ajax({//回滚
+                                                url: '{{projcfg.appurl}}/api/project/operation/grayenvironmentmanage/getFormalVersion',
+                                                type: 'get',
+                                                data: {
+                                                    "projectCode": projectCode
+                                                },
+                                                success:function(data){
+                                                    $.ajax({
+                                                        url: '{{projcfg.appurl}}/api/project/operation/grayenvironmentmanage/updateFormal',
+                                                        type: 'get',
+                                                        data: {
+                                                            "instance": formalInstance,//启动实例数
+                                                            "imageName": data.data[0].before_version,//启动镜像名称
+                                                            "projectCode": projectCode//项目编码
+                                                        },
+                                                        success: function (data) {
+                                                            $.messager.progress("close");
+                                                        }
+                                                    })
+                                                }
+                                            })
+                                        }
+                                    })
+                                }
+                            })
+                        }
+                    })
+                }
+                $.messager.progress("close");
             }
         })
     }
