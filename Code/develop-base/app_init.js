@@ -25,7 +25,7 @@ exports.$ = function() {
         // updateHostInfo.getSalve();
         projectService.refreshDeployed(function (result) {});//同步部署marathon信息
         projectService.refreshResource();//同步gitlab上面项目信息*/
-        greyenvironmtneService.refreshGrayDeploy();//marathon项目灰度部署情况
-        greyenvironmtneService.refreshFormalDeploy(function(result){});//marathon项目正式部署情况*/
+       // greyenvironmtneService.refreshGrayDeploy();//marathon项目灰度部署情况
+       // greyenvironmtneService.refreshFormalDeploy(function(result){});//marathon项目正式部署情况*/
     },10000);
 };
