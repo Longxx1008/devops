@@ -19,6 +19,24 @@
         var ASSET_PATH_BASE = '../';
     </script>
     <link rel="stylesheet" href="{{projcfg.appurl}}/static/{{projcfg.theme}}css/style.css">
+
+    <!--<style>-->
+
+        <!--.panel-body {-->
+             <!--background-color: #fff;-->
+             <!--color: #fff;-->
+             <!--font-size: 12px;-->
+        <!--}-->
+    <!--</style>-->
+
+
+
+    <link rel="stylesheet" type="text/css" href="{{projcfg.appurl}}/static/{{projcfg.theme}}js/jquery-easyui-1.5.4.1/themes/black/easyui.css">
+    <!--<link rel="stylesheet" type="text/css" href="{{projcfg.appurl}}/static/{{projcfg.theme}}js/jquery-easyui-1.5.4.1/themes/icon.css">-->
+    <!--<link rel="stylesheet" type="text/css" href="../demo.css">-->
+    <!--<script type="text/javascript" src="{{projcfg.appurl}}/static/{{projcfg.theme}}js/jquery-easyui-1.5.4.1/jquery.min.js"></script>-->
+    <script type="text/javascript" src="{{projcfg.appurl}}/static/{{projcfg.theme}}js/jquery-easyui-1.5.4.1/jquery.easyui.min.js"></script>
+
 </head>
 <!-- END Head -->
 
@@ -27,6 +45,8 @@
 
 <!-- Bower Libraries Scripts -->
 <script src="{{projcfg.appurl}}/static/{{projcfg.theme}}assets/vendor/js/lib.min.js"></script>
+
+<script src="{{projcfg.appurl}}/static/{{projcfg.theme}}js/jquery-easyui-1.5.4.1/jquery.easyui.min.js"></script>
 
 <div class="main-wrap">
     <nav class="navigation">
@@ -207,65 +227,44 @@
 
                     <li class="Dashboards">
                         <a href="#" title="Dashboards">
-                            <i class="fa fa-database fa-lg fa-fw"></i><span class="nav-label">灰度环境监控</span><i class="fa arrow"></i>
+                            <i class="fa fa-database fa-lg fa-fw"></i><span class="nav-label">运维中心</span><i class="fa arrow"></i>
                         </a>
                         <ul>
                             <li class="">
                                 <a href="{{projcfg.appurl}}/colonym">
-                                    <span class="nav-label">灰度应用监控</span>
+                                    <span class="nav-label">集群管理</span>
                                 </a>
                             </li>
                             <li class="">
                                 <a href="#">
-                                    <span class="nav-label">智能弹性伸缩</span>
+                                    <span class="nav-label">项目运维</span>
                                 </a>
                             </li>
-                            <li class="">
-                                <a href="#">
-                                    <span class="nav-label">灰度蓝绿部署</span>
-                                </a>
-                            </li>
+
                         </ul>
                     </li>
 
-                    <li>
-                        <a href="#" title="Dashboards">
-                            <i class="fa fa-desktop fa-lg"></i><span class="nav-label">正式环境监控</span><i class="fa arrow"></i>
-                        </a>
-                        <ul>
-                            <li class="">
-                                <a href="#">
-                                    <span class="nav-label">正式蓝绿部署</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
+
 
                     <li>
                         <a href="#" title="Layouts">
                             <i class="fa fa-map-marker fa-lg fa-fw"></i><span class="nav-label">请求跟踪</span><i class="fa arrow"></i>
                         </a>
-                        <ul>
-                            <li class="">
-                                <a href="../layouts/default.html">
-                                    <span class="nav-label">请求跟踪详情</span>
-                                </a>
-                            </li>
-                        </ul>
+
                     </li>
 
-                    <li>
-                        <a href="#" title="Layouts">
-                            <i class="fa fa-pencil-square fa-lg fa-bars"></i><span class="nav-label">质量评估</span><i class="fa arrow"></i>
-                        </a>
-                        <ul>
-                            <li class="">
-                                <a href="../sidebars/sidebar-default.html">
-                                    <span class="nav-label">质量评估详情</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
+                    <!--<li>-->
+                        <!--<a href="#" title="Layouts">-->
+                            <!--<i class="fa fa-pencil-square fa-lg fa-bars"></i><span class="nav-label">质量评估</span><i class="fa arrow"></i>-->
+                        <!--</a>-->
+                        <!--<ul>-->
+                            <!--<li class="">-->
+                                <!--<a href="../sidebars/sidebar-default.html">-->
+                                    <!--<span class="nav-label">质量评估详情</span>-->
+                                <!--</a>-->
+                            <!--</li>-->
+                        <!--</ul>-->
+                    <!--</li>-->
 
                     <li class="">
                         <a href="../grids/grids.html" title="Grids">
@@ -327,7 +326,7 @@
                             </li>
                             <li>
                                 <a href="#">
-                                    灰度环境监控
+                                    应用列表
                                 </a>
                             </li>
                             <li class="active">灰度应用监控</li>

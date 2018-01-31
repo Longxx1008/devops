@@ -9,6 +9,37 @@
 
         <div class="container-fluid">
 
+
+            <h2>Basic Layout</h2>
+            <p>The layout contains north,south,west,east and center regions.</p>
+            <div style="margin:20px 0;"></div>
+            <div class="easyui-layout" style="width:700px;height:350px;">
+                <div data-options="region:'north'" style="height:50px"></div>
+                <div data-options="region:'south',split:true" style="height:50px;"></div>
+                <div data-options="region:'east',split:true" title="East" style="width:100px;"></div>
+                <div data-options="region:'west',split:true" title="West" style="width:100px;"></div>
+                <div data-options="region:'center',title:'Main Title',iconCls:'icon-ok'">
+                    <table class="easyui-datagrid" title="Basic DataGrid" style="width:700px;height:250px"
+                           data-options="singleSelect:true,collapsible:true,url:'{{projcfg.appurl}}/static/{{projcfg.theme}}js/jquery-easyui-1.5.4.1/datajson.json',method:'get'">
+                        <thead>
+                        <tr>
+                            <th data-options="field:'itemid',width:80">Item ID</th>
+                            <th data-options="field:'productid',width:100">Product</th>
+                            <th data-options="field:'listprice',width:80,align:'right'">List Price</th>
+                            <th data-options="field:'unitcost',width:80,align:'right'">Unit Cost</th>
+                            <th data-options="field:'attr1',width:250">Attribute</th>
+                            <th data-options="field:'status',width:60,align:'center'">Status</th>
+                        </tr>
+                        </thead>
+                    </table>
+                </div>
+            </div>
+
+
+
+
+
+
             <!-- START EDIT CONTENT -->
             <div class="row">
                 <div class="col-lg-12 m-t-2">
