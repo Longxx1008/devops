@@ -585,7 +585,7 @@ exports.refreshGrayDeploy= async function () {
                                     console.log("插入灰度部署项目gitlabProjectId成功");
                                 }
                             });
-                            var sql = "update pass_develop_project_gray_deploy set version = '" + version[i] + "',gray_version='" + version[i].substring(version[i].lastIndexOf(":") + 1) + "',healthStatus='" + healthStatus[i] + "',runtime=TIMESTAMPDIFF(minute,'" + deployTime + "',DATE_FORMAT(date_add(now(), interval 8 hour),'%Y-%m-%d %H:%i:%s')),address='" + address + "',instance='" + instance[i] + "' where projectId = '" + projectId[i] + "'";
+                            var sql = "update pass_develop_project_gray_deploy set version = '" + version[i] + "',gray_version='" + version[i].substring(version[i].lastIndexOf(":") + 1) + "',healthStatus='" + healthStatus[i] + "',runtime=TIMESTAMPDIFF(minute,'" + deployTime + "',DATE_FORMAT(date_sub(now(), interval 4 hour),'%Y-%m-%d %H:%i:%s')),address='" + address + "',instance='" + instance[i] + "' where projectId = '" + projectId[i] + "'";
                             console.log(sql);
                             mysqlPool.query(sql, [], function (err, result) {
                                 if (err) {
