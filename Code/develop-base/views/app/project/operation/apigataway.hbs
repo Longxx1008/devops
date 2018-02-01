@@ -9,444 +9,19 @@
                     <div class="row">
                         <div class="col-lg-12">
                             <div class="panel panel-default">
-                                <div class="panel-heading">
-                                    <div class="row">
-                                        <div class="col-xs-6">
-                                            <h3 class="panel-title">灰度应用监控11111</h3>
-                                        </div>
-                                        <div class="col-xs-2 pull-right">
-                                            <div class="input-group input-group-sm">
-                                                <input type="text" class="form-control" placeholder="Search...">
-                                                <span class="input-group-btn">
-                                                    <button class="btn btn-sm btn-primary" type="button"><i class="fa fa-search"></i></button>
-                                                </span>
-                                            </div>
-                                            <!-- /input-group -->
-                                        </div>
-                                        <div class="btn-group pull-right">
-                                            <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                全部 <span class="caret"></span>
-                                            </button>
-                                            <ul class="dropdown-menu">
-                                                <li><a href="javascript: void(0)"><i class="fa fa-fw text-gray-lighter fa-play-circle m-r-1" style="color:#0ac883;"></i>运行中</a></li>
-                                                <li role="separator" class="divider"></li>
-                                                <li><a href="javascript: void(0)"><i class="fa fa-fw text-gray-lighter fa-circle m-r-1" style="color: #cb3e4b;"></i>故障</a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
 
-                                </div>
+
                                 <div class="panel-body">
-                                    <div class="row m-b-0">
-                                        <div class="col-lg-2 col-md-2 col-xs-5 col-sm-4 m-b-0">
-                                            <div class="hr-text hr-text-left m-t-0 m-b-0">
-                                                <h6 class="text-white"><strong>应用名称</strong></h6>
-                                            </div>
-                                            <h3 class="f-w-300 m-t-0 hidden-md hidden-sm hidden-xs">贵州移动雅典娜平台</h3>
-                                        </div>
 
-                                        <div class="col-lg-3 col-md-3 col-xs-7 col-sm-8 m-b-1">
-                                            <div class="hr-text hr-text-left m-t-0 m-b-0">
-                                                <h6 class="text-white"><strong>镜像</strong></h6>
-                                            </div>
-                                            <h3 class="f-w-300 m-t-0 m-b-0 hidden-md hidden-sm hidden-xs">
-                                                117.187.12.236:15000/develop-base:v1.4.4
-                                            </h3>
-                                        </div>
-
-                                        <div class="col-lg-3 col-md-3 col-xs-12 col-sm-12 m-b-1">
-                                            <div class="hr-text hr-text-left m-t-0 m-b-0">
-                                                <h6 class="text-white"><strong>外网地址</strong></h6>
-                                            </div>
-                                            <h3 class="f-w-300 m-t-0 m-b-0 hidden-md hidden-sm hidden-xs">117.187.12.236:10003</h3>
-                                        </div>
-
-                                        <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 m-b-1">
-                                            <div class="hr-text hr-text-left m-t-0 m-b-0">
-                                                <h6 class="text-white"><strong>当前实例</strong></h6>
-                                            </div>
-                                            <h3 class="f-w-300 m-t-0 hidden-md hidden-sm hidden-xs">10 个</h3>
-                                        </div>
-
-                                        <div class="col-lg-2 col-md-2 col-sm-8 col-xs-7 m-b-1">
-                                            <div class="hr-text hr-text-left m-t-0 m-b-0">
-                                                <h6 class="text-white"><strong>状态</strong></h6>
-                                            </div>
-                                            <h3 class="f-w-300 m-t-0 hidden-md hidden-sm hidden-xs" style="color:#05d165"><i class="fa fa-check-circle"></i>正常</h3>
-                                            <h3 class="f-w-300 m-t-0 hidden-md hidden-sm hidden-xs" style="color:#FF9900"><i class="fa fa-exclamation-triangle"></i>告警</h3>
-                                        </div>
-                                    </div>
                                     <div class="panel panel-default b-a-0">
                                         <div class="tabbable-line">
                                             <ul class="nav nav-tabs" role="tablist">
-                                                <li role="presentation" class="active"><a href="#home" id="home-tab" role="tab" data-toggle="tab" aria-controls="home" aria-expanded="true">流量监控</a></li>
-                                                <li role="presentation" class=""><a href="#profile" role="tab" id="profile-tab" data-toggle="tab" aria-controls="profile" aria-expanded="false">容器监控</a></li>
-                                                <li role="presentation" class=""><a href="#dropdown1" role="tab" id="dropdown1-tab" data-toggle="tab" aria-controls="profile" aria-expanded="false">服务监控</a></li>
+
+                                                <li role="presentation" class="active"><a href="#profile" role="tab" id="profile-tab" data-toggle="tab" aria-controls="profile" aria-expanded="false">容器监控</a></li>
+
                                             </ul>
                                             <div class="tab-content">
-                                                <div role="tabpanel" class="tab-pane fade active in" id="home" aria-labelledby="home-tab">
-                                                    <div class="panel panel-default no-bg b-a-2 b-gray-dark">
-
-                                                        <div class="panel-heading">
-                                                            <h4 class="m-t-0 m-b-0">服务架构图</h4>
-                                                        </div>
-                                                        <!-- START Table -->
-                                                        <div class="table-responsive">
-                                                            <table class="table">
-                                                                <thead>
-
-                                                                <tr>
-                                                                    <th class="small text-muted text-uppercase" style="width: 20%"><strong>name</strong>
-                                                                    </th>
-                                                                    <th class="small text-muted text-uppercase" style="width: 20%"><strong>容器数量</strong>
-                                                                    </th>
-                                                                    <th class="small text-muted text-uppercase" style="width: 20%"><strong>最后更新</strong>
-                                                                    </th>
-                                                                    <th class="small text-muted text-uppercase" style="width: 20%"><strong>健康状态</strong>
-                                                                    </th>
-                                                                    <th class="small text-muted text-uppercase" style="width: 20%"><strong>质量状况</strong>
-                                                                    </th>
-                                                                </tr>
-                                                                </thead>
-                                                                <tbody>
-
-                                                                <!-- START ROW Monitor -->
-                                                                <tr>
-                                                                    <td class="v-a-m">
-                                                                        <div class="media m-l-1">
-                                                                            <div class="media-left media-top">
-                                                                                <i class="fa fa-3x fa-sitemap text-aquamarine"></i>
-                                                                            </div>
-                                                                            <div class="media-body">
-                                                                                <h2 class="f-w-300 m-t-0 m-b-0 hidden-md hidden-sm hidden-xs">网关</h2>
-                                                                                <p class="m-t-0">V1.2.3</p>
-                                                                            </div>
-                                                                        </div>
-                                                                    </td>
-                                                                    <td class="v-a-m">
-                                                                        <h1 class="f-w-300 m-t-0 m-b-0 hidden-md hidden-sm hidden-xs">20</h1>
-                                                                    </td>
-                                                                    <td class="v-a-m">
-                                                                        <h1 class="f-w-300 m-t-0 m-b-0 hidden-md hidden-sm hidden-xs">5天前</h1>
-                                                                    </td>
-                                                                    <td class="v-a-m">
-                                                                        <div class="media">
-                                                                            <div class="media-left media-middle">
-                                                                                <span class="fa-stack fa-lg">
-                                                                                  <i class="fa fa-square fa-stack-2x text-danger"></i>
-                                                                                  <i class="fa fa-bell fa-stack-1x fa-inverse"></i>
-                                                                                </span>
-                                                                            </div>
-                                                                            <div class="media-body">
-                                                                                <h1 class="f-w-300 m-t-0 m-b-0 text-danger">威胁</h1>
-                                                                            </div>
-                                                                        </div>
-                                                                    </td>
-                                                                    <td class="v-a-m">
-                                                                        <div class="media">
-                                                                            <div class="media-left media-middle">
-                                                                                <span class="fa-stack fa-lg">
-                                                                                  <i class="fa fa-square fa-stack-2x text-success"></i>
-                                                                                  <i class="fa fa-line-chart fa-stack-1x fa-inverse"></i>
-                                                                                </span>
-                                                                            </div>
-                                                                            <div class="media-body">
-                                                                                <h1 class="f-w-300 m-t-0 m-b-0 text-success">正常</h1>
-                                                                            </div>
-                                                                        </div>
-                                                                    </td>
-                                                                </tr>
-                                                                <!-- END ROW Monitor -->
-                                                                <!-- START ROW Monitor -->
-                                                                <tr>
-                                                                    <td class="v-a-m">
-                                                                        <div class="media m-l-1">
-                                                                            <div class="media-left media-top">
-                                                                                <i class="fa fa-3x fa-pie-chart text-aquamarine"></i>
-                                                                            </div>
-                                                                            <div class="media-body">
-                                                                                <h2 class="f-w-300 m-t-0 m-b-0 hidden-md hidden-sm hidden-xs">决策分析</h2>
-                                                                                <p class="m-t-0">V1.2.3</p>
-                                                                            </div>
-                                                                        </div>
-                                                                    </td>
-                                                                    <td class="v-a-m">
-                                                                        <h1 class="f-w-300 m-t-0 m-b-0 hidden-md hidden-sm hidden-xs">7</h1>
-                                                                    </td>
-                                                                    <td class="v-a-m">
-                                                                        <h1 class="f-w-300 m-t-0 m-b-0 hidden-md hidden-sm hidden-xs">2天前</h1>
-                                                                    </td>
-                                                                    <td class="v-a-m">
-                                                                        <div class="media">
-                                                                            <div class="media-left media-middle">
-                                                                                <span class="fa-stack fa-lg">
-                                                                                  <i class="fa fa-square fa-stack-2x text-success"></i>
-                                                                                  <i class="fa fa-bell-slash fa-stack-1x fa-inverse"></i>
-                                                                                </span>
-                                                                            </div>
-                                                                            <div class="media-body">
-                                                                                <h1 class="f-w-300 m-t-0 m-b-0 text-success">正常</h1>
-                                                                            </div>
-                                                                        </div>
-                                                                    </td>
-                                                                    <td class="v-a-m">
-                                                                        <div class="media">
-                                                                            <div class="media-left media-middle">
-                                                                                <span class="fa-stack fa-lg">
-                                                                                  <i class="fa fa-square fa-stack-2x text-amazon"></i>
-                                                                                  <i class="fa fa-wrench fa-stack-1x fa-inverse"></i>
-                                                                                </span>
-                                                                            </div>
-                                                                            <div class="media-body">
-                                                                                <h1 class="f-w-300 m-t-0 m-b-0 text-amazon">可优化</h1>
-                                                                            </div>
-                                                                        </div>
-                                                                    </td>
-                                                                </tr>
-                                                                <!-- END ROW Monitor -->
-                                                                <!-- START ROW Monitor -->
-                                                                <tr>
-                                                                    <td class="v-a-m">
-                                                                        <div class="media m-l-1">
-                                                                            <div class="media-left media-top">
-                                                                                <i class="fa fa-3x fa-bar-chart text-aquamarine"></i>
-                                                                            </div>
-                                                                            <div class="media-body">
-                                                                                <h2 class="f-w-300 m-t-0 m-b-0 hidden-md hidden-sm hidden-xs">数据分析</h2>
-                                                                                <p class="m-t-0">V1.2.3</p>
-                                                                            </div>
-                                                                        </div>
-                                                                    </td>
-                                                                    <td class="v-a-m">
-                                                                        <h1 class="f-w-300 m-t-0 m-b-0 hidden-md hidden-sm hidden-xs">18</h1>
-                                                                    </td>
-                                                                    <td class="v-a-m">
-                                                                        <h1 class="f-w-300 m-t-0 m-b-0 hidden-md hidden-sm hidden-xs">12天前</h1>
-                                                                    </td>
-                                                                    <td class="v-a-m">
-                                                                        <div class="media">
-                                                                            <div class="media-left media-middle">
-                                                                                <span class="fa-stack fa-lg">
-                                                                                  <i class="fa fa-square fa-stack-2x text-success"></i>
-                                                                                  <i class="fa fa-bell-slash fa-stack-1x fa-inverse"></i>
-                                                                                </span>
-                                                                            </div>
-                                                                            <div class="media-body">
-                                                                                <h1 class="f-w-300 m-t-0 m-b-0 text-success">正常</h1>
-                                                                            </div>
-                                                                        </div>
-                                                                    </td>
-                                                                    <td class="v-a-m">
-                                                                        <div class="media">
-                                                                            <div class="media-left media-middle">
-                                                                                <span class="fa-stack fa-lg">
-                                                                                  <i class="fa fa-square fa-stack-2x text-amazon"></i>
-                                                                                  <i class="fa fa-wrench fa-stack-1x fa-inverse"></i>
-                                                                                </span>
-                                                                            </div>
-                                                                            <div class="media-body">
-                                                                                <h1 class="f-w-300 m-t-0 m-b-0 text-amazon">可优化</h1>
-                                                                            </div>
-                                                                        </div>
-                                                                    </td>
-                                                                </tr>
-                                                                <!-- END ROW Monitor -->
-                                                                <!-- START ROW Monitor -->
-                                                                <tr>
-                                                                    <td class="v-a-m">
-                                                                        <div class="media m-l-1">
-                                                                            <div class="media-left media-top">
-                                                                                <i class="fa fa-3x fa-cloud-download text-aquamarine"></i>
-                                                                            </div>
-                                                                            <div class="media-body">
-                                                                                <h2 class="f-w-300 m-t-0 m-b-0 hidden-md hidden-sm hidden-xs">数据储存</h2>
-                                                                                <p class="m-t-0">V1.2.3</p>
-                                                                            </div>
-                                                                        </div>
-                                                                    </td>
-                                                                    <td class="v-a-m">
-                                                                        <h1 class="f-w-300 m-t-0 m-b-0 hidden-md hidden-sm hidden-xs">18</h1>
-                                                                    </td>
-                                                                    <td class="v-a-m">
-                                                                        <h1 class="f-w-300 m-t-0 m-b-0 hidden-md hidden-sm hidden-xs">12天前</h1>
-                                                                    </td>
-                                                                    <td class="v-a-m">
-                                                                        <div class="media">
-                                                                            <div class="media-left media-middle">
-                                                                                <span class="fa-stack fa-lg">
-                                                                                  <i class="fa fa-square fa-stack-2x text-success"></i>
-                                                                                  <i class="fa fa-bell-slash fa-stack-1x fa-inverse"></i>
-                                                                                </span>
-                                                                            </div>
-                                                                            <div class="media-body">
-                                                                                <h1 class="f-w-300 m-t-0 m-b-0 text-success">正常</h1>
-                                                                            </div>
-                                                                        </div>
-                                                                    </td>
-                                                                    <td class="v-a-m">
-                                                                        <div class="media">
-                                                                            <div class="media-left media-middle">
-                                                                                <span class="fa-stack fa-lg">
-                                                                                  <i class="fa fa-square fa-stack-2x text-amazon"></i>
-                                                                                  <i class="fa fa-wrench fa-stack-1x fa-inverse"></i>
-                                                                                </span>
-                                                                            </div>
-                                                                            <div class="media-body">
-                                                                                <h1 class="f-w-300 m-t-0 m-b-0 text-amazon">可优化</h1>
-                                                                            </div>
-                                                                        </div>
-                                                                    </td>
-                                                                </tr>
-                                                                <!-- END ROW Monitor -->
-                                                                <!-- START ROW Monitor -->
-                                                                <tr>
-                                                                    <td class="v-a-m">
-                                                                        <div class="media m-l-1">
-                                                                            <div class="media-left media-top">
-                                                                                <i class="fa fa-3x fa-database text-aquamarine"></i>
-                                                                            </div>
-                                                                            <div class="media-body">
-                                                                                <h2 class="f-w-300 m-t-0 m-b-0 hidden-md hidden-sm hidden-xs">MySQL数据库</h2>
-                                                                                <p class="m-t-0">V1.2.3</p>
-                                                                            </div>
-                                                                        </div>
-                                                                    </td>
-                                                                    <td class="v-a-m">
-                                                                        <h1 class="f-w-300 m-t-0 m-b-0 hidden-md hidden-sm hidden-xs">18</h1>
-                                                                    </td>
-                                                                    <td class="v-a-m">
-                                                                        <h1 class="f-w-300 m-t-0 m-b-0 hidden-md hidden-sm hidden-xs">12天前</h1>
-                                                                    </td>
-                                                                    <td class="v-a-m">
-                                                                        <div class="media">
-                                                                            <div class="media-left media-middle">
-                                                                                <span class="fa-stack fa-lg">
-                                                                                  <i class="fa fa-square fa-stack-2x text-success"></i>
-                                                                                  <i class="fa fa-bell-slash fa-stack-1x fa-inverse"></i>
-                                                                                </span>
-                                                                            </div>
-                                                                            <div class="media-body">
-                                                                                <h1 class="f-w-300 m-t-0 m-b-0 text-success">正常</h1>
-                                                                            </div>
-                                                                        </div>
-                                                                    </td>
-                                                                    <td class="v-a-m">
-                                                                        <div class="media">
-                                                                            <div class="media-left media-middle">
-                                                                                <span class="fa-stack fa-lg">
-                                                                                  <i class="fa fa-square fa-stack-2x text-amazon"></i>
-                                                                                  <i class="fa fa-wrench fa-stack-1x fa-inverse"></i>
-                                                                                </span>
-                                                                            </div>
-                                                                            <div class="media-body">
-                                                                                <h1 class="f-w-300 m-t-0 m-b-0 text-amazon">可优化</h1>
-                                                                            </div>
-                                                                        </div>
-                                                                    </td>
-                                                                </tr>
-                                                                <!-- END ROW Monitor -->
-                                                                </tbody>
-                                                            </table>
-                                                        </div>
-                                                        <!-- END Table -->
-                                                    </div>
-                                                    <div class="panel panel-default no-bg b-a-2 b-gray-dark">
-                                                        <div class="panel-heading">
-                                                            <h4 class="m-t-0 m-b-0">总流量</h4>
-                                                        </div>
-                                                        <ul class="list-group">
-                                                            <li class="list-group-item no-bg">
-                                                                <div class="chartist-line-chart-with-area" style="height:300px">
-                                                                    <svg xmlns:ct="http://gionkunz.github.com/chartist-js/ct" width="100%" height="100%" class="ct-chart-line" style="width: 100%; height: 100%;">
-                                                                        <g class="ct-grids">
-                                                                            <line x1="50" x2="50" y1="15" y2="265" class="ct-grid ct-horizontal"></line>
-                                                                            <line x1="111.25" x2="111.25" y1="15" y2="265" class="ct-grid ct-horizontal"></line>
-                                                                            <line x1="172.5" x2="172.5" y1="15" y2="265" class="ct-grid ct-horizontal"></line>
-                                                                            <line x1="233.75" x2="233.75" y1="15" y2="265" class="ct-grid ct-horizontal"></line>
-                                                                            <line x1="295" x2="295" y1="15" y2="265" class="ct-grid ct-horizontal"></line>
-                                                                            <line x1="356.25" x2="356.25" y1="15" y2="265" class="ct-grid ct-horizontal"></line>
-                                                                            <line x1="417.5" x2="417.5" y1="15" y2="265" class="ct-grid ct-horizontal"></line>
-                                                                            <line x1="478.75" x2="478.75" y1="15" y2="265" class="ct-grid ct-horizontal"></line>
-                                                                            <line y1="265" y2="265" x1="50" x2="540" class="ct-grid ct-vertical"></line>
-                                                                            <line y1="237.22222222222223" y2="237.22222222222223" x1="50" x2="540" class="ct-grid ct-vertical"></line>
-                                                                            <line y1="209.44444444444446" y2="209.44444444444446" x1="50" x2="540" class="ct-grid ct-vertical"></line>
-                                                                            <line y1="181.66666666666669" y2="181.66666666666669" x1="50" x2="540" class="ct-grid ct-vertical"></line>
-                                                                            <line y1="153.88888888888889" y2="153.88888888888889" x1="50" x2="540" class="ct-grid ct-vertical"></line>
-                                                                            <line y1="126.11111111111111" y2="126.11111111111111" x1="50" x2="540" class="ct-grid ct-vertical"></line>
-                                                                            <line y1="98.33333333333334" y2="98.33333333333334" x1="50" x2="540" class="ct-grid ct-vertical"></line>
-                                                                            <line y1="70.55555555555554" y2="70.55555555555554" x1="50" x2="540" class="ct-grid ct-vertical"></line>
-                                                                            <line y1="42.77777777777777" y2="42.77777777777777" x1="50" x2="540" class="ct-grid ct-vertical"></line>
-                                                                            <line y1="15" y2="15" x1="50" x2="540" class="ct-grid ct-vertical"></line>
-                                                                        </g>
-                                                                        <g>
-                                                                            <g class="ct-series ct-series-a">
-                                                                                <path d="M50,265L50,126.111C70.417,89.074,90.833,15,111.25,15C131.667,15,152.083,70.556,172.5,70.556C192.917,70.556,213.333,42.778,233.75,42.778C254.167,42.778,274.583,103.889,295,126.111C315.417,148.333,335.833,181.667,356.25,181.667C376.667,181.667,397.083,126.111,417.5,126.111C437.917,126.111,458.333,144.63,478.75,153.889L478.75,265Z" class="ct-area"></path><path d="M50,126.111C70.417,89.074,90.833,15,111.25,15C131.667,15,152.083,70.556,172.5,70.556C192.917,70.556,213.333,42.778,233.75,42.778C254.167,42.778,274.583,103.889,295,126.111C315.417,148.333,335.833,181.667,356.25,181.667C376.667,181.667,397.083,126.111,417.5,126.111C437.917,126.111,458.333,144.63,478.75,153.889" class="ct-line"></path><line x1="50" y1="126.11111111111111" x2="50.01" y2="126.11111111111111" class="ct-point" ct:value="5"></line><line x1="111.25" y1="15" x2="111.26" y2="15" class="ct-point" ct:value="9"></line><line x1="172.5" y1="70.55555555555554" x2="172.51" y2="70.55555555555554" class="ct-point" ct:value="7"></line><line x1="233.75" y1="42.77777777777777" x2="233.76" y2="42.77777777777777" class="ct-point" ct:value="8"></line><line x1="295" y1="126.11111111111111" x2="295.01" y2="126.11111111111111" class="ct-point" ct:value="5"></line><line x1="356.25" y1="181.66666666666669" x2="356.26" y2="181.66666666666669" class="ct-point" ct:value="3"></line><line x1="417.5" y1="126.11111111111111" x2="417.51" y2="126.11111111111111" class="ct-point" ct:value="5"></line>
-                                                                                    <line x1="478.75" y1="153.88888888888889" x2="478.76" y2="153.88888888888889" class="ct-point" ct:value="4"></line>
-                                                                            </g>
-                                                                        </g>
-                                                                        <g class="ct-labels">
-                                                                            <foreignObject style="overflow: visible;" x="50" y="270" width="61.25" height="20">
-                                                                                <span class="ct-label ct-horizontal ct-end" style="width: 61px; height: 20px" xmlns="http://www.w3.org/2000/xmlns/">1</span>
-                                                                            </foreignObject>
-                                                                            <foreignObject style="overflow: visible;" x="111.25" y="270" width="61.25" height="20">
-                                                                                <span class="ct-label ct-horizontal ct-end" style="width: 61px; height: 20px" xmlns="http://www.w3.org/2000/xmlns/">2</span>
-                                                                            </foreignObject>
-                                                                            <foreignObject style="overflow: visible;" x="172.5" y="270" width="61.25" height="20">
-                                                                            <span class="ct-label ct-horizontal ct-end" style="width: 61px; height: 20px" xmlns="http://www.w3.org/2000/xmlns/">3</span>
-                                                                        </foreignObject>
-                                                                            <foreignObject style="overflow: visible;" x="233.75" y="270" width="61.25" height="20">
-                                                                            <span class="ct-label ct-horizontal ct-end" style="width: 61px; height: 20px" xmlns="http://www.w3.org/2000/xmlns/">4</span>
-                                                                        </foreignObject>
-                                                                            <foreignObject style="overflow: visible;" x="295" y="270" width="61.25" height="20">
-                                                                            <span class="ct-label ct-horizontal ct-end" style="width: 61px; height: 20px" xmlns="http://www.w3.org/2000/xmlns/">5</span>
-                                                                        </foreignObject>
-                                                                            <foreignObject style="overflow: visible;" x="356.25" y="270" width="61.25" height="20">
-                                                                            <span class="ct-label ct-horizontal ct-end" style="width: 61px; height: 20px" xmlns="http://www.w3.org/2000/xmlns/">6</span>
-                                                                        </foreignObject>
-                                                                            <foreignObject style="overflow: visible;" x="417.5" y="270" width="61.25" height="20">
-                                                                            <span class="ct-label ct-horizontal ct-end" style="width: 61px; height: 20px" xmlns="http://www.w3.org/2000/xmlns/">7</span>
-                                                                            </foreignObject>
-                                                                            <foreignObject style="overflow: visible;" x="478.75" y="270" width="61.25" height="20">
-                                                                            <span class="ct-label ct-horizontal ct-end" style="width: 61px; height: 20px" xmlns="http://www.w3.org/2000/xmlns/">8</span>
-                                                                            </foreignObject>
-                                                                            <foreignObject style="overflow: visible;" y="237.22222222222223" x="10" height="27.77777777777778" width="30">
-                                                                            <span class="ct-label ct-vertical ct-start" style="height: 28px; width: 30px" xmlns="http://www.w3.org/2000/xmlns/">0</span>
-                                                                            </foreignObject>
-                                                                            <foreignObject style="overflow: visible;" y="209.44444444444446" x="10" height="27.77777777777778" width="30">
-                                                                            <span class="ct-label ct-vertical ct-start" style="height: 28px; width: 30px" xmlns="http://www.w3.org/2000/xmlns/">1</span>
-                                                                        </foreignObject>
-                                                                            <foreignObject style="overflow: visible;" y="181.66666666666669" x="10" height="27.77777777777777" width="30">
-                                                                            <span class="ct-label ct-vertical ct-start" style="height: 28px; width: 30px" xmlns="http://www.w3.org/2000/xmlns/">2</span>
-                                                                        </foreignObject>
-                                                                            <foreignObject style="overflow: visible;" y="153.8888888888889" x="10" height="27.777777777777786" width="30">
-                                                                                <span class="ct-label ct-vertical ct-start" style="height: 28px; width: 30px" xmlns="http://www.w3.org/2000/xmlns/">3</span>
-                                                                            </foreignObject>
-                                                                            <foreignObject style="overflow: visible;" y="126.11111111111111" x="10" height="27.77777777777777" width="30">
-                                                                            <span class="ct-label ct-vertical ct-start" style="height: 28px; width: 30px" xmlns="http://www.w3.org/2000/xmlns/">4</span>
-                                                                        </foreignObject>
-                                                                            <foreignObject style="overflow: visible;" y="98.33333333333334" x="10" height="27.77777777777777" width="30">
-                                                                            <span class="ct-label ct-vertical ct-start" style="height: 28px; width: 30px" xmlns="http://www.w3.org/2000/xmlns/">5</span>
-                                                                        </foreignObject>
-                                                                            <foreignObject style="overflow: visible;" y="70.55555555555554" x="10" height="27.7777777777778" width="30">
-                                                                            <span class="ct-label ct-vertical ct-start" style="height: 28px; width: 30px" xmlns="http://www.w3.org/2000/xmlns/">6</span>
-                                                                        </foreignObject>
-                                                                            <foreignObject style="overflow: visible;" y="42.77777777777777" x="10" height="27.77777777777777" width="30">
-                                                                            <span class="ct-label ct-vertical ct-start" style="height: 28px; width: 30px" xmlns="http://www.w3.org/2000/xmlns/">7</span>
-                                                                            </foreignObject>
-                                                                            <foreignObject style="overflow: visible;" y="15" x="10" height="27.77777777777777" width="30">
-                                                                                <span class="ct-label ct-vertical ct-start" style="height: 28px; width: 30px" xmlns="http://www.w3.org/2000/xmlns/">8</span>
-                                                                            </foreignObject>
-                                                                            <foreignObject style="overflow: visible;" y="-15" x="10" height="30" width="30">
-                                                                            <span class="ct-label ct-vertical ct-start" style="height: 30px; width: 30px" xmlns="http://www.w3.org/2000/xmlns/">9</span>
-                                                                            </foreignObject>
-                                                                        </g>
-                                                                    </svg>
-                                                                </div>
-                                                            </li>
-                                                        </ul>
-                                                    </div>
-                                                </div>
-                                                <div role="tabpanel" class="tab-pane fade" id="profile" aria-labelledby="profile-tab">
+                                                <div role="tabpanel" class="tab-pane fade active in" id="profile" aria-labelledby="profile-tab">
                                                     <div class="timeline timeline-datetime">
                                                         <!-- Timeline - Badge Date -->
                                                         <div class="timeline-date">
@@ -461,29 +36,9 @@
                                                             <div class="timeline-item-inner">
                                                                 <!-- Timeline - Icon  -->
                                                                 <div class="timeline-item-head clearfix">
-                                                                    <div class="hr-text hr-text-left m-t-2">
-                                                                        <h6 class="text-white"><strong>版本号：V1.2.3</strong></h6>
-                                                                    </div>
-                                                                    <div class="col-lg-2">
-                                                                        <div class="btn-group">
-                                                                            <button type="button" class="btn btn-default" aria-label="Left Align"><span class="fa fa-fw fa-minus" aria-hidden="true"></span>
-                                                                            </button>
-                                                                            <input type="text" class="btn btn-default col-lg-4" aria-label="Center Align" placeholder="容器数量">
-                                                                            <button type="button" class="btn btn-default" aria-label="Right Align"><span class="fa fa-fw fa-plus" aria-hidden="true"></span>
-                                                                            </button>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="col-lg-4">
-                                                                        <button type="button" class="btn btn-cerulean" onclick="quality(1)">质量评估</button>
-                                                                        <button type="button" class="btn btn-dodger-blue">智能伸缩策略</button>
-                                                                        <button type="button" class="btn btn-minsk">灰度环境发布</button>
-                                                                    </div>
+
                                                                 </div>
-                                                                <script>
-                                                                    function quality(microserviceId){
-                                                                        location.href = "{{projcfg.appurl}}/quality?microserviceid="+microserviceId;
-                                                                    }
-                                                                </script>
+
                                                                 <!-- Timeline - START Content -->
                                                                 <div class="timeline-item-content m-t-1">
                                                                     <table class="table table-striped">
@@ -540,86 +95,87 @@
                                                                 <!-- Timeline - END Content -->
                                                             </div>
                                                         </div>
-                                                        <div class="timeline timeline-datetime">
-                                                            <div class="timeline-date">
-                                                                <span class="badge">微服务名称：数据处理  </span>
+
+
+
+
+                                                        <!-- Timeline - Badge Date -->
+                                                        <div class="timeline-date">
+                                                            <span class="badge">微服务名称：决策分析</span>
+                                                        </div>
+
+                                                        <div class="timeline-item p-r-1">
+                                                            <!-- Timeline - Mini Icon -->
+                                                            <div class="timeline-icon">
+                                                                <i class="fa fa-circle-o text-info"></i>
                                                             </div>
-                                                            <div class="timeline-item p-r-1">
-                                                                <!-- Timeline - Mini Icon -->
-                                                                <div class="timeline-icon">
-                                                                    <i class="fa fa-circle-o text-info"></i>
+                                                            <div class="timeline-item-inner">
+                                                                <!-- Timeline - Icon  -->
+                                                                <div class="timeline-item-head clearfix">
+
                                                                 </div>
-                                                                <div class="timeline-item-inner">
-                                                                    <!-- Timeline - Icon  -->
-                                                                    <div class="timeline-item-head clearfix">
-                                                                        <div class="hr-text hr-text-left m-t-2">
-                                                                            <h6 class="text-white"><strong>版本号：V1.0.5</strong></h6>
-                                                                        </div>
-                                                                        <div class="col-lg-2">
-                                                                            <div class="btn-group">
-                                                                                <button type="button" class="btn btn-default" aria-label="Left Align"><span class="fa fa-fw fa-minus" aria-hidden="true"></span>
-                                                                                </button>
-                                                                                <input type="text" class="btn btn-default col-lg-4" aria-label="Center Align" placeholder="容器数量">
-                                                                                <button type="button" class="btn btn-default" aria-label="Right Align"><span class="fa fa-fw fa-plus" aria-hidden="true"></span>
-                                                                                </button>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="col-lg-4">
-                                                                            <button type="button" class="btn btn-cerulean" onclick="quality(1)">质量评估</button>
-                                                                            <button type="button" class="btn btn-dodger-blue">智能伸缩策略</button>
-                                                                            <button type="button" class="btn btn-minsk">灰度环境发布</button>
-                                                                        </div>
-                                                                    </div>
-                                                                    <!-- Timeline - START Content -->
-                                                                    <div class="timeline-item-content m-t-1">
-                                                                        <table class="table table-striped">
-                                                                            <thead>
-                                                                            <tr>
-                                                                                <th class="small text-muted text-uppercase"><strong>容器名称</strong></th>
-                                                                                <th class="small text-muted text-uppercase"><strong>所属项目</strong></th>
-                                                                                <th class="small text-muted text-uppercase"><strong>运行环境</strong></th>
-                                                                                <th class="small text-muted text-uppercase"><strong>状态</strong></th>
-                                                                                <th class="small text-muted text-uppercase"><strong>所属镜像</strong></th>
-                                                                                <th class="small text-muted text-uppercase"><strong>备注</strong></th>
-                                                                                <th class="small text-muted text-uppercase"><strong>操作</strong></th>
-                                                                            </tr>
-                                                                            </thead>
-                                                                            <tbody>
-                                                                            <tr>
-                                                                                <td class="v-a-m"><span class="text-white">ywcj-docker-db1</span></td>
-                                                                                <td class="v-a-m"><span class="text-white">2017业务酬金稽核平台</span></td>
-                                                                                <td class="v-a-m"> <span>虚拟机：10.201.253.111</span></td>
-                                                                                <td class="v-a-m"><i class="m-l-0 fa fa-fw fa-circle text-danger"></i> <span class="text-white m-r-1">故障</span></td>
-                                                                                <td class="v-a-m">daocloud.io/library/nginx 1.7.1</td>
-                                                                                <td class="v-a-m"></td>
-                                                                                <td class="v-a-m">
-                                                                                    <div class="btn-group" role="group" aria-label="...">
-                                                                                        <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="" data-original-title="详情"><i class="fa fa-bars"></i></button>
-                                                                                        <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="" data-original-title="日志"><i class="fa fa-book"></i></button>
-                                                                                    </div>
-                                                                                </td>
-                                                                            </tr>
-                                                                            <tr>
-                                                                                <td class="v-a-m"><span class="text-white">ywcj-docker-web2</span></td>
-                                                                                <td class="v-a-m"><span class="text-white">2017业务酬金稽核平台</span></td>
-                                                                                <td class="v-a-m"> <span>虚拟机：10.201.253.111</span></td>
-                                                                                <td class="v-a-m"><i class="m-l-0 fa fa-fw fa-circle text-success"></i> <span class="text-white m-r-1">运行中</span></td>
-                                                                                <td class="v-a-m">daocloud.io/library/nginx 1.7.1</td>
-                                                                                <td class="v-a-m"></td>
-                                                                                <td class="v-a-m">
-                                                                                    <div class="btn-group" role="group" aria-label="...">
-                                                                                        <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="" data-original-title="详情"><i class="fa fa-bars"></i></button>
-                                                                                        <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="" data-original-title="日志"><i class="fa fa-book"></i></button>
-                                                                                    </div>
-                                                                                </td>
-                                                                            </tr>
-                                                                            </tbody>
-                                                                        </table>
-                                                                    </div>
-                                                                    <!-- Timeline - END Content -->
+
+                                                                <!-- Timeline - START Content -->
+                                                                <div class="timeline-item-content m-t-1">
+                                                                    <table class="table table-striped">
+                                                                        <thead>
+                                                                        <tr>
+                                                                            <th class="small text-muted text-uppercase"><strong>容器名称</strong>
+                                                                            </th>
+                                                                            <th class="small text-muted text-uppercase"><strong>所属项目</strong>
+                                                                            </th>
+                                                                            <th class="small text-muted text-uppercase"><strong>运行环境</strong>
+                                                                            </th>
+                                                                            <th class="small text-muted text-uppercase"><strong>状态</strong>
+                                                                            </th>
+                                                                            <th class="small text-muted text-uppercase"><strong>所属镜像</strong>
+                                                                            </th>
+                                                                            <th class="small text-muted text-uppercase"><strong>备注</strong>
+                                                                            </th>
+                                                                            <th class="small text-muted text-uppercase"><strong>操作</strong>
+                                                                            </th>
+                                                                        </tr>
+                                                                        </thead>
+                                                                        <tbody>
+                                                                        <tr>
+                                                                            <td class="v-a-m"><span class="text-white">ywcj-docker-web1</span></td>
+                                                                            <td class="v-a-m"><span class="text-white">2017业务酬金稽核平台</span></td>
+                                                                            <td class="v-a-m"> <span>虚拟机：10.201.253.110</span></td>
+                                                                            <td class="v-a-m"><i class="m-l-0 fa fa-fw fa-circle text-success"></i> <span class="text-white m-r-1">运行中</span></td>
+                                                                            <td class="v-a-m">daocloud.io/library/nginx 1.7.1</td>
+                                                                            <td class="v-a-m"></td>
+                                                                            <td class="v-a-m">
+                                                                                <div class="btn-group" role="group" aria-label="...">
+                                                                                    <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="" data-original-title="详情"><i class="fa fa-bars"></i></button>
+                                                                                    <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="" data-original-title="日志"><i class="fa fa-book"></i></button>
+                                                                                </div>
+                                                                            </td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td class="v-a-m"><span class="text-white">ywcj-docker-web2</span></td>
+                                                                            <td class="v-a-m"><span class="text-white">2017业务酬金稽核平台</span></td>
+                                                                            <td class="v-a-m"> <span>虚拟机：10.201.253.111</span></td>
+                                                                            <td class="v-a-m"><i class="m-l-0 fa fa-fw fa-circle text-success"></i> <span class="text-white m-r-1">运行中</span></td>
+                                                                            <td class="v-a-m">daocloud.io/library/nginx 1.7.1</td>
+                                                                            <td class="v-a-m"></td>
+                                                                            <td class="v-a-m">
+                                                                                <div class="btn-group" role="group" aria-label="...">
+                                                                                    <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="" data-original-title="详情"><i class="fa fa-bars"></i></button>
+                                                                                    <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="" data-original-title="日志"><i class="fa fa-book"></i></button>
+                                                                                </div>
+                                                                            </td>
+                                                                        </tr>
+                                                                        </tbody>
+                                                                    </table>
                                                                 </div>
+                                                                <!-- Timeline - END Content -->
                                                             </div>
                                                         </div>
+
+
+
+
+
                                                     </div>
                                                     <div class="col-lg-12 m-t-3">
                                                         <div class="panel panel-default b-a-0 bg-gray-dark">
@@ -901,159 +457,7 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div role="tabpanel" class="tab-pane fade" id="dropdown1" aria-labelledby="dropdown1-tab">
-                                                    <table class="table table-striped">
-                                                        <thead>
-                                                        <tr>
-                                                            <th class="small text-muted text-uppercase"><strong>编号</strong></th>
-                                                            <th class="small text-muted text-uppercase"><strong>服务类型</strong></th>
-                                                            <th class="small text-muted text-uppercase"><strong>版本</strong></th>
-                                                            <th class="small text-muted text-uppercase"><strong>实例名称</strong></th>
-                                                            <th class="small text-muted text-uppercase"><strong>状态</strong></th>
-                                                            <th class="small text-muted text-uppercase"><strong>资源占用</strong></th>
-                                                            <th class="small text-muted text-uppercase"><strong>备注</strong></th>
-                                                            <th class="small text-muted text-uppercase"><strong>操作</strong></th>
-                                                        </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                        <tr>
-                                                            <td class="v-a-m"><span class="text-white">C355656</span></td>
-                                                            <td class="v-a-m"><span class="text-white">mysql</span></td>
-                                                            <td class="v-a-m"><span class="text-white">V5.5</span></td>
-                                                            <td class="v-a-m">ywcj</td>
-                                                            <td class="v-a-m"><i class="m-l-0 fa fa-fw fa-circle text-danger"></i> <span class="text-white m-r-1">故障</span></td>
-                                                            <td class="v-a-m">
-                                                                <div class="progress b-r-a-0 m-t-0 m-b-1 h-3">
-                                                                    <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 70%"></div>
-                                                                </div>
-                                                                <span class="m-t-0">
-                                                                    30GB: <span class="text-white">已使用60%</span>
-                                                                </span>
-                                                            </td>
-                                                            <td class="v-a-m"></td>
-                                                            <td class="v-a-m">
-                                                                <div class="btn-group" role="group" aria-label="...">
-                                                                    <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="" data-original-title="日志"><i class="fa fa-book"></i></button>
-                                                                </div>
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td class="v-a-m"><span class="text-white">C355656</span></td>
-                                                            <td class="v-a-m"><span class="text-white">mongodb</span></td>
-                                                            <td class="v-a-m"><span class="text-white">V5.5</span></td>
-                                                            <td class="v-a-m">ywcj</td>
-                                                            <td class="v-a-m"><i class="m-l-0 fa fa-fw fa-circle text-success"></i> <span class="text-white m-r-1">运行中</span></td>
-                                                            <td class="v-a-m">
-                                                                <div class="progress b-r-a-0 m-t-0 m-b-1 h-3">
-                                                                    <div class="progress-bar" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width:40%"></div>
-                                                                </div>
-                                                                <span class="m-t-0">
-                                                                    30GB: <span class="text-white">已使用40%</span>
-                                                                </span>
-                                                            </td>
-                                                            <td class="v-a-m"></td>
-                                                            <td class="v-a-m">
-                                                                <div class="btn-group" role="group" aria-label="...">
-                                                                    <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="" data-original-title="日志"><i class="fa fa-book"></i></button>
-                                                                </div>
-                                                            </td>
-                                                        </tr>
-                                                        </tbody>
-                                                    </table>
-                                                    <div class="col-lg-12 m-t-3">
-                                                        <div class="panel panel-default b-a-0 bg-gray-dark">
-                                                            <div class="panel-heading">流量</div>
-                                                            <div class="panel-body">
-                                                                <div class="chartist-line-chart-with-area" style="height:300px">
-                                                                    <svg xmlns:ct="http://gionkunz.github.com/chartist-js/ct" width="100%" height="100%" class="ct-chart-line" style="width: 100%; height: 100%;">
-                                                                        <g class="ct-grids">
-                                                                            <line x1="50" x2="50" y1="15" y2="265" class="ct-grid ct-horizontal"></line>
-                                                                            <line x1="111.25" x2="111.25" y1="15" y2="265" class="ct-grid ct-horizontal"></line>
-                                                                            <line x1="172.5" x2="172.5" y1="15" y2="265" class="ct-grid ct-horizontal"></line>
-                                                                            <line x1="233.75" x2="233.75" y1="15" y2="265" class="ct-grid ct-horizontal"></line>
-                                                                            <line x1="295" x2="295" y1="15" y2="265" class="ct-grid ct-horizontal"></line>
-                                                                            <line x1="356.25" x2="356.25" y1="15" y2="265" class="ct-grid ct-horizontal"></line>
-                                                                            <line x1="417.5" x2="417.5" y1="15" y2="265" class="ct-grid ct-horizontal"></line>
-                                                                            <line x1="478.75" x2="478.75" y1="15" y2="265" class="ct-grid ct-horizontal"></line>
-                                                                            <line y1="265" y2="265" x1="50" x2="540" class="ct-grid ct-vertical"></line>
-                                                                            <line y1="237.22222222222223" y2="237.22222222222223" x1="50" x2="540" class="ct-grid ct-vertical"></line>
-                                                                            <line y1="209.44444444444446" y2="209.44444444444446" x1="50" x2="540" class="ct-grid ct-vertical"></line>
-                                                                            <line y1="181.66666666666669" y2="181.66666666666669" x1="50" x2="540" class="ct-grid ct-vertical"></line>
-                                                                            <line y1="153.88888888888889" y2="153.88888888888889" x1="50" x2="540" class="ct-grid ct-vertical"></line>
-                                                                            <line y1="126.11111111111111" y2="126.11111111111111" x1="50" x2="540" class="ct-grid ct-vertical"></line>
-                                                                            <line y1="98.33333333333334" y2="98.33333333333334" x1="50" x2="540" class="ct-grid ct-vertical"></line>
-                                                                            <line y1="70.55555555555554" y2="70.55555555555554" x1="50" x2="540" class="ct-grid ct-vertical"></line>
-                                                                            <line y1="42.77777777777777" y2="42.77777777777777" x1="50" x2="540" class="ct-grid ct-vertical"></line>
-                                                                            <line y1="15" y2="15" x1="50" x2="540" class="ct-grid ct-vertical"></line>
-                                                                        </g>
-                                                                        <g>
-                                                                            <g class="ct-series ct-series-a">
-                                                                                <path d="M50,265L50,126.111C70.417,89.074,90.833,15,111.25,15C131.667,15,152.083,70.556,172.5,70.556C192.917,70.556,213.333,42.778,233.75,42.778C254.167,42.778,274.583,103.889,295,126.111C315.417,148.333,335.833,181.667,356.25,181.667C376.667,181.667,397.083,126.111,417.5,126.111C437.917,126.111,458.333,144.63,478.75,153.889L478.75,265Z" class="ct-area"></path><path d="M50,126.111C70.417,89.074,90.833,15,111.25,15C131.667,15,152.083,70.556,172.5,70.556C192.917,70.556,213.333,42.778,233.75,42.778C254.167,42.778,274.583,103.889,295,126.111C315.417,148.333,335.833,181.667,356.25,181.667C376.667,181.667,397.083,126.111,417.5,126.111C437.917,126.111,458.333,144.63,478.75,153.889" class="ct-line"></path><line x1="50" y1="126.11111111111111" x2="50.01" y2="126.11111111111111" class="ct-point" ct:value="5"></line><line x1="111.25" y1="15" x2="111.26" y2="15" class="ct-point" ct:value="9"></line><line x1="172.5" y1="70.55555555555554" x2="172.51" y2="70.55555555555554" class="ct-point" ct:value="7"></line><line x1="233.75" y1="42.77777777777777" x2="233.76" y2="42.77777777777777" class="ct-point" ct:value="8"></line><line x1="295" y1="126.11111111111111" x2="295.01" y2="126.11111111111111" class="ct-point" ct:value="5"></line><line x1="356.25" y1="181.66666666666669" x2="356.26" y2="181.66666666666669" class="ct-point" ct:value="3"></line><line x1="417.5" y1="126.11111111111111" x2="417.51" y2="126.11111111111111" class="ct-point" ct:value="5"></line>
-                                                                                <line x1="478.75" y1="153.88888888888889" x2="478.76" y2="153.88888888888889" class="ct-point" ct:value="4"></line>
-                                                                            </g>
-                                                                        </g>
-                                                                        <g class="ct-labels">
-                                                                            <foreignObject style="overflow: visible;" x="50" y="270" width="61.25" height="20">
-                                                                                <span class="ct-label ct-horizontal ct-end" style="width: 61px; height: 20px" xmlns="http://www.w3.org/2000/xmlns/">1</span>
-                                                                            </foreignObject>
-                                                                            <foreignObject style="overflow: visible;" x="111.25" y="270" width="61.25" height="20">
-                                                                                <span class="ct-label ct-horizontal ct-end" style="width: 61px; height: 20px" xmlns="http://www.w3.org/2000/xmlns/">2</span>
-                                                                            </foreignObject>
-                                                                            <foreignObject style="overflow: visible;" x="172.5" y="270" width="61.25" height="20">
-                                                                                <span class="ct-label ct-horizontal ct-end" style="width: 61px; height: 20px" xmlns="http://www.w3.org/2000/xmlns/">3</span>
-                                                                            </foreignObject>
-                                                                            <foreignObject style="overflow: visible;" x="233.75" y="270" width="61.25" height="20">
-                                                                                <span class="ct-label ct-horizontal ct-end" style="width: 61px; height: 20px" xmlns="http://www.w3.org/2000/xmlns/">4</span>
-                                                                            </foreignObject>
-                                                                            <foreignObject style="overflow: visible;" x="295" y="270" width="61.25" height="20">
-                                                                                <span class="ct-label ct-horizontal ct-end" style="width: 61px; height: 20px" xmlns="http://www.w3.org/2000/xmlns/">5</span>
-                                                                            </foreignObject>
-                                                                            <foreignObject style="overflow: visible;" x="356.25" y="270" width="61.25" height="20">
-                                                                                <span class="ct-label ct-horizontal ct-end" style="width: 61px; height: 20px" xmlns="http://www.w3.org/2000/xmlns/">6</span>
-                                                                            </foreignObject>
-                                                                            <foreignObject style="overflow: visible;" x="417.5" y="270" width="61.25" height="20">
-                                                                                <span class="ct-label ct-horizontal ct-end" style="width: 61px; height: 20px" xmlns="http://www.w3.org/2000/xmlns/">7</span>
-                                                                            </foreignObject>
-                                                                            <foreignObject style="overflow: visible;" x="478.75" y="270" width="61.25" height="20">
-                                                                                <span class="ct-label ct-horizontal ct-end" style="width: 61px; height: 20px" xmlns="http://www.w3.org/2000/xmlns/">8</span>
-                                                                            </foreignObject>
-                                                                            <foreignObject style="overflow: visible;" y="237.22222222222223" x="10" height="27.77777777777778" width="30">
-                                                                                <span class="ct-label ct-vertical ct-start" style="height: 28px; width: 30px" xmlns="http://www.w3.org/2000/xmlns/">0</span>
-                                                                            </foreignObject>
-                                                                            <foreignObject style="overflow: visible;" y="209.44444444444446" x="10" height="27.77777777777778" width="30">
-                                                                                <span class="ct-label ct-vertical ct-start" style="height: 28px; width: 30px" xmlns="http://www.w3.org/2000/xmlns/">1</span>
-                                                                            </foreignObject>
-                                                                            <foreignObject style="overflow: visible;" y="181.66666666666669" x="10" height="27.77777777777777" width="30">
-                                                                                <span class="ct-label ct-vertical ct-start" style="height: 28px; width: 30px" xmlns="http://www.w3.org/2000/xmlns/">2</span>
-                                                                            </foreignObject>
-                                                                            <foreignObject style="overflow: visible;" y="153.8888888888889" x="10" height="27.777777777777786" width="30">
-                                                                                <span class="ct-label ct-vertical ct-start" style="height: 28px; width: 30px" xmlns="http://www.w3.org/2000/xmlns/">3</span>
-                                                                            </foreignObject>
-                                                                            <foreignObject style="overflow: visible;" y="126.11111111111111" x="10" height="27.77777777777777" width="30">
-                                                                                <span class="ct-label ct-vertical ct-start" style="height: 28px; width: 30px" xmlns="http://www.w3.org/2000/xmlns/">4</span>
-                                                                            </foreignObject>
-                                                                            <foreignObject style="overflow: visible;" y="98.33333333333334" x="10" height="27.77777777777777" width="30">
-                                                                                <span class="ct-label ct-vertical ct-start" style="height: 28px; width: 30px" xmlns="http://www.w3.org/2000/xmlns/">5</span>
-                                                                            </foreignObject>
-                                                                            <foreignObject style="overflow: visible;" y="70.55555555555554" x="10" height="27.7777777777778" width="30">
-                                                                                <span class="ct-label ct-vertical ct-start" style="height: 28px; width: 30px" xmlns="http://www.w3.org/2000/xmlns/">6</span>
-                                                                            </foreignObject>
-                                                                            <foreignObject style="overflow: visible;" y="42.77777777777777" x="10" height="27.77777777777777" width="30">
-                                                                                <span class="ct-label ct-vertical ct-start" style="height: 28px; width: 30px" xmlns="http://www.w3.org/2000/xmlns/">7</span>
-                                                                            </foreignObject>
-                                                                            <foreignObject style="overflow: visible;" y="15" x="10" height="27.77777777777777" width="30">
-                                                                                <span class="ct-label ct-vertical ct-start" style="height: 28px; width: 30px" xmlns="http://www.w3.org/2000/xmlns/">8</span>
-                                                                            </foreignObject>
-                                                                            <foreignObject style="overflow: visible;" y="-15" x="10" height="30" width="30">
-                                                                                <span class="ct-label ct-vertical ct-start" style="height: 30px; width: 30px" xmlns="http://www.w3.org/2000/xmlns/">9</span>
-                                                                            </foreignObject>
-                                                                        </g>
-                                                                    </svg>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
+
                                             </div>
                                         </div>
                                     </div>
