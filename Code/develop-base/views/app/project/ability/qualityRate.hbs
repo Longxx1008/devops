@@ -1,0 +1,274 @@
+<link rel="stylesheet" href="{{projcfg.appurl}}/static/css/zhilian.css">
+
+
+<div class="">
+    <div class="main-wrap">
+        <div class="container-fluid">
+    <div class="zhilian">
+        <div class="zhilian-top">质量评估</div>
+        <!--<div class="zhilian-top-right">-->
+            <!--<select class="select-top">-->
+                <!--<option value="volvo">全部</option>-->
+                <!--<option value="saab">Saab</option>-->
+                <!--<option value="opel">Opel</option>-->
+                <!--<option value="audi">Audi</option>-->
+            <!--</select>-->
+            <!--<span  class="top-btn">查询</span>-->
+        <!--</div>-->
+    </div>
+
+    <div class="zhilian-two clear">
+        <div class="two-img">图片</div>
+        <div class="two-content">
+            <div class="two-title">服务名称：<b id="sername"></b></div>
+            <div style="float: left">
+                <div class="two-jx"><span>镜像名称：</span><b id="imagename"></b></div>
+                <div class="two-jx"><span>版本：</span><b id="imagever"></b></div>
+            </div>
+            <div style="float: left">
+                <div class="two-jx"><span>开发语言：</span><b>nodejs</b></div>
+                <div class="two-jx"><span>负责人：</span><b id="managerN"></b></div>
+            </div>
+        </div>
+    </div>
+    <div class="third clear">
+        <div class="third-l">
+            <div><span>质量评级：</span><b id="ratev"></b></div>
+        </div>
+        <div class="third-r">
+            <div class="third-r-cont" id="llcount">
+                <p><b>流量统计：</b></p>
+                <!--<span>流量：970w</span>-->
+                <!--<span>日均流量：10w/天</span>-->
+                <!--<span style="padding-right: 0;">平均流量：</span>-->
+                <!--<span class="span-ll">200/s</span>-->
+                <!--<span class="span-last">可优化</span>-->
+            </div>
+            <div class="third-r-cont" id="jkzk">
+                <p><b>健康状况：</b></p>
+                <!--<span>运行时长：46天5小时</span>-->
+                <!--<span style="padding-right: 0;">正常率：</span>-->
+                <!--<span class="span-ll">93.87%</span>-->
+                <!--<span class="span-last">可优化</span>-->
+            </div>
+            <div class="third-r-cont" id="xnqk">
+                <p><b>性能情况：</b></p>
+                <!--<span>平均请求耗时：4s</span>-->
+                <!--<span style="padding-right: 0;">QPS：</span>-->
+                <!--<span class="span-ll">2000</span>-->
+                <!--<span class="span-last">可优化</span>-->
+            </div>
+            <div class="third-r-cont" id="zyqk">
+                <p><b>资源情况：</b></p>
+                <!--<span>平均CPU占用：45%</span>-->
+                <!--<span>平均内存占用：20%</span>-->
+                <!--<span>平均网络带宽：100Mbps</span>-->
+
+            </div>
+            <div class="third-r-cont" id="gzgj">
+                <p><b>故障告警：</b></p>
+                <!--<span style="padding-right: 0;">故障率</span>-->
+                <!--<span class="span-ll">3%</span>-->
+                <!--<span class="span-last">可优化</span>-->
+                <!--<span>告警率：0.2%</span>-->
+            </div>
+        </div>
+    </div>
+
+    <div class="fourth">
+
+        <div class="fourth-cont">
+            <div class="fourth-btn">
+                <span>流量统计分析</span>
+            </div>
+            <div class="fourth-cont-top">
+                <span>平均流量：2000/s</span>
+                <span class="fourth-cont-right">峰值流量：3200/s</span>
+            </div>
+            <div class="fourth-cont-one">
+                <iframe src="http://192.168.9.69:3000/dashboard-solo/db/marathonying-yong-liu-liang-jian-kong?refresh=5s&orgId=1&panelId=2&from=1517462815139&to=1517463115139&var-docker=develop-base_develop-base-gatedlaunch_10004_192_168_9_64_31134&theme=dark" width="100%" height="200" frameborder="0"></iframe>
+            </div>
+        </div>
+
+
+        <div class="fourth-cont clear">
+            <div class="fourth-btn">
+                <span>健康状况分析</span>
+            </div>
+            <div class="fourth-cont-l">
+                <p>运行时长</p>
+                <p class="p2" id="shic"></p>
+            </div>
+            <div class="fourth-cont-r">
+                <iframe src="http://192.168.9.69:3000/dashboard-solo/db/marathonying-yong-liu-liang-jian-kong?refresh=5s&orgId=1&panelId=2&from=1517462815139&to=1517463115139&var-docker=develop-base_develop-base-gatedlaunch_10004_192_168_9_64_31134&theme=dark" width="100%" height="200" frameborder="0" style="background-color: black"></iframe>
+            </div>
+        </div>
+
+
+        <div class="fourth-cont">
+            <div class="fourth-btn">
+                <span>性能状况分析</span>
+            </div>
+            <div class="fourth-cont-top">
+                <span>平均流量：2000/s</span>
+            </div>
+            <div class="fourth-cont-one">
+                <iframe src="http://192.168.9.69:3000/dashboard-solo/db/marathonying-yong-liu-liang-jian-kong?refresh=5s&orgId=1&panelId=2&from=1517462815139&to=1517463115139&var-docker=develop-base_develop-base-gatedlaunch_10004_192_168_9_64_31134&theme=dark" width="100%" height="200" frameborder="0" style="background-color: black"></iframe>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+<script>
+    $(function(){
+        var microserviceid = getQueryString('microserviceid');
+        getQuality(microserviceid);
+    });
+
+    function getQuality(microserviceid){
+        $.ajax({
+            url:'{{projcfg.appurl}}/api/project/ability/quality/query',
+            type:'get',
+            data: {'microserviceid':microserviceid},
+            success:function(data){
+                if(data.success){
+                    /* $("ul li[id]").remove();*/
+                    console.log(data.data);
+                    console.log("数据加载成功，请封装div",data.data);
+                    var qua = data.data[0];
+                    $("#sername").html(qua.app_name);
+                    $("#imagename").html(qua.images_name);
+                    $("#imagever").html(qua.images_version);
+                    $("#managerN").html(qua.project_manager);
+                    var ratevalue = "可优化";
+                    if(qua.quality_rate == "1"){
+                        ratevalue = "优秀";
+                    }else if(qua.quality_rate == "3"){
+                        ratevalue = "一般";
+                    }else if(qua.quality_rate == "4"){
+                        ratevalue = "严重";
+                    }else if(qua.quality_rate == "5"){
+                        ratevalue = "致命";
+                    }
+                    $("#ratev").html(ratevalue);
+                    //流量统计
+                    if(qua.flow_count){
+                        var llcount = qua.flow_count.replace(/(\r\n)|(\n)/g,'');
+                        var lljson = eval("(" + llcount+ ")");
+                        console.log(lljson.length);
+                        var html='';
+                        for(var i=0;i<lljson.length;i++){
+                            if(lljson[i].memo){
+                                html += '<span style="padding-right: 0;">'+lljson[i].name+'：</span><span class="span-ll">'+lljson[i].value+'</span><span class="span-last">'+lljson[i].memo+'</span>';
+                            }else{
+                                html += '<span>'+lljson[i].name+'：'+lljson[i].value+'</span>';
+                            }
+                        }
+                        $("#llcount").append(html);
+                    }
+                    //健康状况
+                    if(qua.health_state){
+                        var jkcount = qua.health_state.replace(/(\r\n)|(\n)/g,'');
+                        var jkjson = eval("(" + jkcount+ ")");
+                        console.log(jkjson.length);
+                        var html='';
+                        for(var i=0;i<jkjson.length;i++){
+                            if(jkjson[i].memo){
+                                html += '<span style="padding-right: 0;">'+jkjson[i].name+'：</span><span class="span-ll">'+jkjson[i].value+'</span><span class="span-last">'+jkjson[i].memo+'</span>';
+                            }else{
+                                html += '<span>'+jkjson[i].name+'：'+jkjson[i].value+'</span>';
+                            }
+                        }
+                        $("#jkzk").append(html);
+                    }
+                    //性能情况
+                    if(qua.perfor_situation){
+                        var xncount = qua.perfor_situation.replace(/(\r\n)|(\n)/g,'');
+                        var xnjson = eval("(" + xncount+ ")");
+                        console.log(xnjson.length);
+                        var html='';
+                        for(var i=0;i<xnjson.length;i++){
+                            if(xnjson[i].memo){
+                                html += '<span style="padding-right: 0;">'+xnjson[i].name+'：</span><span class="span-ll">'+xnjson[i].value+'</span><span class="span-last">'+xnjson[i].memo+'</span>';
+                            }else{
+                                html += '<span>'+xnjson[i].name+'：'+xnjson[i].value+'</span>';
+                            }
+                        }
+                        $("#xnqk").append(html);
+                    }
+                    //资源情况
+                    if(qua.resources_situation){
+                        var zycount = qua.resources_situation.replace(/(\r\n)|(\n)/g,'');
+                        var zyjson = eval("(" + zycount+ ")");
+                        console.log(zyjson.length);
+                        var html='';
+                        for(var i=0;i<zyjson.length;i++){
+                            if(zyjson[i].memo){
+                                html += '<span style="padding-right: 0;">'+zyjson[i].name+'：</span><span class="span-ll">'+zyjson[i].value+'</span><span class="span-last">'+zyjson[i].memo+'</span>';
+                            }else{
+                                html += '<span>'+zyjson[i].name+'：'+zyjson[i].value+'</span>';
+                            }
+                        }
+                        $("#zyqk").append(html);
+                    }
+                    //故障告警
+                    if(qua.fault_warning){
+                        var gzcount = qua.fault_warning.replace(/(\r\n)|(\n)/g,'');
+                        var gzjson = eval("(" + gzcount+ ")");
+                        console.log(gzjson.length);
+                        var html='';
+                        for(var i=0;i<gzjson.length;i++){
+                            if(gzjson[i].memo){
+                                html += '<span style="padding-right: 0;">'+gzjson[i].name+'：</span><span class="span-ll">'+gzjson[i].value+'</span><span class="span-last">'+gzjson[i].memo+'</span>';
+                            }else{
+                                html += '<span>'+gzjson[i].name+'：'+gzjson[i].value+'</span>';
+                            }
+                        }
+                        $("#gzgj").append(html);
+                    }
+                    var yxsc = setDayAndHour(qua.first_deploy_time);
+                    $("#shic").html(yxsc);
+//                    var liindex = 0;
+//                    for(var i=0;i<data.data.length;i++){
+//                        var desc = '';
+//                        if(data.data[i].simpleIntroduction){
+//                            desc = data.data[i].simpleIntroduction.length>30?data.data[i].simpleIntroduction.substr(0,29)+"...":data.data[i].simpleIntroduction;
+//                            var html = '<li id = "'+liindex+'" style="text-align: center;height: 300px;">';
+//                            html += '<h1>'+data.data[i].imageName+'</h1><br/>';
+//                            html += '<h1>'+data.data[i].channels+'</h1>';
+//                            html += '<div style=""><p>'+desc+'</p></div>';
+//                            var p = 'data:'+data.data[i].pictureType+';base64 ,'+data.data[i].picture;
+//                            html += '<img src="'+p+'" alt="" style="margin-top: 20px;width: 61px;height: 63px">';
+//                            html += '<form action="/image/detail?id='+data.data[i].id+'" method="post" id="formId'+data.data[i].id+'"><a href="javascript:void(0);" onclick="submitBtnClick('+data.data[i].imageCode+')">查看详情</a></form>';
+//
+//                            html += '</li>';
+//                            liindex++;
+//                            $("#imageul").append(html);
+//                        }
+//
+//                    }
+                }else{
+                    msgError(data.msg+',错误代码:'+data.code);
+                }
+            }
+        });
+    }
+    function getQueryString(name) {
+        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+        var r = window.location.search.substr(1).match(reg);
+        if (r != null) return unescape(r[2]); return null;
+    }
+    function setDayAndHour(deploytime){
+        var date1 = new Date(deploytime);
+        var date2 = new Date();
+        var total = (date2.getTime()-date1.getTime())/1000;
+        var day = parseInt(total / (24*60*60));//计算整数天数
+        var afterDay = total - day*24*60*60;//取得算出天数后剩余的秒数
+        var hour = parseInt(afterDay/(60*60));//计算整数小时数
+//        var afterHour = total - day*24*60*60 - hour*60*60;//取得算出小时数后剩余的秒数
+//        var min = parseInt(afterHour/60);//计算整数分
+//        var afterMin = total - day*24*60*60 - hour*60*60 - min*60;//取得算出分后剩余的秒数
+        return day+'天'+hour+'小时';
+    }
+</script>
