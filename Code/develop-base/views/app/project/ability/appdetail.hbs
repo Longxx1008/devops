@@ -1,0 +1,436 @@
+
+<div class="main-wrap">
+    <div class="container-fluid">
+        <!-- START EDIT CONTENT -->
+        <div class="row">
+            <div class="col-lg-12 m-t-2">
+
+                <!-- START ROW -->
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="panel panel-default">
+                            <div class="panel-body">
+                                <div class="row m-b-0">
+                                    <div class="col-lg-2 col-md-2 col-xs-5 col-sm-4 m-b-0">
+                                        <div class="hr-text hr-text-left m-t-0 m-b-0">
+                                            <h6 class="text-white"><strong>应用名称</strong></h6>
+                                        </div>
+                                        <h3 class="f-w-300 m-t-0 hidden-md hidden-sm hidden-xs" id="appname"></h3>
+                                    </div>
+
+                                    <div class="col-lg-3 col-md-3 col-xs-7 col-sm-8 m-b-1">
+                                        <div class="hr-text hr-text-left m-t-0 m-b-0">
+                                            <h6 class="text-white"><strong>镜像</strong></h6>
+                                        </div>
+                                        <h3 class="f-w-300 m-t-0 m-b-0 hidden-md hidden-sm hidden-xs" id="jx">
+
+                                        </h3>
+                                    </div>
+
+                                    <div class="col-lg-3 col-md-3 col-xs-12 col-sm-12 m-b-1">
+                                        <div class="hr-text hr-text-left m-t-0 m-b-0">
+                                            <h6 class="text-white"><strong>外网地址</strong></h6>
+                                        </div>
+                                        <h3 class="f-w-300 m-t-0 m-b-0 hidden-md hidden-sm hidden-xs" id="wwdz"></h3>
+                                    </div>
+
+                                    <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 m-b-1">
+                                        <div class="hr-text hr-text-left m-t-0 m-b-0">
+                                            <h6 class="text-white"><strong>当前实例</strong></h6>
+                                        </div>
+                                        <h3 class="f-w-300 m-t-0 hidden-md hidden-sm hidden-xs" id="slnum"></h3>
+                                    </div>
+
+                                    <div class="col-lg-2 col-md-2 col-sm-8 col-xs-7 m-b-1">
+                                        <div class="hr-text hr-text-left m-t-0 m-b-0">
+                                            <h6 class="text-white"><strong>状态</strong></h6>
+                                        </div>
+                                        <h3 class="f-w-300 m-t-0 hidden-md hidden-sm hidden-xs" style="color:#05d165"><i class="fa fa-check-circle"></i>正常</h3>
+                                        <!--<h3 class="f-w-300 m-t-0 hidden-md hidden-sm hidden-xs" style="color:#FF9900"><i class="fa fa-exclamation-triangle"></i>告警</h3>-->
+                                    </div>
+                                </div>
+                                <div class="panel panel-default b-a-0">
+                                    <div class="tabbable-line">
+                                        <ul class="nav nav-tabs" role="tablist">
+                                            <li role="presentation" class="active"><a href="#home" id="home-tab" role="tab" data-toggle="tab" aria-controls="home" aria-expanded="true">流量监控</a></li>
+                                            <li role="presentation" class=""><a href="#profile" role="tab" id="profile-tab" data-toggle="tab" aria-controls="profile" aria-expanded="false">容器监控</a></li>
+                                            <li role="presentation" class=""><a href="#dropdown1" role="tab" id="dropdown1-tab" data-toggle="tab" aria-controls="profile" aria-expanded="false">服务监控</a></li>
+                                        </ul>
+                                        <div class="tab-content">
+                                            <div role="tabpanel" class="tab-pane fade active in" id="home" aria-labelledby="home-tab">
+                                                <div class="panel panel-default no-bg b-a-2 b-gray-dark">
+
+                                                    <div class="panel-heading">
+                                                        <h4 class="m-t-0 m-b-0">服务架构图</h4>
+                                                    </div>
+                                                    <!-- START Table -->
+                                                    <div class="table-responsive">
+                                                        <table class="table" id="sertable">
+                                                            <thead>
+
+                                                            <tr>
+                                                                <th class="small text-muted text-uppercase" style="width: 20%"><strong>name</strong>
+                                                                </th>
+                                                                <th class="small text-muted text-uppercase" style="width: 20%"><strong>容器数量</strong>
+                                                                </th>
+                                                                <th class="small text-muted text-uppercase" style="width: 20%"><strong>最后更新</strong>
+                                                                </th>
+                                                                <th class="small text-muted text-uppercase" style="width: 20%"><strong>健康状态</strong>
+                                                                </th>
+                                                                <th class="small text-muted text-uppercase" style="width: 20%"><strong>质量状况</strong>
+                                                                </th>
+                                                            </tr>
+                                                            </thead>
+                                                            <tbody>
+
+
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                    <!-- END Table -->
+                                                </div>
+                                                <div class="panel panel-default no-bg b-a-2 b-gray-dark">
+                                                    <div class="panel-heading">
+                                                        <h4 class="m-t-0 m-b-0">总流量</h4>
+                                                    </div>
+                                                    <ul class="list-group">
+                                                        <li class="list-group-item no-bg">
+                                                            <div class="chartist-line-chart-with-area" style="height:300px">
+                                                                <iframe src="http://192.168.9.69:3000/dashboard-solo/db/marathonying-yong-liu-liang-jian-kong?refresh=5s&orgId=1&panelId=2&from=1517462815139&to=1517463115139&var-docker=develop-base_develop-base-gatedlaunch_10004_192_168_9_64_31134&theme=dark" width="100%" height="200" frameborder="0" style="background-color: black"></iframe>
+                                                            </div>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                            <div role="tabpanel" class="tab-pane fade" id="profile" aria-labelledby="profile-tab">
+                                                <div class="timeline timeline-datetime" id="conts">
+
+                                                </div>
+                                                <div class="col-lg-12 m-t-3">
+                                                    <div class="panel panel-default b-a-0 bg-gray-dark">
+                                                        <div class="panel-heading">流量</div>
+                                                        <div class="panel-body">
+                                                            <div class="chartist-line-chart-with-area" style="height:300px">
+                                                                <iframe src="http://192.168.9.69:3000/dashboard-solo/db/marathonying-yong-liu-liang-jian-kong?refresh=5s&orgId=1&panelId=2&from=1517462815139&to=1517463115139&var-docker=develop-base_develop-base-gatedlaunch_10004_192_168_9_64_31134&theme=dark" width="100%" height="200" frameborder="0" style="background-color: black"></iframe>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-12  m-t-1">
+                                                    <div class="panel panel-default b-a-0 bg-gray-dark">
+                                                        <div class="panel-heading">性能</div>
+                                                        <div class="panel-body">
+                                                            <div class="chartist-line-chart-with-area" style="height:300px">
+                                                                <iframe src="http://192.168.9.69:3000/dashboard-solo/db/marathonying-yong-liu-liang-jian-kong?refresh=5s&orgId=1&panelId=2&from=1517462815139&to=1517463115139&var-docker=develop-base_develop-base-gatedlaunch_10004_192_168_9_64_31134&theme=dark" width="100%" height="200" frameborder="0" style="background-color: black"></iframe>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-12  m-t-1">
+                                                    <div class="panel panel-default b-a-0 bg-gray-dark">
+                                                        <div class="panel-heading">资源</div>
+                                                        <div class="panel-body">
+                                                            <div class="chartist-line-chart-with-area" style="height:300px">
+                                                                <iframe src="http://192.168.9.69:3000/dashboard-solo/db/marathonying-yong-liu-liang-jian-kong?refresh=5s&orgId=1&panelId=2&from=1517462815139&to=1517463115139&var-docker=develop-base_develop-base-gatedlaunch_10004_192_168_9_64_31134&theme=dark" width="100%" height="200" frameborder="0" style="background-color: black"></iframe>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div role="tabpanel" class="tab-pane fade" id="dropdown1" aria-labelledby="dropdown1-tab">
+                                                <table class="table table-striped">
+                                                    <thead>
+                                                    <tr>
+                                                        <th class="small text-muted text-uppercase"><strong>编号</strong></th>
+                                                        <th class="small text-muted text-uppercase"><strong>服务类型</strong></th>
+                                                        <th class="small text-muted text-uppercase"><strong>版本</strong></th>
+                                                        <th class="small text-muted text-uppercase"><strong>实例名称</strong></th>
+                                                        <th class="small text-muted text-uppercase"><strong>状态</strong></th>
+                                                        <th class="small text-muted text-uppercase"><strong>资源占用</strong></th>
+                                                        <th class="small text-muted text-uppercase"><strong>备注</strong></th>
+                                                        <th class="small text-muted text-uppercase"><strong>操作</strong></th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    <tr onclick="getGranfaData()" style="cursor: pointer;">
+                                                        <td class="v-a-m"><span class="text-white">C355656</span></td>
+                                                        <td class="v-a-m"><span class="text-white">mysql</span></td>
+                                                        <td class="v-a-m"><span class="text-white">V5.5</span></td>
+                                                        <td class="v-a-m">ywcj</td>
+                                                        <td class="v-a-m"><i class="m-l-0 fa fa-fw fa-circle text-danger"></i> <span class="text-white m-r-1">故障</span></td>
+                                                        <td class="v-a-m">
+                                                            <div class="progress b-r-a-0 m-t-0 m-b-1 h-3">
+                                                                <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 70%"></div>
+                                                            </div>
+                                                            <span class="m-t-0">
+                                                                    30GB: <span class="text-white">已使用60%</span>
+                                                                </span>
+                                                        </td>
+                                                        <td class="v-a-m"></td>
+                                                        <td class="v-a-m">
+                                                            <div class="btn-group" role="group" aria-label="...">
+                                                                <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="" data-original-title="日志"><i class="fa fa-book"></i></button>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                    <tr onclick="getGranfaData()" style="cursor: pointer;">
+                                                        <td class="v-a-m"><span class="text-white">C355656</span></td>
+                                                        <td class="v-a-m"><span class="text-white">mongodb</span></td>
+                                                        <td class="v-a-m"><span class="text-white">V5.5</span></td>
+                                                        <td class="v-a-m">ywcj</td>
+                                                        <td class="v-a-m"><i class="m-l-0 fa fa-fw fa-circle text-success"></i> <span class="text-white m-r-1">运行中</span></td>
+                                                        <td class="v-a-m">
+                                                            <div class="progress b-r-a-0 m-t-0 m-b-1 h-3">
+                                                                <div class="progress-bar" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width:40%"></div>
+                                                            </div>
+                                                            <span class="m-t-0">
+                                                                    30GB: <span class="text-white">已使用40%</span>
+                                                                </span>
+                                                        </td>
+                                                        <td class="v-a-m"></td>
+                                                        <td class="v-a-m">
+                                                            <div class="btn-group" role="group" aria-label="...">
+                                                                <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="" data-original-title="日志"><i class="fa fa-book"></i></button>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                    </tbody>
+                                                </table>
+                                                <div class="col-lg-12 m-t-3">
+                                                    <div class="panel panel-default b-a-0 bg-gray-dark">
+                                                        <div class="panel-heading">流量</div>
+                                                        <div class="panel-body">
+                                                            <div class="chartist-line-chart-with-area" style="height:300px">
+                                                                <iframe id="liuliangser" src="http://192.168.9.69:3000/dashboard-solo/db/marathonying-yong-liu-liang-jian-kong?refresh=5s&orgId=1&panelId=2&from=1517462815139&to=1517463115139&var-docker=develop-base_develop-base-gatedlaunch_10004_192_168_9_64_31134&theme=dark" width="100%" height="200" frameborder="0" style="background-color: black"></iframe>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- END ROW -->
+
+            </div>
+        </div>
+        <!-- END EDIT CONTENT -->
+
+    </div>
+
+</div>
+
+
+<script>
+    $(function(){
+        var appid = getQueryString('appid');
+        if(!appid){
+            appid = 1;
+        }
+        getAppdetail(appid);
+        getMicroService(appid);
+    });
+
+    //获取容器监控数据
+    function getAppdetail(appid){
+        $.ajax({
+            url:'{{projcfg.appurl}}/api/project/ability/appdetail/query',
+            type:'get',
+            data: {'appid':appid},
+            success:function(data){
+                console.log(data);
+                if(data.success){
+                    /* $("ul li[id]").remove();*/
+                    console.log(data.data);
+                    console.log("数据加载成功，请封装div",data.data);
+                    var qua = data.data[0];
+                    $("#appname").html(qua.app_name);
+                    $("#jx").html(qua.images_name);
+                    $("#wwdz").html(qua.vist_url);
+                    $("#slnum").html(qua.cur_inst_num+" 个");
+
+                    setLiuLiangData(data.data);
+//                    $("#shic").html(yxsc);
+                }else{
+                    msgError(data.msg+',错误代码:'+data.code);
+                }
+            }
+        });
+    }
+    //获取微服务数据
+    function getMicroService(appid){
+        $.ajax({
+            url:'{{projcfg.appurl}}/api/project/ability/appdetail/microservice',
+            type:'get',
+            data: {'appid':appid},
+            success:function(data){
+                console.log(data);
+                if(data.success){
+                    /* $("ul li[id]").remove();*/
+                    console.log(data.data);
+                    var rows = setTableRow(data.data);
+                    $("#sertable tbody").append(rows);
+                }else{
+                    msgError(data.msg+',错误代码:'+data.code);
+                }
+            }
+        });
+    }
+
+    //调用服务监控的流量数据
+    function getGranfaData(){
+        $("#liuliangser").attr("src","http://192.168.9.69:3000/dashboard-solo/db/marathonying-yong-liu-liang-jian-kong?refresh=5s&orgId=1&panelId=2&from=1517462815139&to=1517463115139&var-docker=develop-base_develop-base-gatedlaunch_10004_192_168_9_64_31134&theme=dark");
+    }
+
+    //设置流量监控数据
+    function setLiuLiangData(arr){
+        if(arr.length>0){
+
+            var divstr = '';
+            var sername = '';
+            for(var i=0;i<arr.length;i++){
+                if(sername && sername != arr[i].images_alias){
+                    divstr += '</tbody></table></div></div></div>';
+                    $("#conts").append(divstr);
+                    divstr = '';
+                }
+                if(sername != arr[i].images_alias){
+
+                    divstr += '<div class="timeline-date"><span class="badge" >微服务名称：'+arr[i].images_alias+'</span></div>' +
+                            ' <div class="timeline-item p-r-1"><div class="timeline-icon"><i class="fa fa-circle-o text-info"></i></div>' +
+                            ' <div class="timeline-item-inner"><div class="timeline-item-head clearfix"><div class="hr-text hr-text-left m-t-2">' +
+                            ' <h6 class="text-white"><strong >版本号：'+arr[i].images_version+'</strong></h6></div><div class="col-lg-2">' +
+                            ' <div class="btn-group"><button type="button" class="btn btn-default" aria-label="Left Align" onclick="subductionNum('+i+')"><span class="fa fa-fw fa-minus" aria-hidden="true"></span></button>' +
+                            ' <input type="text" id="connum'+i+'" class="btn btn-default col-lg-4" aria-label="Center Align" placeholder="容器数量" value="'+arr[i].cur_inst_num+'">' +
+                            ' <button type="button" class="btn btn-default" aria-label="Right Align" onclick="additionNum('+i+')"><span class="fa fa-fw fa-plus" aria-hidden="true"></span></button>' +
+                            ' </div></div><div class="col-lg-4"><button type="button" class="btn btn-cerulean" onclick="quality('+arr[i].id+')">质量评估</button>' +
+                            ' <button type="button" class="btn btn-dodger-blue">智能伸缩策略</button><button type="button" class="btn btn-minsk">灰度环境发布</button></div></div>'+
+                            '<div class="timeline-item-content m-t-1"><table class="table table-striped"><thead><tr><th class="small text-muted text-uppercase"><strong>容器名称</strong></th>' +
+                            ' <th class="small text-muted text-uppercase"><strong>所属项目</strong></th><th class="small text-muted text-uppercase"><strong>运行环境</strong></th>' +
+                            ' <th class="small text-muted text-uppercase"><strong>状态</strong></th><th class="small text-muted text-uppercase"><strong>所属镜像</strong></th></tr></thead>' +
+                            '  <tbody><tr><td class="v-a-m"><span class="text-white">'+arr[i].container_name+'</span></td><td class="v-a-m"><span class="text-white">'+arr[i].images_alias+'</span></td><td class="v-a-m"> <span>'+arr[i].host_ip+'</span></td>' +
+                            '   <td class="v-a-m"><i class="m-l-0 fa fa-fw fa-circle '+setContStatusCss(arr[i].constatus)+'"></i> <span class="text-white m-r-1">'+setContStatus(arr[i].constatus)+'</span></td><td class="v-a-m">'+arr[i].images_name+':'+arr[i].images_version+'</td>' +
+                            '    <td class="v-a-m"></td></tr>';
+                }else{
+                    divstr += '<tr><td class="v-a-m"><span class="text-white">'+arr[i].container_name+'</span></td><td class="v-a-m"><span class="text-white">'+arr[i].images_alias+'</span></td><td class="v-a-m"> <span>'+arr[i].host_ip+'</span></td>' +
+                            '   <td class="v-a-m"><i class="m-l-0 fa fa-fw fa-circle '+setContStatusCss(arr[i].constatus)+'"></i> <span class="text-white m-r-1">'+setContStatus(arr[i].constatus)+'</span></td><td class="v-a-m">'+arr[i].images_name+':'+arr[i].images_version+'</td>' +
+                            '    <td class="v-a-m"></td></tr>';
+                }
+                if( i==arr.length-1){
+                    divstr += '</tbody></table></div></div></div>';
+                    $("#conts").append(divstr);
+                    divstr = '';
+                }
+                sername = arr[i].images_alias;
+            }
+        }
+    }
+    //减少容器实例数
+    function subductionNum(a){
+        var num = $("#connum"+a).val();
+        $("#connum"+a).val(parseInt(num)-1);
+    }
+    //新增容器实例数
+    function additionNum(a){
+        var num = $("#connum"+a).val();
+        $("#connum"+a).val(parseInt(num)+1);
+    }
+//设置容器状态
+    function setContStatus(v){
+      if(v=="1"){
+        return '运行中';
+      }else{
+          return '故障';
+      }
+    }
+    //设置容器状态样式
+    function setContStatusCss(v){
+      if(v=="1"){
+        return 'text-success';
+      }else{
+          return 'text-danger';
+      }
+    }
+    //跳转质量状况
+    function quality(microserviceid){
+        var microserviceId=microserviceid;
+        if(microserviceId){
+            location.href = "{{projcfg.appurl}}/quality?microserviceid="+microserviceId;
+        }else{
+            location.href = "{{projcfg.appurl}}/quality";
+        }
+    }
+
+    //设置流量监控表格行
+    function setTableRow(arr){
+        var rowstr = '';
+        if(arr.length>0){
+            for(var i=0;i<arr.length;i++){
+                rowstr += '<tr><td class="v-a-m"><div class="media m-l-1"><div class="media-left media-top"><i class="fa fa-3x fa-sitemap text-aquamarine"></i></div>'+
+                '<div class="media-body"><h2 class="f-w-300 m-t-0 m-b-0 hidden-md hidden-sm hidden-xs">'+arr[i].images_alias+'</h2><p class="m-t-0">'+arr[i].images_version+'</p>' +
+                        ' </div></div></td><td class="v-a-m"><h1 class="f-w-300 m-t-0 m-b-0 hidden-md hidden-sm hidden-xs">'+arr[i].cur_inst_num+'</h1></td><td class="v-a-m">' +
+                        '<h1 class="f-w-300 m-t-0 m-b-0 hidden-md hidden-sm hidden-xs">'+setDay(arr[i].update_time)+'</h1></td>' +
+                        '<td class="v-a-m"><div class="media"><div class="media-left media-middle"><span class="fa-stack fa-lg"><i class="fa fa-square fa-stack-2x '+setHealthStatusCss(arr[i].health_status)+'"></i> <i class="fa fa-bell fa-stack-1x fa-inverse"></i></span> </div>' +
+                        '<div class="media-body"><h1 class="f-w-300 m-t-0 m-b-0 '+setHealthStatusCss(arr[i].health_status)+'">'+setHealthStatus(arr[i].health_status)+'</h1></div></div></td><td class="v-a-m"> <div class="media"> <div class="media-left media-middle"> <span class="fa-stack fa-lg"> ' +
+                        '<i class="fa fa-square fa-stack-2x '+setQualityStatusCss(arr[i].quality_condition)+'"></i> <i class="fa fa-line-chart fa-stack-1x fa-inverse"></i> </span> </div>' +
+                        '<div class="media-body"> <h1 class="f-w-300 m-t-0 m-b-0 '+setQualityStatusCss(arr[i].quality_condition)+'">'+setQualityStatus(arr[i].quality_condition)+'</h1> </div> </div> </td> </tr>';
+            }
+        }
+        return rowstr;
+    }
+
+    function getQueryString(name) {
+        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+        var r = window.location.search.substr(1).match(reg);
+        if (r != null) return unescape(r[2]); return null;
+    }
+    //更新日期
+    function setDay(deploytime){
+        var date1 = new Date(deploytime);
+        var date2 = new Date();
+        var total = (date2.getTime()-date1.getTime())/1000;
+        var day = parseInt(total / (24*60*60));//计算整数天数
+        var afterDay = total - day*24*60*60;//取得算出天数后剩余的秒数
+        var hour = parseInt(afterDay/(60*60));//计算整数小时数
+//        var afterHour = total - day*24*60*60 - hour*60*60;//取得算出小时数后剩余的秒数
+//        var min = parseInt(afterHour/60);//计算整数分
+//        var afterMin = total - day*24*60*60 - hour*60*60 - min*60;//取得算出分后剩余的秒数
+        return day+'天前';
+    }
+    //设置健康状态
+    function setHealthStatus(v){
+        if(v == "1"){
+            return '威胁';
+        }else{
+            return '正常';
+        }
+    }
+    //设置健康状态样式
+    function setHealthStatusCss(v){
+        if(v == "1"){
+            return 'text-danger';
+        }else{
+            return 'text-success';
+        }
+    }
+    //设置质量状态
+    function setQualityStatusCss(v){
+        if(v == "1"){
+            return 'text-amazon';
+        }else{
+            return 'text-success';
+        }
+    }
+    //设置质量状态
+    function setQualityStatus(v){
+        if(v == "1"){
+            return '可优化';
+        }else{
+            return '正常';
+        }
+    }
+</script>

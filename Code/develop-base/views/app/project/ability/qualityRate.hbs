@@ -212,25 +212,6 @@
                     }
                     var yxsc = setDayAndHour(qua.first_deploy_time);
                     $("#shic").html(yxsc);
-//                    var liindex = 0;
-//                    for(var i=0;i<data.data.length;i++){
-//                        var desc = '';
-//                        if(data.data[i].simpleIntroduction){
-//                            desc = data.data[i].simpleIntroduction.length>30?data.data[i].simpleIntroduction.substr(0,29)+"...":data.data[i].simpleIntroduction;
-//                            var html = '<li id = "'+liindex+'" style="text-align: center;height: 300px;">';
-//                            html += '<h1>'+data.data[i].imageName+'</h1><br/>';
-//                            html += '<h1>'+data.data[i].channels+'</h1>';
-//                            html += '<div style=""><p>'+desc+'</p></div>';
-//                            var p = 'data:'+data.data[i].pictureType+';base64 ,'+data.data[i].picture;
-//                            html += '<img src="'+p+'" alt="" style="margin-top: 20px;width: 61px;height: 63px">';
-//                            html += '<form action="/image/detail?id='+data.data[i].id+'" method="post" id="formId'+data.data[i].id+'"><a href="javascript:void(0);" onclick="submitBtnClick('+data.data[i].imageCode+')">查看详情</a></form>';
-//
-//                            html += '</li>';
-//                            liindex++;
-//                            $("#imageul").append(html);
-//                        }
-//
-//                    }
                 }else{
                     msgError(data.msg+',错误代码:'+data.code);
                 }
