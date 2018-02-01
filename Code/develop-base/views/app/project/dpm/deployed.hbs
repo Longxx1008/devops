@@ -121,8 +121,8 @@
                 {"field": "operation","title":"操作","width":200,align:"center",
                     "formatter":function(value, rowData, rowIndex){
                         var returnValue = "";
-                        returnValue+="<span class=\"label label-info\" style=\"height:26px;line-height:16px;font-weight:600;margin-top: 0.5rem;margin-left: 0.5rem;cursor: pointer;\">灰度部署</span>&nbsp;"
-                        returnValue+="<span class=\"label label-success\" style='height:26px;line-height:16px;font-weight:600;cursor: pointer;margin-top: 0.5rem;margin-bottom: 0.5rem;'>正式部署</span></br>"
+                        returnValue+="<span onclick='grayPage()' class=\"label label-info\" style=\"height:26px;line-height:16px;font-weight:600;margin-top: 0.5rem;margin-left: 0.5rem;cursor: pointer;\">灰度部署</span>&nbsp;"
+                        returnValue+="<span onclick='formalPage()' class=\"label label-success\" style='height:26px;line-height:16px;font-weight:600;cursor: pointer;margin-top: 0.5rem;margin-bottom: 0.5rem;'>正式部署</span></br>"
                         return returnValue;
                     }
                 }
@@ -420,5 +420,10 @@
             }
         });
     }
-
+    function formalPage(){
+        window.location.href="{{projcfg.appurl}}/formalm";
+    }
+    function grayPage(){
+        window.location.href="{{projcfg.appurl}}/grayenvironmentm";
+    }
 </script>
