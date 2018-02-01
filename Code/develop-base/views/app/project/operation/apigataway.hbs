@@ -1793,3 +1793,86 @@
     <!-- END Footer -->
 
 </div>
+
+
+<script  type="text/javascript">
+    $(function(){
+
+        $.ajax({
+
+            url:'{{projcfg.appurl}}/../api/project/operation/apigataway/pageList',
+            data :{},
+            dataType : 'json',
+            type: 'get', //请求方式get，post
+            success : function(d) {
+
+                console.log(d);
+
+
+
+
+            },
+            error: function(xhr, type, errorThrown) {
+
+                console.log(xhr)
+            }
+
+
+
+        });
+
+
+
+    });
+
+    function back_project(){
+        history.go(-1);
+    }
+
+    function doSearch() {
+        $('#projectDataTable').datagrid('reload');
+    }
+    function doClear() {
+        doSearch();
+    }
+
+    // 打开页面
+    function openPage(title, value, callback) {
+        $('#myModal').show();
+        $('#myModal').mydialog({
+            title:title,
+            width: 700,
+            height: 485,
+            top:100,
+            modal: true,
+            myButtons:[
+                {
+                    text:'确定',
+                    btnCls:'btn btn-blue',
+                    handler:function(){
+                        callback(value);
+                    }
+                },
+                {
+                    text:'关闭',
+                    btnCls:'btn btn-danger',
+                    handler:function(){
+                        closeDialog();
+                    }
+                }
+            ]
+        });
+    }
+
+    // 清空新增表单数据
+    function clear() {
+        $('#projectForm').form('clear');
+    }
+
+    // 关闭窗口
+    function closeDialog() {
+        $('#myModal').dialog('close');
+        clear();
+    }
+
+</script>

@@ -6,10 +6,34 @@ var router = express.Router();
 var config = require('../../../../config');
 var resourceListService = require('../services/resourceListService');
 var utils = require('../../../common/core/utils/app_utils');
+var request = require('request');
 /***********************资源列表查询(get),新增(put),修改(post)*******************************/
 
-router.route("/")
+router.route("/pageList")
     .get(function(req, res) {
+
+
+        console.log("==================");
+
+        request({
+            url: url,
+            method: "POST",
+            json: true,
+            headers: {
+                "content-type": "application/json",
+            },
+            body: {name:222}
+        }, function(error, response, body) {
+
+            console.log(response);
+
+            if (!error && response.statusCode == 200) {
+
+
+            }
+        });
+
+
         var resource_number =req.query.resource_number;
         var page = req.query.page;
         var pageSize = req.query.rows;
