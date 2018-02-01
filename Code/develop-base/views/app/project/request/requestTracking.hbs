@@ -1,0 +1,210 @@
+<style>
+    .div_title{
+        text-align: center;
+        padding-top: 20px;
+        padding-bottom: 10px;
+    }
+</style>
+<link href="https://cdn.bootcss.com/bootstrap-table/1.11.1/bootstrap-table.css" rel="stylesheet">
+
+<div style="margin-top: -20px;margin-left: 30px;margin-right: 30px">
+    <div class="row" style="background: rgba(50,50,50,0.95) ">
+
+        <div class="col-md-3 div_title" >
+            <img src="{{projcfg.appurl}}/static/request/image/200.png" height="45px" width="45px">
+            <h4>0</h4>
+            <h5>2xx</h5>
+        </div>
+        <div class="col-md-3 div_title">
+            <img src="{{projcfg.appurl}}/static/request/image/302.png" height="45px" width="45px">
+            <h4>0</h4>
+            <h5>3xx</h5>
+        </div>
+        <div class="col-md-3 div_title">
+            <img src="{{projcfg.appurl}}/static/request/image/404.png" height="45px" width="45px">
+            <h4>0</h4>
+            <h5>4xx</h5>
+        </div>
+        <div class="col-md-3 div_title">
+            <img src="{{projcfg.appurl}}/static/request/image/500.png" height="45px" width="45px">
+            <h4>0</h4>
+            <h5>5xx</h5>
+        </div>
+
+    </div>
+
+
+
+    <!--<div  style="margin-top: 20px;margin-bottom: 10px">-->
+
+        <!--<div class="col-md-3" style="text-align: center;margin-top: 10px">-->
+            <!--<span class="col-md-3"><h5>服务名称</h5></span>-->
+            <!--<div class="input-group col-md-9">-->
+                <!--<input type="text" class="form-control">-->
+                <!--<div class="input-group-btn">-->
+
+                    <!--<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">-->
+                        <!--<span class="caret"></span>-->
+                    <!--</button>-->
+                    <!--<ul class="dropdown-menu pull-right">-->
+                        <!--<li><a href="#">功能</a></li>-->
+                        <!--<li><a href="#">另一个功能</a></li>-->
+                        <!--<li><a href="#">其他</a></li>-->
+                        <!--<li class="divider"></li>-->
+                        <!--<li><a href="#">分离的链接</a></li>-->
+                    <!--</ul>-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</div>-->
+
+        <!--<div class="col-md-3" style="text-align: center;margin-top: 10px">-->
+            <!--<span class="col-md-3"><h5></h5></span>-->
+            <!--<div class="input-group col-md-9">-->
+                <!--<input type="text" class="form-control">-->
+                <!--<div class="input-group-btn">-->
+                    <!--<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">-->
+                        <!--<span class="caret"></span>-->
+                    <!--</button>-->
+                    <!--<ul class="dropdown-menu pull-right">-->
+                        <!--<li><a href="#">功能</a></li>-->
+                        <!--<li><a href="#">另一个功能</a></li>-->
+                        <!--<li><a href="#">其他</a></li>-->
+                        <!--<li class="divider"></li>-->
+                        <!--<li><a href="#">分离的链接</a></li>-->
+                    <!--</ul>-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</div>-->
+
+
+        <!--<div class="col-md-3" style="text-align: center;margin-top: 10px">-->
+            <!--<span class="col-md-3"><h5></h5></span>-->
+            <!--<div class="input-group col-md-9">-->
+                <!--<input type="text" class="form-control">-->
+                <!--<div class="input-group-btn">-->
+                    <!--<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">-->
+                        <!--<span class="caret"></span>-->
+                    <!--</button>-->
+                    <!--<ul class="dropdown-menu pull-right">-->
+                        <!--<li><a href="#">功能</a></li>-->
+                        <!--<li><a href="#">另一个功能</a></li>-->
+                        <!--<li><a href="#">其他</a></li>-->
+                        <!--<li class="divider"></li>-->
+                        <!--<li><a href="#">分离的链接</a></li>-->
+                    <!--</ul>-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</div>-->
+
+        <!--<div class="col-md-3" style="text-align: center;margin-top: 10px">-->
+            <!--<span class="col-md-3"><h5></h5></span>-->
+            <!--<div class="input-group col-md-9">-->
+                <!--<input type="text" class="form-control">-->
+                <!--<div class="input-group-btn">-->
+                    <!--<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">-->
+                        <!--<span class="caret"></span>-->
+                    <!--</button>-->
+                    <!--<ul class="dropdown-menu pull-right">-->
+                        <!--<li><a href="#">功能</a></li>-->
+                        <!--<li><a href="#">另一个功能</a></li>-->
+                        <!--<li><a href="#">其他</a></li>-->
+                        <!--<li class="divider"></li>-->
+                        <!--<li><a href="#">分离的链接</a></li>-->
+                    <!--</ul>-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</div>-->
+
+    <!--</div>-->
+
+
+    <table id="table"  class="table table-bordered" style="color: #FFFFFF;margin-top: 10px"></table>
+</div>
+<script src="https://cdn.bootcss.com/bootstrap-table/1.11.1/bootstrap-table.js"></script>
+
+
+<script>
+    $("#refresh_button").click(function (){
+        var opt = {
+            url: "http://local/api/data/?format=json",
+            silent: true,
+            query:{
+                type:1,
+                level:2
+            }
+        };
+
+        $("#table").bootstrapTable('refresh', opt);
+
+    });
+
+    $('#table').bootstrapTable({
+
+        url: '{{projcfg.appurl}}/api/project/request/requestTracking/pageList',                      //请求后台的URL（*）
+        method: 'GET',                      //请求方式（*）
+        striped: true,         //是否显示行间隔色
+        pagination: true,                   //是否显示分页（*）
+        sidePagination: "server",           //分页方式：client客户端分页，server服务端分页（*）
+        search: true,                      //是否显示表格搜索
+        strictSearch: true,
+        showColumns: true,                  //是否显示所有的列（选择显示的列）
+        showRefresh: true,                  //是否显示刷新按钮
+
+        queryParams : function (params) {
+            //这里的键的名字和控制器的变量名必须一直，这边改动，控制器也需要改成一样的
+            var temp = {
+                rows: params.limit,                         //页面大小
+                page: (params.offset / params.limit) + 1,   //页码
+            };
+            return temp;
+        },
+        columns: [{
+            field: 'id',
+            title: '编号'
+        }, {
+            field: 'url',
+            title: '请求'
+        }, {
+            field: 'serial_number',
+            title: '请求序列号'
+        }, {
+                field: 'ip',
+                title: '客户端IP'
+            }, {
+            field: 'browser',
+            title: '客户端浏览器'
+        }, {
+            field: 'req_time',
+            title: '请求时间',
+            formatter: function (value,row,index) {
+                return value.replace(/T/,' ').replace('.000Z','');
+
+             }
+
+        }, {
+            field: 'total_time_consuming',
+            title: '总耗时'
+        },{
+            field: 'respond_status',
+            title: '返回响应'
+        },{
+            field: 'detail',
+            title: '操作'
+        }],
+
+    });
+
+
+
+
+
+    <!--$.ajax({-->
+            <!--url: '{{projcfg.appurl}}/api/project/request/requestTracking/groupData',-->
+            <!--type: 'get',-->
+            <!--success: function (data) {-->
+                <!--console.log(data.rows[1].statusCount);-->
+            <!--}-->
+        <!--});-->
+
+
+</script>
