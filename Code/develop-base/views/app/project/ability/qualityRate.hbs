@@ -4,8 +4,8 @@
 <div class="">
     <div class="main-wrap">
         <div class="container-fluid">
-    <div class="zhilian">
-        <div class="zhilian-top">质量评估</div>
+    <!--<div class="zhilian">-->
+        <!--<div class="zhilian-top">质量评估</div>-->
         <!--<div class="zhilian-top-right">-->
             <!--<select class="select-top">-->
                 <!--<option value="volvo">全部</option>-->
@@ -15,7 +15,7 @@
             <!--</select>-->
             <!--<span  class="top-btn">查询</span>-->
         <!--</div>-->
-    </div>
+    <!--</div>-->
 
     <div class="zhilian-two clear">
         <div class="two-img"><img src="{{projcfg.appurl}}/static/images/avatars/bing.png" style="width:100%;height: 100%;"></div>
@@ -66,7 +66,7 @@
                 <span class="fourth-cont-right">峰值流量：3200/s</span>
             </div>
             <div class="fourth-cont-one">
-                <iframe src="http://192.168.9.69:3000/dashboard-solo/db/marathonying-yong-liu-liang-jian-kong?refresh=5s&orgId=1&panelId=2&from=1517462815139&to=1517463115139&var-docker=develop-base_develop-base-gatedlaunch_10004_192_168_9_64_31134&theme=dark" width="100%" height="200" frameborder="0"></iframe>
+                <iframe src="http://192.168.9.69:3000/dashboard-solo/db/marathonying-yong-liu-liang-jian-kong?var-docker=gdgl_10009_BACKEND&panelId=2&orgId=1&from=1517469239113&to=1517469539113&theme=dark" width="100%" height="200" frameborder="0"></iframe>
             </div>
         </div>
 
@@ -103,6 +103,9 @@
 <script>
     $(function(){
         var microserviceid = getQueryString('microserviceid');
+        if(!microserviceid){
+            microserviceid = 1;
+        }
         getQuality(microserviceid);
     });
 
