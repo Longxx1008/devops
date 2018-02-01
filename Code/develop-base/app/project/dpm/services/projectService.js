@@ -102,9 +102,10 @@ exports.projectProcess = function(cb) {
 
 exports.deployedPageList = function(page, size, conditionMap, cb) {
 
-    var sql="select * from (SELECT r.projectName,g.* FROM pass_develop_project_gray_deploy g,pass_develop_project_resources_copy2 r WHERE g.gitlabProjectId = r.gitlabProjectId UNION ALL"+
-        " SELECT r.projectName,f.* FROM pass_develop_project_formal_deploy f,pass_develop_project_resources_copy2 r WHERE f.gitlabProjectId = r.gitlabProjectId) g";
-  var conditions = [];
+    /*var sql="select * from (SELECT r.projectName,g.* FROM pass_develop_project_gray_deploy g,pass_develop_project_resources_copy2 r WHERE g.gitlabProjectId = r.gitlabProjectId UNION ALL"+
+        " SELECT r.projectName,f.* FROM pass_develop_project_formal_deploy f,pass_develop_project_resources_copy2 r WHERE f.gitlabProjectId = r.gitlabProjectId) g";*/
+    var sql="select * from pass_project_app_info g";
+    var conditions = [];
     if(conditionMap) {
         if(conditionMap.projectName) {
             sql += " and (g.projectName like '%" + conditionMap.projectName + "%')";

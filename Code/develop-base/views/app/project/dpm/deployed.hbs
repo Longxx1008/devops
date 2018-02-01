@@ -13,7 +13,7 @@
     </div>
 </div>
 
-<div id="containerLogModal" class="mydialog" style="padding-top:0px;">
+<!--<div id="containerLogModal" class="mydialog" style="padding-top:0px;">
     <div class="row">
         <div class="col-md-12">
             <div class="widget flat radius-bordered">
@@ -52,7 +52,7 @@
             </div>
         </div>
     </div>
-</div>
+</div>-->
 <script  type="text/javascript">
     $(function(){
         $('#dataTable').datagrid({
@@ -70,22 +70,33 @@
                 {"field":'id',checkbox:true},
                 /* {"field":'projectId',hidden:true},
                  {"field":'mesosId',hidden:true},*/
-                {"field": "projectId","title":"应用编号","width":300,align:"center"},
-                {"field": "projectName","title":"应用名称","width":150,align:"center"},
-                {"field": "type","title":"应用类型","width":150,align:"center",
+                /*{"field": "projectId","title":"应用编号","width":300,align:"center"},*/
+                {"field": "app_name","title":"应用名称","width":150,align:"center"},
+                {"field": "vist_url","title":"访问地址","width":150,align:"center"},
+                {"field": "update_time","title":"更新时间","width":150,align:"center",
+                    "formatter":function (value, rowData,rowIndex) {
+
+                        return new Date(value).toLocaleString();
+                    }
+                },
+                {"field": "status","title":"应用状态","width":150,align:"center",
                     "formatter":function (value, rowData,rowIndex) {
 //                        return value == "1" ? "自主研发":"第三方应用";
                         //return value == "1" ? "<span class=\"label label-success\" style=\"height:26px;line-height:16px;font-weight:600;margin-top: 0.5rem;margin-left: 0.5rem;\">自主研发</span>":"<span class=\"label label-info\" style=\"height:26px;line-height:16px;font-weight:600;margin-top: 0.5rem;margin-left: 0.5rem;\">第三方应用</span>";
-                        return   "<span class=\"label label-success\" style=\"height:26px;line-height:16px;font-weight:600;margin-top: 0.5rem;margin-left: 0.5rem;\">自主研发</span>"
-                }
+                        if(value==1)
+                        return   "<span class=\"label label-success\" style=\"height:26px;line-height:16px;font-weight:600;margin-top: 0.5rem;margin-left: 0.5rem;\">正常</span>"
+                        else
+                            return   "<span class=\"label label-danger\" style=\"height:26px;line-height:16px;font-weight:600;margin-top: 0.5rem;margin-left: 0.5rem;\">不正常</span>"
+                    }
                 },
-                {"field": "version","title":"部署版本","width":100,align:"center",
+                {"field": "project_manager","title":"开发人员","width":150,align:"center"},
+                /*{"field": "version","title":"部署版本","width":100,align:"center",
                     "formatter":function (value, rowData,rowIndex) {
                          var res=value.substring(value.lastIndexOf(":")+1)
                          return res;
                     }
-                },
-                {"field": "deployType","title":"部署类型","width":100,align:"center",
+                },*/
+                /*{"field": "deployType","title":"部署类型","width":100,align:"center",
                     "formatter":function (value, rowData,rowIndex) {
                         if(rowData.projectId.indexOf("formal")>=0){
                             return "正式版本"
@@ -106,30 +117,12 @@
                 {"field": "cpu","title":"资源使用","width":150,align:"center",
                     "formatter":function(value, rowData, rowIndex){
                         return "<span style='display:block;padding-left:20px;text-align:center;'>cpu:" + value + "<br>实例:"+rowData.instance+"<br>内存:"+rowData.mem+"</span>";
-                    }},
+                    }},*/
                 {"field": "operation","title":"操作","width":200,align:"center",
                     "formatter":function(value, rowData, rowIndex){
                         var returnValue = "";
-                       /* if(rowData.type != 1){
-                            returnValue = "<a class=\"label label-info\" style='height:26px;line-height:16px;font-weight:600;cursor: pointer;margin-top: 0.5rem;margin-bottom: 0.5rem;' href='" + value + "' target='_blank'>应用详情</a>";
-                        }else{*/
-                            if(rowData.healthStatus >= "1"){
-//                                if(rowData.projectId.indexOf("formal")>=0) {
-                                   // returnValue+=   "<span class=\"label label-info\" style=\"height:26px;line-height:16px;font-weight:600;margin-top: 0.5rem;margin-left: 0.5rem;cursor: pointer;\" data-id='" + rowData.id + "' data-name='" + rowData.projectName + "' data-pid='" + rowData.projectId + "'data-instance='" + rowData.instance + "' onclick=\"doAddCon(this)\">扩容</span>"
-                                returnValue+="<span class=\"label label-info\" style='height:26px;line-height:16px;font-weight:600;cursor: pointer;margin-left:0.6rem;' data-id='" + rowData.id + "' data-name='" + rowData.projectName + "' onclick='logsCenter(this)'>日志</span>";
-                                //returnValue+=   "<span class=\"label label-info\" style=\"height:26px;line-height:16px;font-weight:600;margin-top: 0.5rem;margin-left: 0.5rem;cursor: pointer;\" data-id='" + rowData.id + "' data-name='" + rowData.projectName + "' data-pid='" + rowData.projectId + "' data-instance='" + rowData.instance + "'onclick=\"doSubCon(this)\">缩容</span></br>"
-//                                }
-                                returnValue+="<span class=\"label label-danger\" style=\"height:26px;line-height:16px;font-weight:600;margin-top: 0.5rem;margin-left: 0.5rem;cursor: pointer;\" data-id='" + rowData.id + "' data-name='" + rowData.projectName + "' data-pid='" + rowData.projectId + "' onclick=\"doStop(this)\">停止</span>&nbsp;"
-                                        returnValue+="<span class=\"label label-info\" style='height:26px;line-height:16px;font-weight:600;cursor: pointer;margin-top: 0.5rem;margin-bottom: 0.5rem;' data-host='" + rowData.hostName + "' data-name='" + rowData.containerName + "' data-mesos='"+rowData.mesosId+"' onclick=\"doNature(this)\">性能情况</span></br>"
-                                        /*returnValue+="<span class=\"label label-info\" style='height:26px;line-height:16px;font-weight:600;cursor: pointer;margin-left:0.6rem;' data-id='" + rowData.id + "' data-name='" + rowData.projectName + "' onclick='logsCenter(this)'>日志</span>";*/
-
-                            }else if(rowData.instance==0 ){
-                                returnValue = "<span class=\"label label-info\" style=\"height:26px;line-height:16px;font-weight:600;margin-top: 0.5rem;margin-left: 0.5rem;cursor: pointer;\" data-id='" + rowData.id + "' data-name='" + rowData.projectName + "' data-pid='" + rowData.projectId + "' onclick=\"doStart(this)\">启动</span>" /*+*/
-                                        /*"<span class=\"label label-danger\" style=\"height:26px;line-height:16px;font-weight:600;margin-top: 0.5rem;margin-left: 0.5rem;cursor: pointer;\" data-id='" + rowData.id + "' data-name='" + rowData.projectName + "' data-pid='" + rowData.projectId + "' onclick=\"doDelete(this)\">删除</span></br>"*/;
-                            }else if(rowData.healthStatus !=rowData.instance ){
-                                returnValue+="<span class=\"label label-info\" style='height:26px;line-height:16px;font-weight:600;cursor: pointer;margin-left:0.6rem;' data-id='" + rowData.id + "' data-name='" + rowData.projectName + "' onclick='logsCenter(this)'>日志</span>";
-                            }
-                        /*}*/
+                        returnValue+="<span class=\"label label-info\" style=\"height:26px;line-height:16px;font-weight:600;margin-top: 0.5rem;margin-left: 0.5rem;cursor: pointer;\">灰度部署</span>&nbsp;"
+                        returnValue+="<span class=\"label label-success\" style='height:26px;line-height:16px;font-weight:600;cursor: pointer;margin-top: 0.5rem;margin-bottom: 0.5rem;'>正式部署</span></br>"
                         return returnValue;
                     }
                 }
@@ -142,9 +135,9 @@
         });
     });
 
-    setInterval(function(){
+    /*setInterval(function(){
         doSearch();
-    },10000);
+    },10000);*/
 
     function doSearch() {
         $('#dataTable').datagrid('reload');
