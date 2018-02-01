@@ -101,7 +101,8 @@
                 {"field": "operation","title":"操作","width":200,align:"center",
                     "formatter":function(value, rowData, rowIndex){
                         var returnValue = "";
-                        returnValue+="<span onclick='detailPage()' class=\"label label-info\" style=\"height:26px;line-height:16px;font-weight:600;margin-top: 0.5rem;margin-left: 0.5rem;cursor: pointer;\">应用详情</span>&nbsp;"
+                        console.log(rowData.id);
+                        returnValue+="<span onclick='detailPage("+rowData.id+")' class=\"label label-info\" style=\"height:26px;line-height:16px;font-weight:600;margin-top: 0.5rem;margin-left: 0.5rem;cursor: pointer;\">应用详情</span>&nbsp;"
                         return returnValue;
                     }
                 }
@@ -402,7 +403,7 @@
             }
         });
     }
-    function detailPage(){
-        window.location.href="{{projcfg.appurl}}/grayenvironmentm";
+    function detailPage(appid){
+        window.location.href="{{projcfg.appurl}}/appdetail?appid="+appid;
     }
 </script>
