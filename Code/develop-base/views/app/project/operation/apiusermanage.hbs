@@ -3,6 +3,9 @@
         <div class="container-fluid">
             <!-- START EDIT CONTENT -->
             <div class="row">
+
+
+
                 <div class="col-lg-12 m-t-2">
 
                     <!-- START ROW -->
@@ -17,458 +20,60 @@
                                         <div class="tabbable-line">
                                             <ul class="nav nav-tabs" role="tablist">
 
-                                                <li role="presentation" class="active"><a href="#profile" role="tab" id="profile-tab" data-toggle="tab" aria-controls="profile" aria-expanded="false">API接口管理</a></li>
+                                                <li role="presentation" class="active"><a href="#profile" role="tab" id="profile-tab" data-toggle="tab" aria-controls="profile" aria-expanded="false">接口用户管控</a></li>
 
                                             </ul>
                                             <div class="tab-content">
-                                                <div role="tabpanel" class="tab-pane fade active in" id="profile" aria-labelledby="profile-tab">
-                                                    <div class="timeline timeline-datetime">
-                                                        <!-- Timeline - Badge Date -->
-                                                        <div class="timeline-date">
-                                                            <span class="badge">微服务名称：决策分析</span>
-                                                        </div>
 
-                                                        <div class="timeline-item p-r-1">
-                                                            <!-- Timeline - Mini Icon -->
-                                                            <div class="timeline-icon">
-                                                                <i class="fa fa-circle-o text-info"></i>
-                                                            </div>
-                                                            <div class="timeline-item-inner">
-                                                                <!-- Timeline - Icon  -->
-                                                                <div class="timeline-item-head clearfix">
 
-                                                                </div>
+                                                <div class="timeline-item-content m-t-1" style="padding-left: 10px;padding-right: 10px;">
+                                                    <table class="table table-striped">
+                                                        <thead>
+                                                        <tr>
+                                                            <th class="small text-muted text-uppercase"><strong>编号</strong>
+                                                            </th>
+                                                            <th class="small text-muted text-uppercase"><strong>用户名</strong>
+                                                            </th>
+                                                            <th class="small text-muted text-uppercase"><strong>token</strong>
+                                                            </th>
+                                                            <th class="small text-muted text-uppercase"><strong>组</strong>
+                                                            </th>
+                                                            <th class="small text-muted text-uppercase"><strong>备注</strong>
+                                                            </th>
+                                                            <th class="small text-muted text-uppercase"><strong>状态</strong>
+                                                            </th>
+                                                            <th class="small text-muted text-uppercase"><strong>操作</strong>
+                                                            </th>
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody>
 
-                                                                <!-- Timeline - START Content -->
-                                                                <div class="timeline-item-content m-t-1">
-                                                                    <table class="table table-striped">
-                                                                        <thead>
-                                                                            <tr>
-                                                                                <th class="small text-muted text-uppercase"><strong>编号</strong>
-                                                                                </th>
-                                                                                <th class="small text-muted text-uppercase"><strong>接口名称</strong>
-                                                                                </th>
-                                                                                <th class="small text-muted text-uppercase"><strong>URL</strong>
-                                                                                </th>
-                                                                                <th class="small text-muted text-uppercase"><strong>请求方法</strong>
-                                                                                </th>
-                                                                                <th class="small text-muted text-uppercase"><strong>Upstream URL</strong>
-                                                                                </th>
-                                                                                <th class="small text-muted text-uppercase"><strong>状态</strong>
-                                                                                </th>
-                                                                                <th class="small text-muted text-uppercase"><strong>操作</strong>
-                                                                                </th>
-                                                                            </tr>
-                                                                        </thead>
-                                                                        <tbody>
-                                                                            <tr>
-                                                                                <td class="v-a-m"><span class="text-white">1</span></td>
-                                                                                <td class="v-a-m"><span class="text-white">userManage</span></td>
-                                                                                <td class="v-a-m"><span>/gdgl/user</span></td>
-                                                                                <td class="v-a-m"><span>GET,POST</span></td>
 
-                                                                                <td class="v-a-m">http://192.168.9.66:30002/gdgl/api</td>
-                                                                                <td class="v-a-m"><i class="m-l-0 fa fa-fw fa-circle text-success"></i> <span class="text-white m-r-1">运行中</span></td>
-                                                                                <td class="v-a-m">
-                                                                                    <div class="btn-group" role="group" aria-label="...">
-                                                                                        <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="" data-original-title="流量阻断"><i class="fa fa-bars"> 流量阻断</i></button>
-                                                                                        <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="" data-original-title="安全管控"><a href="{{projcfg.appurl}}/ratelimiting" ><i class="fa fa-book"> 流量限制</i></a></button>
-                                                                                        <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="" data-original-title="安全管控"><a href="{{projcfg.appurl}}/apiusermanage" ><i class="fa fa-fire"> 安全管控</i></a></button>
-                                                                                        <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="" data-original-title="安全管控"><i class="fa fa-leaf"> 请求跟踪</i></button>
-                                                                                    </div>
-                                                                                </td>
-                                                                            </tr>
+                                                        <tr>
+                                                            <td class="v-a-m"><span class="text-white">1</span></td>
+                                                            <td class="v-a-m"><span class="text-white">wenanguo</span></td>
+                                                            <td class="v-a-m"><span>696fddacc4c826f0ae0c00ca365ea2a5</span></td>
+                                                            <td class="v-a-m"><span>dev</span></td>
 
-                                                                            <tr>
-                                                                                <td class="v-a-m"><span class="text-white">1</span></td>
-                                                                                <td class="v-a-m"><span class="text-white">userManage</span></td>
-                                                                                <td class="v-a-m"><span>/gdgl/user</span></td>
-                                                                                <td class="v-a-m"><span>GET,POST</span></td>
+                                                            <td class="v-a-m"> </td>
+                                                            <td class="v-a-m"><i class="m-l-0 fa fa-fw fa-circle text-success"></i> <span class="text-white m-r-1">运行中</span></td>
+                                                            <td class="v-a-m">
+                                                                <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="" data-original-title="停止"><i class="fa fa-bars"> 停止</i></button>
+                                                                <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="" data-original-title="删除"><i class="fa fa-book"> 删除</i></button>
 
-                                                                                <td class="v-a-m">http://192.168.9.66:30002/gdgl/api</td>
-                                                                                <td class="v-a-m"><i class="m-l-0 fa fa-fw fa-circle text-success"></i> <span class="text-white m-r-1">运行中</span></td>
-                                                                                <td class="v-a-m">
-                                                                                    <div class="btn-group" role="group" aria-label="...">
-                                                                                        <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="" data-original-title="流量阻断"><i class="fa fa-bars"> 流量阻断</i></button>
-                                                                                        <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="" data-original-title="安全管控"><i class="fa fa-book"> 流量限制</i></button>
-                                                                                        <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="" data-original-title="安全管控"><i class="fa fa-fire"> 安全管控</i></button>
-                                                                                        <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="" data-original-title="安全管控"><i class="fa fa-leaf"> 请求跟踪</i></button>
-                                                                                    </div>
-                                                                                </td>
-                                                                            </tr>
-
-                                                                            <tr>
-                                                                                <td class="v-a-m"><span class="text-white">1</span></td>
-                                                                                <td class="v-a-m"><span class="text-white">userManage</span></td>
-                                                                                <td class="v-a-m"><span>/gdgl/user</span></td>
-                                                                                <td class="v-a-m"><span>GET,POST</span></td>
-
-                                                                                <td class="v-a-m">http://192.168.9.66:30002/gdgl/api</td>
-                                                                                <td class="v-a-m"><i class="m-l-0 fa fa-fw fa-circle text-success"></i> <span class="text-white m-r-1">运行中</span></td>
-                                                                                <td class="v-a-m">
-                                                                                    <div class="btn-group" role="group" aria-label="...">
-                                                                                        <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="" data-original-title="流量阻断"><i class="fa fa-bars"> 流量阻断</i></button>
-                                                                                        <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="" data-original-title="安全管控"><i class="fa fa-book"> 流量限制</i></button>
-                                                                                        <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="" data-original-title="安全管控"><i class="fa fa-fire"> 安全管控</i></button>
-                                                                                        <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="" data-original-title="安全管控"><i class="fa fa-leaf"> 请求跟踪</i></button>
-                                                                                    </div>
-                                                                                </td>
-                                                                            </tr>
-
-                                                                            <tr>
-                                                                                <td class="v-a-m"><span class="text-white">1</span></td>
-                                                                                <td class="v-a-m"><span class="text-white">userManage</span></td>
-                                                                                <td class="v-a-m"><span>/gdgl/user</span></td>
-                                                                                <td class="v-a-m"><span>GET,POST</span></td>
-
-                                                                                <td class="v-a-m">http://192.168.9.66:30002/gdgl/api</td>
-                                                                                <td class="v-a-m"><i class="m-l-0 fa fa-fw fa-circle text-success"></i> <span class="text-white m-r-1">运行中</span></td>
-                                                                                <td class="v-a-m">
-                                                                                    <div class="btn-group" role="group" aria-label="...">
-                                                                                        <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="" data-original-title="流量阻断"><i class="fa fa-bars"> 流量阻断</i></button>
-                                                                                        <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="" data-original-title="安全管控"><i class="fa fa-book"> 流量限制</i></button>
-                                                                                        <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="" data-original-title="安全管控"><i class="fa fa-fire"> 安全管控</i></button>
-                                                                                        <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="" data-original-title="安全管控"><i class="fa fa-leaf"> 请求跟踪</i></button>
-                                                                                    </div>
-                                                                                </td>
-                                                                            </tr>
-
-                                                                        </tbody>
-                                                                    </table>
-                                                                </div>
-                                                                <!-- Timeline - END Content -->
-                                                            </div>
-                                                        </div>
+                                                            </td>
+                                                        </tr>
 
 
 
 
-
-
-
-                                                        <!-- Timeline - Badge Date -->
-                                                        <div class="timeline-date">
-                                                            <span class="badge">微服务名称：决策分析</span>
-                                                        </div>
-
-                                                        <div class="timeline-item p-r-1">
-                                                            <!-- Timeline - Mini Icon -->
-                                                            <div class="timeline-icon">
-                                                                <i class="fa fa-circle-o text-info"></i>
-                                                            </div>
-                                                            <div class="timeline-item-inner">
-                                                                <!-- Timeline - Icon  -->
-                                                                <div class="timeline-item-head clearfix">
-
-                                                                </div>
-
-                                                                <!-- Timeline - START Content -->
-                                                                <div class="timeline-item-content m-t-1">
-                                                                    <table class="table table-striped">
-                                                                        <thead>
-                                                                        <tr>
-                                                                            <th class="small text-muted text-uppercase"><strong>编号</strong>
-                                                                            </th>
-                                                                            <th class="small text-muted text-uppercase"><strong>接口名称</strong>
-                                                                            </th>
-                                                                            <th class="small text-muted text-uppercase"><strong>URL</strong>
-                                                                            </th>
-                                                                            <th class="small text-muted text-uppercase"><strong>请求方法</strong>
-                                                                            </th>
-                                                                            <th class="small text-muted text-uppercase"><strong>Upstream URL</strong>
-                                                                            </th>
-                                                                            <th class="small text-muted text-uppercase"><strong>状态</strong>
-                                                                            </th>
-                                                                            <th class="small text-muted text-uppercase"><strong>操作</strong>
-                                                                            </th>
-                                                                        </tr>
-                                                                        </thead>
-                                                                        <tbody>
-                                                                        <tr>
-                                                                            <td class="v-a-m"><span class="text-white">1</span></td>
-                                                                            <td class="v-a-m"><span class="text-white">userManage</span></td>
-                                                                            <td class="v-a-m"><span>/gdgl/user</span></td>
-                                                                            <td class="v-a-m"><span>GET,POST</span></td>
-
-                                                                            <td class="v-a-m">http://192.168.9.66:30002/gdgl/api</td>
-                                                                            <td class="v-a-m"><i class="m-l-0 fa fa-fw fa-circle text-success"></i> <span class="text-white m-r-1">运行中</span></td>
-                                                                            <td class="v-a-m">
-                                                                                <div class="btn-group" role="group" aria-label="...">
-                                                                                    <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="" data-original-title="流量阻断"><i class="fa fa-bars"> 流量阻断</i></button>
-                                                                                    <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="" data-original-title="安全管控"><i class="fa fa-book"> 流量限制</i></button>
-                                                                                    <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="" data-original-title="安全管控"><i class="fa fa-fire"> 安全管控</i></button>
-                                                                                    <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="" data-original-title="安全管控"><i class="fa fa-leaf"> 请求跟踪</i></button>
-                                                                                </div>
-                                                                            </td>
-                                                                        </tr>
-
-                                                                        <tr>
-                                                                            <td class="v-a-m"><span class="text-white">1</span></td>
-                                                                            <td class="v-a-m"><span class="text-white">userManage</span></td>
-                                                                            <td class="v-a-m"><span>/gdgl/user</span></td>
-                                                                            <td class="v-a-m"><span>GET,POST</span></td>
-
-                                                                            <td class="v-a-m">http://192.168.9.66:30002/gdgl/api</td>
-                                                                            <td class="v-a-m"><i class="m-l-0 fa fa-fw fa-circle text-success"></i> <span class="text-white m-r-1">运行中</span></td>
-                                                                            <td class="v-a-m">
-                                                                                <div class="btn-group" role="group" aria-label="...">
-                                                                                    <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="" data-original-title="流量阻断"><i class="fa fa-bars"> 流量阻断</i></button>
-                                                                                    <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="" data-original-title="安全管控"><i class="fa fa-book"> 流量限制</i></button>
-                                                                                    <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="" data-original-title="安全管控"><i class="fa fa-fire"> 安全管控</i></button>
-                                                                                    <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="" data-original-title="安全管控"><i class="fa fa-leaf"> 请求跟踪</i></button>
-                                                                                </div>
-                                                                            </td>
-                                                                        </tr>
-
-                                                                        <tr>
-                                                                            <td class="v-a-m"><span class="text-white">1</span></td>
-                                                                            <td class="v-a-m"><span class="text-white">userManage</span></td>
-                                                                            <td class="v-a-m"><span>/gdgl/user</span></td>
-                                                                            <td class="v-a-m"><span>GET,POST</span></td>
-
-                                                                            <td class="v-a-m">http://192.168.9.66:30002/gdgl/api</td>
-                                                                            <td class="v-a-m"><i class="m-l-0 fa fa-fw fa-circle text-success"></i> <span class="text-white m-r-1">运行中</span></td>
-                                                                            <td class="v-a-m">
-                                                                                <div class="btn-group" role="group" aria-label="...">
-                                                                                    <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="" data-original-title="流量阻断"><i class="fa fa-bars"> 流量阻断</i></button>
-                                                                                    <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="" data-original-title="安全管控"><i class="fa fa-book"> 流量限制</i></button>
-                                                                                    <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="" data-original-title="安全管控"><i class="fa fa-fire"> 安全管控</i></button>
-                                                                                    <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="" data-original-title="安全管控"><i class="fa fa-leaf"> 请求跟踪</i></button>
-                                                                                </div>
-                                                                            </td>
-                                                                        </tr>
-
-                                                                        <tr>
-                                                                            <td class="v-a-m"><span class="text-white">1</span></td>
-                                                                            <td class="v-a-m"><span class="text-white">userManage</span></td>
-                                                                            <td class="v-a-m"><span>/gdgl/user</span></td>
-                                                                            <td class="v-a-m"><span>GET,POST</span></td>
-
-                                                                            <td class="v-a-m">http://192.168.9.66:30002/gdgl/api</td>
-                                                                            <td class="v-a-m"><i class="m-l-0 fa fa-fw fa-circle text-success"></i> <span class="text-white m-r-1">运行中</span></td>
-                                                                            <td class="v-a-m">
-                                                                                <div class="btn-group" role="group" aria-label="...">
-                                                                                    <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="" data-original-title="流量阻断"><i class="fa fa-bars"> 流量阻断</i></button>
-                                                                                    <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="" data-original-title="安全管控"><i class="fa fa-book"> 流量限制</i></button>
-                                                                                    <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="" data-original-title="安全管控"><i class="fa fa-fire"> 安全管控</i></button>
-                                                                                    <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="" data-original-title="安全管控"><i class="fa fa-leaf"> 请求跟踪</i></button>
-                                                                                </div>
-                                                                            </td>
-                                                                        </tr>
-
-                                                                        </tbody>
-                                                                    </table>
-                                                                </div>
-                                                                <!-- Timeline - END Content -->
-                                                            </div>
-                                                        </div>
-
-
-
-
-                                                        <!-- Timeline - Badge Date -->
-                                                        <div class="timeline-date">
-                                                            <span class="badge">微服务名称：决策分析</span>
-                                                        </div>
-
-                                                        <div class="timeline-item p-r-1">
-                                                            <!-- Timeline - Mini Icon -->
-                                                            <div class="timeline-icon">
-                                                                <i class="fa fa-circle-o text-info"></i>
-                                                            </div>
-                                                            <div class="timeline-item-inner">
-                                                                <!-- Timeline - Icon  -->
-                                                                <div class="timeline-item-head clearfix">
-
-                                                                </div>
-
-                                                                <!-- Timeline - START Content -->
-                                                                <div class="timeline-item-content m-t-1">
-                                                                    <table class="table table-striped">
-                                                                        <thead>
-                                                                        <tr>
-                                                                            <th class="small text-muted text-uppercase"><strong>编号</strong>
-                                                                            </th>
-                                                                            <th class="small text-muted text-uppercase"><strong>接口名称</strong>
-                                                                            </th>
-                                                                            <th class="small text-muted text-uppercase"><strong>URL</strong>
-                                                                            </th>
-                                                                            <th class="small text-muted text-uppercase"><strong>请求方法</strong>
-                                                                            </th>
-                                                                            <th class="small text-muted text-uppercase"><strong>Upstream URL</strong>
-                                                                            </th>
-                                                                            <th class="small text-muted text-uppercase"><strong>状态</strong>
-                                                                            </th>
-                                                                            <th class="small text-muted text-uppercase"><strong>操作</strong>
-                                                                            </th>
-                                                                        </tr>
-                                                                        </thead>
-                                                                        <tbody>
-                                                                        <tr>
-                                                                            <td class="v-a-m"><span class="text-white">1</span></td>
-                                                                            <td class="v-a-m"><span class="text-white">userManage</span></td>
-                                                                            <td class="v-a-m"><span>/gdgl/user</span></td>
-                                                                            <td class="v-a-m"><span>GET,POST</span></td>
-
-                                                                            <td class="v-a-m">http://192.168.9.66:30002/gdgl/api</td>
-                                                                            <td class="v-a-m"><i class="m-l-0 fa fa-fw fa-circle text-success"></i> <span class="text-white m-r-1">运行中</span></td>
-                                                                            <td class="v-a-m">
-                                                                                <div class="btn-group" role="group" aria-label="...">
-                                                                                    <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="" data-original-title="流量阻断"><i class="fa fa-bars"> 流量阻断</i></button>
-                                                                                    <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="" data-original-title="安全管控"><i class="fa fa-book"> 流量限制</i></button>
-                                                                                    <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="" data-original-title="安全管控"><i class="fa fa-fire"> 安全管控</i></button>
-                                                                                    <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="" data-original-title="安全管控"><i class="fa fa-leaf"> 请求跟踪</i></button>
-                                                                                </div>
-                                                                            </td>
-                                                                        </tr>
-
-                                                                        <tr>
-                                                                            <td class="v-a-m"><span class="text-white">1</span></td>
-                                                                            <td class="v-a-m"><span class="text-white">userManage</span></td>
-                                                                            <td class="v-a-m"><span>/gdgl/user</span></td>
-                                                                            <td class="v-a-m"><span>GET,POST</span></td>
-
-                                                                            <td class="v-a-m">http://192.168.9.66:30002/gdgl/api</td>
-                                                                            <td class="v-a-m"><i class="m-l-0 fa fa-fw fa-circle text-success"></i> <span class="text-white m-r-1">运行中</span></td>
-                                                                            <td class="v-a-m">
-                                                                                <div class="btn-group" role="group" aria-label="...">
-                                                                                    <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="" data-original-title="流量阻断"><a href="project/apiusermanage"></a><i class="fa fa-bars"> 流量阻断</i></button>
-                                                                                    <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="" data-original-title="安全管控"><i class="fa fa-book"> 流量限制</i></button>
-                                                                                    <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="" data-original-title="安全管控"><i class="fa fa-fire"> 安全管控</i></button>
-                                                                                    <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="" data-original-title="安全管控"><i class="fa fa-leaf"> 请求跟踪</i></button>
-                                                                                </div>
-                                                                            </td>
-                                                                        </tr>
-
-                                                                        <tr>
-                                                                            <td class="v-a-m"><span class="text-white">1</span></td>
-                                                                            <td class="v-a-m"><span class="text-white">userManage</span></td>
-                                                                            <td class="v-a-m"><span>/gdgl/user</span></td>
-                                                                            <td class="v-a-m"><span>GET,POST</span></td>
-
-                                                                            <td class="v-a-m">http://192.168.9.66:30002/gdgl/api</td>
-                                                                            <td class="v-a-m"><i class="m-l-0 fa fa-fw fa-circle text-success"></i> <span class="text-white m-r-1">运行中</span></td>
-                                                                            <td class="v-a-m">
-                                                                                <div class="btn-group" role="group" aria-label="...">
-                                                                                    <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="" data-original-title="流量阻断"><i class="fa fa-bars"> 流量阻断</i></button>
-                                                                                    <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="" data-original-title="安全管控"><i class="fa fa-book"> 流量限制</i></button>
-                                                                                    <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="" data-original-title="安全管控"><i class="fa fa-fire"> 安全管控</i></button>
-                                                                                    <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="" data-original-title="安全管控"><i class="fa fa-leaf"> 请求跟踪</i></button>
-                                                                                </div>
-                                                                            </td>
-                                                                        </tr>
-
-                                                                        <tr>
-                                                                            <td class="v-a-m"><span class="text-white">1</span></td>
-                                                                            <td class="v-a-m"><span class="text-white">userManage</span></td>
-                                                                            <td class="v-a-m"><span>/gdgl/user</span></td>
-                                                                            <td class="v-a-m"><span>GET,POST</span></td>
-
-                                                                            <td class="v-a-m">http://192.168.9.66:30002/gdgl/api</td>
-                                                                            <td class="v-a-m"><i class="m-l-0 fa fa-fw fa-circle text-success"></i> <span class="text-white m-r-1">运行中</span></td>
-                                                                            <td class="v-a-m">
-                                                                                <div class="btn-group" role="group" aria-label="...">
-                                                                                    <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="" data-original-title="流量阻断"><i class="fa fa-bars"> 流量阻断</i></button>
-                                                                                    <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="" data-original-title="安全管控"><i class="fa fa-book"> 流量限制</i></button>
-                                                                                    <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="" data-original-title="安全管控"><i class="fa fa-fire"> 安全管控</i></button>
-                                                                                    <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="" data-original-title="安全管控"><i class="fa fa-leaf"> 请求跟踪</i></button>
-                                                                                </div>
-                                                                            </td>
-                                                                        </tr>
-
-                                                                        </tbody>
-                                                                    </table>
-                                                                </div>
-                                                                <!-- Timeline - END Content -->
-                                                            </div>
-                                                        </div>
-
-
-
-                                                        <!-- Timeline - Badge Date -->
-                                                        <div class="timeline-date">
-                                                            <span class="badge">微服务名称：决策分析</span>
-                                                        </div>
-
-                                                        <div class="timeline-item p-r-1">
-                                                            <!-- Timeline - Mini Icon -->
-                                                            <div class="timeline-icon">
-                                                                <i class="fa fa-circle-o text-info"></i>
-                                                            </div>
-                                                            <div class="timeline-item-inner">
-                                                                <!-- Timeline - Icon  -->
-                                                                <div class="timeline-item-head clearfix">
-
-                                                                </div>
-
-                                                                <!-- Timeline - START Content -->
-                                                                <div class="timeline-item-content m-t-1">
-                                                                    <table class="table table-striped">
-                                                                        <thead>
-                                                                        <tr>
-                                                                            <th class="small text-muted text-uppercase"><strong>编号</strong>
-                                                                            </th>
-                                                                            <th class="small text-muted text-uppercase"><strong>接口名称</strong>
-                                                                            </th>
-                                                                            <th class="small text-muted text-uppercase"><strong>URL</strong>
-                                                                            </th>
-                                                                            <th class="small text-muted text-uppercase"><strong>请求方法</strong>
-                                                                            </th>
-                                                                            <th class="small text-muted text-uppercase"><strong>Upstream URL</strong>
-                                                                            </th>
-                                                                            <th class="small text-muted text-uppercase"><strong>状态</strong>
-                                                                            </th>
-                                                                            <th class="small text-muted text-uppercase"><strong>操作</strong>
-                                                                            </th>
-                                                                        </tr>
-                                                                        </thead>
-                                                                        <tbody>
-                                                                        <tr>
-                                                                            <td class="v-a-m"><span class="text-white">1</span></td>
-                                                                            <td class="v-a-m"><span class="text-white">userManage</span></td>
-                                                                            <td class="v-a-m"><span>/gdgl/user</span></td>
-                                                                            <td class="v-a-m"><span>GET,POST</span></td>
-
-                                                                            <td class="v-a-m">http://192.168.9.66:30002/gdgl/api</td>
-                                                                            <td class="v-a-m"><i class="m-l-0 fa fa-fw fa-circle text-success"></i> <span class="text-white m-r-1">运行中</span></td>
-                                                                            <td class="v-a-m">
-                                                                                <div class="btn-group" role="group" aria-label="...">
-                                                                                    <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="" data-original-title="详情"><i class="fa fa-bars"></i></button>
-                                                                                    <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="" data-original-title="日志"><i class="fa fa-book"></i></button>
-                                                                                </div>
-                                                                            </td>
-                                                                        </tr>
-
-                                                                        <tr>
-                                                                            <td class="v-a-m"><span class="text-white">1</span></td>
-                                                                            <td class="v-a-m"><span class="text-white">userManage</span></td>
-                                                                            <td class="v-a-m"><span>/gdgl/user</span></td>
-                                                                            <td class="v-a-m"><span>GET,POST</span></td>
-
-                                                                            <td class="v-a-m">http://192.168.9.66:30002/gdgl/api</td>
-                                                                            <td class="v-a-m"><i class="m-l-0 fa fa-fw fa-circle text-success"></i> <span class="text-white m-r-1">运行中</span></td>
-                                                                            <td class="v-a-m">
-                                                                                <div class="btn-group" role="group" aria-label="...">
-                                                                                    <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="" data-original-title="详情"><i class="fa fa-bars"></i></button>
-                                                                                    <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="" data-original-title="日志"><i class="fa fa-book"></i></button>
-                                                                                </div>
-                                                                            </td>
-                                                                        </tr>
-
-                                                                        </tbody>
-                                                                    </table>
-                                                                </div>
-                                                                <!-- Timeline - END Content -->
-                                                            </div>
-                                                        </div>
-
-
-
-
-
-                                                    </div>
-
+                                                        </tbody>
+                                                    </table>
                                                 </div>
+
+
+
+
 
                                             </div>
                                         </div>
