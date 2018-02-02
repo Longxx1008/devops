@@ -1,3 +1,4 @@
+
 <style>
     .deploy-state{
         height: 3px;
@@ -193,14 +194,14 @@
                                     <div class="hr-text hr-text-left m-t-0 m-b-0">
                                         <h6><strong class="text-white">项目名称</strong></h6>
                                     </div>
-                                    <h1 class="f-w-300 m-t-0 hidden-md hidden-sm hidden-xs">贵州移动雅典娜平台</h1>
+                                    <h1 class="f-w-300 m-t-0 hidden-md hidden-sm hidden-xs app_name">贵州移动雅典娜平台</h1>
                                 </div>
 
                                 <div class="col-lg-4 col-md-3 col-xs-7 col-sm-8 m-b-1">
                                     <div class="hr-text hr-text-left m-t-0 m-b-0">
                                         <h6><strong class="text-white">镜像</strong></h6>
                                     </div>
-                                    <h1 class="f-w-300 m-t-0 m-b-0 hidden-md hidden-sm hidden-xs">
+                                    <h1 class="f-w-300 m-t-0 m-b-0 hidden-md hidden-sm hidden-xs image_name" id="">
                                         117.187.12.236:15000/develop-base:v1.4.4
                                     </h1>
                                 </div>
@@ -239,28 +240,28 @@
                                                 <div class="panel panel-default b-a-0 bg-gray b-t-primary b-t-2">
                                                     <div class="panel-heading">现行版本</div>
                                                     <div class="panel-body">
-                                                        <h2 class="m-t-0 f-w-300">项目名称：贵州移动DEVOPS</h2>
+                                                        <h2 class="m-t-0 f-w-300 app_name">项目名称：贵州移动DEVOPS</h2>
                                                         <table class="table dataTable no-footer table-striped table-bordered text-white">
                                                             <tbody>
                                                             <tr>
                                                                 <td>项目编号</td>
-                                                                <td>develop-base</td>
+                                                                <td class="app_no">develop-base</td>
                                                             </tr>
                                                             <tr>
                                                                 <td>镜像名称</td>
-                                                                <td>http://192.168.9.47:5000/develop-base:v1.4.2</td>
+                                                                <td class="image_name">http://192.168.9.47:5000/develop-base:v1.4.2</td>
                                                             </tr>
                                                             <tr>
                                                                 <td>运行版本</td>
-                                                                <td>v1.4.2</td>
+                                                                <td id="version">v1.4.2</td>
                                                             </tr>
                                                             <tr>
                                                                 <td>已运行时间</td>
-                                                                <td>20天3小时5分</td>
+                                                                <td id="time">20天3小时5分</td>
                                                             </tr>
                                                             <tr>
                                                                 <td>访问地址</td>
-                                                                <td>192.168.9.61:10003</td>
+                                                                <td id="address">192.168.9.61:10003</td>
                                                             </tr>
                                                             </tbody>
                                                         </table>
@@ -278,16 +279,16 @@
                                                 <div class="panel panel-default b-a-0 bg-gray b-t-success b-t-2">
                                                     <div class="panel-heading">部署版本</div>
                                                     <div class="panel-body">
-                                                        <h2 class="m-t-0 f-w-300">项目名称：贵州移动DEVOPS</h2>
+                                                        <h2 class="m-t-0 f-w-300 app_name">项目名称：贵州移动DEVOPS</h2>
                                                         <table class="table dataTable no-footer table-striped table-bordered text-white">
                                                             <tbody>
                                                             <tr>
                                                                 <td>项目编号</td>
-                                                                <td>develop-base</td>
+                                                                <td class="app_no">develop-base</td>
                                                             </tr>
                                                             <tr>
                                                                 <td>镜像名称</td>
-                                                                <td>http://192.168.9.47:5000/develop-base:v1.4.2</td>
+                                                                <td class="image_name">http://192.168.9.47:5000/develop-base:v1.4.2</td>
                                                             </tr>
                                                             <tr>
                                                                 <td>运行版本</td>
@@ -556,15 +557,15 @@
                                                             <tbody>
                                                             <tr>
                                                                 <td>项目名称</td>
-                                                                <td>贵州移动DEVOPS</td>
+                                                                <td class="app_name">贵州移动DEVOPS</td>
                                                             </tr>
                                                             <tr>
                                                                 <td>项目编号</td>
-                                                                <td>develop-base</td>
+                                                                <td class="app_no">develop-base</td>
                                                             </tr>
                                                             <tr>
                                                                 <td>项目名称</td>
-                                                                <td>贵州移动DEVOPS</td>
+                                                                <td class="app_name">贵州移动DEVOPS</td>
                                                             </tr>
                                                             <tr>
                                                                 <td>运行版本</td>
@@ -572,7 +573,7 @@
                                                             </tr>
                                                             <tr>
                                                                 <td>镜像名称</td>
-                                                                <td>http://192.168.9.47:5000/develop-base:v1.4.5</td>
+                                                                <td class="image_name">http://192.168.9.47:5000/develop-base:v1.4.5</td>
                                                             </tr>
                                                             <tr>
                                                                 <td>已运行时间</td>
@@ -623,6 +624,12 @@
             },
             success:function(data){
                 console.log(data);
+                $(".app_name").html(data.data[0].app_name);
+                $(".image_name").html(data.data[0].version);
+                $(".app_no").html(data.data[0].ename);
+                $("#version").html(data.data[0].gray_version);
+                $("#time").html(parseInt(data.data[0].runtime)/60+"小时");
+                $("#address").html(data.data[0].address);
             }
         })
     }
