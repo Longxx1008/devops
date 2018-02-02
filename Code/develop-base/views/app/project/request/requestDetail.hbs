@@ -247,6 +247,10 @@
     var searchData = window.location.href.split("=");
     var serial_number = decodeURI(searchData[1]);
 
+
+
+
+
     $.ajax({
         url: '{{projcfg.appurl}}/api/project/request/requestDetail/getDetailByNumber?serial_number='+serial_number,
         type: 'get',
@@ -257,6 +261,14 @@
             var datalen=data[0]+1
             for(var i=1;i<datalen;i++){
                 var serData=data[i];
+                var totalStatus="";
+                if(serData.rows[0].totalStatus=="正常"){
+                    totalStatus='  <span style="display: inline;background: #5ecd71">'+serData.rows[0].totalStatus+'</span>';
+                }else {
+                    totalStatus='  <span style="display: inline;background: red">'+serData.rows[0].totalStatus+'</span>';
+                }
+
+
 
                 var item='<div class="row" >'+
                         '<div class="col-sm-2" style="position: relative;">'+
@@ -277,13 +289,11 @@
                         ' <tr>'+
                         ' <td>服务名称：<em>'+serData.rows[0].micro_service_name+'</em></td>'+
                         '<td>宿主机：<em>'+serData.rows[0].com_ip+'</em></td>'+
-                        '<td>返回响应：'+
-                        '  <span style="display: inline;">'+serData.rows[0].return_status+'</span>'+
-                        '  </td>'+
+                        '<td>返回响应：'+ totalStatus+  '  </td>'+
                         '</tr>'+
                         ' <tr>'+
-                        '<td>请求时间：<em>'+serData.rows[0].req_time+'</em></td>'+
-                        '<td>耗时：<em>'+serData.rows[0].total_time_consuming+'</em></td>'+
+                        '<td>请求时间：<em>'+serData.rows[0].req_time.replace(/T/,' ').replace('.000Z','')+'</em></td>'+
+                        '<td>耗时：<em>'+serData.rows[0].totalTime+'</em></td>'+
                         '</tr>'+
                         ' </tbody>'+
                         ' </table>'+
@@ -306,18 +316,31 @@
 
                 for(var j=0;j<serData.total;j++){
                     var metData=serData.rows[j];
-                    item+='<tr>\n' +
+
+                    var status="";
+                    if(metData.return_status==200){
+                        status='  <span style="background: #5ecd71">'+metData.return_status+'</span>';
+                    }else if(metData.return_status==302){
+                        status='  <span style="background: blue">'+metData.return_status+'</span>';
+
+                    }else if(metData.return_status==404){
+                        status='  <span style="background: red">'+metData.return_status+'</span>';
+                    }else if(metData.return_status==500){
+                        status='  <span style="background: #e37855">'+metData.return_status+'</span>';
+                    }
+
+                    item+='<tr>' +
                             ' <td>'+metData.module+'</td>' +
                             '  <td>'+metData.req_class+'</td>' +
-                            '   <td>'+metData.req_method+'</td>\n' +
+                            '   <td>'+metData.req_method+'</td>' +
                             ' <td>'+metData.in_param+'</td>' +
                             ' <td>'+metData.out_param+'</td>' +
-                            '  <td>'+metData.req_time+'</td>' +
+                            '  <td>'+metData.req_time.replace(/T/,' ').replace('.000Z','')+'</td>' +
                             '   <td>'+metData.total_time_consuming+'</td>' +
                             '  <td>'+metData.dev_member+'</td>' +
                             '   <td>'+metData.code_commit+'</td>' +
                             '  <td>' +
-                            '  <span>'+metData.return_status+'</span>' +
+                            status +
                             '  </td>' +
                             '  </tr>';
                 }
