@@ -5,6 +5,28 @@
 var utils = require('../../../common/core/utils/app_utils');
 var mysqlPool = require('../../utils/mysql_pool');
 
+exports.pageList = function (page, size, conditionMap, cb) {
+    var sql = 'SELECT * from pass_project_health_check where app_id ="'+conditionMap.id+'"';
+    var orderBy='order by check_time desc';
+    var conditions = [];
+    console.log("kkkkk",page);
+    utils.pagingQuery4Eui_mysql(sql, orderBy, page, size, conditions, cb);
+};
+
+exports.getHealthbase=function(conditionMap,cb){
+    console.log("testresult",conditionMap);
+    var sql='select app_name,vist_url from pass_project_app_info where id="'+conditionMap.id+'"';
+    var conditions={}
+    mysqlPool.query(sql,conditions,function(err,data){
+        if(err){
+            cb(utils.returnMsg(false, '1000', '查询数据异常', null, err));
+        }else{
+            cb(utils.returnMsg(true, '0000', '数据查询成功', data[0]));
+        }
+    });
+
+};
+
 //exports.getHealth= function (page,size,conditions,cb) {
 //
 //    //测试到达
