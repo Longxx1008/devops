@@ -1,41 +1,47 @@
 <!--<link rel="stylesheet" href="../assets/vendor/css/lib.min.css">-->
 <link rel="stylesheet" href="{{projcfg.appurl}}/static/css/health/jiankan.css">
 <link rel="stylesheet" href="{{projcfg.appurl}}/static/css/health/app.min.e0bb64e7.css">
+<script src="https://cdn.bootcss.com/bootstrap-table/1.11.1/bootstrap-table.js"></script>
 
 <style>
     .spanRed{
-        background: #ff0000;
+        background: #ff6666;
     }
     .spanGreen{
-        background: #008000;
+        background: #66cc33;
     }
     .spanGrey{
         background: #9d9d9d;
     }
+    .table-bordered th,
+    .table-bordered td {
+        border: 2px solid rgba(174, 174, 174, 0.54) !important;
+
+    }
 </style>
-<div class="div">
-    <div class="zhilian">
+<div style="margin-top: -20px;margin-left: 20px;margin-right: 30px">
+    <div class="zhilian row">
         <div class="zhilian-top">健康检查</div>
-        <div class="zhilian-top-right">
-            <select class="select-top" id="select_app" name="select_app">
-                <option value="volvo">全部</option>
-                <!--<option value="saab">Saab</option>-->
-                <!--<option value="opel">Opel</option>-->
-                <!--<option value="audi">Audi</option>-->
-            </select>
-            <span  class="top-btn">查询</span>
-        </div>
+        <!--<div class="zhilian-top-right">-->
+            <!--<select class="select-top" id="select_app" name="select_app">-->
+                <!--<option value="volvo">全部</option>-->
+                <!--&lt;!&ndash;<option value="saab">Saab</option>&ndash;&gt;-->
+                <!--&lt;!&ndash;<option value="opel">Opel</option>&ndash;&gt;-->
+                <!--&lt;!&ndash;<option value="audi">Audi</option>&ndash;&gt;-->
+            <!--</select>-->
+            <!--<span  class="top-btn">查询</span>-->
+        <!--</div>-->
     </div>
-    <div class="jiankan-content">
+    <div class="jiankan-content row">
         <div class="jiankan-content-left">
             <div class="jk-title" id="app_name" name="app_name"></div>
-            <div class="jk-title" id="micro" name="micro"></div>
+            <!--<div class="jk-title" id="micro" name="micro"></div>-->
             <div class="jk-title" id="address" name="address">
                 <!--<span>外网地址：</span>117.187.12.236:10003-->
             </div>
-            <div class="jk-title" id="container" name="container">
-                <!--运行容器：&nbsp;&nbsp;&nbsp;10个-->
-            </div>
+            <!--<div class="jk-title" id="container" name="container">-->
+                <!--&lt;!&ndash;运行容器：&nbsp;&nbsp;&nbsp;10个&ndash;&gt;-->
+            <!--</div>-->
         </div>
         <div class="jiankan-content-right">
             <span class="right-img" id="img" name="img"></span>
@@ -44,89 +50,77 @@
 
     </div>
 
-    <div style="height:270px;overflow-y:auto">
-    <table class="table table-bordered">
-        <!--<thead class="fixedThead">-->
-            <!--<tr>-->
-            <!--<td>编号</td>-->
-            <!--<td>检查内容</td>-->
-            <!--<td>检查时间</td>-->
-            <!--&lt;!&ndash;<td>操作</td>&ndash;&gt;-->
-            <!--</tr>-->
-        <!--</thead>-->
-        <tbody id="tab">
-        <tr>
-            <td>编号</td>
-            <td>检查内容</td>
-            <td>检查时间</td>
-            <!--<td>操作</td>-->
-        </tr>
-        <!--<tr>-->
-            <!--<td>1</td>-->
-            <!--<td>-->
-                <!--<span>应用正常</span>-->
-                <!--<span>数据库正常</span>-->
-                <!--<span>中间件正常</span>-->
-            <!--</td>-->
-            <!--<td>2018/01/22 06:52:42</td>-->
-            <!--<td><a href="#">详情</a></td>-->
-        <!--</tr>-->
-        <!--<tr>-->
-            <!--<td>2</td>-->
-            <!--<td>-->
-                <!--<span>应用正常</span>-->
-                <!--<span>数据库正常</span>-->
-                <!--<span>中间件正常</span>-->
-            <!--</td>-->
-            <!--<td>2018/01/22 06:52:42</td>-->
-            <!--<td><a href="#">详情</a></td>-->
-        <!--</tr>-->
-        </tbody>
-    </table>
+    <!--style="height:270px;overflow-y:auto"-->
+    <div class="row">
+        <table id="table"  class="table table-bordered" style="color: #FFFFFF;margin-top: 10px;margin-left: 10px"></table>
     </div>
+</div>
 <script>
-function getAllMassage(){
-    $.ajax({
-    url: '{{projcfg.appurl}}/api/project/operation/health',
-    type: 'get',
-    data:{},
-//    async:false,
-    success: function (data) {
-        console.log("成功",data);
-        console.log("ssss",data.data);
+//    $(document).ready(function(){
+//           getAllMassage();
+//    });
 
-        if(data.success) {
-//            1、给基本消息赋值
-//            2、给select赋值
-//            3、动态的检查记录
-
-            console.log("成功",data.success);
-            $("#app_name").text("项目名称:  "+data.data.app_name);
-//            console.log("kkk",data.data.image_name);
-            $("#micro").append("镜像:  ",data.data.image_name);
-            $("#address").append("外网地址:   ",data.data.vist_url);
-            $("#container").text("运行容器:   "+data.data.count);
-
-//            console.log("成功",data.data.length());
-//            var selid = document.getElementById("select_app");
-            for(var i=0;i<1;i++){
-                console.log("selector","  ",data.data.app_name);
-                $("#select_app").append("<option value='"+i+"'>"+data.data.app_name+"</option>")
+//接收页面传来的数据
+//    var searchData = window.location.href.split("=");
+//    var serial_number = decodeURI(searchData[1]);
+      var serial_number=1;
+    $("#refresh_button").click(function (){
+        var opt = {
+            url: "http://local/api/data/?format=json",
+            silent: true,
+            query:{
+                type:1,
+                level:2
             }
-            console.log("dddd",data.data.health);
-            console.log("ddd",data.data.health.length);
+        };
 
-            var masage=data.data.health;
+        $("#table").bootstrapTable('refresh', opt);
 
-            for(var i=0;i<masage.length;i++) {
-                console.log("length", masage[i].check_content);
-                var json = JSON.parse(masage[i].check_content)
-                console.log(json.app)
+    });
 
-                if(json.app==00){
+    var app_normal=1;
+    $('#table').bootstrapTable({
+
+        url: '{{projcfg.appurl}}/api/project/operation/health',                      //请求后台的URL（*）
+        method: 'get',                      //请求方式（*）
+        striped: true,         //是否显示行间隔色
+        pagination: true,                   //是否显示分页（*）
+        sidePagination: "server",           //分页方式：client客户端分页，server服务端分页（*）
+        search: true,                      //是否显示表格搜索
+        strictSearch: true,
+        showColumns: true,                  //是否显示所有的列（选择显示的列）
+        showRefresh: true,                  //是否显示刷新按钮
+        queryParams : function (params) {
+            //这里的键的名字和控制器的变量名必须一直，这边改动，控制器也需要改成一样的
+            var temp = {
+                rows: params.limit,                         //页面大小
+                page: (params.offset / params.limit) + 1,   //页码
+                id:serial_number,
+            };
+            return temp;
+        },
+        columns: [{
+            field: 'id',
+            title: '编号'
+        }, {
+            field: 'check_content',
+            title: '检查内容',
+            formatter: function(value,row,index) {
+//                console.log(row,"  ",index)
+                //通过判断单元格的值，来格式化单元格，返回的值即为格式化后包含的元素
+
+                var json = JSON.parse(value)
+                console.log("app",json.app)
+
+                console.log("index",index,"row",row)
+                if(index==0 && json.app==0){
+                    console.log("index",index,"row",row)
+                    app_normal=0;
+                }
+
+                if(json.app==0){
                     json.app="应用异常"
                     json.flag_a="spanRed";
-                    app_normal=0;
                 }else if(json.app==-1){
                     json.app="未采集"
                     json.flag_a="spanGrey"
@@ -135,7 +129,7 @@ function getAllMassage(){
                     json.flag_a="spanGreen"
                 }
 
-                if(json.sql==00){
+                if(json.sql==0){
                     json.sql="数据库异常"
                     json.flag_s="spanRed";
                 }else if(json.sql==-1){
@@ -146,7 +140,7 @@ function getAllMassage(){
                     json.flag_s="spanGreen";
                 }
 
-                if(json.middle==00){
+                if(json.middle==0){
                     json.middle="中间件异常"
                     json.flag_m="spanRed";
                 }else if(json.middle==-1){
@@ -158,56 +152,60 @@ function getAllMassage(){
                 }
                 console.log("json.flag_a",json.flag_a);
 //                $("#img").removeClass(json.flag_a);
-                if(json.flag_a=="spanRed"){
-                    $("#img").css("background","#ff0000");
+                if(app_normal==0){
+                    $("#img").addClass('spanRed');
+//                    $("#img").css("background","#ff66666");
                     $("#normal").text("异常");
                 }else {
-                    $("#img").css("background","#008000");
+                    $("#img").css("background","#66cc33");
                     $("#normal").text("正常");
                 }
-                masage[i].check_content=json;
-                $("#tab").append("<tr>"+"<td>"+masage[i].id+"</td>"+"<td>"+"<span class="+"\""+masage[i].check_content.flag_a+"\""+">"+masage[i].check_content.app+"</span>"+"<span class="+"\""+masage[i].check_content.flag_s+"\""+">"+masage[i].check_content.sql+"</span>"+"<span class="+"\""+masage[i].check_content.flag_m+"\""+">"+masage[i].check_content.middle+"</span>"+"</td>"+"<td>"+masage[i].check_time+"</td>"+"<tr/>")
+                value=json;
+
+                var a = "";
+                a="<span class="+"\""+value.flag_a+"\""+">"+value.app+"</span>";
+                a+="<span class="+"\""+value.flag_s+"\""+">"+value.sql+"</span>";
+                a+="<span class="+"\""+value.flag_m+"\""+">"+value.middle+"</span>";
+
+                return a;
             }
-            console.log("masage",masage)
+        }, {
+            field: 'check_time',
+            title: '检查时间',
+            formatter: function (value,row,index) {
+                return value.replace(/T/,' ').replace('.000Z','');
 
-//            for(var i=0;i<masage.length;i++){
-//
-//            }
+            }
+        }],
 
-        }
-        else {
-            msgError(data.msg+',错误代码:'+data.code);
+    });
+
+
+//基本信息查询
+$.ajax({
+    url: '{{projcfg.appurl}}/api/project/operation/health/'+serial_number,
+    type: 'get',
+//    data:{
+//        id:serial_number,
+//    },
+    success: function (data) {
+        console.log("testdata",data)
+
+        if(data.success){
+            console.log("成功",data.success);
+
+            $("#app_name").text("应用名称:  "+data.data.app_name);
+
+//            $("#micro").append("镜像:  ",data.data.image_name);
+            $("#address").append("外网地址:   ",data.data.vist_url);
+//            $("#container").text("运行容器:   "+data.data.count);
+
+            for(var i=0;i<1;i++){
+                console.log("selector","  ",data.data.app_name);
+                $("#select_app").append("<option value='"+i+"'>"+data.data.app_name+"</option>")
+            }
         }
     }
-    });
-}
-
-$(document).ready(function(){
-    getAllMassage();
 });
 
-
-
-
 </script>
-
-
-
-
-
-
-<!--<div class="row">-->
-    <!--<div class="col-xs-12 col-md-12">-->
-        <!--<div class="widget">-->
-            <!--<div class="widget-body">-->
-
-                <!--<div id="baseInformation" name="baseInformation">-->
-
-                <!--</div>-->
-                <!--<div id="healthInformation" name="healthInformation">-->
-
-                <!--</div>-->
-            <!--</div>-->
-        <!--</div>-->
-    <!--</div>-->
-<!--</div>-->
