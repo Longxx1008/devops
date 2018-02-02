@@ -85,26 +85,33 @@
 
 <script>
     let num=1;
+    let all=0;
     $(document).ready(function () {
 
-        $('.next-deploy,.all-deploy').click(function () {
+        $('.next-deploy').click(function () {
 
             if(num==2){
-
+                $("#progress").html("67%");
+                $("#progress").css("width","67%");
+                $("#td2").html("develop-base:v1.4.4");
                     $('.deploy-state div:eq(1)').removeClass('d-cancel').addClass('deploy-antime');
 
             }
             if(num==1){
-
+                    $("#progress").html("33%");
+                    $("#progress").css("width","33%");
+                    $("#td1").html("develop-base:v1.4.4");
                     $('.deploy-state div:eq(0)').removeClass('d-cancel').addClass('deploy-antime');
 
             }if(num==3){
-
+                $("#td3").html("develop-base:v1.4.4");
+                    $("#progress").html("100%");
+                    $("#progress").css("width","100%");
                     $('.deploy-state div:eq(2)').removeClass('d-cancel').addClass('deploy-antime');
 
             }
             if(num==4){
-
+                all=1;
                 $('.d-step-2').hide();
                 $('.d-step-3').show();
                 num=0;
@@ -116,6 +123,13 @@
 
 
         $('.deploy-cancel').click(function () {
+            num=1;
+            all=0;
+            $("#progress").html("0%");
+            $("#progress").css("width","0%");
+            $("#td3").html("develop-base:v1.4.3");
+            $("#td1").html("develop-base:v1.4.3");
+            $("#td2").html("develop-base:v1.4.3");
             $('.deploy-state div').removeClass('deploy-antime').addClass('d-cancel');
         });
         $('#next-step').click(function () {
@@ -123,8 +137,16 @@
             $('.d-step-2').show();
         });
         $('.all-deploy').click(function () {
-            $('.d-step-2').hide();
+            $("#progress").html("100%");
+            $("#progress").css("width","100%");
+            $('.deploy-state div').removeClass('d-cancel').addClass('deploy-antime');
+            num=4;
+            if(all==1||num==4){
+                $('.d-step-2').hide();
             $('.d-step-3').show();
+            }
+            all+=1;
+
         });
     })
 </script>
@@ -325,8 +347,8 @@
                                             <div class="row">
                                                 <h3 class="f-w-300 text-white m-t-2">部署进度</h3>
                                                 <div class="progress">
-                                                    <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: 45%">
-                                                        45%
+                                                    <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%" id="progress">
+                                                        0%
                                                     </div>
                                                 </div>
                                             </div>
@@ -388,7 +410,7 @@
                                                                         <td class="col-md-2 v-a-m">虚拟机：192.168.9.62</td>
                                                                         <td class="col-md-1 v-a-m"><i class="fa fa-play-circle text-success"></i> 运行中</td>
                                                                         <td class="col-md-1 v-a-m">26/s</td>
-                                                                        <td class="col-md-2 v-a-m">develop-base:v1.4.3</td>
+                                                                        <td class="col-md-2 v-a-m" id="td1">develop-base:v1.4.3</td>
                                                                         <td class="col-md-1 v-a-m"><i class="fa fa-check-square text-success"></i> 正常</td>
                                                                         <td class="col-md-1 v-a-m">
                                                                             <div class="btn-group">
@@ -420,9 +442,9 @@
                                                                         <td class="col-md-2 v-a-m">ywcj-docker-web1</td>
                                                                         <td class="col-md-2 v-a-m">develop-base</td>
                                                                         <td class="col-md-2 v-a-m">虚拟机：192.168.9.62</td>
-                                                                        <td class="col-md-1 v-a-m"><i class="fa fa-pause-circle text-danger"></i> 停止</td>
+                                                                        <td class="col-md-1 v-a-m"><!--<i class="fa fa-pause-circle text-danger"></i> 停止--><i class="fa fa-play-circle text-success"></i> 运行中</td>
                                                                         <td class="col-md-1 v-a-m">26/s</td>
-                                                                        <td class="col-md-2 v-a-m">develop-base:v1.4.3</td>
+                                                                        <td class="col-md-2 v-a-m" id="td2">develop-base:v1.4.3</td>
                                                                         <td class="col-md-1 v-a-m"><i class="fa fa-check-square text-success"></i> 正常</td>
                                                                         <td class="col-md-1 v-a-m">
                                                                             <div class="btn-group">
@@ -451,10 +473,10 @@
                                                                         <td class="col-md-2 v-a-m">ywcj-docker-web1</td>
                                                                         <td class="col-md-2 v-a-m">develop-base</td>
                                                                         <td class="col-md-2 v-a-m">虚拟机：192.168.9.62</td>
-                                                                        <td class="col-md-1 v-a-m"><i class="fa fa-pause-circle text-danger"></i> 停止</td>
+                                                                        <td class="col-md-1 v-a-m"><!--<i class="fa fa-pause-circle text-danger"></i> 停止--><i class="fa fa-play-circle text-success"></i> 运行中</td>
                                                                         <td class="col-md-1 v-a-m">26/s</td>
-                                                                        <td class="col-md-2 v-a-m">develop-base:v1.4.3</td>
-                                                                        <td class="col-md-1 v-a-m"><i class="fa fa-ambulance text-danger"></i> 故障</td>
+                                                                        <td class="col-md-2 v-a-m" id="td3">develop-base:v1.4.3</td>
+                                                                        <td class="col-md-1 v-a-m"><i class="fa fa-check-square text-success"></i> 正常</td>
                                                                         <td class="col-md-1 v-a-m">
                                                                             <div class="btn-group">
                                                                                 <button class="btn btn-default btn-sm"><i class="fa fa-random"></i> 导流</button>
