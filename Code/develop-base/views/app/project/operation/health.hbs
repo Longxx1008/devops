@@ -1,0 +1,213 @@
+<!--<link rel="stylesheet" href="../assets/vendor/css/lib.min.css">-->
+<link rel="stylesheet" href="{{projcfg.appurl}}/static/css/health/jiankan.css">
+<link rel="stylesheet" href="{{projcfg.appurl}}/static/css/health/app.min.e0bb64e7.css">
+
+<style>
+    .spanRed{
+        background: #ff0000;
+    }
+    .spanGreen{
+        background: #008000;
+    }
+    .spanGrey{
+        background: #9d9d9d;
+    }
+</style>
+<div class="content">
+    <div class="zhilian">
+        <div class="zhilian-top">健康检查</div>
+        <div class="zhilian-top-right">
+            <select class="select-top" id="select_app" name="select_app">
+                <option value="volvo">全部</option>
+                <!--<option value="saab">Saab</option>-->
+                <!--<option value="opel">Opel</option>-->
+                <!--<option value="audi">Audi</option>-->
+            </select>
+            <span  class="top-btn">查询</span>
+        </div>
+    </div>
+    <div class="jiankan-content">
+        <div class="jiankan-content-left">
+            <div class="jk-title" id="app_name" name="app_name"></div>
+            <div class="jk-title" id="micro" name="micro"></div>
+            <div class="jk-title" id="address" name="address">
+                <!--<span>外网地址：</span>117.187.12.236:10003-->
+            </div>
+            <div class="jk-title" id="container" name="container">
+                <!--运行容器：&nbsp;&nbsp;&nbsp;10个-->
+            </div>
+        </div>
+        <div class="jiankan-content-right">
+            <span class="right-img" id="img" name="img"></span>
+            <span class="right-name" id="normal" name="normal">正常</span>
+        </div>
+
+    </div>
+
+    <div style="height:270px;overflow-y:auto">
+    <table class="table table-bordered">
+        <!--<thead class="fixedThead">-->
+            <!--<tr>-->
+            <!--<td>编号</td>-->
+            <!--<td>检查内容</td>-->
+            <!--<td>检查时间</td>-->
+            <!--&lt;!&ndash;<td>操作</td>&ndash;&gt;-->
+            <!--</tr>-->
+        <!--</thead>-->
+        <tbody id="tab">
+        <tr>
+            <td>编号</td>
+            <td>检查内容</td>
+            <td>检查时间</td>
+            <!--<td>操作</td>-->
+        </tr>
+        <!--<tr>-->
+            <!--<td>1</td>-->
+            <!--<td>-->
+                <!--<span>应用正常</span>-->
+                <!--<span>数据库正常</span>-->
+                <!--<span>中间件正常</span>-->
+            <!--</td>-->
+            <!--<td>2018/01/22 06:52:42</td>-->
+            <!--<td><a href="#">详情</a></td>-->
+        <!--</tr>-->
+        <!--<tr>-->
+            <!--<td>2</td>-->
+            <!--<td>-->
+                <!--<span>应用正常</span>-->
+                <!--<span>数据库正常</span>-->
+                <!--<span>中间件正常</span>-->
+            <!--</td>-->
+            <!--<td>2018/01/22 06:52:42</td>-->
+            <!--<td><a href="#">详情</a></td>-->
+        <!--</tr>-->
+        </tbody>
+    </table>
+    </div>
+<script>
+function getAllMassage(){
+    $.ajax({
+    url: '{{projcfg.appurl}}/api/project/operation/health',
+    type: 'get',
+    data:{},
+//    async:false,
+    success: function (data) {
+        console.log("成功",data);
+        console.log("ssss",data.data);
+
+        if(data.success) {
+//            1、给基本消息赋值
+//            2、给select赋值
+//            3、动态的检查记录
+
+            console.log("成功",data.success);
+            $("#app_name").text("项目名称:  "+data.data.app_name);
+//            console.log("kkk",data.data.image_name);
+            $("#micro").append("镜像:  ",data.data.image_name);
+            $("#address").append("外网地址:   ",data.data.vist_url);
+            $("#container").text("运行容器:   "+data.data.count);
+
+//            console.log("成功",data.data.length());
+//            var selid = document.getElementById("select_app");
+            for(var i=0;i<1;i++){
+                console.log("selector","  ",data.data.app_name);
+                $("#select_app").append("<option value='"+i+"'>"+data.data.app_name+"</option>")
+            }
+            console.log("dddd",data.data.health);
+            console.log("ddd",data.data.health.length);
+
+            var masage=data.data.health;
+
+            for(var i=0;i<masage.length;i++) {
+                console.log("length", masage[i].check_content);
+                var json = JSON.parse(masage[i].check_content)
+                console.log(json.app)
+
+                if(json.app==00){
+                    json.app="应用异常"
+                    json.flag_a="spanRed";
+                    app_normal=0;
+                }else if(json.app==-1){
+                    json.app="未采集"
+                    json.flag_a="spanGrey"
+                }else{
+                    json.app="应用正常"
+                    json.flag_a="spanGreen"
+                }
+
+                if(json.sql==00){
+                    json.sql="数据库异常"
+                    json.flag_s="spanRed";
+                }else if(json.sql==-1){
+                    json.sql="未采集"
+                    json.flag_s="spanGrey"
+                } else{
+                    json.sql="数据库正常"
+                    json.flag_s="spanGreen";
+                }
+
+                if(json.middle==00){
+                    json.middle="中间件异常"
+                    json.flag_m="spanRed";
+                }else if(json.middle==-1){
+                    json.middle="未采集"
+                    json.flag_m="spanGrey";
+                } else{
+                    json.middle="中间件正常"
+                    json.flag_m="spanGreen";
+                }
+                console.log("json.flag_a",json.flag_a);
+//                $("#img").removeClass(json.flag_a);
+                if(json.flag_a=="spanRed"){
+                    $("#img").css("background","#ff0000");
+                    $("#normal").text("异常");
+                }else {
+                    $("#img").css("background","#008000");
+                    $("#normal").text("正常");
+                }
+                masage[i].check_content=json;
+                $("#tab").append("<tr>"+"<td>"+masage[i].id+"</td>"+"<td>"+"<span class="+"\""+masage[i].check_content.flag_a+"\""+">"+masage[i].check_content.app+"</span>"+"<span class="+"\""+masage[i].check_content.flag_s+"\""+">"+masage[i].check_content.sql+"</span>"+"<span class="+"\""+masage[i].check_content.flag_m+"\""+">"+masage[i].check_content.middle+"</span>"+"</td>"+"<td>"+masage[i].check_time+"</td>"+"<tr/>")
+            }
+            console.log("masage",masage)
+
+//            for(var i=0;i<masage.length;i++){
+//
+//            }
+
+        }
+        else {
+            msgError(data.msg+',错误代码:'+data.code);
+        }
+    }
+    });
+}
+
+$(document).ready(function(){
+    getAllMassage();
+});
+
+
+
+
+</script>
+
+
+
+
+
+
+<!--<div class="row">-->
+    <!--<div class="col-xs-12 col-md-12">-->
+        <!--<div class="widget">-->
+            <!--<div class="widget-body">-->
+
+                <!--<div id="baseInformation" name="baseInformation">-->
+
+                <!--</div>-->
+                <!--<div id="healthInformation" name="healthInformation">-->
+
+                <!--</div>-->
+            <!--</div>-->
+        <!--</div>-->
+    <!--</div>-->
+<!--</div>-->
