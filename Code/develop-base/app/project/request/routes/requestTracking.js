@@ -21,7 +21,7 @@ router.route('/pageList').get(function(req,res){
     var conditionMap = {};
 
     requestTrackingService.pageList(page, length, conditionMap,function(result){
-       console.log('$$$$$$$$$$$'+result.rows[0].id);
+
         utils.respJsonData(res, result);
     });
 });
@@ -30,9 +30,11 @@ router.route('/pageList').get(function(req,res){
 
 
 router.route('/groupData').get(function(req,res){
+    var conditionMap = {};
+    var page=0;
+    var size=10
 
-
-    requestTrackingService.groupData(function(result){
+    requestTrackingService.groupData(page, size, conditionMap,function(result){
 
         utils.respJsonData(res, result);
     });
