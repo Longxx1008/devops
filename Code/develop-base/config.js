@@ -58,6 +58,7 @@ var config = {
             '/common/app/routes/': project_url_prefix + '/admin/api/common/app/',//portal路由匹配路径
             '/project/dpm/routes/': project_url_prefix + '/api/project/dpm/',//dpm路由匹配路径
             '/project/ability/routes/': project_url_prefix + '/api/project/ability/',//ability路由匹配路径
+            '/project/request/routes/': project_url_prefix + '/api/project/request/',
             '/project/operation/routes/': project_url_prefix + '/api/project/operation/',
         },
         welcome_path:project_url_prefix + '/home',

@@ -21,9 +21,11 @@ exports.pageList = function (page, size, conditionMap, cb) {
     utils.pagingQuery4Eui_mysql(sql, orderBy, page, size, conditions, cb);
 };
 
-exports.groupData=function (cb) {
+exports.groupData=function (page, size, conditionMap, cb) {
     var sql=' select respond_status,count(respond_status) as statusCount from pass_project_request_info group by respond_status ' ;
-
-    utils.pagingQuery4Eui_mysql(sql,  cb);
+    var orderBy='';
+    var conditions = [];
+    utils.pagingQuery4Eui_mysql(sql, orderBy, page, size, conditions, cb);
 
 }
+

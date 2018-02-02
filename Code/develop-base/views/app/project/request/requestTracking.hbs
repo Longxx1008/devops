@@ -3,32 +3,47 @@
         text-align: center;
         padding-top: 20px;
         padding-bottom: 10px;
+        border: 1px solid rgba(174, 174, 174, 0.54) !important;
+
+    }
+    .div_title:hover{
+        text-align: center;
+        padding-top: 20px;
+        padding-bottom: 10px;
+        background: rgba(68, 68, 68, 0.95);
+        border: 1px solid rgba(174, 174, 174, 0.54) !important;
+
+    }
+    .table-bordered th,
+    .table-bordered td {
+        border: 1px solid rgba(174, 174, 174, 0.54) !important;
+
     }
 </style>
 <link href="https://cdn.bootcss.com/bootstrap-table/1.11.1/bootstrap-table.css" rel="stylesheet">
 
 <div style="margin-top: -20px;margin-left: 30px;margin-right: 30px">
-    <div class="row" style="background: rgba(50,50,50,0.95) ">
+    <div class="row" style="background: rgba(50,50,50,0.95);margin-top: 10px ">
 
         <div class="col-md-3 div_title" >
-            <img src="{{projcfg.appurl}}/static/request/image/200.png" height="45px" width="45px">
-            <h4>0</h4>
-            <h5>2xx</h5>
+            <img src="{{projcfg.appurl}}/static/request/image/200.png" height="50px" width="50px">
+            <h3 ><span id="status200"></span></h3>
+            <h4 style="color: #1c9127">200</h4>
         </div>
         <div class="col-md-3 div_title">
-            <img src="{{projcfg.appurl}}/static/request/image/302.png" height="45px" width="45px">
-            <h4>0</h4>
-            <h5>3xx</h5>
+            <img src="{{projcfg.appurl}}/static/request/image/302.png" height="50px" width="50px">
+            <h3 ><span id="status302"></span></h3>
+            <h4 style="color: rgba(135,135,135,0.98)">302</h4>
         </div>
         <div class="col-md-3 div_title">
-            <img src="{{projcfg.appurl}}/static/request/image/404.png" height="45px" width="45px">
-            <h4>0</h4>
-            <h5>4xx</h5>
+            <img src="{{projcfg.appurl}}/static/request/image/404.png" height="50px" width="50px">
+            <h3 ><span id="status404"></span></h3>
+            <h4 style="color: #be5158">404</h4>
         </div>
         <div class="col-md-3 div_title">
-            <img src="{{projcfg.appurl}}/static/request/image/500.png" height="45px" width="45px">
-            <h4>0</h4>
-            <h5>5xx</h5>
+            <img src="{{projcfg.appurl}}/static/request/image/500.png" height="50px" width="50px">
+            <h3 ><span id="status500"></span></h3>
+            <h4 style="color: #e37855">500</h4>
         </div>
 
     </div>
@@ -117,8 +132,11 @@
 
     <!--</div>-->
 
+    <div class="row">
+        <table id="table"  class="table table-bordered" style="color: #FFFFFF;margin-top: 10px"></table>
 
-    <table id="table"  class="table table-bordered" style="color: #FFFFFF;margin-top: 10px"></table>
+    </div>
+
 </div>
 <script src="https://cdn.bootcss.com/bootstrap-table/1.11.1/bootstrap-table.js"></script>
 
@@ -149,7 +167,13 @@
         strictSearch: true,
         showColumns: true,                  //是否显示所有的列（选择显示的列）
         showRefresh: true,                  //是否显示刷新按钮
+        onClickRow:function (row, $element) {
+            // console.log("clickRow",row);
+            // console.log("clickRow",$element);
+            // console.log("clickRow",field);
+            window.location.href = "{{projcfg.appurl}}/requestdetail?number="+row.serial_number;
 
+        },
         queryParams : function (params) {
             //这里的键的名字和控制器的变量名必须一直，这边改动，控制器也需要改成一样的
             var temp = {
@@ -186,7 +210,21 @@
             title: '总耗时'
         },{
             field: 'respond_status',
-            title: '返回响应'
+            title: '返回响应',
+            formatter: function(value,row,index) {
+                //通过判断单元格的值，来格式化单元格，返回的值即为格式化后包含的元素
+                var a = "";
+                if(value == "200") {
+                    var a = '<span style="color:#00ff00">'+value+'</span>';
+                }else if(value == "302"){
+                    var a = '<span style="color:rgba(253,253,253,0.62)">'+value+'</span>';
+                }else if(value == "404") {
+                    var a = '<span style="color:#FF0000">'+value+'</span>';
+                }else if(value == "500") {
+                    var a = '<span style="color:#e37855">'+value+'</span>';
+                }
+                return a;
+            }
         },{
             field: 'detail',
             title: '操作'
@@ -194,17 +232,36 @@
 
     });
 
+    function clickDetail() {
+        
+    }
 
 
 
 
-    <!--$.ajax({-->
-            <!--url: '{{projcfg.appurl}}/api/project/request/requestTracking/groupData',-->
-            <!--type: 'get',-->
-            <!--success: function (data) {-->
-                <!--console.log(data.rows[1].statusCount);-->
-            <!--}-->
-        <!--});-->
+    $.ajax({
+            url: '{{projcfg.appurl}}/api/project/request/requestTracking/groupData',
+            type: 'get',
+            success: function (data) {
+                var rows = data.rows;
+                for(var i=0;i<data.total;i++){
+
+                    if(rows[i].respond_status=='200'){
+                        $('#status200').text(rows[i].statusCount);
+                    }
+                    else if(rows[i].respond_status=='302'){
+                        $('#status302').text(rows[i].statusCount);
+
+                    }else if(rows[i].respond_status=='404'){
+                        $('#status404').text(rows[i].statusCount);
+
+                    }else if(rows[i].respond_status=='500'){
+                        $('#status500').text(rows[i].statusCount);
+
+                    }
+                }
+            }
+        });
 
 
 </script>
