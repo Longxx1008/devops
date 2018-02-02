@@ -1143,3 +1143,17 @@ exports.selectIfBlue=function(projectCode,cb){
         });
     })
 }
+
+exports.getGray=function(appId,cb){
+    var p = new Promise(function(resolve, reject) {
+        var sql = "select * from pass_develop_project_gray_deploy_new g,pass_project_app_info p where g.appId=p.id";
+        console.log(sql);
+        mysqlPool.query(sql, function (err, results) {
+            if (err) {
+                cb(utils.returnMsg(false, '1000', '查询出错', null, err));
+            } else {
+                cb(utils.returnMsg(true, '0000', '查询成功', results, null));
+            }
+        });
+    })
+}

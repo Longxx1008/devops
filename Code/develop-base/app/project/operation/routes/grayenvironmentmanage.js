@@ -165,6 +165,12 @@ router.route("/finalFormalFlag").get(function(req,res){
         utils.respJsonData(res,rs)
     })
 });
+router.route("/getGray").get(function(req,res){
+    var appId=req.query.appId;
+    greyenvironmtneService.getGray(appId,function(rs){
+        utils.respJsonData(res,rs)
+    })
+});
 router.route("/deleteBlue").get(function(req,res){
     var projectCode=req.query.projectCode;
     greyenvironmtneService.deleteBlue(projectCode,function(rs){
