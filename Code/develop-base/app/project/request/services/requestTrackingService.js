@@ -14,8 +14,12 @@ var mysqlPool = require('../../utils/mysql_pool');
  * @param cb
  */
 
-exports.pageList = function (page, size, conditionMap, cb) {
-    var sql = 'SELECT * from pass_project_request_info ';
+exports.pageList = function (page, size,statusType, conditionMap, cb) {
+    var statusType = statusType;
+    var sql = "SELECT * from pass_project_request_info ";
+    if(statusType!=null&&statusType!=''){
+        sql+="where respond_status like '"+statusType+"%'";
+    }
     var orderBy='';
     var conditions = [];
     utils.pagingQuery4Eui_mysql(sql, orderBy, page, size, conditions, cb);
