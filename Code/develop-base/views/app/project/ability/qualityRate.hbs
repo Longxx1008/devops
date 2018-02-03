@@ -59,7 +59,7 @@
                 <div class="fourth-cont">
 
                     <div class="fourth-cont-one">
-                        <div style="width:100%; height: 800px; overflow: hidden; margin-top: 20px; "><iframe  id="quality_evaluate"   src="" width="100%" height="800px" style="overflow: hidden; border:none;margin-top: -110px;"></iframe></div>
+                        <div style="width:100%; height: 100%; overflow: hidden; margin-top: 20px; "><iframe  id="quality_evaluate"   onload="changeFrameHeight('quality_evaluate')"   src="" width="100%" height="100%"  scrolling="no"style="overflow: hidden; border:none;margin-top: -110px;"></iframe></div>
                     </div>
                 </div>
                 <!--  <div class="fourth-cont">
@@ -217,13 +217,24 @@
                     }
                     var yxsc = setDayAndHour(qua.first_deploy_time);
                     $("#shic").html(yxsc);
-                    var docker=data.data.ename+"_"+data.data.serviceport+"_BACKEND"
+                    var docker=data.data[0].ename+"_"+data.data[0].serviceport+"_BACKEND"
                     $("#quality_evaluate").attr("src","http://192.168.9.69:3000/dashboard/db/fu-wu-zhi-liang?refresh=5s&orgId=1&var-docker="+docker);
+                    iframeLoad("quality_evaluate");
                 }else{
                     msgError(data.msg+',错误代码:'+data.code);
                 }
             }
         });
+    }
+    function changeFrameHeight(id){
+        var ifm= document.getElementById(id);
+        ifm.height=document.documentElement.clientHeight+110;
+
+    }
+
+    window.onresize=function(){
+        changeFrameHeight();
+
     }
     function getQueryString(name) {
         var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");

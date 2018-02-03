@@ -94,7 +94,7 @@
                                                     <ul class="list-group">
                                                         <li class="list-group-item no-bg">
                                                             <div class="chartist-line-chart-with-area" style="height:300px">
-                                                                <iframe id="total_liuliang" src="" width="100%" height="400"   scrolling="no"  frameborder="0" style="background-color: black"></iframe>
+                                                                <iframe id="total_liuliang" src="" width="100%" height="300px"   scrolling="no"  frameborder="0" style="background-color: black"></iframe>
                                                             </div>
                                                         </li>
                                                     </ul>
@@ -129,7 +129,7 @@
                                                         <div class="panel-heading">资源</div>
                                                         <div class="panel-body">
                                                             <div class="chartist-line-chart-with-area" style="height:800px">
-                                                                <div style="width:100%; height: 800px; overflow: hidden; margin-top: 20px; "><iframe  id="docker_resource"   src="" width="100%" height="800px" style="overflow: hidden; border:none;margin-top: -110px;"></iframe></div>
+                                                                <div style="width:100%; height:100%; overflow: hidden; margin-top: 20px; "><iframe  id="docker_resource"  onload="changeFrameHeight('docker_resource')" src="" width="100%" height="100%" style="overflow: hidden; border:none;margin-top: -110px;"></iframe></div>
 
                                                                 <!--<iframe id="docker_resource"src="http://192.168.9.69:3000/dashboard-solo/db/marathonying-yong-liu-liang-jian-kong?refresh=5s&orgId=1&panelId=2&from=1517462815139&to=1517463115139&var-docker=develop-base_develop-base-gatedlaunch_10004_192_168_9_64_31134&theme=dark" width="100%" height="800" frameborder="0" style="background-color: black"></iframe>-->
                                                             </div>
@@ -197,11 +197,11 @@
                                                     </tbody>
                                                 </table>
                                                 <div class="col-lg-12 m-t-3">
-                                                    <div class="panel panel-default b-a-0 bg-gray-dark">
+                                                    <div class="panel panel-default b-a-0 bg-gray-dark" style="height:1000px">
                                                         <div class="panel-heading">数据库监控</div>
-                                                        <div class="panel-body">
+                                                        <div class="panel-body" >
                                                             <div class="chartist-line-chart-with-area" style="height:1200px">
-                                                                <div style="width:100%; height: 800px; overflow: hidden; margin-top: 20px; "><iframe   id="liuliangser"   src="" width="100%" height="800px" style="overflow: hidden; border:none;margin-top: -110px;"></iframe></div>
+                                                                <div style="width:100%; height: 100%; overflow: hidden; margin-top: 20px; "><iframe   id="liuliangser"  src="" width="100%" height="100%" style="overflow: hidden; border:none;margin-top: -110px;"></iframe></div>
 
                                                                 <!--<iframe id="liuliangser" src="http://192.168.9.69:3000/dashboard/db/service-mysql-metrics?refresh=5s&orgId=1" width="100%" height="100%" frameborder="0"scrolling ="auto"   vspace="-170"style="background-color: black"></iframe>-->
                                                             </div>
@@ -563,9 +563,8 @@
                     //流量
                     $("#docker_liuliang").attr("src","http://192.168.9.69:3000/dashboard-solo/db/marathonying-yong-liu-liang-jian-kong?refresh=5s&orgId=1&var-docker="+docker_name+"&panelId=2");
                     //资源
-                    var host_name=data.data[0].hostname+"_"+data.data[0].container_ip;
+                    var host_name=data.data[0].hostname+"_"+data.data[0].host_ip;
                     var container_name=data.data[0].container_name;
-
                     $("#docker_resource").attr("src","http://192.168.9.69:3000/dashboard/db/dockerdan-ge-rong-qi-jian-kong?orgId=1&var-host="+host_name+"&var-container_name="+container_name);
 
                 }else{
@@ -574,4 +573,5 @@
             }
         });
     }
+
 </script>
