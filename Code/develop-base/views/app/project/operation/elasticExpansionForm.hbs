@@ -1,0 +1,144 @@
+<div class="main-wrap" style="overflow: hidden">
+    <div class="container-fluid">
+        <!-- START EDIT CONTENT -->
+        <div class="row">
+            <div class="col-lg-12 m-t-2">
+
+                <!-- START ROW -->
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="panel panel-default">
+
+                            <div id="panelBody" class="panel-body" style="overflow: hidden">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div>
+                                                <form id="colonyForm" class="form-horizontal form-bordered" role="form" method="post" enctype="multipart/form-data">
+                                                    <input type="hidden" id="id" name="id"/>
+                                                    <div class="form-group">
+                                                        <label for="tactics_name" class="col-sm-2 control-label no-padding-right" style="width: 21%">策略名称:</label>
+                                                        <div class="col-sm-10" style="width: 79%">
+                                                            <input type="text" class="easyui-validatebox form-control" data-options="required:true" name="tactics_name" id="tactics_name" placeholder="策略名称" style="width:60%">
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="gather_value" class="col-sm-2 control-label no-padding-right" style="width: 21%">采集值:</label>
+                                                        <div class="col-sm-10" style="width: 79%">
+                                                            <select  class="easyui-combobox" data-options="required:true,editable:false,panelHeight:50" style="width:70px;height:34px;" name="gather_value" id="gather_value" value="CPU">
+                                                                <option value="CPU">CPU</option>
+                                                                <option value="内存">内存</option>
+                                                                <option value="流量">流量</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="duration" class="col-sm-2 control-label no-padding-right" style="width: 21%">持续时间:</label>
+                                                        <div class="col-sm-10" style="width: 79%">
+                                                            <input type="text" class="easyui-validatebox form-control" data-options="required:true" name="duration" id="duration" placeholder="请输入持续时间(分钟)" style="width:60%">
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="operation" class="col-sm-2 control-label no-padding-right" style="width: 21%">操作符:</label>
+                                                        <div class="col-sm-10" style="width: 79%">
+                                                            <select  class="easyui-combobox" data-options="required:true,editable:false,panelHeight:50" style="width:70px;height:34px;" name="operation" id="operation" value="大于">
+                                                                <option value="大于">大于&gt;</option>
+                                                                <option value="等于">等于=</option>
+                                                                <option value="小于">小于&lt;</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="target_value" class="col-sm-2 control-label no-padding-right" style="width: 21%">目标值:</label>
+                                                        <div class="col-sm-10" style="width: 79%">
+                                                            <input type="text" class="easyui-validatebox form-control" data-options="required:true" name="target_value" id="target_value" placeholder="请输入目标值" style="width:60%">
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="tactics_count" class="col-sm-2 control-label no-padding-right" style="width: 21%">次数:</label>
+                                                        <div class="col-sm-10" style="width: 79%">
+                                                            <input type="text" class="easyui-validatebox form-control" data-options="required:true" name="tactics_count" id="tactics_count" placeholder="请输入次数" style="width:60%">
+                                                        </div>
+                                                    </div>
+                                                    <!--<div class="form-group">-->
+                                                        <!--<label for="resource_remark" class="col-sm-2 control-label no-padding-right" style="width: 21%">备注:</label>-->
+                                                        <!--<div class="col-sm-10" style="width: 79%">-->
+                                                            <!--<input type="text" class="easyui-validatebox form-control" data-options="required:true" name="resource_remark" id="resource_remark" placeholder="请输入备注" style="width:60%">-->
+                                                        <!--</div>-->
+                                                    <!--</div>-->
+                                                </form>
+                                                <div style="text-align:center;padding:5px">
+                                                    <a href="javascript:void(0)" class="easyui-linkbutton" onclick="doAdd()">提交</a>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                        </div>
+                    </div>
+                </div>
+                <!-- END ROW -->
+
+            </div>
+        </div>
+        <!-- END EDIT CONTENT -->
+
+    </div>
+
+</div>
+<script type="text/javascript">
+    var appid;
+    var microServiceId;
+    $(function(){
+        appid = getQueryString('appid');
+        microServiceId = getQueryString('microServiceId');
+        if(!appid){
+            appid = 1;
+        }
+
+    });
+
+function doAdd() {
+
+    $.ajax({
+        url: '{{projcfg.appurl}}/api/project/operation/elasticExpansion/microServices',
+        type: 'put',
+        data: {
+            app_id: appid,
+            micro_service_id: microServiceId,
+            tactics_name: $("#tactics_name").val(),
+            gather_value: $("#gather_value").val(),
+            duration: $("#duration").val(),
+            target_value: $("#target_value").val(),
+            operation: $("#operation").val(),
+            tactics_count: $("#tactics_count").val(),
+            status:"0"
+},
+    success: function (data) {
+        if (data.success) {
+            elastic();
+        }
+        else {
+            console.log(data);
+            //msgError(data.msg+',错误代码:'+data.code);
+        }
+    },
+    error: function (error) {
+        console.log(error);
+    }
+});
+}
+
+function elastic(){
+    location.href = "{{projcfg.appurl}}/elasticExpansion?microserviceid="+microServiceId;
+}
+
+
+function getQueryString(name) {
+    var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+    var r = window.location.search.substr(1).match(reg);
+    if (r != null) return unescape(r[2]); return null;
+}
+</script>
