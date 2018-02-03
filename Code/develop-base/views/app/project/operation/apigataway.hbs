@@ -1,475 +1,170 @@
-
-<div class="main-wrap">
+<div id="ApiManager">
+    <div class="main-wrap">
         <div class="container-fluid">
             <!-- START EDIT CONTENT -->
             <div class="row">
                 <div class="col-lg-12 m-t-2">
-
                     <!-- START ROW -->
                     <div class="row">
                         <div class="col-lg-12">
                             <div class="panel panel-default">
-
-
                                 <div class="panel-body">
-
                                     <div class="panel panel-default b-a-0">
                                         <div class="tabbable-line">
                                             <ul class="nav nav-tabs" role="tablist">
-
-                                                <li role="presentation" class="active"><a href="#profile" role="tab" id="profile-tab" data-toggle="tab" aria-controls="profile" aria-expanded="false">API接口管理</a></li>
-
+                                                <li role="presentation" class="active">
+                                                    <a href="#profile" role="tab"
+                                                       id="profile-tab"
+                                                       data-toggle="tab"
+                                                       aria-controls="profile"
+                                                       aria-expanded="false">API接口管理</a>
+                                                </li>
                                             </ul>
                                             <div class="tab-content">
-                                                <div role="tabpanel" class="tab-pane fade active in" id="profile" aria-labelledby="profile-tab">
+                                                <div role="tabpanel" class="tab-pane fade active in" id="profile"
+                                                     aria-labelledby="profile-tab">
                                                     <div class="timeline timeline-datetime">
                                                         <!-- Timeline - Badge Date -->
-                                                        <div class="timeline-date">
-                                                            <span class="badge">微服务名称：决策分析</span>
-                                                        </div>
-
-                                                        <div class="timeline-item p-r-1">
-                                                            <!-- Timeline - Mini Icon -->
-                                                            <div class="timeline-icon">
-                                                                <i class="fa fa-circle-o text-info"></i>
+                                                        <template v-for="index of apps">
+                                                            <div class="timeline-date">
+                                                                <span class="badge">应用名称：${index.appName}</span>
                                                             </div>
-                                                            <div class="timeline-item-inner">
-                                                                <!-- Timeline - Icon  -->
-                                                                <div class="timeline-item-head clearfix">
-
+                                                            <div class="timeline-item p-r-1">
+                                                                <!-- Timeline - Mini Icon -->
+                                                                <div class="timeline-icon">
+                                                                    <i class="fa fa-circle-o text-info"></i>
                                                                 </div>
+                                                                <div class="timeline-item-inner">
+                                                                    <!-- Timeline - Icon  -->
+                                                                    <div class="timeline-item-head clearfix">
+                                                                        <button type="button"
+                                                                                @click="add"
+                                                                                id="dd"
+                                                                                class="btn btn-default"
+                                                                                data-toggle="tooltip"
+                                                                                data-placement="top"
+                                                                                title=""
+                                                                                data-original-title="新增接口">
+                                                                            <i class="fa fa-plus">
+                                                                                新增接口</i>
+                                                                        </button>
+                                                                    </div>
 
-                                                                <!-- Timeline - START Content -->
-                                                                <div class="timeline-item-content m-t-1">
-                                                                    <table class="table table-striped">
-                                                                        <thead>
+                                                                    <!-- Timeline - START Content -->
+                                                                    <div class="timeline-item-content m-t-1">
+                                                                        <table class="table table-striped">
+                                                                            <thead>
                                                                             <tr>
-                                                                                <th class="small text-muted text-uppercase"><strong>编号</strong>
+                                                                                <th class="small text-muted text-uppercase">
+                                                                                    <strong>编号</strong>
                                                                                 </th>
-                                                                                <th class="small text-muted text-uppercase"><strong>接口名称</strong>
+                                                                                <th class="small text-muted text-uppercase">
+                                                                                    <strong>接口名称</strong>
                                                                                 </th>
-                                                                                <th class="small text-muted text-uppercase"><strong>URL</strong>
+                                                                                <th class="small text-muted text-uppercase">
+                                                                                    <strong>URL</strong>
                                                                                 </th>
-                                                                                <th class="small text-muted text-uppercase"><strong>请求方法</strong>
+                                                                                <th class="small text-muted text-uppercase">
+                                                                                    <strong>请求方法</strong>
                                                                                 </th>
-                                                                                <th class="small text-muted text-uppercase"><strong>Upstream URL</strong>
+                                                                                <th class="small text-muted text-uppercase">
+                                                                                    <strong>Upstream URL</strong>
                                                                                 </th>
-                                                                                <th class="small text-muted text-uppercase"><strong>状态</strong>
+                                                                                <th class="small text-muted text-uppercase">
+                                                                                    <strong>状态</strong>
                                                                                 </th>
-                                                                                <th class="small text-muted text-uppercase"><strong>操作</strong>
+                                                                                <th class="small text-muted text-uppercase">
+                                                                                    <strong>操作</strong>
                                                                                 </th>
                                                                             </tr>
-                                                                        </thead>
-                                                                        <tbody>
-                                                                            <tr>
-                                                                                <td class="v-a-m"><span class="text-white">1</span></td>
-                                                                                <td class="v-a-m"><span class="text-white">userManage</span></td>
-                                                                                <td class="v-a-m"><span>/gdgl/user</span></td>
-                                                                                <td class="v-a-m"><span>GET,POST</span></td>
-
-                                                                                <td class="v-a-m">http://192.168.9.66:30002/gdgl/api</td>
-                                                                                <td class="v-a-m"><i class="m-l-0 fa fa-fw fa-circle text-success"></i> <span class="text-white m-r-1">运行中</span></td>
+                                                                            </thead>
+                                                                            <tbody>
+                                                                            <tr v-for="(i,item) of index.apis">
+                                                                                <td class="v-a-m"><span
+                                                                                        class="text-white">${item+1}</span>
+                                                                                </td>
+                                                                                <td class="v-a-m"><span
+                                                                                        class="text-white">${i.apiName}</span>
+                                                                                </td>
                                                                                 <td class="v-a-m">
-                                                                                    <div class="btn-group" role="group" aria-label="...">
-                                                                                        <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="" data-original-title="流量阻断"><i class="fa fa-bars"> 流量阻断</i></button>
-                                                                                        <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="" data-original-title="安全管控"><a href="{{projcfg.appurl}}/ratelimiting" ><i class="fa fa-book"> 流量限制</i></a></button>
-                                                                                        <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="" data-original-title="安全管控"><a href="{{projcfg.appurl}}/apiusermanage" ><i class="fa fa-fire"> 安全管控</i></a></button>
-                                                                                        <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="" data-original-title="安全管控"><i class="fa fa-leaf"> 请求跟踪</i></button>
+                                                                                    <span>${i.apiUrl}</span>
+                                                                                </td>
+                                                                                <td class="v-a-m">
+                                                                                    <span>${i.apiMethods.join(',')}</span>
+                                                                                </td>
+                                                                                <td class="v-a-m">
+                                                                                    ${i.upStream}
+                                                                                </td>
+                                                                                <td class="v-a-m"><i
+                                                                                        class="m-l-0 fa fa-fw fa-circle text-success"></i>
+                                                                                    <span class="text-white m-r-1">运行中</span>
+                                                                                </td>
+                                                                                <td class="v-a-m">
+                                                                                    <div class="btn-group" role="group"
+                                                                                         aria-label="...">
+                                                                                        <button type="button"
+                                                                                                class="btn btn-default"
+                                                                                                data-toggle="tooltip"
+                                                                                                data-placement="top"
+                                                                                                title=""
+                                                                                                @click="breaking"
+                                                                                                data-original-title="流量阻断">
+                                                                                            <i
+                                                                                                    class="fa fa-bars">
+                                                                                                流量阻断</i>
+                                                                                        </button>
+                                                                                        <button type="button"
+                                                                                                class="btn btn-default"
+                                                                                                data-toggle="tooltip"
+                                                                                                data-placement="top"
+                                                                                                title=""
+                                                                                                data-original-title="安全管控">
+                                                                                            <a
+                                                                                                    href="{{projcfg.appurl}}/ratelimiting"><i
+                                                                                                    class="fa fa-book">
+                                                                                                流量限制</i></a>
+                                                                                        </button>
+                                                                                        <button type="button"
+                                                                                                class="btn btn-default"
+                                                                                                data-toggle="tooltip"
+                                                                                                data-placement="top"
+                                                                                                title=""
+                                                                                                data-original-title="安全管控">
+                                                                                            <a
+                                                                                                    href="{{projcfg.appurl}}/apiusermanage"><i
+                                                                                                    class="fa fa-fire">
+                                                                                                安全管控</i></a>
+                                                                                        </button>
+                                                                                        <button type="button"
+                                                                                                class="btn btn-default"
+                                                                                                data-toggle="tooltip"
+                                                                                                data-placement="top"
+                                                                                                title=""
+                                                                                                data-original-title="安全管控">
+                                                                                            <i class="fa fa-leaf">
+                                                                                                请求跟踪</i>
+                                                                                        </button>
+                                                                                        <button type="button"
+                                                                                                class="btn btn-default"
+                                                                                                data-toggle="tooltip"
+                                                                                                data-placement="top"
+                                                                                                title=""
+                                                                                                data-original-title="安全管控">
+                                                                                            <i class="fa fa-delete">
+                                                                                                删除接口</i>
+                                                                                        </button>
                                                                                     </div>
                                                                                 </td>
                                                                             </tr>
-
-                                                                            <tr>
-                                                                                <td class="v-a-m"><span class="text-white">1</span></td>
-                                                                                <td class="v-a-m"><span class="text-white">userManage</span></td>
-                                                                                <td class="v-a-m"><span>/gdgl/user</span></td>
-                                                                                <td class="v-a-m"><span>GET,POST</span></td>
-
-                                                                                <td class="v-a-m">http://192.168.9.66:30002/gdgl/api</td>
-                                                                                <td class="v-a-m"><i class="m-l-0 fa fa-fw fa-circle text-success"></i> <span class="text-white m-r-1">运行中</span></td>
-                                                                                <td class="v-a-m">
-                                                                                    <div class="btn-group" role="group" aria-label="...">
-                                                                                        <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="" data-original-title="流量阻断"><i class="fa fa-bars"> 流量阻断</i></button>
-                                                                                        <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="" data-original-title="安全管控"><i class="fa fa-book"> 流量限制</i></button>
-                                                                                        <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="" data-original-title="安全管控"><i class="fa fa-fire"> 安全管控</i></button>
-                                                                                        <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="" data-original-title="安全管控"><i class="fa fa-leaf"> 请求跟踪</i></button>
-                                                                                    </div>
-                                                                                </td>
-                                                                            </tr>
-
-                                                                            <tr>
-                                                                                <td class="v-a-m"><span class="text-white">1</span></td>
-                                                                                <td class="v-a-m"><span class="text-white">userManage</span></td>
-                                                                                <td class="v-a-m"><span>/gdgl/user</span></td>
-                                                                                <td class="v-a-m"><span>GET,POST</span></td>
-
-                                                                                <td class="v-a-m">http://192.168.9.66:30002/gdgl/api</td>
-                                                                                <td class="v-a-m"><i class="m-l-0 fa fa-fw fa-circle text-success"></i> <span class="text-white m-r-1">运行中</span></td>
-                                                                                <td class="v-a-m">
-                                                                                    <div class="btn-group" role="group" aria-label="...">
-                                                                                        <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="" data-original-title="流量阻断"><i class="fa fa-bars"> 流量阻断</i></button>
-                                                                                        <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="" data-original-title="安全管控"><i class="fa fa-book"> 流量限制</i></button>
-                                                                                        <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="" data-original-title="安全管控"><i class="fa fa-fire"> 安全管控</i></button>
-                                                                                        <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="" data-original-title="安全管控"><i class="fa fa-leaf"> 请求跟踪</i></button>
-                                                                                    </div>
-                                                                                </td>
-                                                                            </tr>
-
-                                                                            <tr>
-                                                                                <td class="v-a-m"><span class="text-white">1</span></td>
-                                                                                <td class="v-a-m"><span class="text-white">userManage</span></td>
-                                                                                <td class="v-a-m"><span>/gdgl/user</span></td>
-                                                                                <td class="v-a-m"><span>GET,POST</span></td>
-
-                                                                                <td class="v-a-m">http://192.168.9.66:30002/gdgl/api</td>
-                                                                                <td class="v-a-m"><i class="m-l-0 fa fa-fw fa-circle text-success"></i> <span class="text-white m-r-1">运行中</span></td>
-                                                                                <td class="v-a-m">
-                                                                                    <div class="btn-group" role="group" aria-label="...">
-                                                                                        <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="" data-original-title="流量阻断"><i class="fa fa-bars"> 流量阻断</i></button>
-                                                                                        <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="" data-original-title="安全管控"><i class="fa fa-book"> 流量限制</i></button>
-                                                                                        <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="" data-original-title="安全管控"><i class="fa fa-fire"> 安全管控</i></button>
-                                                                                        <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="" data-original-title="安全管控"><i class="fa fa-leaf"> 请求跟踪</i></button>
-                                                                                    </div>
-                                                                                </td>
-                                                                            </tr>
-
-                                                                        </tbody>
-                                                                    </table>
+                                                                            </tbody>
+                                                                        </table>
+                                                                    </div>
+                                                                    <!-- Timeline - END Content -->
                                                                 </div>
-                                                                <!-- Timeline - END Content -->
                                                             </div>
-                                                        </div>
-
-
-
-
-
-
-
-                                                        <!-- Timeline - Badge Date -->
-                                                        <div class="timeline-date">
-                                                            <span class="badge">微服务名称：决策分析</span>
-                                                        </div>
-
-                                                        <div class="timeline-item p-r-1">
-                                                            <!-- Timeline - Mini Icon -->
-                                                            <div class="timeline-icon">
-                                                                <i class="fa fa-circle-o text-info"></i>
-                                                            </div>
-                                                            <div class="timeline-item-inner">
-                                                                <!-- Timeline - Icon  -->
-                                                                <div class="timeline-item-head clearfix">
-
-                                                                </div>
-
-                                                                <!-- Timeline - START Content -->
-                                                                <div class="timeline-item-content m-t-1">
-                                                                    <table class="table table-striped">
-                                                                        <thead>
-                                                                        <tr>
-                                                                            <th class="small text-muted text-uppercase"><strong>编号</strong>
-                                                                            </th>
-                                                                            <th class="small text-muted text-uppercase"><strong>接口名称</strong>
-                                                                            </th>
-                                                                            <th class="small text-muted text-uppercase"><strong>URL</strong>
-                                                                            </th>
-                                                                            <th class="small text-muted text-uppercase"><strong>请求方法</strong>
-                                                                            </th>
-                                                                            <th class="small text-muted text-uppercase"><strong>Upstream URL</strong>
-                                                                            </th>
-                                                                            <th class="small text-muted text-uppercase"><strong>状态</strong>
-                                                                            </th>
-                                                                            <th class="small text-muted text-uppercase"><strong>操作</strong>
-                                                                            </th>
-                                                                        </tr>
-                                                                        </thead>
-                                                                        <tbody>
-                                                                        <tr>
-                                                                            <td class="v-a-m"><span class="text-white">1</span></td>
-                                                                            <td class="v-a-m"><span class="text-white">userManage</span></td>
-                                                                            <td class="v-a-m"><span>/gdgl/user</span></td>
-                                                                            <td class="v-a-m"><span>GET,POST</span></td>
-
-                                                                            <td class="v-a-m">http://192.168.9.66:30002/gdgl/api</td>
-                                                                            <td class="v-a-m"><i class="m-l-0 fa fa-fw fa-circle text-success"></i> <span class="text-white m-r-1">运行中</span></td>
-                                                                            <td class="v-a-m">
-                                                                                <div class="btn-group" role="group" aria-label="...">
-                                                                                    <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="" data-original-title="流量阻断"><i class="fa fa-bars"> 流量阻断</i></button>
-                                                                                    <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="" data-original-title="安全管控"><i class="fa fa-book"> 流量限制</i></button>
-                                                                                    <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="" data-original-title="安全管控"><i class="fa fa-fire"> 安全管控</i></button>
-                                                                                    <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="" data-original-title="安全管控"><i class="fa fa-leaf"> 请求跟踪</i></button>
-                                                                                </div>
-                                                                            </td>
-                                                                        </tr>
-
-                                                                        <tr>
-                                                                            <td class="v-a-m"><span class="text-white">1</span></td>
-                                                                            <td class="v-a-m"><span class="text-white">userManage</span></td>
-                                                                            <td class="v-a-m"><span>/gdgl/user</span></td>
-                                                                            <td class="v-a-m"><span>GET,POST</span></td>
-
-                                                                            <td class="v-a-m">http://192.168.9.66:30002/gdgl/api</td>
-                                                                            <td class="v-a-m"><i class="m-l-0 fa fa-fw fa-circle text-success"></i> <span class="text-white m-r-1">运行中</span></td>
-                                                                            <td class="v-a-m">
-                                                                                <div class="btn-group" role="group" aria-label="...">
-                                                                                    <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="" data-original-title="流量阻断"><i class="fa fa-bars"> 流量阻断</i></button>
-                                                                                    <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="" data-original-title="安全管控"><i class="fa fa-book"> 流量限制</i></button>
-                                                                                    <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="" data-original-title="安全管控"><i class="fa fa-fire"> 安全管控</i></button>
-                                                                                    <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="" data-original-title="安全管控"><i class="fa fa-leaf"> 请求跟踪</i></button>
-                                                                                </div>
-                                                                            </td>
-                                                                        </tr>
-
-                                                                        <tr>
-                                                                            <td class="v-a-m"><span class="text-white">1</span></td>
-                                                                            <td class="v-a-m"><span class="text-white">userManage</span></td>
-                                                                            <td class="v-a-m"><span>/gdgl/user</span></td>
-                                                                            <td class="v-a-m"><span>GET,POST</span></td>
-
-                                                                            <td class="v-a-m">http://192.168.9.66:30002/gdgl/api</td>
-                                                                            <td class="v-a-m"><i class="m-l-0 fa fa-fw fa-circle text-success"></i> <span class="text-white m-r-1">运行中</span></td>
-                                                                            <td class="v-a-m">
-                                                                                <div class="btn-group" role="group" aria-label="...">
-                                                                                    <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="" data-original-title="流量阻断"><i class="fa fa-bars"> 流量阻断</i></button>
-                                                                                    <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="" data-original-title="安全管控"><i class="fa fa-book"> 流量限制</i></button>
-                                                                                    <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="" data-original-title="安全管控"><i class="fa fa-fire"> 安全管控</i></button>
-                                                                                    <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="" data-original-title="安全管控"><i class="fa fa-leaf"> 请求跟踪</i></button>
-                                                                                </div>
-                                                                            </td>
-                                                                        </tr>
-
-                                                                        <tr>
-                                                                            <td class="v-a-m"><span class="text-white">1</span></td>
-                                                                            <td class="v-a-m"><span class="text-white">userManage</span></td>
-                                                                            <td class="v-a-m"><span>/gdgl/user</span></td>
-                                                                            <td class="v-a-m"><span>GET,POST</span></td>
-
-                                                                            <td class="v-a-m">http://192.168.9.66:30002/gdgl/api</td>
-                                                                            <td class="v-a-m"><i class="m-l-0 fa fa-fw fa-circle text-success"></i> <span class="text-white m-r-1">运行中</span></td>
-                                                                            <td class="v-a-m">
-                                                                                <div class="btn-group" role="group" aria-label="...">
-                                                                                    <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="" data-original-title="流量阻断"><i class="fa fa-bars"> 流量阻断</i></button>
-                                                                                    <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="" data-original-title="安全管控"><i class="fa fa-book"> 流量限制</i></button>
-                                                                                    <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="" data-original-title="安全管控"><i class="fa fa-fire"> 安全管控</i></button>
-                                                                                    <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="" data-original-title="安全管控"><i class="fa fa-leaf"> 请求跟踪</i></button>
-                                                                                </div>
-                                                                            </td>
-                                                                        </tr>
-
-                                                                        </tbody>
-                                                                    </table>
-                                                                </div>
-                                                                <!-- Timeline - END Content -->
-                                                            </div>
-                                                        </div>
-
-
-
-
-                                                        <!-- Timeline - Badge Date -->
-                                                        <div class="timeline-date">
-                                                            <span class="badge">微服务名称：决策分析</span>
-                                                        </div>
-
-                                                        <div class="timeline-item p-r-1">
-                                                            <!-- Timeline - Mini Icon -->
-                                                            <div class="timeline-icon">
-                                                                <i class="fa fa-circle-o text-info"></i>
-                                                            </div>
-                                                            <div class="timeline-item-inner">
-                                                                <!-- Timeline - Icon  -->
-                                                                <div class="timeline-item-head clearfix">
-
-                                                                </div>
-
-                                                                <!-- Timeline - START Content -->
-                                                                <div class="timeline-item-content m-t-1">
-                                                                    <table class="table table-striped">
-                                                                        <thead>
-                                                                        <tr>
-                                                                            <th class="small text-muted text-uppercase"><strong>编号</strong>
-                                                                            </th>
-                                                                            <th class="small text-muted text-uppercase"><strong>接口名称</strong>
-                                                                            </th>
-                                                                            <th class="small text-muted text-uppercase"><strong>URL</strong>
-                                                                            </th>
-                                                                            <th class="small text-muted text-uppercase"><strong>请求方法</strong>
-                                                                            </th>
-                                                                            <th class="small text-muted text-uppercase"><strong>Upstream URL</strong>
-                                                                            </th>
-                                                                            <th class="small text-muted text-uppercase"><strong>状态</strong>
-                                                                            </th>
-                                                                            <th class="small text-muted text-uppercase"><strong>操作</strong>
-                                                                            </th>
-                                                                        </tr>
-                                                                        </thead>
-                                                                        <tbody>
-                                                                        <tr>
-                                                                            <td class="v-a-m"><span class="text-white">1</span></td>
-                                                                            <td class="v-a-m"><span class="text-white">userManage</span></td>
-                                                                            <td class="v-a-m"><span>/gdgl/user</span></td>
-                                                                            <td class="v-a-m"><span>GET,POST</span></td>
-
-                                                                            <td class="v-a-m">http://192.168.9.66:30002/gdgl/api</td>
-                                                                            <td class="v-a-m"><i class="m-l-0 fa fa-fw fa-circle text-success"></i> <span class="text-white m-r-1">运行中</span></td>
-                                                                            <td class="v-a-m">
-                                                                                <div class="btn-group" role="group" aria-label="...">
-                                                                                    <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="" data-original-title="流量阻断"><i class="fa fa-bars"> 流量阻断</i></button>
-                                                                                    <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="" data-original-title="安全管控"><i class="fa fa-book"> 流量限制</i></button>
-                                                                                    <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="" data-original-title="安全管控"><i class="fa fa-fire"> 安全管控</i></button>
-                                                                                    <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="" data-original-title="安全管控"><i class="fa fa-leaf"> 请求跟踪</i></button>
-                                                                                </div>
-                                                                            </td>
-                                                                        </tr>
-
-                                                                        <tr>
-                                                                            <td class="v-a-m"><span class="text-white">1</span></td>
-                                                                            <td class="v-a-m"><span class="text-white">userManage</span></td>
-                                                                            <td class="v-a-m"><span>/gdgl/user</span></td>
-                                                                            <td class="v-a-m"><span>GET,POST</span></td>
-
-                                                                            <td class="v-a-m">http://192.168.9.66:30002/gdgl/api</td>
-                                                                            <td class="v-a-m"><i class="m-l-0 fa fa-fw fa-circle text-success"></i> <span class="text-white m-r-1">运行中</span></td>
-                                                                            <td class="v-a-m">
-                                                                                <div class="btn-group" role="group" aria-label="...">
-                                                                                    <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="" data-original-title="流量阻断"><a href="project/apiusermanage"></a><i class="fa fa-bars"> 流量阻断</i></button>
-                                                                                    <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="" data-original-title="安全管控"><i class="fa fa-book"> 流量限制</i></button>
-                                                                                    <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="" data-original-title="安全管控"><i class="fa fa-fire"> 安全管控</i></button>
-                                                                                    <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="" data-original-title="安全管控"><i class="fa fa-leaf"> 请求跟踪</i></button>
-                                                                                </div>
-                                                                            </td>
-                                                                        </tr>
-
-                                                                        <tr>
-                                                                            <td class="v-a-m"><span class="text-white">1</span></td>
-                                                                            <td class="v-a-m"><span class="text-white">userManage</span></td>
-                                                                            <td class="v-a-m"><span>/gdgl/user</span></td>
-                                                                            <td class="v-a-m"><span>GET,POST</span></td>
-
-                                                                            <td class="v-a-m">http://192.168.9.66:30002/gdgl/api</td>
-                                                                            <td class="v-a-m"><i class="m-l-0 fa fa-fw fa-circle text-success"></i> <span class="text-white m-r-1">运行中</span></td>
-                                                                            <td class="v-a-m">
-                                                                                <div class="btn-group" role="group" aria-label="...">
-                                                                                    <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="" data-original-title="流量阻断"><i class="fa fa-bars"> 流量阻断</i></button>
-                                                                                    <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="" data-original-title="安全管控"><i class="fa fa-book"> 流量限制</i></button>
-                                                                                    <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="" data-original-title="安全管控"><i class="fa fa-fire"> 安全管控</i></button>
-                                                                                    <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="" data-original-title="安全管控"><i class="fa fa-leaf"> 请求跟踪</i></button>
-                                                                                </div>
-                                                                            </td>
-                                                                        </tr>
-
-                                                                        <tr>
-                                                                            <td class="v-a-m"><span class="text-white">1</span></td>
-                                                                            <td class="v-a-m"><span class="text-white">userManage</span></td>
-                                                                            <td class="v-a-m"><span>/gdgl/user</span></td>
-                                                                            <td class="v-a-m"><span>GET,POST</span></td>
-
-                                                                            <td class="v-a-m">http://192.168.9.66:30002/gdgl/api</td>
-                                                                            <td class="v-a-m"><i class="m-l-0 fa fa-fw fa-circle text-success"></i> <span class="text-white m-r-1">运行中</span></td>
-                                                                            <td class="v-a-m">
-                                                                                <div class="btn-group" role="group" aria-label="...">
-                                                                                    <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="" data-original-title="流量阻断"><i class="fa fa-bars"> 流量阻断</i></button>
-                                                                                    <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="" data-original-title="安全管控"><i class="fa fa-book"> 流量限制</i></button>
-                                                                                    <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="" data-original-title="安全管控"><i class="fa fa-fire"> 安全管控</i></button>
-                                                                                    <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="" data-original-title="安全管控"><i class="fa fa-leaf"> 请求跟踪</i></button>
-                                                                                </div>
-                                                                            </td>
-                                                                        </tr>
-
-                                                                        </tbody>
-                                                                    </table>
-                                                                </div>
-                                                                <!-- Timeline - END Content -->
-                                                            </div>
-                                                        </div>
-
-
-
-                                                        <!-- Timeline - Badge Date -->
-                                                        <div class="timeline-date">
-                                                            <span class="badge">微服务名称：决策分析</span>
-                                                        </div>
-
-                                                        <div class="timeline-item p-r-1">
-                                                            <!-- Timeline - Mini Icon -->
-                                                            <div class="timeline-icon">
-                                                                <i class="fa fa-circle-o text-info"></i>
-                                                            </div>
-                                                            <div class="timeline-item-inner">
-                                                                <!-- Timeline - Icon  -->
-                                                                <div class="timeline-item-head clearfix">
-
-                                                                </div>
-
-                                                                <!-- Timeline - START Content -->
-                                                                <div class="timeline-item-content m-t-1">
-                                                                    <table class="table table-striped">
-                                                                        <thead>
-                                                                        <tr>
-                                                                            <th class="small text-muted text-uppercase"><strong>编号</strong>
-                                                                            </th>
-                                                                            <th class="small text-muted text-uppercase"><strong>接口名称</strong>
-                                                                            </th>
-                                                                            <th class="small text-muted text-uppercase"><strong>URL</strong>
-                                                                            </th>
-                                                                            <th class="small text-muted text-uppercase"><strong>请求方法</strong>
-                                                                            </th>
-                                                                            <th class="small text-muted text-uppercase"><strong>Upstream URL</strong>
-                                                                            </th>
-                                                                            <th class="small text-muted text-uppercase"><strong>状态</strong>
-                                                                            </th>
-                                                                            <th class="small text-muted text-uppercase"><strong>操作</strong>
-                                                                            </th>
-                                                                        </tr>
-                                                                        </thead>
-                                                                        <tbody>
-                                                                        <tr>
-                                                                            <td class="v-a-m"><span class="text-white">1</span></td>
-                                                                            <td class="v-a-m"><span class="text-white">userManage</span></td>
-                                                                            <td class="v-a-m"><span>/gdgl/user</span></td>
-                                                                            <td class="v-a-m"><span>GET,POST</span></td>
-
-                                                                            <td class="v-a-m">http://192.168.9.66:30002/gdgl/api</td>
-                                                                            <td class="v-a-m"><i class="m-l-0 fa fa-fw fa-circle text-success"></i> <span class="text-white m-r-1">运行中</span></td>
-                                                                            <td class="v-a-m">
-                                                                                <div class="btn-group" role="group" aria-label="...">
-                                                                                    <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="" data-original-title="详情"><i class="fa fa-bars"></i></button>
-                                                                                    <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="" data-original-title="日志"><i class="fa fa-book"></i></button>
-                                                                                </div>
-                                                                            </td>
-                                                                        </tr>
-
-                                                                        <tr>
-                                                                            <td class="v-a-m"><span class="text-white">1</span></td>
-                                                                            <td class="v-a-m"><span class="text-white">userManage</span></td>
-                                                                            <td class="v-a-m"><span>/gdgl/user</span></td>
-                                                                            <td class="v-a-m"><span>GET,POST</span></td>
-
-                                                                            <td class="v-a-m">http://192.168.9.66:30002/gdgl/api</td>
-                                                                            <td class="v-a-m"><i class="m-l-0 fa fa-fw fa-circle text-success"></i> <span class="text-white m-r-1">运行中</span></td>
-                                                                            <td class="v-a-m">
-                                                                                <div class="btn-group" role="group" aria-label="...">
-                                                                                    <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="" data-original-title="详情"><i class="fa fa-bars"></i></button>
-                                                                                    <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="" data-original-title="日志"><i class="fa fa-book"></i></button>
-                                                                                </div>
-                                                                            </td>
-                                                                        </tr>
-
-                                                                        </tbody>
-                                                                    </table>
-                                                                </div>
-                                                                <!-- Timeline - END Content -->
-                                                            </div>
-                                                        </div>
-
-
-
-
-
+                                                        </template>
                                                     </div>
-
                                                 </div>
-
                                             </div>
                                         </div>
                                     </div>
@@ -484,13 +179,13 @@
             <!-- END EDIT CONTENT -->
 
         </div>
-
     </div>
-
     <!-- START Layout Options (Right Side) -->
     <div class="layout-options">
-        <button type="button" class="btn btn-primary action-toggle-layout-options" data-toggle="tooltip" data-placement="left" title="Show/Hide Layout settings"><i class="fa fa-gear"></i></button>
-        <button type="button" class="btn btn-primary action-toggle-layout-options disabled" data-toggle="tooltip" data-placement="left" title="Layout settings disabled on this page"><i class="fa fa-gear"></i></button>
+        <button type="button" class="btn btn-primary action-toggle-layout-options" data-toggle="tooltip"
+                data-placement="left" title="Show/Hide Layout settings"><i class="fa fa-gear"></i></button>
+        <button type="button" class="btn btn-primary action-toggle-layout-options disabled" data-toggle="tooltip"
+                data-placement="left" title="Layout settings disabled on this page"><i class="fa fa-gear"></i></button>
 
         <div class="panel panel-default">
 
@@ -505,25 +200,21 @@
                     </li>
                 </ul>
                 <!-- END Tabs: Options | Skins -->
-
                 <!-- START Tabs Content: Options & Skins -->
                 <div class="tab-content p-t-2">
                     <!-- START Tab Options -->
                     <div class="tab-pane fade in active p-r-1" id="tab-options" role="tabpanel">
                         <!-- START: Navbar options v2-->
-
-
                         <p class="small text-uppercase"><strong>Navbar Options</strong></p>
-
                         <label class="checkbox-inline">
-                            <input type="checkbox" id="layout-navbar-enabled" class="group-switch" checked="checked" data-target-body-class="navbar-disabled" data-direction="disabled"> Show/Hide
+                            <input type="checkbox" id="layout-navbar-enabled" class="group-switch" checked="checked"
+                                   data-target-body-class="navbar-disabled" data-direction="disabled"> Show/Hide
                         </label>
 
                         <label class="checkbox-inline">
-                            <input type="checkbox" id="layout-navbar-fixed" data-target-body-class="navbar-fixed" data-direction="enabled"> Fixed
+                            <input type="checkbox" id="layout-navbar-fixed" data-target-body-class="navbar-fixed"
+                                   data-direction="enabled"> Fixed
                         </label>
-
-
                         <!-- END: Navbar options v2-->
 
                         <!-- START: SubNavbar options -->
@@ -534,7 +225,9 @@
 
                             <div class="checkbox">
                                 <label>
-                                    <input type="checkbox" id="layout-subnavbar-enabled" class="group-switch" checked="checked" data-target-body-class="sub-navbar-disabled" data-direction="disabled"> Show/Hide
+                                    <input type="checkbox" id="layout-subnavbar-enabled" class="group-switch"
+                                           checked="checked" data-target-body-class="sub-navbar-disabled"
+                                           data-direction="disabled"> Show/Hide
                                 </label>
                             </div>
                         </div>
@@ -551,7 +244,9 @@
 
                             <div class="checkbox">
                                 <label>
-                                    <input type="checkbox" id="layout-sidebar-enabled" class="group-switch" checked="checked" data-target-body-class="sidebar-disabled" data-direction="disabled"> Show/Hide
+                                    <input type="checkbox" id="layout-sidebar-enabled" class="group-switch"
+                                           checked="checked" data-target-body-class="sidebar-disabled"
+                                           data-direction="disabled"> Show/Hide
                                 </label>
                             </div>
 
@@ -564,11 +259,14 @@
 
                             <div class="input-group p-t-1">
                                 <label for="layout-sidebar-fixed" class="checkbox-inline">
-                                    <input type="checkbox" id="layout-sidebar-fixed" data-target-body-class="sidebar-fixed" data-direction="enabled"> Fixed
+                                    <input type="checkbox" id="layout-sidebar-fixed"
+                                           data-target-body-class="sidebar-fixed"
+                                           data-direction="enabled"> Fixed
                                 </label>
 
                                 <label for="layout-sidebar-full-height" class="checkbox-inline">
-                                    <input type="checkbox" id="layout-sidebar-full-height" data-target-body-class="sidebar-full-height" data-direction="enabled"> Aside
+                                    <input type="checkbox" id="layout-sidebar-full-height"
+                                           data-target-body-class="sidebar-full-height" data-direction="enabled"> Aside
                                 </label>
                             </div>
 
@@ -589,11 +287,13 @@
                             <p class="small text-uppercase m-t-3"><strong>Footer Options</strong></p>
 
                             <label for="layout-footer-enabled" class="checkbox-inline">
-                                <input type="checkbox" id="layout-footer-enabled" class="group-switch" checked="checked" data-target-body-class="footer-disabled" data-direction="disabled"> Show/Hide
+                                <input type="checkbox" id="layout-footer-enabled" class="group-switch" checked="checked"
+                                       data-target-body-class="footer-disabled" data-direction="disabled"> Show/Hide
                             </label>
 
                             <label for="layout-footer-fixed" class="checkbox-inline">
-                                <input type="checkbox" id="layout-footer-fixed" data-target-body-class="footer-fixed" data-direction="enabled"> Fixed
+                                <input type="checkbox" id="layout-footer-fixed" data-target-body-class="footer-fixed"
+                                       data-direction="enabled"> Fixed
                             </label>
                         </div>
                         <!-- END: Footer Options -->
@@ -606,7 +306,8 @@
 
                         <div class="radio">
                             <label>
-                                <input type="radio" name="mainColor" id="main-color-primary" value="primary" checked="checked">
+                                <input type="radio" name="mainColor" id="main-color-primary" value="primary"
+                                       checked="checked">
                                 Primary
                             </label>
                             <i class="fa fa-circle pull-right text-primary"></i>
@@ -660,7 +361,8 @@
 
                         <div class="radio">
                             <label>
-                                <input type="radio" name="navbarStyle" id="navbar-style-dark" value="inverse" checked="checked">
+                                <input type="radio" name="navbarStyle" id="navbar-style-dark" value="inverse"
+                                       checked="checked">
                                 Dark
                             </label>
                         </div>
@@ -680,7 +382,8 @@
                         <p class="small text-uppercase m-t-2"><strong>Sidebar</strong></p>
                         <div class="radio">
                             <label>
-                                <input type="radio" name="sidebarStyle" id="sidebar-style-dark" value="dark" checked="checked">
+                                <input type="radio" name="sidebarStyle" id="sidebar-style-dark" value="dark"
+                                       checked="checked">
                                 Dark
                             </label>
                         </div>
@@ -702,7 +405,8 @@
                 </div>
             </div>
             <div class="panel-footer">
-                <button type="button" class="btn btn-default btn-block action-reset-layout-options">Reset Options</button>
+                <button type="button" class="btn btn-default btn-block action-reset-layout-options">Reset Options
+                </button>
             </div>
         </div>
     </div>
@@ -729,19 +433,23 @@
                         </li>
                         <!-- Tab: Statisticts -->
                         <li role="presentation">
-                            <a data-toggle="tab" href="#tab-statistics" role="tab"><span class="fa fa-area-chart"></span></a>
+                            <a data-toggle="tab" href="#tab-statistics" role="tab"><span
+                                    class="fa fa-area-chart"></span></a>
                         </li>
                         <!-- Tab: Users -->
                         <li role="presentation">
-                            <a data-toggle="tab" href="#right-sidebar-users" role="tab"><span class="fa fa-users"></span></a>
+                            <a data-toggle="tab" href="#right-sidebar-users" role="tab"><span
+                                    class="fa fa-users"></span></a>
                         </li>
                         <!-- Tab: Timeline -->
                         <li role="presentation">
-                            <a data-toggle="tab" href="#right-sidebar-timeline" role="tab"><span class="fa fa-list"></span></a>
+                            <a data-toggle="tab" href="#right-sidebar-timeline" role="tab"><span
+                                    class="fa fa-list"></span></a>
                         </li>
                         <!-- Tab: Settings -->
                         <li role="presentation">
-                            <a data-toggle="tab" href="#right-sidebar-settings" role="tab"><span class="fa fa-gear"></span></a>
+                            <a data-toggle="tab" href="#right-sidebar-settings" role="tab"><span
+                                    class="fa fa-gear"></span></a>
                         </li>
                     </ul>
                     <!-- END Tabs -->
@@ -816,16 +524,28 @@
                                         <div class="media">
                                             <div class="media-left media-middle">
                                                 <a href="../apps/email-details.html">
-                                                    <div class="avatar"> <img class="media-object img-circle" src="https://s3.amazonaws.com/uifaces/faces/twitter/salleedesign/128.jpg" alt="Avatar"><i class="avatar-status avatar-status-bottom bg-success b-gray-darker"></i> </div>
+                                                    <div class="avatar"><img class="media-object img-circle"
+                                                                             src="https://s3.amazonaws.com/uifaces/faces/twitter/salleedesign/128.jpg"
+                                                                             alt="Avatar"><i
+                                                            class="avatar-status avatar-status-bottom bg-success b-gray-darker"></i>
+                                                    </div>
                                                 </a>
                                             </div>
                                             <div class="media-body media-auto">
-                                                <h5 class="m-b-0"><span>Kamryn Quigley</span> <small><span>03:47</span></small></h5>
+                                                <h5 class="m-b-0"><span>Kamryn Quigley</span>
+                                                    <small><span>03:47</span></small>
+                                                </h5>
                                                 <p class="m-t-0 m-b-0"><span>Iure voluptates quis.</span></p>
                                                 <div class="btn-group" role="group">
-                                                    <a role="button" class="btn btn-link btn-xs" href="../apps/email-details.html"><i class="fa fa-reply text-gray-light"></i></a>
-                                                    <a role="button" class="btn btn-link btn-xs" href="../apps/email-details.html"><i class="fa fa-archive text-gray-light"></i></a>
-                                                    <a role="button" class="btn btn-link btn-xs" href="../apps/email-details.html"><i class="fa fa-trash text-gray-light"></i></a>
+                                                    <a role="button" class="btn btn-link btn-xs"
+                                                       href="../apps/email-details.html"><i
+                                                            class="fa fa-reply text-gray-light"></i></a>
+                                                    <a role="button" class="btn btn-link btn-xs"
+                                                       href="../apps/email-details.html"><i
+                                                            class="fa fa-archive text-gray-light"></i></a>
+                                                    <a role="button" class="btn btn-link btn-xs"
+                                                       href="../apps/email-details.html"><i
+                                                            class="fa fa-trash text-gray-light"></i></a>
                                                 </div>
                                             </div>
                                         </div>
@@ -836,16 +556,28 @@
                                         <div class="media">
                                             <div class="media-left media-middle">
                                                 <a href="../apps/email-details.html">
-                                                    <div class="avatar"> <img class="media-object img-circle" src="https://s3.amazonaws.com/uifaces/faces/twitter/creartinc/128.jpg" alt="Avatar"><i class="avatar-status avatar-status-bottom bg-danger b-gray-darker"></i> </div>
+                                                    <div class="avatar"><img class="media-object img-circle"
+                                                                             src="https://s3.amazonaws.com/uifaces/faces/twitter/creartinc/128.jpg"
+                                                                             alt="Avatar"><i
+                                                            class="avatar-status avatar-status-bottom bg-danger b-gray-darker"></i>
+                                                    </div>
                                                 </a>
                                             </div>
                                             <div class="media-body media-auto">
-                                                <h5 class="m-b-0"><span>Rory Crist</span> <small><span>11:16</span></small></h5>
+                                                <h5 class="m-b-0"><span>Rory Crist</span>
+                                                    <small><span>11:16</span></small>
+                                                </h5>
                                                 <p class="m-t-0 m-b-0"><span>Enim quis dolor ratione.</span></p>
                                                 <div class="btn-group" role="group">
-                                                    <a role="button" class="btn btn-link btn-xs" href="../apps/email-details.html"><i class="fa fa-reply text-gray-light"></i></a>
-                                                    <a role="button" class="btn btn-link btn-xs" href="../apps/email-details.html"><i class="fa fa-archive text-gray-light"></i></a>
-                                                    <a role="button" class="btn btn-link btn-xs" href="../apps/email-details.html"><i class="fa fa-trash text-gray-light"></i></a>
+                                                    <a role="button" class="btn btn-link btn-xs"
+                                                       href="../apps/email-details.html"><i
+                                                            class="fa fa-reply text-gray-light"></i></a>
+                                                    <a role="button" class="btn btn-link btn-xs"
+                                                       href="../apps/email-details.html"><i
+                                                            class="fa fa-archive text-gray-light"></i></a>
+                                                    <a role="button" class="btn btn-link btn-xs"
+                                                       href="../apps/email-details.html"><i
+                                                            class="fa fa-trash text-gray-light"></i></a>
                                                 </div>
                                             </div>
                                         </div>
@@ -857,16 +589,29 @@
                                         <div class="media">
                                             <div class="media-left media-middle">
                                                 <a href="../apps/email-details.html">
-                                                    <div class="avatar"> <img class="media-object img-circle" src="https://s3.amazonaws.com/uifaces/faces/twitter/steynviljoen/128.jpg" alt="Avatar"><i class="avatar-status avatar-status-bottom bg-warning b-gray-darker"></i> </div>
+                                                    <div class="avatar"><img class="media-object img-circle"
+                                                                             src="https://s3.amazonaws.com/uifaces/faces/twitter/steynviljoen/128.jpg"
+                                                                             alt="Avatar"><i
+                                                            class="avatar-status avatar-status-bottom bg-warning b-gray-darker"></i>
+                                                    </div>
                                                 </a>
                                             </div>
                                             <div class="media-body media-auto">
-                                                <h5 class="m-b-0"><span>Jarred Mitchell</span> <small><span>07:02</span></small></h5>
-                                                <p class="m-t-0 m-b-0"><span>Non nihil et animi quaerat totam.</span></p>
+                                                <h5 class="m-b-0"><span>Jarred Mitchell</span>
+                                                    <small><span>07:02</span></small>
+                                                </h5>
+                                                <p class="m-t-0 m-b-0"><span>Non nihil et animi quaerat totam.</span>
+                                                </p>
                                                 <div class="btn-group" role="group">
-                                                    <a role="button" class="btn btn-link btn-xs" href="../apps/email-details.html"><i class="fa fa-reply text-gray-light"></i></a>
-                                                    <a role="button" class="btn btn-link btn-xs" href="../apps/email-details.html"><i class="fa fa-archive text-gray-light"></i></a>
-                                                    <a role="button" class="btn btn-link btn-xs" href="../apps/email-details.html"><i class="fa fa-trash text-gray-light"></i></a>
+                                                    <a role="button" class="btn btn-link btn-xs"
+                                                       href="../apps/email-details.html"><i
+                                                            class="fa fa-reply text-gray-light"></i></a>
+                                                    <a role="button" class="btn btn-link btn-xs"
+                                                       href="../apps/email-details.html"><i
+                                                            class="fa fa-archive text-gray-light"></i></a>
+                                                    <a role="button" class="btn btn-link btn-xs"
+                                                       href="../apps/email-details.html"><i
+                                                            class="fa fa-trash text-gray-light"></i></a>
                                                 </div>
                                             </div>
                                         </div>
@@ -895,7 +640,8 @@
                                             <label>
                                                 <input type="checkbox" value="">
                                                 <a href="../apps/tasks-details.html"><span>Try to calculate the RAM circuit, maybe it will copy the digital system!</span></a>
-                                                <span class="m-t-1 small"><i class="fa fa-history small text-gray-light"></i> <span>30-Mar-2016, 08:40</span> </span>
+                                                <span class="m-t-1 small"><i
+                                                        class="fa fa-history small text-gray-light"></i> <span>30-Mar-2016, 08:40</span> </span>
                                             </label>
                                         </div>
                                     </td>
@@ -905,8 +651,10 @@
                                         <div class="checkbox">
                                             <label>
                                                 <input type="checkbox" value="" checked="checked">
-                                                <del> <a href="../apps/tasks-details.html" class="text-muted"><span>We need to hack the wireless TCP system!</span></a></del>
-                                                <span class="m-t-1 small"><i class="fa fa-history small text-gray-light"></i> <span>07-Aug-2013, 06:44</span> </span>
+                                                <del><a href="../apps/tasks-details.html" class="text-muted"><span>We need to hack the wireless TCP system!</span></a>
+                                                </del>
+                                                <span class="m-t-1 small"><i
+                                                        class="fa fa-history small text-gray-light"></i> <span>07-Aug-2013, 06:44</span> </span>
                                             </label>
                                         </div>
                                     </td>
@@ -916,8 +664,10 @@
                                         <div class="checkbox">
                                             <label>
                                                 <input type="checkbox" value="" checked="checked">
-                                                <del> <a href="../apps/tasks-details.html" class="text-muted"><span>The AI panel is down, navigate the virtual sensor so we can back up the ADP driver!</span></a></del>
-                                                <span class="m-t-1 small"><i class="fa fa-history small text-gray-light"></i> <span>11-Jan-2013, 09:21</span> </span>
+                                                <del><a href="../apps/tasks-details.html" class="text-muted"><span>The AI panel is down, navigate the virtual sensor so we can back up the ADP driver!</span></a>
+                                                </del>
+                                                <span class="m-t-1 small"><i
+                                                        class="fa fa-history small text-gray-light"></i> <span>11-Jan-2013, 09:21</span> </span>
                                             </label>
                                         </div>
                                     </td>
@@ -964,8 +714,10 @@
                             <!-- START Network -->
                             <p class="small text-center text-uppercase m-t-2"><strong>Network</strong></p>
                             <p class="text-nowrap text-center m-t-0">
-                                <span class="text-white small">21 KB/s</span> <i class="fa fa-level-down text-primary m-r-2"></i>
-                                <i class="fa fa-level-up text-primary"></i> <span class="text-white small">89 KB/s</span>
+                                <span class="text-white small">21 KB/s</span> <i
+                                    class="fa fa-level-down text-primary m-r-2"></i>
+                                <i class="fa fa-level-up text-primary"></i> <span
+                                    class="text-white small">89 KB/s</span>
                             </p>
                             <!-- END Network -->
                             <!-- START Table: System -->
@@ -979,23 +731,23 @@
                                 </thead>
                                 <tbody>
                                 <tr class="small v-a-m">
-                                    <td> Disabled </td>
+                                    <td> Disabled</td>
                                     <td class="text-right v-a-m text-white">1:36</td>
                                 </tr>
                                 <tr class="small v-a-m">
-                                    <td> Processing </td>
+                                    <td> Processing</td>
                                     <td class="text-right v-a-m text-white"><span>52247</span></td>
                                 </tr>
                                 <tr class="small v-a-m">
-                                    <td> CPU User </td>
+                                    <td> CPU User</td>
                                     <td class="text-right v-a-m text-white">16%</td>
                                 </tr>
                                 <tr class="small v-a-m">
-                                    <td> CPU System </td>
+                                    <td> CPU System</td>
                                     <td class="text-right v-a-m text-white">19%</td>
                                 </tr>
                                 <tr class="small v-a-m">
-                                    <td> CPU Free </td>
+                                    <td> CPU Free</td>
                                     <td class="text-right v-a-m text-white">78%</td>
                                 </tr>
                                 </tbody>
@@ -1021,7 +773,8 @@
                                 </tr>
                                 <tr class="small v-a-m">
                                     <td>MAC</td>
-                                    <td class="text-right v-a-m text-white"><samp><span>c2:55:4b:2f:c3:e1</span></samp></td>
+                                    <td class="text-right v-a-m text-white"><samp><span>c2:55:4b:2f:c3:e1</span></samp>
+                                    </td>
                                 </tr>
                                 <tr class="small v-a-m">
                                     <td>
@@ -1045,38 +798,49 @@
                             <!-- START Widget - Usage -->
                             <ul class="list-group b-a-0 m-t-3">
                                 <li class="list-group-item">
-                                    <i class="fa fa-hdd-o small m-r-1"></i> <span class="text-uppercase small m-t-0"><strong>Macintosh</strong> <span class="pull-right text-right text-white"><span>452.00</span></span>
+                                    <i class="fa fa-hdd-o small m-r-1"></i> <span
+                                        class="text-uppercase small m-t-0"><strong>Macintosh</strong> <span
+                                        class="pull-right text-right text-white"><span>452.00</span></span>
                                 </span>
                                     <div class="progress b-r-a-0 m-t-1 m-b-1 h-3">
                                         <div class="progress-bar" role="progressbar" style="width: 60%">
                                             <span class="sr-only">60% Complete</span>
                                         </div>
                                     </div>
-                                    <span class="text-uppercase small m-t-0"><strong class="text-white"><span>620.00 GB</span></strong>
+                                    <span class="text-uppercase small m-t-0"><strong
+                                            class="text-white"><span>620.00 GB</span></strong>
                                     <span class="small"> / 524.00 GB</span></span>
                                 </li>
                                 <li class="list-group-item">
-                                    <i class="fa fa-hdd-o small m-r-1"></i> <span class="text-uppercase small m-t-2"><strong>Windows</strong>
+                                    <i class="fa fa-hdd-o small m-r-1"></i> <span
+                                        class="text-uppercase small m-t-2"><strong>Windows</strong>
                                     <span class="pull-right text-right text-white"><span>190.00</span></span>
                                 </span>
                                     <div class="progress b-r-a-0 m-t-1 m-b-1 h-3">
-                                        <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 90%">
+                                        <div class="progress-bar progress-bar-danger" role="progressbar"
+                                             aria-valuenow="60"
+                                             aria-valuemin="0" aria-valuemax="100" style="width: 90%">
                                             <span class="sr-only">60% Complete</span>
                                         </div>
                                     </div>
-                                    <span class="text-uppercase small m-t-0"><strong class="text-white"><span>930.00 GB</span></strong>
+                                    <span class="text-uppercase small m-t-0"><strong
+                                            class="text-white"><span>930.00 GB</span></strong>
                                     <span class="small"> / 120.00 GB</span></span>
                                 </li>
                                 <li class="list-group-item">
-                                    <i class="fa fa-hdd-o small m-r-1"></i> <span class="text-uppercase small m-t-2"><strong>Linux</strong>
+                                    <i class="fa fa-hdd-o small m-r-1"></i> <span
+                                        class="text-uppercase small m-t-2"><strong>Linux</strong>
                                     <span class="pull-right text-right text-white"><span>360.00</span></span>
                                 </span>
                                     <div class="progress b-r-a-0 m-t-1 m-b-1 h-3">
-                                        <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 20%">
+                                        <div class="progress-bar progress-bar-info" role="progressbar"
+                                             aria-valuenow="60"
+                                             aria-valuemin="0" aria-valuemax="100" style="width: 20%">
                                             <span class="sr-only">60% Complete</span>
                                         </div>
                                     </div>
-                                    <span class="text-uppercase small m-t-0"><strong class="text-white"><span>489.00 GB</span></strong>
+                                    <span class="text-uppercase small m-t-0"><strong
+                                            class="text-white"><span>489.00 GB</span></strong>
                                     <span class="small"> / 572.00 GB</span></span>
                                 </li>
                             </ul>
@@ -1091,7 +855,8 @@
                             <div class="input-group">
                                 <input type="text" class="form-control" placeholder="Search for...">
                                 <span class="input-group-btn">
-                                <button class="btn btn-primary" type="button"><i class="fa fa-fw fa-search"></i></button>
+                                <button class="btn btn-primary" type="button"><i
+                                        class="fa fa-fw fa-search"></i></button>
                             </span>
                             </div>
                             <!-- END Search Input -->
@@ -1111,13 +876,16 @@
                                             <div class="media">
                                                 <div class="media-left media-middle">
                                                     <div class="avatar avatar-image avatar-sm">
-                                                        <img class="media-object img-circle" src="https://s3.amazonaws.com/uifaces/faces/twitter/joshuaraichur/128.jpg" alt="Avatar">
+                                                        <img class="media-object img-circle"
+                                                             src="https://s3.amazonaws.com/uifaces/faces/twitter/joshuaraichur/128.jpg"
+                                                             alt="Avatar">
                                                         <i class="avatar-status avatar-status-bottom bg-success b-brand-gray-darker"></i>
                                                     </div>
                                                 </div>
                                                 <div class="media-body">
                                                     <h5 class="m-t-0 m-b-0"><span>Norwood Collier</span></h5>
-                                                    <p class="small text-muted m-b-0"><span>Principal Tactics Director</span></p>
+                                                    <p class="small text-muted m-b-0">
+                                                        <span>Principal Tactics Director</span></p>
                                                 </div>
                                                 <div class="media-right media-middle">
                                                     <span class="badge">4</span>
@@ -1133,13 +901,16 @@
                                             <div class="media">
                                                 <div class="media-left media-middle">
                                                     <div class="avatar avatar-image avatar-sm">
-                                                        <img class="media-object img-circle" src="https://s3.amazonaws.com/uifaces/faces/twitter/murrayswift/128.jpg" alt="Avatar">
+                                                        <img class="media-object img-circle"
+                                                             src="https://s3.amazonaws.com/uifaces/faces/twitter/murrayswift/128.jpg"
+                                                             alt="Avatar">
                                                         <i class="avatar-status avatar-status-bottom bg-success b-brand-gray-darker"></i>
                                                     </div>
                                                 </div>
                                                 <div class="media-body">
                                                     <h5 class="m-t-0 m-b-0"><span>Syble Thompson</span></h5>
-                                                    <p class="small text-gray-lighter m-b-0"><span>Dynamic Interactions Specialist</span></p>
+                                                    <p class="small text-gray-lighter m-b-0"><span>Dynamic Interactions Specialist</span>
+                                                    </p>
                                                 </div>
 
                                                 <div class="media-right media-middle">
@@ -1157,13 +928,16 @@
                                             <div class="media">
                                                 <div class="media-left media-middle">
                                                     <div class="avatar avatar-image avatar-sm">
-                                                        <img class="media-object img-circle" src="https://s3.amazonaws.com/uifaces/faces/twitter/jerrybai1907/128.jpg" alt="Avatar">
+                                                        <img class="media-object img-circle"
+                                                             src="https://s3.amazonaws.com/uifaces/faces/twitter/jerrybai1907/128.jpg"
+                                                             alt="Avatar">
                                                         <i class="avatar-status avatar-status-bottom bg-success b-brand-gray-darker"></i>
                                                     </div>
                                                 </div>
                                                 <div class="media-body">
                                                     <h5 class="m-t-0 m-b-0"><span>Randy Wilkinson</span></h5>
-                                                    <p class="small text-gray-lighter m-b-0"><span>Lead Creative Architect</span></p>
+                                                    <p class="small text-gray-lighter m-b-0">
+                                                        <span>Lead Creative Architect</span></p>
                                                 </div>
 
                                                 <div class="media-right media-middle">
@@ -1186,13 +960,16 @@
                                             <div class="media">
                                                 <div class="media-left media-middle">
                                                     <div class="avatar avatar-image avatar-sm">
-                                                        <img class="media-object img-circle" src="https://s3.amazonaws.com/uifaces/faces/twitter/buzzusborne/128.jpg" alt="Avatar">
+                                                        <img class="media-object img-circle"
+                                                             src="https://s3.amazonaws.com/uifaces/faces/twitter/buzzusborne/128.jpg"
+                                                             alt="Avatar">
                                                         <i class="avatar-status avatar-status-bottom bg-danger b-brand-gray-darker"></i>
                                                     </div>
                                                 </div>
                                                 <div class="media-body">
                                                     <h5 class="m-t-0 m-b-0"><span>Michael Jacobson</span></h5>
-                                                    <p class="small text-muted m-b-0"><span>International Program Facilitator</span></p>
+                                                    <p class="small text-muted m-b-0"><span>International Program Facilitator</span>
+                                                    </p>
                                                 </div>
 
                                                 <div class="media-right media-middle">
@@ -1210,13 +987,16 @@
                                             <div class="media">
                                                 <div class="media-left media-middle">
                                                     <div class="avatar avatar-image avatar-sm">
-                                                        <img class="media-object img-circle" src="https://s3.amazonaws.com/uifaces/faces/twitter/mgonto/128.jpg" alt="Avatar">
+                                                        <img class="media-object img-circle"
+                                                             src="https://s3.amazonaws.com/uifaces/faces/twitter/mgonto/128.jpg"
+                                                             alt="Avatar">
                                                         <i class="avatar-status avatar-status-bottom bg-danger b-brand-gray-darker"></i>
                                                     </div>
                                                 </div>
                                                 <div class="media-body">
                                                     <h5 class="m-t-0 m-b-0"><span>Selmer Grady</span></h5>
-                                                    <p class="small text-muted m-b-0"><span>Dynamic Accountability Executive</span></p>
+                                                    <p class="small text-muted m-b-0">
+                                                        <span>Dynamic Accountability Executive</span></p>
                                                 </div>
 
                                                 <div class="media-right media-middle">
@@ -1234,13 +1014,16 @@
                                             <div class="media">
                                                 <div class="media-left media-middle">
                                                     <div class="avatar avatar-image avatar-sm">
-                                                        <img class="media-object img-circle" src="https://s3.amazonaws.com/uifaces/faces/twitter/commadelimited/128.jpg" alt="Avatar">
+                                                        <img class="media-object img-circle"
+                                                             src="https://s3.amazonaws.com/uifaces/faces/twitter/commadelimited/128.jpg"
+                                                             alt="Avatar">
                                                         <i class="avatar-status avatar-status-bottom bg-danger b-brand-gray-darker"></i>
                                                     </div>
                                                 </div>
                                                 <div class="media-body">
                                                     <h5 class="m-t-0 m-b-0"><span>Mia Gulgowski</span></h5>
-                                                    <p class="small text-muted m-b-0"><span>Dynamic Optimization Strategist</span></p>
+                                                    <p class="small text-muted m-b-0">
+                                                        <span>Dynamic Optimization Strategist</span></p>
                                                 </div>
 
                                                 <div class="media-right media-middle">
@@ -1262,13 +1045,16 @@
                                             <div class="media">
                                                 <div class="media-left media-middle">
                                                     <div class="avatar avatar-image avatar-sm">
-                                                        <img class="media-object img-circle" src="https://s3.amazonaws.com/uifaces/faces/twitter/akmalfikri/128.jpg" alt="Avatar">
+                                                        <img class="media-object img-circle"
+                                                             src="https://s3.amazonaws.com/uifaces/faces/twitter/akmalfikri/128.jpg"
+                                                             alt="Avatar">
                                                         <i class="avatar-status avatar-status-bottom bg-warning b-brand-gray-darker"></i>
                                                     </div>
                                                 </div>
                                                 <div class="media-body">
                                                     <h5 class="m-t-0 m-b-0"><span>Aaliyah Watsica</span></h5>
-                                                    <p class="small text-muted m-b-0"><span>Central Division Specialist</span></p>
+                                                    <p class="small text-muted m-b-0">
+                                                        <span>Central Division Specialist</span></p>
                                                 </div>
 
                                                 <div class="media-right media-middle">
@@ -1286,13 +1072,16 @@
                                             <div class="media">
                                                 <div class="media-left media-middle">
                                                     <div class="avatar avatar-image avatar-sm">
-                                                        <img class="media-object img-circle" src="https://s3.amazonaws.com/uifaces/faces/twitter/n3dmax/128.jpg" alt="Avatar">
+                                                        <img class="media-object img-circle"
+                                                             src="https://s3.amazonaws.com/uifaces/faces/twitter/n3dmax/128.jpg"
+                                                             alt="Avatar">
                                                         <i class="avatar-status avatar-status-bottom bg-warning b-brand-gray-darker"></i>
                                                     </div>
                                                 </div>
                                                 <div class="media-body">
                                                     <h5 class="m-t-0 m-b-0"><span>Cedrick Brekke</span></h5>
-                                                    <p class="small text-muted m-b-0"><span>Global Applications Administrator</span></p>
+                                                    <p class="small text-muted m-b-0"><span>Global Applications Administrator</span>
+                                                    </p>
                                                 </div>
 
                                                 <div class="media-right media-middle">
@@ -1310,13 +1099,16 @@
                                             <div class="media">
                                                 <div class="media-left media-middle">
                                                     <div class="avatar avatar-image avatar-sm">
-                                                        <img class="media-object img-circle" src="https://s3.amazonaws.com/uifaces/faces/twitter/michalhron/128.jpg" alt="Avatar">
+                                                        <img class="media-object img-circle"
+                                                             src="https://s3.amazonaws.com/uifaces/faces/twitter/michalhron/128.jpg"
+                                                             alt="Avatar">
                                                         <i class="avatar-status avatar-status-bottom bg-warning b-brand-gray-darker"></i>
                                                     </div>
                                                 </div>
                                                 <div class="media-body">
                                                     <h5 class="m-t-0 m-b-0"><span>Craig Larson</span></h5>
-                                                    <p class="small text-muted m-b-0"><span>Lead Integration Strategist</span></p>
+                                                    <p class="small text-muted m-b-0">
+                                                        <span>Lead Integration Strategist</span></p>
                                                 </div>
 
                                                 <div class="media-right media-middle">
@@ -1338,13 +1130,17 @@
                                             <div class="media">
                                                 <div class="media-left media-middle">
                                                     <div class="avatar avatar-image avatar-sm">
-                                                        <img class="media-object img-circle" src="https://s3.amazonaws.com/uifaces/faces/twitter/okseanjay/128.jpg" alt="Avatar">
+                                                        <img class="media-object img-circle"
+                                                             src="https://s3.amazonaws.com/uifaces/faces/twitter/okseanjay/128.jpg"
+                                                             alt="Avatar">
                                                         <i class="avatar-status avatar-status-bottom bg-gray-lighter b-brand-gray-darker"></i>
                                                     </div>
                                                 </div>
                                                 <div class="media-body">
                                                     <h5 class="m-t-0 m-b-0"><span>Lorenz Bahringer</span></h5>
-                                                    <p class="small text-muted m-b-0"><span>Product Factors Producer</span></p>
+                                                    <p class="small text-muted m-b-0">
+                                                        <span>Product Factors Producer</span>
+                                                    </p>
                                                 </div>
 
                                                 <div class="media-right media-middle">
@@ -1362,13 +1158,17 @@
                                             <div class="media">
                                                 <div class="media-left media-middle">
                                                     <div class="avatar avatar-image avatar-sm">
-                                                        <img class="media-object img-circle" src="https://s3.amazonaws.com/uifaces/faces/twitter/ddggccaa/128.jpg" alt="Avatar">
+                                                        <img class="media-object img-circle"
+                                                             src="https://s3.amazonaws.com/uifaces/faces/twitter/ddggccaa/128.jpg"
+                                                             alt="Avatar">
                                                         <i class="avatar-status avatar-status-bottom bg-gray-lighter b-brand-gray-darker"></i>
                                                     </div>
                                                 </div>
                                                 <div class="media-body">
                                                     <h5 class="m-t-0 m-b-0"><span>Russel Conroy</span></h5>
-                                                    <p class="small text-muted m-b-0"><span>Product Paradigm Planner</span></p>
+                                                    <p class="small text-muted m-b-0">
+                                                        <span>Product Paradigm Planner</span>
+                                                    </p>
                                                 </div>
 
                                                 <div class="media-right media-middle">
@@ -1386,13 +1186,17 @@
                                             <div class="media">
                                                 <div class="media-left media-middle">
                                                     <div class="avatar avatar-image avatar-sm">
-                                                        <img class="media-object img-circle" src="https://s3.amazonaws.com/uifaces/faces/twitter/themadray/128.jpg" alt="Avatar">
+                                                        <img class="media-object img-circle"
+                                                             src="https://s3.amazonaws.com/uifaces/faces/twitter/themadray/128.jpg"
+                                                             alt="Avatar">
                                                         <i class="avatar-status avatar-status-bottom bg-gray-lighter b-brand-gray-darker"></i>
                                                     </div>
                                                 </div>
                                                 <div class="media-body">
                                                     <h5 class="m-t-0 m-b-0"><span>Lura Smith</span></h5>
-                                                    <p class="small text-muted m-b-0"><span>Corporate Group Associate</span></p>
+                                                    <p class="small text-muted m-b-0">
+                                                        <span>Corporate Group Associate</span>
+                                                    </p>
                                                 </div>
 
                                                 <div class="media-right media-middle">
@@ -1414,9 +1218,12 @@
                                 <div class="panel panel-default m-t-3">
                                     <div class="panel-heading">
                                         <div class="row">
-                                            <div class="col-xs-3"><a class="extra-content-close small" href="javascript:void(0);"><i class="fa fa-fw fa-chevron-left"></i></a></div>
+                                            <div class="col-xs-3"><a class="extra-content-close small"
+                                                                     href="javascript:void(0);"><i
+                                                    class="fa fa-fw fa-chevron-left"></i></a></div>
                                             <div class="col-xs-6 text-center"><span>G. Glover</span></div>
-                                            <div class="col-xs-3 text-right"><a href="#" class="text-gray-lighter"><i class="fa fa-fw fa-circle text-success"></i></a></div>
+                                            <div class="col-xs-3 text-right"><a href="#" class="text-gray-lighter"><i
+                                                    class="fa fa-fw fa-circle text-success"></i></a></div>
                                         </div>
                                     </div>
 
@@ -1426,7 +1233,9 @@
                                         <div class="media">
                                             <div class="media-left">
                                                 <div class="avatar avatar-image avatar-sm">
-                                                    <img class="media-object img-circle" src="https://s3.amazonaws.com/uifaces/faces/twitter/charliegann/128.jpg" alt="Avatar">
+                                                    <img class="media-object img-circle"
+                                                         src="https://s3.amazonaws.com/uifaces/faces/twitter/charliegann/128.jpg"
+                                                         alt="Avatar">
                                                     <i class="avatar-status avatar-status-bottom bg-warning b-brand-gray-darker"></i>
                                                 </div>
                                             </div>
@@ -1436,7 +1245,9 @@
                                                         <span>Aut sit sint ex porro asperiores et aperiam omnis.</span>
                                                     </div>
                                                 </div>
-                                                <h6 class="m-t-1"><span>Guy Skiles</span>   <small><span> 04:19</span></small></h6>
+                                                <h6 class="m-t-1"><span>Guy Skiles</span>
+                                                    <small><span> 04:19</span></small>
+                                                </h6>
                                             </div>
                                         </div>
                                         <!-- END Left Chat -->
@@ -1449,11 +1260,14 @@
                                                         <span>Officiis unde enim ad.</span>
                                                     </div>
                                                 </div>
-                                                <h6 class="m-t-1"><span>Robert Bruen</span>   <small><span> 07:60</span></small></h6>
+                                                <h6 class="m-t-1"><span>Robert Bruen</span>
+                                                    <small><span> 07:60</span></small>
+                                                </h6>
                                             </div>
                                             <div class="media-right">
                                                 <div class="avatar avatar-image avatar-sm">
-                                                    <img class="media-object img-circle" alt="Avatar" src="https://s3.amazonaws.com/uifaces/faces/twitter/jerrybai1907/128.jpg">
+                                                    <img class="media-object img-circle" alt="Avatar"
+                                                         src="https://s3.amazonaws.com/uifaces/faces/twitter/jerrybai1907/128.jpg">
                                                     <i class="avatar-status avatar-status-bottom bg-danger b-brand-gray-darker"></i>
                                                 </div>
                                             </div>
@@ -1464,7 +1278,9 @@
                                         <div class="media">
                                             <div class="media-left">
                                                 <div class="avatar avatar-image avatar-sm">
-                                                    <img class="media-object img-circle" src="https://s3.amazonaws.com/uifaces/faces/twitter/woodydotmx/128.jpg" alt="Avatar">
+                                                    <img class="media-object img-circle"
+                                                         src="https://s3.amazonaws.com/uifaces/faces/twitter/woodydotmx/128.jpg"
+                                                         alt="Avatar">
                                                     <i class="avatar-status avatar-status-bottom bg-success b-brand-gray-darker"></i>
                                                 </div>
                                             </div>
@@ -1474,7 +1290,9 @@
                                                         <span>Et eum voluptatum consequatur doloribus amet sunt corporis. Iusto voluptatem esse et voluptatibus aut. Vero fugit voluptatibus enim sed aut. Dolorum in non quo amet. Numquam rerum recusandae vel delectus consequatur in quisquam.</span>
                                                     </div>
                                                 </div>
-                                                <h6 class="m-t-1"><span>Violette Lehner</span>   <small><span>09:42</span></small></h6>
+                                                <h6 class="m-t-1"><span>Violette Lehner</span>
+                                                    <small><span>09:42</span></small>
+                                                </h6>
                                             </div>
                                         </div>
                                         <!-- END Left Chat -->
@@ -1487,11 +1305,14 @@
                                                         <span>Voluptates dolorem minus odio.</span>
                                                     </div>
                                                 </div>
-                                                <h6 class="m-t-1"><span>Pasquale Lind</span>   <small><span> 10:52</span></small></h6>
+                                                <h6 class="m-t-1"><span>Pasquale Lind</span>
+                                                    <small><span> 10:52</span></small>
+                                                </h6>
                                             </div>
                                             <div class="media-right">
                                                 <div class="avatar avatar-image avatar-sm">
-                                                    <img class="media-object img-circle" alt="Avatar" src="https://s3.amazonaws.com/uifaces/faces/twitter/kijanmaharjan/128.jpg">
+                                                    <img class="media-object img-circle" alt="Avatar"
+                                                         src="https://s3.amazonaws.com/uifaces/faces/twitter/kijanmaharjan/128.jpg">
                                                     <i class="avatar-status avatar-status-bottom bg-danger b-brand-gray-darker"></i>
                                                 </div>
                                             </div>
@@ -1530,25 +1351,29 @@
 
                             <div class="row m-b-1">
                                 <div class="col-sm-6"><span class="text-white">Notifications</span></div>
-                                <div class="col-sm-6 text-right"> <input type="checkbox" class="js-switch-small" checked="checked"></div>
+                                <div class="col-sm-6 text-right"><input type="checkbox" class="js-switch-small"
+                                                                        checked="checked"></div>
                             </div>
                             <p class="m-b-2">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
 
                             <div class="row m-b-1">
                                 <div class="col-sm-6"><span class="text-white">Activity</span></div>
-                                <div class="col-sm-6 text-right"><input type="checkbox" class="js-switch-small-primary" checked="checked"></div>
+                                <div class="col-sm-6 text-right"><input type="checkbox" class="js-switch-small-primary"
+                                                                        checked="checked"></div>
                             </div>
                             <p class="m-b-2">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
 
                             <div class="row m-b-1">
                                 <div class="col-sm-6"><span class="text-white">Statisticts</span></div>
-                                <div class="col-sm-6 text-right"><input type="checkbox" class="js-switch-small-warning" checked="checked"></div>
+                                <div class="col-sm-6 text-right"><input type="checkbox" class="js-switch-small-warning"
+                                                                        checked="checked"></div>
                             </div>
                             <p class="m-b-2">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
 
                             <div class="row m-b-1">
                                 <div class="col-sm-9"><span class="text-white">Settings for Responsive</span></div>
-                                <div class="col-sm-3 text-right"><input type="checkbox" class="js-switch-small-danger" checked="checked"></div>
+                                <div class="col-sm-3 text-right"><input type="checkbox" class="js-switch-small-danger"
+                                                                        checked="checked"></div>
                             </div>
                             <p class="m-b-2">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
 
@@ -1583,7 +1408,8 @@
 
                                                 <span class="label label-danger label-outline">Alert</span>
                                                 <br>
-                                                <p class="text-white m-t-1"><span>I&apos;ll hack the bluetooth TCP driver, that should circuit the EXE panel!</span></p>
+                                                <p class="text-white m-t-1"><span>I&apos;ll hack the bluetooth TCP driver, that should circuit the EXE panel!</span>
+                                                </p>
                                                 <p class="text-nowrap small"><span>21-Nov-2015, 02:08</span>
                                                 </p>
                                             </div>
@@ -1614,7 +1440,8 @@
 
                                                 <span class="label label-warning label-outline">Warning</span>
                                                 <br>
-                                                <p class="text-white m-t-1"><span>If we generate the driver, we can get to the SSL pixel through the digital PNG system!</span></p>
+                                                <p class="text-white m-t-1"><span>If we generate the driver, we can get to the SSL pixel through the digital PNG system!</span>
+                                                </p>
                                                 <p class="text-nowrap small"><span>21-Jan-2016, 03:20</span>
                                                 </p>
                                             </div>
@@ -1686,12 +1513,24 @@
                                                 <p class="text-nowrap small"><span>28-Sep-2013, 04:41</span>
                                                 </p>
                                                 <div class="m-b-1">
-                                                    <img class="img-circle avatar avatar-sm" src="https://s3.amazonaws.com/uifaces/faces/twitter/lvovenok/128.jpg" alt="Avatar">
-                                                    <img class="img-circle avatar avatar-sm" src="https://s3.amazonaws.com/uifaces/faces/twitter/louis_currie/128.jpg" alt="Avatar">
-                                                    <img class="img-circle avatar avatar-sm" src="https://s3.amazonaws.com/uifaces/faces/twitter/bergmartin/128.jpg" alt="Avatar">
-                                                    <img class="img-circle avatar avatar-sm" src="https://s3.amazonaws.com/uifaces/faces/twitter/manekenthe/128.jpg" alt="Avatar">
-                                                    <img class="img-circle avatar avatar-sm" src="https://s3.amazonaws.com/uifaces/faces/twitter/mhaligowski/128.jpg" alt="Avatar">
-                                                    <img class="img-circle avatar avatar-sm" src="https://s3.amazonaws.com/uifaces/faces/twitter/rpatey/128.jpg" alt="Avatar">
+                                                    <img class="img-circle avatar avatar-sm"
+                                                         src="https://s3.amazonaws.com/uifaces/faces/twitter/lvovenok/128.jpg"
+                                                         alt="Avatar">
+                                                    <img class="img-circle avatar avatar-sm"
+                                                         src="https://s3.amazonaws.com/uifaces/faces/twitter/louis_currie/128.jpg"
+                                                         alt="Avatar">
+                                                    <img class="img-circle avatar avatar-sm"
+                                                         src="https://s3.amazonaws.com/uifaces/faces/twitter/bergmartin/128.jpg"
+                                                         alt="Avatar">
+                                                    <img class="img-circle avatar avatar-sm"
+                                                         src="https://s3.amazonaws.com/uifaces/faces/twitter/manekenthe/128.jpg"
+                                                         alt="Avatar">
+                                                    <img class="img-circle avatar avatar-sm"
+                                                         src="https://s3.amazonaws.com/uifaces/faces/twitter/mhaligowski/128.jpg"
+                                                         alt="Avatar">
+                                                    <img class="img-circle avatar avatar-sm"
+                                                         src="https://s3.amazonaws.com/uifaces/faces/twitter/rpatey/128.jpg"
+                                                         alt="Avatar">
                                                 </div>
                                             </div>
                                         </div>
@@ -1725,7 +1564,8 @@
 
                                                 <span class="label label-success label-outline">Success</span>
                                                 <br>
-                                                <p class="text-white m-t-1"><span>If we transmit the card, we can get to the EXE transmitter through the wireless GB hard drive!</span></p>
+                                                <p class="text-white m-t-1"><span>If we transmit the card, we can get to the EXE transmitter through the wireless GB hard drive!</span>
+                                                </p>
                                                 <p class="text-nowrap small"><span>04-Feb-2011, 04:27</span>
                                                 </p>
 
@@ -1759,7 +1599,8 @@
 
                                                 <span class="label label-gray label-outline">Obsolete</span>
                                                 <br>
-                                                <del><p class="m-t-1"><span>The CSS program is down, copy the cross-platform system so we can index the SMS sensor!</span></p></del>
+                                                <del><p class="m-t-1"><span>The CSS program is down, copy the cross-platform system so we can index the SMS sensor!</span>
+                                                </p></del>
                                                 <p class="text-nowrap small"><span>23-Mar-2016, 06:10</span>
                                                 </p>
                                             </div>
@@ -1779,100 +1620,123 @@
         <!-- START Content Show in Full-Height -->
         <div class="right-sidebar-extra-content" id="chatpanel2">
             <a href="#" class="extra-content-close">Back</a>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Id, ipsa, rem. Accusantium autem blanditiis dolor ducimus earum eius eligendi, eos est exercitationem id illo in mollitia neque optio pariatur placeat quisquam recusandae reiciendis repellat reprehenderit. Amet at deleniti dicta distinctio dolorem eveniet hic id, iusto magnam maxime modi officiis perspiciatis porro praesentium quas, recusandae repudiandae rerum tempora totam unde velit voluptate, voluptatem. Alias consequatur consequuntur et nisi quibusdam quo quos ut. Asperiores commodi deserunt dicta dolor eligendi ex fugit, harum itaque laborum maiores mollitia nam nihil obcaecati officiis quae quis repellendus tenetur voluptate. Eos ratione saepe voluptatibus? Animi, illo magni!</p>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Id, ipsa, rem. Accusantium autem blanditiis
+                dolor
+                ducimus earum eius eligendi, eos est exercitationem id illo in mollitia neque optio pariatur placeat
+                quisquam recusandae reiciendis repellat reprehenderit. Amet at deleniti dicta distinctio dolorem eveniet
+                hic
+                id, iusto magnam maxime modi officiis perspiciatis porro praesentium quas, recusandae repudiandae rerum
+                tempora totam unde velit voluptate, voluptatem. Alias consequatur consequuntur et nisi quibusdam quo
+                quos
+                ut. Asperiores commodi deserunt dicta dolor eligendi ex fugit, harum itaque laborum maiores mollitia nam
+                nihil obcaecati officiis quae quis repellendus tenetur voluptate. Eos ratione saepe voluptatibus? Animi,
+                illo magni!</p>
         </div>
         <!-- END Content Show in Full-Height -->
-    <!-- START Footer -->
-    <footer>
-        <div class="container-fluid">
-            <p class="text-gray-dark">
-                <span class="text-gray-dark">&#xA9; 2012 - 2018. 贵州移动信息科技有限公司</span>
-            </p>
-        </div>
-    </footer>
-    <!-- END Footer -->
+        <!-- START Footer -->
+        <footer>
+            <div class="container-fluid">
+                <p class="text-gray-dark">
+                    <span class="text-gray-dark">&#xA9; 2012 - 2018. 贵州移动信息科技有限公司</span>
+                </p>
+            </div>
+        </footer>
+        <!-- END Footer -->
 
+    </div>
+
+
+    <div id="addNew" class="easyui-window"  >
+        <div class="easyui-layout" data-options="fit:true" style="overflow-x: hidden">
+            <div data-options="region:'center'" style="overflow-x: hidden">
+                <form id="colonyForm" class="form-horizontal form-bordered" role="form" method="post"
+                      enctype="multipart/form-data">
+                    <input type="hidden" id="id" name="id"/>
+                    <div class="form-group">
+                        <label for="resource_number" class="col-sm-2 control-label no-padding-right" style="width: 21%">接口名称:</label>
+                        <div class="col-sm-10" style="width: 79%">
+                            <input type="text" class="easyui-validatebox form-control" data-options="required:true"
+                                   name="resource_number" id="resource_number" placeholder="请输入接口名称" style="width:60%">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="resource_name" class="col-sm-2 control-label no-padding-right" style="width: 21%">URL:</label>
+                        <div class="col-sm-10" style="width: 79%">
+                            <input type="text" class="easyui-validatebox form-control" data-options="required:true"
+                                   name="resource_name" id="resource_name" placeholder="请输入URL" style="width:60%">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="resource_state" class="col-sm-2 control-label no-padding-right" style="width: 21%">请求方法:</label>
+                        <div class="col-sm-10" style="width: 79%">
+                            <input type="text" class="easyui-validatebox form-control" data-options="required:true"
+                                   name="resource_state" id="resource_state" placeholder="请输入请求方法逗号隔开"
+                                   style="width:60%">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="resource_apply" class="col-sm-2 control-label no-padding-right" style="width: 21%">UPSTREAM
+                            URL:</label>
+                        <div class="col-sm-10" style="width: 79%">
+                            <input type="text" class="easyui-validatebox form-control" data-options="required:true"
+                                   name="resource_apply" id="resource_apply" placeholder="请输入UPSTREAM URL"
+                                   style="width:60%">
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 </div>
 
-
-<script  type="text/javascript">
-    $(function(){
-
-        $.ajax({
-
-            url:'{{projcfg.appurl}}/../api/project/operation/apigataway/pageList',
-            data :{},
-            dataType : 'json',
-            type: 'get', //请求方式get，post
-            success : function(d) {
-
-                console.log(d);
-
-
-
-
+<script>
+    new Vue({
+        el: '#ApiManager',
+        delimiters: ['${', '}'],
+        data: {
+            apps: []
+        },
+        methods: {
+            add() {
+                $('#addNew').dialog('open');
             },
-            error: function(xhr, type, errorThrown) {
-
-                console.log(xhr)
+            breaking() {
+                $.messager.confirm({
+                    ok: '阻断',
+                    cancel: '取消',
+                    title: '流量阻断',
+                    msg: '是否将此IP的流量阻断?',
+                    fn: function(r) {
+                        if (r) {
+                            msgSuccess('已阻断该IP')
+                        }
+                    }
+                });
             }
+        },
+        mounted: function() {
+            $('#addNew').dialog({
+                title: 'My Dialog', modal: true, closed: true,
+                width:'600px',
+                height:'400px',
+                buttons: [
+                    {
+                        text: '新建',
+                        handler: function() {
 
-
-
-        });
-
-
-
+                        }
+                    }, {
+                        text: '关闭',
+                        handler: function() {
+                            $('#addNew').dialog('close');
+                        }
+                    }]
+            });
+            axios.get('/project/api/project/operation/apigataway/apis').then(({data}) => {
+                this.apps = data.data;
+            });
+        }
     });
-
-    function back_project(){
-        history.go(-1);
-    }
-
-    function doSearch() {
-        $('#projectDataTable').datagrid('reload');
-    }
-    function doClear() {
-        doSearch();
-    }
-
-    // 打开页面
-    function openPage(title, value, callback) {
-        $('#myModal').show();
-        $('#myModal').mydialog({
-            title:title,
-            width: 700,
-            height: 485,
-            top:100,
-            modal: true,
-            myButtons:[
-                {
-                    text:'确定',
-                    btnCls:'btn btn-blue',
-                    handler:function(){
-                        callback(value);
-                    }
-                },
-                {
-                    text:'关闭',
-                    btnCls:'btn btn-danger',
-                    handler:function(){
-                        closeDialog();
-                    }
-                }
-            ]
-        });
-    }
-
-    // 清空新增表单数据
-    function clear() {
-        $('#projectForm').form('clear');
-    }
-
-    // 关闭窗口
-    function closeDialog() {
-        $('#myModal').dialog('close');
-        clear();
-    }
-
 </script>
+
+
