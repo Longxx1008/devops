@@ -565,6 +565,7 @@
                     //资源
                     var host_name=data.data[0].hostname+"_"+data.data[0].host_ip;
                     var container_name=data.data[0].container_name;
+                    alert(host_name+"  "+container_name);
                     $("#docker_resource").attr("src","http://192.168.9.69:3000/dashboard/db/dockerdan-ge-rong-qi-jian-kong?orgId=1&var-host="+host_name+"&var-container_name="+container_name);
 
                 }else{
