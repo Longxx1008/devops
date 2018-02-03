@@ -126,8 +126,8 @@ exports.addContainer = function(service_id,app_id,cb) {
     };
 
     var sql = "insert  pass_project_container_info" +
-        "(app_id,micro_service_id,container_name,container_ip,host_ip,port,status,update_time)" +
-        " values('"+containerData.app_id+"','"+containerData.micro_service_id+"','"+containerData.container_name+"'" +
+        "(app_id,micro_service_id,hostname,container_name,container_ip,host_ip,port,status,update_time)" +
+        " values('"+containerData.app_id+"','"+containerData.micro_service_id+"','"+containerData.hostname+"','"+containerData.container_name+"'" +
         ",'"+containerData.container_ip+"','"+containerData.host_ip+"'," +
         "'"+containerData.port+"','"+containerData.status+"',now()) " ;
     console.log("新增容器 ====",sql);

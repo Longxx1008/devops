@@ -339,13 +339,13 @@
 
                             ' <button type="button" class="btn btn-dodger-blue" onclick="elastic('+arr[i].service_id+')">智能伸缩策略</button><button type="button" class="btn btn-minsk" onclick="gray('+arr[i].appId+',\''+arr[i].images_name+'\')">灰度环境发布</button></div></div>'+
                             '<div class="timeline-item-content m-t-1"><table id="container_'+arr[i].service_id+'" class="table table-striped"><thead><tr><th class="small text-muted text-uppercase"><strong>容器名称</strong></th>' +
-                            ' <th class="small text-muted text-uppercase"><strong>所属项目</strong></th><th class="small text-muted text-uppercase"><strong>运行环境</strong></th>' +
+                            '<th class="small text-muted text-uppercase"><strong>运行环境</strong></th>' +
                             ' <th class="small text-muted text-uppercase"><strong>状态</strong></th><th class="small text-muted text-uppercase"><strong>所属镜像</strong></th></tr></thead>' +
-                            '  <tbody><tr  style="cursor: pointer;" onclick="getGranfaContainerData('+arr[i].container_id+')" id="container_id_'+arr[i].container_id+'"><td class="v-a-m"><span class="text-white">'+arr[i].container_name+'</span></td><td class="v-a-m"><span class="text-white">'+arr[i].images_alias+'</span></td><td class="v-a-m"> <span>'+arr[i].host_ip+'</span></td>' +
+                            '  <tbody><tr  style="cursor: pointer;" onclick="getGranfaContainerData('+arr[i].container_id+')" id="container_id_'+arr[i].container_id+'"><td class="v-a-m"><span class="text-white">'+arr[i].container_name+'</span></td><td class="v-a-m"> <span>'+arr[i].host_ip+'</span></td>' +
                             '   <td class="v-a-m"><i class="m-l-0 fa fa-fw fa-circle '+setContStatusCss(arr[i].constatus)+'"></i> <span class="text-white m-r-1">'+setContStatus(arr[i].constatus)+'</span></td><td class="v-a-m">'+arr[i].images_name+':'+arr[i].images_version+'</td>' +
                             '  </tr>';
                 }else{
-                    divstr += '<tr onclick="getGranfaContainerData('+arr[i].container_id+')"  style="cursor: pointer;" id="container_id_'+arr[i].container_id+'"><td class="v-a-m"><span class="text-white">'+arr[i].container_name+'</span></td><td class="v-a-m"><span class="text-white">'+arr[i].images_alias+'</span></td><td class="v-a-m"> <span>'+arr[i].host_ip+'</span></td>' +
+                    divstr += '<tr onclick="getGranfaContainerData('+arr[i].container_id+')"  style="cursor: pointer;" id="container_id_'+arr[i].container_id+'"><td class="v-a-m"><span class="text-white">'+arr[i].container_name+'</span></td><td class="v-a-m"> <span>'+arr[i].host_ip+'</span></td>' +
                             '   <td class="v-a-m"><i class="m-l-0 fa fa-fw fa-circle '+setContStatusCss(arr[i].constatus)+'"></i> <span class="text-white m-r-1">'+setContStatus(arr[i].constatus)+'</span></td><td class="v-a-m">'+arr[i].images_name+':'+arr[i].images_version+'</td>' +
                             '    </tr>';
                 }
@@ -557,7 +557,9 @@
                     //资源
                     var host_name=data.data[0].hostname+"_"+data.data[0].host_ip;
                     var container_name=data.data[0].container_name;
-                    $("#docker_resource").attr("src","http://192.168.9.69:3000/dashboard/db/dockerdan-ge-rong-qi-jian-kong?orgId=1&var-host="+host_name+"&var-container_name="+container_name);
+                    window.setTimeout(function(){
+                        $("#docker_resource").attr("src","http://192.168.9.69:3000/dashboard/db/dockerdan-ge-rong-qi-jian-kong?orgId=1&var-host="+host_name+"&var-container_name="+container_name);
+                    },300);
 
                 }else{
                     msgError(data.msg+',错误代码:'+data.code);
