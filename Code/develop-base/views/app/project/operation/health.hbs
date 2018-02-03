@@ -20,7 +20,7 @@
         width: 8%;
         height: 13%;
     }
-    .imgS{
+    .imgS1{
         width: 50%;
         height: 60%;
     }
@@ -114,7 +114,9 @@
                 }
                 console.log("value",value,"rows",row,"index",index)
                 var a=""
-                if(value==0){
+                if(value=='0'
+
+                ){
 //                    value="应用异常"
                     a='<img src="{{projcfg.appurl}}/static/images/offnormal.png"'+'class="imgSize"'+'>';
                     a+='<a><span class="spanRed">异常</span></a>'
@@ -133,7 +135,7 @@
             field: 'sql',
             title: '数据库',
             formatter: function (value,row,index) {
-                console.log("value",value,"rows",row,"index",index)
+//                console.log("value",value,"rows",row,"index",index)
                 var a=""
                 if(value==0){
 //                    value="应用异常"
@@ -154,7 +156,7 @@
             field: 'middle',
             title: '中间件',
             formatter: function (value,row,index) {
-                console.log("value",value,"rows",row,"index",index)
+//                console.log("value",value,"rows",row,"index",index)
                 var a=""
                 if(value==0){
 //                    value="应用异常"
