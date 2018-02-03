@@ -5,14 +5,26 @@
 
 <style>
     .spanRed{
-        background: #ff6666;
+        /*background: #ff6666;*/
+        color: #9e0505;
     }
     .spanGreen{
-        background: #66cc33;
+        /*background: #66cc33;*/
+        color:#66cc33;
     }
     .spanGrey{
-        background: #9d9d9d;
+        /*background: #9d9d9d;*/
+        color: #9d9d9d;
     }
+    .imgSize{
+        width: 8%;
+        height: 13%;
+    }
+    .imgS{
+        width: 50%;
+        height: 60%;
+    }
+
     .table-bordered th,
     .table-bordered td {
         border: 2px solid rgba(174, 174, 174, 0.54) !important;
@@ -22,15 +34,6 @@
 <div style="margin-top: -20px;margin-left: 20px;margin-right: 30px">
     <div class="zhilian row">
         <div class="zhilian-top">健康检查</div>
-        <!--<div class="zhilian-top-right">-->
-            <!--<select class="select-top" id="select_app" name="select_app">-->
-                <!--<option value="volvo">全部</option>-->
-                <!--&lt;!&ndash;<option value="saab">Saab</option>&ndash;&gt;-->
-                <!--&lt;!&ndash;<option value="opel">Opel</option>&ndash;&gt;-->
-                <!--&lt;!&ndash;<option value="audi">Audi</option>&ndash;&gt;-->
-            <!--</select>-->
-            <!--<span  class="top-btn">查询</span>-->
-        <!--</div>-->
     </div>
     <div class="jiankan-content row">
         <div class="jiankan-content-left">
@@ -39,26 +42,21 @@
             <div class="jk-title" id="address" name="address">
                 <!--<span>外网地址：</span>117.187.12.236:10003-->
             </div>
-            <!--<div class="jk-title" id="container" name="container">-->
-                <!--&lt;!&ndash;运行容器：&nbsp;&nbsp;&nbsp;10个&ndash;&gt;-->
-            <!--</div>-->
         </div>
         <div class="jiankan-content-right">
-            <span class="right-img" id="img" name="img"></span>
-            <span class="right-name" id="normal" name="normal">正常</span>
+            <span id="imgs" name="imgs" style="padding: 0px;margin: 0px"></span>
+            <span class="right-name " style="margin: 0px;padding: 0px" id="normal" name="normal">正常</span>
         </div>
 
     </div>
 
-    <!--style="height:270px;overflow-y:auto"-->
     <div class="row">
-        <table id="table"  class="table table-bordered" style="color: #FFFFFF;margin-top: 10px;margin-left: 10px"></table>
+        <table id="table"  class="table table-bordered" style="color: #FFFFFF;margin-top: 10px;margin-left: 10px">
+
+        </table>
     </div>
 </div>
 <script>
-//    $(document).ready(function(){
-//           getAllMassage();
-//    });
 
 //接收页面传来的数据
 //    var searchData = window.location.href.split("=");
@@ -79,17 +77,21 @@
     });
 
     var app_normal=1;
-    $('#table').bootstrapTable({
+    var test=$('#table').bootstrapTable({
 
         url: '{{projcfg.appurl}}/api/project/operation/health',                      //请求后台的URL（*）
         method: 'get',                      //请求方式（*）
         striped: true,         //是否显示行间隔色
         pagination: true,                   //是否显示分页（*）
         sidePagination: "server",           //分页方式：client客户端分页，server服务端分页（*）
-        search: true,                      //是否显示表格搜索
+        search: false,                      //是否显示表格搜索
         strictSearch: true,
-        showColumns: true,                  //是否显示所有的列（选择显示的列）
-        showRefresh: true,                  //是否显示刷新按钮
+        showColumns: false,                  //是否显示所有的列（选择显示的列）
+        showRefresh: false,                  //是否显示刷新按钮
+//        responseHandler:function(res){
+//            console.log("testresponse",res);
+//
+//        },
         queryParams : function (params) {
             //这里的键的名字和控制器的变量名必须一直，这边改动，控制器也需要改成一样的
             var temp = {
@@ -103,73 +105,150 @@
             field: 'id',
             title: '编号'
         }, {
-            field: 'check_content',
-            title: '检查内容',
-            formatter: function(value,row,index) {
-//                console.log(row,"  ",index)
-                //通过判断单元格的值，来格式化单元格，返回的值即为格式化后包含的元素
-
-                var json = JSON.parse(value)
-                console.log("app",json.app)
-
-                console.log("index",index,"row",row)
-                if(index==0 && json.app==0){
+            field: 'app',
+            title: '应用',
+            formatter: function (value,row,index) {
+                if(index==0 && value==0){
                     console.log("index",index,"row",row)
                     app_normal=0;
                 }
-
-                if(json.app==0){
-                    json.app="应用异常"
-                    json.flag_a="spanRed";
-                }else if(json.app==-1){
-                    json.app="未采集"
-                    json.flag_a="spanGrey"
+                console.log("value",value,"rows",row,"index",index)
+                var a=""
+                if(value==0){
+//                    value="应用异常"
+                    a='<img src="{{projcfg.appurl}}/static/images/offnormal.png"'+'class="imgSize"'+'>';
+                    a+='<a><span class="spanRed">异常</span></a>'
+//                    json.flag_a="spanRed";
+                }else if(value==-1){
+//                    value="未采集"
+//                    json.flag_a="spanGrey"
                 }else{
-                    json.app="应用正常"
-                    json.flag_a="spanGreen"
+//                    value="应用正常"
+                    a='<img src="{{projcfg.appurl}}/static/images/normal.png"'+'class="imgSize"'+'>';
+                    a+='<a><span class="spanGreen">正常</span></a>'
                 }
-
-                if(json.sql==0){
-                    json.sql="数据库异常"
-                    json.flag_s="spanRed";
-                }else if(json.sql==-1){
-                    json.sql="未采集"
-                    json.flag_s="spanGrey"
-                } else{
-                    json.sql="数据库正常"
-                    json.flag_s="spanGreen";
-                }
-
-                if(json.middle==0){
-                    json.middle="中间件异常"
-                    json.flag_m="spanRed";
-                }else if(json.middle==-1){
-                    json.middle="未采集"
-                    json.flag_m="spanGrey";
-                } else{
-                    json.middle="中间件正常"
-                    json.flag_m="spanGreen";
-                }
-                console.log("json.flag_a",json.flag_a);
-//                $("#img").removeClass(json.flag_a);
-                if(app_normal==0){
-                    $("#img").addClass('spanRed');
-//                    $("#img").css("background","#ff66666");
-                    $("#normal").text("异常");
-                }else {
-                    $("#img").css("background","#66cc33");
-                    $("#normal").text("正常");
-                }
-                value=json;
-
-                var a = "";
-                a="<span class="+"\""+value.flag_a+"\""+">"+value.app+"</span>";
-                a+="<span class="+"\""+value.flag_s+"\""+">"+value.sql+"</span>";
-                a+="<span class="+"\""+value.flag_m+"\""+">"+value.middle+"</span>";
-
                 return a;
             }
         }, {
+            field: 'sql',
+            title: '数据库',
+            formatter: function (value,row,index) {
+                console.log("value",value,"rows",row,"index",index)
+                var a=""
+                if(value==0){
+//                    value="应用异常"
+                    a='<img src="{{projcfg.appurl}}/static/images/offnormal.png"'+'class="imgSize"'+'>';
+                    a+='<a><span class="spanRed">异常</span></a>'
+//                    json.flag_a="spanRed";
+                }else if(value==-1){
+//                    value="未采集"
+//                    json.flag_a="spanGrey"
+                }else{
+//                    value="应用正常"
+                    a='<img src="{{projcfg.appurl}}/static/images/normal.png"'+'class="imgSize"'+'>';
+                    a+='<a><span class="spanGreen">正常</span></a>'
+                }
+                return a;
+            }
+        }, {
+            field: 'middle',
+            title: '中间件',
+            formatter: function (value,row,index) {
+                console.log("value",value,"rows",row,"index",index)
+                var a=""
+                if(value==0){
+//                    value="应用异常"
+                    a='<img src="{{projcfg.appurl}}/static/images/offnormal.png"'+'class="imgSize"'+'>';
+                    a+='<a><span class="spanRed">异常</span></a>'
+//                    json.flag_a="spanRed";
+                }else if(value==-1){
+//                    value="未采集"
+//                    json.flag_a="spanGrey"
+                }else{
+//                    value="应用正常"
+                    a='<img src="{{projcfg.appurl}}/static/images/normal.png"'+'class="imgSize"'+'>';
+                    a+='<a><span class="spanGreen">正常</span></a>'
+                }
+                return a;
+            }
+        },
+// {
+//            field: 'check_content',
+//            title: '检查内容'
+//            formatter: function(value,row,index) {
+////                console.log(row,"  ",index)
+//                //通过判断单元格的值，来格式化单元格，返回的值即为格式化后包含的元素
+//
+//                var json = JSON.parse(value)
+//                console.log("app",json.app)
+//
+//                console.log("index",index,"row",row)
+//                if(index==0 && json.app==0){
+//                    console.log("index",index,"row",row)
+//                    app_normal=0;
+//                }
+//
+//                if(json.app==0){
+//                    json.app="应用异常"
+//                    json.flag_a="spanRed";
+//                }else if(json.app==-1){
+//                    json.app="未采集"
+//                    json.flag_a="spanGrey"
+//                }else{
+//                    json.app="应用正常"
+//                    json.flag_a="spanGreen"
+//                }
+//
+//                if(json.sql==0){
+//                    json.sql="数据库异常"
+//                    json.flag_s="spanRed";
+//                }else if(json.sql==-1){
+//                    json.sql="未采集"
+//                    json.flag_s="spanGrey"
+//                } else{
+//                    json.sql="数据库正常"
+//                    json.flag_s="spanGreen";
+//                }
+//
+//                if(json.middle==0){
+//                    json.middle="中间件异常"
+//                    json.flag_m="spanRed";
+//                }else if(json.middle==-1){
+//                    json.middle="未采集"
+//                    json.flag_m="spanGrey";
+//                } else{
+//                    json.middle="中间件正常"
+//                    json.flag_m="spanGreen";
+//                }
+//                console.log("json.flag_a",json.flag_a);
+////                $("#img").removeClass(json.flag_a);
+//                if(app_normal==0){
+//                    $("#img").addClass('spanRed');
+////                    $("#img").css("background","#ff66666");
+//                    $("#normal").text("异常");
+//                }else {
+//                    $("#img").css("background","#66cc33");
+//                    $("#normal").text("正常");
+//                }
+//                value=json;
+//
+//
+////                var a = "";
+////                a='<button class="btn btn-default"'+">"+"<a class="+"\""+value.flag_a+"\""+">"+value.app+"</a>"+"</button>";
+////                a+="<button class="+"btn btn-default"+">"+"<a class="+"\""+value.flag_s+"\""+">"+value.sql+"</a>"+"</button>";
+////                a+="<button class="+"btn btn-default"+">"+"<a class="+"\""+value.flag_m+"\""+">"+value.middle+"</a>"+"</button>";
+//
+//
+////                var a = "";
+////                a='<span class="fa fa-book '+ value.flag_a+'">'+value.app+'</span>';
+////                a+="<span class="+value.flag_s+">"+value.sql+"</span>";
+////                a+="<span class="+value.flag_m+">"+value.middle+"</span>";
+//
+//
+//                return a;
+//            }
+//        },
+            {
             field: 'check_time',
             title: '检查时间',
             formatter: function (value,row,index) {
@@ -177,10 +256,36 @@
 
             }
         }],
+        onLoadSuccess:function(data){
+            console.log("saddd",data.rows);
+            if(data.rows[0].app==0){
+                var a='<img src="{{projcfg.appurl}}/static/images/offnormal.png"'+'class="imgS"'+'>';
+//            a+='<a><span class="spanGreen">正常</span></a>'
+                $("#imgs").append(a);
+                $("#normal").text("异常");
+            }else {
+                var a='<img src="{{projcfg.appurl}}/static/images/normal.png"'+'class="imgS"'+'>';
+//            a+='<a><span class="spanGreen">正常</span></a>'
+                $("#imgs").append(a);
+                $("#normal").text("正常");
+            }
+
+        }
 
     });
 
 
+//var dataModel=$('#table').bootstrapTable('getRowByUniqueId', 0);
+//console.log("dataModel",test);
+
+if(app_normal==0){
+//                    $("#img").addClass('spanRed');
+    $("#img").css("background","#ff66666");
+    $("#normal").text("异常");
+}else {
+    $("#img").css("background","#66cc33");
+    $("#normal").text("正常");
+}
 //基本信息查询
 $.ajax({
     url: '{{projcfg.appurl}}/api/project/operation/health/'+serial_number,
