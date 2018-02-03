@@ -235,6 +235,10 @@
         }
         getAppdetail(appid);
         getMicroService(appid);
+        setInterval(function(){
+          getMicroService(appid);
+        },5000)
+
 
     });
 
@@ -294,6 +298,7 @@
                 if(data.success){
                     /* $("ul li[id]").remove();*/
                     console.log(data.data);
+                    $("#sertable tbody").empty();
                     var rows = setTableRow(data.data);
                     $("#sertable tbody").append(rows);
                 }else{
