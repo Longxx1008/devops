@@ -1,3 +1,16 @@
+<style>
+    .hdx_error {
+        color: #be5158;
+    }
+
+    .hdx_success {
+        color: #1c9127;
+    }
+
+    a {
+        text-decoration: none;
+    }
+</style>
 <div id="ApiManager">
     <div class="main-wrap">
         <div class="container-fluid">
@@ -25,7 +38,7 @@
                                                      aria-labelledby="profile-tab">
                                                     <div class="timeline timeline-datetime">
                                                         <!-- Timeline - Badge Date -->
-                                                        <template v-for="index of apps">
+                                                        <template v-for="(index,index2) of apps">
                                                             <div class="timeline-date">
                                                                 <span class="badge">应用名称：${index.appName}</span>
                                                             </div>
@@ -38,7 +51,7 @@
                                                                     <!-- Timeline - Icon  -->
                                                                     <div class="timeline-item-head clearfix">
                                                                         <button type="button"
-                                                                                @click="add"
+                                                                                @click="add(index2)"
                                                                                 id="dd"
                                                                                 class="btn btn-default"
                                                                                 data-toggle="tooltip"
@@ -95,10 +108,9 @@
                                                                                 <td class="v-a-m">
                                                                                     ${i.upStream}
                                                                                 </td>
-                                                                                <td class="v-a-m"><i
-                                                                                        class="m-l-0 fa fa-fw fa-circle text-success"></i>
-                                                                                    <span class="text-white m-r-1">运行中</span>
-                                                                                </td>
+                                                                                <td class="v-a-m">
+                                                                                    <i :class="['m-l-0','fa', 'fa-fw', i.status?'fa-circle text-success':'fa-ban text-danger']"></i>
+                                                                                    <span class="text-white m-r-1">${i.status?'运行中':'已停止'}</span></td>
                                                                                 <td class="v-a-m">
                                                                                     <div class="btn-group" role="group"
                                                                                          aria-label="...">
@@ -107,11 +119,11 @@
                                                                                                 data-toggle="tooltip"
                                                                                                 data-placement="top"
                                                                                                 title=""
-                                                                                                @click="breaking"
+                                                                                                @click="breaking(i,item,$event)"
                                                                                                 data-original-title="流量阻断">
-                                                                                            <i
-                                                                                                    class="fa fa-bars">
-                                                                                                流量阻断</i>
+                                                                                            <a href="javascript:void(0)">
+                                                                                                <i :class="[!i.status ? 'fa-ban hdx_error' : 'fa-bars', 'fa']">
+                                                                                                    ${!i.status?'已阻断':'流量阻断'}</i></a>
                                                                                         </button>
                                                                                         <button type="button"
                                                                                                 class="btn btn-default"
@@ -141,16 +153,18 @@
                                                                                                 data-placement="top"
                                                                                                 title=""
                                                                                                 data-original-title="安全管控">
-                                                                                            <i class="fa fa-leaf">
-                                                                                                请求跟踪</i>
+
+                                                                                            <a href="{{projcfg.appurl}}/requesttracking"><i
+                                                                                                    class="hdx_success fa fa-leaf">请求跟踪</i></a>
                                                                                         </button>
                                                                                         <button type="button"
                                                                                                 class="btn btn-default"
                                                                                                 data-toggle="tooltip"
                                                                                                 data-placement="top"
                                                                                                 title=""
+                                                                                                @click="index.apis.splice(item,1)"
                                                                                                 data-original-title="安全管控">
-                                                                                            <i class="fa fa-delete">
+                                                                                            <i class="hdx_error fa fa-trash">
                                                                                                 删除接口</i>
                                                                                         </button>
                                                                                     </div>
@@ -1646,7 +1660,7 @@
     </div>
 
 
-    <div id="addNew" class="easyui-window"  >
+    <div id="addNew" class="easyui-window">
         <div class="easyui-layout" data-options="fit:true" style="overflow-x: hidden">
             <div data-options="region:'center'" style="overflow-x: hidden">
                 <form id="colonyForm" class="form-horizontal form-bordered" role="form" method="post"
@@ -1655,21 +1669,24 @@
                     <div class="form-group">
                         <label for="resource_number" class="col-sm-2 control-label no-padding-right" style="width: 21%">接口名称:</label>
                         <div class="col-sm-10" style="width: 79%">
-                            <input type="text" class="easyui-validatebox form-control" data-options="required:true"
+                            <input v-model="newData.apiName" type="text" class="easyui-validatebox form-control"
+                                   data-options="required:true"
                                    name="resource_number" id="resource_number" placeholder="请输入接口名称" style="width:60%">
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="resource_name" class="col-sm-2 control-label no-padding-right" style="width: 21%">URL:</label>
                         <div class="col-sm-10" style="width: 79%">
-                            <input type="text" class="easyui-validatebox form-control" data-options="required:true"
+                            <input v-model="newData.apiUrl" type="text" class="easyui-validatebox form-control"
+                                   data-options="required:true"
                                    name="resource_name" id="resource_name" placeholder="请输入URL" style="width:60%">
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="resource_state" class="col-sm-2 control-label no-padding-right" style="width: 21%">请求方法:</label>
                         <div class="col-sm-10" style="width: 79%">
-                            <input type="text" class="easyui-validatebox form-control" data-options="required:true"
+                            <input v-model="newData.apiMethods" type="text" class="easyui-validatebox form-control"
+                                   data-options="required:true"
                                    name="resource_state" id="resource_state" placeholder="请输入请求方法逗号隔开"
                                    style="width:60%">
                         </div>
@@ -1678,7 +1695,8 @@
                         <label for="resource_apply" class="col-sm-2 control-label no-padding-right" style="width: 21%">UPSTREAM
                             URL:</label>
                         <div class="col-sm-10" style="width: 79%">
-                            <input type="text" class="easyui-validatebox form-control" data-options="required:true"
+                            <input v-model="newData.upStream" type="text" class="easyui-validatebox form-control"
+                                   data-options="required:true"
                                    name="resource_apply" id="resource_apply" placeholder="请输入UPSTREAM URL"
                                    style="width:60%">
                         </div>
@@ -1694,36 +1712,69 @@
         el: '#ApiManager',
         delimiters: ['${', '}'],
         data: {
-            apps: []
+            apps: [],
+            index: -1,
+            newData: {
+                apiName: '',
+                apiUrl: '',
+                apiMethods: '',
+                upStream: '',
+                status: true
+            }
         },
         methods: {
-            add() {
+            add(i) {
+                this.index = i;
                 $('#addNew').dialog('open');
             },
-            breaking() {
-                $.messager.confirm({
+            breaking(i, index, $event) {
+                !i.status ? $.messager.confirm({
+                    ok: '取消阻断',
+                    cancel: '取消',
+                    title: '流量阻断',
+                    msg: '是否改变此IP阻断状态?',
+                    fn: function(r) {
+                        if (r) {
+                            i.status = !i.status;
+                            // this.apps.splice(index, 1, i);
+                            // msgSuccess('已阻断该IP')
+                        }
+                    }
+                }) : $.messager.confirm({
                     ok: '阻断',
                     cancel: '取消',
                     title: '流量阻断',
-                    msg: '是否将此IP的流量阻断?',
+                    msg: '是否改变此IP阻断状态?',
                     fn: function(r) {
                         if (r) {
-                            msgSuccess('已阻断该IP')
+                            i.status = !i.status;
+                            // this.apps.splice(index, 1, i);
+                            // msgSuccess('已阻断该IP')
                         }
                     }
                 });
             }
         },
         mounted: function() {
+            var _this = this;
             $('#addNew').dialog({
-                title: 'My Dialog', modal: true, closed: true,
-                width:'600px',
-                height:'400px',
+                title: '新增接口', modal: true, closed: true,
+                width: '600px',
+                height: '400px',
                 buttons: [
                     {
                         text: '新建',
                         handler: function() {
-
+                            _this.newData.apiMethods=_this.newData.apiMethods.split(',')
+                            _this.apps[_this.index].apis.push(_this.newData);
+                            _this.newData = {
+                                apiName: '',
+                                apiUrl: '',
+                                apiMethods: '',
+                                upStream: '',
+                                status: true,
+                            };
+                            $('#addNew').dialog('close');
                         }
                     }, {
                         text: '关闭',

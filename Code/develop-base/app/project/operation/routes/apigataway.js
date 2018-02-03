@@ -85,7 +85,35 @@ router.route('/:id')
 
 router.route('/apis')
     .get((req, res) => {//获取所有 应用加 api
-      res.json({
+      let {type}=req.query
+      if (type == 1) {
+        return res.json({
+          data:[
+            {
+              limitType: '210.223.233.23',
+              target: '210.244.23.1',
+              reqLimit: '100次/秒',
+              limitSize: '200kb',
+              status: true
+            },{
+              limitType: '210.223.240.23',
+              target: '230.132.231.2',
+              reqLimit: '100次/分',
+              limitSize: '100kb',
+              status: true
+            }
+          ]
+        });
+      } else if(type==2) {
+        return res.json({data:[{
+          userName: '小明',
+          token: 'sadasdasdakjhksjhlfkjhfkajhf',
+          group: 'dev',
+          msg:'',
+          status: true,
+        }]});
+      }
+      return res.json({
         data: [
           {
             appName: '应用决策分析',
@@ -93,9 +121,15 @@ router.route('/apis')
               {
                 apiName: '获取用户信息',
                 apiUrl: '/jcUsers',
-                apiMethods: ['GET','POST'],
+                apiMethods: ['GET', 'POST'],
                 upStream: '/api',
-                status: 1
+                status: true,
+              }, {
+                apiName: '获取用户信息',
+                apiUrl: '/jcUsers',
+                apiMethods: ['GET', 'POST'],
+                upStream: '/api',
+                status: true,
               }]
           },
           {
@@ -104,9 +138,15 @@ router.route('/apis')
               {
                 apiName: '获取统计信息',
                 apiUrl: '/ydnStatics',
-                apiMethods: ['GET','POST'],
+                apiMethods: ['GET', 'POST'],
                 upStream: '/api',
-                status: 1
+                status: true,
+              }, {
+                apiName: '获取统计信息',
+                apiUrl: '/ydnStatics',
+                apiMethods: ['GET', 'POST'],
+                upStream: '/api',
+                status: true,
               }]
           },
           {
@@ -115,12 +155,12 @@ router.route('/apis')
               {
                 apiName: '获取工单信息',
                 apiUrl: '/gdOrders',
-                apiMethods: ['GET','POST','DELETE'],
+                apiMethods: ['GET', 'POST', 'DELETE'],
                 upStream: '/api',
-                status: 1
+                status: false,
               }]
-          },
-          ], success: true
+          }
+        ], success: true
       });
 
     });
