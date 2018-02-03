@@ -261,12 +261,12 @@
             if(data.rows[0].app==0){
                 var a='<img src="{{projcfg.appurl}}/static/images/offnormal.png"'+'class="imgS"'+'>';
 //            a+='<a><span class="spanGreen">正常</span></a>'
-                $("#imgs").append(a);
+                $("#imgs").html(a);
                 $("#normal").text("异常");
             }else {
                 var a='<img src="{{projcfg.appurl}}/static/images/normal.png"'+'class="imgS"'+'>';
 //            a+='<a><span class="spanGreen">正常</span></a>'
-                $("#imgs").append(a);
+                $("#imgs").html(a);
                 $("#normal").text("正常");
             }
 
