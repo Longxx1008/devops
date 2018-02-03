@@ -25,6 +25,7 @@ router.route('/getDetailByNumber').get(function(req,res){
         for (var i=0;i<result.total;i++){
             requestDetailService.getDetailMsgByNumber(result.rows[i].micro_service_id,conditionMap.serial_number,function(result1){
                 if(list[j]=result1){
+                    console.log("!!!"+result1.rows[0].host_ip)
                     var totalTime=0;
                     var totalStatus="正常";
                     for(var k=0;k<result1.total;k++){
