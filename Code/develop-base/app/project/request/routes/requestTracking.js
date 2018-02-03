@@ -17,6 +17,23 @@ router.route('/pageList').get(function(req,res){
 
     var page = req.query.page;
     var length = req.query.rows;
+    var statusType=req.query.statusType;
+
+    var conditionMap = {};
+
+    requestTrackingService.pageList(page, length, statusType,conditionMap,function(result){
+
+        utils.respJsonData(res, result);
+    });
+});
+
+
+
+router.route('/pageListByStatus').get(function(req,res){
+
+    var page = req.query.page;
+    var length = req.query.rows;
+
 
     var conditionMap = {};
 
