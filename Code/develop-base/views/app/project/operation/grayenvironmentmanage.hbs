@@ -130,10 +130,13 @@
                 $("#progress").css("width","100%");
                 $('.deploy-state div:eq(2)').removeClass('d-cancel').addClass('deploy-antime');
                 $("#tt3").html("["+new Date().toLocaleString()+"]   [INFO]:版本更新成功");
-                $.messager.confirm("项目部署完成！","点击确认完成部署",function () {
-                    $('.d-step-2').hide();
-                    $('.d-step-3').show();
-                })
+                setTimeout(function(){
+                    $.messager.confirm("项目部署完成！","点击确认完成部署",function () {
+                        $('.d-step-2').hide();
+                        $('.d-step-3').show();
+                    })
+                },2000);
+
             }
             if(num==4){
                 all=1;
@@ -174,10 +177,12 @@
             $('.d-step-2').show();
         });
         $('.all-deploy').click(function () {
-            $.messager.confirm("项目部署完成！","点击确认完成部署",function () {
-                $('.d-step-2').hide();
-                $('.d-step-3').show();
-            })
+            setTimeout(function(){
+                $.messager.confirm("项目部署完成！","点击确认完成部署",function () {
+                    $('.d-step-2').hide();
+                    $('.d-step-3').show();
+                })
+            },2000);
             $("#td1").html($("#cc").val());
             $("#td2").html($("#cc").val());
             $("#td3").html($("#cc").val());
