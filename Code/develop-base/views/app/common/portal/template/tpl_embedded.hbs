@@ -4,8 +4,32 @@
             <div class="widget-body">
                 <div id="cc" class="easyui-layout" data-options="fit:true,border:false" style="width: 800px; height:575px;background-color: #fbfbfb;">
                     <div data-options="region:'center',border:false" style="overflow-x:hidden;overflow-y:hidden">
-                        <table id="dataTable">
+                        <table class="" id="dataTable" style="height: 300px;font-size: 16px;">
+                            <thead>
+
+                            <tr>
+                                <th class="small text-muted text-uppercase" style="width: 20%"><strong>应用名称</strong>
+                                </th>
+                                <th class="small text-muted text-uppercase" style="width: 10%"><strong>应用编号</strong>
+                                </th>
+                                <th class="small text-muted text-uppercase" style="width: 30%"><strong>访问地址</strong>
+                                </th>
+                                <th class="small text-muted text-uppercase" style="width: 20%"><strong>部署时间</strong>
+                                </th>
+                                <th class="small text-muted text-uppercase" style="width: 10%;"><strong>开发人员</strong>
+                                </th>
+                                <th class="small text-muted text-uppercase" style="width: 10%"><strong>状态</strong>
+                                </th>
+                                <th class="small text-muted text-uppercase" style="width: 20%"><strong>操作</strong>
+                                </th>
+                            </tr>
+                            </thead>
+                            <tbody>
+
+
+                            </tbody>
                         </table>
+
                     </div>
                 </div>
             </div>
@@ -62,7 +86,16 @@
 </style>
 <script  type="text/javascript">
     $(function(){
-        $('#dataTable').datagrid({
+        $.ajax({
+            url:'{{projcfg.appurl}}/api/project/dpm/project/develop/pm/deploy',
+            method:'get',
+            success:function(data){
+                console.log(data);
+                for(let j in data.data)
+                $('#dataTable').append("<tr><td>"+data.data[j].app_name+"</td><td>"+data.data[j].ename+"</td><td>"+data.data[j].vist_url+"</td><td>"+new Date(data.data[j].update_time).toLocaleString()+"</td><td>"+data.data[j].project_manager+"</td><td><span class=\"label label-success\" style=\"height:26px;line-height:16px;font-weight:600;margin-top: 0.5rem;margin-left: 0.5rem;\">正常</span></td><td><span onclick='detailPage("+data.data[j].id+")' class=\"label label-info\" style=\"height:26px;line-height:16px;font-weight:600;margin-top: 0.5rem;margin-left: 0.5rem;cursor: pointer;\">应用详情</span></td></tr>")
+            }
+        });
+        /*$('#dataTable').datagrid({
             url:'{{projcfg.appurl}}/api/project/dpm/project/develop/pm/deploy',
             method:'get',
             rownumbers:false,
@@ -76,9 +109,9 @@
 
             columns:[[
                 {"field":'id',checkbox:true},
-                /* {"field":'projectId',hidden:true},
-                 {"field":'mesosId',hidden:true},*/
-                /*{"field": "projectId","title":"应用编号","width":300,align:"center"},*/
+                /!* {"field":'projectId',hidden:true},
+                 {"field":'mesosId',hidden:true},*!/
+                /!*{"field": "projectId","title":"应用编号","width":300,align:"center"},*!/
                 {"field": "app_name","title":"应用名称","width":150,align:"center"},
                 {"field": "vist_url","title":"访问地址","width":150,align:"center"},
                 {"field": "update_time","title":"更新时间","width":150,align:"center",
@@ -115,7 +148,7 @@
             },
             pagination:true,
             loadMsg:'正在加载...'
-        });
+        });*/
     });
 
     /*setInterval(function(){

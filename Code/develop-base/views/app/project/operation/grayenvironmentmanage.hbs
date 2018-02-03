@@ -91,7 +91,7 @@
     }
     .bg-danger{
         /*background-color: #2dc3e8;*/
-        background-color: red;
+        background-color: #2c97de !important;
     }
 </style>
 
@@ -114,26 +114,30 @@
             if(num==2){
                 $("#progress").html("67%");
                 $("#progress").css("width","67%");
-                $("#td2").html($("#cc").val());
+                $("#td2").html("<span style='color: red;font-size: 16px'>"+$("#cc").val()+"</span>");
                 $('.deploy-state div:eq(1)').removeClass('d-cancel').addClass('deploy-antime');
                 $("#tt2").html("["+new Date().toLocaleString()+"]   [INFO]:版本更新成功");
             }
             if(num==1){
                 $("#progress").html("33%");
                 $("#progress").css("width","33%");
-                $("#td1").html($("#cc").val());
+                $("#td1").html("<span style='color: red;font-size: 16px'>"+$("#cc").val()+"</span>");
                 $('.deploy-state div:eq(0)').removeClass('d-cancel').addClass('deploy-antime');
                 $("#tt1").html("["+new Date().toLocaleString()+"]   [INFO]:版本更新成功");
             }if(num==3){
-                $("#td3").html($("#cc").val());
+                $("#td3").html("<span style='color: red;font-size: 16px'>"+$("#cc").val()+"</span>");
                 $("#progress").html("100%");
                 $("#progress").css("width","100%");
                 $('.deploy-state div:eq(2)').removeClass('d-cancel').addClass('deploy-antime');
                 $("#tt3").html("["+new Date().toLocaleString()+"]   [INFO]:版本更新成功");
                 setTimeout(function(){
-                    $.messager.confirm("项目部署完成！","点击确认完成部署",function () {
-                        $('.d-step-2').hide();
-                        $('.d-step-3').show();
+                    $.messager.confirm("项目部署完成！","点击确认完成部署",function (data) {
+                        if(data) {
+                            $('.d-step-2').hide();
+                            $('.d-step-3').show();
+                        }else{
+                            return
+                        }
                     })
                 },2000);
 
@@ -178,14 +182,18 @@
         });
         $('.all-deploy').click(function () {
             setTimeout(function(){
-                $.messager.confirm("项目部署完成！","点击确认完成部署",function () {
-                    $('.d-step-2').hide();
-                    $('.d-step-3').show();
+                $.messager.confirm("项目部署完成！","点击确认完成部署",function (data) {
+                    if(data) {
+                        $('.d-step-2').hide();
+                        $('.d-step-3').show();
+                    }else{
+                        return 
+                    }
                 })
             },2000);
-            $("#td1").html($("#cc").val());
-            $("#td2").html($("#cc").val());
-            $("#td3").html($("#cc").val());
+            $("#td1").html("<span style='color: red;font-size: 16px'>"+$("#cc").val()+"</span>");
+            $("#td2").html("<span style='color: red;font-size: 16px'>"+$("#cc").val()+"</span>");
+            $("#td3").html("<span style='color: red;font-size: 16px'>"+$("#cc").val()+"</span>");
             $.ajax({
                 url: '{{projcfg.appurl}}/api/project/operation/grayenvironmentmanage/update',
                 type: 'get',
