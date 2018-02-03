@@ -1,0 +1,425 @@
+<style>
+    .conbo>span{
+        background-color: dimgrey !important;
+    }
+    .conbo>span>input{
+        background-color: dimgrey !important;
+    }
+</style>
+<div class="main-wrap" style="overflow: hidden">
+    <div class="container-fluid">
+        <!-- START EDIT CONTENT -->
+        <div class="row">
+            <div class="col-lg-12 m-t-2">
+
+                <!-- START ROW -->
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <div class="row">
+                                    <div class="col-xs-6">
+                                        <h3 class="panel-title">智能弹性伸缩</h3>
+                                    </div>
+                                    <div class="col-xs-1 pull-right">
+                                        <div class="input-group">
+                                            <button type="button" class="btn btn-sm btn-primary" onclick="$('#dlg').dialog('open')">策略新增</button>
+                                        </div>
+                                        <!-- /input-group -->
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="panelBody" class="panel-body" style="overflow: hidden">
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <!-- END ROW -->
+
+            </div>
+        </div>
+        <!-- END EDIT CONTENT -->
+
+    </div>
+    <div id="dlg" class="easyui-dialog" title="策略新增" data-options="iconCls:'icon-save'" closed="true" style="width:500px;height:400px;padding:10px;overflow:hidden;display: none">
+        <form id="colonyForm" class="form-horizontal form-bordered" role="form" method="post" enctype="multipart/form-data" >
+            <input type="hidden" id="id" name="id"/>
+            <div class="form-group" style="text-align:center;padding:5px">
+                <label for="tactics_name" class="col-sm-2 control-label no-padding-right" style="width: 40%">策略名称:</label>
+                <div class="col-sm-10" style="width: 60%">
+                    <input type="text" class="easyui-validatebox form-control" data-options="required:true" name="tactics_name" id="tactics_name" placeholder="请输入策略名称" style="width:50%">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="gather_value" class="col-sm-2 control-label no-padding-right" style="width: 40%">采集值:</label>
+                <div class="col-sm-10 conbo" style="width: 60%">
+                    <select  class="easyui-combobox" data-options="required:true,editable:false,panelHeight:50" style="width:70px;height:34px;" name="gather_value" id="gather_value" value="CPU">
+                        <option value="CPU">CPU</option>
+                        <option value="内存">内存</option>
+                        <option value="流量">流量</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="duration" class="col-sm-2 control-label no-padding-right" style="width: 40%">持续时间:</label>
+                <div class="col-sm-10" style="width: 60%">
+                    <input type="text" class="easyui-validatebox form-control" data-options="required:true" name="duration" id="duration" placeholder="请输入持续时间(分钟)" style="width:50%">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="operation" class="col-sm-2 control-label no-padding-right" style="width: 40%">操作符:</label>
+                <div class="col-sm-10 conbo" style="width: 60%">
+                    <select  class="easyui-combobox" data-options="required:true,editable:false,panelHeight:50" style="width:70px;height:34px;" name="operation" id="operation" value="大于">
+                        <option value="大于">大于&gt;</option>
+                        <option value="等于">等于=</option>
+                        <option value="小于">小于&lt;</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="target_value" class="col-sm-2 control-label no-padding-right" style="width: 40%">目标值:</label>
+                <div class="col-sm-10" style="width: 60%">
+                    <input type="text" class="easyui-validatebox form-control" data-options="required:true" name="target_value" id="target_value" placeholder="请输入目标值" style="width:50%">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="tactics_count" class="col-sm-2 control-label no-padding-right" style="width: 40%">次数:</label>
+                <div class="col-sm-10" style="width: 60%">
+                    <input type="text" class="easyui-validatebox form-control" data-options="required:true" name="tactics_count" id="tactics_count" placeholder="请输入次数" style="width:50%">
+                </div>
+            </div>
+        </form>
+        <div style="text-align:center;padding:5px">
+            <a href="javascript:void(0)" class="easyui-linkbutton" onclick="doAdd()">提交</a>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+var appid;
+var microServiceId;
+    $(function(){
+         appid = getQueryString('appid');
+         microServiceId = getQueryString('microServiceId');
+        if(!appid){
+            appid = 1;
+        }
+        initData();
+    });
+
+    function initData(){
+        $.ajax({
+            url:'{{projcfg.appurl}}/api/project/operation/elasticExpansion/microServices',
+            method:'get',
+            //data:{appId:appid,microServiceId:microServiceId},
+            data:{microServiceId:microServiceId},
+            success:function(data){
+                console.info(data.microServices.data);
+                console.info(data.strategies.data);
+                if(data.microServices.data.length != 0){
+                    appId =  data.microServices.data[0].id
+                    //应用节点
+                    var appInfoHtml =   ' <div id="appDiv0" class="timeline timeline-datetime">'+
+                            '<div class="timeline-date">'+
+                            '<span class="badge">应用名称：'+data.microServices.data[0].app_name+'</span>'+
+                                //'<span id = "appId0" class="badge">应用Id：'+ appId +'</span> '+
+                            '</div>'+
+                            '</div>';
+
+                    $("#panelBody").append(appInfoHtml);
+                    //微服务节点
+                    for (var i=0;i<data.microServices.data.length;i++){
+                        var microName,microId,imageName,imageVersion,currentInstance,minInstance,maxInstance;
+                        microName = data.microServices.data[i].images_alias;
+                        microId   = data.microServices.data[i].id;
+                        imageName = data.microServices.data[i].images_name;
+                        imageVersion = data.microServices.data[i].images_version ;
+                        currentInstance = data.microServices.data[i].cur_inst_num ;
+                        minInstance = data.microServices.data[i].min_inst_num ;
+                        maxInstance = data.microServices.data[i].max_inst_num ;
+                        //$("#appDiv0").append(html);
+                        var microServiceHtml =   '<div class="timeline-item p-r-1">' +
+                                '<div class="timeline-icon"> '+
+                                ' <i class="fa fa-circle-o text-info"></i>'+
+                                '</div>' +
+                                '<div class="timeline-item-inner">'+
+                                '<div class="timeline-item-head clearfix">'+
+                                '<div id="microDiv'+i+'" class="row">'+
+                                '</div>'+
+                                '</div>'+
+                                '<div class="timeline-item-content m-t-1">'+
+                                '<table class="table table-striped text-white">'+
+                                '<thead>'+
+                                '<tr>'+
+                        '<th class="small text-muted text-uppercase text-white"><strong>编号</strong></th>'+
+                        '<th class="small text-muted text-uppercase text-white"><strong>策略名称</strong></th>'+
+                        '<th class="small text-muted text-uppercase text-white"><strong>采集值</strong></th>'+
+                        '<th class="small text-muted text-uppercase text-white"><strong>持续时间</strong></th>'+
+                        '                   <th class="small text-muted text-uppercase text-white"><strong>目标值</strong></th>'+
+                        '                   <th class="small text-muted text-uppercase text-white"><strong>次数</strong></th>'+
+                        '                   <th class="small text-muted text-uppercase text-white"><strong>策略</strong></th>'+
+                        '                  <th class="small text-muted text-uppercase text-white"><strong>明细</strong></th>'+
+                                '                  <th class="small text-muted text-uppercase text-white"><strong>状态</strong></th>'+
+                                '          <th class="small text-muted text-uppercase text-white"><strong>操作</strong></th>'+
+                        '       </tr>'+
+                        '           </thead>'+
+                        '           <tbody id = "tbody'+i+'">'+
+                                        '</tbody>'+
+                                    '</table>'+
+                                '</div>'+
+                                '</div>'+
+                                '</div>';
+                        $("#appDiv0").append(microServiceHtml);
+                        var microInnerHtml  = generateMicroInnerHtml(microServiceHtml,microName,imageName,imageVersion,currentInstance,minInstance,maxInstance);
+                        $("#microDiv"+i).append(microInnerHtml);
+                        var strategyInnerHtml = gernerateStrategyInnerHtml(data.strategies.data,data.microServices.data[i],i);
+                        //策略表格信息
+                        //doSearch(i,appId,microId);
+                    }
+                }
+            },
+            error:function(data){
+                console.log(data);
+            }
+        });
+    }
+
+    function generateMicroInnerHtml(parentHtml,microName ,imageName,imageVersion,currentInstance,minInstance,maxInstance){
+        var mircroInnerHtml ='<div class="col-lg-6 col-sm-6">'+
+                '<div class="panel panel-default b-a-0 bg-gray-dark b-l-2 b-l-info" style="height: 150px; overflow: hidden;">'+
+                '<div class="panel-body" style="height: 150px; overflow: hidden">'+
+                '<h2 class="f-w-300 m-t-0 m-b-0">服务名称：'+ microName +'</h2>'+
+                '<h6 class="m-t-2 f-w-300">镜像名称：'+ imageName +'</h6>'+
+                '<i class="fa fa-fw fa-caret-up text-success"></i> <span class="text-success m-r-1">版本：'+imageVersion+'</span>'+
+                '</div>'+
+                '</div>'+
+                '</div>'+
+                '<div class="col-lg-6 col-sm-6">'+
+                '<div class="panel panel-default b-a-0 bg-gray-dark b-l-2 b-l-malibu" style="height: 150px; overflow: hidden;">'+
+                '<div class="panel-body" style="overflow: hidden">'+
+                '<div class="col-lg-7">'+
+                '<h2 class="f-w-300 m-t-0">最大实例数</h2>'+
+                '<h1 class="display-4 m-t-0 m-b-0">'+
+                maxInstance+
+                '</h1>'+
+                '</div>'+
+                '<div class="col-lg-5">'+
+                ' <svg xmlns="http://www.w3.org/2000/svg" class="peity" style="width: 140px; height: 140px;">'+
+                ' <g class="ct-series sparkline-slice-1">'+
+                '<path class="SparklineDonut__ctSliceDonut___FjCwI" style="stroke: rgb(50, 50, 50); stroke-width: 5px;" d="M 70 10.5 A 59.5 59.5 0 1 0 126.652 88.189" xmlns:NS1="" NS1:ct:value="'+maxInstance+'" />'+
+                '</g>'+
+                '<g class="ct-series sparkline-slice-0">'+
+                '<path class="SparklineDonut__ctSliceDonut___FjCwI" style="stroke: rgb(132, 181, 71); stroke-width: 5px;" stroke-dasharray="112.156px,112.156px" stroke-dashoffset="-112.156px" d="M 126.588 88.387 A 59.5 59.5 0 0 0 70 10.5" xmlns:NS2="" NS2:ct:value="'+maxInstance+'">'+
+                '<animate id="anim0" fill="freeze" keyTimes="0;1" keySplines="0.23 1 0.32 1" calcMode="spline" to="0px" from="-112.15643310546875px" dur="1000ms" attributeName="stroke-dashoffset" />'+
+                '</path>'+
+                '</g>'+
+                '</svg>'+
+                '</div>'+
+                '</div>'+
+                '</div>'+
+                '</div>'+
+                '<div class="col-lg-6 col-sm-6">'+
+                '<div class="panel panel-default b-a-0 bg-gray-dark b-l-2 b-l-malibu" style="height: 150px; overflow: hidden;">'+
+                '<div class="panel-body" style="overflow: hidden">'+
+                '<div class="col-lg-6">'+
+                '<h2 class="f-w-300 m-t-0">当前实例</h2>'+
+                '<h1 class="display-4 m-t-0 m-b-0">'+
+                currentInstance+
+                '</h1>'+
+                '</div>'+
+                '<div class="col-lg-4">'+
+                ' <svg xmlns="http://www.w3.org/2000/svg" class="peity" style="width: 140px; height: 140px;">'+
+                ' <g class="ct-series sparkline-slice-1">'+
+                '<path class="SparklineDonut__ctSliceDonut___FjCwI" style="stroke: rgb(50, 50, 50); stroke-width: 5px;" d="M 70 10.5 A 59.5 59.5 0 1 0 126.652 88.189" xmlns:NS1="" NS1:ct:value="'+currentInstance+'" />'+
+                '</g>'+
+                '<g class="ct-series sparkline-slice-0">'+
+                '<path class="SparklineDonut__ctSliceDonut___FjCwI" style="stroke: rgb(44, 151, 222); stroke-width: 5px;" stroke-dasharray="112.156px,112.156px" stroke-dashoffset="-112.156px" d="M 126.588 88.387 A 59.5 59.5 0 0 0 70 10.5" xmlns:NS2="" NS2:ct:value="'+currentInstance+'">'+
+                '<animate id="anim0" fill="freeze" keyTimes="0;1" keySplines="0.23 1 0.32 1" calcMode="spline" to="0px" from="-112.15643310546875px" dur="1000ms" attributeName="stroke-dashoffset" />'+
+                '</path>'+
+                '</g>'+
+                '</svg>'+
+                '</div>'+
+                '</div>'+
+                '</div>'+
+                '</div>'+
+                '<div class="col-lg-6 col-sm-6">'+
+                '<div class="panel panel-default b-a-0 bg-gray-dark b-l-2 b-l-malibu" style="height: 150px; overflow: hidden;">'+
+                '<div class="panel-body" style="overflow: hidden">'+
+                '<div class="col-lg-7">'+
+                '<h2 class="f-w-300 m-t-0">最小实例数</h2>'+
+                '<h1 class="display-4 m-t-0 m-b-0">'+
+                minInstance+
+                '</h1>'+
+                '</div>'+
+                '<div class="col-lg-5">'+
+                ' <svg xmlns="http://www.w3.org/2000/svg" class="peity" style="width: 140px; height: 140px;">'+
+                ' <g class="ct-series sparkline-slice-1">'+
+                '<path class="SparklineDonut__ctSliceDonut___FjCwI" style="stroke: rgb(50, 50, 50); stroke-width: 5px;" d="M 70 10.5 A 59.5 59.5 0 1 0 126.652 88.189" xmlns:NS1="" NS1:ct:value="'+minInstance+'" />'+
+                '</g>'+
+                '<g class="ct-series sparkline-slice-0">'+
+                '<path class="SparklineDonut__ctSliceDonut___FjCwI" style="stroke: rgb(231, 109, 59); stroke-width: 5px;" stroke-dasharray="112.156px,112.156px" stroke-dashoffset="-112.156px" d="M 126.588 88.387 A 59.5 59.5 0 0 0 70 10.5" xmlns:NS2="" NS2:ct:value="'+minInstance+'">'+
+                '<animate id="anim0" fill="freeze" keyTimes="0;1" keySplines="0.23 1 0.32 1" calcMode="spline" to="0px" from="-112.15643310546875px" dur="1000ms" attributeName="stroke-dashoffset" />'+
+                '</path>'+
+                '</g>'+
+                '</svg>'+
+                '</div>'+
+                '</div>'+
+                '</div>'+
+                '</div>';
+        return mircroInnerHtml;
+    }
+
+    function gernerateStrategyInnerHtml(sDatas,mData,index){
+
+        for(var i=0;i<sDatas.length;i++){
+            if(sDatas[i].micro_service_id == mData.micro_service_id){
+                var innerHtml='<tr>'+
+                        '<td class="v-a-m">'+sDatas[i].id+'</td>'+
+                        '       <td class="v-a-m">'+sDatas[i].tactics_name+'</td>'+
+                        '     <td class="v-a-m">'+sDatas[i].gather_value+'</td>'+
+                        '   <td class="v-a-m">'+sDatas[i].duration+'</td>'+
+                        ' <td class="v-a-m">&gt;'+sDatas[i].target_value+'/s</td>'+
+                        '     <td class="v-a-m">'+sDatas[i].tactics_count+'</td>'+
+                        '    <td class="v-a-m">'+sDatas[i].tactics+'</td>'+
+                        '    <td class="v-a-m">'+sDatas[i].remark+'</td>'+
+                        ' <td class="v-a-m"><span class="'+setContStatusCss(sDatas[i].status)+'"><i class="fa fa-play-circle-o"></i> '+setContStatus(sDatas[i].status)+'</span></td>'+
+                        '  <td class="v-a-m">'+
+                        ' <div class="btn-group" role="group" aria-label="...">'+
+                        ' <button type="button" class="btn btn-default btn-sm"  onclick="doEdit('+ sDatas[i].id+ ','+sDatas[i].status+')"><span class="'+setOperStatusCss(sDatas[i].status)+'"><span class="fa fa-power-off"></span>'+ setOperStatus(sDatas[i].status)+'</span></button>'+
+                        ' <button type="button" class="btn btn-default btn-sm" onclick="doDel('+ sDatas[i].id+ ')"><span class="text-danger"><span class="fa fa-trash-o" ></span> 删除</span></button>'+
+                        '</div>'+
+                        ' </td>'+
+                        '</tr>';
+                $("#tbody"+index).append(innerHtml);
+            }
+        }
+    }
+
+            //设置容器状态
+function setContStatus(v){
+    if(v==1){
+    return '启用';
+    }else{
+    return '停用';
+  }
+}
+//设置容器状态样式
+function setContStatusCss(v){
+    if(v==1){
+    return 'text-success';
+    }else{
+    return 'text-danger';
+    }
+}
+
+function setOperStatus(v){
+    if(v==1){
+        return "停用";
+    }else{
+        return '启用';
+    }
+}
+//设置容器状态样式
+function setOperStatusCss(v){
+    if(v==1){
+        return 'text-danger';
+    }else{
+        return 'text-success';
+    }
+}
+
+function doEdit(id,status) {
+    var newStatus = 0;
+    if(status==1){
+        newStatus=0;
+    }
+    else{
+        newStatus=1;
+    }
+    $.ajax({
+        url: '{{projcfg.appurl}}/api/project/operation/elasticExpansion/microServices',
+        type: 'post',
+        // data: $('#colonyForm').serializeJson(),
+        data:{id:id,status:newStatus},
+        success: function (data) {
+           // $.messager.progress('close');
+            console.log(data);
+            if(data.success) {
+               // msgSuccess(data.msg);
+                $("#panelBody").empty();
+                initData();
+            }
+            else {
+               // msgError(data.msg+',错误代码:'+data.code);
+            }
+        },
+        error:function(error){
+            console.log(error);
+        }
+    });
+}
+
+/*******删除********/
+function doDel(id) {
+        $.ajax({
+            url: '{{projcfg.appurl}}/api/project/operation/elasticExpansion/microServices/'+id,
+            type: 'delete',
+            success: function (data) {
+                if(data.success) {
+                   // msgSuccess(data.msg);
+                    $("#panelBody").empty();
+                    initData();
+                }else{
+                  //  msgError(data.msg + ',错误代码:' + data.code);
+                }
+            },
+            error:function(error){
+                 console.log(error);
+            }
+        });
+}
+
+function doAdd() {
+
+    $.ajax({
+        url: '{{projcfg.appurl}}/api/project/operation/elasticExpansion/microServices',
+        type: 'put',
+        data: {
+            app_id: appid,
+            micro_service_id: microServiceId,
+            tactics_name: $("#tactics_name").val(),
+            gather_value: $("#gather_value").val(),
+            duration: $("#duration").val(),
+            target_value: $("#target_value").val(),
+            operation: $("#operation").val(),
+            tactics_count: $("#tactics_count").val(),
+            status:"0"
+        },
+        success: function (data) {
+            if (data.success) {
+                $('#dlg').dialog('close')
+                $("#panelBody").empty();
+                initData();
+            }
+            else {
+                console.log(data);
+                //msgError(data.msg+',错误代码:'+data.code);
+            }
+        },
+        error: function (error) {
+            console.log(error);
+        }
+    });
+}
+
+<!--function goToAdd(){-->
+    <!--location.href = "{{projcfg.appurl}}/elasticExpansionForm?microserviceid="+microServiceId;-->
+<!--}-->
+
+function getQueryString(name) {
+    var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+    var r = window.location.search.substr(1).match(reg);
+    if (r != null) return unescape(r[2]); return null;
+}
+</script>
