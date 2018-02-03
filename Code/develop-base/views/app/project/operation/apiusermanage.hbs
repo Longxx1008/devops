@@ -1451,7 +1451,7 @@
                         <div class="col-sm-10" style="width: 79%">
                             <input v-model="newData.token" type="text" class="easyui-validatebox form-control"
                                    data-options="required:true"
-                                   name="resource_name" id="resource_name" placeholder="请输入目标" style="width:60%">
+                                   name="resource_name" id="resource_name" placeholder="请输入token" style="width:60%">
                         </div>
                     </div>
                     <div class="form-group">
@@ -1459,17 +1459,17 @@
                         <div class="col-sm-10" style="width: 79%">
                             <input v-model="newData.group" type="text" class="easyui-validatebox form-control"
                                    data-options="required:true"
-                                   name="resource_state" id="resource_state" placeholder="请输入请求频率限制"
+                                   name="resource_state" id="resource_state" placeholder="请输入分组"
                                    style="width:60%">
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="resource_apply" class="col-sm-2 control-label no-padding-right" style="width: 21%">备注信息:</label>
                         <div class="col-sm-10" style="width: 79%">
-                            <input v-model="newData.msg" type="text" class="easyui-validatebox form-control"
+                            <textarea v-model="newData.msg" type="text" class="easyui-validatebox form-control"
                                    data-options="required:true"
-                                   name="resource_apply" id="resource_apply" placeholder="请输入请求包大小限制"
-                                   style="width:60%">
+                                   name="resource_apply" id="resource_apply" placeholder="请输入备注信息"
+                                      style="width:60%"></textarea>
                         </div>
                     </div>
                 </form>

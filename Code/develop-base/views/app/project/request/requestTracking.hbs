@@ -131,18 +131,9 @@
     <!--</div>-->
 
     <!--</div>-->
-    <div class="row" style="margin-top: 15px;padding: 0px;margin-bottom: 0px" >
 
-        <div class="form-group col-md-2 col-md-offset-9" style="padding: 0px">
-            <input type="text" class="form-control" id="searchPara" placeholder="请输入名称">
-        </div>
-        <div class="col-md-1" style="padding: 0px;margin: 0px">
-            <button type="button" style="width: 100%" class="btn btn-default pull-right">Search</button>
-        </div>
-    </div>
-
-    <div class="row" style="margin-top: 0px">
-        <table id="table"  class="table table-bordered" style="color: #FFFFFF;"></table>
+    <div class="row">
+        <table id="table"  class="table table-bordered" style="color: #FFFFFF;margin-top: 10px"></table>
 
     </div>
 
@@ -172,10 +163,13 @@
         striped: true,         //是否显示行间隔色
         pagination: true,                   //是否显示分页（*）
         sidePagination: "server",           //分页方式：client客户端分页，server服务端分页（*）
-                    //是否显示刷新按钮
+        search: true,                      //是否显示表格搜索
+        strictSearch: true,
+        showColumns: true,                  //是否显示所有的列（选择显示的列）
+        showRefresh: true,                  //是否显示刷新按钮
         onClickRow:function (row, $element) {
 
-            window.location.href = "{{projcfg.appurl}}/requestdetail?number="+row.serial_number+"&req_url="+row.url;
+            window.location.href = "{{projcfg.appurl}}/requestdetail?number="+row.serial_number;
 
         },
         queryParams : function (params) {
@@ -183,7 +177,6 @@
             var temp = {
                 rows: params.limit,                         //页面大小
                 page: (params.offset / params.limit) + 1,   //页码
-                para:$('#searchPara').val()
             };
             return temp;
         },

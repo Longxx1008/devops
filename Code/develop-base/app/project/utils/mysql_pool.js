@@ -12,15 +12,4 @@ db.query = function(sql, params, cb){
         cb(null, result ? JSON.parse(JSON.stringify(result)) : null);
     });
 }
-db.queryPromise = function(sql, params){
-    return new Promise((resolve, reject)=>{
-      pool.query(sql, params, function(err, result) {
-        if (err) {
-          console.log(err);
-          return reject(err)
-        }
-        return resolve(result)
-      });
-    })
-}
 module.exports = db;

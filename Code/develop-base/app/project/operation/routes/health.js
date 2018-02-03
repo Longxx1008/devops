@@ -18,16 +18,6 @@ router.route('/')
 
         healthService.pageList(page, length, conditionMap,function(result){
             console.log("GGGGsss",result)
-            console.log("GGGGss",result.rows.length)
-            for(var i=0;i<result.rows.length;i++){
-                var json=JSON.parse(result.rows[i].check_content);
-                result.rows[i].app=json.app;
-                result.rows[i].sql=json.sql;
-                result.rows[i].middle=json.middle;
-            }
-
-            console.log("testGGGGsss",result)
-
             utils.respJsonData(res, result);
         });
     })

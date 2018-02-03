@@ -2,8 +2,7 @@
 <link rel="stylesheet" href="{{projcfg.appurl}}/static/request/css/gengzhong-xianqin.css">
 
 <div class="row" >
-    <div style="padding: 0px;margin-top: -10px"><h5> 请求地址：<span id="req_url"> </span></h5></div>
-    <div class="bor" style="margin-top: -30px;padding: 0px"></div>
+    <div class="bor" style="margin-top: -20px"></div>
     <div class="container"  id="requestList">
         <!--<div class="row" >-->
         <!--&lt;!&ndash;<div class="cont-bor">&ndash;&gt;-->
@@ -247,31 +246,17 @@
 <script>
     var searchData = window.location.href.split("=");
     var serial_number = decodeURI(searchData[1]);
-    var reqUrl=decodeURI(searchData[2]);
-
-
-
-
 
     $.ajax({
         url: '{{projcfg.appurl}}/api/project/request/requestDetail/getDetailByNumber?serial_number='+serial_number,
         type: 'get',
         success: function (data) {
-            var req_url=reqUrl;
-            $('#req_url').text(req_url);
+            console.log("result555-----",data[0]);
             // console.log("result666-----",data[0].rows[0].module);
             var html='';
             var datalen=data[0]+1
             for(var i=1;i<datalen;i++){
                 var serData=data[i];
-                var totalStatus="";
-                if(serData.rows[0].totalStatus=="正常"){
-                    totalStatus='  <span style="display: inline;background: #5ecd71">'+serData.rows[0].totalStatus+'</span>';
-                }else {
-                    totalStatus='  <span style="display: inline;background: red">'+serData.rows[0].totalStatus+'</span>';
-                }
-
-
 
                 var item='<div class="row" >'+
                         '<div class="col-sm-2" style="position: relative;">'+
@@ -285,18 +270,20 @@
                         '<table class="table table-condensed gz-top" style="margin-bottom: 2px;">'+
                         '<tbody>'+
                         '<tr>'+
-                        ' <td>服务名称：<em>'+serData.rows[0].micro_service_name+'</em></td>'+
-                        '<td>容器：<em>'+serData.rows[0].container_ip+'</em></td>'+
+                        ' <td>请求地址：<em>'+serData.rows[0].req_url+'</em></td>'+
+                        '<td>容器：<em>'+serData.rows[0].container_id+'</em></td>'+
                         ' <td>请求序列：<em>'+serData.rows[0].req_serial_num+'</em></td>'+
                         ' </tr>'+
                         ' <tr>'+
-                        ' <td>宿主机：<em>'+serData.rows[0].host_ip+'</em></td>'+
-                        '<td>端口：<em>'+serData.rows[0].port+'</em></td>'+
-                        '<td>返回响应：'+ totalStatus+  '  </td>'+
+                        ' <td>服务名称：<em>'+serData.rows[0].micro_service_name+'</em></td>'+
+                        '<td>宿主机：<em>'+serData.rows[0].com_ip+'</em></td>'+
+                        '<td>返回响应：'+
+                        '  <span style="display: inline;">'+serData.rows[0].return_status+'</span>'+
+                        '  </td>'+
                         '</tr>'+
                         ' <tr>'+
-                        '<td>请求时间：<em>'+serData.rows[0].req_time.replace(/T/,' ').replace('.000Z','')+'</em></td>'+
-                        '<td>耗时：<em>'+serData.rows[0].totalTime+'</em></td>'+
+                        '<td>请求时间：<em>'+serData.rows[0].req_time+'</em></td>'+
+                        '<td>耗时：<em>'+serData.rows[0].total_time_consuming+'</em></td>'+
                         '</tr>'+
                         ' </tbody>'+
                         ' </table>'+
@@ -319,31 +306,18 @@
 
                 for(var j=0;j<serData.total;j++){
                     var metData=serData.rows[j];
-                    var json=JSON.parse(metData.dev_member);
-                    var status="";
-                    if(metData.return_status==200){
-                        status='  <span style="background: #5ecd71">'+metData.return_status+'</span>';
-                    }else if(metData.return_status==302){
-                        status='  <span style="background: blue">'+metData.return_status+'</span>';
-
-                    }else if(metData.return_status==404){
-                        status='  <span style="background: red">'+metData.return_status+'</span>';
-                    }else if(metData.return_status==500){
-                        status='  <span style="background: #e37855">'+metData.return_status+'</span>';
-                    }
-
-                    item+='<tr>' +
+                    item+='<tr>\n' +
                             ' <td>'+metData.module+'</td>' +
                             '  <td>'+metData.req_class+'</td>' +
-                            '   <td>'+metData.req_method+'</td>' +
+                            '   <td>'+metData.req_method+'</td>\n' +
                             ' <td>'+metData.in_param+'</td>' +
                             ' <td>'+metData.out_param+'</td>' +
-                            '  <td>'+metData.req_time.replace(/T/,' ').replace('.000Z','')+'</td>' +
+                            '  <td>'+metData.req_time+'</td>' +
                             '   <td>'+metData.total_time_consuming+'</td>' +
-                            '  <td>'+' <a href="javascript:void(0);"  onclick="memberDetailShow(\'' + json.ename + '\') " >' +json.name+'</a></td>' +
+                            '  <td>'+metData.dev_member+'</td>' +
                             '   <td>'+metData.code_commit+'</td>' +
                             '  <td>' +
-                            status +
+                            '  <span>'+metData.return_status+'</span>' +
                             '  </td>' +
                             '  </tr>';
                 }
@@ -353,18 +327,11 @@
                         ' </div>' +
                         ' </div>'
 
+                console.log("@@@@$$$$"+item);
+
                 html+=item;
             }
             $('#requestList').append(html);
         }
     });
-
-
-
-    function memberDetailShow(ename) {
-        if(ename!=''&& ename!=null)
-            window.open("http://192.168.9.68/"+ename);
-
-    }
-
 </script>
