@@ -15,7 +15,7 @@
                                     </div>
                                     <div class="col-xs-1 pull-right">
                                         <div class="input-group">
-                                            <button type="button" class="btn btn-sm btn-primary" onclick="goToAdd()">策略新增</button>
+                                            <button type="button" class="btn btn-sm btn-primary" onclick="$('#dlg').dialog('open')">策略新增</button>
                                         </div>
                                         <!-- /input-group -->
                                     </div>
@@ -40,7 +40,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div id="panelBody" class="panel-body">
+                            <div id="panelBody" class="panel-body" style="overflow: hidden">
 
                             </div>
 
@@ -54,7 +54,58 @@
         <!-- END EDIT CONTENT -->
 
     </div>
-
+    <div id="dlg" class="easyui-dialog" title="策略新增" data-options="iconCls:'icon-save'" closed="true" style="width:800px;height:400px;padding:10px;overflow:hidden;display: none">
+        <form id="colonyForm" class="form-horizontal form-bordered" role="form" method="post" enctype="multipart/form-data">
+            <input type="hidden" id="id" name="id"/>
+            <div class="form-group">
+                <label for="tactics_name" class="col-sm-2 control-label no-padding-right" style="width: 21%">策略名称:</label>
+                <div class="col-sm-10" style="width: 79%">
+                    <input type="text" class="easyui-validatebox form-control" data-options="required:true" name="tactics_name" id="tactics_name" placeholder="策略名称" style="width:60%">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="gather_value" class="col-sm-2 control-label no-padding-right" style="width: 21%">采集值:</label>
+                <div class="col-sm-10" style="width: 79%">
+                    <select  class="easyui-combobox" data-options="required:true,editable:false,panelHeight:50" style="width:70px;height:34px;" name="gather_value" id="gather_value" value="CPU">
+                        <option value="CPU">CPU</option>
+                        <option value="内存">内存</option>
+                        <option value="流量">流量</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="duration" class="col-sm-2 control-label no-padding-right" style="width: 21%">持续时间:</label>
+                <div class="col-sm-10" style="width: 79%">
+                    <input type="text" class="easyui-validatebox form-control" data-options="required:true" name="duration" id="duration" placeholder="请输入持续时间(分钟)" style="width:60%">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="operation" class="col-sm-2 control-label no-padding-right" style="width: 21%">操作符:</label>
+                <div class="col-sm-10" style="width: 79%">
+                    <select  class="easyui-combobox" data-options="required:true,editable:false,panelHeight:50" style="width:70px;height:34px;" name="operation" id="operation" value="大于">
+                        <option value="大于">大于&gt;</option>
+                        <option value="等于">等于=</option>
+                        <option value="小于">小于&lt;</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="target_value" class="col-sm-2 control-label no-padding-right" style="width: 21%">目标值:</label>
+                <div class="col-sm-10" style="width: 79%">
+                    <input type="text" class="easyui-validatebox form-control" data-options="required:true" name="target_value" id="target_value" placeholder="请输入目标值" style="width:60%">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="tactics_count" class="col-sm-2 control-label no-padding-right" style="width: 21%">次数:</label>
+                <div class="col-sm-10" style="width: 79%">
+                    <input type="text" class="easyui-validatebox form-control" data-options="required:true" name="tactics_count" id="tactics_count" placeholder="请输入次数" style="width:60%">
+                </div>
+            </div>
+        </form>
+        <div style="text-align:center;padding:5px">
+            <a href="javascript:void(0)" class="easyui-linkbutton" onclick="doAdd()">提交</a>
+        </div>
+    </div>
 </div>
 <script type="text/javascript">
 var appid;
@@ -147,7 +198,7 @@ var microServiceId;
     function generateMicroInnerHtml(parentHtml,microName ,imageName,imageVersion,currentInstance,minInstance,maxInstance){
         var mircroInnerHtml ='<div class="col-lg-3 col-sm-6">'+
                 '<div class="panel panel-default b-a-0 bg-gray-dark b-l-2 b-l-info" style="height: 150px; overflow: hidden;">'+
-                '<div class="panel-body">'+
+                '<div class="panel-body" style="overflow: hidden">'+
                 '<h2 class="f-w-300 m-t-0 m-b-0">服务名称：'+ microName +'</h2>'+
                 '<h6 class="m-t-2 f-w-300">镜像名称：'+ imageName +'</h6>'+
                 '<i class="fa fa-fw fa-caret-up text-success"></i> <span class="text-success m-r-1">版本：'+imageVersion+'</span>'+
@@ -156,7 +207,7 @@ var microServiceId;
                 '</div>'+
                 '<div class="col-lg-3 col-sm-6">'+
                 '<div class="panel panel-default b-a-0 bg-gray-dark b-l-2 b-l-malibu" style="height: 150px; overflow: hidden;">'+
-                '<div class="panel-body">'+
+                '<div class="panel-body" style="overflow: hidden">'+
                 '<div class="col-lg-6">'+
                 '<h2 class="f-w-300 m-t-0">当前实例</h2>'+
                 '<h1 class="display-4 m-t-0 m-b-0">'+
@@ -180,7 +231,7 @@ var microServiceId;
                 '</div>'+
                 '<div class="col-lg-3 col-sm-6">'+
                 '<div class="panel panel-default b-a-0 bg-gray-dark b-l-2 b-l-malibu" style="height: 150px; overflow: hidden;">'+
-                '<div class="panel-body">'+
+                '<div class="panel-body" style="overflow: hidden">'+
                 '<div class="col-lg-7">'+
                 '<h2 class="f-w-300 m-t-0">最小实例数</h2>'+
                 '<h1 class="display-4 m-t-0 m-b-0">'+
@@ -204,7 +255,7 @@ var microServiceId;
                 '</div>'+
                 '<div class="col-lg-3 col-sm-6">'+
                 '<div class="panel panel-default b-a-0 bg-gray-dark b-l-2 b-l-malibu" style="height: 150px; overflow: hidden;">'+
-                '<div class="panel-body">'+
+                '<div class="panel-body" style="overflow: hidden">'+
                 '<div class="col-lg-7">'+
                 '<h2 class="f-w-300 m-t-0">最大实例数</h2>'+
                 '<h1 class="display-4 m-t-0 m-b-0">'+
@@ -339,9 +390,42 @@ function doDel(id) {
         });
 }
 
-function goToAdd(){
-    location.href = "{{projcfg.appurl}}/elasticExpansionForm?microserviceid="+microServiceId;
+function doAdd() {
+
+    $.ajax({
+        url: '{{projcfg.appurl}}/api/project/operation/elasticExpansion/microServices',
+        type: 'put',
+        data: {
+            app_id: appid,
+            micro_service_id: microServiceId,
+            tactics_name: $("#tactics_name").val(),
+            gather_value: $("#gather_value").val(),
+            duration: $("#duration").val(),
+            target_value: $("#target_value").val(),
+            operation: $("#operation").val(),
+            tactics_count: $("#tactics_count").val(),
+            status:"0"
+        },
+        success: function (data) {
+            if (data.success) {
+                $('#dlg').dialog('close')
+                $("#panelBody").empty();
+                initData();
+            }
+            else {
+                console.log(data);
+                //msgError(data.msg+',错误代码:'+data.code);
+            }
+        },
+        error: function (error) {
+            console.log(error);
+        }
+    });
 }
+
+<!--function goToAdd(){-->
+    <!--location.href = "{{projcfg.appurl}}/elasticExpansionForm?microserviceid="+microServiceId;-->
+<!--}-->
 
 function getQueryString(name) {
     var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
