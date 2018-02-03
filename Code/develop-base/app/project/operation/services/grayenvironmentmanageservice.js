@@ -283,7 +283,8 @@ exports.startBlueFormal=function(instance,imageName,projectCode,cb){
 exports.update=function(instance,imageName,projectCode,cb){
     var p = new Promise(function(resolve, reject) {
         var scaleJson = [{
-            "id": "/"+projectCode+"/"+projectCode+"-gatedlaunch",
+            //"id": "/"+projectCode+"/"+projectCode+"-gatedlaunch",
+            "id":projectCode,
             "instances": parseInt(instance),
             "acceptedResourceRoles": [
                 "*"
@@ -298,7 +299,7 @@ exports.update=function(instance,imageName,projectCode,cb){
                         {
                             "containerPort": 0,
                             "hostPort": 0,
-                            "servicePort": 10004,
+                            "servicePort": 10009,
                             "protocol": "tcp",
                             "labels": {}
                         }
@@ -1144,9 +1145,9 @@ exports.selectIfBlue=function(projectCode,cb){
     })
 }
 
-exports.getGray=function(appId,cb){
+exports.getGray=function(appId,images_name,cb){
     var p = new Promise(function(resolve, reject) {
-        var sql = "select * from pass_develop_project_gray_deploy_new g,pass_project_app_info p where g.appId=p.id";
+        var sql = "select * from pass_project_micro_service g,pass_project_app_info p,pass_project_container_info c where g.app_id=p.id and c.app_id=g.app_id and c.micro_service_id="+appId+" and g.images_name='"+images_name+"'";
         console.log(sql);
         mysqlPool.query(sql, function (err, results) {
             if (err) {

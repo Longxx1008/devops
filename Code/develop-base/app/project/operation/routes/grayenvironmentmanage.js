@@ -167,7 +167,8 @@ router.route("/finalFormalFlag").get(function(req,res){
 });
 router.route("/getGray").get(function(req,res){
     var appId=req.query.appId;
-    greyenvironmtneService.getGray(appId,function(rs){
+    var images_name=req.query.images_name;
+    greyenvironmtneService.getGray(appId,images_name,function(rs){
         utils.respJsonData(res,rs)
     })
 });

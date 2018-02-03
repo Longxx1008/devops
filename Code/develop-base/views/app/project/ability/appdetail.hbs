@@ -308,7 +308,7 @@
                             ' <input type="text" id="connum'+i+'" class="btn btn-default col-lg-4" aria-label="Center Align" placeholder="容器数量" value="'+arr[i].cur_inst_num+'">' +
                             ' <button type="button" class="btn btn-default" aria-label="Right Align" onclick="additionNum('+i+')"><span class="fa fa-fw fa-plus" aria-hidden="true"></span></button>' +
                             ' </div></div><div class="col-lg-4"><button type="button" class="btn btn-cerulean" onclick="quality('+arr[i].id+')">质量评估</button>' +
-                            ' <button type="button" class="btn btn-dodger-blue">智能伸缩策略</button><button type="button" class="btn btn-minsk" onclick="gray('+arr[i].id+')">灰度环境发布</button></div></div>'+
+                            ' <button type="button" class="btn btn-dodger-blue">智能伸缩策略</button><button type="button" class="btn btn-minsk" onclick="gray('+arr[i].appId+',\''+arr[i].images_name+'\')">灰度环境发布</button></div></div>'+
                             '<div class="timeline-item-content m-t-1"><table class="table table-striped"><thead><tr><th class="small text-muted text-uppercase"><strong>容器名称</strong></th>' +
                             ' <th class="small text-muted text-uppercase"><strong>所属项目</strong></th><th class="small text-muted text-uppercase"><strong>运行环境</strong></th>' +
                             ' <th class="small text-muted text-uppercase"><strong>状态</strong></th><th class="small text-muted text-uppercase"><strong>所属镜像</strong></th></tr></thead>' +
@@ -434,7 +434,7 @@
         }
     }
 
-    function gray(appId){
-        window.location.href="{{projcfg.appurl}}/grayenvironmentm"
+    function gray(appId,images_name){
+        window.location.href="{{projcfg.appurl}}/grayenvironmentm?appId="+appId+"&images_name="+images_name;
     }
 </script>
