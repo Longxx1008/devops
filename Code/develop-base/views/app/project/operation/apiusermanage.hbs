@@ -1,4 +1,9 @@
-
+<style>
+    [v-cloak]{
+        display: none;
+    }
+</style>
+<div id="AuthControl" v-cloak>
 <div class="main-wrap">
         <div class="container-fluid">
             <!-- START EDIT CONTENT -->
@@ -24,9 +29,27 @@
 
                                             </ul>
                                             <div class="tab-content">
-
-
                                                 <div class="timeline-item-content m-t-1" style="padding-left: 10px;padding-right: 10px;">
+                                                    <button type="button"
+                                                            @click="goBack"
+                                                            id="dd"
+                                                            class="btn btn-default"
+                                                            data-toggle="tooltip"
+                                                            data-placement="top"
+                                                            data-original-title="返回">
+                                                        <i class="fa fa-undo">
+                                                            返回</i>
+                                                    </button>
+                                                    <button type="button"
+                                                            @click="add"
+                                                            id="dd"
+                                                            class="btn btn-default"
+                                                            data-toggle="tooltip"
+                                                            data-placement="top"
+                                                            data-original-title="新增接口">
+                                                        <i class="fa fa-plus">
+                                                            新增用户管控</i>
+                                                    </button>
                                                     <table class="table table-striped">
                                                         <thead>
                                                         <tr>
@@ -49,17 +72,28 @@
                                                         <tbody>
 
 
-                                                        <tr>
-                                                            <td class="v-a-m"><span class="text-white">1</span></td>
-                                                            <td class="v-a-m"><span class="text-white">wenanguo</span></td>
-                                                            <td class="v-a-m"><span>696fddacc4c826f0ae0c00ca365ea2a5</span></td>
-                                                            <td class="v-a-m"><span>dev</span></td>
+                                                        <tr v-for="(item,index) of apps">
+                                                            <td class="v-a-m"><span class="text-white">${index+1}</span></td>
+                                                            <td class="v-a-m"><span class="text-white">${item.userName}</span></td>
+                                                            <td class="v-a-m"><span>${item.token}</span></td>
+                                                            <td class="v-a-m"><span>${item.group}</span></td>
 
-                                                            <td class="v-a-m"> </td>
-                                                            <td class="v-a-m"><i class="m-l-0 fa fa-fw fa-circle text-success"></i> <span class="text-white m-r-1">运行中</span></td>
+                                                            <td class="v-a-m">${item.msg}</td>
                                                             <td class="v-a-m">
-                                                                <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="" data-original-title="停止"><i class="fa fa-bars"> 停止</i></button>
-                                                                <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="" data-original-title="删除"><i class="fa fa-book"> 删除</i></button>
+                                                                <i :class="['m-l-0','fa', 'fa-fw', item.status?'fa-circle text-success':'fa-ban text-danger']"></i>
+                                                                <span class="text-white m-r-1">${item.status?'运行中':'已停止'}</span></td>
+                                                            <td class="v-a-m">
+                                                                <button type="button" class="btn btn-default"
+                                                                        @click="breaking(item)"
+                                                                        data-toggle="tooltip" data-placement="top"
+                                                                ><i :class="['fa',item.status?'fa-ban text-danger':'fa-play-circle text-success']">
+                                                                    ${item.status?'停止':'运行'}</i></button>
+                                                                <button type="button" class="btn btn-default"
+                                                                        data-toggle="tooltip" data-placement="top"
+                                                                        title=""
+                                                                        @click="apps.splice(index,1)"
+                                                                        data-original-title="删除"><i class="fa fa-book">
+                                                                    删除</i></button>
 
                                                             </td>
                                                         </tr>
@@ -1398,3 +1432,131 @@
     <!-- END Footer -->
 
 </div>
+    <div id="addNew" class="easyui-window">
+        <div class="easyui-layout" data-options="fit:true" style="overflow-x: hidden">
+            <div data-options="region:'center'" style="overflow-x: hidden">
+                <form id="colonyForm" class="form-horizontal form-bordered" role="form" method="post"
+                      enctype="multipart/form-data">
+                    <input type="hidden" id="id" name="id"/>
+                    <div class="form-group">
+                        <label for="resource_number" class="col-sm-2 control-label no-padding-right" style="width: 21%">用户名:</label>
+                        <div class="col-sm-10" style="width: 79%">
+                            <input v-model="newData.userName" type="text" class="easyui-validatebox form-control"
+                                   data-options="required:true"
+                                   name="resource_number" id="resource_number" placeholder="请输入用户名" style="width:60%">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="resource_name" class="col-sm-2 control-label no-padding-right" style="width: 21%">token:</label>
+                        <div class="col-sm-10" style="width: 79%">
+                            <input v-model="newData.token" type="text" class="easyui-validatebox form-control"
+                                   data-options="required:true"
+                                   name="resource_name" id="resource_name" placeholder="请输入token" style="width:60%">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="resource_state" class="col-sm-2 control-label no-padding-right" style="width: 21%">分组:</label>
+                        <div class="col-sm-10" style="width: 79%">
+                            <input v-model="newData.group" type="text" class="easyui-validatebox form-control"
+                                   data-options="required:true"
+                                   name="resource_state" id="resource_state" placeholder="请输入分组"
+                                   style="width:60%">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="resource_apply" class="col-sm-2 control-label no-padding-right" style="width: 21%">备注信息:</label>
+                        <div class="col-sm-10" style="width: 79%">
+                            <textarea v-model="newData.msg" type="text" class="easyui-validatebox form-control"
+                                   data-options="required:true"
+                                   name="resource_apply" id="resource_apply" placeholder="请输入备注信息"
+                                      style="width:60%"></textarea>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+</div>
+<script>
+    new Vue({
+        el: '#AuthControl',
+        delimiters: ['${', '}'],
+        data: {
+            apps: [],
+            index: -1,
+            newData: {
+                userName: '',
+                token: '',
+                group: '',
+                msg:'',
+                status: true,
+            }
+        },
+        methods: {
+            add(i) {
+                this.index = i;
+                $('#addNew').dialog('open');
+            },
+            breaking(i, index, $event) {
+                i.status ? $.messager.confirm({
+                    ok: '停止',
+                    cancel: '取消',
+                    title: '管控规则状态',
+                    msg: '是否停止该规则?',
+                    fn: function(r) {
+                        if (r) {
+                            i.status = !i.status;
+                            // msgSuccess('已阻断该IP')
+                        }
+                    }
+                }) : $.messager.confirm({
+                    ok: '运行',
+                    cancel: '取消',
+                    title: '管控规则状态',
+                    msg: '是否启动该规则?',
+                    fn: function(r) {
+                        if (r) {
+                            i.status = !i.status;
+                            // msgSuccess('已阻断该IP')
+                        }
+                    }
+                });
+            },
+            goBack(){
+                window.history.go(-1)
+            }
+        },
+        mounted: function() {
+            var _this = this;
+            $('#addNew').dialog({
+                title: '新增限制规则', modal: true, closed: true,
+                width: '600px',
+                height: '400px',
+                buttons: [
+                    {
+                        text: '确定',
+                        handler: function() {
+                            _this.apps.push(_this.newData);
+                            _this.newData = {
+                                limitType: '',
+                                target: '',
+                                reqLimit: '',
+                                limitSize: '',
+                                status: true,
+                            };
+                            $('#addNew').dialog('close');
+                        }
+                    }, {
+                        text: '关闭',
+                        handler: function() {
+                            $('#addNew').dialog('close');
+                        }
+                    }]
+            });
+            axios.get('/project/api/project/operation/apigataway/apis?type=2').then(({data}) => {
+                this.apps = data.data;
+            });
+        }
+    });
+</script>
