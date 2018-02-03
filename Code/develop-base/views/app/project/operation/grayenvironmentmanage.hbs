@@ -1,3 +1,4 @@
+
 <style>
     .deploy-state{
         height: 3px;
@@ -85,26 +86,33 @@
 
 <script>
     let num=1;
+    let all=0;
     $(document).ready(function () {
 
-        $('.next-deploy,.all-deploy').click(function () {
+        $('.next-deploy').click(function () {
 
             if(num==2){
-
+                $("#progress").html("67%");
+                $("#progress").css("width","67%");
+                $("#td2").html("develop-base:v1.4.4");
                     $('.deploy-state div:eq(1)').removeClass('d-cancel').addClass('deploy-antime');
 
             }
             if(num==1){
-
+                    $("#progress").html("33%");
+                    $("#progress").css("width","33%");
+                    $("#td1").html("develop-base:v1.4.4");
                     $('.deploy-state div:eq(0)').removeClass('d-cancel').addClass('deploy-antime');
 
             }if(num==3){
-
+                $("#td3").html("develop-base:v1.4.4");
+                    $("#progress").html("100%");
+                    $("#progress").css("width","100%");
                     $('.deploy-state div:eq(2)').removeClass('d-cancel').addClass('deploy-antime');
 
             }
             if(num==4){
-
+                all=1;
                 $('.d-step-2').hide();
                 $('.d-step-3').show();
                 num=0;
@@ -116,6 +124,13 @@
 
 
         $('.deploy-cancel').click(function () {
+            num=1;
+            all=0;
+            $("#progress").html("0%");
+            $("#progress").css("width","0%");
+            $("#td3").html("develop-base:v1.4.3");
+            $("#td1").html("develop-base:v1.4.3");
+            $("#td2").html("develop-base:v1.4.3");
             $('.deploy-state div').removeClass('deploy-antime').addClass('d-cancel');
         });
         $('#next-step').click(function () {
@@ -123,8 +138,16 @@
             $('.d-step-2').show();
         });
         $('.all-deploy').click(function () {
-            $('.d-step-2').hide();
+            $("#progress").html("100%");
+            $("#progress").css("width","100%");
+            $('.deploy-state div').removeClass('d-cancel').addClass('deploy-antime');
+            num=4;
+            if(all==1||num==4){
+                $('.d-step-2').hide();
             $('.d-step-3').show();
+            }
+            all+=1;
+
         });
     })
 </script>
@@ -171,14 +194,14 @@
                                     <div class="hr-text hr-text-left m-t-0 m-b-0">
                                         <h6><strong class="text-white">项目名称</strong></h6>
                                     </div>
-                                    <h1 class="f-w-300 m-t-0 hidden-md hidden-sm hidden-xs">贵州移动雅典娜平台</h1>
+                                    <h1 class="f-w-300 m-t-0 hidden-md hidden-sm hidden-xs app_name">贵州移动雅典娜平台</h1>
                                 </div>
 
                                 <div class="col-lg-4 col-md-3 col-xs-7 col-sm-8 m-b-1">
                                     <div class="hr-text hr-text-left m-t-0 m-b-0">
                                         <h6><strong class="text-white">镜像</strong></h6>
                                     </div>
-                                    <h1 class="f-w-300 m-t-0 m-b-0 hidden-md hidden-sm hidden-xs">
+                                    <h1 class="f-w-300 m-t-0 m-b-0 hidden-md hidden-sm hidden-xs image_name" id="">
                                         117.187.12.236:15000/develop-base:v1.4.4
                                     </h1>
                                 </div>
@@ -217,28 +240,28 @@
                                                 <div class="panel panel-default b-a-0 bg-gray b-t-primary b-t-2">
                                                     <div class="panel-heading">现行版本</div>
                                                     <div class="panel-body">
-                                                        <h2 class="m-t-0 f-w-300">项目名称：贵州移动DEVOPS</h2>
+                                                        <h2 class="m-t-0 f-w-300 app_name">项目名称：贵州移动DEVOPS</h2>
                                                         <table class="table dataTable no-footer table-striped table-bordered text-white">
                                                             <tbody>
                                                             <tr>
                                                                 <td>项目编号</td>
-                                                                <td>develop-base</td>
+                                                                <td class="app_no">develop-base</td>
                                                             </tr>
                                                             <tr>
                                                                 <td>镜像名称</td>
-                                                                <td>http://192.168.9.47:5000/develop-base:v1.4.2</td>
+                                                                <td class="image_name">http://192.168.9.47:5000/develop-base:v1.4.2</td>
                                                             </tr>
                                                             <tr>
                                                                 <td>运行版本</td>
-                                                                <td>v1.4.2</td>
+                                                                <td id="version">v1.4.2</td>
                                                             </tr>
                                                             <tr>
                                                                 <td>已运行时间</td>
-                                                                <td>20天3小时5分</td>
+                                                                <td id="time">20天3小时5分</td>
                                                             </tr>
                                                             <tr>
                                                                 <td>访问地址</td>
-                                                                <td>192.168.9.61:10003</td>
+                                                                <td id="address">192.168.9.61:10003</td>
                                                             </tr>
                                                             </tbody>
                                                         </table>
@@ -256,16 +279,16 @@
                                                 <div class="panel panel-default b-a-0 bg-gray b-t-success b-t-2">
                                                     <div class="panel-heading">部署版本</div>
                                                     <div class="panel-body">
-                                                        <h2 class="m-t-0 f-w-300">项目名称：贵州移动DEVOPS</h2>
+                                                        <h2 class="m-t-0 f-w-300 app_name">项目名称：贵州移动DEVOPS</h2>
                                                         <table class="table dataTable no-footer table-striped table-bordered text-white">
                                                             <tbody>
                                                             <tr>
                                                                 <td>项目编号</td>
-                                                                <td>develop-base</td>
+                                                                <td class="app_no">develop-base</td>
                                                             </tr>
                                                             <tr>
                                                                 <td>镜像名称</td>
-                                                                <td>http://192.168.9.47:5000/develop-base:v1.4.2</td>
+                                                                <td class="image_name">http://192.168.9.47:5000/develop-base:v1.4.2</td>
                                                             </tr>
                                                             <tr>
                                                                 <td>运行版本</td>
@@ -325,8 +348,8 @@
                                             <div class="row">
                                                 <h3 class="f-w-300 text-white m-t-2">部署进度</h3>
                                                 <div class="progress">
-                                                    <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: 45%">
-                                                        45%
+                                                    <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%" id="progress">
+                                                        0%
                                                     </div>
                                                 </div>
                                             </div>
@@ -388,7 +411,7 @@
                                                                         <td class="col-md-2 v-a-m">虚拟机：192.168.9.62</td>
                                                                         <td class="col-md-1 v-a-m"><i class="fa fa-play-circle text-success"></i> 运行中</td>
                                                                         <td class="col-md-1 v-a-m">26/s</td>
-                                                                        <td class="col-md-2 v-a-m">develop-base:v1.4.3</td>
+                                                                        <td class="col-md-2 v-a-m" id="td1">develop-base:v1.4.3</td>
                                                                         <td class="col-md-1 v-a-m"><i class="fa fa-check-square text-success"></i> 正常</td>
                                                                         <td class="col-md-1 v-a-m">
                                                                             <div class="btn-group">
@@ -420,9 +443,9 @@
                                                                         <td class="col-md-2 v-a-m">ywcj-docker-web1</td>
                                                                         <td class="col-md-2 v-a-m">develop-base</td>
                                                                         <td class="col-md-2 v-a-m">虚拟机：192.168.9.62</td>
-                                                                        <td class="col-md-1 v-a-m"><i class="fa fa-pause-circle text-danger"></i> 停止</td>
+                                                                        <td class="col-md-1 v-a-m"><!--<i class="fa fa-pause-circle text-danger"></i> 停止--><i class="fa fa-play-circle text-success"></i> 运行中</td>
                                                                         <td class="col-md-1 v-a-m">26/s</td>
-                                                                        <td class="col-md-2 v-a-m">develop-base:v1.4.3</td>
+                                                                        <td class="col-md-2 v-a-m" id="td2">develop-base:v1.4.3</td>
                                                                         <td class="col-md-1 v-a-m"><i class="fa fa-check-square text-success"></i> 正常</td>
                                                                         <td class="col-md-1 v-a-m">
                                                                             <div class="btn-group">
@@ -451,10 +474,10 @@
                                                                         <td class="col-md-2 v-a-m">ywcj-docker-web1</td>
                                                                         <td class="col-md-2 v-a-m">develop-base</td>
                                                                         <td class="col-md-2 v-a-m">虚拟机：192.168.9.62</td>
-                                                                        <td class="col-md-1 v-a-m"><i class="fa fa-pause-circle text-danger"></i> 停止</td>
+                                                                        <td class="col-md-1 v-a-m"><!--<i class="fa fa-pause-circle text-danger"></i> 停止--><i class="fa fa-play-circle text-success"></i> 运行中</td>
                                                                         <td class="col-md-1 v-a-m">26/s</td>
-                                                                        <td class="col-md-2 v-a-m">develop-base:v1.4.3</td>
-                                                                        <td class="col-md-1 v-a-m"><i class="fa fa-ambulance text-danger"></i> 故障</td>
+                                                                        <td class="col-md-2 v-a-m" id="td3">develop-base:v1.4.3</td>
+                                                                        <td class="col-md-1 v-a-m"><i class="fa fa-check-square text-success"></i> 正常</td>
                                                                         <td class="col-md-1 v-a-m">
                                                                             <div class="btn-group">
                                                                                 <button class="btn btn-default btn-sm"><i class="fa fa-random"></i> 导流</button>
@@ -534,15 +557,15 @@
                                                             <tbody>
                                                             <tr>
                                                                 <td>项目名称</td>
-                                                                <td>贵州移动DEVOPS</td>
+                                                                <td class="app_name">贵州移动DEVOPS</td>
                                                             </tr>
                                                             <tr>
                                                                 <td>项目编号</td>
-                                                                <td>develop-base</td>
+                                                                <td class="app_no">develop-base</td>
                                                             </tr>
                                                             <tr>
                                                                 <td>项目名称</td>
-                                                                <td>贵州移动DEVOPS</td>
+                                                                <td class="app_name">贵州移动DEVOPS</td>
                                                             </tr>
                                                             <tr>
                                                                 <td>运行版本</td>
@@ -550,7 +573,7 @@
                                                             </tr>
                                                             <tr>
                                                                 <td>镜像名称</td>
-                                                                <td>http://192.168.9.47:5000/develop-base:v1.4.5</td>
+                                                                <td class="image_name">http://192.168.9.47:5000/develop-base:v1.4.5</td>
                                                             </tr>
                                                             <tr>
                                                                 <td>已运行时间</td>
@@ -601,6 +624,12 @@
             },
             success:function(data){
                 console.log(data);
+                $(".app_name").html(data.data[0].app_name);
+                $(".image_name").html(data.data[0].version);
+                $(".app_no").html(data.data[0].ename);
+                $("#version").html(data.data[0].gray_version);
+                $("#time").html(parseInt(data.data[0].runtime)/60+"小时");
+                $("#address").html(data.data[0].address);
             }
         })
     }

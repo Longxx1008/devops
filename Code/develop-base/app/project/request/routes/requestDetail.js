@@ -13,65 +13,85 @@ var utils = require('../../../common/core/utils/app_utils');
 
 
 
-//文章详情Controller
+//先通过group方式查出请求了几个微服务，然后再将每一个微服务的详细记录的数组作为一个元素放在list里，相当于list为一个二维数组。
+
 router.route('/getDetailByNumber').get(function(req,res){
     var conditionMap = {};
     conditionMap.serial_number=req.query.serial_number;
 
-    requestDetailService.getServiceType(0, 10, conditionMap,function(result){
+    requestDetailService.getServiceType(1, 100, conditionMap,function(result){
         var list={};
-        // item.log("result------",result);
-        var j=0;
+        var j=1;   //list中第0个元素存长度，第1个元素开始存各个微服务的详细记录。
         for (var i=0;i<result.total;i++){
-            var item="'"+result.rows[i].micro_service_id+"'";
-
-
-            requestDetailService.getDetailMsgByNumber(result.rows[i].micro_service_id,function(result1){
-
+            requestDetailService.getDetailMsgByNumber(result.rows[i].micro_service_id,conditionMap.serial_number,function(result1){
                 if(list[j]=result1){
-                    console.log("result333-----",list[j].rows[0].module);
-                    j=j+1;
+                    var totalTime=0;
+                    var totalStatus="正常";
+                    for(var k=0;k<result1.total;k++){
+                        totalTime+=result1.rows[k].total_time_consuming;
+                        list[j].rows[0].totalTime=totalTime;
+                        if(result1.rows[k].return_status!='200'){
+                            totalStatus="异常";
+                        }
+                        list[j].rows[0].totalStatus=totalStatus;
+                    }
+                    // console.log("@@##"+list[j].rows[0].totalTime);
+                    //console.log("@@##"+list[j].rows[0].totalStatus);
+
+                    if(j=j+1){
+                        if(j===result.total+1){
+                            list[0]=result.total;      //把微服务的数量复制给list[0];
+                            //console.log("@@@@"+list[0]);
+                            utils.respJsonData(res, list);
+                        }
+                    }
                 }
             });
+
         }
 
-        utils.respJsonData(res, list);
+
     });
 
 });
 
 
 
+
+
+
+
 //
 //
-// //文章详情Controller
 // router.route('/getDetailByNumber').get(function(req,res){
 //     var conditionMap = {};
 //     conditionMap.serial_number=req.query.serial_number;
 //
-//     requestDetailService.getServiceType(0, 10, conditionMap).then(function(result){
+//     requestDetailService.getServiceType(1, 100, conditionMap,function(result){
 //         var list={};
-//         // item.log("result------",result);
+//         var j=1;   //list中第0个元素存长度，第1个元素开始存各个微服务的详细记录。
 //         for (var i=0;i<result.total;i++){
-//             var item="'"+result.rows[i].micro_service_id+"'";
-//             console.log("result11-----",item);
+//             requestDetailService.getDetailMsgByNumber(result.rows[i].micro_service_id,conditionMap.serial_number,function(result1){
 //
-//             requestDetailService.getDetailMsgByNumber(result.rows[i].micro_service_id).then(function(result1){
-//                 // console.log("result11-----",result1);
-//                 console.log("result2-----",item);
-//                 list[item]=result1.rows;
-//                 // list[i]=result1;
-//
+//                 if(list[j]=result1){
+//                     console.log("result333-----"+list[j].rows[0].module);
+//                     if(j=j+1){
+//                         if(j===result.total+1){
+//                             list[0]=result.total;      //把微服务的数量复制给list[0];
+//                             console.log("@@@@"+list[0]);
+//                             utils.respJsonData(res, list);
+//                         }
+//                     }
+//                 }
 //             });
+//
 //         }
 //
-//         utils.respJsonData(res, list);
+//
 //     });
 //
 // });
 //
-
-
 
 
 

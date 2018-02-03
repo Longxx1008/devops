@@ -3,241 +3,241 @@
 
 <div class="row" >
     <div class="bor" style="margin-top: -20px"></div>
-    <div class="container">
-        <div class="row" >
-            <!--<div class="cont-bor">-->
-                <div class="col-sm-2" style="position: relative;">
-                    <div class="gz-left"></div>
-                    <div class="radus"></div>
-                    <div class="bor-top">
-                        <div>用户管理</div>
-                    </div>
-                </div>
-                <div class="col-sm-10" >
-                    <table class="table table-condensed gz-top" style="margin-bottom: 2px;">
-                        <tbody>
-                        <tr>
-                            <td>请求地址：<em>http://192.168.1.1:8080:hy/login.htm</em></td>
-                            <td>容器：<em>192.168.</em></td>
-                            <td>请求系列：<em>http://192.168.1</em></td>
-                        </tr>
-                        <tr>
-                            <td>服务名称：<em>用户管理 v1.2.1</em></td>
-                            <td>宿主机：<em>192.168.9.61</em></td>
-                            <td>返回响应：
-                                <span style="display: inline;">正常</span>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>请求时间：<em>192.168.9.61</em></td>
-                            <td>耗时：<em>3s</em></td>
-                        </tr>
-                        </tbody>
-                    </table>
+    <div class="container"  id="requestList">
+        <!--<div class="row" >-->
+        <!--&lt;!&ndash;<div class="cont-bor">&ndash;&gt;-->
+        <!--<div class="col-sm-2" style="position: relative;">-->
+        <!--<div class="gz-left"></div>-->
+        <!--<div class="radus"></div>-->
+        <!--<div class="bor-top">-->
+        <!--<div>用户管理</div>-->
+        <!--</div>-->
+        <!--</div>-->
+        <!--<div class="col-sm-10" >-->
+        <!--<table class="table table-condensed gz-top" style="margin-bottom: 2px;">-->
+        <!--<tbody>-->
+        <!--<tr>-->
+        <!--<td>请求地址：<em>http://192.168.1.1:8080:hy/login.htm</em></td>-->
+        <!--<td>容器：<em>192.168.</em></td>-->
+        <!--<td>请求系列：<em>http://192.168.1</em></td>-->
+        <!--</tr>-->
+        <!--<tr>-->
+        <!--<td>服务名称：<em>用户管理 v1.2.1</em></td>-->
+        <!--<td>宿主机：<em>192.168.9.61</em></td>-->
+        <!--<td>返回响应：-->
+        <!--<span style="display: inline;">正常</span>-->
+        <!--</td>-->
+        <!--</tr>-->
+        <!--<tr>-->
+        <!--<td>请求时间：<em>192.168.9.61</em></td>-->
+        <!--<td>耗时：<em>3s</em></td>-->
+        <!--</tr>-->
+        <!--</tbody>-->
+        <!--</table>-->
 
-                    <table class="table table-bordered">
-                        <tbody>
-                        <tr>
-                            <td>模块</td>
-                            <td>类</td>
-                            <td>方法</td>
-                            <td>入参</td>
-                            <td>出参</td>
-                            <td>请求时间</td>
-                            <td>总耗时</td>
-                            <td>开发人员</td>
-                            <td>最后提交时间</td>
-                            <td>返回响应</td>
-                        </tr>
-                        <tr>
-                            <td>用户管理</td>
-                            <td>UserManager</td>
-                            <td>query</td>
-                            <td>String : ‘张三’,</td>
-                            <td>String : ‘张三’,</td>
-                            <td>2018/01/22 06:52:42</td>
-                            <td>2s</td>
-                            <td>哈哈哈哈</td>
-                            <td>2018/01/22 06:52:42</td>
-                            <td>
-                                <span>正常</span>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>用户管理</td>
-                            <td>UserManager</td>
-                            <td>query</td>
-                            <td>String : ‘张三’,</td>
-                            <td>String : ‘张三’,</td>
-                            <td>2018/01/22 06:52:42</td>
-                            <td>2s</td>
-                            <td>哈哈哈哈</td>
-                            <td>2018/01/22 06:52:42</td>
-                            <td>
-                                <span>正常</span>
-                            </td>
-                        </tr>
+        <!--<table class="table table-bordered">-->
+        <!--<tbody>-->
+        <!--<tr>-->
+        <!--<td>模块</td>-->
+        <!--<td>类</td>-->
+        <!--<td>方法</td>-->
+        <!--<td>入参</td>-->
+        <!--<td>出参</td>-->
+        <!--<td>请求时间</td>-->
+        <!--<td>总耗时</td>-->
+        <!--<td>开发人员</td>-->
+        <!--<td>最后提交时间</td>-->
+        <!--<td>返回响应</td>-->
+        <!--</tr>-->
+        <!--<tr>-->
+        <!--<td>用户管理</td>-->
+        <!--<td>UserManager</td>-->
+        <!--<td>query</td>-->
+        <!--<td>String : ‘张三’,</td>-->
+        <!--<td>String : ‘张三’,</td>-->
+        <!--<td>2018/01/22 06:52:42</td>-->
+        <!--<td>2s</td>-->
+        <!--<td>哈哈哈哈</td>-->
+        <!--<td>2018/01/22 06:52:42</td>-->
+        <!--<td>-->
+        <!--<span>正常</span>-->
+        <!--</td>-->
+        <!--</tr>-->
+        <!--<tr>-->
+        <!--<td>用户管理</td>-->
+        <!--<td>UserManager</td>-->
+        <!--<td>query</td>-->
+        <!--<td>String : ‘张三’,</td>-->
+        <!--<td>String : ‘张三’,</td>-->
+        <!--<td>2018/01/22 06:52:42</td>-->
+        <!--<td>2s</td>-->
+        <!--<td>哈哈哈哈</td>-->
+        <!--<td>2018/01/22 06:52:42</td>-->
+        <!--<td>-->
+        <!--<span>正常</span>-->
+        <!--</td>-->
+        <!--</tr>-->
 
 
-                        </tbody>
-                    </table>
-                </div>
-            <!--</div>-->
+        <!--</tbody>-->
+        <!--</table>-->
+        <!--</div>-->
+        <!--&lt;!&ndash;</div>&ndash;&gt;-->
 
-        </div>
-        <div class="row">
-            <div class="col-sm-2" style="position: relative;">
-                <div class="gz-left"></div>
-                <div class="radus"></div>
-                <div class="bor-top">
-                    <div>决策分析</div>
-                </div>
-            </div>
-            <div class="col-sm-10">
-                <table class="table table-condensed gz-top" style="margin-bottom: 2px;">
-                    <tbody>
-                    <tr>
-                        <td>请求地址：<em>http://192.168.1.1:8080:hy/login.htm</em></td>
-                        <td>容器：<em>192.168.</em></td>
-                        <td>请求系列：<em>http://192.168.1</em></td>
-                    </tr>
-                    <tr>
-                        <td>服务名称：<em>用户管理 v1.2.1</em></td>
-                        <td>宿主机：<em>192.168.9.61</em></td>
-                        <td>返回响应：
-                            <span style="display: inline;">正常</span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>请求时间：<em>192.168.9.61</em></td>
-                        <td>耗时：<em>3s</em></td>
-                    </tr>
-                    </tbody>
-                </table>
+        <!--</div>-->
+        <!--<div class="row">-->
+        <!--<div class="col-sm-2" style="position: relative;">-->
+        <!--<div class="gz-left"></div>-->
+        <!--<div class="radus"></div>-->
+        <!--<div class="bor-top">-->
+        <!--<div>决策分析</div>-->
+        <!--</div>-->
+        <!--</div>-->
+        <!--<div class="col-sm-10">-->
+        <!--<table class="table table-condensed gz-top" style="margin-bottom: 2px;">-->
+        <!--<tbody>-->
+        <!--<tr>-->
+        <!--<td>请求地址：<em>http://192.168.1.1:8080:hy/login.htm</em></td>-->
+        <!--<td>容器：<em>192.168.</em></td>-->
+        <!--<td>请求系列：<em>http://192.168.1</em></td>-->
+        <!--</tr>-->
+        <!--<tr>-->
+        <!--<td>服务名称：<em>用户管理 v1.2.1</em></td>-->
+        <!--<td>宿主机：<em>192.168.9.61</em></td>-->
+        <!--<td>返回响应：-->
+        <!--<span style="display: inline;">正常</span>-->
+        <!--</td>-->
+        <!--</tr>-->
+        <!--<tr>-->
+        <!--<td>请求时间：<em>192.168.9.61</em></td>-->
+        <!--<td>耗时：<em>3s</em></td>-->
+        <!--</tr>-->
+        <!--</tbody>-->
+        <!--</table>-->
 
-                <table class="table table-bordered">
-                    <tbody>
-                    <tr>
-                        <td>模块</td>
-                        <td>类</td>
-                        <td>方法</td>
-                        <td>入参</td>
-                        <td>出参</td>
-                        <td>请求时间</td>
-                        <td>总耗时</td>
-                        <td>开发人员</td>
-                        <td>最后提交时间</td>
-                        <td>返回响应</td>
-                    </tr>
-                    <tr>
-                        <td>发送消息</td>
-                        <td>UserManager</td>
-                        <td>query</td>
-                        <td>String : ‘张三’,</td>
-                        <td>String : ‘张三’,</td>
-                        <td>2018/01/22 06:52:42</td>
-                        <td>2s</td>
-                        <td>哈哈哈哈</td>
-                        <td>2018/01/22 06:52:42</td>
-                        <td>
-                            <span>正常</span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>数据分析</td>
-                        <td>UserManager</td>
-                        <td>query</td>
-                        <td>String : ‘张三’,</td>
-                        <td>String : ‘张三’,</td>
-                        <td>2018/01/22 06:52:42</td>
-                        <td>2s</td>
-                        <td>哈哈哈哈</td>
-                        <td>2018/01/22 06:52:42</td>
-                        <td>
-                            <span>正常</span>
-                        </td>
-                    </tr>
+        <!--<table class="table table-bordered">-->
+        <!--<tbody>-->
+        <!--<tr>-->
+        <!--<td>模块</td>-->
+        <!--<td>类</td>-->
+        <!--<td>方法</td>-->
+        <!--<td>入参</td>-->
+        <!--<td>出参</td>-->
+        <!--<td>请求时间</td>-->
+        <!--<td>总耗时</td>-->
+        <!--<td>开发人员</td>-->
+        <!--<td>最后提交时间</td>-->
+        <!--<td>返回响应</td>-->
+        <!--</tr>-->
+        <!--<tr>-->
+        <!--<td>发送消息</td>-->
+        <!--<td>UserManager</td>-->
+        <!--<td>query</td>-->
+        <!--<td>String : ‘张三’,</td>-->
+        <!--<td>String : ‘张三’,</td>-->
+        <!--<td>2018/01/22 06:52:42</td>-->
+        <!--<td>2s</td>-->
+        <!--<td>哈哈哈哈</td>-->
+        <!--<td>2018/01/22 06:52:42</td>-->
+        <!--<td>-->
+        <!--<span>正常</span>-->
+        <!--</td>-->
+        <!--</tr>-->
+        <!--<tr>-->
+        <!--<td>数据分析</td>-->
+        <!--<td>UserManager</td>-->
+        <!--<td>query</td>-->
+        <!--<td>String : ‘张三’,</td>-->
+        <!--<td>String : ‘张三’,</td>-->
+        <!--<td>2018/01/22 06:52:42</td>-->
+        <!--<td>2s</td>-->
+        <!--<td>哈哈哈哈</td>-->
+        <!--<td>2018/01/22 06:52:42</td>-->
+        <!--<td>-->
+        <!--<span>正常</span>-->
+        <!--</td>-->
+        <!--</tr>-->
 
-                    </tbody>
-                </table>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-sm-2" style="position: relative;">
-                <div class="gz-left"></div>
-                <div class="radus"></div>
-                <div class="bor-top">
-                    <div>数据存储</div>
-                </div>
-            </div>
-            <div class="col-sm-10">
-                <table class="table table-condensed gz-top" style="margin-bottom: 2px;">
-                    <tbody>
-                    <tr>
-                        <td>请求地址：<em>http://192.168.1.1:8080:hy/login.htm</em></td>
-                        <td>容器：<em>192.168.</em></td>
-                        <td>请求系列：<em>http://192.168.1</em></td>
-                    </tr>
-                    <tr>
-                        <td>服务名称：<em>用户管理 v1.2.1</em></td>
-                        <td>宿主机：<em>192.168.9.61</em></td>
-                        <td>返回响应：
-                            <span style="display: inline;">正常</span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>请求时间：<em>192.168.9.61</em></td>
-                        <td>耗时：<em>3s</em></td>
-                    </tr>
-                    </tbody>
-                </table>
+        <!--</tbody>-->
+        <!--</table>-->
+        <!--</div>-->
+        <!--</div>-->
+        <!--<div class="row">-->
+        <!--<div class="col-sm-2" style="position: relative;">-->
+        <!--<div class="gz-left"></div>-->
+        <!--<div class="radus"></div>-->
+        <!--<div class="bor-top">-->
+        <!--<div>数据存储</div>-->
+        <!--</div>-->
+        <!--</div>-->
+        <!--<div class="col-sm-10">-->
+        <!--<table class="table table-condensed gz-top" style="margin-bottom: 2px;">-->
+        <!--<tbody>-->
+        <!--<tr>-->
+        <!--<td>请求地址：<em>http://192.168.1.1:8080:hy/login.htm</em></td>-->
+        <!--<td>容器：<em>192.168.</em></td>-->
+        <!--<td>请求系列：<em>http://192.168.1</em></td>-->
+        <!--</tr>-->
+        <!--<tr>-->
+        <!--<td>服务名称：<em>用户管理 v1.2.1</em></td>-->
+        <!--<td>宿主机：<em>192.168.9.61</em></td>-->
+        <!--<td>返回响应：-->
+        <!--<span style="display: inline;">正常</span>-->
+        <!--</td>-->
+        <!--</tr>-->
+        <!--<tr>-->
+        <!--<td>请求时间：<em>192.168.9.61</em></td>-->
+        <!--<td>耗时：<em>3s</em></td>-->
+        <!--</tr>-->
+        <!--</tbody>-->
+        <!--</table>-->
 
-                <table class="table table-bordered">
-                    <tbody>
-                    <tr>
-                        <td>模块</td>
-                        <td>类</td>
-                        <td>方法</td>
-                        <td>入参</td>
-                        <td>出参</td>
-                        <td>请求时间</td>
-                        <td>总耗时</td>
-                        <td>开发人员</td>
-                        <td>最后提交时间</td>
-                        <td>返回响应</td>
-                    </tr>
-                    <tr>
-                        <td>发送消息</td>
-                        <td>UserManager</td>
-                        <td>query</td>
-                        <td>String : ‘张三’,</td>
-                        <td>String : ‘张三’,</td>
-                        <td>2018/01/22 06:52:42</td>
-                        <td>2s</td>
-                        <td>哈哈哈哈</td>
-                        <td>2018/01/22 06:52:42</td>
-                        <td>
-                            <span>正常</span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>数据分析</td>
-                        <td>UserManager</td>
-                        <td>query</td>
-                        <td>String : ‘张三’,</td>
-                        <td>String : ‘张三’,</td>
-                        <td>2018/01/22 06:52:42</td>
-                        <td>2s</td>
-                        <td>哈哈哈哈</td>
-                        <td>2018/01/22 06:52:42</td>
-                        <td>
-                            <span>正常</span>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
+        <!--<table class="table table-bordered">-->
+        <!--<tbody>-->
+        <!--<tr>-->
+        <!--<td>模块</td>-->
+        <!--<td>类</td>-->
+        <!--<td>方法</td>-->
+        <!--<td>入参</td>-->
+        <!--<td>出参</td>-->
+        <!--<td>请求时间</td>-->
+        <!--<td>总耗时</td>-->
+        <!--<td>开发人员</td>-->
+        <!--<td>最后提交时间</td>-->
+        <!--<td>返回响应</td>-->
+        <!--</tr>-->
+        <!--<tr>-->
+        <!--<td>发送消息</td>-->
+        <!--<td>UserManager</td>-->
+        <!--<td>query</td>-->
+        <!--<td>String : ‘张三’,</td>-->
+        <!--<td>String : ‘张三’,</td>-->
+        <!--<td>2018/01/22 06:52:42</td>-->
+        <!--<td>2s</td>-->
+        <!--<td>哈哈哈哈</td>-->
+        <!--<td>2018/01/22 06:52:42</td>-->
+        <!--<td>-->
+        <!--<span>正常</span>-->
+        <!--</td>-->
+        <!--</tr>-->
+        <!--<tr>-->
+        <!--<td>数据分析</td>-->
+        <!--<td>UserManager</td>-->
+        <!--<td>query</td>-->
+        <!--<td>String : ‘张三’,</td>-->
+        <!--<td>String : ‘张三’,</td>-->
+        <!--<td>2018/01/22 06:52:42</td>-->
+        <!--<td>2s</td>-->
+        <!--<td>哈哈哈哈</td>-->
+        <!--<td>2018/01/22 06:52:42</td>-->
+        <!--<td>-->
+        <!--<span>正常</span>-->
+        <!--</td>-->
+        <!--</tr>-->
+        <!--</tbody>-->
+        <!--</table>-->
+        <!--</div>-->
+        <!--</div>-->
     </div>
 
 
@@ -247,27 +247,114 @@
     var searchData = window.location.href.split("=");
     var serial_number = decodeURI(searchData[1]);
 
+
+
+
+
     $.ajax({
         url: '{{projcfg.appurl}}/api/project/request/requestDetail/getDetailByNumber?serial_number='+serial_number,
         type: 'get',
         success: function (data) {
-            var rows = data.rows;
-            for(var i=0;i<data.total;i++){
-
-                if(rows[i].respond_status=='200'){
-                    $('#status200').text(rows[i].statusCount);
+            console.log("result555-----",data[0]);
+            // console.log("result666-----",data[0].rows[0].module);
+            var html='';
+            var datalen=data[0]+1
+            for(var i=1;i<datalen;i++){
+                var serData=data[i];
+                var totalStatus="";
+                if(serData.rows[0].totalStatus=="正常"){
+                    totalStatus='  <span style="display: inline;background: #5ecd71">'+serData.rows[0].totalStatus+'</span>';
+                }else {
+                    totalStatus='  <span style="display: inline;background: red">'+serData.rows[0].totalStatus+'</span>';
                 }
-                else if(rows[i].respond_status=='302'){
-                    $('#status302').text(rows[i].statusCount);
 
-                }else if(rows[i].respond_status=='404'){
-                    $('#status404').text(rows[i].statusCount);
 
-                }else if(rows[i].respond_status=='500'){
-                    $('#status500').text(rows[i].statusCount);
 
+                var item='<div class="row" >'+
+                        '<div class="col-sm-2" style="position: relative;">'+
+                        '<div class="gz-left"></div>'+
+                        '<div class="radus"></div>'+
+                        '<div class="bor-top">'+
+                        '<div>'+serData.rows[0].micro_service_name+'</div>'+
+                        '</div>'+
+                        '</div>'+
+                        '<div class="col-sm-10" >'+
+                        '<table class="table table-condensed gz-top" style="margin-bottom: 2px;">'+
+                        '<tbody>'+
+                        '<tr>'+
+                        ' <td>请求地址：<em>'+serData.rows[0].req_url+'</em></td>'+
+                        '<td>容器：<em>'+serData.rows[0].container_id+'</em></td>'+
+                        ' <td>请求序列：<em>'+serData.rows[0].req_serial_num+'</em></td>'+
+                        ' </tr>'+
+                        ' <tr>'+
+                        ' <td>服务名称：<em>'+serData.rows[0].micro_service_name+'</em></td>'+
+                        '<td>宿主机：<em>'+serData.rows[0].com_ip+'</em></td>'+
+                        '<td>返回响应：'+ totalStatus+  '  </td>'+
+                        '</tr>'+
+                        ' <tr>'+
+                        '<td>请求时间：<em>'+serData.rows[0].req_time.replace(/T/,' ').replace('.000Z','')+'</em></td>'+
+                        '<td>耗时：<em>'+serData.rows[0].totalTime+'</em></td>'+
+                        '</tr>'+
+                        ' </tbody>'+
+                        ' </table>'+
+
+                        ' <table class="table table-bordered">'+
+                        '<tbody>'+
+                        '<tr>'+
+                        '<td>模块</td>'+
+                        '<td>类</td>' +
+                        ' <td>方法</td>' +
+                        '<td>入参</td>' +
+                        '<td>出参</td>' +
+                        ' <td>请求时间</td>' +
+                        '<td>总耗时</td>' +
+                        ' <td>开发人员</td>' +
+                        ' <td>最后提交</td>' +
+                        '<td>返回响应</td>' +
+                        '</tr>' ;
+
+
+                for(var j=0;j<serData.total;j++){
+                    var metData=serData.rows[j];
+
+                    var status="";
+                    if(metData.return_status==200){
+                        status='  <span style="background: #5ecd71">'+metData.return_status+'</span>';
+                    }else if(metData.return_status==302){
+                        status='  <span style="background: blue">'+metData.return_status+'</span>';
+
+                    }else if(metData.return_status==404){
+                        status='  <span style="background: red">'+metData.return_status+'</span>';
+                    }else if(metData.return_status==500){
+                        status='  <span style="background: #e37855">'+metData.return_status+'</span>';
+                    }
+
+                    item+='<tr>' +
+                            ' <td>'+metData.module+'</td>' +
+                            '  <td>'+metData.req_class+'</td>' +
+                            '   <td>'+metData.req_method+'</td>' +
+                            ' <td>'+metData.in_param+'</td>' +
+                            ' <td>'+metData.out_param+'</td>' +
+                            '  <td>'+metData.req_time.replace(/T/,' ').replace('.000Z','')+'</td>' +
+                            '   <td>'+metData.total_time_consuming+'</td>' +
+                            '  <td>'+metData.dev_member+'</td>' +
+                            '   <td>'+metData.code_commit+'</td>' +
+                            '  <td>' +
+                            status +
+                            '  </td>' +
+                            '  </tr>';
                 }
+
+                item+= '  </tbody>' +
+                        '</table>' +
+                        ' </div>' +
+                        ' </div>'
+
+                console.log("@@@@$$$$"+item);
+
+                html+=item;
             }
+            $('#requestList').append(html);
         }
     });
 </script>
