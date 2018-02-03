@@ -43,7 +43,7 @@
         <!-- END EDIT CONTENT -->
 
     </div>
-    <div id="dlg" class="easyui-dialog" title="策略新增" data-options="iconCls:'icon-save'" closed="true" style="width:500px;height:400px;padding:10px;overflow:hidden;display: none">
+    <div id="dlg" class="easyui-dialog" title="策略新增" data-options="iconCls:'icon-save'" closed="true" style="width:550px;height:450px;padding:10px;overflow:hidden;display: none">
         <form id="colonyForm" class="form-horizontal form-bordered" role="form" method="post" enctype="multipart/form-data" >
             <input type="hidden" id="id" name="id"/>
             <div class="form-group" style="text-align:center;padding:5px">
@@ -56,9 +56,9 @@
                 <label for="gather_value" class="col-sm-2 control-label no-padding-right" style="width: 40%">采集值:</label>
                 <div class="col-sm-10 conbo" style="width: 60%">
                     <select  class="easyui-combobox" data-options="required:true,editable:false,panelHeight:50" style="width:70px;height:34px;" name="gather_value" id="gather_value" value="CPU">
-                        <option value="CPU">CPU</option>
-                        <option value="内存">内存</option>
-                        <option value="流量">流量</option>
+                        <option value="1">CPU</option>
+                        <option value="2">内存</option>
+                        <option value="3">流量</option>
                     </select>
                 </div>
             </div>
@@ -88,6 +88,15 @@
                 <label for="tactics_count" class="col-sm-2 control-label no-padding-right" style="width: 40%">次数:</label>
                 <div class="col-sm-10" style="width: 60%">
                     <input type="text" class="easyui-validatebox form-control" data-options="required:true" name="tactics_count" id="tactics_count" placeholder="请输入次数" style="width:50%">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="tactics" class="col-sm-2 control-label no-padding-right" style="width: 40%">策略:</label>
+                <div class="col-sm-10 conbo" style="width: 65%">
+                    <select  class="easyui-combobox" data-options="required:true,editable:false,panelHeight:50" style="width:70px;height:34px;" name="tactics" id="tactics" value="1">
+                        <option value="1">容器扩展</option>
+                        <option value="2">容器收缩</option>
+                    </select>
                 </div>
             </div>
         </form>
@@ -277,11 +286,11 @@ var microServiceId;
                 var innerHtml='<tr>'+
                         '<td class="v-a-m">'+sDatas[i].id+'</td>'+
                         '       <td class="v-a-m">'+sDatas[i].tactics_name+'</td>'+
-                        '     <td class="v-a-m">'+sDatas[i].gather_value+'</td>'+
+                        '     <td class="v-a-m">'+setGatherValueString(sDatas[i].gather_value)+'</td>'+
                         '   <td class="v-a-m">'+sDatas[i].duration+'</td>'+
                         ' <td class="v-a-m">&gt;'+sDatas[i].target_value+'/s</td>'+
                         '     <td class="v-a-m">'+sDatas[i].tactics_count+'</td>'+
-                        '    <td class="v-a-m">'+sDatas[i].tactics+'</td>'+
+                        '    <td class="v-a-m">'+setTaticsString(sDatas[i].tactics)+'</td>'+
                         '    <td class="v-a-m">'+sDatas[i].remark+'</td>'+
                         ' <td class="v-a-m"><span class="'+setContStatusCss(sDatas[i].status)+'"><i class="fa fa-play-circle-o"></i> '+setContStatus(sDatas[i].status)+'</span></td>'+
                         '  <td class="v-a-m">'+
@@ -296,7 +305,25 @@ var microServiceId;
         }
     }
 
-            //设置容器状态
+function setTaticsString(v){
+    if(v==1){
+        return "容器扩展";
+    }else if(v==2){
+        return '容器收缩';
+    }
+}
+
+function setGatherValueString(v){
+    if(v==1){
+        return "CPU";
+    }else if(v==2){
+        return '内存';
+    }else if(v==3){
+        return '流量';
+    }
+}
+
+//设置容器状态
 function setContStatus(v){
     if(v==1){
     return '启用';
@@ -394,6 +421,7 @@ function doAdd() {
             target_value: $("#target_value").val(),
             operation: $("#operation").val(),
             tactics_count: $("#tactics_count").val(),
+            tactics: $("#tactics").val(),
             status:"0"
         },
         success: function (data) {

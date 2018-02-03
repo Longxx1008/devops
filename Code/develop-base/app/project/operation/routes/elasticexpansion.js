@@ -99,9 +99,9 @@ router.route("/microServices").get(function(req, res) {
     data.duration = req.body.duration;
     data.target_value = req.body.target_value;
     data.tactics_count = req.body.tactics_count;
-    data.tactics = req.body.tactics_name;
+    data.tactics = req.body.tactics;
     data.operation = req.body.operation;
-    data.remark = data.gather_value+""+data.operation+data.target_value+"KB每s"+data.tactics_count+"次自动扩展";
+    data.remark = data.gather_value+""+data.operation+data.target_value+"单位/s"+data.tactics_count+"次自动扩展";
     data.status = req.body.status;
     console.log(data);
     elasticExpansionService.add(data, function(result) {
