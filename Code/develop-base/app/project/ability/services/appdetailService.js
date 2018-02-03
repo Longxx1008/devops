@@ -117,10 +117,11 @@ exports.addContainer = function(service_id,app_id,cb) {
     var containerData= {
         'app_id':app_id,
         'micro_service_id':service_id,
-        'container_name':'container_name'+app_id,
+        'hostname':'mesos-master1',
+        'container_name':'kong',
         'container_ip':'127.0.0.1',
-        'host_ip':'192.168.9.62',
-        'port':'8080',
+        'host_ip':'192.168.9.61',
+        'port':'31134',
         'status':'1'
     };
 
