@@ -1540,7 +1540,7 @@ var microServiceId;
 
     function gernerateStrategyInnerHtml(sDatas,mData,index){
 
-        for(let i=0;i<sDatas.length;i++){
+        for(var i=0;i<sDatas.length;i++){
             if(sDatas[i].micro_service_id == mData.micro_service_id){
                 var innerHtml='<tr>'+
                         '<td class="v-a-m">'+sDatas[i].id+'</td>'+
@@ -1606,20 +1606,24 @@ function doEdit(id,status) {
         newStatus=1;
     }
     $.ajax({
-        url: '{{projcfg.appurl}}/api/project/operation/elasticExpantion',
+        url: '{{projcfg.appurl}}/api/project/operation/elasticExpansion/microServices',
         type: 'post',
         // data: $('#colonyForm').serializeJson(),
         data:{id:id,status:newStatus},
         success: function (data) {
-            $.messager.progress('close');
+           // $.messager.progress('close');
+            console.log(data);
             if(data.success) {
-                msgSuccess(data.msg);
-                $("#panelBody").clean();
+               // msgSuccess(data.msg);
+                $("#panelBody").empty();
                 initData();
             }
             else {
-                msgError(data.msg+',错误代码:'+data.code);
+               // msgError(data.msg+',错误代码:'+data.code);
             }
+        },
+        error:function(error){
+            console.log(error);
         }
     });
 }
@@ -1627,16 +1631,19 @@ function doEdit(id,status) {
 /*******删除********/
 function doDel(id) {
         $.ajax({
-            url: '{{projcfg.appurl}}/api/project/operation/'+id,
+            url: '{{projcfg.appurl}}/api/project/operation/elasticExpansion/microServices/'+id,
             type: 'delete',
             success: function (data) {
                 if(data.success) {
-                    msgSuccess(data.msg);
-                    $("#panelBody").clean();
+                   // msgSuccess(data.msg);
+                    $("#panelBody").empty();
                     initData();
                 }else{
-                    msgError(data.msg + ',错误代码:' + data.code);
+                  //  msgError(data.msg + ',错误代码:' + data.code);
                 }
+            },
+            error:function(error){
+                 console.log(error);
             }
         });
 }

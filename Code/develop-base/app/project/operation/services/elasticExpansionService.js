@@ -53,7 +53,26 @@ exports.findList = async function (conditionMap,cb) {
    `type` int(11) DEFAULT NULL COMMENT '1灰度、2正式',
    PRIMARY KEY (`id`)
    ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='应用表';
-*/  var sql = "select * from pass_project_tactics_info t left join pass_project_micro_service m on t.micro_service_id = m.id "+
+   '<td class="v-a-m">'+sDatas[i].id+'</td>'+
+   '       <td class="v-a-m">'+sDatas[i].tactics_name+'</td>'+
+   '     <td class="v-a-m">'+sDatas[i].gather_value+'</td>'+
+   '   <td class="v-a-m">'+sDatas[i].duration+'</td>'+
+   ' <td class="v-a-m">&gt;'+sDatas[i].target_value+'/s</td>'+
+   '     <td class="v-a-m">'+sDatas[i].tactics_count+'</td>'+
+   '    <td class="v-a-m">'+sDatas[i].tactics+'</td>'+
+   '    <td class="v-a-m">'+sDatas[i].remark+'</td>'+
+
+*/  var sql = "select t.id as id," +
+                "t.micro_service_id as micro_service_id," +
+                "t.tactics_name as tactics_name," +
+                "t.gather_value as gather_value," +
+                "t.duration as duration," +
+                "t.tactics_count as tactics_count," +
+                "t.tactics as tactics," +
+                "t.target_value as target_value," +
+                "t.remark as remark," +
+                "t.status as status" +
+                " from pass_project_tactics_info t left join pass_project_micro_service m on t.micro_service_id = m.id "+
                                                                                " left join pass_project_app_info a on t.app_id = a.id "+
                                                                                "where 1=1";
     var condition =[];
