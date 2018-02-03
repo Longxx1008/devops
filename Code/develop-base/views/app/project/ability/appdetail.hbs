@@ -365,6 +365,15 @@
         }
     }
 
+    function elastic(microserviceid){
+        var microserviceId=microserviceid;
+        if(microserviceId){
+            location.href = "{{projcfg.appurl}}/elasticExpansion?microServiceId="+microserviceId;
+        }else{
+            location.href = "{{projcfg.appurl}}/elasticExpansion";
+        }
+    }
+
     //设置流量监控表格行
     function setTableRow(arr){
         var rowstr = '';
