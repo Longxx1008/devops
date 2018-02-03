@@ -5,6 +5,7 @@ var express = require('express');
 var router = express.Router();
 var config = require('../../../../config');
 var resourceListService = require('../services/resourceListService');
+var ListServices=require('../services/apigatawayService')
 var utils = require('../../../common/core/utils/app_utils');
 var request = require('request');
 /***********************资源列表查询(get),新增(put),修改(post)*******************************/
@@ -84,7 +85,7 @@ router.route('/:id')
     });
 
 router.route('/apis')
-    .get((req, res) => {//获取所有 应用加 api
+    .get(async (req, res) => {//获取所有 应用加 api
       let {type}=req.query
       if (type == 1) {
         return res.json({
@@ -113,54 +114,22 @@ router.route('/apis')
           status: true,
         }]});
       }
+      let datas=await ListServices.getAllAppWithApi();
+      console.log(parseInt(Math.random()*10))
+      let data=datas.map(item=>{
+        return {
+          appName: item.projectName,
+          apis:[{
+            apiName: '获取用户信息',
+            apiUrl: '/jcUsers',
+            apiMethods: ['GET', 'POST'],
+            upStream: '/api',
+            status: true,
+          }]
+        }
+      })
       return res.json({
-        data: [
-          {
-            appName: '应用决策分析',
-            apis: [
-              {
-                apiName: '获取用户信息',
-                apiUrl: '/jcUsers',
-                apiMethods: ['GET', 'POST'],
-                upStream: '/api',
-                status: true,
-              }, {
-                apiName: '获取用户信息',
-                apiUrl: '/jcUsers',
-                apiMethods: ['GET', 'POST'],
-                upStream: '/api',
-                status: true,
-              }]
-          },
-          {
-            appName: '雅典娜项目',
-            apis: [
-              {
-                apiName: '获取统计信息',
-                apiUrl: '/ydnStatics',
-                apiMethods: ['GET', 'POST'],
-                upStream: '/api',
-                status: true,
-              }, {
-                apiName: '获取统计信息',
-                apiUrl: '/ydnStatics',
-                apiMethods: ['GET', 'POST'],
-                upStream: '/api',
-                status: true,
-              }]
-          },
-          {
-            appName: '工单管理系统',
-            apis: [
-              {
-                apiName: '获取工单信息',
-                apiUrl: '/gdOrders',
-                apiMethods: ['GET', 'POST', 'DELETE'],
-                upStream: '/api',
-                status: false,
-              }]
-          }
-        ], success: true
+        data, success: true
       });
 
     });
