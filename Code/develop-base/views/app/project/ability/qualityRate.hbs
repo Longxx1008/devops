@@ -4,101 +4,106 @@
 <div class="">
     <div class="main-wrap">
         <div class="container-fluid">
-    <!--<div class="zhilian">-->
-        <!--<div class="zhilian-top">质量评估</div>-->
-        <!--<div class="zhilian-top-right">-->
+            <!--<div class="zhilian">-->
+            <!--<div class="zhilian-top">质量评估</div>-->
+            <!--<div class="zhilian-top-right">-->
             <!--<select class="select-top">-->
-                <!--<option value="volvo">全部</option>-->
-                <!--<option value="saab">Saab</option>-->
-                <!--<option value="opel">Opel</option>-->
-                <!--<option value="audi">Audi</option>-->
+            <!--<option value="volvo">全部</option>-->
+            <!--<option value="saab">Saab</option>-->
+            <!--<option value="opel">Opel</option>-->
+            <!--<option value="audi">Audi</option>-->
             <!--</select>-->
             <!--<span  class="top-btn">查询</span>-->
-        <!--</div>-->
-    <!--</div>-->
+            <!--</div>-->
+            <!--</div>-->
 
-    <div class="zhilian-two clear">
-        <div class="two-img"><img src="{{projcfg.appurl}}/static/images/avatars/bing.png" style="width:100%;height: 100%;"></div>
-        <div class="two-content">
-            <div class="two-title">服务名称：<b id="sername"></b></div>
-            <div style="float: left">
-                <div class="two-jx"><span>镜像名称：</span><b id="imagename"></b></div>
-                <div class="two-jx"><span>版本：</span><b id="imagever"></b></div>
+            <div class="zhilian-two clear">
+                <div class="two-img"><img src="{{projcfg.appurl}}/static/images/avatars/bing.png" style="width:100%;height: 100%;"></div>
+                <div class="two-content">
+                    <div class="two-title">服务名称：<b id="sername"></b></div>
+                    <div style="float: left">
+                        <div class="two-jx"><span>镜像名称：</span><b id="imagename"></b></div>
+                        <div class="two-jx"><span>版本：</span><b id="imagever"></b></div>
+                    </div>
+                    <div style="float: left">
+                        <div class="two-jx"><span>开发语言：</span><b>nodejs</b></div>
+                        <div class="two-jx"><span>负责人：</span><b id="managerN"></b></div>
+                    </div>
+                </div>
             </div>
-            <div style="float: left">
-                <div class="two-jx"><span>开发语言：</span><b>nodejs</b></div>
-                <div class="two-jx"><span>负责人：</span><b id="managerN"></b></div>
+            <div class="third clear">
+                <div class="third-l">
+                    <div><span>质量评级：</span><b id="ratev"></b></div>
+                </div>
+                <div class="third-r">
+                    <div class="third-r-cont" id="llcount">
+                        <p><b>流量统计：</b></p>
+                    </div>
+                    <div class="third-r-cont" id="jkzk">
+                        <p><b>健康状况：</b></p>
+                    </div>
+                    <div class="third-r-cont" id="xnqk">
+                        <p><b>性能情况：</b></p>
+                    </div>
+                    <div class="third-r-cont" id="zyqk">
+                        <p><b>资源情况：</b></p>
+
+                    </div>
+                    <div class="third-r-cont" id="gzgj">
+                        <p><b>故障告警：</b></p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="fourth">
+                <div class="fourth-cont">
+
+                    <div class="fourth-cont-one">
+                        <div style="width:100%; height: 800px; overflow: hidden; margin-top: 20px; "><iframe  id="quality_evaluate"   src="" width="100%" height="800px" style="overflow: hidden; border:none;margin-top: -110px;"></iframe></div>
+                    </div>
+                </div>
+                <!--  <div class="fourth-cont">
+                      <div class="fourth-btn">
+                          <span>流量统计分析</span>
+                      </div>
+                      <div class="fourth-cont-top">
+                          <span>平均流量：2000/s</span>
+                          <span class="fourth-cont-right">峰值流量：3200/s</span>
+                      </div>
+                      <div class="fourth-cont-one">
+                          <iframe src="http://192.168.9.69:3000/dashboard-solo/db/marathonying-yong-liu-liang-jian-kong?var-docker=gdgl_10009_BACKEND&panelId=2&orgId=1&from=1517469239113&to=1517469539113&theme=dark" width="100%" height="200" frameborder="0"></iframe>
+                      </div>
+                  </div>
+
+
+                  <div class="fourth-cont clear">
+                      <div class="fourth-btn">
+                          <span>健康状况分析</span>
+                      </div>
+                      <div class="fourth-cont-l">
+                          <p>运行时长</p>
+                          <p class="p2" id="shic"></p>
+                      </div>
+                      <div class="fourth-cont-r">
+                          <iframe src="http://192.168.9.69:3000/dashboard-solo/db/marathonying-yong-liu-liang-jian-kong?refresh=5s&orgId=1&panelId=2&from=1517462815139&to=1517463115139&var-docker=develop-base_develop-base-gatedlaunch_10004_192_168_9_64_31134&theme=dark" width="100%" height="200" frameborder="0" style="background-color: black"></iframe>
+                      </div>
+                  </div>
+
+
+                  <div class="fourth-cont">
+                      <div class="fourth-btn">
+                          <span>性能状况分析</span>
+                      </div>
+                      <div class="fourth-cont-top">
+                          <span>平均流量：2000/s</span>
+                      </div>
+                      <div class="fourth-cont-one">
+                          <iframe src="http://192.168.9.69:3000/dashboard-solo/db/marathonying-yong-liu-liang-jian-kong?refresh=5s&orgId=1&panelId=2&from=1517462815139&to=1517463115139&var-docker=develop-base_develop-base-gatedlaunch_10004_192_168_9_64_31134&theme=dark" width="100%" height="200" frameborder="0" style="background-color: black"></iframe>
+                      </div>
+                  </div>-->
             </div>
         </div>
     </div>
-    <div class="third clear">
-        <div class="third-l">
-            <div><span>质量评级：</span><b id="ratev"></b></div>
-        </div>
-        <div class="third-r">
-            <div class="third-r-cont" id="llcount">
-                <p><b>流量统计：</b></p>
-            </div>
-            <div class="third-r-cont" id="jkzk">
-                <p><b>健康状况：</b></p>
-            </div>
-            <div class="third-r-cont" id="xnqk">
-                <p><b>性能情况：</b></p>
-            </div>
-            <div class="third-r-cont" id="zyqk">
-                <p><b>资源情况：</b></p>
-
-            </div>
-            <div class="third-r-cont" id="gzgj">
-                <p><b>故障告警：</b></p>
-            </div>
-        </div>
-    </div>
-
-    <div class="fourth">
-
-        <div class="fourth-cont">
-            <div class="fourth-btn">
-                <span>流量统计分析</span>
-            </div>
-            <div class="fourth-cont-top">
-                <span>平均流量：2000/s</span>
-                <span class="fourth-cont-right">峰值流量：3200/s</span>
-            </div>
-            <div class="fourth-cont-one">
-                <iframe src="http://192.168.9.69:3000/dashboard-solo/db/marathonying-yong-liu-liang-jian-kong?var-docker=gdgl_10009_BACKEND&panelId=2&orgId=1&from=1517469239113&to=1517469539113&theme=dark" width="100%" height="200" frameborder="0"></iframe>
-            </div>
-        </div>
-
-
-        <div class="fourth-cont clear">
-            <div class="fourth-btn">
-                <span>健康状况分析</span>
-            </div>
-            <div class="fourth-cont-l">
-                <p>运行时长</p>
-                <p class="p2" id="shic"></p>
-            </div>
-            <div class="fourth-cont-r">
-                <iframe src="http://192.168.9.69:3000/dashboard-solo/db/marathonying-yong-liu-liang-jian-kong?refresh=5s&orgId=1&panelId=2&from=1517462815139&to=1517463115139&var-docker=develop-base_develop-base-gatedlaunch_10004_192_168_9_64_31134&theme=dark" width="100%" height="200" frameborder="0" style="background-color: black"></iframe>
-            </div>
-        </div>
-
-
-        <div class="fourth-cont">
-            <div class="fourth-btn">
-                <span>性能状况分析</span>
-            </div>
-            <div class="fourth-cont-top">
-                <span>平均流量：2000/s</span>
-            </div>
-            <div class="fourth-cont-one">
-                <iframe src="http://192.168.9.69:3000/dashboard-solo/db/marathonying-yong-liu-liang-jian-kong?refresh=5s&orgId=1&panelId=2&from=1517462815139&to=1517463115139&var-docker=develop-base_develop-base-gatedlaunch_10004_192_168_9_64_31134&theme=dark" width="100%" height="200" frameborder="0" style="background-color: black"></iframe>
-            </div>
-        </div>
-    </div>
-</div>
-</div>
 </div>
 <script>
     $(function(){
@@ -212,6 +217,8 @@
                     }
                     var yxsc = setDayAndHour(qua.first_deploy_time);
                     $("#shic").html(yxsc);
+                    var docker=data.data.ename+"_"+data.data.serviceport+"_BACKEND"
+                    $("#quality_evaluate").attr("src","http://192.168.9.69:3000/dashboard/db/fu-wu-zhi-liang?refresh=5s&orgId=1&var-docker="+docker);
                 }else{
                     msgError(data.msg+',错误代码:'+data.code);
                 }
