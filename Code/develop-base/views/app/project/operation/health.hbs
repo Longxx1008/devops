@@ -20,10 +20,6 @@
         width: 8%;
         height: 13%;
     }
-    .imgS1{
-        width: 50%;
-        height: 60%;
-    }
 
     .table-bordered th,
     .table-bordered td {
@@ -88,10 +84,12 @@
         strictSearch: true,
         showColumns: false,                  //是否显示所有的列（选择显示的列）
         showRefresh: false,                  //是否显示刷新按钮
-//        responseHandler:function(res){
-//            console.log("testresponse",res);
-//
-//        },
+        onClickRow:function (row, $element) {
+
+            console.log("rowrow",row);
+            window.location.href = "{{projcfg.appurl}}/healthDetail?id="+row.id;
+
+        },
         queryParams : function (params) {
             //这里的键的名字和控制器的变量名必须一直，这边改动，控制器也需要改成一样的
             var temp = {
