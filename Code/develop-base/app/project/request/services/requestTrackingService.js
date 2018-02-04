@@ -30,8 +30,15 @@ exports.pageList = function (page, size,statusType,appName,conditionMap, cb) {
     utils.pagingQuery4Eui_mysql(sql, orderBy, page, size, conditions, cb);
 };
 
-exports.groupData=function (page, size, conditionMap, cb) {
-    var sql=' select respond_status,count(respond_status) as statusCount from pass_project_request_info group by respond_status ' ;
+exports.groupData=function (page, size,appname, conditionMap, cb) {
+
+    //console.log("@@!!##"+appname);
+    var sql=" select respond_status,count(respond_status) as statusCount from pass_project_request_info  ";
+    if(appname!=null&&appname!=''&&appname!="全部应用"){
+        sql+="where app_name='"+appname+"' group by respond_status";
+    }else {
+        sql+=" group by respond_status";
+    }
     var orderBy='';
     var conditions = [];
     utils.pagingQuery4Eui_mysql(sql, orderBy, page, size, conditions, cb);

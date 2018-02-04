@@ -19,7 +19,6 @@ router.route('/pageList').get(function(req,res){
     var length = req.query.rows;
     var statusType=req.query.statusType;
     var appName=req.query.appName;
-
     var conditionMap = {};
 
     requestTrackingService.pageList(page, length, statusType,appName,conditionMap,function(result){
@@ -51,8 +50,9 @@ router.route('/groupData').get(function(req,res){
     var conditionMap = {};
     var page=0;
     var size=10
-
-    requestTrackingService.groupData(page, size, conditionMap,function(result){
+    var appname=req.query.appname;
+    //console.log("!!@@"+appname);
+    requestTrackingService.groupData(page, size,appname,conditionMap,function(result){
 
         utils.respJsonData(res, result);
     });

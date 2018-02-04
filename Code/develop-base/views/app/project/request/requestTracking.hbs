@@ -168,10 +168,7 @@
 <script>
     var searchData = window.location.href.split("=");
     var appName = decodeURI(searchData[1]);
-            $('#searchAppName').val(appName);
-
-
-
+    $('#searchAppName').val(appName);
 
 
 
@@ -183,12 +180,13 @@
             silent: true
         }
             $("#table").bootstrapTable('refresh', opt);
+        appGroupData();
     }
 
     var statusStr2=$("#searchPara").val();
     var appNameStr2=$("#searchAppName").val();
     $('#table').bootstrapTable({
-        url: '{{projcfg.appurl}}/api/project/request/requestTracking/pageList?statusType='+statusStr2+"&appName="+appNameStr2,                      //请求后台的URL（*）
+        url: '{{projcfg.appurl}}/api/project/request/requestTracking/pageList?statusType='+statusStr2+'&appName='+appNameStr2,                      //请求后台的URL（*）
         method: 'GET',                      //请求方式（*）
         striped: true,         //是否显示行间隔色
         pagination: true,                   //是否显示分页（*）
@@ -258,32 +256,55 @@
 
     });
 
+    $(function () {
+        appGroupData();
+    });
+
+        function appGroupData() {
+            var appGroupName=$("#searchAppName").val();
+            // console.log("!@"+appGroupName);
+            $.ajax({
+                url: "{{projcfg.appurl}}/api/project/request/requestTracking/groupData",
+                type: 'get',
+                data: {"appname":appGroupName},
+                success: function (data) {
+                    var rows = data.rows;
+                    for(var i=0;i<data.total;i++){
+                        // console.log("count"+rows[i].statusCount);
+                        if(rows[i].respond_status=='200'){
+                            $('#status200').text(rows[i].statusCount);
+                        }
+                        else if(rows[i].respond_status=='302'){
+                            $('#status302').text(rows[i].statusCount);
+
+                        }else if(rows[i].respond_status=='404'){
+                            $('#status404').text(rows[i].statusCount);
+
+                        }else if(rows[i].respond_status=='500'){
+                            $('#status500').text(rows[i].statusCount);
+
+                        }
+
+                    }
+                    if($('#status200').text()==null||$('#status200').text()==''){
+                        $('#status200').text(0);
+                    }
+                    if($('#status302').text()==null||$('#status302').text()==''){
+                        $('#status302').text(0);
+                    }
+                    if($('#status404').text()==null||$('#status404').text()==''){
+                        $('#status404').text(0);
+                    }
+                    if($('#status500').text()==null||$('#status500').text()==''){
+                        $('#status500').text(0);
+                    }
+                }
+
+            });
+        }
 
 
 
-         $.ajax({
-             url: '{{projcfg.appurl}}/api/project/request/requestTracking/groupData?appName=',
-             type: 'get',
-             success: function (data) {
-                 var rows = data.rows;
-                 for(var i=0;i<data.total;i++){
-
-                     if(rows[i].respond_status=='200'){
-                         $('#status200').text(rows[i].statusCount);
-                     }
-                     else if(rows[i].respond_status=='302'){
-                         $('#status302').text(rows[i].statusCount);
-
-                     }else if(rows[i].respond_status=='404'){
-                         $('#status404').text(rows[i].statusCount);
-
-                     }else if(rows[i].respond_status=='500'){
-                         $('#status500').text(rows[i].statusCount);
-
-                     }
-                 }
-             }
-         });
 
 
 
