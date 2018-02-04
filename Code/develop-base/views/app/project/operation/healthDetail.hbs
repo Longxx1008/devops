@@ -46,7 +46,11 @@
 <link rel="stylesheet" href="{{projcfg.appurl}}/static/request/css/gengzhong-xianqin.css">
 
 <div class="row" >
-    <div style="padding: 0px;margin-top: -10px"><h4> 应用检查详情：<span id="app_name"> </span></h4></div>
+    <div style="padding: 0px;margin-top: -10px">
+        <button type="button" onclick="goBack()"id="dd" class="btn btn-default" data-toggle="tooltip" data-placement="top" data-original-title="返回">
+        <i class="fa fa-undo">返回</i>
+        </button>
+        <h4> 应用名称：<span id="app_name"> </span></h4></div>
     <div class="bor" style="margin-top: -30px;padding: 0px"></div>
     <div class="container"  id="requestList">
 
@@ -170,12 +174,9 @@
         }
     });
 
-
-
-    function memberDetailShow(ename) {
-        if(ename!=''&& ename!=null)
-            window.open("http://192.168.9.68/"+ename);
-
+    function goBack(){
+        window.history.go(-1);
     }
+
 
 </script>
