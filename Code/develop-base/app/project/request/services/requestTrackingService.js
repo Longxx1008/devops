@@ -14,12 +14,17 @@ var mysqlPool = require('../../utils/mysql_pool');
  * @param cb
  */
 
-exports.pageList = function (page, size,statusType, conditionMap, cb) {
+exports.pageList = function (page, size,statusType,appName,conditionMap, cb) {
     var statusType = statusType;
-    var sql = "SELECT * from pass_project_request_info ";
-    if(statusType!=null&&statusType!=''){
-        sql+="where respond_status like '"+statusType+"%'";
+    var appName=appName;
+    var sql = "SELECT R.* from pass_project_request_info R left join pass_project_app_info A on R.app_id=A.id where 1=1";
+    if(statusType!=null&&statusType!=''&&statusType!='全部响应状态'){
+        sql+=" and respond_status like '"+statusType+"%'";
     }
+    if(appName!=null&&appName!=''&&appName!="全部应用"){
+        sql+=" and R.app_name = '"+appName+"'";
+    }
+
     var orderBy='';
     var conditions = [];
     utils.pagingQuery4Eui_mysql(sql, orderBy, page, size, conditions, cb);

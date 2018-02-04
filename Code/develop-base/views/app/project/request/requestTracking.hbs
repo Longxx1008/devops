@@ -133,8 +133,23 @@
     <!--</div>-->
     <div class="row" style="margin-top: 15px;padding: 0px;margin-bottom: 0px" >
 
-        <div class="form-group col-md-2 col-md-offset-9" style="padding: 0px">
-            <input type="text" class="form-control" id="searchPara" placeholder="请输入响应状态">
+        <div class="form-group col-md-2 col-md-offset-7">
+                <select class="form-control" id="searchAppName">
+                    <option>全部应用</option>
+                    <option>贵州移动慧眼</option>
+                    <option>雅典娜项目</option>
+                </select>
+            </div>
+
+
+        <div class="form-group col-md-2 " style="padding: 0px">
+            <select class="form-control" id="searchPara">
+                <option>全部响应状态</option>
+                <option>200</option>
+                <option>302</option>
+                <option>404</option>
+                <option>500</option>
+            </select>
         </div>
         <div class="col-md-1" style="padding: 0px;margin: 0px">
             <button type="button" style="width: 100%" class="btn btn-default pull-right" onclick="getListByStatus()">Search</button>
@@ -151,21 +166,29 @@
 
 
 <script>
+    var searchData = window.location.href.split("=");
+    var appName = decodeURI(searchData[1]);
+            $('#searchAppName').val(appName);
+
+
+
+
 
 
     function getListByStatus() {
         var statusStr=$("#searchPara").val();
+        var appNameStr=$("#searchAppName").val();
         var opt = {
-            url: "{{projcfg.appurl}}/api/project/request/requestTracking/pageList?statusType="+statusStr,
+            url: "{{projcfg.appurl}}/api/project/request/requestTracking/pageList?statusType="+statusStr+"&appName="+appNameStr,
             silent: true
         }
             $("#table").bootstrapTable('refresh', opt);
     }
 
     var statusStr2=$("#searchPara").val();
-
+    var appNameStr2=$("#searchAppName").val();
     $('#table').bootstrapTable({
-        url: '{{projcfg.appurl}}/api/project/request/requestTracking/pageList?statusType='+statusStr2,                      //请求后台的URL（*）
+        url: '{{projcfg.appurl}}/api/project/request/requestTracking/pageList?statusType='+statusStr2+"&appName="+appNameStr2,                      //请求后台的URL（*）
         method: 'GET',                      //请求方式（*）
         striped: true,         //是否显示行间隔色
         pagination: true,                   //是否显示分页（*）
@@ -229,42 +252,39 @@
                 return a;
             }
         },{
-            field: 'detail',
-            title: '操作'
+            field: 'app_name',
+            title: '访问应用'
         }],
 
     });
 
-    function clickDetail() {
-
-    }
 
 
 
+         $.ajax({
+             url: '{{projcfg.appurl}}/api/project/request/requestTracking/groupData?appName=',
+             type: 'get',
+             success: function (data) {
+                 var rows = data.rows;
+                 for(var i=0;i<data.total;i++){
 
-    $.ajax({
-        url: '{{projcfg.appurl}}/api/project/request/requestTracking/groupData',
-        type: 'get',
-        success: function (data) {
-            var rows = data.rows;
-            for(var i=0;i<data.total;i++){
+                     if(rows[i].respond_status=='200'){
+                         $('#status200').text(rows[i].statusCount);
+                     }
+                     else if(rows[i].respond_status=='302'){
+                         $('#status302').text(rows[i].statusCount);
 
-                if(rows[i].respond_status=='200'){
-                    $('#status200').text(rows[i].statusCount);
-                }
-                else if(rows[i].respond_status=='302'){
-                    $('#status302').text(rows[i].statusCount);
+                     }else if(rows[i].respond_status=='404'){
+                         $('#status404').text(rows[i].statusCount);
 
-                }else if(rows[i].respond_status=='404'){
-                    $('#status404').text(rows[i].statusCount);
+                     }else if(rows[i].respond_status=='500'){
+                         $('#status500').text(rows[i].statusCount);
 
-                }else if(rows[i].respond_status=='500'){
-                    $('#status500').text(rows[i].statusCount);
+                     }
+                 }
+             }
+         });
 
-                }
-            }
-        }
-    });
 
 
 </script>

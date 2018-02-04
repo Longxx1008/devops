@@ -18,10 +18,11 @@ router.route('/pageList').get(function(req,res){
     var page = req.query.page;
     var length = req.query.rows;
     var statusType=req.query.statusType;
+    var appName=req.query.appName;
 
     var conditionMap = {};
 
-    requestTrackingService.pageList(page, length, statusType,conditionMap,function(result){
+    requestTrackingService.pageList(page, length, statusType,appName,conditionMap,function(result){
 
         utils.respJsonData(res, result);
     });
