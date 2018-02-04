@@ -92,7 +92,7 @@
             success:function(data){
                 console.log(data);
                 for(let j in data.data)
-                $('#dataTable').append("<tr><td>"+data.data[j].app_name+"</td><td>"+data.data[j].ename+"</td><td>"+data.data[j].vist_url+"</td><td>"+new Date(data.data[j].update_time).toLocaleString()+"</td><td>"+data.data[j].project_manager+"</td><td><span class=\"label label-success\" style=\"height:26px;line-height:16px;font-weight:600;margin-top: 0.5rem;margin-left: 0.5rem;\">正常</span></td><td><span onclick='detailPage("+data.data[j].id+")' class=\"label label-info\" style=\"height:26px;line-height:16px;font-weight:600;margin-top: 0.5rem;margin-left: 0.5rem;cursor: pointer;\">应用详情</span></td></tr>")
+                $('#dataTable').append("<tr><td>"+data.data[j].app_name+"</td><td>"+data.data[j].ename+"</td><td>"+data.data[j].vist_url+"</td><td>"+new Date(data.data[j].update_time).toLocaleString()+"</td><td>"+data.data[j].project_manager+"</td><td><span onclick='healthPage("+data.data[j].id+")' class=\"label label-success\" style=\"height:26px;line-height:16px;font-weight:600;margin-top: 0.5rem;margin-left: 0.5rem;\">正常</span></td><td><span onclick='detailPage("+data.data[j].id+")' class=\"label label-info\" style=\"height:26px;line-height:16px;font-weight:600;margin-top: 0.5rem;margin-left: 0.5rem;cursor: pointer;\">应用详情</span></td></tr>")
             }
         });
         /*$('#dataTable').datagrid({
@@ -438,5 +438,8 @@
     }
     function detailPage(appid){
         window.location.href="{{projcfg.appurl}}/appdetail?appid="+appid;
+    }
+    function healthPage(appid){
+        window.location.href="{{projcfg.appurl}}/health?app_id="+appid;
     }
 </script>
