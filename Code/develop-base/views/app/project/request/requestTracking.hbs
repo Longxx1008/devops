@@ -192,7 +192,7 @@
         var statusStr=$("#searchPara").val();
         var appNameStr=$("#searchAppName").val();
         var appUrlStr=$("#searchUrl").val();
-        console.log(appUrlStr);
+        //console.log(appUrlStr);
         var opt = {
             url: "{{projcfg.appurl}}/api/project/request/requestTracking/pageList?statusType="+statusStr+"&appName="+appNameStr,
             silent: true,
@@ -285,7 +285,7 @@
         function appGroupData() {
             var appGroupName=$("#searchAppName").val();
             var appGroupUrl=$("#searchUrl").val();
-            // console.log("!@"+appGroupName);
+            console.log(appGroupUrl+"22222");
             $.ajax({
                 url: "{{projcfg.appurl}}/api/project/request/requestTracking/groupData",
                 type: 'get',
