@@ -132,12 +132,16 @@
 
     <!--</div>-->
     <div class="row" style="margin-top: 15px;padding: 0px;margin-bottom: 0px" >
+        <div class="form-group col-md-2 col-md-offset-5" style="padding: 0px">
+            <input type="text" class="form-control" id="searchUrl" placeholder="请输入url">
+        </div>
 
-        <div class="form-group col-md-2 col-md-offset-7">
+        <div class="form-group col-md-2 ">
                 <select class="form-control" id="searchAppName">
                     <option>全部应用</option>
                     <option>贵州移动工单管理平台</option>
                     <option>贵州移动代维管理平台</option>
+                    <option>有限宽带一体化支撑平台</option>
                     <option>贵州移动创客天地</option>
                     <option>贵州移动仪器仪表管理</option>
                     <option>后评估管理工具</option>
@@ -172,18 +176,29 @@
 
 
 <script>
-    var searchData = window.location.href.split("=");
-    var appName = decodeURI(searchData[1]);
-    $('#searchAppName').val(appName);
 
+    var searchData = window.location.href.split("=");
+    var appName = (decodeURI(searchData[1])).split(/[=&]/);
+    console.log(appName[0]);
+    $('#searchAppName').val(appName[0]);
+        var appUrl = decodeURI(searchData[2]);
+        if(appUrl!=null&&appUrl!=''&&appUrl!='undefined'){
+            $('#searchUrl').val(appUrl);
+          //  console.log($('#searchUrl').val());
+        }
 
 
     function getListByStatus() {
         var statusStr=$("#searchPara").val();
         var appNameStr=$("#searchAppName").val();
+        var appUrlStr=$("#searchUrl").val();
+        console.log(appUrlStr);
         var opt = {
             url: "{{projcfg.appurl}}/api/project/request/requestTracking/pageList?statusType="+statusStr+"&appName="+appNameStr,
-            silent: true
+            silent: true,
+            query:{
+                appUrl:appUrlStr
+            }
         }
             $("#table").bootstrapTable('refresh', opt);
         appGroupData();
@@ -191,6 +206,7 @@
 
     var statusStr2=$("#searchPara").val();
     var appNameStr2=$("#searchAppName").val();
+    var appUrlStr2=$("#searchUrl").val();
     $('#table').bootstrapTable({
         url: '{{projcfg.appurl}}/api/project/request/requestTracking/pageList?statusType='+statusStr2+'&appName='+appNameStr2,                      //请求后台的URL（*）
         method: 'GET',                      //请求方式（*）
@@ -208,7 +224,7 @@
             var temp = {
                 rows: params.limit,                         //页面大小
                 page: (params.offset / params.limit) + 1,   //页码
-                para:$('#searchPara').val()
+                appUrl:appUrlStr2
             };
             return temp;
         },
