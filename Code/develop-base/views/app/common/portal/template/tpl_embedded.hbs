@@ -2,9 +2,9 @@
     <div class="col-xs-12 col-md-12">
         <div class="widget">
             <div class="widget-body">
-                <div id="cc" class="easyui-layout" data-options="fit:true,border:false" style="width: 800px; height:575px;background-color: #fbfbfb;">
+                <div id="cc">
                     <div data-options="region:'center',border:false" style="overflow-x:hidden;overflow-y:hidden">
-                        <table class="" id="dataTable" style="height: 300px;font-size: 16px;">
+                        <table class="table" id="dataTable" style="height: 300px;font-size: 16px;color: white">
                             <thead>
 
                             <tr>
@@ -20,7 +20,7 @@
                                 </th>
                                 <th class="small text-muted text-uppercase" style="width: 10%"><strong>状态</strong>
                                 </th>
-                                <th class="small text-muted text-uppercase" style="width: 20%"><strong>操作</strong>
+                                <th class="small text-muted text-uppercase" style="width: 20%;padding-left: 60px"><strong>操作</strong>
                                 </th>
                             </tr>
                             </thead>
@@ -92,7 +92,7 @@
             success:function(data){
                 console.log(data);
                 for(let j in data.data)
-                $('#dataTable').append("<tr><td>"+data.data[j].app_name+"</td><td>"+data.data[j].ename+"</td><td>"+data.data[j].vist_url+"</td><td>"+new Date(data.data[j].update_time).toLocaleString()+"</td><td>"+data.data[j].project_manager+"</td><td><span onclick='healthPage("+data.data[j].id+")' class=\"label label-success\" style=\"height:26px;line-height:16px;font-weight:600;margin-top: 0.5rem;margin-left: 0.5rem;\">正常</span></td><td><span onclick='detailPage("+data.data[j].id+")' class=\"label label-info\" style=\"height:26px;line-height:16px;font-weight:600;margin-top: 0.5rem;margin-left: 0.5rem;cursor: pointer;\">应用详情</span></td></tr>")
+                $('#dataTable').append("<tr><td>"+data.data[j].app_name+"</td><td>"+data.data[j].ename+"</td><td>"+data.data[j].vist_url+"</td><td>"+new Date(data.data[j].update_time).toLocaleString()+"</td><td>"+data.data[j].project_manager+"</td><td><span onclick='healthPage("+data.data[j].id+")' class=\"label label-success\" style=\"height:26px;line-height:16px;font-weight:600;margin-top: 0.5rem;margin-left: 0.5rem;\">正常</span></td><td><span onclick='detailPage("+data.data[j].id+")' class=\"label label-info\" style=\"height:26px;line-height:16px;font-weight:600;margin-top: 0.5rem;margin-left: 0.5rem;cursor: pointer;\">应用详情</span><span onclick='requestDetail(\""+data.data[j].app_name+"\")' class=\"label label-danger\" style=\"height:26px;line-height:16px;font-weight:600;margin-top: 0.5rem;margin-left: 0.5rem;cursor: pointer;\">请求跟踪</span></td></tr>")
             }
         });
         /*$('#dataTable').datagrid({
@@ -155,7 +155,7 @@
         doSearch();
     },10000);*/
 
-    function doSearch() {
+/*    function doSearch() {
         $('#dataTable').datagrid('reload');
     }
     function doClear() {
@@ -379,14 +379,14 @@
     }
     //日志中心
     function logsCenter(thisObj){
-        /*var url = "http://192.168.31.92:5601";
-        window.open(url);*/
+        /!*var url = "http://192.168.31.92:5601";
+        window.open(url);*!/
         $("#logPre").html("Failed to launch container:<br/> Failed to run 'docker -H unix:///var/run/docker.sock pull 192.168.9.69:5000/yysc:v3.1.9': exited with status 1; stderr='Error response from daemon: manifest for 192.168.9.69:5000/yysc:v3.1.9 not found'");
         var id = $(thisObj).data("id");
         var name = $(thisObj).data("name");
         console.log(id);
         console.log(name);
-        /*logs(id);*/
+        /!*logs(id);*!/
         $('#containerLogModal').show();
         $('#containerLogModal').mydialog({
             title:name + "-运行日志",
@@ -394,7 +394,7 @@
             height: 560,
             top:20,
             modal: true,
-            /*myButtons:[
+            /!*myButtons:[
                 {
                     text:'关闭',
                     btnCls:'btn btn-danger',
@@ -409,7 +409,7 @@
                         /!*logs(id);*!/
                     }
                 }*!/
-            ]*/
+            ]*!/
         });
     }
 
@@ -435,11 +435,14 @@
                 $("#logPre").html("日志加载失败：" + err.statusCode);
             }
         });
-    }
+    }*/
     function detailPage(appid){
         window.location.href="{{projcfg.appurl}}/appdetail?appid="+appid;
     }
     function healthPage(appid){
         window.location.href="{{projcfg.appurl}}/health?app_id="+appid;
+    }
+    function requestDetail(appName){
+        window.location.href="{{projcfg.appurl}}/requesttracking?appName="+appName;
     }
 </script>
