@@ -67,7 +67,7 @@
                                                             <thead>
 
                                                             <tr>
-                                                                <th class="small text-muted text-uppercase" style="width: 20%"><strong>name</strong>
+                                                                <th class="small text-muted text-uppercase" style="width: 20%"><strong>微服务名称</strong>
                                                                 </th>
                                                                 <th class="small text-muted text-uppercase" style="width: 20%"><strong>运行容器数量</strong>
                                                                 </th>
@@ -84,6 +84,12 @@
 
                                                             </tbody>
                                                         </table>
+                                                        <div style="text-align:center;">
+
+                                                            <img id="architecture_diagram_path" style="vertical-align:middle;" src=""  alt="架构图" />
+
+
+                                                        </div>
                                                     </div>
                                                     <!-- END Table -->
                                                 </div>
@@ -234,7 +240,13 @@
             appid = 1;
         }
         getAppdetail(appid);
+
         getMicroService(appid);
+        setInterval(function(){
+          getMicroService(appid);
+            getAppdetail1(appid);
+        },5000)
+
 
     });
 
@@ -276,7 +288,36 @@
             }
         });
     }
+    //获取容器监控数据
+    function getAppdetail1(appid){
+        $.ajax({
+            url:'{{projcfg.appurl}}/api/project/ability/appdetail/query',
+            type:'get',
+            data: {'appid':appid},
+            success:function(data){
+                console.log(data);
+                if(data.success){
+                    /* $("ul li[id]").remove();*/
+                    console.log(data.data);
 
+                    console.log("数据加载成功，请封装div",data.data);
+                    var qua = data.data[0];
+                    $("#appname").html(qua.app_name);
+                    //计算运行时长
+                    var update=new Date(qua.update_time).getTime();
+                    var now=new Date().getTime();
+
+                    $("#rt").html(formatDuring(now - update));
+                    $("#wwdz").html('<a href="'+qua.vist_url+'" target="_blank">'+qua.vist_url+'</a>');
+                    $("#slnum").html(data.data.length+" 个");
+                    setLiuLiangData(data.data);
+
+                }else{
+                    msgError(data.msg+',错误代码:'+data.code);
+                }
+            }
+        });
+    }
     function formatDuring(mss) {
         var days = parseInt(mss / (1000 * 60 * 60 * 24));
         var hours = parseInt((mss % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
@@ -294,8 +335,13 @@
                 if(data.success){
                     /* $("ul li[id]").remove();*/
                     console.log(data.data);
+                    $("#sertable tbody").empty();
                     var rows = setTableRow(data.data);
                     $("#sertable tbody").append(rows);
+                 
+                    $("#architecture_diagram_path").attr('src',data.data[0].architecture_diagram_path);
+
+
                 }else{
                     msgError(data.msg+',错误代码:'+data.code);
                 }
@@ -316,6 +362,7 @@
 
     //设置流量监控数据
     function setLiuLiangData(arr){
+        $("#conts").empty();
         if(arr.length>0){
 
             var divstr = '';

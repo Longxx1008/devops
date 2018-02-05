@@ -18,7 +18,7 @@ router.route('/')
 
         healthService.pageList(page, length, conditionMap,function(result){
             console.log("GGGGsss",result)
-            for(var i=1;i<result.rows.length;i++){
+            for(var i=0;i<result.rows.length;i++){
                 var json=JSON.parse(result.rows[i].check_content);
                 result.rows[i].app=json.app;
                 result.rows[i].sql=json.sql;

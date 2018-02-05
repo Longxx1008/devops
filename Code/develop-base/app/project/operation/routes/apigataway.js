@@ -115,7 +115,6 @@ router.route('/apis')
         }]});
       }
       let datas=await ListServices.getAllAppWithApi();
-      console.log(parseInt(Math.random()*10))
       let data=datas.map(item=>{
         return {
           appName: item.projectName,

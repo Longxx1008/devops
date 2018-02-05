@@ -1,0 +1,182 @@
+<style>
+    .spanRed{
+        /*background: #ff6666;*/
+        color: #9e0505;
+    }
+    .spanGreen{
+        /*background: #66cc33;*/
+        color:#66cc33;
+    }
+    .spanGrey{
+        /*background: #9d9d9d;*/
+        color: #9d9d9d;
+    }
+    .imgSize{
+        width: 8%;
+        height: 13%;
+    }
+    .textSize{
+        color: #0a0a0a;
+        border:0px;
+        background-color:lightgrey;
+    /*lightgrey#f7f8f9*/
+        width: 100%;
+        height: 100%;
+        /*readonly："readonly"*/
+    }
+    .div-text{
+        overflow-y:auto;
+        width: 100%;
+        height: 200px;
+    }
+    .span{
+        background:#05d165;
+        /*display: inline-block;*/
+        padding:0 8px;
+        width: 80%;
+        height:30px;
+        text-align: center;
+        line-height: 30px;
+        border-radius: 2px;
+        -webkit-border-radius: 2px;
+        -moz-border-radius: 2px;
+
+    }
+</style>
+<link rel="stylesheet" href="{{projcfg.appurl}}/static/request/css/gengzhong-xianqin.css">
+
+<div class="row" >
+    <div style="padding: 0px;margin-top: -10px">
+        <button type="button" onclick="goBack()"id="dd" class="btn btn-default" data-toggle="tooltip" data-placement="top" data-original-title="返回">
+        <i class="fa fa-undo">返回</i>
+        </button>
+        <h4> 应用名称：<span id="app_name"> </span></h4></div>
+    <div class="bor" style="margin-top: -30px;padding: 0px"></div>
+    <div class="container"  id="requestList">
+
+    </div>
+
+
+</div>
+
+<script>
+    var searchData = window.location.href.split("=");
+    var id = decodeURI(searchData[1]);
+//    var id=decodeURI(searchData[2]);
+
+
+    $.ajax({
+        url: '{{projcfg.appurl}}/api/project/operation/healthDetail',
+        type: 'post',
+        data:{
+            id:id,
+        },
+        success: function (data) {
+            console.log(data.data);
+
+            var name=data.data.app_name;
+            $('#app_name').text(name);
+            // console.log("result666-----",data[0].rows[0].module);
+            var json=JSON.parse(data.data.check_content);
+            var json_log=JSON.parse(data.data.content_log);
+
+            var html='';
+//            for(var i=0;i<json_log.length;i++){
+                if(json.app==0){
+                     html+='<div class="row" >'+
+                            '<div class="col-sm-2" style="position: relative;">'+
+                            '<div class="gz-left"></div>'+
+                            '<div class="radus"></div>'+
+                            '<div class="bor-top">'+
+                            '<div><span>'+"应用"+'</span></div>'+
+                            '</div>'+
+                            '</div>'+
+                            '<div class="col-sm-10" >'+
+                            '<table class="table table-condensed gz-top" style="margin-bottom: 2px;">'+
+                            '<tbody>'+
+                            '<tr>'+
+                            '<td><span class="spanRed">'+"应用异常"+'</span></td>'+
+                            '<td><img src="{{projcfg.appurl}}/static/images/offnormal.png"'+'class="imgSize"'+'></td>'+
+                            ' </tr>'+
+                            '<tr>'+
+                            ' <td>'+"应用日志:"+'</td>'+
+                            ' </tr>'+
+                            '<tr>'+
+                            '<td colspan="2"><div class="div-text"><textarea class="textSize" disabled="disabled">' +json_log.app+
+                            '</textarea></div></td>'+
+                            '</tr>'+
+                            ' </tbody>'+
+                            ' </table>'+
+                            ' </div>' +
+                            ' </div>'
+                }
+                if(json.sql==0){
+                     html+='<div class="row" >'+
+                            '<div class="col-sm-2" style="position: relative;">'+
+                            '<div class="gz-left"></div>'+
+                            '<div class="radus"></div>'+
+                            '<div class="bor-top">'+
+                            '<div><span>'+"数据库"+'</span></div>'+
+                            '</div>'+
+                            '</div>'+
+                            '<div class="col-sm-10" >'+
+                            '<table class="table table-condensed gz-top" style="margin-bottom: 2px;">'+
+                            '<tbody>'+
+                            '<tr>'+
+                            ' <td><span class="spanRed">'+"数据库异常"+'</span></td>'+
+                            '<td><img src="{{projcfg.appurl}}/static/images/offnormal.png"'+'class="imgSize"'+'></td>'+
+                            '</tr>'+
+                            '</tr>'+
+                            '<tr>'+
+                            ' <td>'+"中间件日志:"+'</td>'+
+                            '</tr>'+
+                            '<tr>'+
+                            '<td colspan="2"><div class="div-text"><textarea class="textSize" disabled="disabled">' +json_log.app+
+                            '</textarea></div></td>'+
+                            '</tr>'+
+                            ' </tbody>'+
+                            ' </table>'+
+                            ' </div>' +
+                            ' </div>'
+                }
+                if(json.middle==0){
+                    html+='<div class="row" >'+
+                            '<div class="col-sm-2" style="position: relative;">'+
+                            '<div class="gz-left"></div>'+
+                            '<div class="radus"></div>'+
+                            '<div class="bor-top">'+
+                            '<div><span>'+"中间件"+'</span></div>'+
+                            '</div>'+
+                            '</div>'+
+                            '<div class="col-sm-10" >'+
+                            '<table class="table table-condensed gz-top" style="margin-bottom: 2px;">'+
+                            '<tbody>'+
+                            '<tr>'+
+                            ' <td><span class="spanRed">'+"中间件异常"+'</span></td>'+
+                            '<td><img src="{{projcfg.appurl}}/static/images/offnormal.png"'+'class="imgSize"'+'></td>'+
+                            '</tr>'+
+                            '<tr>'+
+                            ' <td>'+"中间件日志:"+'</td>'+
+                            '</tr>'+
+                            '<tr>'+
+                            '<td colspan="2"><div class="div-text"><textarea class="textSize" disabled="disabled">' +json_log.middle+
+                            '</textarea></div></td>'+
+                            '</tr>'+
+                            ' </tbody>'+
+                            ' </table>'+
+                            ' </div>' +
+                            ' </div>'
+                }
+//            }
+
+//                html+=item;
+            $('#requestList').append(html);
+        }
+    });
+
+    function goBack(){
+        window.history.go(-1);
+    }
+
+
+</script>

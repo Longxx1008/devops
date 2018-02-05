@@ -146,7 +146,8 @@
 
                 for(var j=0;j<serData.total;j++){
                     var metData=serData.rows[j];
-                    var json=JSON.parse(metData.dev_member);
+                    var json=JSON.parse(metData.dev_member);  //把开发人员字段转换为json格式，方便点击做跳转查看开发人员详情。
+                    var json2=JSON.parse(metData.code_commit);
                     var status="";
                     if(metData.return_status==200){
                         status='  <span style="background: #5ecd71">'+metData.return_status+'</span>';
@@ -168,7 +169,7 @@
                             '  <td>'+metData.req_time.replace(/T/,' ').replace('.000Z','')+'</td>' +
                             '   <td>'+metData.total_time_consuming+'</td>' +
                             '  <td>'+' <a href="javascript:void(0);"  onclick="memberDetailShow(\'' + json.ename + '\') " >' +json.name+'</a></td>' +
-                            '   <td>'+metData.code_commit+'</td>' +
+                            '   <td>'+' <a href="javascript:void(0);"  onclick="memberCommitShow(\'' + json2.ename + '\') " >' +json2.name+'</a></td>'+
                             '  <td>' +
                             status +
                             '  </td>' +
@@ -187,8 +188,15 @@
     });
 
 
-
+   //开发人员详情
     function memberDetailShow(ename) {
+        if(ename!=''&& ename!=null)
+            window.open("http://192.168.9.68/"+ename);
+
+    }
+
+    //最后提交代码详情
+    function memberCommitShow(ename) {
         if(ename!=''&& ename!=null)
             window.open("http://192.168.9.68/"+ename);
 

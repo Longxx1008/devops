@@ -36,6 +36,9 @@
     <!--<link rel="stylesheet" type="text/css" href="../demo.css">-->
     <!--<script type="text/javascript" src="{{projcfg.appurl}}/static/{{projcfg.theme}}js/jquery-easyui-1.5.4.1/jquery.min.js"></script>-->
     <script type="text/javascript" src="{{projcfg.appurl}}/static/{{projcfg.theme}}js/jquery-easyui-1.5.4.1/jquery.easyui.min.js"></script>
+    <script type="text/javascript" src="{{projcfg.appurl}}/static/{{projcfg.theme}}vue/vue.min.js"></script>
+    <script type="text/javascript" src="{{projcfg.appurl}}/static/{{projcfg.theme}}vue/axios.min.js"></script>
+
 </head>
 <!-- END Head -->
 
@@ -55,7 +58,7 @@
 
                 <div class="navbar-header">
                     <div class="logo" href="#">
-                        <img alt="Spin Logo" src="{{projcfg.appurl}}/static/{{projcfg.theme}}img/logo.png">贵州移动DevOps自研平台
+                        <img alt="Spin Logo" src="{{projcfg.appurl}}/static/{{projcfg.theme}}img/logo.png">   运维中心
                     </div>
                     <button class="action-right-sidebar-toggle navbar-toggle collapsed" data-target="#navdbar" data-toggle="collapse" type="button">
                         <i class="fa fa-fw fa-align-right text-white"></i>
@@ -154,7 +157,7 @@
 
                         <li class="dropdown">
                             <a class="dropdown-toggle user-dropdown" data-toggle="dropdown" href="#" role="button">
-                                <span class="m-r-1">Kraig Schuster</span>
+                                <span class="m-r-1">文安国</span>
                                 <div class="avatar avatar-image avatar-sm avatar-inline">
                                     <img alt="User" src="https://s3.amazonaws.com/uifaces/faces/twitter/collegeman/128.jpg">
                                 </div>
@@ -226,7 +229,7 @@
 
                     <li class="Dashboards">
                         <a href="{{projcfg.appurl}}/home" title="Dashboards">
-                            <i class="fa fa-database fa-lg fa-fw"></i><span class="nav-label">运维中心</span><i class="fa arrow"></i>
+                            <i class="fa fa-database fa-lg fa-fw"></i><span class="nav-label">应用列表</span><i class="fa arrow"></i>
                         </a>
                         <!--<ul>-->
                             <!--<li class="">-->
@@ -259,7 +262,7 @@
 
 
                     <li>
-                        <a href="{{projcfg.appurl}}/requesttracking" title="request">
+                        <a href="{{projcfg.appurl}}/requesttracking?appName=全部应用" title="request">
                             <i class="fa fa-map-marker fa-lg fa-fw"></i><span class="nav-label">请求跟踪</span><i class="fa arrow"></i>
                         </a>
 
@@ -314,7 +317,7 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="page-header m-t-0">
-                            <h3 class="m-t-0">System</h3>
+                            <h3 class="m-t-0">System1</h3>
                         </div>
                     </div>
                 </div>
@@ -327,23 +330,25 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-lg-12 sub-navbar-column">
-                        <div class="sub-navbar-header">
-                            <h3>System</h3>
-                        </div>
-                        <ol class="breadcrumb navbar-text navbar-right no-bg">
-                            <li class="current-parent">
-                                <!--<a class="current-parent" href="../index.html">-->
-                                <a class="current-parent" href="{{projcfg.appurl}}/home">
-                                    <i class="fa fa-fw fa-home"></i>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    应用列表
-                                </a>
-                            </li>
-                            <li class="active">灰度应用监控</li>
-                        </ol>
+                        <i class="fa fa-fw "></i>
+
+                        <!--<div class="sub-navbar-header">-->
+                            <!--<i class="fa fa-fw fa-home"></i>-->
+                        <!--</div>-->
+                        <!--<ol class="breadcrumb navbar-text navbar-right no-bg">-->
+                            <!--<li class="current-parent">-->
+                                <!--&lt;!&ndash;<a class="current-parent" href="../index.html">&ndash;&gt;-->
+                                <!--<a class="current-parent" href="{{projcfg.appurl}}/home">-->
+                                    <!--<i class="fa fa-fw fa-home"></i>-->
+                                <!--</a>-->
+                            <!--</li>-->
+                            <!--<li>-->
+                                <!--<a href="#">-->
+                                    <!--应用列表-->
+                                <!--</a>-->
+                            <!--</li>-->
+                            <!--<li class="active">灰度应用监控</li>-->
+                        <!--</ol>-->
                     </div>
                 </div>
             </div>
