@@ -76,6 +76,22 @@ exports.pagingQuery4Eui_mysql = function(select_sql,order_sql, page, size, condi
         }
     });
 }
+exports.pagingQuery4Eui_mysqlPromise = async function(select_sql,order_sql, page, size, conditions) {
+        try{
+
+
+    if(page < 1) {
+        page = 1;
+    }
+    var sql = select_sql + order_sql + " limit " + ((page-1)*size)+","+size;
+    console.log("utils--sql----"+sql);
+    console.log("utils--conditions----"+conditions);
+    let result=await   mysqlPool.queryPromise(sql,conditions);
+    var count_sql = " select count(1) as sum from ("+select_sql+") aa";
+    let results=await   mysqlPool.queryPromise(count_sql,conditions)
+    return {'rows':result,'total': results[0].sum};
+    }catch (e){return {'rows':{},'total': 0};}
+}
 
 exports.decryptData = function(data,firstKey,secondKey,thirdKey){
     var leng = data.length;

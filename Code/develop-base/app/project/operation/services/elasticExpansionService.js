@@ -67,6 +67,7 @@ exports.findList = async function (conditionMap,cb) {
                 "t.tactics_name as tactics_name," +
                 "t.gather_value as gather_value," +
                 "t.duration as duration," +
+                "t.operation as operation," +
                 "t.tactics_count as tactics_count," +
                 "t.tactics as tactics," +
                 "t.target_value as target_value," +

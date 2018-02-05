@@ -23,8 +23,13 @@ exports.getAppdetails = function(appid,cb) {
  * @param cb
  */
 exports.getMicroServices = function(appid,cb) {
-    var sql = "select a.id as app_id,a.app_name,a.vist_url,a.architecture_diagram_path,a.`status`,s.id,s.images_alias,s.images_name,s.images_version,s.cur_inst_num,s.health_status,s.update_time,s.quality_condition from pass_project_micro_service s,pass_project_app_info a "+
-        " where  s.app_id = a.id and a.id = "+appid+"  ORDER BY s.sort_num ";
+    // var sql = "select a.id as app_id,a.app_name,a.vist_url,a.architecture_diagram_path,a.`status`,s.id,s.images_alias,s.images_name,s.images_version,s.cur_inst_num,s.health_status,s.update_time,s.quality_condition from pass_project_micro_service s,pass_project_app_info a "+
+    //     " where  s.app_id = a.id and a.id = "+appid+"  ORDER BY s.sort_num ";
+    var sql = "select b.*,count(c.micro_service_id) as cont_num from ( "+
+    "select a.id as app_id,a.app_name,a.vist_url,a.architecture_diagram_path,a.`status`,s.id,s.images_alias,s.images_name,s.images_version,s.cur_inst_num,s.health_status,s.update_time,s.quality_condition "+
+    "from pass_project_micro_service s,pass_project_app_info a "+
+    "where  s.app_id = a.id and a.id = "+appid+"  ORDER BY s.sort_num) b,pass_project_container_info c "+
+    "where c.micro_service_id = b.id GROUP BY c.micro_service_id";
     console.log("获取应用详情 ====",sql);
     mysqlPool.query(sql, function(err,results) {
         if(err) {

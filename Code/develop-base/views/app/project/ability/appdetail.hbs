@@ -2,6 +2,13 @@
 <div class="main-wrap" >
     <div class="container-fluid">
         <!-- START EDIT CONTENT -->
+        <button type="button"
+                onclick="goBack()"
+                class="btn btn-default"
+                data-original-title="返回" style="margin-left: 1rem;">
+            <i class="fa fa-undo">
+                返回</i>
+        </button>
         <div class="row">
             <div class="col-lg-12 m-t-2">
 
@@ -53,6 +60,7 @@
                                             <li role="presentation" class="active"><a href="#home" id="home-tab" role="tab" data-toggle="tab" aria-controls="home" aria-expanded="true">服务架构</a></li>
                                             <li role="presentation" class=""><a href="#profile" role="tab" id="profile-tab" data-toggle="tab" aria-controls="profile" aria-expanded="false">容器监控</a></li>
                                             <li role="presentation" class=""><a href="#dropdown1" role="tab" id="dropdown1-tab" data-toggle="tab" aria-controls="profile" aria-expanded="false">服务监控</a></li>
+                                            <li role="presentation" class=""><a href="#dropdown2" role="tab" id="dropdown2-tab" data-toggle="tab" aria-controls="profile" aria-expanded="false">架构图</a></li>
                                         </ul>
                                         <div class="tab-content">
                                             <div role="tabpanel" class="tab-pane fade active in" id="home" aria-labelledby="home-tab">
@@ -63,7 +71,8 @@
                                                     </div>
                                                     <!-- START Table -->
                                                     <div class="table-responsive">
-                                                        <table class="table" id="sertable">
+
+                                                        <table class="table" id="sertable" style="margin-top: 1rem;">
                                                             <thead>
 
                                                             <tr>
@@ -84,12 +93,12 @@
 
                                                             </tbody>
                                                         </table>
-                                                        <div style="text-align:center;">
+                                                        <!--<div style="text-align:center;">-->
 
-                                                            <img id="architecture_diagram_path" style="vertical-align:middle;" src=""  alt="架构图" />
+                                                            <!--<img id="architecture_diagram_path" style="vertical-align:middle;" src=""  alt="架构图" />-->
 
 
-                                                        </div>
+                                                        <!--</div>-->
                                                     </div>
                                                     <!-- END Table -->
                                                 </div>
@@ -213,6 +222,14 @@
                                                             </div>
                                                         </div>
                                                     </div>
+                                                </div>
+                                            </div>
+                                            <div role="tabpanel" class="tab-pane fade" id="dropdown2" aria-labelledby="dropdown2-tab">
+                                                <div style="text-align:center;">
+
+                                                    <img id="architecture_diagram_path" style="vertical-align:middle;" src=""  alt="架构图" />
+
+
                                                 </div>
                                             </div>
                                         </div>
@@ -384,7 +401,7 @@
                             ' <button type="button" id="add_'+arr[i].service_id+'" class="btn btn-default" aria-label="Right Align" onclick="additionNum('+arr[i].max_inst_num+','+arr[i].service_id+','+arr[i].app_id+')"><span class="fa fa-fw fa-plus" aria-hidden="true"></span></button>' +
                             ' </div></div><div class="col-lg-4"><button type="button" class="btn btn-cerulean" onclick="quality('+arr[i].id+')">质量评估</button>' +
 
-                            ' <button type="button" class="btn btn-dodger-blue" onclick="elastic('+arr[i].service_id+')">智能伸缩策略</button><button type="button" class="btn btn-minsk" onclick="gray('+arr[i].app_id+',\''+arr[i].images_name+'\')">灰度环境发布</button></div></div>'+
+                            ' <button type="button" class="btn btn-dodger-blue" onclick="elastic('+arr[i].service_id+')">智能伸缩策略</button><button type="button" class="btn btn-minsk" onclick="gray('+arr[i].app_id+',\''+arr[i].images_name+'\')">蓝绿部署</button></div></div>'+
                             '<div class="timeline-item-content m-t-1"><table id="container_'+arr[i].service_id+'" class="table table-striped"><thead><tr><th class="small text-muted text-uppercase"><strong>容器名称</strong></th>' +
                             '<th class="small text-muted text-uppercase"><strong>运行环境</strong></th>' +
                             ' <th class="small text-muted text-uppercase"><strong>状态</strong></th><th class="small text-muted text-uppercase"><strong>所属镜像</strong></th></tr></thead>' +
@@ -521,7 +538,7 @@
             for(var i=0;i<arr.length;i++){
                 rowstr += '<tr><td class="v-a-m"><div class="media m-l-1"><div class="media-left media-top"><i class="fa fa-3x fa-sitemap text-aquamarine"></i></div>'+
                         '<div class="media-body"><h2 class="f-w-300 m-t-0 m-b-0 hidden-md hidden-sm hidden-xs">'+arr[i].images_alias+'</h2><p class="m-t-0">'+arr[i].images_version+'</p>' +
-                        ' </div></div></td><td class="v-a-m"><h1 class="f-w-300 m-t-0 m-b-0 hidden-md hidden-sm hidden-xs">'+arr[i].cur_inst_num+'</h1></td><td class="v-a-m">' +
+                        ' </div></div></td><td class="v-a-m"><h1 class="f-w-300 m-t-0 m-b-0 hidden-md hidden-sm hidden-xs">'+arr[i].cont_num+'</h1></td><td class="v-a-m">' +
                         '<h1 class="f-w-300 m-t-0 m-b-0 hidden-md hidden-sm hidden-xs">'+setDay(arr[i].update_time)+'</h1></td>' +
                         '<td class="v-a-m"><div class="media"><div class="media-left media-middle"><span class="fa-stack fa-lg"><i class="fa fa-square fa-stack-2x '+setHealthStatusCss(arr[i].health_status)+'"></i> <i class="fa fa-bell fa-stack-1x fa-inverse"></i></span> </div>' +
                         '<div class="media-body"><h1 class="f-w-300 m-t-0 m-b-0 '+setHealthStatusCss(arr[i].health_status)+'">'+setHealthStatus(arr[i].health_status)+'</h1></div></div></td><td class="v-a-m"> <div class="media"> <div class="media-left media-middle"> <span class="fa-stack fa-lg"> ' +
@@ -613,6 +630,9 @@
                 }
             }
         });
+    }
+    function goBack(){
+        window.history.go(-1);
     }
 
 </script>

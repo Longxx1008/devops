@@ -107,7 +107,7 @@
                 type: 'get',
                 data: {
                     "instance": 3,//启动实例数
-                    "imageName": "192.168.9.69:5000/gdgl:v2.0.3",//启动镜像名称
+                    "imageName": "192.168.9.69:5000/gdgl:v2.0.5",//启动镜像名称
                     "projectCode": "/gdgl"//项目编码
                 },
             })
@@ -160,7 +160,7 @@
                 type: 'get',
                 data: {
                     "instance": 3,//启动实例数
-                    "imageName": "192.168.9.69:5000/gdgl:v2.0.2",//启动镜像名称
+                    "imageName": "192.168.9.69:5000/gdgl:v2.0.4",//启动镜像名称
                     "projectCode": "/gdgl"//项目编码
                 },
             })
@@ -187,7 +187,7 @@
                         $('.d-step-2').hide();
                         $('.d-step-3').show();
                     }else{
-                        return 
+                        return
                     }
                 })
             },2000);
@@ -199,7 +199,7 @@
                 type: 'get',
                 data: {
                     "instance": 3,//启动实例数
-                    "imageName": "192.168.9.69:5000/gdgl:v2.0.3",//启动镜像名称
+                    "imageName": "192.168.9.69:5000/gdgl:v2.0.5",//启动镜像名称
                     "projectCode": "/gdgl"//项目编码
                 },
             })
@@ -234,7 +234,7 @@
                         <div class="panel-heading">
                             <div class="row">
                                 <div class="col-xs-6">
-                                    <h3 class="panel-title">灰度蓝绿部署</h3>
+                                    <h3 class="panel-title"><a href="javascript:void(0);" onclick="goBack()">返回</a>&nbsp;&nbsp;&nbsp;灰度蓝绿部署</h3>
                                 </div>
                                 <div class="col-xs-2 pull-right">
                                     <div class="input-group input-group-sm">
@@ -687,5 +687,7 @@
         time=time+1;
         return "部署时间："+time+"s";
     }
-
+    function goBack() {
+        window.history.go(-1);
+    }
 </script>

@@ -6,15 +6,21 @@
         <div class="container-fluid">
             <!--<div class="zhilian">-->
             <!--<div class="zhilian-top">质量评估</div>-->
-            <!--<div class="zhilian-top-right">-->
+            <div class="zhilian-top-right">
             <!--<select class="select-top">-->
             <!--<option value="volvo">全部</option>-->
             <!--<option value="saab">Saab</option>-->
             <!--<option value="opel">Opel</option>-->
             <!--<option value="audi">Audi</option>-->
             <!--</select>-->
-            <!--<span  class="top-btn">查询</span>-->
-            <!--</div>-->
+                <button type="button"
+                        onclick="goBack()"
+                        class="btn btn-default"
+                        data-original-title="返回">
+                    <i class="fa fa-undo">
+                        返回</i>
+                </button>
+            </div>
             <!--</div>-->
 
             <div class="zhilian-two clear">
@@ -252,5 +258,8 @@
 //        var min = parseInt(afterHour/60);//计算整数分
 //        var afterMin = total - day*24*60*60 - hour*60*60 - min*60;//取得算出分后剩余的秒数
         return day+'天'+hour+'小时';
+    }
+    function goBack(){
+        window.history.go(-1);
     }
 </script>
