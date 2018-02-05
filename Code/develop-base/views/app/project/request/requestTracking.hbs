@@ -269,10 +269,16 @@
                 data: {"appname":appGroupName},
                 success: function (data) {
                     var rows = data.rows;
+                    $('#status200').text(0);
+
+                    $('#status302').text(0);
+
+                    $('#status404').text(0);
+
+                    $('#status500').text(0);
+
                     for(var i=0;i<data.total;i++){
                         // console.log("count"+rows[i].statusCount);
-
-
                         if(rows[i].respond_status=='200'){
                             $('#status200').text(rows[i].statusCount);
                         }
@@ -288,18 +294,7 @@
                         }
 
                     }
-                    if($('#status200').text()==null||$('#status200').text()==''){
-                        $('#status200').text(0);
-                    }
-                    if($('#status302').text()==null||$('#status302').text()==''){
-                        $('#status302').text(0);
-                    }
-                    if($('#status404').text()==null||$('#status404').text()==''){
-                        $('#status404').text(0);
-                    }
-                    if($('#status500').text()==null||$('#status500').text()==''){
-                        $('#status500').text(0);
-                    }
+
                 }
 
             });
