@@ -101,7 +101,7 @@ router.route("/microServices").get(function(req, res) {
     data.tactics_count = req.body.tactics_count;
     data.tactics = req.body.tactics;
     data.operation = req.body.operation;
-    data.remark = data.gather_value+""+data.operation+data.target_value+"单位/s"+data.tactics_count+"次自动扩展";
+    data.remark = setGatherValueString(data.gather_value)+""+data.duration+"分钟内"+data.operation+" "+data.target_value+setTargetValueUnitString(data.gather_value)+data.tactics_count+"次自动"+setTaticsString(data.tactics);
     data.status = req.body.status;
     console.log(data);
     elasticExpansionService.add(data, function(result) {
@@ -116,4 +116,42 @@ router.route("/microServices").get(function(req, res) {
         utils.respJsonData(res, result);
     });
 });
+
+function setGatherValueString(v){
+    if(v==1){
+        return "CPU";
+    }else if(v==2){
+        return '内存';
+    }else if(v==3){
+        return '流量';
+    }
+}
+
+function setTargetValueUnitString(v){
+    if(v==1){
+        return "%";
+    }else if(v==2){
+        return "%";
+    }else if(v==3){
+        return '/s';
+    }
+}
+
+function setTaticsString(v){
+    if(v==1){
+        return "容器扩展";
+    }else if(v==2){
+        return '容器收缩';
+    }
+}
+
+function setGatherValueString(v){
+    if(v==1){
+        return "CPU";
+    }else if(v==2){
+        return '内存';
+    }else if(v==3){
+        return '流量';
+    }
+}
 module.exports = router;

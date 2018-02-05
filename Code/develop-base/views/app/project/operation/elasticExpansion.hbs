@@ -72,9 +72,9 @@
                 <label for="operation" class="col-sm-2 control-label no-padding-right" style="width: 40%">操作符:</label>
                 <div class="col-sm-10 conbo" style="width: 60%">
                     <select  class="easyui-combobox" data-options="required:true,editable:false,panelHeight:50" style="width:70px;height:34px;" name="operation" id="operation" value="大于">
-                        <option value="大于">大于&gt;</option>
-                        <option value="等于">等于=</option>
-                        <option value="小于">小于&lt;</option>
+                        <option value=">">大于&gt;</option>
+                        <option value="=">等于=</option>
+                        <option value="<">小于&lt;</option>
                     </select>
                 </div>
             </div>
@@ -288,7 +288,7 @@ var microServiceId;
                         '       <td class="v-a-m">'+sDatas[i].tactics_name+'</td>'+
                         '     <td class="v-a-m">'+setGatherValueString(sDatas[i].gather_value)+'</td>'+
                         '   <td class="v-a-m">'+sDatas[i].duration+'</td>'+
-                        ' <td class="v-a-m">&gt;'+sDatas[i].target_value+'/s</td>'+
+                        ' <td class="v-a-m">'+sDatas[i].operation+"&nbsp;"+sDatas[i].target_value+setTargetValueUnitString(sDatas[i].gather_value)+'</td>'+
                         '     <td class="v-a-m">'+sDatas[i].tactics_count+'</td>'+
                         '    <td class="v-a-m">'+setTaticsString(sDatas[i].tactics)+'</td>'+
                         '    <td class="v-a-m">'+sDatas[i].remark+'</td>'+
@@ -304,6 +304,16 @@ var microServiceId;
             }
         }
     }
+
+function setTargetValueUnitString(v){
+    if(v==1){
+        return "%";
+    }else if(v==2){
+        return "%";
+    }else if(v==3){
+        return '/s';
+    }
+}
 
 function setTaticsString(v){
     if(v==1){
@@ -347,6 +357,15 @@ function setOperStatus(v){
         return '启用';
     }
 }
+
+function setOperStatus(v){
+    if(v==1){
+        return "停用";
+    }else{
+        return '启用';
+    }
+}
+
 //设置容器状态样式
 function setOperStatusCss(v){
     if(v==1){
