@@ -89,12 +89,12 @@
         strictSearch: true,
         showColumns: false,                  //是否显示所有的列（选择显示的列）
         showRefresh: false,                  //是否显示刷新按钮
-        <!--onClickRow:function (row, $element) {-->
+        onClickRow:function (row, $element) {
 
-            <!--console.log("rowrow",row);-->
-            <!--window.location.href = "{{projcfg.appurl}}/healthDetail?id="+row.id;-->
+            console.log("rowrow",row);
+            window.location.href = "{{projcfg.appurl}}/healthDetail?id="+row.id;
 
-        <!--},-->
+        },
         queryParams : function (params) {
             //这里的键的名字和控制器的变量名必须一直，这边改动，控制器也需要改成一样的
             var temp = {
@@ -117,7 +117,7 @@
                 if(value=='0'){
 //                    value="应用异常"
                     a='<img src="{{projcfg.appurl}}/static/images/offnormal.png"'+'class="imgSize"'+'>';
-                    a+='<a href="{{projcfg.appurl}}/healthDetail?id='+row.id+'"><span class="spanRed">异常</span></a>'
+                    a+='<a><span class="spanRed">异常</span></a>'
 //                    json.flag_a="spanRed";
                 }else if(value==-1){
 //                    value="未采集"
@@ -138,7 +138,7 @@
                 if(value==0){
 //                    value="应用异常"
                     a='<img src="{{projcfg.appurl}}/static/images/offnormal.png"'+'class="imgSize"'+'>';
-                    a+='<a href="{{projcfg.appurl}}/healthDetail?id='+row.id+'"><span class="spanRed">异常</span></a>'
+                    a+='<a ><span class="spanRed">异常</span></a>'
 //                    json.flag_a="spanRed";
                 }else if(value==-1){
 //                    value="未采集"
@@ -159,7 +159,7 @@
                 if(value==0){
 //                    value="应用异常"
                     a='<img src="{{projcfg.appurl}}/static/images/offnormal.png"'+'class="imgSize"'+'>';
-                    a+='<a href="{{projcfg.appurl}}/healthDetail?id='+row.id+'"><span class="spanRed">异常</span></a>'
+                    a+='<a><span class="spanRed">异常</span></a>'
 //                    json.flag_a="spanRed";
                 }else if(value==-1){
 //                    value="未采集"
