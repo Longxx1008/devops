@@ -34,15 +34,18 @@ exports.pageList = function (page, size,statusType,appName,appUrl,conditionMap, 
     utils.pagingQuery4Eui_mysql(sql, orderBy, page, size, conditions, cb);
 };
 
-exports.groupData=function (page, size,appname, conditionMap, cb) {
+exports.groupData=function (page, size,appname,appurl, conditionMap, cb) {
 
     //console.log("@@!!##"+appname);
-    var sql=" select respond_status,count(respond_status) as statusCount from pass_project_request_info  ";
+    var sql=" select respond_status,count(respond_status) as statusCount from pass_project_request_info  where 1=1";
     if(appname!=null&&appname!=''&&appname!="全部应用"){
-        sql+="where app_name='"+appname+"' group by respond_status";
-    }else {
-        sql+=" group by respond_status";
+        sql+="and app_name='"+appname+"'";
     }
+    if(appurl!=null&&appurl!=''){
+        sql+=" and url  like" + " \"" + "%" + appurl  + "\"";
+    }
+    sql+=" group by respond_status";
+
     var orderBy='';
     var conditions = [];
     utils.pagingQuery4Eui_mysql(sql, orderBy, page, size, conditions, cb);

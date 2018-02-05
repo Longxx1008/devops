@@ -53,8 +53,9 @@ router.route('/groupData').get(function(req,res){
     var page=0;
     var size=10
     var appname=req.query.appname;
+    var appurl=req.query.appurl;
     //console.log("!!@@"+appname);
-    requestTrackingService.groupData(page, size,appname,conditionMap,function(result){
+    requestTrackingService.groupData(page, size,appname,appurl,conditionMap,function(result){
 
         utils.respJsonData(res, result);
     });

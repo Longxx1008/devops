@@ -284,11 +284,12 @@
 
         function appGroupData() {
             var appGroupName=$("#searchAppName").val();
+            var appGroupUrl=$("#searchUrl").val();
             // console.log("!@"+appGroupName);
             $.ajax({
                 url: "{{projcfg.appurl}}/api/project/request/requestTracking/groupData",
                 type: 'get',
-                data: {"appname":appGroupName},
+                data: {"appname":appGroupName,"appurl":appGroupUrl},
                 success: function (data) {
                     var rows = data.rows;
                     $('#status200').text(0);
